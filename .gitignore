@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+vendor/
+# Optional: Keep locks if you want consistent versions across environments
+# package-lock.json
+# composer.lock
+
+# Environment & Private Data
+.env
+.env.local
+.env.*.local
+
+# Build & Distribution
+build/
+dist/
+.dist/
+*.zip
+*.tar.gz
+
+# IDE & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+*.map
+sftp.json
+
+# WordPress & Local Plugin Dev
+.ignores
+.phpdoc/
+wp-cli.phar
+routing.json
+
+# Development Temp/Notes
+all_php_code.txt
+todo.txt
+todo.md
