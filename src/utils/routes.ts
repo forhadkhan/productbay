@@ -10,25 +10,32 @@ export interface RouteConfig {
     showInNav?: boolean;
 }
 
+export const PATHS = {
+    DASHBOARD: '/',
+    NEW: '/new',
+    EDIT: '/edit/:id',
+    SETTINGS: '/settings',
+} as const;
+
 export const routes: RouteConfig[] = [
     {
-        path: '/',
+        path: PATHS.DASHBOARD,
         element: Dashboard,
         label: 'Tables',
         showInNav: true
     },
     {
-        path: '/new',
+        path: PATHS.NEW,
         element: EditTable,
         showInNav: false
     },
     {
-        path: '/edit/:id',
+        path: PATHS.EDIT,
         element: EditTable,
         showInNav: false
     },
     {
-        path: '/settings',
+        path: PATHS.SETTINGS,
         element: Settings,
         label: 'Settings',
         showInNav: true

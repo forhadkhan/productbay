@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { routes } from '../../utils/routes';
@@ -10,7 +9,7 @@ const Navbar = () => {
         <nav className="bg-white shadow-md border-b border-gray-200 px-8 py-4 flex justify-between items-center">
             {/* Logo / Brand */}
             <div className="font-medium text-2xl text-blue-600 tracking-wide hover:text-blue-700 transition-colors">
-                Product<span className='font-bold '>Bay</span>
+                Product<span className='font-bold'>Bay</span>
             </div>
 
             {/* Navigation Links */}
