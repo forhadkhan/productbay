@@ -1,1 +1,13 @@
-@import "tailwindcss";
+@config "../../tailwind.config.js";
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+/* Essential Scoped Preflight */
+#productbay-root,
+#productbay-root *,
+#productbay-root ::before,
+#productbay-root ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+}
