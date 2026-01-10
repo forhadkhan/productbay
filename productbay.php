@@ -28,29 +28,26 @@
 namespace ProductBay;
 
 /**
- * SECURITY: Prevent Direct File Access
- * * If this file is called directly, abort. This prevents hackers from
- * executing your PHP scripts outside of the WordPress environment.
- * * Reference: https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/#5-trialware-is-not-permitted
+ * Prevent Direct File Access
+ * Abort if this file is called directly.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * GLOBAL CONSTANTS
- * * We prefix every constant with PRODUCTBAY_ to comply with Guideline #17.
+ * Global Constants
+ * Prefixed with PRODUCTBAY_
  */
 define( 'PRODUCTBAY_VERSION', '1.0.0' );
 define( 'PRODUCTBAY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'PRODUCTBAY_URL', plugin_dir_url( __FILE__ ) );
 
-// Autoloader (Composer)
+// Autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
 /**
- * INITIALIZATION
- * * We use a unique function name to avoid global namespace pollution.
+ * Initialization
  */
 function productbay_init() {
     $plugin = new Core\Plugin();

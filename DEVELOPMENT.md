@@ -40,11 +40,11 @@ productbay/
 
 ## 🎨 Tailwind CSS Architecture & Best Practices
 
-We use **Tailwind CSS v4** for styling the React-based admin interface. Since WordPress plugins exist in a shared environment (the WP Admin dashboard), we must take extra precautions to prevent our styles from conflicting with other plugins or the WordPress core UI.
+Uses **Tailwind CSS v4** for styling the React-based admin interface. Since WordPress plugins exist in a shared environment (the WP Admin dashboard), precautions are taken to prevent styles from conflicting with other plugins or the WordPress core UI.
 
 ### 1. Scoped Styling (Isolation)
 
-To adhere to WordPress.org best practices regarding CSS conflicts, we do **not** rely on prefixing every single utility class (which is cumbersome). Instead, we use a robust **scoping strategy**:
+To adhere to WordPress.org best practices regarding CSS conflicts, the project does **not** rely on prefixing every single utility class. Instead, it uses a robust **scoping strategy**:
 
 -   **The Mechanism**: In `tailwind.config.js`, we set `important: '#productbay-root'`.
 -   **The Result**: All generated Tailwind utilities are automatically prefixed with an ID selector (e.g., `#productbay-root .text-center`).
@@ -54,9 +54,9 @@ To adhere to WordPress.org best practices regarding CSS conflicts, we do **not**
 
 Standard Tailwind includes a "Preflight" (reset) set of styles that normalizes HTML elements globally (e.g., removing margins from headers, making images block-level).
 
--   **The Problem**: If included, this global reset would "leak" out of our plugin and break the layout of the WordPress Admin bar, menu, and other pages.
--   **The Solution**: We have disabled the default preflight in our configuration.
--   **Scoped Reset**: To ensure our app still looks correct, we have manually added a *scoped* reset in `src/styles/main.css` that only targets `#productbay-root`.
+-   **Problem**: If included, this global reset would "leak" out of the plugin and break the layout of the WordPress Admin bar, menu, and other pages.
+-   **Solution**: Disabled the default preflight in the configuration.
+-   **Scoped Reset**: To ensure the app still looks correct, a *scoped* reset is manually added in `src/styles/main.css` that only targets `#productbay-root`.
 
 ```css
 /* src/styles/main.css */
@@ -81,7 +81,7 @@ This approach is fully compliant with the WordPress Plugin Review Team's guideli
 
 -   **Guideline**: "Plugins must prefix all functions, classes, and global variables to avoid conflicts."
 -   **CSS Interpretation**: CSS selectors must be unique enough to avoid collisions.
--   **Our Implementation**: By namespacing all our CSS under the unique ID `#productbay-root`, we satisfy the requirement for uniqueness and conflict prevention essentially "prefixing" every rule at the selector level.
+-   **Implementation**: By namespacing all CSS under the unique ID `#productbay-root`, the requirement for uniqueness and conflict prevention is satisfied, essentially "prefixing" every rule at the selector level.
 
 This strategy offers the best of both worlds: a modern, utility-first developer experience and a polite, isolated footprint within the WordPress ecosystem.
 
@@ -90,9 +90,9 @@ This strategy offers the best of both worlds: a modern, utility-first developer 
 To avoid conflicts with other plugins and WordPress core, we adhere to the following strict naming conventions.
 
 ### 1. Classes: Use Namespaces (Not Prefixes)
-We follow **PSR-4** autoloading standards.
+**PSR-4** autoloading standards are followed.
 -   **Bad (Old Way)**: `class ProductBay_Admin_Menu { ... }`
--   **Good (Our Way)**: `namespace ProductBay\Admin; class Menu { ... }`
+-   **Good (Current Way)**: `namespace ProductBay\Admin; class Menu { ... }`
 
 **Why?** Namespaces provide cleaner code, better organization, and improved autoloading support via Composer or our custom SPL autoloader. It naturally isolates our code from the global class scope.
 
@@ -107,10 +107,10 @@ Avoid global functions whenever possible.
 
 ## 🛠️ Tooling & Linting
 
-We use modern tooling to ensure code quality.
+Modern tooling is used to ensure code quality.
 
 ### Autoloading
-We use **Composer** for PSR-4 autoloading.
+**Composer** is used for PSR-4 autoloading.
 -   Run `composer install` to verify dependencies.
 -   Namespace root: `ProductBay\` -> `app/`.
 
