@@ -116,9 +116,9 @@ Modern tooling is used to ensure code quality.
 
 ### Linting Commands
 Run these commands to verify your code:
--   **PHP**: `npm run lint:php` (or `composer run-script lint` if defined) - Checks WordPress Coding Standards.
--   **JS/TS**: `npm run lint:js` - Checks eslint rules.
--   **CSS**: `npm run lint:css` - Checks stylelint rules.
+-   **PHP**: `bun run lint:php` (or `composer run-script lint` if defined) - Checks WordPress Coding Standards.
+-   **JS/TS**: `bun run lint:js` - Checks eslint rules.
+-   **CSS**: `bun run lint:css` - Checks stylelint rules.
 
 ### Versioning & Metadata
 Always keep metadata consistent across:

@@ -64,21 +64,54 @@ For a detailed breakdown of the project structure and development implementation
 
 2. **Install Dependencies**
    ```bash
-   npm install
+   bun install
    ```
 
 3. **Start Development Server**
-   This command starts both the WordPress script watcher and the Tailwind CSS watcher in parallel.
+   This command starts both the WordPress script watcher and the Bun-powered build process.
    ```bash
-   npm start
+   bun start
    ```
    *The React app will hot-reload, and CSS changes will compile instantly.*
 
 4. **Build for Production**
    Before deploying, run the build command to minify and optimize assets.
    ```bash
-   npm run build
+   bun run build
    ```
+
+5. **Run lints**
+   ```bash
+   bun run lint
+   ```
+   or
+   ```bash
+   bun run lint:php
+   ``` 
+   or
+   ```bash
+   bun run lint:css
+   ``` 
+   etc. 
+
+6. **More**  
+   Format code:
+   ```bash
+   bun run format
+   ```
+   Plugin Zip:
+   ```bash
+   bun run plugin-zip
+   ``` 
+   Check Engines:
+   ```bash
+   bun run check-engines
+   ```
+   Check Licenses:
+   ```bash
+   bun run check-licenses
+   ```
+   
 
 ---
 
