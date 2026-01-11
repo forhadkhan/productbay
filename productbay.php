@@ -12,7 +12,7 @@
  * Plugin Name:       ProductBay
  * Plugin URI:        https://wpanchorbay.com/productbay
  * Source URI:        https://github.com/forhadakhan/productbay
- * Description:       A WooCommerce Product Table plugin to create, save, and manage responsive product lists and order forms.
+ * Description:       WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.
  * Version:           1.0.0
  * Stable tag:        1.0.0
  * Requires at least: 6.0

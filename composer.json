@@ -1,6 +1,6 @@
 {
     "name": "wpanchorbay/productbay",
-    "description": "Advanced WooCommerce Product Tables with React Admin.",
+    "description": "WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "authors": [
