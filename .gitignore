@@ -22,7 +22,6 @@ dist/
 *.tar.gz
 
 # IDE & System
-.vscode/
 .idea/
 .DS_Store
 Thumbs.db
@@ -41,5 +40,12 @@ temp.php
 temp.js
 temp.ts
 temp.tsx
+temp.md
 todo.txt
 todo.md
+instructions.md
+project.md
+features.md 
+instructions/
+project/
+features/
