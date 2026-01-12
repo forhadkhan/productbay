@@ -80,49 +80,6 @@ For a detailed breakdown of the project structure and development implementation
    bun run build
    ```
 
-5. **Run lints**
-   ```bash
-   bun run lint
-   ```
-   or
-   ```bash
-   bun run lint:php
-   ``` 
-   or
-   ```bash
-   bun run lint:css
-   ``` 
-   etc. 
-
-6. **More**  
-   Format code:
-   ```bash
-   bun run format
-   ```
-   Plugin Zip:
-   ```bash
-   bun run plugin-zip
-   ``` 
-   Check Engines:
-   ```bash
-   bun run check-engines
-   ```
-   Check Licenses:
-   ```bash
-   bun run check-licenses
-   ```
-   
-
----
-
-## 📖 How It Works
-
-1. **Initialization:** `productbay.php` bootstraps the `Plugin` class in `app/Core`.
-2. **Admin Load:** The `Admin` class enqueues `assets/js/admin.js` on the specific plugin page.
-3. **React Mount:** `src/index.tsx` finds the `#productbay-root` div and mounts the React App.
-4. **Data Fetching:** The React app sends authenticated requests to `app/Api/` endpoints via the WP REST API.
-5. **Frontend Rendering:** Using the `[productbay id="123"]` shortcode, the PHP backend renders the initial view, and `assets/js/frontend.js` takes over for interactive elements.
-
 ---
 
 ## 🐛 Bug Reports & Issues

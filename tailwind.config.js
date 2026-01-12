@@ -16,6 +16,21 @@ module.exports = {
         preflight: false,
     },
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                wp: {
+                    bg: '#f0f0f1',      // Primary BG
+                    card: '#ffffff',    // Secondary BG
+                    highlight: '#f0f6fc', // Highlight BG
+                    info: '#fcf9e8',    // Info BG
+                    btn: {
+                        DEFAULT: '#2271b1', // Button BG
+                        hover: '#135e96',
+                        disabled: '#a7aaad'
+                    },
+                    text: '#3c434a'     // Standard WP Text
+                }
+            }
+        },
     },
 };

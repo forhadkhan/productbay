@@ -11,3 +11,7 @@
     border-width: 0;
     border-style: solid;
 }
+
+#productbay-root a {
+    text-decoration: none;
+}

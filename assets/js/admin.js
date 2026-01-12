@@ -2,9 +2,6131 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs"
+/***/ "./node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js"
 /*!***********************************************************************!*\
-  !*** ./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs ***!
+  !*** ./node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HiddenText: () => (/* binding */ HiddenText),
+/* harmony export */   LiveRegion: () => (/* binding */ LiveRegion),
+/* harmony export */   useAnnouncement: () => (/* binding */ useAnnouncement)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const hiddenStyles = {
+  display: 'none'
+};
+function HiddenText(_ref) {
+  let {
+    id,
+    value
+  } = _ref;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: id,
+    style: hiddenStyles
+  }, value);
+}
+
+function LiveRegion(_ref) {
+  let {
+    id,
+    announcement,
+    ariaLiveType = "assertive"
+  } = _ref;
+  // Hide element visually but keep it readable by screen readers
+  const visuallyHidden = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: 1,
+    height: 1,
+    margin: -1,
+    border: 0,
+    padding: 0,
+    overflow: 'hidden',
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(100%)',
+    whiteSpace: 'nowrap'
+  };
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: id,
+    style: visuallyHidden,
+    role: "status",
+    "aria-live": ariaLiveType,
+    "aria-atomic": true
+  }, announcement);
+}
+
+function useAnnouncement() {
+  const [announcement, setAnnouncement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const announce = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(value => {
+    if (value != null) {
+      setAnnouncement(value);
+    }
+  }, []);
+  return {
+    announce,
+    announcement
+  };
+}
+
+
+//# sourceMappingURL=accessibility.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/@dnd-kit/core/dist/core.esm.js"
+/*!*****************************************************!*\
+  !*** ./node_modules/@dnd-kit/core/dist/core.esm.js ***!
+  \*****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AutoScrollActivator: () => (/* binding */ AutoScrollActivator),
+/* harmony export */   DndContext: () => (/* binding */ DndContext),
+/* harmony export */   DragOverlay: () => (/* binding */ DragOverlay),
+/* harmony export */   KeyboardCode: () => (/* binding */ KeyboardCode),
+/* harmony export */   KeyboardSensor: () => (/* binding */ KeyboardSensor),
+/* harmony export */   MeasuringFrequency: () => (/* binding */ MeasuringFrequency),
+/* harmony export */   MeasuringStrategy: () => (/* binding */ MeasuringStrategy),
+/* harmony export */   MouseSensor: () => (/* binding */ MouseSensor),
+/* harmony export */   PointerSensor: () => (/* binding */ PointerSensor),
+/* harmony export */   TouchSensor: () => (/* binding */ TouchSensor),
+/* harmony export */   TraversalOrder: () => (/* binding */ TraversalOrder),
+/* harmony export */   applyModifiers: () => (/* binding */ applyModifiers),
+/* harmony export */   closestCenter: () => (/* binding */ closestCenter),
+/* harmony export */   closestCorners: () => (/* binding */ closestCorners),
+/* harmony export */   defaultAnnouncements: () => (/* binding */ defaultAnnouncements),
+/* harmony export */   defaultCoordinates: () => (/* binding */ defaultCoordinates),
+/* harmony export */   defaultDropAnimation: () => (/* binding */ defaultDropAnimationConfiguration),
+/* harmony export */   defaultDropAnimationSideEffects: () => (/* binding */ defaultDropAnimationSideEffects),
+/* harmony export */   defaultKeyboardCoordinateGetter: () => (/* binding */ defaultKeyboardCoordinateGetter),
+/* harmony export */   defaultScreenReaderInstructions: () => (/* binding */ defaultScreenReaderInstructions),
+/* harmony export */   getClientRect: () => (/* binding */ getClientRect),
+/* harmony export */   getFirstCollision: () => (/* binding */ getFirstCollision),
+/* harmony export */   getScrollableAncestors: () => (/* binding */ getScrollableAncestors),
+/* harmony export */   pointerWithin: () => (/* binding */ pointerWithin),
+/* harmony export */   rectIntersection: () => (/* binding */ rectIntersection),
+/* harmony export */   useDndContext: () => (/* binding */ useDndContext),
+/* harmony export */   useDndMonitor: () => (/* binding */ useDndMonitor),
+/* harmony export */   useDraggable: () => (/* binding */ useDraggable),
+/* harmony export */   useDroppable: () => (/* binding */ useDroppable),
+/* harmony export */   useSensor: () => (/* binding */ useSensor),
+/* harmony export */   useSensors: () => (/* binding */ useSensors)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @dnd-kit/utilities */ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js");
+/* harmony import */ var _dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @dnd-kit/accessibility */ "./node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js");
+
+
+
+
+
+const DndMonitorContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+
+function useDndMonitor(listener) {
+  const registerListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DndMonitorContext);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!registerListener) {
+      throw new Error('useDndMonitor must be used within a children of <DndContext>');
+    }
+
+    const unsubscribe = registerListener(listener);
+    return unsubscribe;
+  }, [listener, registerListener]);
+}
+
+function useDndMonitorProvider() {
+  const [listeners] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => new Set());
+  const registerListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(listener => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }, [listeners]);
+  const dispatch = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(_ref => {
+    let {
+      type,
+      event
+    } = _ref;
+    listeners.forEach(listener => {
+      var _listener$type;
+
+      return (_listener$type = listener[type]) == null ? void 0 : _listener$type.call(listener, event);
+    });
+  }, [listeners]);
+  return [dispatch, registerListener];
+}
+
+const defaultScreenReaderInstructions = {
+  draggable: "\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.\n  "
+};
+const defaultAnnouncements = {
+  onDragStart(_ref) {
+    let {
+      active
+    } = _ref;
+    return "Picked up draggable item " + active.id + ".";
+  },
+
+  onDragOver(_ref2) {
+    let {
+      active,
+      over
+    } = _ref2;
+
+    if (over) {
+      return "Draggable item " + active.id + " was moved over droppable area " + over.id + ".";
+    }
+
+    return "Draggable item " + active.id + " is no longer over a droppable area.";
+  },
+
+  onDragEnd(_ref3) {
+    let {
+      active,
+      over
+    } = _ref3;
+
+    if (over) {
+      return "Draggable item " + active.id + " was dropped over droppable area " + over.id;
+    }
+
+    return "Draggable item " + active.id + " was dropped.";
+  },
+
+  onDragCancel(_ref4) {
+    let {
+      active
+    } = _ref4;
+    return "Dragging was cancelled. Draggable item " + active.id + " was dropped.";
+  }
+
+};
+
+function Accessibility(_ref) {
+  let {
+    announcements = defaultAnnouncements,
+    container,
+    hiddenTextDescribedById,
+    screenReaderInstructions = defaultScreenReaderInstructions
+  } = _ref;
+  const {
+    announce,
+    announcement
+  } = (0,_dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__.useAnnouncement)();
+  const liveRegionId = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)("DndLiveRegion");
+  const [mounted, setMounted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setMounted(true);
+  }, []);
+  useDndMonitor((0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    onDragStart(_ref2) {
+      let {
+        active
+      } = _ref2;
+      announce(announcements.onDragStart({
+        active
+      }));
+    },
+
+    onDragMove(_ref3) {
+      let {
+        active,
+        over
+      } = _ref3;
+
+      if (announcements.onDragMove) {
+        announce(announcements.onDragMove({
+          active,
+          over
+        }));
+      }
+    },
+
+    onDragOver(_ref4) {
+      let {
+        active,
+        over
+      } = _ref4;
+      announce(announcements.onDragOver({
+        active,
+        over
+      }));
+    },
+
+    onDragEnd(_ref5) {
+      let {
+        active,
+        over
+      } = _ref5;
+      announce(announcements.onDragEnd({
+        active,
+        over
+      }));
+    },
+
+    onDragCancel(_ref6) {
+      let {
+        active,
+        over
+      } = _ref6;
+      announce(announcements.onDragCancel({
+        active,
+        over
+      }));
+    }
+
+  }), [announce, announcements]));
+
+  if (!mounted) {
+    return null;
+  }
+
+  const markup = react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__.HiddenText, {
+    id: hiddenTextDescribedById,
+    value: screenReaderInstructions.draggable
+  }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__.LiveRegion, {
+    id: liveRegionId,
+    announcement: announcement
+  }));
+  return container ? (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(markup, container) : markup;
+}
+
+var Action;
+
+(function (Action) {
+  Action["DragStart"] = "dragStart";
+  Action["DragMove"] = "dragMove";
+  Action["DragEnd"] = "dragEnd";
+  Action["DragCancel"] = "dragCancel";
+  Action["DragOver"] = "dragOver";
+  Action["RegisterDroppable"] = "registerDroppable";
+  Action["SetDroppableDisabled"] = "setDroppableDisabled";
+  Action["UnregisterDroppable"] = "unregisterDroppable";
+})(Action || (Action = {}));
+
+function noop() {}
+
+function useSensor(sensor, options) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    sensor,
+    options: options != null ? options : {}
+  }), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [sensor, options]);
+}
+
+function useSensors() {
+  for (var _len = arguments.length, sensors = new Array(_len), _key = 0; _key < _len; _key++) {
+    sensors[_key] = arguments[_key];
+  }
+
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => [...sensors].filter(sensor => sensor != null), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [...sensors]);
+}
+
+const defaultCoordinates = /*#__PURE__*/Object.freeze({
+  x: 0,
+  y: 0
+});
+
+/**
+ * Returns the distance between two points
+ */
+function distanceBetween(p1, p2) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
+function getRelativeTransformOrigin(event, rect) {
+  const eventCoordinates = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(event);
+
+  if (!eventCoordinates) {
+    return '0 0';
+  }
+
+  const transformOrigin = {
+    x: (eventCoordinates.x - rect.left) / rect.width * 100,
+    y: (eventCoordinates.y - rect.top) / rect.height * 100
+  };
+  return transformOrigin.x + "% " + transformOrigin.y + "%";
+}
+
+/**
+ * Sort collisions from smallest to greatest value
+ */
+function sortCollisionsAsc(_ref, _ref2) {
+  let {
+    data: {
+      value: a
+    }
+  } = _ref;
+  let {
+    data: {
+      value: b
+    }
+  } = _ref2;
+  return a - b;
+}
+/**
+ * Sort collisions from greatest to smallest value
+ */
+
+function sortCollisionsDesc(_ref3, _ref4) {
+  let {
+    data: {
+      value: a
+    }
+  } = _ref3;
+  let {
+    data: {
+      value: b
+    }
+  } = _ref4;
+  return b - a;
+}
+/**
+ * Returns the coordinates of the corners of a given rectangle:
+ * [TopLeft {x, y}, TopRight {x, y}, BottomLeft {x, y}, BottomRight {x, y}]
+ */
+
+function cornersOfRectangle(_ref5) {
+  let {
+    left,
+    top,
+    height,
+    width
+  } = _ref5;
+  return [{
+    x: left,
+    y: top
+  }, {
+    x: left + width,
+    y: top
+  }, {
+    x: left,
+    y: top + height
+  }, {
+    x: left + width,
+    y: top + height
+  }];
+}
+function getFirstCollision(collisions, property) {
+  if (!collisions || collisions.length === 0) {
+    return null;
+  }
+
+  const [firstCollision] = collisions;
+  return property ? firstCollision[property] : firstCollision;
+}
+
+/**
+ * Returns the coordinates of the center of a given ClientRect
+ */
+
+function centerOfRectangle(rect, left, top) {
+  if (left === void 0) {
+    left = rect.left;
+  }
+
+  if (top === void 0) {
+    top = rect.top;
+  }
+
+  return {
+    x: left + rect.width * 0.5,
+    y: top + rect.height * 0.5
+  };
+}
+/**
+ * Returns the closest rectangles from an array of rectangles to the center of a given
+ * rectangle.
+ */
+
+
+const closestCenter = _ref => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const centerRect = centerOfRectangle(collisionRect, collisionRect.left, collisionRect.top);
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect) {
+      const distBetween = distanceBetween(centerOfRectangle(rect), centerRect);
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: distBetween
+        }
+      });
+    }
+  }
+
+  return collisions.sort(sortCollisionsAsc);
+};
+
+/**
+ * Returns the closest rectangles from an array of rectangles to the corners of
+ * another rectangle.
+ */
+
+const closestCorners = _ref => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const corners = cornersOfRectangle(collisionRect);
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect) {
+      const rectCorners = cornersOfRectangle(rect);
+      const distances = corners.reduce((accumulator, corner, index) => {
+        return accumulator + distanceBetween(rectCorners[index], corner);
+      }, 0);
+      const effectiveDistance = Number((distances / 4).toFixed(4));
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: effectiveDistance
+        }
+      });
+    }
+  }
+
+  return collisions.sort(sortCollisionsAsc);
+};
+
+/**
+ * Returns the intersecting rectangle area between two rectangles
+ */
+
+function getIntersectionRatio(entry, target) {
+  const top = Math.max(target.top, entry.top);
+  const left = Math.max(target.left, entry.left);
+  const right = Math.min(target.left + target.width, entry.left + entry.width);
+  const bottom = Math.min(target.top + target.height, entry.top + entry.height);
+  const width = right - left;
+  const height = bottom - top;
+
+  if (left < right && top < bottom) {
+    const targetArea = target.width * target.height;
+    const entryArea = entry.width * entry.height;
+    const intersectionArea = width * height;
+    const intersectionRatio = intersectionArea / (targetArea + entryArea - intersectionArea);
+    return Number(intersectionRatio.toFixed(4));
+  } // Rectangles do not overlap, or overlap has an area of zero (edge/corner overlap)
+
+
+  return 0;
+}
+/**
+ * Returns the rectangles that has the greatest intersection area with a given
+ * rectangle in an array of rectangles.
+ */
+
+const rectIntersection = _ref => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect) {
+      const intersectionRatio = getIntersectionRatio(rect, collisionRect);
+
+      if (intersectionRatio > 0) {
+        collisions.push({
+          id,
+          data: {
+            droppableContainer,
+            value: intersectionRatio
+          }
+        });
+      }
+    }
+  }
+
+  return collisions.sort(sortCollisionsDesc);
+};
+
+/**
+ * Check if a given point is contained within a bounding rectangle
+ */
+
+function isPointWithinRect(point, rect) {
+  const {
+    top,
+    left,
+    bottom,
+    right
+  } = rect;
+  return top <= point.y && point.y <= bottom && left <= point.x && point.x <= right;
+}
+/**
+ * Returns the rectangles that the pointer is hovering over
+ */
+
+
+const pointerWithin = _ref => {
+  let {
+    droppableContainers,
+    droppableRects,
+    pointerCoordinates
+  } = _ref;
+
+  if (!pointerCoordinates) {
+    return [];
+  }
+
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect && isPointWithinRect(pointerCoordinates, rect)) {
+      /* There may be more than a single rectangle intersecting
+       * with the pointer coordinates. In order to sort the
+       * colliding rectangles, we measure the distance between
+       * the pointer and the corners of the intersecting rectangle
+       */
+      const corners = cornersOfRectangle(rect);
+      const distances = corners.reduce((accumulator, corner) => {
+        return accumulator + distanceBetween(pointerCoordinates, corner);
+      }, 0);
+      const effectiveDistance = Number((distances / 4).toFixed(4));
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: effectiveDistance
+        }
+      });
+    }
+  }
+
+  return collisions.sort(sortCollisionsAsc);
+};
+
+function adjustScale(transform, rect1, rect2) {
+  return { ...transform,
+    scaleX: rect1 && rect2 ? rect1.width / rect2.width : 1,
+    scaleY: rect1 && rect2 ? rect1.height / rect2.height : 1
+  };
+}
+
+function getRectDelta(rect1, rect2) {
+  return rect1 && rect2 ? {
+    x: rect1.left - rect2.left,
+    y: rect1.top - rect2.top
+  } : defaultCoordinates;
+}
+
+function createRectAdjustmentFn(modifier) {
+  return function adjustClientRect(rect) {
+    for (var _len = arguments.length, adjustments = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      adjustments[_key - 1] = arguments[_key];
+    }
+
+    return adjustments.reduce((acc, adjustment) => ({ ...acc,
+      top: acc.top + modifier * adjustment.y,
+      bottom: acc.bottom + modifier * adjustment.y,
+      left: acc.left + modifier * adjustment.x,
+      right: acc.right + modifier * adjustment.x
+    }), { ...rect
+    });
+  };
+}
+const getAdjustedRect = /*#__PURE__*/createRectAdjustmentFn(1);
+
+function parseTransform(transform) {
+  if (transform.startsWith('matrix3d(')) {
+    const transformArray = transform.slice(9, -1).split(/, /);
+    return {
+      x: +transformArray[12],
+      y: +transformArray[13],
+      scaleX: +transformArray[0],
+      scaleY: +transformArray[5]
+    };
+  } else if (transform.startsWith('matrix(')) {
+    const transformArray = transform.slice(7, -1).split(/, /);
+    return {
+      x: +transformArray[4],
+      y: +transformArray[5],
+      scaleX: +transformArray[0],
+      scaleY: +transformArray[3]
+    };
+  }
+
+  return null;
+}
+
+function inverseTransform(rect, transform, transformOrigin) {
+  const parsedTransform = parseTransform(transform);
+
+  if (!parsedTransform) {
+    return rect;
+  }
+
+  const {
+    scaleX,
+    scaleY,
+    x: translateX,
+    y: translateY
+  } = parsedTransform;
+  const x = rect.left - translateX - (1 - scaleX) * parseFloat(transformOrigin);
+  const y = rect.top - translateY - (1 - scaleY) * parseFloat(transformOrigin.slice(transformOrigin.indexOf(' ') + 1));
+  const w = scaleX ? rect.width / scaleX : rect.width;
+  const h = scaleY ? rect.height / scaleY : rect.height;
+  return {
+    width: w,
+    height: h,
+    top: y,
+    right: x + w,
+    bottom: y + h,
+    left: x
+  };
+}
+
+const defaultOptions = {
+  ignoreTransform: false
+};
+/**
+ * Returns the bounding client rect of an element relative to the viewport.
+ */
+
+function getClientRect(element, options) {
+  if (options === void 0) {
+    options = defaultOptions;
+  }
+
+  let rect = element.getBoundingClientRect();
+
+  if (options.ignoreTransform) {
+    const {
+      transform,
+      transformOrigin
+    } = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element).getComputedStyle(element);
+
+    if (transform) {
+      rect = inverseTransform(rect, transform, transformOrigin);
+    }
+  }
+
+  const {
+    top,
+    left,
+    width,
+    height,
+    bottom,
+    right
+  } = rect;
+  return {
+    top,
+    left,
+    width,
+    height,
+    bottom,
+    right
+  };
+}
+/**
+ * Returns the bounding client rect of an element relative to the viewport.
+ *
+ * @remarks
+ * The ClientRect returned by this method does not take into account transforms
+ * applied to the element it measures.
+ *
+ */
+
+function getTransformAgnosticClientRect(element) {
+  return getClientRect(element, {
+    ignoreTransform: true
+  });
+}
+
+function getWindowClientRect(element) {
+  const width = element.innerWidth;
+  const height = element.innerHeight;
+  return {
+    top: 0,
+    left: 0,
+    right: width,
+    bottom: height,
+    width,
+    height
+  };
+}
+
+function isFixed(node, computedStyle) {
+  if (computedStyle === void 0) {
+    computedStyle = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(node).getComputedStyle(node);
+  }
+
+  return computedStyle.position === 'fixed';
+}
+
+function isScrollable(element, computedStyle) {
+  if (computedStyle === void 0) {
+    computedStyle = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element).getComputedStyle(element);
+  }
+
+  const overflowRegex = /(auto|scroll|overlay)/;
+  const properties = ['overflow', 'overflowX', 'overflowY'];
+  return properties.some(property => {
+    const value = computedStyle[property];
+    return typeof value === 'string' ? overflowRegex.test(value) : false;
+  });
+}
+
+function getScrollableAncestors(element, limit) {
+  const scrollParents = [];
+
+  function findScrollableAncestors(node) {
+    if (limit != null && scrollParents.length >= limit) {
+      return scrollParents;
+    }
+
+    if (!node) {
+      return scrollParents;
+    }
+
+    if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isDocument)(node) && node.scrollingElement != null && !scrollParents.includes(node.scrollingElement)) {
+      scrollParents.push(node.scrollingElement);
+      return scrollParents;
+    }
+
+    if (!(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(node) || (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isSVGElement)(node)) {
+      return scrollParents;
+    }
+
+    if (scrollParents.includes(node)) {
+      return scrollParents;
+    }
+
+    const computedStyle = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element).getComputedStyle(node);
+
+    if (node !== element) {
+      if (isScrollable(node, computedStyle)) {
+        scrollParents.push(node);
+      }
+    }
+
+    if (isFixed(node, computedStyle)) {
+      return scrollParents;
+    }
+
+    return findScrollableAncestors(node.parentNode);
+  }
+
+  if (!element) {
+    return scrollParents;
+  }
+
+  return findScrollableAncestors(element);
+}
+function getFirstScrollableAncestor(node) {
+  const [firstScrollableAncestor] = getScrollableAncestors(node, 1);
+  return firstScrollableAncestor != null ? firstScrollableAncestor : null;
+}
+
+function getScrollableElement(element) {
+  if (!_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.canUseDOM || !element) {
+    return null;
+  }
+
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isWindow)(element)) {
+    return element;
+  }
+
+  if (!(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isNode)(element)) {
+    return null;
+  }
+
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isDocument)(element) || element === (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(element).scrollingElement) {
+    return window;
+  }
+
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(element)) {
+    return element;
+  }
+
+  return null;
+}
+
+function getScrollXCoordinate(element) {
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isWindow)(element)) {
+    return element.scrollX;
+  }
+
+  return element.scrollLeft;
+}
+function getScrollYCoordinate(element) {
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isWindow)(element)) {
+    return element.scrollY;
+  }
+
+  return element.scrollTop;
+}
+function getScrollCoordinates(element) {
+  return {
+    x: getScrollXCoordinate(element),
+    y: getScrollYCoordinate(element)
+  };
+}
+
+var Direction;
+
+(function (Direction) {
+  Direction[Direction["Forward"] = 1] = "Forward";
+  Direction[Direction["Backward"] = -1] = "Backward";
+})(Direction || (Direction = {}));
+
+function isDocumentScrollingElement(element) {
+  if (!_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.canUseDOM || !element) {
+    return false;
+  }
+
+  return element === document.scrollingElement;
+}
+
+function getScrollPosition(scrollingContainer) {
+  const minScroll = {
+    x: 0,
+    y: 0
+  };
+  const dimensions = isDocumentScrollingElement(scrollingContainer) ? {
+    height: window.innerHeight,
+    width: window.innerWidth
+  } : {
+    height: scrollingContainer.clientHeight,
+    width: scrollingContainer.clientWidth
+  };
+  const maxScroll = {
+    x: scrollingContainer.scrollWidth - dimensions.width,
+    y: scrollingContainer.scrollHeight - dimensions.height
+  };
+  const isTop = scrollingContainer.scrollTop <= minScroll.y;
+  const isLeft = scrollingContainer.scrollLeft <= minScroll.x;
+  const isBottom = scrollingContainer.scrollTop >= maxScroll.y;
+  const isRight = scrollingContainer.scrollLeft >= maxScroll.x;
+  return {
+    isTop,
+    isLeft,
+    isBottom,
+    isRight,
+    maxScroll,
+    minScroll
+  };
+}
+
+const defaultThreshold = {
+  x: 0.2,
+  y: 0.2
+};
+function getScrollDirectionAndSpeed(scrollContainer, scrollContainerRect, _ref, acceleration, thresholdPercentage) {
+  let {
+    top,
+    left,
+    right,
+    bottom
+  } = _ref;
+
+  if (acceleration === void 0) {
+    acceleration = 10;
+  }
+
+  if (thresholdPercentage === void 0) {
+    thresholdPercentage = defaultThreshold;
+  }
+
+  const {
+    isTop,
+    isBottom,
+    isLeft,
+    isRight
+  } = getScrollPosition(scrollContainer);
+  const direction = {
+    x: 0,
+    y: 0
+  };
+  const speed = {
+    x: 0,
+    y: 0
+  };
+  const threshold = {
+    height: scrollContainerRect.height * thresholdPercentage.y,
+    width: scrollContainerRect.width * thresholdPercentage.x
+  };
+
+  if (!isTop && top <= scrollContainerRect.top + threshold.height) {
+    // Scroll Up
+    direction.y = Direction.Backward;
+    speed.y = acceleration * Math.abs((scrollContainerRect.top + threshold.height - top) / threshold.height);
+  } else if (!isBottom && bottom >= scrollContainerRect.bottom - threshold.height) {
+    // Scroll Down
+    direction.y = Direction.Forward;
+    speed.y = acceleration * Math.abs((scrollContainerRect.bottom - threshold.height - bottom) / threshold.height);
+  }
+
+  if (!isRight && right >= scrollContainerRect.right - threshold.width) {
+    // Scroll Right
+    direction.x = Direction.Forward;
+    speed.x = acceleration * Math.abs((scrollContainerRect.right - threshold.width - right) / threshold.width);
+  } else if (!isLeft && left <= scrollContainerRect.left + threshold.width) {
+    // Scroll Left
+    direction.x = Direction.Backward;
+    speed.x = acceleration * Math.abs((scrollContainerRect.left + threshold.width - left) / threshold.width);
+  }
+
+  return {
+    direction,
+    speed
+  };
+}
+
+function getScrollElementRect(element) {
+  if (element === document.scrollingElement) {
+    const {
+      innerWidth,
+      innerHeight
+    } = window;
+    return {
+      top: 0,
+      left: 0,
+      right: innerWidth,
+      bottom: innerHeight,
+      width: innerWidth,
+      height: innerHeight
+    };
+  }
+
+  const {
+    top,
+    left,
+    right,
+    bottom
+  } = element.getBoundingClientRect();
+  return {
+    top,
+    left,
+    right,
+    bottom,
+    width: element.clientWidth,
+    height: element.clientHeight
+  };
+}
+
+function getScrollOffsets(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(acc, getScrollCoordinates(node));
+  }, defaultCoordinates);
+}
+function getScrollXOffset(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return acc + getScrollXCoordinate(node);
+  }, 0);
+}
+function getScrollYOffset(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return acc + getScrollYCoordinate(node);
+  }, 0);
+}
+
+function scrollIntoViewIfNeeded(element, measure) {
+  if (measure === void 0) {
+    measure = getClientRect;
+  }
+
+  if (!element) {
+    return;
+  }
+
+  const {
+    top,
+    left,
+    bottom,
+    right
+  } = measure(element);
+  const firstScrollableAncestor = getFirstScrollableAncestor(element);
+
+  if (!firstScrollableAncestor) {
+    return;
+  }
+
+  if (bottom <= 0 || right <= 0 || top >= window.innerHeight || left >= window.innerWidth) {
+    element.scrollIntoView({
+      block: 'center',
+      inline: 'center'
+    });
+  }
+}
+
+const properties = [['x', ['left', 'right'], getScrollXOffset], ['y', ['top', 'bottom'], getScrollYOffset]];
+class Rect {
+  constructor(rect, element) {
+    this.rect = void 0;
+    this.width = void 0;
+    this.height = void 0;
+    this.top = void 0;
+    this.bottom = void 0;
+    this.right = void 0;
+    this.left = void 0;
+    const scrollableAncestors = getScrollableAncestors(element);
+    const scrollOffsets = getScrollOffsets(scrollableAncestors);
+    this.rect = { ...rect
+    };
+    this.width = rect.width;
+    this.height = rect.height;
+
+    for (const [axis, keys, getScrollOffset] of properties) {
+      for (const key of keys) {
+        Object.defineProperty(this, key, {
+          get: () => {
+            const currentOffsets = getScrollOffset(scrollableAncestors);
+            const scrollOffsetsDeltla = scrollOffsets[axis] - currentOffsets;
+            return this.rect[key] + scrollOffsetsDeltla;
+          },
+          enumerable: true
+        });
+      }
+    }
+
+    Object.defineProperty(this, 'rect', {
+      enumerable: false
+    });
+  }
+
+}
+
+class Listeners {
+  constructor(target) {
+    this.target = void 0;
+    this.listeners = [];
+
+    this.removeAll = () => {
+      this.listeners.forEach(listener => {
+        var _this$target;
+
+        return (_this$target = this.target) == null ? void 0 : _this$target.removeEventListener(...listener);
+      });
+    };
+
+    this.target = target;
+  }
+
+  add(eventName, handler, options) {
+    var _this$target2;
+
+    (_this$target2 = this.target) == null ? void 0 : _this$target2.addEventListener(eventName, handler, options);
+    this.listeners.push([eventName, handler, options]);
+  }
+
+}
+
+function getEventListenerTarget(target) {
+  // If the `event.target` element is removed from the document events will still be targeted
+  // at it, and hence won't always bubble up to the window or document anymore.
+  // If there is any risk of an element being removed while it is being dragged,
+  // the best practice is to attach the event listeners directly to the target.
+  // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget
+  const {
+    EventTarget
+  } = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(target);
+  return target instanceof EventTarget ? target : (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(target);
+}
+
+function hasExceededDistance(delta, measurement) {
+  const dx = Math.abs(delta.x);
+  const dy = Math.abs(delta.y);
+
+  if (typeof measurement === 'number') {
+    return Math.sqrt(dx ** 2 + dy ** 2) > measurement;
+  }
+
+  if ('x' in measurement && 'y' in measurement) {
+    return dx > measurement.x && dy > measurement.y;
+  }
+
+  if ('x' in measurement) {
+    return dx > measurement.x;
+  }
+
+  if ('y' in measurement) {
+    return dy > measurement.y;
+  }
+
+  return false;
+}
+
+var EventName;
+
+(function (EventName) {
+  EventName["Click"] = "click";
+  EventName["DragStart"] = "dragstart";
+  EventName["Keydown"] = "keydown";
+  EventName["ContextMenu"] = "contextmenu";
+  EventName["Resize"] = "resize";
+  EventName["SelectionChange"] = "selectionchange";
+  EventName["VisibilityChange"] = "visibilitychange";
+})(EventName || (EventName = {}));
+
+function preventDefault(event) {
+  event.preventDefault();
+}
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
+var KeyboardCode;
+
+(function (KeyboardCode) {
+  KeyboardCode["Space"] = "Space";
+  KeyboardCode["Down"] = "ArrowDown";
+  KeyboardCode["Right"] = "ArrowRight";
+  KeyboardCode["Left"] = "ArrowLeft";
+  KeyboardCode["Up"] = "ArrowUp";
+  KeyboardCode["Esc"] = "Escape";
+  KeyboardCode["Enter"] = "Enter";
+  KeyboardCode["Tab"] = "Tab";
+})(KeyboardCode || (KeyboardCode = {}));
+
+const defaultKeyboardCodes = {
+  start: [KeyboardCode.Space, KeyboardCode.Enter],
+  cancel: [KeyboardCode.Esc],
+  end: [KeyboardCode.Space, KeyboardCode.Enter, KeyboardCode.Tab]
+};
+const defaultKeyboardCoordinateGetter = (event, _ref) => {
+  let {
+    currentCoordinates
+  } = _ref;
+
+  switch (event.code) {
+    case KeyboardCode.Right:
+      return { ...currentCoordinates,
+        x: currentCoordinates.x + 25
+      };
+
+    case KeyboardCode.Left:
+      return { ...currentCoordinates,
+        x: currentCoordinates.x - 25
+      };
+
+    case KeyboardCode.Down:
+      return { ...currentCoordinates,
+        y: currentCoordinates.y + 25
+      };
+
+    case KeyboardCode.Up:
+      return { ...currentCoordinates,
+        y: currentCoordinates.y - 25
+      };
+  }
+
+  return undefined;
+};
+
+class KeyboardSensor {
+  constructor(props) {
+    this.props = void 0;
+    this.autoScrollEnabled = false;
+    this.referenceCoordinates = void 0;
+    this.listeners = void 0;
+    this.windowListeners = void 0;
+    this.props = props;
+    const {
+      event: {
+        target
+      }
+    } = props;
+    this.props = props;
+    this.listeners = new Listeners((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(target));
+    this.windowListeners = new Listeners((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(target));
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.attach();
+  }
+
+  attach() {
+    this.handleStart();
+    this.windowListeners.add(EventName.Resize, this.handleCancel);
+    this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+    setTimeout(() => this.listeners.add(EventName.Keydown, this.handleKeyDown));
+  }
+
+  handleStart() {
+    const {
+      activeNode,
+      onStart
+    } = this.props;
+    const node = activeNode.node.current;
+
+    if (node) {
+      scrollIntoViewIfNeeded(node);
+    }
+
+    onStart(defaultCoordinates);
+  }
+
+  handleKeyDown(event) {
+    if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(event)) {
+      const {
+        active,
+        context,
+        options
+      } = this.props;
+      const {
+        keyboardCodes = defaultKeyboardCodes,
+        coordinateGetter = defaultKeyboardCoordinateGetter,
+        scrollBehavior = 'smooth'
+      } = options;
+      const {
+        code
+      } = event;
+
+      if (keyboardCodes.end.includes(code)) {
+        this.handleEnd(event);
+        return;
+      }
+
+      if (keyboardCodes.cancel.includes(code)) {
+        this.handleCancel(event);
+        return;
+      }
+
+      const {
+        collisionRect
+      } = context.current;
+      const currentCoordinates = collisionRect ? {
+        x: collisionRect.left,
+        y: collisionRect.top
+      } : defaultCoordinates;
+
+      if (!this.referenceCoordinates) {
+        this.referenceCoordinates = currentCoordinates;
+      }
+
+      const newCoordinates = coordinateGetter(event, {
+        active,
+        context: context.current,
+        currentCoordinates
+      });
+
+      if (newCoordinates) {
+        const coordinatesDelta = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(newCoordinates, currentCoordinates);
+        const scrollDelta = {
+          x: 0,
+          y: 0
+        };
+        const {
+          scrollableAncestors
+        } = context.current;
+
+        for (const scrollContainer of scrollableAncestors) {
+          const direction = event.code;
+          const {
+            isTop,
+            isRight,
+            isLeft,
+            isBottom,
+            maxScroll,
+            minScroll
+          } = getScrollPosition(scrollContainer);
+          const scrollElementRect = getScrollElementRect(scrollContainer);
+          const clampedCoordinates = {
+            x: Math.min(direction === KeyboardCode.Right ? scrollElementRect.right - scrollElementRect.width / 2 : scrollElementRect.right, Math.max(direction === KeyboardCode.Right ? scrollElementRect.left : scrollElementRect.left + scrollElementRect.width / 2, newCoordinates.x)),
+            y: Math.min(direction === KeyboardCode.Down ? scrollElementRect.bottom - scrollElementRect.height / 2 : scrollElementRect.bottom, Math.max(direction === KeyboardCode.Down ? scrollElementRect.top : scrollElementRect.top + scrollElementRect.height / 2, newCoordinates.y))
+          };
+          const canScrollX = direction === KeyboardCode.Right && !isRight || direction === KeyboardCode.Left && !isLeft;
+          const canScrollY = direction === KeyboardCode.Down && !isBottom || direction === KeyboardCode.Up && !isTop;
+
+          if (canScrollX && clampedCoordinates.x !== newCoordinates.x) {
+            const newScrollCoordinates = scrollContainer.scrollLeft + coordinatesDelta.x;
+            const canScrollToNewCoordinates = direction === KeyboardCode.Right && newScrollCoordinates <= maxScroll.x || direction === KeyboardCode.Left && newScrollCoordinates >= minScroll.x;
+
+            if (canScrollToNewCoordinates && !coordinatesDelta.y) {
+              // We don't need to update coordinates, the scroll adjustment alone will trigger
+              // logic to auto-detect the new container we are over
+              scrollContainer.scrollTo({
+                left: newScrollCoordinates,
+                behavior: scrollBehavior
+              });
+              return;
+            }
+
+            if (canScrollToNewCoordinates) {
+              scrollDelta.x = scrollContainer.scrollLeft - newScrollCoordinates;
+            } else {
+              scrollDelta.x = direction === KeyboardCode.Right ? scrollContainer.scrollLeft - maxScroll.x : scrollContainer.scrollLeft - minScroll.x;
+            }
+
+            if (scrollDelta.x) {
+              scrollContainer.scrollBy({
+                left: -scrollDelta.x,
+                behavior: scrollBehavior
+              });
+            }
+
+            break;
+          } else if (canScrollY && clampedCoordinates.y !== newCoordinates.y) {
+            const newScrollCoordinates = scrollContainer.scrollTop + coordinatesDelta.y;
+            const canScrollToNewCoordinates = direction === KeyboardCode.Down && newScrollCoordinates <= maxScroll.y || direction === KeyboardCode.Up && newScrollCoordinates >= minScroll.y;
+
+            if (canScrollToNewCoordinates && !coordinatesDelta.x) {
+              // We don't need to update coordinates, the scroll adjustment alone will trigger
+              // logic to auto-detect the new container we are over
+              scrollContainer.scrollTo({
+                top: newScrollCoordinates,
+                behavior: scrollBehavior
+              });
+              return;
+            }
+
+            if (canScrollToNewCoordinates) {
+              scrollDelta.y = scrollContainer.scrollTop - newScrollCoordinates;
+            } else {
+              scrollDelta.y = direction === KeyboardCode.Down ? scrollContainer.scrollTop - maxScroll.y : scrollContainer.scrollTop - minScroll.y;
+            }
+
+            if (scrollDelta.y) {
+              scrollContainer.scrollBy({
+                top: -scrollDelta.y,
+                behavior: scrollBehavior
+              });
+            }
+
+            break;
+          }
+        }
+
+        this.handleMove(event, (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(newCoordinates, this.referenceCoordinates), scrollDelta));
+      }
+    }
+  }
+
+  handleMove(event, coordinates) {
+    const {
+      onMove
+    } = this.props;
+    event.preventDefault();
+    onMove(coordinates);
+  }
+
+  handleEnd(event) {
+    const {
+      onEnd
+    } = this.props;
+    event.preventDefault();
+    this.detach();
+    onEnd();
+  }
+
+  handleCancel(event) {
+    const {
+      onCancel
+    } = this.props;
+    event.preventDefault();
+    this.detach();
+    onCancel();
+  }
+
+  detach() {
+    this.listeners.removeAll();
+    this.windowListeners.removeAll();
+  }
+
+}
+KeyboardSensor.activators = [{
+  eventName: 'onKeyDown',
+  handler: (event, _ref, _ref2) => {
+    let {
+      keyboardCodes = defaultKeyboardCodes,
+      onActivation
+    } = _ref;
+    let {
+      active
+    } = _ref2;
+    const {
+      code
+    } = event.nativeEvent;
+
+    if (keyboardCodes.start.includes(code)) {
+      const activator = active.activatorNode.current;
+
+      if (activator && event.target !== activator) {
+        return false;
+      }
+
+      event.preventDefault();
+      onActivation == null ? void 0 : onActivation({
+        event: event.nativeEvent
+      });
+      return true;
+    }
+
+    return false;
+  }
+}];
+
+function isDistanceConstraint(constraint) {
+  return Boolean(constraint && 'distance' in constraint);
+}
+
+function isDelayConstraint(constraint) {
+  return Boolean(constraint && 'delay' in constraint);
+}
+
+class AbstractPointerSensor {
+  constructor(props, events, listenerTarget) {
+    var _getEventCoordinates;
+
+    if (listenerTarget === void 0) {
+      listenerTarget = getEventListenerTarget(props.event.target);
+    }
+
+    this.props = void 0;
+    this.events = void 0;
+    this.autoScrollEnabled = true;
+    this.document = void 0;
+    this.activated = false;
+    this.initialCoordinates = void 0;
+    this.timeoutId = null;
+    this.listeners = void 0;
+    this.documentListeners = void 0;
+    this.windowListeners = void 0;
+    this.props = props;
+    this.events = events;
+    const {
+      event
+    } = props;
+    const {
+      target
+    } = event;
+    this.props = props;
+    this.events = events;
+    this.document = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(target);
+    this.documentListeners = new Listeners(this.document);
+    this.listeners = new Listeners(listenerTarget);
+    this.windowListeners = new Listeners((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(target));
+    this.initialCoordinates = (_getEventCoordinates = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(event)) != null ? _getEventCoordinates : defaultCoordinates;
+    this.handleStart = this.handleStart.bind(this);
+    this.handleMove = this.handleMove.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+    this.removeTextSelection = this.removeTextSelection.bind(this);
+    this.attach();
+  }
+
+  attach() {
+    const {
+      events,
+      props: {
+        options: {
+          activationConstraint,
+          bypassActivationConstraint
+        }
+      }
+    } = this;
+    this.listeners.add(events.move.name, this.handleMove, {
+      passive: false
+    });
+    this.listeners.add(events.end.name, this.handleEnd);
+
+    if (events.cancel) {
+      this.listeners.add(events.cancel.name, this.handleCancel);
+    }
+
+    this.windowListeners.add(EventName.Resize, this.handleCancel);
+    this.windowListeners.add(EventName.DragStart, preventDefault);
+    this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+    this.windowListeners.add(EventName.ContextMenu, preventDefault);
+    this.documentListeners.add(EventName.Keydown, this.handleKeydown);
+
+    if (activationConstraint) {
+      if (bypassActivationConstraint != null && bypassActivationConstraint({
+        event: this.props.event,
+        activeNode: this.props.activeNode,
+        options: this.props.options
+      })) {
+        return this.handleStart();
+      }
+
+      if (isDelayConstraint(activationConstraint)) {
+        this.timeoutId = setTimeout(this.handleStart, activationConstraint.delay);
+        this.handlePending(activationConstraint);
+        return;
+      }
+
+      if (isDistanceConstraint(activationConstraint)) {
+        this.handlePending(activationConstraint);
+        return;
+      }
+    }
+
+    this.handleStart();
+  }
+
+  detach() {
+    this.listeners.removeAll();
+    this.windowListeners.removeAll(); // Wait until the next event loop before removing document listeners
+    // This is necessary because we listen for `click` and `selection` events on the document
+
+    setTimeout(this.documentListeners.removeAll, 50);
+
+    if (this.timeoutId !== null) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+  }
+
+  handlePending(constraint, offset) {
+    const {
+      active,
+      onPending
+    } = this.props;
+    onPending(active, constraint, this.initialCoordinates, offset);
+  }
+
+  handleStart() {
+    const {
+      initialCoordinates
+    } = this;
+    const {
+      onStart
+    } = this.props;
+
+    if (initialCoordinates) {
+      this.activated = true; // Stop propagation of click events once activation constraints are met
+
+      this.documentListeners.add(EventName.Click, stopPropagation, {
+        capture: true
+      }); // Remove any text selection from the document
+
+      this.removeTextSelection(); // Prevent further text selection while dragging
+
+      this.documentListeners.add(EventName.SelectionChange, this.removeTextSelection);
+      onStart(initialCoordinates);
+    }
+  }
+
+  handleMove(event) {
+    var _getEventCoordinates2;
+
+    const {
+      activated,
+      initialCoordinates,
+      props
+    } = this;
+    const {
+      onMove,
+      options: {
+        activationConstraint
+      }
+    } = props;
+
+    if (!initialCoordinates) {
+      return;
+    }
+
+    const coordinates = (_getEventCoordinates2 = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(event)) != null ? _getEventCoordinates2 : defaultCoordinates;
+    const delta = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(initialCoordinates, coordinates); // Constraint validation
+
+    if (!activated && activationConstraint) {
+      if (isDistanceConstraint(activationConstraint)) {
+        if (activationConstraint.tolerance != null && hasExceededDistance(delta, activationConstraint.tolerance)) {
+          return this.handleCancel();
+        }
+
+        if (hasExceededDistance(delta, activationConstraint.distance)) {
+          return this.handleStart();
+        }
+      }
+
+      if (isDelayConstraint(activationConstraint)) {
+        if (hasExceededDistance(delta, activationConstraint.tolerance)) {
+          return this.handleCancel();
+        }
+      }
+
+      this.handlePending(activationConstraint, delta);
+      return;
+    }
+
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+
+    onMove(coordinates);
+  }
+
+  handleEnd() {
+    const {
+      onAbort,
+      onEnd
+    } = this.props;
+    this.detach();
+
+    if (!this.activated) {
+      onAbort(this.props.active);
+    }
+
+    onEnd();
+  }
+
+  handleCancel() {
+    const {
+      onAbort,
+      onCancel
+    } = this.props;
+    this.detach();
+
+    if (!this.activated) {
+      onAbort(this.props.active);
+    }
+
+    onCancel();
+  }
+
+  handleKeydown(event) {
+    if (event.code === KeyboardCode.Esc) {
+      this.handleCancel();
+    }
+  }
+
+  removeTextSelection() {
+    var _this$document$getSel;
+
+    (_this$document$getSel = this.document.getSelection()) == null ? void 0 : _this$document$getSel.removeAllRanges();
+  }
+
+}
+
+const events = {
+  cancel: {
+    name: 'pointercancel'
+  },
+  move: {
+    name: 'pointermove'
+  },
+  end: {
+    name: 'pointerup'
+  }
+};
+class PointerSensor extends AbstractPointerSensor {
+  constructor(props) {
+    const {
+      event
+    } = props; // Pointer events stop firing if the target is unmounted while dragging
+    // Therefore we attach listeners to the owner document instead
+
+    const listenerTarget = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(event.target);
+    super(props, events, listenerTarget);
+  }
+
+}
+PointerSensor.activators = [{
+  eventName: 'onPointerDown',
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+
+    if (!event.isPrimary || event.button !== 0) {
+      return false;
+    }
+
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+
+const events$1 = {
+  move: {
+    name: 'mousemove'
+  },
+  end: {
+    name: 'mouseup'
+  }
+};
+var MouseButton;
+
+(function (MouseButton) {
+  MouseButton[MouseButton["RightClick"] = 2] = "RightClick";
+})(MouseButton || (MouseButton = {}));
+
+class MouseSensor extends AbstractPointerSensor {
+  constructor(props) {
+    super(props, events$1, (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(props.event.target));
+  }
+
+}
+MouseSensor.activators = [{
+  eventName: 'onMouseDown',
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+
+    if (event.button === MouseButton.RightClick) {
+      return false;
+    }
+
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+
+const events$2 = {
+  cancel: {
+    name: 'touchcancel'
+  },
+  move: {
+    name: 'touchmove'
+  },
+  end: {
+    name: 'touchend'
+  }
+};
+class TouchSensor extends AbstractPointerSensor {
+  constructor(props) {
+    super(props, events$2);
+  }
+
+  static setup() {
+    // Adding a non-capture and non-passive `touchmove` listener in order
+    // to force `event.preventDefault()` calls to work in dynamically added
+    // touchmove event handlers. This is required for iOS Safari.
+    window.addEventListener(events$2.move.name, noop, {
+      capture: false,
+      passive: false
+    });
+    return function teardown() {
+      window.removeEventListener(events$2.move.name, noop);
+    }; // We create a new handler because the teardown function of another sensor
+    // could remove our event listener if we use a referentially equal listener.
+
+    function noop() {}
+  }
+
+}
+TouchSensor.activators = [{
+  eventName: 'onTouchStart',
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+    const {
+      touches
+    } = event;
+
+    if (touches.length > 1) {
+      return false;
+    }
+
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+
+var AutoScrollActivator;
+
+(function (AutoScrollActivator) {
+  AutoScrollActivator[AutoScrollActivator["Pointer"] = 0] = "Pointer";
+  AutoScrollActivator[AutoScrollActivator["DraggableRect"] = 1] = "DraggableRect";
+})(AutoScrollActivator || (AutoScrollActivator = {}));
+
+var TraversalOrder;
+
+(function (TraversalOrder) {
+  TraversalOrder[TraversalOrder["TreeOrder"] = 0] = "TreeOrder";
+  TraversalOrder[TraversalOrder["ReversedTreeOrder"] = 1] = "ReversedTreeOrder";
+})(TraversalOrder || (TraversalOrder = {}));
+
+function useAutoScroller(_ref) {
+  let {
+    acceleration,
+    activator = AutoScrollActivator.Pointer,
+    canScroll,
+    draggingRect,
+    enabled,
+    interval = 5,
+    order = TraversalOrder.TreeOrder,
+    pointerCoordinates,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    delta,
+    threshold
+  } = _ref;
+  const scrollIntent = useScrollIntent({
+    delta,
+    disabled: !enabled
+  });
+  const [setAutoScrollInterval, clearAutoScrollInterval] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useInterval)();
+  const scrollSpeed = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    x: 0,
+    y: 0
+  });
+  const scrollDirection = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    x: 0,
+    y: 0
+  });
+  const rect = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    switch (activator) {
+      case AutoScrollActivator.Pointer:
+        return pointerCoordinates ? {
+          top: pointerCoordinates.y,
+          bottom: pointerCoordinates.y,
+          left: pointerCoordinates.x,
+          right: pointerCoordinates.x
+        } : null;
+
+      case AutoScrollActivator.DraggableRect:
+        return draggingRect;
+    }
+  }, [activator, draggingRect, pointerCoordinates]);
+  const scrollContainerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const autoScroll = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    const scrollContainer = scrollContainerRef.current;
+
+    if (!scrollContainer) {
+      return;
+    }
+
+    const scrollLeft = scrollSpeed.current.x * scrollDirection.current.x;
+    const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
+    scrollContainer.scrollBy(scrollLeft, scrollTop);
+  }, []);
+  const sortedScrollableAncestors = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!enabled || !scrollableAncestors.length || !rect) {
+      clearAutoScrollInterval();
+      return;
+    }
+
+    for (const scrollContainer of sortedScrollableAncestors) {
+      if ((canScroll == null ? void 0 : canScroll(scrollContainer)) === false) {
+        continue;
+      }
+
+      const index = scrollableAncestors.indexOf(scrollContainer);
+      const scrollContainerRect = scrollableAncestorRects[index];
+
+      if (!scrollContainerRect) {
+        continue;
+      }
+
+      const {
+        direction,
+        speed
+      } = getScrollDirectionAndSpeed(scrollContainer, scrollContainerRect, rect, acceleration, threshold);
+
+      for (const axis of ['x', 'y']) {
+        if (!scrollIntent[axis][direction[axis]]) {
+          speed[axis] = 0;
+          direction[axis] = 0;
+        }
+      }
+
+      if (speed.x > 0 || speed.y > 0) {
+        clearAutoScrollInterval();
+        scrollContainerRef.current = scrollContainer;
+        setAutoScrollInterval(autoScroll, interval);
+        scrollSpeed.current = speed;
+        scrollDirection.current = direction;
+        return;
+      }
+    }
+
+    scrollSpeed.current = {
+      x: 0,
+      y: 0
+    };
+    scrollDirection.current = {
+      x: 0,
+      y: 0
+    };
+    clearAutoScrollInterval();
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [acceleration, autoScroll, canScroll, clearAutoScrollInterval, enabled, interval, // eslint-disable-next-line react-hooks/exhaustive-deps
+  JSON.stringify(rect), // eslint-disable-next-line react-hooks/exhaustive-deps
+  JSON.stringify(scrollIntent), setAutoScrollInterval, scrollableAncestors, sortedScrollableAncestors, scrollableAncestorRects, // eslint-disable-next-line react-hooks/exhaustive-deps
+  JSON.stringify(threshold)]);
+}
+const defaultScrollIntent = {
+  x: {
+    [Direction.Backward]: false,
+    [Direction.Forward]: false
+  },
+  y: {
+    [Direction.Backward]: false,
+    [Direction.Forward]: false
+  }
+};
+
+function useScrollIntent(_ref2) {
+  let {
+    delta,
+    disabled
+  } = _ref2;
+  const previousDelta = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(delta);
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousIntent => {
+    if (disabled || !previousDelta || !previousIntent) {
+      // Reset scroll intent tracking when auto-scrolling is disabled
+      return defaultScrollIntent;
+    }
+
+    const direction = {
+      x: Math.sign(delta.x - previousDelta.x),
+      y: Math.sign(delta.y - previousDelta.y)
+    }; // Keep track of the user intent to scroll in each direction for both axis
+
+    return {
+      x: {
+        [Direction.Backward]: previousIntent.x[Direction.Backward] || direction.x === -1,
+        [Direction.Forward]: previousIntent.x[Direction.Forward] || direction.x === 1
+      },
+      y: {
+        [Direction.Backward]: previousIntent.y[Direction.Backward] || direction.y === -1,
+        [Direction.Forward]: previousIntent.y[Direction.Forward] || direction.y === 1
+      }
+    };
+  }, [disabled, delta, previousDelta]);
+}
+
+function useCachedNode(draggableNodes, id) {
+  const draggableNode = id != null ? draggableNodes.get(id) : undefined;
+  const node = draggableNode ? draggableNode.node.current : null;
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(cachedNode => {
+    var _ref;
+
+    if (id == null) {
+      return null;
+    } // In some cases, the draggable node can unmount while dragging
+    // This is the case for virtualized lists. In those situations,
+    // we fall back to the last known value for that node.
+
+
+    return (_ref = node != null ? node : cachedNode) != null ? _ref : null;
+  }, [node, id]);
+}
+
+function useCombineActivators(sensors, getSyntheticHandler) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => sensors.reduce((accumulator, sensor) => {
+    const {
+      sensor: Sensor
+    } = sensor;
+    const sensorActivators = Sensor.activators.map(activator => ({
+      eventName: activator.eventName,
+      handler: getSyntheticHandler(activator.handler, sensor)
+    }));
+    return [...accumulator, ...sensorActivators];
+  }, []), [sensors, getSyntheticHandler]);
+}
+
+var MeasuringStrategy;
+
+(function (MeasuringStrategy) {
+  MeasuringStrategy[MeasuringStrategy["Always"] = 0] = "Always";
+  MeasuringStrategy[MeasuringStrategy["BeforeDragging"] = 1] = "BeforeDragging";
+  MeasuringStrategy[MeasuringStrategy["WhileDragging"] = 2] = "WhileDragging";
+})(MeasuringStrategy || (MeasuringStrategy = {}));
+
+var MeasuringFrequency;
+
+(function (MeasuringFrequency) {
+  MeasuringFrequency["Optimized"] = "optimized";
+})(MeasuringFrequency || (MeasuringFrequency = {}));
+
+const defaultValue = /*#__PURE__*/new Map();
+function useDroppableMeasuring(containers, _ref) {
+  let {
+    dragging,
+    dependencies,
+    config
+  } = _ref;
+  const [queue, setQueue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const {
+    frequency,
+    measure,
+    strategy
+  } = config;
+  const containersRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(containers);
+  const disabled = isDisabled();
+  const disabledRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(disabled);
+  const measureDroppableContainers = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (ids) {
+    if (ids === void 0) {
+      ids = [];
+    }
+
+    if (disabledRef.current) {
+      return;
+    }
+
+    setQueue(value => {
+      if (value === null) {
+        return ids;
+      }
+
+      return value.concat(ids.filter(id => !value.includes(id)));
+    });
+  }, [disabledRef]);
+  const timeoutId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const droppableRects = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousValue => {
+    if (disabled && !dragging) {
+      return defaultValue;
+    }
+
+    if (!previousValue || previousValue === defaultValue || containersRef.current !== containers || queue != null) {
+      const map = new Map();
+
+      for (let container of containers) {
+        if (!container) {
+          continue;
+        }
+
+        if (queue && queue.length > 0 && !queue.includes(container.id) && container.rect.current) {
+          // This container does not need to be re-measured
+          map.set(container.id, container.rect.current);
+          continue;
+        }
+
+        const node = container.node.current;
+        const rect = node ? new Rect(measure(node), node) : null;
+        container.rect.current = rect;
+
+        if (rect) {
+          map.set(container.id, rect);
+        }
+      }
+
+      return map;
+    }
+
+    return previousValue;
+  }, [containers, queue, dragging, disabled, measure]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    containersRef.current = containers;
+  }, [containers]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled) {
+      return;
+    }
+
+    measureDroppableContainers();
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [dragging, disabled]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (queue && queue.length > 0) {
+      setQueue(null);
+    }
+  }, //eslint-disable-next-line react-hooks/exhaustive-deps
+  [JSON.stringify(queue)]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled || typeof frequency !== 'number' || timeoutId.current !== null) {
+      return;
+    }
+
+    timeoutId.current = setTimeout(() => {
+      measureDroppableContainers();
+      timeoutId.current = null;
+    }, frequency);
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [frequency, disabled, measureDroppableContainers, ...dependencies]);
+  return {
+    droppableRects,
+    measureDroppableContainers,
+    measuringScheduled: queue != null
+  };
+
+  function isDisabled() {
+    switch (strategy) {
+      case MeasuringStrategy.Always:
+        return false;
+
+      case MeasuringStrategy.BeforeDragging:
+        return dragging;
+
+      default:
+        return !dragging;
+    }
+  }
+}
+
+function useInitialValue(value, computeFn) {
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousValue => {
+    if (!value) {
+      return null;
+    }
+
+    if (previousValue) {
+      return previousValue;
+    }
+
+    return typeof computeFn === 'function' ? computeFn(value) : value;
+  }, [computeFn, value]);
+}
+
+function useInitialRect(node, measure) {
+  return useInitialValue(node, measure);
+}
+
+/**
+ * Returns a new MutationObserver instance.
+ * If `MutationObserver` is undefined in the execution environment, returns `undefined`.
+ */
+
+function useMutationObserver(_ref) {
+  let {
+    callback,
+    disabled
+  } = _ref;
+  const handleMutations = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useEvent)(callback);
+  const mutationObserver = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (disabled || typeof window === 'undefined' || typeof window.MutationObserver === 'undefined') {
+      return undefined;
+    }
+
+    const {
+      MutationObserver
+    } = window;
+    return new MutationObserver(handleMutations);
+  }, [handleMutations, disabled]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    return () => mutationObserver == null ? void 0 : mutationObserver.disconnect();
+  }, [mutationObserver]);
+  return mutationObserver;
+}
+
+/**
+ * Returns a new ResizeObserver instance bound to the `onResize` callback.
+ * If `ResizeObserver` is undefined in the execution environment, returns `undefined`.
+ */
+
+function useResizeObserver(_ref) {
+  let {
+    callback,
+    disabled
+  } = _ref;
+  const handleResize = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useEvent)(callback);
+  const resizeObserver = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (disabled || typeof window === 'undefined' || typeof window.ResizeObserver === 'undefined') {
+      return undefined;
+    }
+
+    const {
+      ResizeObserver
+    } = window;
+    return new ResizeObserver(handleResize);
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [disabled]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    return () => resizeObserver == null ? void 0 : resizeObserver.disconnect();
+  }, [resizeObserver]);
+  return resizeObserver;
+}
+
+function defaultMeasure(element) {
+  return new Rect(getClientRect(element), element);
+}
+
+function useRect(element, measure, fallbackRect) {
+  if (measure === void 0) {
+    measure = defaultMeasure;
+  }
+
+  const [rect, setRect] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+
+  function measureRect() {
+    setRect(currentRect => {
+      if (!element) {
+        return null;
+      }
+
+      if (element.isConnected === false) {
+        var _ref;
+
+        // Fall back to last rect we measured if the element is
+        // no longer connected to the DOM.
+        return (_ref = currentRect != null ? currentRect : fallbackRect) != null ? _ref : null;
+      }
+
+      const newRect = measure(element);
+
+      if (JSON.stringify(currentRect) === JSON.stringify(newRect)) {
+        return currentRect;
+      }
+
+      return newRect;
+    });
+  }
+
+  const mutationObserver = useMutationObserver({
+    callback(records) {
+      if (!element) {
+        return;
+      }
+
+      for (const record of records) {
+        const {
+          type,
+          target
+        } = record;
+
+        if (type === 'childList' && target instanceof HTMLElement && target.contains(element)) {
+          measureRect();
+          break;
+        }
+      }
+    }
+
+  });
+  const resizeObserver = useResizeObserver({
+    callback: measureRect
+  });
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    measureRect();
+
+    if (element) {
+      resizeObserver == null ? void 0 : resizeObserver.observe(element);
+      mutationObserver == null ? void 0 : mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    } else {
+      resizeObserver == null ? void 0 : resizeObserver.disconnect();
+      mutationObserver == null ? void 0 : mutationObserver.disconnect();
+    }
+  }, [element]);
+  return rect;
+}
+
+function useRectDelta(rect) {
+  const initialRect = useInitialValue(rect);
+  return getRectDelta(rect, initialRect);
+}
+
+const defaultValue$1 = [];
+function useScrollableAncestors(node) {
+  const previousNode = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(node);
+  const ancestors = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousValue => {
+    if (!node) {
+      return defaultValue$1;
+    }
+
+    if (previousValue && previousValue !== defaultValue$1 && node && previousNode.current && node.parentNode === previousNode.current.parentNode) {
+      return previousValue;
+    }
+
+    return getScrollableAncestors(node);
+  }, [node]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    previousNode.current = node;
+  }, [node]);
+  return ancestors;
+}
+
+function useScrollOffsets(elements) {
+  const [scrollCoordinates, setScrollCoordinates] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const prevElements = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(elements); // To-do: Throttle the handleScroll callback
+
+  const handleScroll = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(event => {
+    const scrollingElement = getScrollableElement(event.target);
+
+    if (!scrollingElement) {
+      return;
+    }
+
+    setScrollCoordinates(scrollCoordinates => {
+      if (!scrollCoordinates) {
+        return null;
+      }
+
+      scrollCoordinates.set(scrollingElement, getScrollCoordinates(scrollingElement));
+      return new Map(scrollCoordinates);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const previousElements = prevElements.current;
+
+    if (elements !== previousElements) {
+      cleanup(previousElements);
+      const entries = elements.map(element => {
+        const scrollableElement = getScrollableElement(element);
+
+        if (scrollableElement) {
+          scrollableElement.addEventListener('scroll', handleScroll, {
+            passive: true
+          });
+          return [scrollableElement, getScrollCoordinates(scrollableElement)];
+        }
+
+        return null;
+      }).filter(entry => entry != null);
+      setScrollCoordinates(entries.length ? new Map(entries) : null);
+      prevElements.current = elements;
+    }
+
+    return () => {
+      cleanup(elements);
+      cleanup(previousElements);
+    };
+
+    function cleanup(elements) {
+      elements.forEach(element => {
+        const scrollableElement = getScrollableElement(element);
+        scrollableElement == null ? void 0 : scrollableElement.removeEventListener('scroll', handleScroll);
+      });
+    }
+  }, [handleScroll, elements]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (elements.length) {
+      return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
+    }
+
+    return defaultCoordinates;
+  }, [elements, scrollCoordinates]);
+}
+
+function useScrollOffsetsDelta(scrollOffsets, dependencies) {
+  if (dependencies === void 0) {
+    dependencies = [];
+  }
+
+  const initialScrollOffsets = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    initialScrollOffsets.current = null;
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  dependencies);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
+
+    if (hasScrollOffsets && !initialScrollOffsets.current) {
+      initialScrollOffsets.current = scrollOffsets;
+    }
+
+    if (!hasScrollOffsets && initialScrollOffsets.current) {
+      initialScrollOffsets.current = null;
+    }
+  }, [scrollOffsets]);
+  return initialScrollOffsets.current ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
+}
+
+function useSensorSetup(sensors) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.canUseDOM) {
+      return;
+    }
+
+    const teardownFns = sensors.map(_ref => {
+      let {
+        sensor
+      } = _ref;
+      return sensor.setup == null ? void 0 : sensor.setup();
+    });
+    return () => {
+      for (const teardown of teardownFns) {
+        teardown == null ? void 0 : teardown();
+      }
+    };
+  }, // TO-DO: Sensors length could theoretically change which would not be a valid dependency
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  sensors.map(_ref2 => {
+    let {
+      sensor
+    } = _ref2;
+    return sensor;
+  }));
+}
+
+function useSyntheticListeners(listeners, id) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return listeners.reduce((acc, _ref) => {
+      let {
+        eventName,
+        handler
+      } = _ref;
+
+      acc[eventName] = event => {
+        handler(event, id);
+      };
+
+      return acc;
+    }, {});
+  }, [listeners, id]);
+}
+
+function useWindowRect(element) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => element ? getWindowClientRect(element) : null, [element]);
+}
+
+const defaultValue$2 = [];
+function useRects(elements, measure) {
+  if (measure === void 0) {
+    measure = getClientRect;
+  }
+
+  const [firstElement] = elements;
+  const windowRect = useWindowRect(firstElement ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(firstElement) : null);
+  const [rects, setRects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultValue$2);
+
+  function measureRects() {
+    setRects(() => {
+      if (!elements.length) {
+        return defaultValue$2;
+      }
+
+      return elements.map(element => isDocumentScrollingElement(element) ? windowRect : new Rect(measure(element), element));
+    });
+  }
+
+  const resizeObserver = useResizeObserver({
+    callback: measureRects
+  });
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    resizeObserver == null ? void 0 : resizeObserver.disconnect();
+    measureRects();
+    elements.forEach(element => resizeObserver == null ? void 0 : resizeObserver.observe(element));
+  }, [elements]);
+  return rects;
+}
+
+function getMeasurableNode(node) {
+  if (!node) {
+    return null;
+  }
+
+  if (node.children.length > 1) {
+    return node;
+  }
+
+  const firstChild = node.children[0];
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(firstChild) ? firstChild : node;
+}
+
+function useDragOverlayMeasuring(_ref) {
+  let {
+    measure
+  } = _ref;
+  const [rect, setRect] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const handleResize = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(entries => {
+    for (const {
+      target
+    } of entries) {
+      if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(target)) {
+        setRect(rect => {
+          const newRect = measure(target);
+          return rect ? { ...rect,
+            width: newRect.width,
+            height: newRect.height
+          } : newRect;
+        });
+        break;
+      }
+    }
+  }, [measure]);
+  const resizeObserver = useResizeObserver({
+    callback: handleResize
+  });
+  const handleNodeChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(element => {
+    const node = getMeasurableNode(element);
+    resizeObserver == null ? void 0 : resizeObserver.disconnect();
+
+    if (node) {
+      resizeObserver == null ? void 0 : resizeObserver.observe(node);
+    }
+
+    setRect(node ? measure(node) : null);
+  }, [measure, resizeObserver]);
+  const [nodeRef, setRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)(handleNodeChange);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    nodeRef,
+    rect,
+    setRef
+  }), [rect, nodeRef, setRef]);
+}
+
+const defaultSensors = [{
+  sensor: PointerSensor,
+  options: {}
+}, {
+  sensor: KeyboardSensor,
+  options: {}
+}];
+const defaultData = {
+  current: {}
+};
+const defaultMeasuringConfiguration = {
+  draggable: {
+    measure: getTransformAgnosticClientRect
+  },
+  droppable: {
+    measure: getTransformAgnosticClientRect,
+    strategy: MeasuringStrategy.WhileDragging,
+    frequency: MeasuringFrequency.Optimized
+  },
+  dragOverlay: {
+    measure: getClientRect
+  }
+};
+
+class DroppableContainersMap extends Map {
+  get(id) {
+    var _super$get;
+
+    return id != null ? (_super$get = super.get(id)) != null ? _super$get : undefined : undefined;
+  }
+
+  toArray() {
+    return Array.from(this.values());
+  }
+
+  getEnabled() {
+    return this.toArray().filter(_ref => {
+      let {
+        disabled
+      } = _ref;
+      return !disabled;
+    });
+  }
+
+  getNodeFor(id) {
+    var _this$get$node$curren, _this$get;
+
+    return (_this$get$node$curren = (_this$get = this.get(id)) == null ? void 0 : _this$get.node.current) != null ? _this$get$node$curren : undefined;
+  }
+
+}
+
+const defaultPublicContext = {
+  activatorEvent: null,
+  active: null,
+  activeNode: null,
+  activeNodeRect: null,
+  collisions: null,
+  containerNodeRect: null,
+  draggableNodes: /*#__PURE__*/new Map(),
+  droppableRects: /*#__PURE__*/new Map(),
+  droppableContainers: /*#__PURE__*/new DroppableContainersMap(),
+  over: null,
+  dragOverlay: {
+    nodeRef: {
+      current: null
+    },
+    rect: null,
+    setRef: noop
+  },
+  scrollableAncestors: [],
+  scrollableAncestorRects: [],
+  measuringConfiguration: defaultMeasuringConfiguration,
+  measureDroppableContainers: noop,
+  windowRect: null,
+  measuringScheduled: false
+};
+const defaultInternalContext = {
+  activatorEvent: null,
+  activators: [],
+  active: null,
+  activeNodeRect: null,
+  ariaDescribedById: {
+    draggable: ''
+  },
+  dispatch: noop,
+  draggableNodes: /*#__PURE__*/new Map(),
+  over: null,
+  measureDroppableContainers: noop
+};
+const InternalContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(defaultInternalContext);
+const PublicContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(defaultPublicContext);
+
+function getInitialState() {
+  return {
+    draggable: {
+      active: null,
+      initialCoordinates: {
+        x: 0,
+        y: 0
+      },
+      nodes: new Map(),
+      translate: {
+        x: 0,
+        y: 0
+      }
+    },
+    droppable: {
+      containers: new DroppableContainersMap()
+    }
+  };
+}
+function reducer(state, action) {
+  switch (action.type) {
+    case Action.DragStart:
+      return { ...state,
+        draggable: { ...state.draggable,
+          initialCoordinates: action.initialCoordinates,
+          active: action.active
+        }
+      };
+
+    case Action.DragMove:
+      if (state.draggable.active == null) {
+        return state;
+      }
+
+      return { ...state,
+        draggable: { ...state.draggable,
+          translate: {
+            x: action.coordinates.x - state.draggable.initialCoordinates.x,
+            y: action.coordinates.y - state.draggable.initialCoordinates.y
+          }
+        }
+      };
+
+    case Action.DragEnd:
+    case Action.DragCancel:
+      return { ...state,
+        draggable: { ...state.draggable,
+          active: null,
+          initialCoordinates: {
+            x: 0,
+            y: 0
+          },
+          translate: {
+            x: 0,
+            y: 0
+          }
+        }
+      };
+
+    case Action.RegisterDroppable:
+      {
+        const {
+          element
+        } = action;
+        const {
+          id
+        } = element;
+        const containers = new DroppableContainersMap(state.droppable.containers);
+        containers.set(id, element);
+        return { ...state,
+          droppable: { ...state.droppable,
+            containers
+          }
+        };
+      }
+
+    case Action.SetDroppableDisabled:
+      {
+        const {
+          id,
+          key,
+          disabled
+        } = action;
+        const element = state.droppable.containers.get(id);
+
+        if (!element || key !== element.key) {
+          return state;
+        }
+
+        const containers = new DroppableContainersMap(state.droppable.containers);
+        containers.set(id, { ...element,
+          disabled
+        });
+        return { ...state,
+          droppable: { ...state.droppable,
+            containers
+          }
+        };
+      }
+
+    case Action.UnregisterDroppable:
+      {
+        const {
+          id,
+          key
+        } = action;
+        const element = state.droppable.containers.get(id);
+
+        if (!element || key !== element.key) {
+          return state;
+        }
+
+        const containers = new DroppableContainersMap(state.droppable.containers);
+        containers.delete(id);
+        return { ...state,
+          droppable: { ...state.droppable,
+            containers
+          }
+        };
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
+function RestoreFocus(_ref) {
+  let {
+    disabled
+  } = _ref;
+  const {
+    active,
+    activatorEvent,
+    draggableNodes
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(InternalContext);
+  const previousActivatorEvent = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(activatorEvent);
+  const previousActiveId = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(active == null ? void 0 : active.id); // Restore keyboard focus on the activator node
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled) {
+      return;
+    }
+
+    if (!activatorEvent && previousActivatorEvent && previousActiveId != null) {
+      if (!(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(previousActivatorEvent)) {
+        return;
+      }
+
+      if (document.activeElement === previousActivatorEvent.target) {
+        // No need to restore focus
+        return;
+      }
+
+      const draggableNode = draggableNodes.get(previousActiveId);
+
+      if (!draggableNode) {
+        return;
+      }
+
+      const {
+        activatorNode,
+        node
+      } = draggableNode;
+
+      if (!activatorNode.current && !node.current) {
+        return;
+      }
+
+      requestAnimationFrame(() => {
+        for (const element of [activatorNode.current, node.current]) {
+          if (!element) {
+            continue;
+          }
+
+          const focusableNode = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.findFirstFocusableNode)(element);
+
+          if (focusableNode) {
+            focusableNode.focus();
+            break;
+          }
+        }
+      });
+    }
+  }, [activatorEvent, disabled, draggableNodes, previousActiveId, previousActivatorEvent]);
+  return null;
+}
+
+function applyModifiers(modifiers, _ref) {
+  let {
+    transform,
+    ...args
+  } = _ref;
+  return modifiers != null && modifiers.length ? modifiers.reduce((accumulator, modifier) => {
+    return modifier({
+      transform: accumulator,
+      ...args
+    });
+  }, transform) : transform;
+}
+
+function useMeasuringConfiguration(config) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    draggable: { ...defaultMeasuringConfiguration.draggable,
+      ...(config == null ? void 0 : config.draggable)
+    },
+    droppable: { ...defaultMeasuringConfiguration.droppable,
+      ...(config == null ? void 0 : config.droppable)
+    },
+    dragOverlay: { ...defaultMeasuringConfiguration.dragOverlay,
+      ...(config == null ? void 0 : config.dragOverlay)
+    }
+  }), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [config == null ? void 0 : config.draggable, config == null ? void 0 : config.droppable, config == null ? void 0 : config.dragOverlay]);
+}
+
+function useLayoutShiftScrollCompensation(_ref) {
+  let {
+    activeNode,
+    measure,
+    initialRect,
+    config = true
+  } = _ref;
+  const initialized = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const {
+    x,
+    y
+  } = typeof config === 'boolean' ? {
+    x: config,
+    y: config
+  } : config;
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    const disabled = !x && !y;
+
+    if (disabled || !activeNode) {
+      initialized.current = false;
+      return;
+    }
+
+    if (initialized.current || !initialRect) {
+      // Return early if layout shift scroll compensation was already attempted
+      // or if there is no initialRect to compare to.
+      return;
+    } // Get the most up to date node ref for the active draggable
+
+
+    const node = activeNode == null ? void 0 : activeNode.node.current;
+
+    if (!node || node.isConnected === false) {
+      // Return early if there is no attached node ref or if the node is
+      // disconnected from the document.
+      return;
+    }
+
+    const rect = measure(node);
+    const rectDelta = getRectDelta(rect, initialRect);
+
+    if (!x) {
+      rectDelta.x = 0;
+    }
+
+    if (!y) {
+      rectDelta.y = 0;
+    } // Only perform layout shift scroll compensation once
+
+
+    initialized.current = true;
+
+    if (Math.abs(rectDelta.x) > 0 || Math.abs(rectDelta.y) > 0) {
+      const firstScrollableAncestor = getFirstScrollableAncestor(node);
+
+      if (firstScrollableAncestor) {
+        firstScrollableAncestor.scrollBy({
+          top: rectDelta.y,
+          left: rectDelta.x
+        });
+      }
+    }
+  }, [activeNode, x, y, initialRect, measure]);
+}
+
+const ActiveDraggableContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({ ...defaultCoordinates,
+  scaleX: 1,
+  scaleY: 1
+});
+var Status;
+
+(function (Status) {
+  Status[Status["Uninitialized"] = 0] = "Uninitialized";
+  Status[Status["Initializing"] = 1] = "Initializing";
+  Status[Status["Initialized"] = 2] = "Initialized";
+})(Status || (Status = {}));
+
+const DndContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function DndContext(_ref) {
+  var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
+
+  let {
+    id,
+    accessibility,
+    autoScroll = true,
+    children,
+    sensors = defaultSensors,
+    collisionDetection = rectIntersection,
+    measuring,
+    modifiers,
+    ...props
+  } = _ref;
+  const store = (0,react__WEBPACK_IMPORTED_MODULE_0__.useReducer)(reducer, undefined, getInitialState);
+  const [state, dispatch] = store;
+  const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
+  const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Status.Uninitialized);
+  const isInitialized = status === Status.Initialized;
+  const {
+    draggable: {
+      active: activeId,
+      nodes: draggableNodes,
+      translate
+    },
+    droppable: {
+      containers: droppableContainers
+    }
+  } = state;
+  const node = activeId != null ? draggableNodes.get(activeId) : null;
+  const activeRects = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    initial: null,
+    translated: null
+  });
+  const active = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _node$data;
+
+    return activeId != null ? {
+      id: activeId,
+      // It's possible for the active node to unmount while dragging
+      data: (_node$data = node == null ? void 0 : node.data) != null ? _node$data : defaultData,
+      rect: activeRects
+    } : null;
+  }, [activeId, node]);
+  const activeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [activeSensor, setActiveSensor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [activatorEvent, setActivatorEvent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const latestProps = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(props, Object.values(props));
+  const draggableDescribedById = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)("DndDescribedBy", id);
+  const enabledDroppableContainers = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const measuringConfiguration = useMeasuringConfiguration(measuring);
+  const {
+    droppableRects,
+    measureDroppableContainers,
+    measuringScheduled
+  } = useDroppableMeasuring(enabledDroppableContainers, {
+    dragging: isInitialized,
+    dependencies: [translate.x, translate.y],
+    config: measuringConfiguration.droppable
+  });
+  const activeNode = useCachedNode(draggableNodes, activeId);
+  const activationCoordinates = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => activatorEvent ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(activatorEvent) : null, [activatorEvent]);
+  const autoScrollOptions = getAutoScrollerOptions();
+  const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
+  useLayoutShiftScrollCompensation({
+    activeNode: activeId != null ? draggableNodes.get(activeId) : null,
+    config: autoScrollOptions.layoutShiftCompensation,
+    initialRect: initialActiveNodeRect,
+    measure: measuringConfiguration.draggable.measure
+  });
+  const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
+  const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
+  const sensorContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    activatorEvent: null,
+    active: null,
+    activeNode,
+    collisionRect: null,
+    collisions: null,
+    droppableRects,
+    draggableNodes,
+    draggingNode: null,
+    draggingNodeRect: null,
+    droppableContainers,
+    over: null,
+    scrollableAncestors: [],
+    scrollAdjustedTranslate: null
+  });
+  const overNode = droppableContainers.getNodeFor((_sensorContext$curren = sensorContext.current.over) == null ? void 0 : _sensorContext$curren.id);
+  const dragOverlay = useDragOverlayMeasuring({
+    measure: measuringConfiguration.dragOverlay.measure
+  }); // Use the rect of the drag overlay if it is mounted
+
+  const draggingNode = (_dragOverlay$nodeRef$ = dragOverlay.nodeRef.current) != null ? _dragOverlay$nodeRef$ : activeNode;
+  const draggingNodeRect = isInitialized ? (_dragOverlay$rect = dragOverlay.rect) != null ? _dragOverlay$rect : activeNodeRect : null;
+  const usesDragOverlay = Boolean(dragOverlay.nodeRef.current && dragOverlay.rect); // The delta between the previous and new position of the draggable node
+  // is only relevant when there is no drag overlay
+
+  const nodeRectDelta = useRectDelta(usesDragOverlay ? null : activeNodeRect); // Get the window rect of the dragging node
+
+  const windowRect = useWindowRect(draggingNode ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(draggingNode) : null); // Get scrollable ancestors of the dragging node
+
+  const scrollableAncestors = useScrollableAncestors(isInitialized ? overNode != null ? overNode : activeNode : null);
+  const scrollableAncestorRects = useRects(scrollableAncestors); // Apply modifiers
+
+  const modifiedTranslate = applyModifiers(modifiers, {
+    transform: {
+      x: translate.x - nodeRectDelta.x,
+      y: translate.y - nodeRectDelta.y,
+      scaleX: 1,
+      scaleY: 1
+    },
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect,
+    over: sensorContext.current.over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  });
+  const pointerCoordinates = activationCoordinates ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(activationCoordinates, translate) : null;
+  const scrollOffsets = useScrollOffsets(scrollableAncestors); // Represents the scroll delta since dragging was initiated
+
+  const scrollAdjustment = useScrollOffsetsDelta(scrollOffsets); // Represents the scroll delta since the last time the active node rect was measured
+
+  const activeNodeScrollDelta = useScrollOffsetsDelta(scrollOffsets, [activeNodeRect]);
+  const scrollAdjustedTranslate = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(modifiedTranslate, scrollAdjustment);
+  const collisionRect = draggingNodeRect ? getAdjustedRect(draggingNodeRect, modifiedTranslate) : null;
+  const collisions = active && collisionRect ? collisionDetection({
+    active,
+    collisionRect,
+    droppableRects,
+    droppableContainers: enabledDroppableContainers,
+    pointerCoordinates
+  }) : null;
+  const overId = getFirstCollision(collisions, 'id');
+  const [over, setOver] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // When there is no drag overlay used, we need to account for the
+  // window scroll delta
+
+  const appliedTranslate = usesDragOverlay ? modifiedTranslate : (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(modifiedTranslate, activeNodeScrollDelta);
+  const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? void 0 : over.rect) != null ? _over$rect : null, activeNodeRect);
+  const activeSensorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const instantiateSensor = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((event, _ref2) => {
+    let {
+      sensor: Sensor,
+      options
+    } = _ref2;
+
+    if (activeRef.current == null) {
+      return;
+    }
+
+    const activeNode = draggableNodes.get(activeRef.current);
+
+    if (!activeNode) {
+      return;
+    }
+
+    const activatorEvent = event.nativeEvent;
+    const sensorInstance = new Sensor({
+      active: activeRef.current,
+      activeNode,
+      event: activatorEvent,
+      options,
+      // Sensors need to be instantiated with refs for arguments that change over time
+      // otherwise they are frozen in time with the stale arguments
+      context: sensorContext,
+
+      onAbort(id) {
+        const draggableNode = draggableNodes.get(id);
+
+        if (!draggableNode) {
+          return;
+        }
+
+        const {
+          onDragAbort
+        } = latestProps.current;
+        const event = {
+          id
+        };
+        onDragAbort == null ? void 0 : onDragAbort(event);
+        dispatchMonitorEvent({
+          type: 'onDragAbort',
+          event
+        });
+      },
+
+      onPending(id, constraint, initialCoordinates, offset) {
+        const draggableNode = draggableNodes.get(id);
+
+        if (!draggableNode) {
+          return;
+        }
+
+        const {
+          onDragPending
+        } = latestProps.current;
+        const event = {
+          id,
+          constraint,
+          initialCoordinates,
+          offset
+        };
+        onDragPending == null ? void 0 : onDragPending(event);
+        dispatchMonitorEvent({
+          type: 'onDragPending',
+          event
+        });
+      },
+
+      onStart(initialCoordinates) {
+        const id = activeRef.current;
+
+        if (id == null) {
+          return;
+        }
+
+        const draggableNode = draggableNodes.get(id);
+
+        if (!draggableNode) {
+          return;
+        }
+
+        const {
+          onDragStart
+        } = latestProps.current;
+        const event = {
+          activatorEvent,
+          active: {
+            id,
+            data: draggableNode.data,
+            rect: activeRects
+          }
+        };
+        (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+          onDragStart == null ? void 0 : onDragStart(event);
+          setStatus(Status.Initializing);
+          dispatch({
+            type: Action.DragStart,
+            initialCoordinates,
+            active: id
+          });
+          dispatchMonitorEvent({
+            type: 'onDragStart',
+            event
+          });
+          setActiveSensor(activeSensorRef.current);
+          setActivatorEvent(activatorEvent);
+        });
+      },
+
+      onMove(coordinates) {
+        dispatch({
+          type: Action.DragMove,
+          coordinates
+        });
+      },
+
+      onEnd: createHandler(Action.DragEnd),
+      onCancel: createHandler(Action.DragCancel)
+    });
+    activeSensorRef.current = sensorInstance;
+
+    function createHandler(type) {
+      return async function handler() {
+        const {
+          active,
+          collisions,
+          over,
+          scrollAdjustedTranslate
+        } = sensorContext.current;
+        let event = null;
+
+        if (active && scrollAdjustedTranslate) {
+          const {
+            cancelDrop
+          } = latestProps.current;
+          event = {
+            activatorEvent,
+            active: active,
+            collisions,
+            delta: scrollAdjustedTranslate,
+            over
+          };
+
+          if (type === Action.DragEnd && typeof cancelDrop === 'function') {
+            const shouldCancel = await Promise.resolve(cancelDrop(event));
+
+            if (shouldCancel) {
+              type = Action.DragCancel;
+            }
+          }
+        }
+
+        activeRef.current = null;
+        (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+          dispatch({
+            type
+          });
+          setStatus(Status.Uninitialized);
+          setOver(null);
+          setActiveSensor(null);
+          setActivatorEvent(null);
+          activeSensorRef.current = null;
+          const eventName = type === Action.DragEnd ? 'onDragEnd' : 'onDragCancel';
+
+          if (event) {
+            const handler = latestProps.current[eventName];
+            handler == null ? void 0 : handler(event);
+            dispatchMonitorEvent({
+              type: eventName,
+              event
+            });
+          }
+        });
+      };
+    }
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [draggableNodes]);
+  const bindActivatorToSensorInstantiator = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((handler, sensor) => {
+    return (event, active) => {
+      const nativeEvent = event.nativeEvent;
+      const activeDraggableNode = draggableNodes.get(active);
+
+      if ( // Another sensor is already instantiating
+      activeRef.current !== null || // No active draggable
+      !activeDraggableNode || // Event has already been captured
+      nativeEvent.dndKit || nativeEvent.defaultPrevented) {
+        return;
+      }
+
+      const activationContext = {
+        active: activeDraggableNode
+      };
+      const shouldActivate = handler(event, sensor.options, activationContext);
+
+      if (shouldActivate === true) {
+        nativeEvent.dndKit = {
+          capturedBy: sensor.sensor
+        };
+        activeRef.current = active;
+        instantiateSensor(event, sensor);
+      }
+    };
+  }, [draggableNodes, instantiateSensor]);
+  const activators = useCombineActivators(sensors, bindActivatorToSensorInstantiator);
+  useSensorSetup(sensors);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (activeNodeRect && status === Status.Initializing) {
+      setStatus(Status.Initialized);
+    }
+  }, [activeNodeRect, status]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const {
+      onDragMove
+    } = latestProps.current;
+    const {
+      active,
+      activatorEvent,
+      collisions,
+      over
+    } = sensorContext.current;
+
+    if (!active || !activatorEvent) {
+      return;
+    }
+
+    const event = {
+      active,
+      activatorEvent,
+      collisions,
+      delta: {
+        x: scrollAdjustedTranslate.x,
+        y: scrollAdjustedTranslate.y
+      },
+      over
+    };
+    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+      onDragMove == null ? void 0 : onDragMove(event);
+      dispatchMonitorEvent({
+        type: 'onDragMove',
+        event
+      });
+    });
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const {
+      active,
+      activatorEvent,
+      collisions,
+      droppableContainers,
+      scrollAdjustedTranslate
+    } = sensorContext.current;
+
+    if (!active || activeRef.current == null || !activatorEvent || !scrollAdjustedTranslate) {
+      return;
+    }
+
+    const {
+      onDragOver
+    } = latestProps.current;
+    const overContainer = droppableContainers.get(overId);
+    const over = overContainer && overContainer.rect.current ? {
+      id: overContainer.id,
+      rect: overContainer.rect.current,
+      data: overContainer.data,
+      disabled: overContainer.disabled
+    } : null;
+    const event = {
+      active,
+      activatorEvent,
+      collisions,
+      delta: {
+        x: scrollAdjustedTranslate.x,
+        y: scrollAdjustedTranslate.y
+      },
+      over
+    };
+    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+      setOver(over);
+      onDragOver == null ? void 0 : onDragOver(event);
+      dispatchMonitorEvent({
+        type: 'onDragOver',
+        event
+      });
+    });
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [overId]);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    sensorContext.current = {
+      activatorEvent,
+      active,
+      activeNode,
+      collisionRect,
+      collisions,
+      droppableRects,
+      draggableNodes,
+      draggingNode,
+      draggingNodeRect,
+      droppableContainers,
+      over,
+      scrollableAncestors,
+      scrollAdjustedTranslate
+    };
+    activeRects.current = {
+      initial: draggingNodeRect,
+      translated: collisionRect
+    };
+  }, [active, activeNode, collisions, collisionRect, draggableNodes, draggingNode, draggingNodeRect, droppableRects, droppableContainers, over, scrollableAncestors, scrollAdjustedTranslate]);
+  useAutoScroller({ ...autoScrollOptions,
+    delta: translate,
+    draggingRect: collisionRect,
+    pointerCoordinates,
+    scrollableAncestors,
+    scrollableAncestorRects
+  });
+  const publicContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const context = {
+      active,
+      activeNode,
+      activeNodeRect,
+      activatorEvent,
+      collisions,
+      containerNodeRect,
+      dragOverlay,
+      draggableNodes,
+      droppableContainers,
+      droppableRects,
+      over,
+      measureDroppableContainers,
+      scrollableAncestors,
+      scrollableAncestorRects,
+      measuringConfiguration,
+      measuringScheduled,
+      windowRect
+    };
+    return context;
+  }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
+  const internalContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const context = {
+      activatorEvent,
+      activators,
+      active,
+      activeNodeRect,
+      ariaDescribedById: {
+        draggable: draggableDescribedById
+      },
+      dispatch,
+      draggableNodes,
+      over,
+      measureDroppableContainers
+    };
+    return context;
+  }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(DndMonitorContext.Provider, {
+    value: registerMonitorListener
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InternalContext.Provider, {
+    value: internalContext
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(PublicContext.Provider, {
+    value: publicContext
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ActiveDraggableContext.Provider, {
+    value: transform
+  }, children)), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RestoreFocus, {
+    disabled: (accessibility == null ? void 0 : accessibility.restoreFocus) === false
+  })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Accessibility, { ...accessibility,
+    hiddenTextDescribedById: draggableDescribedById
+  }));
+
+  function getAutoScrollerOptions() {
+    const activeSensorDisablesAutoscroll = (activeSensor == null ? void 0 : activeSensor.autoScrollEnabled) === false;
+    const autoScrollGloballyDisabled = typeof autoScroll === 'object' ? autoScroll.enabled === false : autoScroll === false;
+    const enabled = isInitialized && !activeSensorDisablesAutoscroll && !autoScrollGloballyDisabled;
+
+    if (typeof autoScroll === 'object') {
+      return { ...autoScroll,
+        enabled
+      };
+    }
+
+    return {
+      enabled
+    };
+  }
+});
+
+const NullContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+const defaultRole = 'button';
+const ID_PREFIX = 'Draggable';
+function useDraggable(_ref) {
+  let {
+    id,
+    data,
+    disabled = false,
+    attributes
+  } = _ref;
+  const key = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)(ID_PREFIX);
+  const {
+    activators,
+    activatorEvent,
+    active,
+    activeNodeRect,
+    ariaDescribedById,
+    draggableNodes,
+    over
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(InternalContext);
+  const {
+    role = defaultRole,
+    roleDescription = 'draggable',
+    tabIndex = 0
+  } = attributes != null ? attributes : {};
+  const isDragging = (active == null ? void 0 : active.id) === id;
+  const transform = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(isDragging ? ActiveDraggableContext : NullContext);
+  const [node, setNodeRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)();
+  const [activatorNode, setActivatorNodeRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)();
+  const listeners = useSyntheticListeners(activators, id);
+  const dataRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(data);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    draggableNodes.set(id, {
+      id,
+      key,
+      node,
+      activatorNode,
+      data: dataRef
+    });
+    return () => {
+      const node = draggableNodes.get(id);
+
+      if (node && node.key === key) {
+        draggableNodes.delete(id);
+      }
+    };
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [draggableNodes, id]);
+  const memoizedAttributes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    role,
+    tabIndex,
+    'aria-disabled': disabled,
+    'aria-pressed': isDragging && role === defaultRole ? true : undefined,
+    'aria-roledescription': roleDescription,
+    'aria-describedby': ariaDescribedById.draggable
+  }), [disabled, role, tabIndex, isDragging, roleDescription, ariaDescribedById.draggable]);
+  return {
+    active,
+    activatorEvent,
+    activeNodeRect,
+    attributes: memoizedAttributes,
+    isDragging,
+    listeners: disabled ? undefined : listeners,
+    node,
+    over,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform
+  };
+}
+
+function useDndContext() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PublicContext);
+}
+
+const ID_PREFIX$1 = 'Droppable';
+const defaultResizeObserverConfig = {
+  timeout: 25
+};
+function useDroppable(_ref) {
+  let {
+    data,
+    disabled = false,
+    id,
+    resizeObserverConfig
+  } = _ref;
+  const key = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)(ID_PREFIX$1);
+  const {
+    active,
+    dispatch,
+    over,
+    measureDroppableContainers
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(InternalContext);
+  const previous = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    disabled
+  });
+  const resizeObserverConnected = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const rect = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const callbackId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const {
+    disabled: resizeObserverDisabled,
+    updateMeasurementsFor,
+    timeout: resizeObserverTimeout
+  } = { ...defaultResizeObserverConfig,
+    ...resizeObserverConfig
+  };
+  const ids = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(updateMeasurementsFor != null ? updateMeasurementsFor : id);
+  const handleResize = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (!resizeObserverConnected.current) {
+      // ResizeObserver invokes the `handleResize` callback as soon as `observe` is called,
+      // assuming the element is rendered and displayed.
+      resizeObserverConnected.current = true;
+      return;
+    }
+
+    if (callbackId.current != null) {
+      clearTimeout(callbackId.current);
+    }
+
+    callbackId.current = setTimeout(() => {
+      measureDroppableContainers(Array.isArray(ids.current) ? ids.current : [ids.current]);
+      callbackId.current = null;
+    }, resizeObserverTimeout);
+  }, //eslint-disable-next-line react-hooks/exhaustive-deps
+  [resizeObserverTimeout]);
+  const resizeObserver = useResizeObserver({
+    callback: handleResize,
+    disabled: resizeObserverDisabled || !active
+  });
+  const handleNodeChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((newElement, previousElement) => {
+    if (!resizeObserver) {
+      return;
+    }
+
+    if (previousElement) {
+      resizeObserver.unobserve(previousElement);
+      resizeObserverConnected.current = false;
+    }
+
+    if (newElement) {
+      resizeObserver.observe(newElement);
+    }
+  }, [resizeObserver]);
+  const [nodeRef, setNodeRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)(handleNodeChange);
+  const dataRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(data);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!resizeObserver || !nodeRef.current) {
+      return;
+    }
+
+    resizeObserver.disconnect();
+    resizeObserverConnected.current = false;
+    resizeObserver.observe(nodeRef.current);
+  }, [nodeRef, resizeObserver]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    dispatch({
+      type: Action.RegisterDroppable,
+      element: {
+        id,
+        key,
+        disabled,
+        node: nodeRef,
+        rect,
+        data: dataRef
+      }
+    });
+    return () => dispatch({
+      type: Action.UnregisterDroppable,
+      key,
+      id
+    });
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [id]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled !== previous.current.disabled) {
+      dispatch({
+        type: Action.SetDroppableDisabled,
+        id,
+        key,
+        disabled
+      });
+      previous.current.disabled = disabled;
+    }
+  }, [id, key, disabled, dispatch]);
+  return {
+    active,
+    rect,
+    isOver: (over == null ? void 0 : over.id) === id,
+    node: nodeRef,
+    over,
+    setNodeRef
+  };
+}
+
+function AnimationManager(_ref) {
+  let {
+    animation,
+    children
+  } = _ref;
+  const [clonedChildren, setClonedChildren] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [element, setElement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const previousChildren = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(children);
+
+  if (!children && !clonedChildren && previousChildren) {
+    setClonedChildren(previousChildren);
+  }
+
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (!element) {
+      return;
+    }
+
+    const key = clonedChildren == null ? void 0 : clonedChildren.key;
+    const id = clonedChildren == null ? void 0 : clonedChildren.props.id;
+
+    if (key == null || id == null) {
+      setClonedChildren(null);
+      return;
+    }
+
+    Promise.resolve(animation(id, element)).then(() => {
+      setClonedChildren(null);
+    });
+  }, [animation, clonedChildren, element]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, children, clonedChildren ? (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(clonedChildren, {
+    ref: setElement
+  }) : null);
+}
+
+const defaultTransform = {
+  x: 0,
+  y: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+function NullifiedContextProvider(_ref) {
+  let {
+    children
+  } = _ref;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InternalContext.Provider, {
+    value: defaultInternalContext
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ActiveDraggableContext.Provider, {
+    value: defaultTransform
+  }, children));
+}
+
+const baseStyles = {
+  position: 'fixed',
+  touchAction: 'none'
+};
+
+const defaultTransition = activatorEvent => {
+  const isKeyboardActivator = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(activatorEvent);
+  return isKeyboardActivator ? 'transform 250ms ease' : undefined;
+};
+
+const PositionedOverlay = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, ref) => {
+  let {
+    as,
+    activatorEvent,
+    adjustScale,
+    children,
+    className,
+    rect,
+    style,
+    transform,
+    transition = defaultTransition
+  } = _ref;
+
+  if (!rect) {
+    return null;
+  }
+
+  const scaleAdjustedTransform = adjustScale ? transform : { ...transform,
+    scaleX: 1,
+    scaleY: 1
+  };
+  const styles = { ...baseStyles,
+    width: rect.width,
+    height: rect.height,
+    top: rect.top,
+    left: rect.left,
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transform.toString(scaleAdjustedTransform),
+    transformOrigin: adjustScale && activatorEvent ? getRelativeTransformOrigin(activatorEvent, rect) : undefined,
+    transition: typeof transition === 'function' ? transition(activatorEvent) : transition,
+    ...style
+  };
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(as, {
+    className,
+    style: styles,
+    ref
+  }, children);
+});
+
+const defaultDropAnimationSideEffects = options => _ref => {
+  let {
+    active,
+    dragOverlay
+  } = _ref;
+  const originalStyles = {};
+  const {
+    styles,
+    className
+  } = options;
+
+  if (styles != null && styles.active) {
+    for (const [key, value] of Object.entries(styles.active)) {
+      if (value === undefined) {
+        continue;
+      }
+
+      originalStyles[key] = active.node.style.getPropertyValue(key);
+      active.node.style.setProperty(key, value);
+    }
+  }
+
+  if (styles != null && styles.dragOverlay) {
+    for (const [key, value] of Object.entries(styles.dragOverlay)) {
+      if (value === undefined) {
+        continue;
+      }
+
+      dragOverlay.node.style.setProperty(key, value);
+    }
+  }
+
+  if (className != null && className.active) {
+    active.node.classList.add(className.active);
+  }
+
+  if (className != null && className.dragOverlay) {
+    dragOverlay.node.classList.add(className.dragOverlay);
+  }
+
+  return function cleanup() {
+    for (const [key, value] of Object.entries(originalStyles)) {
+      active.node.style.setProperty(key, value);
+    }
+
+    if (className != null && className.active) {
+      active.node.classList.remove(className.active);
+    }
+  };
+};
+
+const defaultKeyframeResolver = _ref2 => {
+  let {
+    transform: {
+      initial,
+      final
+    }
+  } = _ref2;
+  return [{
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transform.toString(initial)
+  }, {
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transform.toString(final)
+  }];
+};
+
+const defaultDropAnimationConfiguration = {
+  duration: 250,
+  easing: 'ease',
+  keyframes: defaultKeyframeResolver,
+  sideEffects: /*#__PURE__*/defaultDropAnimationSideEffects({
+    styles: {
+      active: {
+        opacity: '0'
+      }
+    }
+  })
+};
+function useDropAnimation(_ref3) {
+  let {
+    config,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  } = _ref3;
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useEvent)((id, node) => {
+    if (config === null) {
+      return;
+    }
+
+    const activeDraggable = draggableNodes.get(id);
+
+    if (!activeDraggable) {
+      return;
+    }
+
+    const activeNode = activeDraggable.node.current;
+
+    if (!activeNode) {
+      return;
+    }
+
+    const measurableNode = getMeasurableNode(node);
+
+    if (!measurableNode) {
+      return;
+    }
+
+    const {
+      transform
+    } = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(node).getComputedStyle(node);
+    const parsedTransform = parseTransform(transform);
+
+    if (!parsedTransform) {
+      return;
+    }
+
+    const animation = typeof config === 'function' ? config : createDefaultDropAnimation(config);
+    scrollIntoViewIfNeeded(activeNode, measuringConfiguration.draggable.measure);
+    return animation({
+      active: {
+        id,
+        data: activeDraggable.data,
+        node: activeNode,
+        rect: measuringConfiguration.draggable.measure(activeNode)
+      },
+      draggableNodes,
+      dragOverlay: {
+        node,
+        rect: measuringConfiguration.dragOverlay.measure(measurableNode)
+      },
+      droppableContainers,
+      measuringConfiguration,
+      transform: parsedTransform
+    });
+  });
+}
+
+function createDefaultDropAnimation(options) {
+  const {
+    duration,
+    easing,
+    sideEffects,
+    keyframes
+  } = { ...defaultDropAnimationConfiguration,
+    ...options
+  };
+  return _ref4 => {
+    let {
+      active,
+      dragOverlay,
+      transform,
+      ...rest
+    } = _ref4;
+
+    if (!duration) {
+      // Do not animate if animation duration is zero.
+      return;
+    }
+
+    const delta = {
+      x: dragOverlay.rect.left - active.rect.left,
+      y: dragOverlay.rect.top - active.rect.top
+    };
+    const scale = {
+      scaleX: transform.scaleX !== 1 ? active.rect.width * transform.scaleX / dragOverlay.rect.width : 1,
+      scaleY: transform.scaleY !== 1 ? active.rect.height * transform.scaleY / dragOverlay.rect.height : 1
+    };
+    const finalTransform = {
+      x: transform.x - delta.x,
+      y: transform.y - delta.y,
+      ...scale
+    };
+    const animationKeyframes = keyframes({ ...rest,
+      active,
+      dragOverlay,
+      transform: {
+        initial: transform,
+        final: finalTransform
+      }
+    });
+    const [firstKeyframe] = animationKeyframes;
+    const lastKeyframe = animationKeyframes[animationKeyframes.length - 1];
+
+    if (JSON.stringify(firstKeyframe) === JSON.stringify(lastKeyframe)) {
+      // The start and end keyframes are the same, infer that there is no animation needed.
+      return;
+    }
+
+    const cleanup = sideEffects == null ? void 0 : sideEffects({
+      active,
+      dragOverlay,
+      ...rest
+    });
+    const animation = dragOverlay.node.animate(animationKeyframes, {
+      duration,
+      easing,
+      fill: 'forwards'
+    });
+    return new Promise(resolve => {
+      animation.onfinish = () => {
+        cleanup == null ? void 0 : cleanup();
+        resolve();
+      };
+    });
+  };
+}
+
+let key = 0;
+function useKey(id) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (id == null) {
+      return;
+    }
+
+    key++;
+    return key;
+  }, [id]);
+}
+
+const DragOverlay = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().memo(_ref => {
+  let {
+    adjustScale = false,
+    children,
+    dropAnimation: dropAnimationConfig,
+    style,
+    transition,
+    modifiers,
+    wrapperElement = 'div',
+    className,
+    zIndex = 999
+  } = _ref;
+  const {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggableNodes,
+    droppableContainers,
+    dragOverlay,
+    over,
+    measuringConfiguration,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  } = useDndContext();
+  const transform = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ActiveDraggableContext);
+  const key = useKey(active == null ? void 0 : active.id);
+  const modifiedTransform = applyModifiers(modifiers, {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect: dragOverlay.rect,
+    over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    transform,
+    windowRect
+  });
+  const initialRect = useInitialValue(activeNodeRect);
+  const dropAnimation = useDropAnimation({
+    config: dropAnimationConfig,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  }); // We need to wait for the active node to be measured before connecting the drag overlay ref
+  // otherwise collisions can be computed against a mispositioned drag overlay
+
+  const ref = initialRect ? dragOverlay.setRef : undefined;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(NullifiedContextProvider, null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(AnimationManager, {
+    animation: dropAnimation
+  }, active && key ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement(PositionedOverlay, {
+    key: key,
+    id: active.id,
+    ref: ref,
+    as: wrapperElement,
+    activatorEvent: activatorEvent,
+    adjustScale: adjustScale,
+    className: className,
+    transition: transition,
+    rect: initialRect,
+    style: {
+      zIndex,
+      ...style
+    },
+    transform: modifiedTransform
+  }, children) : null));
+});
+
+
+//# sourceMappingURL=core.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/@dnd-kit/sortable/dist/sortable.esm.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SortableContext: () => (/* binding */ SortableContext),
+/* harmony export */   arrayMove: () => (/* binding */ arrayMove),
+/* harmony export */   arraySwap: () => (/* binding */ arraySwap),
+/* harmony export */   defaultAnimateLayoutChanges: () => (/* binding */ defaultAnimateLayoutChanges),
+/* harmony export */   defaultNewIndexGetter: () => (/* binding */ defaultNewIndexGetter),
+/* harmony export */   hasSortableData: () => (/* binding */ hasSortableData),
+/* harmony export */   horizontalListSortingStrategy: () => (/* binding */ horizontalListSortingStrategy),
+/* harmony export */   rectSortingStrategy: () => (/* binding */ rectSortingStrategy),
+/* harmony export */   rectSwappingStrategy: () => (/* binding */ rectSwappingStrategy),
+/* harmony export */   sortableKeyboardCoordinates: () => (/* binding */ sortableKeyboardCoordinates),
+/* harmony export */   useSortable: () => (/* binding */ useSortable),
+/* harmony export */   verticalListSortingStrategy: () => (/* binding */ verticalListSortingStrategy)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @dnd-kit/utilities */ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js");
+
+
+
+
+/**
+ * Move an array item to a different position. Returns a new array with the item moved to the new position.
+ */
+function arrayMove(array, from, to) {
+  const newArray = array.slice();
+  newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0]);
+  return newArray;
+}
+
+/**
+ * Swap an array item to a different position. Returns a new array with the item swapped to the new position.
+ */
+function arraySwap(array, from, to) {
+  const newArray = array.slice();
+  newArray[from] = array[to];
+  newArray[to] = array[from];
+  return newArray;
+}
+
+function getSortedRects(items, rects) {
+  return items.reduce((accumulator, id, index) => {
+    const rect = rects.get(id);
+
+    if (rect) {
+      accumulator[index] = rect;
+    }
+
+    return accumulator;
+  }, Array(items.length));
+}
+
+function isValidIndex(index) {
+  return index !== null && index >= 0;
+}
+
+function itemsEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function normalizeDisabled(disabled) {
+  if (typeof disabled === 'boolean') {
+    return {
+      draggable: disabled,
+      droppable: disabled
+    };
+  }
+
+  return disabled;
+}
+
+// To-do: We should be calculating scale transformation
+const defaultScale = {
+  scaleX: 1,
+  scaleY: 1
+};
+const horizontalListSortingStrategy = _ref => {
+  var _rects$activeIndex;
+
+  let {
+    rects,
+    activeNodeRect: fallbackActiveRect,
+    activeIndex,
+    overIndex,
+    index
+  } = _ref;
+  const activeNodeRect = (_rects$activeIndex = rects[activeIndex]) != null ? _rects$activeIndex : fallbackActiveRect;
+
+  if (!activeNodeRect) {
+    return null;
+  }
+
+  const itemGap = getItemGap(rects, index, activeIndex);
+
+  if (index === activeIndex) {
+    const newIndexRect = rects[overIndex];
+
+    if (!newIndexRect) {
+      return null;
+    }
+
+    return {
+      x: activeIndex < overIndex ? newIndexRect.left + newIndexRect.width - (activeNodeRect.left + activeNodeRect.width) : newIndexRect.left - activeNodeRect.left,
+      y: 0,
+      ...defaultScale
+    };
+  }
+
+  if (index > activeIndex && index <= overIndex) {
+    return {
+      x: -activeNodeRect.width - itemGap,
+      y: 0,
+      ...defaultScale
+    };
+  }
+
+  if (index < activeIndex && index >= overIndex) {
+    return {
+      x: activeNodeRect.width + itemGap,
+      y: 0,
+      ...defaultScale
+    };
+  }
+
+  return {
+    x: 0,
+    y: 0,
+    ...defaultScale
+  };
+};
+
+function getItemGap(rects, index, activeIndex) {
+  const currentRect = rects[index];
+  const previousRect = rects[index - 1];
+  const nextRect = rects[index + 1];
+
+  if (!currentRect || !previousRect && !nextRect) {
+    return 0;
+  }
+
+  if (activeIndex < index) {
+    return previousRect ? currentRect.left - (previousRect.left + previousRect.width) : nextRect.left - (currentRect.left + currentRect.width);
+  }
+
+  return nextRect ? nextRect.left - (currentRect.left + currentRect.width) : currentRect.left - (previousRect.left + previousRect.width);
+}
+
+const rectSortingStrategy = _ref => {
+  let {
+    rects,
+    activeIndex,
+    overIndex,
+    index
+  } = _ref;
+  const newRects = arrayMove(rects, overIndex, activeIndex);
+  const oldRect = rects[index];
+  const newRect = newRects[index];
+
+  if (!newRect || !oldRect) {
+    return null;
+  }
+
+  return {
+    x: newRect.left - oldRect.left,
+    y: newRect.top - oldRect.top,
+    scaleX: newRect.width / oldRect.width,
+    scaleY: newRect.height / oldRect.height
+  };
+};
+
+const rectSwappingStrategy = _ref => {
+  let {
+    activeIndex,
+    index,
+    rects,
+    overIndex
+  } = _ref;
+  let oldRect;
+  let newRect;
+
+  if (index === activeIndex) {
+    oldRect = rects[index];
+    newRect = rects[overIndex];
+  }
+
+  if (index === overIndex) {
+    oldRect = rects[index];
+    newRect = rects[activeIndex];
+  }
+
+  if (!newRect || !oldRect) {
+    return null;
+  }
+
+  return {
+    x: newRect.left - oldRect.left,
+    y: newRect.top - oldRect.top,
+    scaleX: newRect.width / oldRect.width,
+    scaleY: newRect.height / oldRect.height
+  };
+};
+
+// To-do: We should be calculating scale transformation
+const defaultScale$1 = {
+  scaleX: 1,
+  scaleY: 1
+};
+const verticalListSortingStrategy = _ref => {
+  var _rects$activeIndex;
+
+  let {
+    activeIndex,
+    activeNodeRect: fallbackActiveRect,
+    index,
+    rects,
+    overIndex
+  } = _ref;
+  const activeNodeRect = (_rects$activeIndex = rects[activeIndex]) != null ? _rects$activeIndex : fallbackActiveRect;
+
+  if (!activeNodeRect) {
+    return null;
+  }
+
+  if (index === activeIndex) {
+    const overIndexRect = rects[overIndex];
+
+    if (!overIndexRect) {
+      return null;
+    }
+
+    return {
+      x: 0,
+      y: activeIndex < overIndex ? overIndexRect.top + overIndexRect.height - (activeNodeRect.top + activeNodeRect.height) : overIndexRect.top - activeNodeRect.top,
+      ...defaultScale$1
+    };
+  }
+
+  const itemGap = getItemGap$1(rects, index, activeIndex);
+
+  if (index > activeIndex && index <= overIndex) {
+    return {
+      x: 0,
+      y: -activeNodeRect.height - itemGap,
+      ...defaultScale$1
+    };
+  }
+
+  if (index < activeIndex && index >= overIndex) {
+    return {
+      x: 0,
+      y: activeNodeRect.height + itemGap,
+      ...defaultScale$1
+    };
+  }
+
+  return {
+    x: 0,
+    y: 0,
+    ...defaultScale$1
+  };
+};
+
+function getItemGap$1(clientRects, index, activeIndex) {
+  const currentRect = clientRects[index];
+  const previousRect = clientRects[index - 1];
+  const nextRect = clientRects[index + 1];
+
+  if (!currentRect) {
+    return 0;
+  }
+
+  if (activeIndex < index) {
+    return previousRect ? currentRect.top - (previousRect.top + previousRect.height) : nextRect ? nextRect.top - (currentRect.top + currentRect.height) : 0;
+  }
+
+  return nextRect ? nextRect.top - (currentRect.top + currentRect.height) : previousRect ? currentRect.top - (previousRect.top + previousRect.height) : 0;
+}
+
+const ID_PREFIX = 'Sortable';
+const Context = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createContext({
+  activeIndex: -1,
+  containerId: ID_PREFIX,
+  disableTransforms: false,
+  items: [],
+  overIndex: -1,
+  useDragOverlay: false,
+  sortedRects: [],
+  strategy: rectSortingStrategy,
+  disabled: {
+    draggable: false,
+    droppable: false
+  }
+});
+function SortableContext(_ref) {
+  let {
+    children,
+    id,
+    items: userDefinedItems,
+    strategy = rectSortingStrategy,
+    disabled: disabledProp = false
+  } = _ref;
+  const {
+    active,
+    dragOverlay,
+    droppableRects,
+    over,
+    measureDroppableContainers
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.useDndContext)();
+  const containerId = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)(ID_PREFIX, id);
+  const useDragOverlay = Boolean(dragOverlay.rect !== null);
+  const items = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => userDefinedItems.map(item => typeof item === 'object' && 'id' in item ? item.id : item), [userDefinedItems]);
+  const isDragging = active != null;
+  const activeIndex = active ? items.indexOf(active.id) : -1;
+  const overIndex = over ? items.indexOf(over.id) : -1;
+  const previousItemsRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(items);
+  const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
+  const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
+  const disabled = normalizeDisabled(disabledProp);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (itemsHaveChanged && isDragging) {
+      measureDroppableContainers(items);
+    }
+  }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    previousItemsRef.current = items;
+  }, [items]);
+  const contextValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    activeIndex,
+    containerId,
+    disabled,
+    disableTransforms,
+    items,
+    overIndex,
+    useDragOverlay,
+    sortedRects: getSortedRects(items, droppableRects),
+    strategy
+  }), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Context.Provider, {
+    value: contextValue
+  }, children);
+}
+
+const defaultNewIndexGetter = _ref => {
+  let {
+    id,
+    items,
+    activeIndex,
+    overIndex
+  } = _ref;
+  return arrayMove(items, activeIndex, overIndex).indexOf(id);
+};
+const defaultAnimateLayoutChanges = _ref2 => {
+  let {
+    containerId,
+    isSorting,
+    wasDragging,
+    index,
+    items,
+    newIndex,
+    previousItems,
+    previousContainerId,
+    transition
+  } = _ref2;
+
+  if (!transition || !wasDragging) {
+    return false;
+  }
+
+  if (previousItems !== items && index === newIndex) {
+    return false;
+  }
+
+  if (isSorting) {
+    return true;
+  }
+
+  return newIndex !== index && containerId === previousContainerId;
+};
+const defaultTransition = {
+  duration: 200,
+  easing: 'ease'
+};
+const transitionProperty = 'transform';
+const disabledTransition = /*#__PURE__*/_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transition.toString({
+  property: transitionProperty,
+  duration: 0,
+  easing: 'linear'
+});
+const defaultAttributes = {
+  roleDescription: 'sortable'
+};
+
+/*
+ * When the index of an item changes while sorting,
+ * we need to temporarily disable the transforms
+ */
+
+function useDerivedTransform(_ref) {
+  let {
+    disabled,
+    index,
+    node,
+    rect
+  } = _ref;
+  const [derivedTransform, setDerivedtransform] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const previousIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(index);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (!disabled && index !== previousIndex.current && node.current) {
+      const initial = rect.current;
+
+      if (initial) {
+        const current = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.getClientRect)(node.current, {
+          ignoreTransform: true
+        });
+        const delta = {
+          x: initial.left - current.left,
+          y: initial.top - current.top,
+          scaleX: initial.width / current.width,
+          scaleY: initial.height / current.height
+        };
+
+        if (delta.x || delta.y) {
+          setDerivedtransform(delta);
+        }
+      }
+    }
+
+    if (index !== previousIndex.current) {
+      previousIndex.current = index;
+    }
+  }, [disabled, index, node, rect]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (derivedTransform) {
+      setDerivedtransform(null);
+    }
+  }, [derivedTransform]);
+  return derivedTransform;
+}
+
+function useSortable(_ref) {
+  let {
+    animateLayoutChanges = defaultAnimateLayoutChanges,
+    attributes: userDefinedAttributes,
+    disabled: localDisabled,
+    data: customData,
+    getNewIndex = defaultNewIndexGetter,
+    id,
+    strategy: localStrategy,
+    resizeObserverConfig,
+    transition = defaultTransition
+  } = _ref;
+  const {
+    items,
+    containerId,
+    activeIndex,
+    disabled: globalDisabled,
+    disableTransforms,
+    sortedRects,
+    overIndex,
+    useDragOverlay,
+    strategy: globalStrategy
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(Context);
+  const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
+  const index = items.indexOf(id);
+  const data = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    sortable: {
+      containerId,
+      index,
+      items
+    },
+    ...customData
+  }), [containerId, customData, index, items]);
+  const itemsAfterCurrentSortable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => items.slice(items.indexOf(id)), [items, id]);
+  const {
+    rect,
+    node,
+    isOver,
+    setNodeRef: setDroppableNodeRef
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.useDroppable)({
+    id,
+    data,
+    disabled: disabled.droppable,
+    resizeObserverConfig: {
+      updateMeasurementsFor: itemsAfterCurrentSortable,
+      ...resizeObserverConfig
+    }
+  });
+  const {
+    active,
+    activatorEvent,
+    activeNodeRect,
+    attributes,
+    setNodeRef: setDraggableNodeRef,
+    listeners,
+    isDragging,
+    over,
+    setActivatorNodeRef,
+    transform
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.useDraggable)({
+    id,
+    data,
+    attributes: { ...defaultAttributes,
+      ...userDefinedAttributes
+    },
+    disabled: disabled.draggable
+  });
+  const setNodeRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useCombinedRefs)(setDroppableNodeRef, setDraggableNodeRef);
+  const isSorting = Boolean(active);
+  const displaceItem = isSorting && !disableTransforms && isValidIndex(activeIndex) && isValidIndex(overIndex);
+  const shouldDisplaceDragSource = !useDragOverlay && isDragging;
+  const dragSourceDisplacement = shouldDisplaceDragSource && displaceItem ? transform : null;
+  const strategy = localStrategy != null ? localStrategy : globalStrategy;
+  const finalTransform = displaceItem ? dragSourceDisplacement != null ? dragSourceDisplacement : strategy({
+    rects: sortedRects,
+    activeNodeRect,
+    activeIndex,
+    overIndex,
+    index
+  }) : null;
+  const newIndex = isValidIndex(activeIndex) && isValidIndex(overIndex) ? getNewIndex({
+    id,
+    items,
+    activeIndex,
+    overIndex
+  }) : index;
+  const activeId = active == null ? void 0 : active.id;
+  const previous = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    activeId,
+    items,
+    newIndex,
+    containerId
+  });
+  const itemsHaveChanged = items !== previous.current.items;
+  const shouldAnimateLayoutChanges = animateLayoutChanges({
+    active,
+    containerId,
+    isDragging,
+    isSorting,
+    id,
+    index,
+    items,
+    newIndex: previous.current.newIndex,
+    previousItems: previous.current.items,
+    previousContainerId: previous.current.containerId,
+    transition,
+    wasDragging: previous.current.activeId != null
+  });
+  const derivedTransform = useDerivedTransform({
+    disabled: !shouldAnimateLayoutChanges,
+    index,
+    node,
+    rect
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isSorting && previous.current.newIndex !== newIndex) {
+      previous.current.newIndex = newIndex;
+    }
+
+    if (containerId !== previous.current.containerId) {
+      previous.current.containerId = containerId;
+    }
+
+    if (items !== previous.current.items) {
+      previous.current.items = items;
+    }
+  }, [isSorting, newIndex, containerId, items]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (activeId === previous.current.activeId) {
+      return;
+    }
+
+    if (activeId != null && previous.current.activeId == null) {
+      previous.current.activeId = activeId;
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      previous.current.activeId = activeId;
+    }, 50);
+    return () => clearTimeout(timeoutId);
+  }, [activeId]);
+  return {
+    active,
+    activeIndex,
+    attributes,
+    data,
+    rect,
+    index,
+    newIndex,
+    items,
+    isOver,
+    isSorting,
+    isDragging,
+    listeners,
+    node,
+    overIndex,
+    over,
+    setNodeRef,
+    setActivatorNodeRef,
+    setDroppableNodeRef,
+    setDraggableNodeRef,
+    transform: derivedTransform != null ? derivedTransform : finalTransform,
+    transition: getTransition()
+  };
+
+  function getTransition() {
+    if ( // Temporarily disable transitions for a single frame to set up derived transforms
+    derivedTransform || // Or to prevent items jumping to back to their "new" position when items change
+    itemsHaveChanged && previous.current.newIndex === index) {
+      return disabledTransition;
+    }
+
+    if (shouldDisplaceDragSource && !(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(activatorEvent) || !transition) {
+      return undefined;
+    }
+
+    if (isSorting || shouldAnimateLayoutChanges) {
+      return _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transition.toString({ ...transition,
+        property: transitionProperty
+      });
+    }
+
+    return undefined;
+  }
+}
+
+function normalizeLocalDisabled(localDisabled, globalDisabled) {
+  var _localDisabled$dragga, _localDisabled$droppa;
+
+  if (typeof localDisabled === 'boolean') {
+    return {
+      draggable: localDisabled,
+      // Backwards compatibility
+      droppable: false
+    };
+  }
+
+  return {
+    draggable: (_localDisabled$dragga = localDisabled == null ? void 0 : localDisabled.draggable) != null ? _localDisabled$dragga : globalDisabled.draggable,
+    droppable: (_localDisabled$droppa = localDisabled == null ? void 0 : localDisabled.droppable) != null ? _localDisabled$droppa : globalDisabled.droppable
+  };
+}
+
+function hasSortableData(entry) {
+  if (!entry) {
+    return false;
+  }
+
+  const data = entry.data.current;
+
+  if (data && 'sortable' in data && typeof data.sortable === 'object' && 'containerId' in data.sortable && 'items' in data.sortable && 'index' in data.sortable) {
+    return true;
+  }
+
+  return false;
+}
+
+const directions = [_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Down, _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Right, _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Up, _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Left];
+const sortableKeyboardCoordinates = (event, _ref) => {
+  let {
+    context: {
+      active,
+      collisionRect,
+      droppableRects,
+      droppableContainers,
+      over,
+      scrollableAncestors
+    }
+  } = _ref;
+
+  if (directions.includes(event.code)) {
+    event.preventDefault();
+
+    if (!active || !collisionRect) {
+      return;
+    }
+
+    const filteredContainers = [];
+    droppableContainers.getEnabled().forEach(entry => {
+      if (!entry || entry != null && entry.disabled) {
+        return;
+      }
+
+      const rect = droppableRects.get(entry.id);
+
+      if (!rect) {
+        return;
+      }
+
+      switch (event.code) {
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Down:
+          if (collisionRect.top < rect.top) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Up:
+          if (collisionRect.top > rect.top) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Left:
+          if (collisionRect.left > rect.left) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Right:
+          if (collisionRect.left < rect.left) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+      }
+    });
+    const collisions = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.closestCorners)({
+      active,
+      collisionRect: collisionRect,
+      droppableRects,
+      droppableContainers: filteredContainers,
+      pointerCoordinates: null
+    });
+    let closestId = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.getFirstCollision)(collisions, 'id');
+
+    if (closestId === (over == null ? void 0 : over.id) && collisions.length > 1) {
+      closestId = collisions[1].id;
+    }
+
+    if (closestId != null) {
+      const activeDroppable = droppableContainers.get(active.id);
+      const newDroppable = droppableContainers.get(closestId);
+      const newRect = newDroppable ? droppableRects.get(newDroppable.id) : null;
+      const newNode = newDroppable == null ? void 0 : newDroppable.node.current;
+
+      if (newNode && newRect && activeDroppable && newDroppable) {
+        const newScrollAncestors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.getScrollableAncestors)(newNode);
+        const hasDifferentScrollAncestors = newScrollAncestors.some((element, index) => scrollableAncestors[index] !== element);
+        const hasSameContainer = isSameContainer(activeDroppable, newDroppable);
+        const isAfterActive = isAfter(activeDroppable, newDroppable);
+        const offset = hasDifferentScrollAncestors || !hasSameContainer ? {
+          x: 0,
+          y: 0
+        } : {
+          x: isAfterActive ? collisionRect.width - newRect.width : 0,
+          y: isAfterActive ? collisionRect.height - newRect.height : 0
+        };
+        const rectCoordinates = {
+          x: newRect.left,
+          y: newRect.top
+        };
+        const newCoordinates = offset.x && offset.y ? rectCoordinates : (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(rectCoordinates, offset);
+        return newCoordinates;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+function isSameContainer(a, b) {
+  if (!hasSortableData(a) || !hasSortableData(b)) {
+    return false;
+  }
+
+  return a.data.current.sortable.containerId === b.data.current.sortable.containerId;
+}
+
+function isAfter(a, b) {
+  if (!hasSortableData(a) || !hasSortableData(b)) {
+    return false;
+  }
+
+  if (!isSameContainer(a, b)) {
+    return false;
+  }
+
+  return a.data.current.sortable.index < b.data.current.sortable.index;
+}
+
+
+//# sourceMappingURL=sortable.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/@dnd-kit/utilities/dist/utilities.esm.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CSS: () => (/* binding */ CSS),
+/* harmony export */   add: () => (/* binding */ add),
+/* harmony export */   canUseDOM: () => (/* binding */ canUseDOM),
+/* harmony export */   findFirstFocusableNode: () => (/* binding */ findFirstFocusableNode),
+/* harmony export */   getEventCoordinates: () => (/* binding */ getEventCoordinates),
+/* harmony export */   getOwnerDocument: () => (/* binding */ getOwnerDocument),
+/* harmony export */   getWindow: () => (/* binding */ getWindow),
+/* harmony export */   hasViewportRelativeCoordinates: () => (/* binding */ hasViewportRelativeCoordinates),
+/* harmony export */   isDocument: () => (/* binding */ isDocument),
+/* harmony export */   isHTMLElement: () => (/* binding */ isHTMLElement),
+/* harmony export */   isKeyboardEvent: () => (/* binding */ isKeyboardEvent),
+/* harmony export */   isNode: () => (/* binding */ isNode),
+/* harmony export */   isSVGElement: () => (/* binding */ isSVGElement),
+/* harmony export */   isTouchEvent: () => (/* binding */ isTouchEvent),
+/* harmony export */   isWindow: () => (/* binding */ isWindow),
+/* harmony export */   subtract: () => (/* binding */ subtract),
+/* harmony export */   useCombinedRefs: () => (/* binding */ useCombinedRefs),
+/* harmony export */   useEvent: () => (/* binding */ useEvent),
+/* harmony export */   useInterval: () => (/* binding */ useInterval),
+/* harmony export */   useIsomorphicLayoutEffect: () => (/* binding */ useIsomorphicLayoutEffect),
+/* harmony export */   useLatestValue: () => (/* binding */ useLatestValue),
+/* harmony export */   useLazyMemo: () => (/* binding */ useLazyMemo),
+/* harmony export */   useNodeRef: () => (/* binding */ useNodeRef),
+/* harmony export */   usePrevious: () => (/* binding */ usePrevious),
+/* harmony export */   useUniqueId: () => (/* binding */ useUniqueId)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function useCombinedRefs() {
+  for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
+    refs[_key] = arguments[_key];
+  }
+
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => node => {
+    refs.forEach(ref => ref(node));
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  refs);
+}
+
+// https://github.com/facebook/react/blob/master/packages/shared/ExecutionEnvironment.js
+const canUseDOM = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined';
+
+function isWindow(element) {
+  const elementString = Object.prototype.toString.call(element);
+  return elementString === '[object Window]' || // In Electron context the Window object serializes to [object global]
+  elementString === '[object global]';
+}
+
+function isNode(node) {
+  return 'nodeType' in node;
+}
+
+function getWindow(target) {
+  var _target$ownerDocument, _target$ownerDocument2;
+
+  if (!target) {
+    return window;
+  }
+
+  if (isWindow(target)) {
+    return target;
+  }
+
+  if (!isNode(target)) {
+    return window;
+  }
+
+  return (_target$ownerDocument = (_target$ownerDocument2 = target.ownerDocument) == null ? void 0 : _target$ownerDocument2.defaultView) != null ? _target$ownerDocument : window;
+}
+
+function isDocument(node) {
+  const {
+    Document
+  } = getWindow(node);
+  return node instanceof Document;
+}
+
+function isHTMLElement(node) {
+  if (isWindow(node)) {
+    return false;
+  }
+
+  return node instanceof getWindow(node).HTMLElement;
+}
+
+function isSVGElement(node) {
+  return node instanceof getWindow(node).SVGElement;
+}
+
+function getOwnerDocument(target) {
+  if (!target) {
+    return document;
+  }
+
+  if (isWindow(target)) {
+    return target.document;
+  }
+
+  if (!isNode(target)) {
+    return document;
+  }
+
+  if (isDocument(target)) {
+    return target;
+  }
+
+  if (isHTMLElement(target) || isSVGElement(target)) {
+    return target.ownerDocument;
+  }
+
+  return document;
+}
+
+/**
+ * A hook that resolves to useEffect on the server and useLayoutEffect on the client
+ * @param callback {function} Callback function that is invoked when the dependencies of the hook change
+ */
+
+const useIsomorphicLayoutEffect = canUseDOM ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+function useEvent(handler) {
+  const handlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(handler);
+  useIsomorphicLayoutEffect(() => {
+    handlerRef.current = handler;
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return handlerRef.current == null ? void 0 : handlerRef.current(...args);
+  }, []);
+}
+
+function useInterval() {
+  const intervalRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const set = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((listener, duration) => {
+    intervalRef.current = setInterval(listener, duration);
+  }, []);
+  const clear = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+  return [set, clear];
+}
+
+function useLatestValue(value, dependencies) {
+  if (dependencies === void 0) {
+    dependencies = [value];
+  }
+
+  const valueRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  useIsomorphicLayoutEffect(() => {
+    if (valueRef.current !== value) {
+      valueRef.current = value;
+    }
+  }, dependencies);
+  return valueRef;
+}
+
+function useLazyMemo(callback, dependencies) {
+  const valueRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const newValue = callback(valueRef.current);
+    valueRef.current = newValue;
+    return newValue;
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [...dependencies]);
+}
+
+function useNodeRef(onChange) {
+  const onChangeHandler = useEvent(onChange);
+  const node = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const setNodeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(element => {
+    if (element !== node.current) {
+      onChangeHandler == null ? void 0 : onChangeHandler(element, node.current);
+    }
+
+    node.current = element;
+  }, //eslint-disable-next-line
+  []);
+  return [node, setNodeRef];
+}
+
+function usePrevious(value) {
+  const ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
+
+let ids = {};
+function useUniqueId(prefix, value) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (value) {
+      return value;
+    }
+
+    const id = ids[prefix] == null ? 0 : ids[prefix] + 1;
+    ids[prefix] = id;
+    return prefix + "-" + id;
+  }, [prefix, value]);
+}
+
+function createAdjustmentFn(modifier) {
+  return function (object) {
+    for (var _len = arguments.length, adjustments = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      adjustments[_key - 1] = arguments[_key];
+    }
+
+    return adjustments.reduce((accumulator, adjustment) => {
+      const entries = Object.entries(adjustment);
+
+      for (const [key, valueAdjustment] of entries) {
+        const value = accumulator[key];
+
+        if (value != null) {
+          accumulator[key] = value + modifier * valueAdjustment;
+        }
+      }
+
+      return accumulator;
+    }, { ...object
+    });
+  };
+}
+
+const add = /*#__PURE__*/createAdjustmentFn(1);
+const subtract = /*#__PURE__*/createAdjustmentFn(-1);
+
+function hasViewportRelativeCoordinates(event) {
+  return 'clientX' in event && 'clientY' in event;
+}
+
+function isKeyboardEvent(event) {
+  if (!event) {
+    return false;
+  }
+
+  const {
+    KeyboardEvent
+  } = getWindow(event.target);
+  return KeyboardEvent && event instanceof KeyboardEvent;
+}
+
+function isTouchEvent(event) {
+  if (!event) {
+    return false;
+  }
+
+  const {
+    TouchEvent
+  } = getWindow(event.target);
+  return TouchEvent && event instanceof TouchEvent;
+}
+
+/**
+ * Returns the normalized x and y coordinates for mouse and touch events.
+ */
+
+function getEventCoordinates(event) {
+  if (isTouchEvent(event)) {
+    if (event.touches && event.touches.length) {
+      const {
+        clientX: x,
+        clientY: y
+      } = event.touches[0];
+      return {
+        x,
+        y
+      };
+    } else if (event.changedTouches && event.changedTouches.length) {
+      const {
+        clientX: x,
+        clientY: y
+      } = event.changedTouches[0];
+      return {
+        x,
+        y
+      };
+    }
+  }
+
+  if (hasViewportRelativeCoordinates(event)) {
+    return {
+      x: event.clientX,
+      y: event.clientY
+    };
+  }
+
+  return null;
+}
+
+const CSS = /*#__PURE__*/Object.freeze({
+  Translate: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+
+      const {
+        x,
+        y
+      } = transform;
+      return "translate3d(" + (x ? Math.round(x) : 0) + "px, " + (y ? Math.round(y) : 0) + "px, 0)";
+    }
+
+  },
+  Scale: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+
+      const {
+        scaleX,
+        scaleY
+      } = transform;
+      return "scaleX(" + scaleX + ") scaleY(" + scaleY + ")";
+    }
+
+  },
+  Transform: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+
+      return [CSS.Translate.toString(transform), CSS.Scale.toString(transform)].join(' ');
+    }
+
+  },
+  Transition: {
+    toString(_ref) {
+      let {
+        property,
+        duration,
+        easing
+      } = _ref;
+      return property + " " + duration + "ms " + easing;
+    }
+
+  }
+});
+
+const SELECTOR = 'a,frame,iframe,input:not([type=hidden]):not(:disabled),select:not(:disabled),textarea:not(:disabled),button:not(:disabled),*[tabindex]';
+function findFirstFocusableNode(element) {
+  if (element.matches(SELECTOR)) {
+    return element;
+  }
+
+  return element.querySelector(SELECTOR);
+}
+
+
+//# sourceMappingURL=utilities.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/Icon.js"
+/*!****************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/Icon.js ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Icon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultAttributes.js */ "./node_modules/lucide-react/dist/esm/defaultAttributes.js");
+/* harmony import */ var _shared_src_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/src/utils.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+const Icon = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+  ({
+    color = "currentColor",
+    size = 24,
+    strokeWidth = 2,
+    absoluteStrokeWidth,
+    className = "",
+    children,
+    iconNode,
+    ...rest
+  }, ref) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(
+    "svg",
+    {
+      ref,
+      ..._defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+      width: size,
+      height: size,
+      stroke: color,
+      strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
+      className: (0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_2__.mergeClasses)("lucide", className),
+      ...!children && !(0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_2__.hasA11yProp)(rest) && { "aria-hidden": "true" },
+      ...rest
+    },
+    [
+      ...iconNode.map(([tag, attrs]) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(tag, attrs)),
+      ...Array.isArray(children) ? children : [children]
+    ]
+  )
+);
+
+
+//# sourceMappingURL=Icon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/createLucideIcon.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/createLucideIcon.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createLucideIcon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shared/src/utils.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils.js");
+/* harmony import */ var _Icon_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon.js */ "./node_modules/lucide-react/dist/esm/Icon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+const createLucideIcon = (iconName, iconNode) => {
+  const Component = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+    ({ className, ...props }, ref) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      ref,
+      iconNode,
+      className: (0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.mergeClasses)(
+        `lucide-${(0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.toKebabCase)((0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.toPascalCase)(iconName))}`,
+        `lucide-${iconName}`,
+        className
+      ),
+      ...props
+    })
+  );
+  Component.displayName = (0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.toPascalCase)(iconName);
+  return Component;
+};
+
+
+//# sourceMappingURL=createLucideIcon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/defaultAttributes.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/defaultAttributes.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ defaultAttributes)
+/* harmony export */ });
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+
+//# sourceMappingURL=defaultAttributes.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-right.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronRight)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-right", __iconNode);
+
+
+//# sourceMappingURL=chevron-right.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-alert.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleAlert)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-alert", __iconNode);
+
+
+//# sourceMappingURL=circle-alert.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js"
+/*!**********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-check-big.js ***!
+  \**********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleCheckBig)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
+  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+];
+const CircleCheckBig = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-check-big", __iconNode);
+
+
+//# sourceMappingURL=circle-check-big.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/copy.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/copy.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Copy)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+];
+const Copy = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("copy", __iconNode);
+
+
+//# sourceMappingURL=copy.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/database.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/database.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Database)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["ellipse", { cx: "12", cy: "5", rx: "9", ry: "3", key: "msslwz" }],
+  ["path", { d: "M3 5V19A9 3 0 0 0 21 19V5", key: "1wlel7" }],
+  ["path", { d: "M3 12A9 3 0 0 0 21 12", key: "mv7ke4" }]
+];
+const Database = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("database", __iconNode);
+
+
+//# sourceMappingURL=database.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/grip-vertical.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/grip-vertical.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ GripVertical)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
+  ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
+  ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
+  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
+  ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
+  ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
+];
+const GripVertical = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("grip-vertical", __iconNode);
+
+
+//# sourceMappingURL=grip-vertical.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/layout-grid.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/layout-grid.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LayoutGrid)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
+  ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
+];
+const LayoutGrid = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("layout-grid", __iconNode);
+
+
+//# sourceMappingURL=layout-grid.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/list.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/list.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ List)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M3 5h.01", key: "18ugdj" }],
+  ["path", { d: "M3 12h.01", key: "nlz23k" }],
+  ["path", { d: "M3 19h.01", key: "noohij" }],
+  ["path", { d: "M8 5h13", key: "1pao27" }],
+  ["path", { d: "M8 12h13", key: "1za7za" }],
+  ["path", { d: "M8 19h13", key: "m83p4d" }]
+];
+const List = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("list", __iconNode);
+
+
+//# sourceMappingURL=list.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/package.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/package.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Package)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z",
+      key: "1a0edw"
+    }
+  ],
+  ["path", { d: "M12 22V12", key: "d0xqtd" }],
+  ["polyline", { points: "3.29 7 12 12 20.71 7", key: "ousv84" }],
+  ["path", { d: "m7.5 4.27 9 5.15", key: "1c824w" }]
+];
+const Package = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("package", __iconNode);
+
+
+//# sourceMappingURL=package.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/palette.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/palette.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Palette)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z",
+      key: "e79jfc"
+    }
+  ],
+  ["circle", { cx: "13.5", cy: "6.5", r: ".5", fill: "currentColor", key: "1okk4w" }],
+  ["circle", { cx: "17.5", cy: "10.5", r: ".5", fill: "currentColor", key: "f64h9f" }],
+  ["circle", { cx: "6.5", cy: "12.5", r: ".5", fill: "currentColor", key: "qy21gx" }],
+  ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor", key: "fotxhn" }]
+];
+const Palette = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("palette", __iconNode);
+
+
+//# sourceMappingURL=palette.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/panels-top-left.js"
+/*!*********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/panels-top-left.js ***!
+  \*********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ PanelsTopLeft)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M3 9h18", key: "1pudct" }],
+  ["path", { d: "M9 21V9", key: "1oto5p" }]
+];
+const PanelsTopLeft = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("panels-top-left", __iconNode);
+
+
+//# sourceMappingURL=panels-top-left.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/plus.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/plus.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Plus)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "M12 5v14", key: "s699le" }]
+];
+const Plus = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("plus", __iconNode);
+
+
+//# sourceMappingURL=plus.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/save.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/save.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Save)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+      key: "1c8476"
+    }
+  ],
+  ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
+  ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
+];
+const Save = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("save", __iconNode);
+
+
+//# sourceMappingURL=save.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/search.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/search.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Search)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+];
+const Search = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("search", __iconNode);
+
+
+//# sourceMappingURL=search.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/settings.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/settings.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Settings)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
+      key: "1i5ecw"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+];
+const Settings = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("settings", __iconNode);
+
+
+//# sourceMappingURL=settings.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/square-pen.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/square-pen.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ SquarePen)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7", key: "1m0v6g" }],
+  [
+    "path",
+    {
+      d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",
+      key: "ohrbg2"
+    }
+  ]
+];
+const SquarePen = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("square-pen", __iconNode);
+
+
+//# sourceMappingURL=square-pen.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/trash-2.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/trash-2.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Trash2)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M10 11v6", key: "nco0om" }],
+  ["path", { d: "M14 11v6", key: "outv1u" }],
+  ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
+];
+const Trash2 = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("trash-2", __iconNode);
+
+
+//# sourceMappingURL=trash-2.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/zap.js"
+/*!*********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/zap.js ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Zap)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
+      key: "1xq2db"
+    }
+  ]
+];
+const Zap = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("zap", __iconNode);
+
+
+//# sourceMappingURL=zap.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasA11yProp: () => (/* binding */ hasA11yProp),
+/* harmony export */   mergeClasses: () => (/* binding */ mergeClasses),
+/* harmony export */   toCamelCase: () => (/* binding */ toCamelCase),
+/* harmony export */   toKebabCase: () => (/* binding */ toKebabCase),
+/* harmony export */   toPascalCase: () => (/* binding */ toPascalCase)
+/* harmony export */ });
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const toCamelCase = (string) => string.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+);
+const toPascalCase = (string) => {
+  const camelCase = toCamelCase(string);
+  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+};
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+const hasA11yProp = (props) => {
+  for (const prop in props) {
+    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
+      return true;
+    }
+  }
+};
+
+
+//# sourceMappingURL=utils.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs"
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs ***!
   \***********************************************************************/
 (__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
@@ -64,7 +6186,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createClientRoutes: () => (/* binding */ createClientRoutes),
 /* harmony export */   createClientRoutesWithHMRRevalidationOptOut: () => (/* binding */ createClientRoutesWithHMRRevalidationOptOut),
 /* harmony export */   createContext: () => (/* binding */ createContext),
+/* harmony export */   createHashHistory: () => (/* binding */ createHashHistory),
 /* harmony export */   createHashRouter: () => (/* binding */ createHashRouter),
+/* harmony export */   createMemoryHistory: () => (/* binding */ createMemoryHistory),
 /* harmony export */   createMemoryRouter: () => (/* binding */ createMemoryRouter),
 /* harmony export */   createPath: () => (/* binding */ createPath),
 /* harmony export */   createRequestInit: () => (/* binding */ createRequestInit),
@@ -152,7 +6276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /**
- * react-router v7.11.0
+ * react-router v7.12.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -862,12 +6986,12 @@ function generatePath(originalPath, params = {}) {
       const star = "*";
       return stringify2(params[star]);
     }
-    const keyMatch = segment.match(/^:([\w-]+)(\??)$/);
+    const keyMatch = segment.match(/^:([\w-]+)(\??)(.*)/);
     if (keyMatch) {
-      const [, key, optional] = keyMatch;
+      const [, key, optional, suffix] = keyMatch;
       let param = params[key];
       invariant(optional === "?" || param != null, `Missing ":${key}" param`);
-      return encodeURIComponent(stringify2(param));
+      return encodeURIComponent(stringify2(param)) + suffix;
     }
     return segment.replace(/\?$/g, "");
   }).filter((segment) => !!segment);
@@ -1224,6 +7348,9 @@ function getRouteInstrumentationUpdates(fns, route) {
         (...args) => getHandlerInfo(args[0])
       );
       if (instrumented) {
+        if (key === "loader" && original.hydrate === true) {
+          instrumented.hydrate = true;
+        }
         instrumented[UninstrumentedSymbol] = original;
         updates[key] = instrumented;
       }
@@ -2167,7 +8294,8 @@ function createRouter(init) {
         let location2 = normalizeRedirectLocation(
           result.response.headers.get("Location"),
           new URL(request.url),
-          basename
+          basename,
+          init.history
         );
         replace2 = location2 === state.location.pathname + state.location.search;
       }
@@ -2801,7 +8929,8 @@ function createRouter(init) {
     location = normalizeRedirectLocation(
       location,
       new URL(request.url),
-      basename
+      basename,
+      init.history
     );
     let redirectLocation = createLocation(state.location, location, {
       _isRedirect: true
@@ -5060,14 +11189,37 @@ function normalizeRelativeRoutingRedirectResponse(response, request, routeId, ma
   }
   return response;
 }
-function normalizeRedirectLocation(location, currentUrl, basename) {
+function normalizeRedirectLocation(location, currentUrl, basename, historyInstance) {
+  let invalidProtocols = [
+    "about:",
+    "blob:",
+    "chrome:",
+    "chrome-untrusted:",
+    "content:",
+    "data:",
+    "devtools:",
+    "file:",
+    "filesystem:",
+    // eslint-disable-next-line no-script-url
+    "javascript:"
+  ];
   if (isAbsoluteUrl(location)) {
     let normalizedLocation = location;
     let url = normalizedLocation.startsWith("//") ? new URL(currentUrl.protocol + normalizedLocation) : new URL(normalizedLocation);
+    if (invalidProtocols.includes(url.protocol)) {
+      throw new Error("Invalid redirect location");
+    }
     let isSameBasename = stripBasename(url.pathname, basename) != null;
     if (url.origin === currentUrl.origin && isSameBasename) {
       return url.pathname + url.search + url.hash;
     }
+  }
+  try {
+    let url = historyInstance.createURL(location);
+    if (invalidProtocols.includes(url.protocol)) {
+      throw new Error("Invalid redirect location");
+    }
+  } catch (e) {
   }
   return location;
 }
@@ -7914,7 +14066,7 @@ function StreamTransfer({
     )));
   }
 }
-function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules, ssr, basename) {
+function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules, ssr, basename, trailingSlashAware) {
   let dataStrategy = getSingleFetchDataStrategyImpl(
     getRouter,
     (match) => {
@@ -7929,26 +14081,43 @@ function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules
     },
     fetchAndDecodeViaTurboStream,
     ssr,
-    basename
+    basename,
+    trailingSlashAware
   );
   return async (args) => args.runClientMiddleware(dataStrategy);
 }
-function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode, ssr, basename, shouldAllowOptOut = () => true) {
+function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode, ssr, basename, trailingSlashAware, shouldAllowOptOut = () => true) {
   return async (args) => {
     let { request, matches, fetcherKey } = args;
     let router = getRouter();
     if (request.method !== "GET") {
-      return singleFetchActionStrategy(args, fetchAndDecode, basename);
+      return singleFetchActionStrategy(
+        args,
+        fetchAndDecode,
+        basename,
+        trailingSlashAware
+      );
     }
     let foundRevalidatingServerLoader = matches.some((m) => {
       let { hasLoader, hasClientLoader } = getRouteInfo(m);
       return m.shouldCallHandler() && hasLoader && !hasClientLoader;
     });
     if (!ssr && !foundRevalidatingServerLoader) {
-      return nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename);
+      return nonSsrStrategy(
+        args,
+        getRouteInfo,
+        fetchAndDecode,
+        basename,
+        trailingSlashAware
+      );
     }
     if (fetcherKey) {
-      return singleFetchLoaderFetcherStrategy(args, fetchAndDecode, basename);
+      return singleFetchLoaderFetcherStrategy(
+        args,
+        fetchAndDecode,
+        basename,
+        trailingSlashAware
+      );
     }
     return singleFetchLoaderNavigationStrategy(
       args,
@@ -7957,19 +14126,23 @@ function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode,
       fetchAndDecode,
       ssr,
       basename,
+      trailingSlashAware,
       shouldAllowOptOut
     );
   };
 }
-async function singleFetchActionStrategy(args, fetchAndDecode, basename) {
+async function singleFetchActionStrategy(args, fetchAndDecode, basename, trailingSlashAware) {
   let actionMatch = args.matches.find((m) => m.shouldCallHandler());
   invariant2(actionMatch, "No action match found");
   let actionStatus = void 0;
   let result = await actionMatch.resolve(async (handler) => {
     let result2 = await handler(async () => {
-      let { data: data2, status } = await fetchAndDecode(args, basename, [
-        actionMatch.route.id
-      ]);
+      let { data: data2, status } = await fetchAndDecode(
+        args,
+        basename,
+        trailingSlashAware,
+        [actionMatch.route.id]
+      );
       actionStatus = status;
       return unwrapSingleFetchResult(data2, actionMatch.route.id);
     });
@@ -7985,7 +14158,7 @@ async function singleFetchActionStrategy(args, fetchAndDecode, basename) {
     }
   };
 }
-async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename) {
+async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename, trailingSlashAware) {
   let matchesToLoad = args.matches.filter((m) => m.shouldCallHandler());
   let results = {};
   await Promise.all(
@@ -7995,7 +14168,12 @@ async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename) {
           let { hasClientLoader } = getRouteInfo(m);
           let routeId = m.route.id;
           let result = hasClientLoader ? await handler(async () => {
-            let { data: data2 } = await fetchAndDecode(args, basename, [routeId]);
+            let { data: data2 } = await fetchAndDecode(
+              args,
+              basename,
+              trailingSlashAware,
+              [routeId]
+            );
             return unwrapSingleFetchResult(data2, routeId);
           }) : await handler();
           results[m.route.id] = { type: "data", result };
@@ -8007,7 +14185,7 @@ async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename) {
   );
   return results;
 }
-async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, fetchAndDecode, ssr, basename, shouldAllowOptOut = () => true) {
+async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, fetchAndDecode, ssr, basename, trailingSlashAware, shouldAllowOptOut = () => true) {
   let routesParams = /* @__PURE__ */ new Set();
   let foundOptOutRoute = false;
   let routeDfds = args.matches.map(() => createDeferred2());
@@ -8033,7 +14211,12 @@ async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, f
           }
           try {
             let result = await handler(async () => {
-              let { data: data2 } = await fetchAndDecode(args, basename, [routeId]);
+              let { data: data2 } = await fetchAndDecode(
+                args,
+                basename,
+                trailingSlashAware,
+                [routeId]
+              );
               return unwrapSingleFetchResult(data2, routeId);
             });
             results[routeId] = { type: "data", result };
@@ -8064,7 +14247,12 @@ async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, f
   } else {
     let targetRoutes = ssr && foundOptOutRoute && routesParams.size > 0 ? [...routesParams.keys()] : void 0;
     try {
-      let data2 = await fetchAndDecode(args, basename, targetRoutes);
+      let data2 = await fetchAndDecode(
+        args,
+        basename,
+        trailingSlashAware,
+        targetRoutes
+      );
       singleFetchDfd.resolve(data2.data);
     } catch (e) {
       singleFetchDfd.reject(e);
@@ -8110,13 +14298,15 @@ async function bubbleMiddlewareErrors(singleFetchPromise, matches, routesParams,
   } catch (e) {
   }
 }
-async function singleFetchLoaderFetcherStrategy(args, fetchAndDecode, basename) {
+async function singleFetchLoaderFetcherStrategy(args, fetchAndDecode, basename, trailingSlashAware) {
   let fetcherMatch = args.matches.find((m) => m.shouldCallHandler());
   invariant2(fetcherMatch, "No fetcher match found");
   let routeId = fetcherMatch.route.id;
   let result = await fetcherMatch.resolve(
     async (handler) => handler(async () => {
-      let { data: data2 } = await fetchAndDecode(args, basename, [routeId]);
+      let { data: data2 } = await fetchAndDecode(args, basename, trailingSlashAware, [
+        routeId
+      ]);
       return unwrapSingleFetchResult(data2, routeId);
     })
   );
@@ -8136,25 +14326,33 @@ function stripIndexParam(url) {
   }
   return url;
 }
-function singleFetchUrl(reqUrl, basename, extension) {
+function singleFetchUrl(reqUrl, basename, trailingSlashAware, extension) {
   let url = typeof reqUrl === "string" ? new URL(
     reqUrl,
     // This can be called during the SSR flow via PrefetchPageLinksImpl so
     // don't assume window is available
     typeof window === "undefined" ? "server://singlefetch/" : window.location.origin
   ) : reqUrl;
-  if (url.pathname === "/") {
-    url.pathname = `_root.${extension}`;
-  } else if (basename && stripBasename(url.pathname, basename) === "/") {
-    url.pathname = `${basename.replace(/\/$/, "")}/_root.${extension}`;
+  if (trailingSlashAware) {
+    if (url.pathname.endsWith("/")) {
+      url.pathname = `${url.pathname}_.${extension}`;
+    } else {
+      url.pathname = `${url.pathname}.${extension}`;
+    }
   } else {
-    url.pathname = `${url.pathname.replace(/\/$/, "")}.${extension}`;
+    if (url.pathname === "/") {
+      url.pathname = `_root.${extension}`;
+    } else if (basename && stripBasename(url.pathname, basename) === "/") {
+      url.pathname = `${basename.replace(/\/$/, "")}/_root.${extension}`;
+    } else {
+      url.pathname = `${url.pathname.replace(/\/$/, "")}.${extension}`;
+    }
   }
   return url;
 }
-async function fetchAndDecodeViaTurboStream(args, basename, targetRoutes) {
+async function fetchAndDecodeViaTurboStream(args, basename, trailingSlashAware, targetRoutes) {
   let { request } = args;
-  let url = singleFetchUrl(request.url, basename, "data");
+  let url = singleFetchUrl(request.url, basename, trailingSlashAware, "data");
   if (request.method === "GET") {
     url = stripIndexParam(url);
     if (targetRoutes) {
@@ -9344,7 +15542,7 @@ function PrefetchPageLinksImpl({
   ...linkProps
 }) {
   let location = useLocation();
-  let { manifest, routeModules } = useFrameworkContext();
+  let { future, manifest, routeModules } = useFrameworkContext();
   let { basename } = useDataRouterContext2();
   let { loaderData, matches } = useDataRouterStateContext();
   let newMatchesForData = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(
@@ -9391,7 +15589,12 @@ function PrefetchPageLinksImpl({
     if (routesParams.size === 0) {
       return [];
     }
-    let url = singleFetchUrl(page, basename, "data");
+    let url = singleFetchUrl(
+      page,
+      basename,
+      future.unstable_trailingSlashAwareDataRequests,
+      "data"
+    );
     if (foundOptOutRoute && routesParams.size > 0) {
       url.searchParams.set(
         "_routes",
@@ -9401,6 +15604,7 @@ function PrefetchPageLinksImpl({
     return [url.pathname + url.search];
   }, [
     basename,
+    future.unstable_trailingSlashAwareDataRequests,
     loaderData,
     location,
     manifest,
@@ -9644,6 +15848,7 @@ import(${JSON.stringify(manifest.entry.module)});`;
   return isHydrated || isRSCRouterContext ? null : /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, typeof manifest.sri === "object" ? /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
     "script",
     {
+      ...scriptProps,
       "rr-importmap": "",
       type: "importmap",
       suppressHydrationWarning: true,
@@ -9801,7 +16006,7 @@ var isBrowser2 = typeof window !== "undefined" && typeof window.document !== "un
 try {
   if (isBrowser2) {
     window.__reactRouterVersion = // @ts-expect-error
-    "7.11.0";
+    "7.12.0";
   }
 } catch (e) {
 }
@@ -10229,9 +16434,9 @@ function ScrollRestoration({
       ...props,
       suppressHydrationWarning: true,
       dangerouslySetInnerHTML: {
-        __html: `(${restoreScroll})(${JSON.stringify(
-          storageKey || SCROLL_RESTORATION_STORAGE_KEY
-        )}, ${JSON.stringify(ssrKey)})`
+        __html: `(${restoreScroll})(${escapeHtml(
+          JSON.stringify(storageKey || SCROLL_RESTORATION_STORAGE_KEY)
+        )}, ${escapeHtml(JSON.stringify(ssrKey))})`
       }
     }
   );
@@ -10709,7 +16914,7 @@ function StaticRouterProvider({
       actionData: context.actionData,
       errors: serializeErrors(context.errors)
     };
-    let json = htmlEscape(JSON.stringify(JSON.stringify(data2)));
+    let json = escapeHtml(JSON.stringify(JSON.stringify(data2)));
     hydrateScript = `window.__staticRouterHydrationData = JSON.parse(${json});`;
   }
   let { state } = dataRouterContext.router;
@@ -10920,17 +17125,6 @@ function encodeLocation(to) {
   };
 }
 var ABSOLUTE_URL_REGEX3 = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
-var ESCAPE_LOOKUP2 = {
-  "&": "\\u0026",
-  ">": "\\u003e",
-  "<": "\\u003c",
-  "\u2028": "\\u2028",
-  "\u2029": "\\u2029"
-};
-var ESCAPE_REGEX2 = /[&><\u2028\u2029]/g;
-function htmlEscape(str) {
-  return str.replace(ESCAPE_REGEX2, (match) => ESCAPE_LOOKUP2[match]);
-}
 
 
 
@@ -10947,8 +17141,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs");
-/* harmony import */ var _components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout/Navbar */ "./src/components/Layout/Navbar.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layouts/AdminLayout */ "./src/layouts/AdminLayout.tsx");
 /* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/routes */ "./src/utils/routes.ts");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
@@ -10958,17 +17152,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const App = () => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.HashRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "productbay-app bg-gray-50 min-h-screen",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "p-8 max-w-7xl mx-auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Routes, {
-          children: _utils_routes__WEBPACK_IMPORTED_MODULE_2__.routes.map(route => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Route, {
-            path: route.path,
-            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(route.element, {})
-          }, route.path))
-        })
-      })]
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Routes, {
+        children: _utils_routes__WEBPACK_IMPORTED_MODULE_2__.routes.map(route => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Route, {
+          path: route.path,
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(route.element, {})
+        }, route.path))
+      })
     })
   });
 };
@@ -10986,36 +17176,156 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs");
-/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/layout-grid.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+const Navbar = () => {
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_0__.useNavigate)();
+  const navLinks = _utils_routes__WEBPACK_IMPORTED_MODULE_3__.routes.filter(route => route.showInNav);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("nav", {
+    className: "bg-white shadow-sm border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center gap-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "bg-wp-btn p-1.5 rounded-lg text-white",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          size: 20,
+          strokeWidth: 2.5
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+        className: "text-xl font-bold text-wp-text tracking-tight",
+        children: ["Product", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "font-normal",
+          children: "Bay"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center space-x-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "flex space-x-6 mr-4",
+        children: navLinks.map(link => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.NavLink, {
+          to: link.path,
+          className: ({
+            isActive
+          }) => `text-gray-600 font-medium hover:text-wp-btn transition-colors ${isActive ? "text-wp-btn border-b-2 border-wp-btn pb-1" : ""}`,
+          children: link.label
+        }, link.path))
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+        onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_3__.routes.find(r => r.path === '/new')?.path || '/new'),
+        className: "bg-wp-btn hover:bg-wp-btn-hover text-white px-4 py-2 rounded-md font-medium flex items-center gap-2 transition-colors",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          size: 18
+        }), "Create Table"]
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navbar);
+
+/***/ },
+
+/***/ "./src/components/SortableColumn.tsx"
+/*!*******************************************!*\
+  !*** ./src/components/SortableColumn.tsx ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SortableColumn: () => (/* binding */ SortableColumn)
+/* harmony export */ });
+/* harmony import */ var _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @dnd-kit/sortable */ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js");
+/* harmony import */ var _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @dnd-kit/utilities */ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/grip-vertical.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+function SortableColumn({
+  id,
+  label
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = (0,_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_0__.useSortable)({
+    id
+  });
+  const style = {
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_1__.CSS.Transform.toString(transform),
+    transition
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    ref: setNodeRef,
+    style: style,
+    className: "p-4 flex items-center justify-between hover:bg-gray-50 bg-white border-b border-gray-100 last:border-0",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        ...attributes,
+        ...listeners,
+        className: "text-gray-400 cursor-move hover:text-gray-600",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          size: 16
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        className: "font-medium text-gray-700",
+        children: label
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+      className: "text-gray-400 hover:text-blue-600 p-2 rounded hover:bg-blue-50 transition-colors",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        size: 16
+      })
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./src/layouts/AdminLayout.tsx"
+/*!*************************************!*\
+  !*** ./src/layouts/AdminLayout.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Layout/Navbar */ "./src/components/Layout/Navbar.tsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-const Navbar = () => {
-  const navLinks = _utils_routes__WEBPACK_IMPORTED_MODULE_1__.routes.filter(route => route.showInNav);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("nav", {
-    className: "bg-white shadow-md border-b border-gray-200 px-8 py-4 flex justify-between items-center",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "font-medium text-2xl text-blue-600 tracking-wide hover:text-blue-700 transition-colors",
-      children: ["Product", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        className: "font-bold",
-        children: "Bay"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "flex space-x-6",
-      children: navLinks.map(link => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.NavLink, {
-        to: link.path,
-        className: ({
-          isActive
-        }) => `text-gray-700 font-medium hover:text-blue-600 transition-colors ${isActive ? "text-blue-600 border-b-2 border-blue-600 pb-1" : ""}`,
-        children: link.label
-      }, link.path))
+const AdminLayout = ({
+  children
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "productbay-app bg-wp-bg min-h-screen font-sans text-wp-text",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("main", {
+      className: "p-8 max-w-7xl mx-auto",
+      children: children
     })]
   });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navbar);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminLayout);
 
 /***/ },
 
@@ -11029,30 +17339,129 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs");
-/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
 
 
 
 const Dashboard = () => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex justify-between items-center mb-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-        className: "text-2xl font-bold text-gray-800",
-        children: "Product Tables"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Link, {
-        to: _utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.NEW,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "border border-blue-600 px-4 py-2 rounded hover:bg-blue-700 hover:text-white",
-          children: "Create New Table"
-        })
+  const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const fetchStatus = async () => {
+      try {
+        const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_3__.apiFetch)('system/status');
+        setStatus(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStatus();
+  }, []);
+  if (loading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "p-8 text-center text-gray-500",
+      children: "Loading system status..."
+    });
+  }
+  if (error) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "p-4 bg-red-50 text-red-600 rounded-lg",
+      children: ["Error: ", error]
+    });
+  }
+  if (!status) return null;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h1", {
+      className: "text-2xl font-bold text-gray-800",
+      children: "Dashboard"
+    }), status.product_count === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "bg-wp-info border-l-4 border-yellow-400 p-4 rounded-r-lg flex items-start gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "text-yellow-600 mt-0.5"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+          className: "font-bold text-yellow-800",
+          children: "No Published Products Found"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+          className: "text-yellow-700 text-sm mt-1",
+          children: "ProductBay could not find any 'published' WooCommerce products on your site. ProductBay cannot display products in tables without published products."
+        })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "p-6 text-xl text-center text-gray-500",
-      children: "No tables found. Create one to get started!"
+    }), status.table_count === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "bg-white p-12 rounded-xl shadow-sm border border-gray-100 text-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          size: 32
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+        className: "text-2xl font-bold text-gray-900 mb-2",
+        children: "Welcome to ProductBay"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+        className: "text-gray-500 max-w-md mx-auto mb-8",
+        children: "Get started by creating your first product table. It takes less than 2 minutes significantly improve your conversion rate."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        to: _utils_routes__WEBPACK_IMPORTED_MODULE_2__.PATHS.NEW,
+        className: "inline-flex items-center gap-2 bg-wp-btn hover:bg-wp-btn-hover text-white px-6 py-3 rounded-lg font-medium transition-colors",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          size: 20
+        }), "Create First Table"]
+      })]
+    }) :
+    /*#__PURE__*/
+    /* Stats Grid */
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "bg-purple-50 p-3 rounded-lg text-purple-600",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            size: 24
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+            className: "text-gray-500 text-sm",
+            children: "Published Products"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+            className: "text-2xl font-bold text-gray-900",
+            children: status.product_count
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "bg-blue-50 p-3 rounded-lg text-blue-600",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            size: 24
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+            className: "text-gray-500 text-sm",
+            children: "Active Tables"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+            className: "text-2xl font-bold text-gray-900",
+            children: status.table_count
+          })]
+        })]
+      })]
     })]
   });
 };
@@ -11060,10 +17469,651 @@ const Dashboard = () => {
 
 /***/ },
 
+/***/ "./src/pages/Design.tsx"
+/*!******************************!*\
+  !*** ./src/pages/Design.tsx ***!
+  \******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const Design = () => {
+  const [settings, setSettings] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    design: {}
+  });
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadSettings();
+  }, []);
+  const loadSettings = async () => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings');
+      setSettings(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings', {
+        method: 'POST',
+        body: JSON.stringify({
+          settings
+        })
+      });
+      alert('Design settings saved!');
+    } catch (error) {
+      alert('Failed to save settings');
+    } finally {
+      setSaving(false);
+    }
+  };
+  const updateDesign = (key, value) => {
+    setSettings({
+      ...settings,
+      design: {
+        ...settings.design,
+        [key]: value
+      }
+    });
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "p-8 text-center",
+    children: "Loading design settings..."
+  });
+  const design = settings.design || {
+    header_bg: '#f3f4f6',
+    border_color: '#e5e7eb'
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "max-w-4xl mx-auto space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      className: "text-2xl font-bold text-gray-800",
+      children: "Global Design Defaults"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "text-gray-500",
+      children: "These settings apply to all new tables. You can override them in individual table settings."
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "p-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "text-lg font-medium text-gray-900 mb-6",
+          children: "Color Palette"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "grid grid-cols-1 md:grid-cols-2 gap-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-2",
+              children: "Header Background"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "flex items-center gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "color",
+                value: design.header_bg,
+                onChange: e => updateDesign('header_bg', e.target.value),
+                className: "h-10 w-20 p-1 rounded border border-gray-300 cursor-pointer"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-gray-500 font-mono text-sm",
+                children: design.header_bg
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-2",
+              children: "Border Color"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "flex items-center gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "color",
+                value: design.border_color,
+                onChange: e => updateDesign('border_color', e.target.value),
+                className: "h-10 w-20 p-1 rounded border border-gray-300 cursor-pointer"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-gray-500 font-mono text-sm",
+                children: design.border_color
+              })]
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-6 bg-gray-50 rounded-b-lg flex justify-end",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+          onClick: handleSave,
+          disabled: saving,
+          className: "bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            size: 18
+          }), saving ? 'Saving...' : 'Save Global Design']
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Design);
+
+/***/ },
+
 /***/ "./src/pages/EditTable.tsx"
 /*!*********************************!*\
   !*** ./src/pages/EditTable.tsx ***!
   \*********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panels-top-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/list.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/palette.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/zap.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @dnd-kit/sortable */ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js");
+/* harmony import */ var _components_SortableColumn__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/SortableColumn */ "./src/components/SortableColumn.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__);
+
+
+
+
+
+
+
+
+
+const STEPS = [{
+  id: 1,
+  label: 'Setup',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"]
+}, {
+  id: 2,
+  label: 'Source',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
+  id: 3,
+  label: 'Columns',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"]
+}, {
+  id: 4,
+  label: 'Options',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"]
+}, {
+  id: 5,
+  label: 'Search',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"]
+}, {
+  id: 6,
+  label: 'Design',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"]
+}, {
+  id: 7,
+  label: 'Performance',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"]
+}, {
+  id: 8,
+  label: 'Publish',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"]
+}];
+const EditTable = () => {
+  const {
+    id
+  } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useParams)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
+  const [currentStep, setCurrentStep] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!!id);
+  const [tableData, setTableData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    title: '',
+    source_type: 'all',
+    columns: [],
+    config: {}
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (id) {
+      loadTable(parseInt(id));
+    }
+  }, [id]);
+  const loadTable = async tableId => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_12__.apiFetch)(`tables/${tableId}`);
+      setTableData({
+        title: data.title,
+        ...data.config
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSave = async () => {
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_12__.apiFetch)('tables', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: id,
+          ...tableData
+        })
+      });
+      alert('Table saved successfully!');
+      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_13__.PATHS.DASHBOARD);
+    } catch (error) {
+      alert('Failed to save table');
+    }
+  };
+
+  // Sensors for DnD
+  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.PointerSensor), (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.KeyboardSensor, {
+    coordinateGetter: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.sortableKeyboardCoordinates
+  }));
+  const handleDragEnd = event => {
+    const {
+      active,
+      over
+    } = event;
+    if (active.id !== over?.id) {
+      setTableData(prev => {
+        const oldIndex = prev.columns.findIndex(col => col.id === active.id);
+        const newIndex = prev.columns.findIndex(col => col.id === over?.id);
+        return {
+          ...prev,
+          columns: (0,_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.arrayMove)(prev.columns, oldIndex, newIndex)
+        };
+      });
+    }
+  };
+
+  // Initialize columns if empty
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (loading) return;
+    if (!tableData.columns || tableData.columns.length === 0) {
+      setTableData(prev => ({
+        ...prev,
+        columns: [{
+          id: 'image',
+          label: 'Image'
+        }, {
+          id: 'name',
+          label: 'Product Name'
+        }, {
+          id: 'price',
+          label: 'Price'
+        }, {
+          id: 'add-to-cart',
+          label: 'Add to Cart'
+        }]
+      }));
+    }
+  }, [loading]);
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        // Setup
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+          className: "space-y-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-1",
+              children: "Table Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+              type: "text",
+              value: tableData.title,
+              onChange: e => setTableData({
+                ...tableData,
+                title: e.target.value
+              }),
+              className: "w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500",
+              placeholder: "e.g. Summer Sale Products"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+              className: "mt-1 text-sm text-gray-500",
+              children: "Give your table a descriptive name for internal use."
+            })]
+          })
+        });
+      case 2:
+        // Source
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "space-y-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-3",
+              children: "Select Products Source"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+              className: "grid grid-cols-1 md:grid-cols-3 gap-4",
+              children: ['all', 'category', 'specific'].map(type => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
+                onClick: () => setTableData({
+                  ...tableData,
+                  source_type: type
+                }),
+                className: `p-4 border rounded-lg text-left transition-all ${tableData.source_type === type ? 'border-blue-500 ring-2 ring-blue-50 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'}`,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+                  className: "font-semibold capitalize text-gray-900",
+                  children: type === 'all' ? 'All Products' : type
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+                  className: "text-sm text-gray-500 mt-1",
+                  children: [type === 'all' && 'Display all published products from your store.', type === 'category' && 'Select specific categories or tags to display.', type === 'specific' && 'Manually select individual products.']
+                })]
+              }, type))
+            })]
+          }), tableData.source_type === 'category' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+            className: "p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm border border-yellow-200",
+            children: "Category Selection Component will go here."
+          }), tableData.source_type === 'specific' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+            className: "p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm border border-yellow-200",
+            children: "Product Search Component will go here."
+          })]
+        });
+      case 3:
+        // Columns
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "space-y-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "bg-blue-50 border border-blue-200 rounded-lg p-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+              className: "font-bold text-blue-800 mb-2",
+              children: "Column Manager"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+              className: "text-sm text-blue-700",
+              children: "Drag and drop columns to reorder. These columns will be displayed in the frontend."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+            className: "border border-gray-200 rounded-lg overflow-hidden bg-white",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
+              sensors: sensors,
+              collisionDetection: _dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.closestCenter,
+              onDragEnd: handleDragEnd,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.SortableContext, {
+                items: tableData.columns.map(c => c.id),
+                strategy: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.verticalListSortingStrategy,
+                children: tableData.columns.map(col => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_SortableColumn__WEBPACK_IMPORTED_MODULE_16__.SortableColumn, {
+                  id: col.id,
+                  label: col.label
+                }, col.id))
+              })
+            })
+          })]
+        });
+      case 4:
+        // Options
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "space-y-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "flex items-center justify-between p-4 border rounded-lg",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+                className: "font-medium",
+                children: "AJAX Loading"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+                className: "text-sm text-gray-500",
+                children: "Load products without refreshing the page."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+              type: "checkbox",
+              className: "toggle",
+              defaultChecked: true
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "flex items-center justify-between p-4 border rounded-lg",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+                className: "font-medium",
+                children: "Quantity Picker"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+                className: "text-sm text-gray-500",
+                children: "Show quantity input next to add to cart."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+              type: "checkbox",
+              className: "toggle"
+            })]
+          })]
+        });
+      case 5:
+        // Search & Sort
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "space-y-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "p-4 border rounded-lg",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
+              className: "block text-sm font-medium mb-2",
+              children: "Default Sort Order"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("select", {
+              className: "w-full border-gray-300 rounded-md",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
+                children: "Newest First"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
+                children: "Price: Low to High"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
+                children: "Price: High to Low"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
+                children: "Name: A to Z"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "flex items-center justify-between p-4 border rounded-lg",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+                className: "font-medium",
+                children: "Enable Search Box"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+                className: "text-sm text-gray-500",
+                children: "Allow users to search within the table."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+              type: "checkbox",
+              className: "toggle",
+              defaultChecked: true
+            })]
+          })]
+        });
+      case 6:
+        // Design
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "grid grid-cols-2 gap-8 h-full",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "space-y-6 overflow-y-auto pr-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+              className: "font-bold text-gray-800",
+              children: "Design Settings"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
+                className: "block text-sm font-medium mb-2",
+                children: "Border Color"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+                className: "flex gap-2",
+                children: ['#e5e7eb', '#d1d5db', '#9ca3af', '#2563eb'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
+                  className: "w-8 h-8 rounded-full border shadow-sm",
+                  style: {
+                    backgroundColor: c
+                  }
+                }, c))
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
+                className: "block text-sm font-medium mb-2",
+                children: "Header Background"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+                className: "flex gap-2",
+                children: ['#f9fafb', '#f3f4f6', '#eff6ff', '#f0fdf4'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
+                  className: "w-8 h-8 rounded-md border shadow-sm",
+                  style: {
+                    backgroundColor: c
+                  }
+                }, c))
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+            className: "bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+              className: "text-gray-400",
+              children: "Live Preview Area"
+            })
+          })]
+        });
+      case 7:
+        // Performance
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "space-y-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "flex items-center justify-between p-4 border rounded-lg",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+                className: "font-medium",
+                children: "Lazy Load Images"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+                className: "text-sm text-gray-500",
+                children: "Improve initial page load time."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+              type: "checkbox",
+              className: "toggle",
+              defaultChecked: true
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+            className: "flex items-center justify-between p-4 border rounded-lg",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
+                className: "font-medium",
+                children: "Cache Results"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+                className: "text-sm text-gray-500",
+                children: "Cache query results for faster subsequent loads."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+              type: "checkbox",
+              className: "toggle"
+            })]
+          })]
+        });
+      case 8:
+        // Publish
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "text-center py-12",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+            className: "w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              size: 40
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
+            className: "text-2xl font-bold text-gray-800 mb-2",
+            children: "Ready to Publish!"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+            className: "text-gray-500 mb-8 max-w-md mx-auto",
+            children: "Your table is configured and ready to go. Click the button below to save and get your shortcode."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
+            onClick: handleSave,
+            className: "bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors inline-flex items-center gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              size: 20
+            }), "Publish Table"]
+          })]
+        });
+    }
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+    className: "p-8 text-center",
+    children: "Loading..."
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+    className: "flex h-[calc(100vh-100px)] -m-8 bg-gray-50",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+      className: "w-64 bg-white border-r border-gray-200 overflow-y-auto",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+        className: "p-6 border-b border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
+          className: "font-bold text-gray-800",
+          children: "Table Builder"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+          className: "text-xs text-gray-400 mt-1",
+          children: id ? 'Editing Table' : 'New Table'
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("nav", {
+        className: "p-4 space-y-1",
+        children: STEPS.map(step => {
+          const Icon = step.icon;
+          const isActive = currentStep === step.id;
+          const isCompleted = currentStep > step.id;
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
+            onClick: () => setCurrentStep(step.id),
+            className: `w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive ? 'bg-blue-50 text-blue-700' : isCompleted ? 'text-gray-700 hover:bg-gray-50' : 'text-gray-400 hover:bg-gray-50'}`,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+              className: `p-1.5 rounded-md ${isActive ? 'bg-blue-100 text-blue-600' : isCompleted ? 'bg-green-100 text-green-600' : 'bg-gray-100'}`,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(Icon, {
+                size: 16
+              })
+            }), step.label]
+          }, step.id);
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+      className: "flex-1 flex flex-col overflow-hidden",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("header", {
+        className: "bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h1", {
+          className: "text-xl font-bold text-gray-800",
+          children: STEPS[currentStep - 1].label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          className: "flex gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
+            onClick: () => setCurrentStep(prev => Math.max(1, prev - 1)),
+            disabled: currentStep === 1,
+            className: "px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md disabled:opacity-50",
+            children: "Back"
+          }), currentStep < 8 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
+            onClick: () => setCurrentStep(prev => Math.min(8, prev + 1)),
+            className: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2",
+            children: ["Next Step ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              size: 16
+            })]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
+            onClick: handleSave,
+            className: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              size: 16
+            }), " Save & Publish"]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("main", {
+        className: "flex-1 p-8 overflow-y-auto",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+          className: "max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px]",
+          children: renderStepContent()
+        })
+      })]
+    })]
+  });
+};
+
+/***/ },
+
+/***/ "./src/pages/Help.tsx"
+/*!****************************!*\
+  !*** ./src/pages/Help.tsx ***!
+  \****************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -11076,18 +18126,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
 
 
-const EditTable = () => {
+const Help = () => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "p-6 bg-white rounded shadow",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+    className: "bg-white shadow rounded-lg p-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
       className: "text-2xl font-bold mb-4",
-      children: "Edit Table"
+      children: "Help"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-      children: "Form to edit table settings will go here."
+      children: "System status and help will be here."
     })]
   });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditTable);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Help);
 
 /***/ },
 
@@ -11103,17 +18153,322 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 const Settings = () => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "text-2xl",
-    children: "Settings Page"
+  const [settings, setSettings] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadSettings();
+  }, []);
+  const loadSettings = async () => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings');
+      setSettings(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings', {
+        method: 'POST',
+        body: JSON.stringify({
+          settings
+        })
+      });
+      alert('Settings saved!');
+    } catch (error) {
+      alert('Failed to save settings');
+    } finally {
+      setSaving(false);
+    }
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "p-8 text-center",
+    children: "Loading settings..."
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "max-w-4xl mx-auto space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      className: "text-2xl font-bold text-gray-800",
+      children: "Plugin Settings"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "p-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "text-lg font-medium text-gray-900 mb-4",
+          children: "General Settings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-1",
+              children: "Add to Cart Button Text"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              value: settings.add_to_cart_text || '',
+              onChange: e => setSettings({
+                ...settings,
+                add_to_cart_text: e.target.value
+              }),
+              className: "w-full px-4 py-2 border border-gray-300 rounded-md"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-1",
+              children: "Default Products Per Page"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "number",
+              value: settings.products_per_page || 10,
+              onChange: e => setSettings({
+                ...settings,
+                products_per_page: parseInt(e.target.value)
+              }),
+              className: "w-full px-4 py-2 border border-gray-300 rounded-md"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "p-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "text-lg font-medium text-red-600 mb-4",
+          children: "Uninstall Options"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex items-center justify-between",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "font-medium text-gray-800",
+              children: "Delete Data on Uninstall"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "text-sm text-gray-500",
+              children: "Enable this to wipe all tables and settings when deleting the plugin."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "checkbox",
+            checked: settings.delete_on_uninstall || false,
+            onChange: e => setSettings({
+              ...settings,
+              delete_on_uninstall: e.target.checked
+            }),
+            className: "toggle"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-6 bg-gray-50 rounded-b-lg flex justify-end",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+          onClick: handleSave,
+          disabled: saving,
+          className: "bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            size: 18
+          }), saving ? 'Saving...' : 'Save Changes']
+        })
+      })]
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
+
+/***/ },
+
+/***/ "./src/pages/Tables.tsx"
+/*!******************************!*\
+  !*** ./src/pages/Tables.tsx ***!
+  \******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/square-pen.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/copy.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+const Tables = () => {
+  const [tables, setTables] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadTables();
+  }, []);
+  const loadTables = async () => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_6__.apiFetch)('tables');
+      setTables(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleDelete = async id => {
+    if (!confirm('Are you sure you want to delete this table?')) return;
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_6__.apiFetch)(`tables/${id}`, {
+        method: 'DELETE'
+      });
+      loadTables();
+    } catch (error) {
+      alert('Failed to delete table');
+    }
+  };
+  const copyShortcode = shortcode => {
+    navigator.clipboard.writeText(shortcode);
+    alert('Shortcode copied!');
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    className: "p-8 text-center text-gray-500",
+    children: "Loading tables..."
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "flex justify-between items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h1", {
+        className: "text-2xl font-bold text-gray-800",
+        children: "All Tables"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        to: _utils_routes__WEBPACK_IMPORTED_MODULE_7__.PATHS.NEW,
+        className: "bg-wp-btn hover:bg-wp-btn-hover text-white px-4 py-2 rounded-md font-medium flex items-center gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          size: 18
+        }), "Create New"]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("table", {
+        className: "w-full text-left border-collapse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("thead", {
+          className: "bg-gray-50 border-b border-gray-200",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              children: "Table Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              children: "Shortcode"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              children: "Date"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right",
+              children: "Actions"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("tbody", {
+          className: "divide-y divide-gray-200",
+          children: tables.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("tr", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              colSpan: 4,
+              className: "px-6 py-12 text-center text-gray-400",
+              children: "No tables found. Create your first one."
+            })
+          }) : tables.map(table => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("tr", {
+            className: "group hover:bg-gray-50 transition-colors",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("td", {
+              className: "px-6 py-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "font-medium text-wp-text text-base",
+                children: table.title
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "text-xs text-gray-400 mt-0.5 capitalize",
+                children: table.status
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              className: "px-6 py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
+                onClick: () => copyShortcode(table.shortcode),
+                className: "bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors",
+                children: [table.shortcode, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  size: 12
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              className: "px-6 py-4 text-sm text-gray-500",
+              children: new Date(table.date).toLocaleDateString()
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              className: "px-6 py-4 text-right",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+                className: "flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                  to: `/edit/${table.id}`,
+                  className: "text-blue-600 hover:text-blue-800 p-1.5 hover:bg-blue-50 rounded",
+                  title: "Edit Table",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    size: 16
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+                  onClick: () => handleDelete(table.id),
+                  className: "text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 rounded",
+                  title: "Delete Table",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    size: 16
+                  })
+                })]
+              })
+            })]
+          }, table.id))
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tables);
+
+/***/ },
+
+/***/ "./src/utils/api.ts"
+/*!**************************!*\
+  !*** ./src/utils/api.ts ***!
+  \**************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   apiFetch: () => (/* binding */ apiFetch)
+/* harmony export */ });
+const apiFetch = async (path, options = {}) => {
+  const url = `${productBaySettings.apiUrl}${path.replace(/^\//, '')}`;
+  const headers = {
+    'X-WP-Nonce': productBaySettings.nonce,
+    'Content-Type': 'application/json',
+    ...options.headers
+  };
+  const response = await fetch(url, {
+    ...options,
+    headers
+  });
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || 'API Request Failed');
+  }
+  return response.json();
+};
 
 /***/ },
 
@@ -11131,6 +18486,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pages/Dashboard */ "./src/pages/Dashboard.tsx");
 /* harmony import */ var _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../pages/EditTable */ "./src/pages/EditTable.tsx");
 /* harmony import */ var _pages_Settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/Settings */ "./src/pages/Settings.tsx");
+/* harmony import */ var _pages_Tables__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pages/Tables */ "./src/pages/Tables.tsx");
+/* harmony import */ var _pages_Design__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pages/Design */ "./src/pages/Design.tsx");
+/* harmony import */ var _pages_Help__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/Help */ "./src/pages/Help.tsx");
+
+
+
 
 
 
@@ -11143,7 +18504,27 @@ const PATHS = {
 const routes = [{
   path: PATHS.DASHBOARD,
   element: _pages_Dashboard__WEBPACK_IMPORTED_MODULE_0__["default"],
+  label: 'Dashboard',
+  showInNav: true
+}, {
+  path: '/tables',
+  element: _pages_Tables__WEBPACK_IMPORTED_MODULE_3__["default"],
   label: 'Tables',
+  showInNav: true
+}, {
+  path: '/design',
+  element: _pages_Design__WEBPACK_IMPORTED_MODULE_4__["default"],
+  label: 'Design',
+  showInNav: true
+}, {
+  path: PATHS.SETTINGS,
+  element: _pages_Settings__WEBPACK_IMPORTED_MODULE_2__["default"],
+  label: 'Settings',
+  showInNav: true
+}, {
+  path: '/help',
+  element: _pages_Help__WEBPACK_IMPORTED_MODULE_5__["default"],
+  label: 'Help',
   showInNav: true
 }, {
   path: PATHS.NEW,
@@ -11153,11 +18534,6 @@ const routes = [{
   path: PATHS.EDIT,
   element: _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__["default"],
   showInNav: false
-}, {
-  path: PATHS.SETTINGS,
-  element: _pages_Settings__WEBPACK_IMPORTED_MODULE_2__["default"],
-  label: 'Settings',
-  showInNav: true
 }];
 
 /***/ },
@@ -11189,6 +18565,16 @@ module.exports = window["wp"]["element"];
 (module) {
 
 module.exports = window["React"];
+
+/***/ },
+
+/***/ "react-dom"
+/*!***************************!*\
+  !*** external "ReactDOM" ***!
+  \***************************/
+(module) {
+
+module.exports = window["ReactDOM"];
 
 /***/ },
 

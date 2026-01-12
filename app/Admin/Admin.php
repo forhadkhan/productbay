@@ -4,6 +4,15 @@ namespace ProductBay\Admin;
 
 class Admin
 {
+    protected $repository;
+    protected $request;
+
+    public function __construct($repository, $request)
+    {
+        $this->repository = $repository;
+        $this->request = $request;
+    }
+
     /**
      * Add the menu page.
      */

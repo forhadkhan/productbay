@@ -2,6 +2,68 @@
 
 This document contains detailed information about the project structure, development workflows, and architectural decisions used in ProductBay.
 
+
+### Setup Instructions
+
+1. **Clone the Repository**
+   Navigate to your WordPress plugins directory:
+   ```bash
+   cd wp-content/plugins
+   git clone https://github.com/forhadakhan/productbay.git
+   cd productbay
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   bun install
+   ```
+
+3. **Start Development Server**
+   This command starts both the WordPress script watcher and the Bun-powered build process.
+   ```bash
+   bun start
+   ```
+   *The React app will hot-reload, and CSS changes will compile instantly.*
+
+4. **Build for Production**
+   Before deploying, run the build command to minify and optimize assets.
+   ```bash
+   bun run build
+   ```
+
+5. **Run lints**
+   ```bash
+   bun run lint
+   ```
+   or
+   ```bash
+   bun run lint:php
+   ``` 
+   or
+   ```bash
+   bun run lint:css
+   ``` 
+   etc. 
+
+6. **More**  
+   Format code:
+   ```bash
+   bun run format
+   ```
+   Plugin Zip:
+   ```bash
+   bun run plugin-zip
+   ``` 
+   Check Engines:
+   ```bash
+   bun run check-engines
+   ```
+   Check Licenses:
+   ```bash
+   bun run check-licenses
+   ```
+   
+
 ## 📂 Project Structure
 
 The project follows a strict separation of concerns, ensuring maintainability and scalability.
@@ -24,7 +86,7 @@ productbay/
 │   │   ├── ui/                 # Reusable UI Primitives (Buttons, Modals, Inputs)
 │   ├── layouts/                # Admin Layouts (Sidebar, Header wrappers)
 │   ├── pages/                  # Main Admin Views (Dashboard, Table Editor, Settings)
-│   ├── store/                  # React Context & State Management
+│   ├── store/                  # Zustand State Management
 │   ├── styles/                 # Raw CSS & Tailwind Directives
 │   ├── types/                  # TypeScript Interfaces & Types
 │   ├── utils/                  # JS Helper functions & API Clients
@@ -37,6 +99,37 @@ productbay/
 ├── tsconfig.json               # TypeScript Configuration
 └── webpack.config.js           # Webpack Build Configuration
 ```
+
+## 📖 How It Works
+
+1. **Initialization:** `productbay.php` bootstraps the `Plugin` class in `app/Core`.
+2. **Admin Load:** The `Admin` class enqueues `assets/js/admin.js` on the specific plugin page.
+3. **React Mount:** `src/index.tsx` finds the `#productbay-root` div and mounts the React App.
+4. **Data Fetching:** The React app sends authenticated requests to `app/Api/` endpoints via the WP REST API.
+5. **Frontend Rendering:** Using the `[productbay id="123"]` shortcode, the PHP backend renders the initial view, and `assets/js/frontend.js` takes over for interactive elements.
+
+
+## 📦 State Management
+
+We use **Zustand** for global state management in the React admin application. It provides a lightweight, scalable alternative to Redux or React Context.
+
+### usage
+The global store is located at `src/store/useStore.ts`. It follows a standard hook-based pattern:
+
+```typescript
+import { useStore } from './store/useStore';
+
+const MyComponent = () => {
+    const { count, increment } = useStore();
+    return <button onClick={increment}>{count}</button>;
+};
+```
+
+### Pattern
+- **Centralized Store**: Prefer a single, well-organized store in `useStore.ts` for most application data.
+- **Slicing (Future)**: If the state grows significantly, we will migrate to a sliced store pattern to maintain readability.
+- **Actions**: Define actions (updaters) within the store itself to keep state logic centralized.
+
 
 ## 🎨 Tailwind CSS Architecture & Best Practices
 
