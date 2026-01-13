@@ -27,6 +27,52 @@ class Admin
             'dashicons-grid-view',
             58
         );
+
+        // Submenus
+        \add_submenu_page(
+            'productbay',
+            \__('Dashboard', 'productbay'),
+            \__('Dashboard', 'productbay'),
+            'manage_options',
+            'productbay',
+            [$this, 'render_app']
+        );
+
+        \add_submenu_page(
+            'productbay',
+            \__('All Tables', 'productbay'),
+            \__('All Tables', 'productbay'),
+            'manage_options',
+            'productbay-tables',
+            [$this, 'render_app']
+        );
+
+        \add_submenu_page(
+            'productbay',
+            \__('Add New Table', 'productbay'),
+            \__('Add New Table', 'productbay'),
+            'manage_options',
+            'productbay-new',
+            [$this, 'render_app']
+        );
+
+        \add_submenu_page(
+            'productbay',
+            \__('Settings', 'productbay'),
+            \__('Settings', 'productbay'),
+            'manage_options',
+            'productbay-settings',
+            [$this, 'render_app']
+        );
+
+        \add_submenu_page(
+            'productbay',
+            \__('Help', 'productbay'),
+            \__('Help', 'productbay'),
+            'manage_options',
+            'productbay-help',
+            [$this, 'render_app']
+        );
     }
 
     /**
@@ -42,8 +88,8 @@ class Admin
      */
     public function enqueue_scripts($hook)
     {
-        // Only load on our plugin page
-        if ('toplevel_page_productbay' !== $hook) {
+        // Allow loading on any productbay page
+        if (strpos($hook, 'page_productbay') === false && $hook !== 'toplevel_page_productbay') {
             return;
         }
 

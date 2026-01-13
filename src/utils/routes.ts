@@ -18,6 +18,9 @@ export const PATHS = {
     NEW: '/new',
     EDIT: '/edit/:id',
     SETTINGS: '/settings',
+    HELP: '/help',
+    TABLES: '/tables',
+    DESIGN: '/design',
 } as const;
 
 export const routes: RouteConfig[] = [
@@ -28,13 +31,13 @@ export const routes: RouteConfig[] = [
         showInNav: true
     },
     {
-        path: '/tables',
+        path: PATHS.TABLES,
         element: Tables,
         label: 'Tables',
         showInNav: true
     },
     {
-        path: '/design',
+        path: PATHS.DESIGN,
         element: Design,
         label: 'Design',
         showInNav: true
@@ -46,7 +49,7 @@ export const routes: RouteConfig[] = [
         showInNav: true
     },
     {
-        path: '/help',
+        path: PATHS.HELP,
         element: Help,
         label: 'Help',
         showInNav: true
