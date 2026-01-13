@@ -1,12 +1,45 @@
 {
   "name": "productbay",
   "version": "1.0.0",
-  "main": "postcss.config.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Easily build custom WooCommerce product listings with search, filters, and pagination for smooth browsing and better conversions.",
+  "author": "Forhad Khan (GitHub: forhadakhan, Website: https://forhadakhan.com)",
+  "license": "GPL-2.0-or-later",
+  "main": "src/index.tsx",
+  "bugs": {
+    "url": "https://github.com/forhadakhan/productbay/issues"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "homepage": "https://github.com/forhadakhan/productbay#readme",
+  "scripts": {
+    "tailwindbuild": "npx @tailwindcss/cli -i ./src/styles/main.css -o ./assets/css/admin.css --minify",
+    "tailwindwatch": "npx @tailwindcss/cli -i ./src/styles/main.css -o ./assets/css/admin.css --watch --minify",
+    "preview": "npm-run-all --parallel sync start",
+    "sync": "browser-sync start -p 'boilerplate-2024.local' --files '**/*.php' 'build/*.js' 'build/*.css'",
+    "wpbuild": "wp-scripts build",
+    "build": "npm-run-all --sequential wpbuild tailwindbuild",
+    "wpstart": "wp-scripts start",
+    "start": "npm-run-all --parallel wpstart tailwindwatch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@wordpress/dom-ready": "^4.37.0",
+    "@wordpress/element": "^6.37.0",
+    "@wordpress/i18n": "^6.10.0",
+    "@wordpress/scripts": "^31.2.0",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.11.0"
+  }
 }

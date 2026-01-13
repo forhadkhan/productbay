@@ -1,9 +1,13 @@
 # Dependencies
 node_modules/
 vendor/
-# Optional: Keep locks if you want consistent versions across environments
-# package-lock.json
-# composer.lock
+# Lock files
+package-lock.json
+composer.lock
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
 
 # Environment & Private Data
 .env
@@ -33,6 +37,9 @@ wp-cli.phar
 routing.json
 
 # Development Temp/Notes
-all_php_code.txt
+temp.php
+temp.js
+temp.ts
+temp.tsx
 todo.txt
 todo.md
