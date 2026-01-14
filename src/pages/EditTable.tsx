@@ -1,387 +1,243 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Save, ChevronRight, ChevronLeft, Layout, List, Database, Settings, Search, Palette, Zap, CheckCircle } from 'lucide-react';
+import { SaveIcon, ChevronRightIcon, ChevronLeftIcon, LayoutIcon, ListIcon, DatabaseIcon, SettingsIcon, SearchIcon, PaletteIcon, ZapIcon, CheckCircleIcon } from 'lucide-react';
 import { apiFetch } from '../utils/api';
 import { PATHS } from '../utils/routes';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { SortableColumn } from '../components/SortableColumn';
+import { Button } from '../components/ui/Button';
+import { useTableStore } from '../store/tableStore';
+
+// Step Components
+import StepSetup from '../components/Create/StepSetup';
+import StepSource from '../components/Create/StepSource';
+import StepColumns from '../components/Create/StepColumns';
+import StepOptions from '../components/Create/StepOptions';
+import StepSearch from '../components/Create/StepSearch';
+import StepDesign from '../components/Create/StepDesign';
+import StepPerformance from '../components/Create/StepPerformance';
+import StepPublish from '../components/Create/StepPublish';
 
 const STEPS = [
-    { id: 1, label: 'Setup', icon: Layout },
-    { id: 2, label: 'Source', icon: Database },
-    { id: 3, label: 'Columns', icon: List },
-    { id: 4, label: 'Options', icon: Settings },
-    { id: 5, label: 'Search', icon: Search },
-    { id: 6, label: 'Design', icon: Palette },
-    { id: 7, label: 'Performance', icon: Zap },
-    { id: 8, label: 'Publish', icon: CheckCircle },
+    { id: 1, label: 'Setup', icon: LayoutIcon, component: StepSetup },
+    { id: 2, label: 'Source', icon: DatabaseIcon, component: StepSource },
+    { id: 3, label: 'Columns', icon: ListIcon, component: StepColumns },
+    { id: 4, label: 'Options', icon: SettingsIcon, component: StepOptions },
+    { id: 5, label: 'Search', icon: SearchIcon, component: StepSearch },
+    { id: 6, label: 'Design', icon: PaletteIcon, component: StepDesign },
+    { id: 7, label: 'Performance', icon: ZapIcon, component: StepPerformance },
+    { id: 8, label: 'Publish', icon: CheckCircleIcon, component: StepPublish },
 ];
 
 const EditTable = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [currentStep, setCurrentStep] = useState(1);
-    const [loading, setLoading] = useState(!!id);
-    const [tableData, setTableData] = useState({
-        title: '',
-        source_type: 'all',
-        columns: [],
-        config: {}
-    });
 
+    // Zustand Store
+    const {
+        currentStep,
+        setStep,
+        loadTable,
+        saveTable,
+        resetStore
+    } = useTableStore();
+
+    const [totalTables, setTotalTables] = useState<number | null>(null);
+
+    // Initial load logic
     useEffect(() => {
+        resetStore(); // Reset store on mount
+
         if (id) {
             loadTable(parseInt(id));
         }
+
+        const checkTableCount = async () => {
+            if (!id) {
+                try {
+                    const status = await apiFetch<any>('system/status');
+                    setTotalTables(status.table_count);
+                } catch (e) {
+                    console.error(e);
+                    // Fallback to wizard if check fails or returns 0
+                    setTotalTables(0);
+                }
+            }
+        };
+        checkTableCount();
     }, [id]);
 
-    const loadTable = async (tableId: number) => {
-        try {
-            const data = await apiFetch<any>(`tables/${tableId}`);
-            setTableData({
-                title: data.title,
-                ...data.config
-            });
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleSave = async () => {
-        try {
-            await apiFetch('tables', {
-                method: 'POST',
-                body: JSON.stringify({
-                    id: id,
-                    ...tableData
-                })
-            });
+        const success = await saveTable(id);
+        if (success) {
             alert('Table saved successfully!');
             navigate(PATHS.DASHBOARD);
-        } catch (error) {
+        } else {
             alert('Failed to save table');
         }
     };
 
-    // Sensors for DnD
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
+    const isWizardMode = !id && (totalTables === 0 || totalTables === null);
 
-    const handleDragEnd = (event: DragEndEvent) => {
-        const { active, over } = event;
+    // Render Logic
+    const CurrentStepComponent = STEPS.find(s => s.id === currentStep)?.component || StepSetup;
 
-        if (active.id !== over?.id) {
-            setTableData((prev) => {
-                const oldIndex = prev.columns.findIndex((col: any) => col.id === active.id);
-                const newIndex = prev.columns.findIndex((col: any) => col.id === over?.id);
+    // --- Layout Components ---
 
-                return {
-                    ...prev,
-                    columns: arrayMove(prev.columns, oldIndex, newIndex),
-                };
-            });
-        }
-    };
-
-    // Initialize columns if empty
-    useEffect(() => {
-        if (loading) return;
-        if (!tableData.columns || tableData.columns.length === 0) {
-            setTableData(prev => ({
-                ...prev,
-                columns: [
-                    { id: 'image', label: 'Image' },
-                    { id: 'name', label: 'Product Name' },
-                    { id: 'price', label: 'Price' },
-                    { id: 'add-to-cart', label: 'Add to Cart' }
-                ]
-            }));
-        }
-    }, [loading]);
-
-    const renderStepContent = () => {
-        switch (currentStep) {
-            case 1: // Setup
-                return (
-                    <div className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Table Name</label>
-                            <input
-                                type="text"
-                                value={tableData.title}
-                                onChange={(e) => setTableData({ ...tableData, title: e.target.value })}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="e.g. Summer Sale Products"
-                            />
-                            <p className="mt-1 text-sm text-gray-500">Give your table a descriptive name for internal use.</p>
-                        </div>
-                    </div>
-                );
-
-            case 2: // Source
-                return (
-                    <div className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-3">Select Products Source</label>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                {['all', 'category', 'specific'].map((type) => (
-                                    <button
-                                        key={type}
-                                        onClick={() => setTableData({ ...tableData, source_type: type })}
-                                        className={`p-4 border rounded-lg text-left transition-all ${tableData.source_type === type
-                                            ? 'border-blue-500 ring-2 ring-blue-50 bg-blue-50'
-                                            : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
-                                            }`}
-                                    >
-                                        <div className="font-semibold capitalize text-gray-900">{type === 'all' ? 'All Products' : type}</div>
-                                        <div className="text-sm text-gray-500 mt-1">
-                                            {type === 'all' && 'Display all published products from your store.'}
-                                            {type === 'category' && 'Select specific categories or tags to display.'}
-                                            {type === 'specific' && 'Manually select individual products.'}
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {tableData.source_type === 'category' && (
-                            <div className="p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm border border-yellow-200">
-                                Category Selection Component will go here.
-                            </div>
-                        )}
-                        {tableData.source_type === 'specific' && (
-                            <div className="p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm border border-yellow-200">
-                                Product Search Component will go here.
-                            </div>
-                        )}
-                    </div>
-                );
-
-
-
-            case 3: // Columns
-                return (
-                    <div className="space-y-6">
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <h3 className="font-bold text-blue-800 mb-2">Column Manager</h3>
-                            <p className="text-sm text-blue-700">
-                                Drag and drop columns to reorder. These columns will be displayed in the frontend.
-                            </p>
-                        </div>
-                        <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-                            <DndContext
-                                sensors={sensors}
-                                collisionDetection={closestCenter}
-                                onDragEnd={handleDragEnd}
-                            >
-                                <SortableContext
-                                    items={tableData.columns.map((c: any) => c.id)}
-                                    strategy={verticalListSortingStrategy}
-                                >
-                                    {tableData.columns.map((col: any) => (
-                                        <SortableColumn key={col.id} id={col.id} label={col.label} />
-                                    ))}
-                                </SortableContext>
-                            </DndContext>
-                        </div>
-                    </div>
-                );
-
-            case 4: // Options
-                return (
-                    <div className="space-y-6">
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                                <h3 className="font-medium">AJAX Loading</h3>
-                                <p className="text-sm text-gray-500">Load products without refreshing the page.</p>
-                            </div>
-                            <input type="checkbox" className="toggle" defaultChecked />
-                        </div>
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                                <h3 className="font-medium">Quantity Picker</h3>
-                                <p className="text-sm text-gray-500">Show quantity input next to add to cart.</p>
-                            </div>
-                            <input type="checkbox" className="toggle" />
-                        </div>
-                    </div>
-                );
-
-            case 5: // Search & Sort
-                return (
-                    <div className="space-y-6">
-                        <div className="p-4 border rounded-lg">
-                            <label className="block text-sm font-medium mb-2">Default Sort Order</label>
-                            <select className="w-full border-gray-300 rounded-md">
-                                <option>Newest First</option>
-                                <option>Price: Low to High</option>
-                                <option>Price: High to Low</option>
-                                <option>Name: A to Z</option>
-                            </select>
-                        </div>
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                                <h3 className="font-medium">Enable Search Box</h3>
-                                <p className="text-sm text-gray-500">Allow users to search within the table.</p>
-                            </div>
-                            <input type="checkbox" className="toggle" defaultChecked />
-                        </div>
-                    </div>
-                );
-
-            case 6: // Design
-                return (
-                    <div className="grid grid-cols-2 gap-8 h-full">
-                        <div className="space-y-6 overflow-y-auto pr-4">
-                            <h3 className="font-bold text-gray-800">Design Settings</h3>
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Border Color</label>
-                                <div className="flex gap-2">
-                                    {['#e5e7eb', '#d1d5db', '#9ca3af', '#2563eb'].map(c => (
-                                        <button key={c} className="w-8 h-8 rounded-full border shadow-sm" style={{ backgroundColor: c }} />
-                                    ))}
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Header Background</label>
-                                <div className="flex gap-2">
-                                    {['#f9fafb', '#f3f4f6', '#eff6ff', '#f0fdf4'].map(c => (
-                                        <button key={c} className="w-8 h-8 rounded-md border shadow-sm" style={{ backgroundColor: c }} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center">
-                            <div className="text-gray-400">Live Preview Area</div>
-                        </div>
-                    </div>
-                );
-
-            case 7: // Performance
-                return (
-                    <div className="space-y-6">
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                                <h3 className="font-medium">Lazy Load Images</h3>
-                                <p className="text-sm text-gray-500">Improve initial page load time.</p>
-                            </div>
-                            <input type="checkbox" className="toggle" defaultChecked />
-                        </div>
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                                <h3 className="font-medium">Cache Results</h3>
-                                <p className="text-sm text-gray-500">Cache query results for faster subsequent loads.</p>
-                            </div>
-                            <input type="checkbox" className="toggle" />
-                        </div>
-                    </div>
-                );
-
-            case 8: // Publish
-                return (
-                    <div className="text-center py-12">
-                        <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <CheckCircle size={40} />
-                        </div>
-                        <h2 className="text-2xl font-bold text-gray-800 mb-2">Ready to Publish!</h2>
-                        <p className="text-gray-500 mb-8 max-w-md mx-auto">
-                            Your table is configured and ready to go. Click the button below to save and get your shortcode.
-                        </p>
-                        <button
-                            onClick={handleSave}
-                            className="bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors inline-flex items-center gap-2"
-                        >
-                            <Save size={20} />
-                            Publish Table
-                        </button>
-                    </div>
-                );
-        }
-    };
-
-    if (loading) return <div className="p-8 text-center">Loading...</div>;
-
-    return (
-        <div className="flex h-[calc(100vh-100px)] -m-8 bg-gray-50">
-            {/* Sidebar */}
-            <div className="w-64 bg-white border-r border-gray-200 overflow-y-auto">
-                <div className="p-6 border-b border-gray-100">
-                    <h2 className="font-bold text-gray-800">Table Builder</h2>
-                    <p className="text-xs text-gray-400 mt-1">{id ? 'Editing Table' : 'New Table'}</p>
-                </div>
-                <nav className="p-4 space-y-1">
-                    {STEPS.map((step) => {
-                        const Icon = step.icon;
-                        const isActive = currentStep === step.id;
-                        const isCompleted = currentStep > step.id;
-
-                        return (
+    const WizardStepper = () => (
+        <div className="max-w-4xl mx-auto mb-8 px-4">
+            <div className="text-center mb-10">
+                <h1 className="text-2xl font-bold text-slate-800">Setup your {id ? '' : 'first '}Product Table</h1>
+            </div>
+            <div className="flex justify-between relative px-2">
+                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 -mt-3" />
+                {STEPS.map((step, index) => {
+                    const isActive = currentStep === step.id;
+                    const isCompleted = currentStep > step.id;
+                    return (
+                        <div key={step.id} className="relative z-0 group text-center flex-1">
                             <button
-                                key={step.id}
-                                onClick={() => setCurrentStep(step.id)}
-                                className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive
-                                    ? 'bg-blue-50 text-blue-700'
-                                    : isCompleted
-                                        ? 'text-gray-700 hover:bg-gray-50'
-                                        : 'text-gray-400 hover:bg-gray-50'
+                                onClick={() => isCompleted && setStep(step.id)}
+                                disabled={!isCompleted && !isActive}
+                                className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto transition-all border-2
+                                    ${isActive
+                                        ? 'bg-blue-600 border-blue-600 text-white shadow-md scale-110'
+                                        : isCompleted
+                                            ? 'bg-green-500 border-green-500 text-white cursor-pointer'
+                                            : 'bg-white border-gray-300 text-gray-400'
                                     }`}
                             >
-                                <div className={`p-1.5 rounded-md ${isActive ? 'bg-blue-100 text-blue-600' : isCompleted ? 'bg-green-100 text-green-600' : 'bg-gray-100'
-                                    }`}>
-                                    <Icon size={16} />
-                                </div>
+                                {isCompleted ? <CheckCircleIcon size={18} /> : <span>{step.id}</span>}
+                            </button>
+                            <div className={`mt-2 text-xs font-medium uppercase tracking-wide transition-colors ${isActive ? 'text-blue-600 font-bold' : isCompleted ? 'text-green-600' : 'text-gray-400'}`}>
                                 {step.label}
-                            </button>
-                        );
-                    })}
-                </nav>
-            </div>
-
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col overflow-hidden">
-                {/* Header */}
-                <header className="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center">
-                    <h1 className="text-xl font-bold text-gray-800">{STEPS[currentStep - 1].label}</h1>
-                    <div className="flex gap-3">
-                        <button
-                            onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
-                            disabled={currentStep === 1}
-                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md disabled:opacity-50"
-                        >
-                            Back
-                        </button>
-                        {currentStep < 8 ? (
-                            <button
-                                onClick={() => setCurrentStep(prev => Math.min(8, prev + 1))}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2"
-                            >
-                                Next Step <ChevronRight size={16} />
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleSave}
-                                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2"
-                            >
-                                <Save size={16} /> Save & Publish
-                            </button>
-                        )}
-                    </div>
-                </header>
-
-                {/* Step Content */}
-                <main className="flex-1 p-8 overflow-y-auto">
-                    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px]">
-                        {renderStepContent()}
-                    </div>
-                </main>
+                            </div>
+                            {/* Progress Bar Segment */}
+                            {index !== STEPS.length - 1 && (
+                                <div
+                                    className={`absolute top-5 left-1/2 w-full h-0.5 -z-10 transition-all duration-300 origin-left
+                                        ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}`}
+                                />
+                            )}
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
+
+    const TabNavigation = () => (
+        <div className="bg-white border-b border-gray-200 sticky top-0 z-20 px-8 flex items-center gap-1 shadow-sm overflow-x-auto">
+            {STEPS.map((step) => {
+                const isActive = currentStep === step.id;
+                const Icon = step.icon;
+                return (
+                    <button
+                        key={step.id}
+                        onClick={() => setStep(step.id)}
+                        className={`flex items-center gap-2 px-4 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                            ${isActive
+                                ? 'border-blue-600 text-blue-600'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                            }`}
+                    >
+                        <Icon size={16} />
+                        {step.label}
+                    </button>
+                );
+            })}
+        </div>
+    );
+
+    return (
+        <div className={`min-h-[calc(100vh-100px)] -m-8 ${isWizardMode ? 'p-8' : 'bg-gray-50'}`}>
+
+            {/* Conditional Navigation */}
+            {isWizardMode ? <WizardStepper /> : <TabNavigation />}
+
+            {/* Main Content Area */}
+            <main className={`${isWizardMode ? 'max-w-4xl mx-auto' : 'p-8 max-w-7xl mx-auto'}`}>
+                <div className={`bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px] relative transition-all duration-500`}>
+
+                    {/* Step Title for Editor Mode (Already in Wizard Header) */}
+                    {!isWizardMode && (
+                        <div className="mb-6 pb-6 border-b border-gray-100 flex justify-between items-center">
+                            <h2 className="text-xl font-bold text-gray-800">{STEPS[currentStep - 1].label}</h2>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={handleSave}
+                                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2 text-sm font-medium"
+                                >
+                                    <SaveIcon size={16} /> Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    <CurrentStepComponent />
+
+                    {/* Wizard Footer Navigation */}
+                    {isWizardMode && (
+                        <div className="mt-12 pt-6 border-t border-gray-100 flex justify-between items-center">
+                            <Button
+                                onClick={() => {
+                                    if (currentStep === 1) navigate(PATHS.DASHBOARD);
+                                    else setStep(currentStep - 1);
+                                }}
+                                variant="outline"
+                                size="default"
+                            >
+                                {currentStep === 1 ? (
+                                    <>
+                                        <ChevronLeftIcon size={18} /> Back to Dashboard
+                                    </>
+                                ) : (
+                                    <>
+                                        <ChevronLeftIcon size={18} /> Previous Step
+                                    </>
+                                )}
+                            </Button>
+
+                            {currentStep < 8 ? (
+                                <Button
+                                    onClick={() => setStep(Math.min(8, currentStep + 1))}
+                                    variant="default"
+                                    size="default"
+                                >
+                                    Next Step <ChevronRightIcon size={18} />
+                                </Button>
+                            ) : (
+                                /* Only show finish button if NOT in Step 8 content (Step 8 handles its own action) 
+                                   Actually Step 8 has the big button. So we might hide this button on step 8 ?
+                                   The original code had the Finish button in the footer for the last step.
+                                   But step 8 component ALSO has a big button. 
+                                   Let's check StepPublish.tsx content. It has a big button.
+                                   The logic below puts the "Finish" button in the footer if currentStep is 8 (condition was currentStep < 8 else Finish).
+                                   Since StepPublish is step 8, we probably don't need the footer "Finish" button if the component has one, OR we keep it for consistency.
+                                   Original had the button in the footer switch case logic? No, the original footer was OUTSIDE the switch.
+                                   Original: case 8 return content WITH button.
+                                   Original footer: checked if < 8 show Next, else show Finish.
+                                   So on step 8, we had DOUBLE buttons? 
+                                   Let's look at original `EditTable.tsx`:
+                                   `case 8`: returns the big "Ready to Publish" div with a button.
+                                   Footer: logic `currentStep < 8 ? Next : Finish`.
+                                   So yes, on step 8 there would be two buttons if not careful.
+                                   However, in `StepPublish.tsx`, I included the big button.
+                                   I'll remove the footer button for step 8 to avoid duplication, or keep it as a sticky footer action.
+                                   Let's keep the footer button as it is the primary navigation area.
+                                */
+                                <Button
+                                    onClick={handleSave}
+                                    variant="success"
+                                    size="default"
+                                >
+                                    <SaveIcon size={18} /> Finish & Publish
+                                </Button>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </main>
+        </div>
+    );
 };
+
+export default EditTable;
