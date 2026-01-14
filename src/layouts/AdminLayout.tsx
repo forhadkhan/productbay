@@ -4,9 +4,9 @@ import Navbar from '../components/Layout/Navbar';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="productbay-app bg-wp-bg min-h-screen font-sans text-wp-text">
+        <div className="productbay-app bg-wp-bg font-sans text-wp-text p-0 m-0">
             <Navbar />
-            <main className="p-8 max-w-7xl mx-auto">
+            <main className="max-w-7xl mx-auto">
                 {children}
             </main>
         </div>
