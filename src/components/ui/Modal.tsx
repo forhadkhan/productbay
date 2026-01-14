@@ -58,6 +58,8 @@ export interface ModalProps {
     onClose: () => void;
     /** Modal title shown in header */
     title: string;
+    /** Modal container class */
+    className?: string;
     /** Modal content (can be text, HTML, or React components) */
     children: React.ReactNode;
     /** Primary action button (right side) */
@@ -74,6 +76,7 @@ export const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
     title,
+    className,
     children,
     primaryButton,
     secondaryButton,
@@ -125,7 +128,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         const variants = {
             primary: 'bg-blue-600 text-white hover:bg-blue-700/90',
-            secondary: 'bg-gray-200 text-gray-700 hover:bg-gray-300/90',
+            secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200/90',
             danger: 'bg-red-600 text-white hover:bg-red-700/90',
             success: 'bg-green-600 text-white hover:bg-green-700/90'
         };
@@ -143,14 +146,17 @@ export const Modal: React.FC<ModalProps> = ({
     const secondaryBtn = secondaryButton || defaultSecondaryButton;
 
     return (
+        // Modal Parent Container
         <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/20 backdrop-blur-xs animate-fade-in"
             onClick={handleBackdropClick}
         >
+            {/* Modal Content */}
             <div
                 ref={modalRef}
                 className={cn(
                     "bg-white rounded-lg shadow-xl w-full animate-scale-in border border-gray-200",
+                    className,
                     maxWidthClasses[maxWidth]
                 )}
             >
