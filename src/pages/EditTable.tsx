@@ -37,10 +37,12 @@ const EditTable = () => {
         setStep,
         loadTable,
         saveTable,
-        resetStore
+        resetStore,
+        tableData
     } = useTableStore();
 
     const [totalTables, setTotalTables] = useState<number | null>(null);
+    const [showValidation, setShowValidation] = useState(false);
 
     // Initial load logic
     useEffect(() => {
@@ -64,6 +66,16 @@ const EditTable = () => {
         };
         checkTableCount();
     }, [id]);
+
+    const handleNext = () => {
+        if (currentStep === 1 && !tableData.title.trim()) {
+            setShowValidation(true);
+            return;
+        }
+
+        setShowValidation(false);
+        setStep(Math.min(8, currentStep + 1));
+    };
 
     const handleSave = async () => {
         const success = await saveTable(id);
@@ -172,7 +184,7 @@ const EditTable = () => {
                         </div>
                     )}
 
-                    <CurrentStepComponent />
+                    <CurrentStepComponent showValidation={showValidation} />
 
                     {/* Wizard Footer Navigation */}
                     {isWizardMode && (
@@ -198,7 +210,7 @@ const EditTable = () => {
 
                             {currentStep < 8 ? (
                                 <Button
-                                    onClick={() => setStep(Math.min(8, currentStep + 1))}
+                                    onClick={handleNext}
                                     variant="default"
                                     size="default"
                                 >

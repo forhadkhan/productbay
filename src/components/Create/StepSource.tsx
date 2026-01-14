@@ -1,7 +1,11 @@
 import React from 'react';
 import { useTableStore } from '../../store/tableStore';
 
-const StepSource = () => {
+interface StepProps {
+    showValidation?: boolean;
+}
+
+const StepSource = ({ showValidation }: StepProps) => {
     const { tableData, setTableData } = useTableStore();
 
     return (

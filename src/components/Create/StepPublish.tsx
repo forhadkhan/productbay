@@ -4,7 +4,11 @@ import { useTableStore } from '../../store/tableStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PATHS } from '../../utils/routes';
 
-const StepPublish = () => {
+interface StepProps {
+    showValidation?: boolean;
+}
+
+const StepPublish = ({ showValidation }: StepProps) => {
     const { saveTable } = useTableStore();
     const navigate = useNavigate();
     const { id } = useParams();

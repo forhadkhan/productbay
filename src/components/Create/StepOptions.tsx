@@ -1,6 +1,10 @@
 import React from 'react';
 
-const StepOptions = () => {
+interface StepProps {
+    showValidation?: boolean;
+}
+
+const StepOptions = ({ showValidation }: StepProps) => {
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between p-4 border rounded-lg">

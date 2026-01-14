@@ -1,6 +1,10 @@
 import React from 'react';
 
-const StepDesign = () => {
+interface StepProps {
+    showValidation?: boolean;
+}
+
+const StepDesign = ({ showValidation }: StepProps) => {
     return (
         <div className="grid grid-cols-2 gap-8 h-full">
             <div className="space-y-6 overflow-y-auto pr-4">

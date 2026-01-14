@@ -1,6 +1,10 @@
 import React from 'react';
 
-const StepSearch = () => {
+interface StepProps {
+    showValidation?: boolean;
+}
+
+const StepSearch = ({ showValidation }: StepProps) => {
     return (
         <div className="space-y-6">
             <div className="p-4 border rounded-lg">
