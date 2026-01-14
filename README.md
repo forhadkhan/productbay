@@ -41,7 +41,7 @@ Unlike traditional table plugins, ProductBay utilizes a **Hybrid Architecture**:
 ---
 
 ## 📂 Project Structure
-For a detailed breakdown of the project structure and development implementation notes, please refer to [DEVELOPMENT.md](DEVELOPMENT.md).
+For a detailed breakdown of the project structure and development implementation notes, please refer to [DEVELOPMENT.md](notes/DEVELOPMENT.md).
 
 ---
 
