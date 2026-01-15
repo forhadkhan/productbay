@@ -31,7 +31,8 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "php-stubs/wordpress-stubs": "^6.9",
-        "giacocorsiglia/wordpress-stubs": "^5.1"
+        "giacocorsiglia/wordpress-stubs": "^5.1",
+        "php-stubs/woocommerce-stubs": "^10.4"
     },
     "config": {
         "allow-plugins": {

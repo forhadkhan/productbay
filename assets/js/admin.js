@@ -5285,6 +5285,93 @@ function findFirstFocusableNode(element) {
 
 /***/ },
 
+/***/ "./node_modules/class-variance-authority/dist/index.mjs"
+/*!**************************************************************!*\
+  !*** ./node_modules/class-variance-authority/dist/index.mjs ***!
+  \**************************************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cva: () => (/* binding */ cva),
+/* harmony export */   cx: () => (/* binding */ cx)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/**
+ * Copyright 2022 Joe Bell. All rights reserved.
+ *
+ * This file is licensed to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR REPRESENTATIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */ 
+const falsyToString = (value)=>typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
+const cx = clsx__WEBPACK_IMPORTED_MODULE_0__.clsx;
+const cva = (base, config)=>(props)=>{
+        var _config_compoundVariants;
+        if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+        const { variants, defaultVariants } = config;
+        const getVariantClassNames = Object.keys(variants).map((variant)=>{
+            const variantProp = props === null || props === void 0 ? void 0 : props[variant];
+            const defaultVariantProp = defaultVariants === null || defaultVariants === void 0 ? void 0 : defaultVariants[variant];
+            if (variantProp === null) return null;
+            const variantKey = falsyToString(variantProp) || falsyToString(defaultVariantProp);
+            return variants[variant][variantKey];
+        });
+        const propsWithoutUndefined = props && Object.entries(props).reduce((acc, param)=>{
+            let [key, value] = param;
+            if (value === undefined) {
+                return acc;
+            }
+            acc[key] = value;
+            return acc;
+        }, {});
+        const getCompoundVariantClassNames = config === null || config === void 0 ? void 0 : (_config_compoundVariants = config.compoundVariants) === null || _config_compoundVariants === void 0 ? void 0 : _config_compoundVariants.reduce((acc, param)=>{
+            let { class: cvClass, className: cvClassName, ...compoundVariantOptions } = param;
+            return Object.entries(compoundVariantOptions).every((param)=>{
+                let [key, value] = param;
+                return Array.isArray(value) ? value.includes({
+                    ...defaultVariants,
+                    ...propsWithoutUndefined
+                }[key]) : ({
+                    ...defaultVariants,
+                    ...propsWithoutUndefined
+                })[key] === value;
+            }) ? [
+                ...acc,
+                cvClass,
+                cvClassName
+            ] : acc;
+        }, []);
+        return cx(base, getVariantClassNames, getCompoundVariantClassNames, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+    };
+
+
+
+/***/ },
+
+/***/ "./node_modules/clsx/dist/clsx.mjs"
+/*!*****************************************!*\
+  !*** ./node_modules/clsx/dist/clsx.mjs ***!
+  \*****************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clsx: () => (/* binding */ clsx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f)}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clsx);
+
+/***/ },
+
 /***/ "./node_modules/lucide-react/dist/esm/Icon.js"
 /*!****************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/Icon.js ***!
@@ -5429,6 +5516,96 @@ var defaultAttributes = {
 
 /***/ },
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/check.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/check.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Check)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("check", __iconNode);
+
+
+//# sourceMappingURL=check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-down.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronDown)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-down", __iconNode);
+
+
+//# sourceMappingURL=chevron-down.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-left.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronLeft)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]];
+const ChevronLeft = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-left", __iconNode);
+
+
+//# sourceMappingURL=chevron-left.js.map
+
+
+/***/ },
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js"
 /*!*******************************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/chevron-right.js ***!
@@ -5526,6 +5703,45 @@ const CircleCheckBig = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["def
 
 /***/ },
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-play.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-play.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CirclePlay)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z",
+      key: "kmsa83"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
+];
+const CirclePlay = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-play", __iconNode);
+
+
+//# sourceMappingURL=circle-play.js.map
+
+
+/***/ },
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/copy.js"
 /*!**********************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/copy.js ***!
@@ -5589,6 +5805,78 @@ const Database = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"]
 
 
 //# sourceMappingURL=database.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/download.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/download.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Download)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 15V3", key: "m9g1x1" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
+];
+const Download = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("download", __iconNode);
+
+
+//# sourceMappingURL=download.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/folder-open.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/folder-open.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ FolderOpen)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2",
+      key: "usdka0"
+    }
+  ]
+];
+const FolderOpen = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("folder-open", __iconNode);
+
+
+//# sourceMappingURL=folder-open.js.map
 
 
 /***/ },
@@ -5665,6 +5953,43 @@ const LayoutGrid = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default
 
 /***/ },
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/life-buoy.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/life-buoy.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LifeBuoy)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m4.93 4.93 4.24 4.24", key: "1ymg45" }],
+  ["path", { d: "m14.83 9.17 4.24-4.24", key: "1cb5xl" }],
+  ["path", { d: "m14.83 14.83 4.24 4.24", key: "q42g0n" }],
+  ["path", { d: "m9.17 14.83-4.24 4.24", key: "bqpfvv" }],
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }]
+];
+const LifeBuoy = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("life-buoy", __iconNode);
+
+
+//# sourceMappingURL=life-buoy.js.map
+
+
+/***/ },
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/list.js"
 /*!**********************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/list.js ***!
@@ -5698,6 +6023,36 @@ const List = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("l
 
 
 //# sourceMappingURL=list.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/loader-circle.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LoaderCircle)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("loader-circle", __iconNode);
+
+
+//# sourceMappingURL=loader-circle.js.map
 
 
 /***/ },
@@ -5848,6 +6203,41 @@ const Plus = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("p
 
 
 //# sourceMappingURL=plus.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/refresh-cw.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ RefreshCw)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
+];
+const RefreshCw = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("refresh-cw", __iconNode);
+
+
+//# sourceMappingURL=refresh-cw.js.map
 
 
 /***/ },
@@ -6035,6 +6425,73 @@ const Trash2 = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
 
 
 //# sourceMappingURL=trash-2.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/upload.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/upload.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Upload)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 3v12", key: "1x0j5s" }],
+  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
+];
+const Upload = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("upload", __iconNode);
+
+
+//# sourceMappingURL=upload.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/x.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/x.js ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ X)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+const X = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("x", __iconNode);
+
+
+//# sourceMappingURL=x.js.map
 
 
 /***/ },
@@ -17131,6 +17588,3218 @@ var ABSOLUTE_URL_REGEX3 = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
 
 /***/ },
 
+/***/ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs"
+/*!*********************************************************!*\
+  !*** ./node_modules/tailwind-merge/dist/bundle-mjs.mjs ***!
+  \*********************************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createTailwindMerge: () => (/* binding */ createTailwindMerge),
+/* harmony export */   extendTailwindMerge: () => (/* binding */ extendTailwindMerge),
+/* harmony export */   fromTheme: () => (/* binding */ fromTheme),
+/* harmony export */   getDefaultConfig: () => (/* binding */ getDefaultConfig),
+/* harmony export */   mergeConfigs: () => (/* binding */ mergeConfigs),
+/* harmony export */   twJoin: () => (/* binding */ twJoin),
+/* harmony export */   twMerge: () => (/* binding */ twMerge),
+/* harmony export */   validators: () => (/* binding */ validators)
+/* harmony export */ });
+/**
+ * Concatenates two arrays faster than the array spread operator.
+ */
+const concatArrays = (array1, array2) => {
+  // Pre-allocate for better V8 optimization
+  const combinedArray = new Array(array1.length + array2.length);
+  for (let i = 0; i < array1.length; i++) {
+    combinedArray[i] = array1[i];
+  }
+  for (let i = 0; i < array2.length; i++) {
+    combinedArray[array1.length + i] = array2[i];
+  }
+  return combinedArray;
+};
+
+// Factory function ensures consistent object shapes
+const createClassValidatorObject = (classGroupId, validator) => ({
+  classGroupId,
+  validator
+});
+// Factory ensures consistent ClassPartObject shape
+const createClassPartObject = (nextPart = new Map(), validators = null, classGroupId) => ({
+  nextPart,
+  validators,
+  classGroupId
+});
+const CLASS_PART_SEPARATOR = '-';
+const EMPTY_CONFLICTS = [];
+// I use two dots here because one dot is used as prefix for class groups in plugins
+const ARBITRARY_PROPERTY_PREFIX = 'arbitrary..';
+const createClassGroupUtils = config => {
+  const classMap = createClassMap(config);
+  const {
+    conflictingClassGroups,
+    conflictingClassGroupModifiers
+  } = config;
+  const getClassGroupId = className => {
+    if (className.startsWith('[') && className.endsWith(']')) {
+      return getGroupIdForArbitraryProperty(className);
+    }
+    const classParts = className.split(CLASS_PART_SEPARATOR);
+    // Classes like `-inset-1` produce an empty string as first classPart. We assume that classes for negative values are used correctly and skip it.
+    const startIndex = classParts[0] === '' && classParts.length > 1 ? 1 : 0;
+    return getGroupRecursive(classParts, startIndex, classMap);
+  };
+  const getConflictingClassGroupIds = (classGroupId, hasPostfixModifier) => {
+    if (hasPostfixModifier) {
+      const modifierConflicts = conflictingClassGroupModifiers[classGroupId];
+      const baseConflicts = conflictingClassGroups[classGroupId];
+      if (modifierConflicts) {
+        if (baseConflicts) {
+          // Merge base conflicts with modifier conflicts
+          return concatArrays(baseConflicts, modifierConflicts);
+        }
+        // Only modifier conflicts
+        return modifierConflicts;
+      }
+      // Fall back to without postfix if no modifier conflicts
+      return baseConflicts || EMPTY_CONFLICTS;
+    }
+    return conflictingClassGroups[classGroupId] || EMPTY_CONFLICTS;
+  };
+  return {
+    getClassGroupId,
+    getConflictingClassGroupIds
+  };
+};
+const getGroupRecursive = (classParts, startIndex, classPartObject) => {
+  const classPathsLength = classParts.length - startIndex;
+  if (classPathsLength === 0) {
+    return classPartObject.classGroupId;
+  }
+  const currentClassPart = classParts[startIndex];
+  const nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+  if (nextClassPartObject) {
+    const result = getGroupRecursive(classParts, startIndex + 1, nextClassPartObject);
+    if (result) return result;
+  }
+  const validators = classPartObject.validators;
+  if (validators === null) {
+    return undefined;
+  }
+  // Build classRest string efficiently by joining from startIndex onwards
+  const classRest = startIndex === 0 ? classParts.join(CLASS_PART_SEPARATOR) : classParts.slice(startIndex).join(CLASS_PART_SEPARATOR);
+  const validatorsLength = validators.length;
+  for (let i = 0; i < validatorsLength; i++) {
+    const validatorObj = validators[i];
+    if (validatorObj.validator(classRest)) {
+      return validatorObj.classGroupId;
+    }
+  }
+  return undefined;
+};
+/**
+ * Get the class group ID for an arbitrary property.
+ *
+ * @param className - The class name to get the group ID for. Is expected to be string starting with `[` and ending with `]`.
+ */
+const getGroupIdForArbitraryProperty = className => className.slice(1, -1).indexOf(':') === -1 ? undefined : (() => {
+  const content = className.slice(1, -1);
+  const colonIndex = content.indexOf(':');
+  const property = content.slice(0, colonIndex);
+  return property ? ARBITRARY_PROPERTY_PREFIX + property : undefined;
+})();
+/**
+ * Exported for testing only
+ */
+const createClassMap = config => {
+  const {
+    theme,
+    classGroups
+  } = config;
+  return processClassGroups(classGroups, theme);
+};
+// Split into separate functions to maintain monomorphic call sites
+const processClassGroups = (classGroups, theme) => {
+  const classMap = createClassPartObject();
+  for (const classGroupId in classGroups) {
+    const group = classGroups[classGroupId];
+    processClassesRecursively(group, classMap, classGroupId, theme);
+  }
+  return classMap;
+};
+const processClassesRecursively = (classGroup, classPartObject, classGroupId, theme) => {
+  const len = classGroup.length;
+  for (let i = 0; i < len; i++) {
+    const classDefinition = classGroup[i];
+    processClassDefinition(classDefinition, classPartObject, classGroupId, theme);
+  }
+};
+// Split into separate functions for each type to maintain monomorphic call sites
+const processClassDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (typeof classDefinition === 'string') {
+    processStringDefinition(classDefinition, classPartObject, classGroupId);
+    return;
+  }
+  if (typeof classDefinition === 'function') {
+    processFunctionDefinition(classDefinition, classPartObject, classGroupId, theme);
+    return;
+  }
+  processObjectDefinition(classDefinition, classPartObject, classGroupId, theme);
+};
+const processStringDefinition = (classDefinition, classPartObject, classGroupId) => {
+  const classPartObjectToEdit = classDefinition === '' ? classPartObject : getPart(classPartObject, classDefinition);
+  classPartObjectToEdit.classGroupId = classGroupId;
+};
+const processFunctionDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (isThemeGetter(classDefinition)) {
+    processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+    return;
+  }
+  if (classPartObject.validators === null) {
+    classPartObject.validators = [];
+  }
+  classPartObject.validators.push(createClassValidatorObject(classGroupId, classDefinition));
+};
+const processObjectDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  const entries = Object.entries(classDefinition);
+  const len = entries.length;
+  for (let i = 0; i < len; i++) {
+    const [key, value] = entries[i];
+    processClassesRecursively(value, getPart(classPartObject, key), classGroupId, theme);
+  }
+};
+const getPart = (classPartObject, path) => {
+  let current = classPartObject;
+  const parts = path.split(CLASS_PART_SEPARATOR);
+  const len = parts.length;
+  for (let i = 0; i < len; i++) {
+    const part = parts[i];
+    let next = current.nextPart.get(part);
+    if (!next) {
+      next = createClassPartObject();
+      current.nextPart.set(part, next);
+    }
+    current = next;
+  }
+  return current;
+};
+// Type guard maintains monomorphic check
+const isThemeGetter = func => 'isThemeGetter' in func && func.isThemeGetter === true;
+
+// LRU cache implementation using plain objects for simplicity
+const createLruCache = maxCacheSize => {
+  if (maxCacheSize < 1) {
+    return {
+      get: () => undefined,
+      set: () => {}
+    };
+  }
+  let cacheSize = 0;
+  let cache = Object.create(null);
+  let previousCache = Object.create(null);
+  const update = (key, value) => {
+    cache[key] = value;
+    cacheSize++;
+    if (cacheSize > maxCacheSize) {
+      cacheSize = 0;
+      previousCache = cache;
+      cache = Object.create(null);
+    }
+  };
+  return {
+    get(key) {
+      let value = cache[key];
+      if (value !== undefined) {
+        return value;
+      }
+      if ((value = previousCache[key]) !== undefined) {
+        update(key, value);
+        return value;
+      }
+    },
+    set(key, value) {
+      if (key in cache) {
+        cache[key] = value;
+      } else {
+        update(key, value);
+      }
+    }
+  };
+};
+const IMPORTANT_MODIFIER = '!';
+const MODIFIER_SEPARATOR = ':';
+const EMPTY_MODIFIERS = [];
+// Pre-allocated result object shape for consistency
+const createResultObject = (modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition, isExternal) => ({
+  modifiers,
+  hasImportantModifier,
+  baseClassName,
+  maybePostfixModifierPosition,
+  isExternal
+});
+const createParseClassName = config => {
+  const {
+    prefix,
+    experimentalParseClassName
+  } = config;
+  /**
+   * Parse class name into parts.
+   *
+   * Inspired by `splitAtTopLevelOnly` used in Tailwind CSS
+   * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.2.2/src/util/splitAtTopLevelOnly.js
+   */
+  let parseClassName = className => {
+    // Use simple array with push for better performance
+    const modifiers = [];
+    let bracketDepth = 0;
+    let parenDepth = 0;
+    let modifierStart = 0;
+    let postfixModifierPosition;
+    const len = className.length;
+    for (let index = 0; index < len; index++) {
+      const currentCharacter = className[index];
+      if (bracketDepth === 0 && parenDepth === 0) {
+        if (currentCharacter === MODIFIER_SEPARATOR) {
+          modifiers.push(className.slice(modifierStart, index));
+          modifierStart = index + 1;
+          continue;
+        }
+        if (currentCharacter === '/') {
+          postfixModifierPosition = index;
+          continue;
+        }
+      }
+      if (currentCharacter === '[') bracketDepth++;else if (currentCharacter === ']') bracketDepth--;else if (currentCharacter === '(') parenDepth++;else if (currentCharacter === ')') parenDepth--;
+    }
+    const baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.slice(modifierStart);
+    // Inline important modifier check
+    let baseClassName = baseClassNameWithImportantModifier;
+    let hasImportantModifier = false;
+    if (baseClassNameWithImportantModifier.endsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(0, -1);
+      hasImportantModifier = true;
+    } else if (
+    /**
+     * In Tailwind CSS v3 the important modifier was at the start of the base class name. This is still supported for legacy reasons.
+     * @see https://github.com/dcastil/tailwind-merge/issues/513#issuecomment-2614029864
+     */
+    baseClassNameWithImportantModifier.startsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(1);
+      hasImportantModifier = true;
+    }
+    const maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : undefined;
+    return createResultObject(modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition);
+  };
+  if (prefix) {
+    const fullPrefix = prefix + MODIFIER_SEPARATOR;
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => className.startsWith(fullPrefix) ? parseClassNameOriginal(className.slice(fullPrefix.length)) : createResultObject(EMPTY_MODIFIERS, false, className, undefined, true);
+  }
+  if (experimentalParseClassName) {
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => experimentalParseClassName({
+      className,
+      parseClassName: parseClassNameOriginal
+    });
+  }
+  return parseClassName;
+};
+
+/**
+ * Sorts modifiers according to following schema:
+ * - Predefined modifiers are sorted alphabetically
+ * - When an arbitrary variant appears, it must be preserved which modifiers are before and after it
+ */
+const createSortModifiers = config => {
+  // Pre-compute weights for all known modifiers for O(1) comparison
+  const modifierWeights = new Map();
+  // Assign weights to sensitive modifiers (highest priority, but preserve order)
+  config.orderSensitiveModifiers.forEach((mod, index) => {
+    modifierWeights.set(mod, 1000000 + index); // High weights for sensitive mods
+  });
+  return modifiers => {
+    const result = [];
+    let currentSegment = [];
+    // Process modifiers in one pass
+    for (let i = 0; i < modifiers.length; i++) {
+      const modifier = modifiers[i];
+      // Check if modifier is sensitive (starts with '[' or in orderSensitiveModifiers)
+      const isArbitrary = modifier[0] === '[';
+      const isOrderSensitive = modifierWeights.has(modifier);
+      if (isArbitrary || isOrderSensitive) {
+        // Sort and flush current segment alphabetically
+        if (currentSegment.length > 0) {
+          currentSegment.sort();
+          result.push(...currentSegment);
+          currentSegment = [];
+        }
+        result.push(modifier);
+      } else {
+        // Regular modifier - add to current segment for batch sorting
+        currentSegment.push(modifier);
+      }
+    }
+    // Sort and add any remaining segment items
+    if (currentSegment.length > 0) {
+      currentSegment.sort();
+      result.push(...currentSegment);
+    }
+    return result;
+  };
+};
+const createConfigUtils = config => ({
+  cache: createLruCache(config.cacheSize),
+  parseClassName: createParseClassName(config),
+  sortModifiers: createSortModifiers(config),
+  ...createClassGroupUtils(config)
+});
+const SPLIT_CLASSES_REGEX = /\s+/;
+const mergeClassList = (classList, configUtils) => {
+  const {
+    parseClassName,
+    getClassGroupId,
+    getConflictingClassGroupIds,
+    sortModifiers
+  } = configUtils;
+  /**
+   * Set of classGroupIds in following format:
+   * `{importantModifier}{variantModifiers}{classGroupId}`
+   * @example 'float'
+   * @example 'hover:focus:bg-color'
+   * @example 'md:!pr'
+   */
+  const classGroupsInConflict = [];
+  const classNames = classList.trim().split(SPLIT_CLASSES_REGEX);
+  let result = '';
+  for (let index = classNames.length - 1; index >= 0; index -= 1) {
+    const originalClassName = classNames[index];
+    const {
+      isExternal,
+      modifiers,
+      hasImportantModifier,
+      baseClassName,
+      maybePostfixModifierPosition
+    } = parseClassName(originalClassName);
+    if (isExternal) {
+      result = originalClassName + (result.length > 0 ? ' ' + result : result);
+      continue;
+    }
+    let hasPostfixModifier = !!maybePostfixModifierPosition;
+    let classGroupId = getClassGroupId(hasPostfixModifier ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+    if (!classGroupId) {
+      if (!hasPostfixModifier) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      classGroupId = getClassGroupId(baseClassName);
+      if (!classGroupId) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      hasPostfixModifier = false;
+    }
+    // Fast path: skip sorting for empty or single modifier
+    const variantModifier = modifiers.length === 0 ? '' : modifiers.length === 1 ? modifiers[0] : sortModifiers(modifiers).join(':');
+    const modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+    const classId = modifierId + classGroupId;
+    if (classGroupsInConflict.indexOf(classId) > -1) {
+      // Tailwind class omitted due to conflict
+      continue;
+    }
+    classGroupsInConflict.push(classId);
+    const conflictGroups = getConflictingClassGroupIds(classGroupId, hasPostfixModifier);
+    for (let i = 0; i < conflictGroups.length; ++i) {
+      const group = conflictGroups[i];
+      classGroupsInConflict.push(modifierId + group);
+    }
+    // Tailwind class not in conflict
+    result = originalClassName + (result.length > 0 ? ' ' + result : result);
+  }
+  return result;
+};
+
+/**
+ * The code in this file is copied from https://github.com/lukeed/clsx and modified to suit the needs of tailwind-merge better.
+ *
+ * Specifically:
+ * - Runtime code from https://github.com/lukeed/clsx/blob/v1.2.1/src/index.js
+ * - TypeScript types from https://github.com/lukeed/clsx/blob/v1.2.1/clsx.d.ts
+ *
+ * Original code has MIT license: Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+ */
+const twJoin = (...classLists) => {
+  let index = 0;
+  let argument;
+  let resolvedValue;
+  let string = '';
+  while (index < classLists.length) {
+    if (argument = classLists[index++]) {
+      if (resolvedValue = toValue(argument)) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const toValue = mix => {
+  // Fast path for strings
+  if (typeof mix === 'string') {
+    return mix;
+  }
+  let resolvedValue;
+  let string = '';
+  for (let k = 0; k < mix.length; k++) {
+    if (mix[k]) {
+      if (resolvedValue = toValue(mix[k])) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const createTailwindMerge = (createConfigFirst, ...createConfigRest) => {
+  let configUtils;
+  let cacheGet;
+  let cacheSet;
+  let functionToCall;
+  const initTailwindMerge = classList => {
+    const config = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
+    configUtils = createConfigUtils(config);
+    cacheGet = configUtils.cache.get;
+    cacheSet = configUtils.cache.set;
+    functionToCall = tailwindMerge;
+    return tailwindMerge(classList);
+  };
+  const tailwindMerge = classList => {
+    const cachedResult = cacheGet(classList);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    const result = mergeClassList(classList, configUtils);
+    cacheSet(classList, result);
+    return result;
+  };
+  functionToCall = initTailwindMerge;
+  return (...args) => functionToCall(twJoin(...args));
+};
+const fallbackThemeArr = [];
+const fromTheme = key => {
+  const themeGetter = theme => theme[key] || fallbackThemeArr;
+  themeGetter.isThemeGetter = true;
+  return themeGetter;
+};
+const arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+const arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+const fractionRegex = /^\d+\/\d+$/;
+const tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+const lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+const colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
+// Shadow always begins with x and y offset separated by underscore optionally prepended by inset
+const shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+const imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+const isFraction = value => fractionRegex.test(value);
+const isNumber = value => !!value && !Number.isNaN(Number(value));
+const isInteger = value => !!value && Number.isInteger(Number(value));
+const isPercent = value => value.endsWith('%') && isNumber(value.slice(0, -1));
+const isTshirtSize = value => tshirtUnitRegex.test(value);
+const isAny = () => true;
+const isLengthOnly = value =>
+// `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
+// For example, `hsl(0 0% 0%)` would be classified as a length without this check.
+// I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
+lengthUnitRegex.test(value) && !colorFunctionRegex.test(value);
+const isNever = () => false;
+const isShadow = value => shadowRegex.test(value);
+const isImage = value => imageRegex.test(value);
+const isAnyNonArbitrary = value => !isArbitraryValue(value) && !isArbitraryVariable(value);
+const isArbitrarySize = value => getIsArbitraryValue(value, isLabelSize, isNever);
+const isArbitraryValue = value => arbitraryValueRegex.test(value);
+const isArbitraryLength = value => getIsArbitraryValue(value, isLabelLength, isLengthOnly);
+const isArbitraryNumber = value => getIsArbitraryValue(value, isLabelNumber, isNumber);
+const isArbitraryPosition = value => getIsArbitraryValue(value, isLabelPosition, isNever);
+const isArbitraryImage = value => getIsArbitraryValue(value, isLabelImage, isImage);
+const isArbitraryShadow = value => getIsArbitraryValue(value, isLabelShadow, isShadow);
+const isArbitraryVariable = value => arbitraryVariableRegex.test(value);
+const isArbitraryVariableLength = value => getIsArbitraryVariable(value, isLabelLength);
+const isArbitraryVariableFamilyName = value => getIsArbitraryVariable(value, isLabelFamilyName);
+const isArbitraryVariablePosition = value => getIsArbitraryVariable(value, isLabelPosition);
+const isArbitraryVariableSize = value => getIsArbitraryVariable(value, isLabelSize);
+const isArbitraryVariableImage = value => getIsArbitraryVariable(value, isLabelImage);
+const isArbitraryVariableShadow = value => getIsArbitraryVariable(value, isLabelShadow, true);
+// Helpers
+const getIsArbitraryValue = (value, testLabel, testValue) => {
+  const result = arbitraryValueRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return testValue(result[2]);
+  }
+  return false;
+};
+const getIsArbitraryVariable = (value, testLabel, shouldMatchNoLabel = false) => {
+  const result = arbitraryVariableRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return shouldMatchNoLabel;
+  }
+  return false;
+};
+// Labels
+const isLabelPosition = label => label === 'position' || label === 'percentage';
+const isLabelImage = label => label === 'image' || label === 'url';
+const isLabelSize = label => label === 'length' || label === 'size' || label === 'bg-size';
+const isLabelLength = label => label === 'length';
+const isLabelNumber = label => label === 'number';
+const isLabelFamilyName = label => label === 'family-name';
+const isLabelShadow = label => label === 'shadow';
+const validators = /*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  isAny,
+  isAnyNonArbitrary,
+  isArbitraryImage,
+  isArbitraryLength,
+  isArbitraryNumber,
+  isArbitraryPosition,
+  isArbitraryShadow,
+  isArbitrarySize,
+  isArbitraryValue,
+  isArbitraryVariable,
+  isArbitraryVariableFamilyName,
+  isArbitraryVariableImage,
+  isArbitraryVariableLength,
+  isArbitraryVariablePosition,
+  isArbitraryVariableShadow,
+  isArbitraryVariableSize,
+  isFraction,
+  isInteger,
+  isNumber,
+  isPercent,
+  isTshirtSize
+}, Symbol.toStringTag, {
+  value: 'Module'
+});
+const getDefaultConfig = () => {
+  /**
+   * Theme getters for theme variable namespaces
+   * @see https://tailwindcss.com/docs/theme#theme-variable-namespaces
+   */
+  /***/
+  const themeColor = fromTheme('color');
+  const themeFont = fromTheme('font');
+  const themeText = fromTheme('text');
+  const themeFontWeight = fromTheme('font-weight');
+  const themeTracking = fromTheme('tracking');
+  const themeLeading = fromTheme('leading');
+  const themeBreakpoint = fromTheme('breakpoint');
+  const themeContainer = fromTheme('container');
+  const themeSpacing = fromTheme('spacing');
+  const themeRadius = fromTheme('radius');
+  const themeShadow = fromTheme('shadow');
+  const themeInsetShadow = fromTheme('inset-shadow');
+  const themeTextShadow = fromTheme('text-shadow');
+  const themeDropShadow = fromTheme('drop-shadow');
+  const themeBlur = fromTheme('blur');
+  const themePerspective = fromTheme('perspective');
+  const themeAspect = fromTheme('aspect');
+  const themeEase = fromTheme('ease');
+  const themeAnimate = fromTheme('animate');
+  /**
+   * Helpers to avoid repeating the same scales
+   *
+   * We use functions that create a new array every time they're called instead of static arrays.
+   * This ensures that users who modify any scale by mutating the array (e.g. with `array.push(element)`) don't accidentally mutate arrays in other parts of the config.
+   */
+  /***/
+  const scaleBreak = () => ['auto', 'avoid', 'all', 'avoid-page', 'page', 'left', 'right', 'column'];
+  const scalePosition = () => ['center', 'top', 'bottom', 'left', 'right', 'top-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-top', 'top-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-top', 'bottom-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-bottom', 'bottom-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-bottom'];
+  const scalePositionWithArbitrary = () => [...scalePosition(), isArbitraryVariable, isArbitraryValue];
+  const scaleOverflow = () => ['auto', 'hidden', 'clip', 'visible', 'scroll'];
+  const scaleOverscroll = () => ['auto', 'contain', 'none'];
+  const scaleUnambiguousSpacing = () => [isArbitraryVariable, isArbitraryValue, themeSpacing];
+  const scaleInset = () => [isFraction, 'full', 'auto', ...scaleUnambiguousSpacing()];
+  const scaleGridTemplateColsRows = () => [isInteger, 'none', 'subgrid', isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartAndEnd = () => ['auto', {
+    span: ['full', isInteger, isArbitraryVariable, isArbitraryValue]
+  }, isInteger, isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartOrEnd = () => [isInteger, 'auto', isArbitraryVariable, isArbitraryValue];
+  const scaleGridAutoColsRows = () => ['auto', 'min', 'max', 'fr', isArbitraryVariable, isArbitraryValue];
+  const scaleAlignPrimaryAxis = () => ['start', 'end', 'center', 'between', 'around', 'evenly', 'stretch', 'baseline', 'center-safe', 'end-safe'];
+  const scaleAlignSecondaryAxis = () => ['start', 'end', 'center', 'stretch', 'center-safe', 'end-safe'];
+  const scaleMargin = () => ['auto', ...scaleUnambiguousSpacing()];
+  const scaleSizing = () => [isFraction, 'auto', 'full', 'dvw', 'dvh', 'lvw', 'lvh', 'svw', 'svh', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleColor = () => [themeColor, isArbitraryVariable, isArbitraryValue];
+  const scaleBgPosition = () => [...scalePosition(), isArbitraryVariablePosition, isArbitraryPosition, {
+    position: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleBgRepeat = () => ['no-repeat', {
+    repeat: ['', 'x', 'y', 'space', 'round']
+  }];
+  const scaleBgSize = () => ['auto', 'cover', 'contain', isArbitraryVariableSize, isArbitrarySize, {
+    size: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleGradientStopPosition = () => [isPercent, isArbitraryVariableLength, isArbitraryLength];
+  const scaleRadius = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', 'full', themeRadius, isArbitraryVariable, isArbitraryValue];
+  const scaleBorderWidth = () => ['', isNumber, isArbitraryVariableLength, isArbitraryLength];
+  const scaleLineStyle = () => ['solid', 'dashed', 'dotted', 'double'];
+  const scaleBlendMode = () => ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+  const scaleMaskImagePosition = () => [isNumber, isPercent, isArbitraryVariablePosition, isArbitraryPosition];
+  const scaleBlur = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', themeBlur, isArbitraryVariable, isArbitraryValue];
+  const scaleRotate = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleScale = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleSkew = () => [isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleTranslate = () => [isFraction, 'full', ...scaleUnambiguousSpacing()];
+  return {
+    cacheSize: 500,
+    theme: {
+      animate: ['spin', 'ping', 'pulse', 'bounce'],
+      aspect: ['video'],
+      blur: [isTshirtSize],
+      breakpoint: [isTshirtSize],
+      color: [isAny],
+      container: [isTshirtSize],
+      'drop-shadow': [isTshirtSize],
+      ease: ['in', 'out', 'in-out'],
+      font: [isAnyNonArbitrary],
+      'font-weight': ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+      'inset-shadow': [isTshirtSize],
+      leading: ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
+      perspective: ['dramatic', 'near', 'normal', 'midrange', 'distant', 'none'],
+      radius: [isTshirtSize],
+      shadow: [isTshirtSize],
+      spacing: ['px', isNumber],
+      text: [isTshirtSize],
+      'text-shadow': [isTshirtSize],
+      tracking: ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest']
+    },
+    classGroups: {
+      // --------------
+      // --- Layout ---
+      // --------------
+      /**
+       * Aspect Ratio
+       * @see https://tailwindcss.com/docs/aspect-ratio
+       */
+      aspect: [{
+        aspect: ['auto', 'square', isFraction, isArbitraryValue, isArbitraryVariable, themeAspect]
+      }],
+      /**
+       * Container
+       * @see https://tailwindcss.com/docs/container
+       * @deprecated since Tailwind CSS v4.0.0
+       */
+      container: ['container'],
+      /**
+       * Columns
+       * @see https://tailwindcss.com/docs/columns
+       */
+      columns: [{
+        columns: [isNumber, isArbitraryValue, isArbitraryVariable, themeContainer]
+      }],
+      /**
+       * Break After
+       * @see https://tailwindcss.com/docs/break-after
+       */
+      'break-after': [{
+        'break-after': scaleBreak()
+      }],
+      /**
+       * Break Before
+       * @see https://tailwindcss.com/docs/break-before
+       */
+      'break-before': [{
+        'break-before': scaleBreak()
+      }],
+      /**
+       * Break Inside
+       * @see https://tailwindcss.com/docs/break-inside
+       */
+      'break-inside': [{
+        'break-inside': ['auto', 'avoid', 'avoid-page', 'avoid-column']
+      }],
+      /**
+       * Box Decoration Break
+       * @see https://tailwindcss.com/docs/box-decoration-break
+       */
+      'box-decoration': [{
+        'box-decoration': ['slice', 'clone']
+      }],
+      /**
+       * Box Sizing
+       * @see https://tailwindcss.com/docs/box-sizing
+       */
+      box: [{
+        box: ['border', 'content']
+      }],
+      /**
+       * Display
+       * @see https://tailwindcss.com/docs/display
+       */
+      display: ['block', 'inline-block', 'inline', 'flex', 'inline-flex', 'table', 'inline-table', 'table-caption', 'table-cell', 'table-column', 'table-column-group', 'table-footer-group', 'table-header-group', 'table-row-group', 'table-row', 'flow-root', 'grid', 'inline-grid', 'contents', 'list-item', 'hidden'],
+      /**
+       * Screen Reader Only
+       * @see https://tailwindcss.com/docs/display#screen-reader-only
+       */
+      sr: ['sr-only', 'not-sr-only'],
+      /**
+       * Floats
+       * @see https://tailwindcss.com/docs/float
+       */
+      float: [{
+        float: ['right', 'left', 'none', 'start', 'end']
+      }],
+      /**
+       * Clear
+       * @see https://tailwindcss.com/docs/clear
+       */
+      clear: [{
+        clear: ['left', 'right', 'both', 'none', 'start', 'end']
+      }],
+      /**
+       * Isolation
+       * @see https://tailwindcss.com/docs/isolation
+       */
+      isolation: ['isolate', 'isolation-auto'],
+      /**
+       * Object Fit
+       * @see https://tailwindcss.com/docs/object-fit
+       */
+      'object-fit': [{
+        object: ['contain', 'cover', 'fill', 'none', 'scale-down']
+      }],
+      /**
+       * Object Position
+       * @see https://tailwindcss.com/docs/object-position
+       */
+      'object-position': [{
+        object: scalePositionWithArbitrary()
+      }],
+      /**
+       * Overflow
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      overflow: [{
+        overflow: scaleOverflow()
+      }],
+      /**
+       * Overflow X
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-x': [{
+        'overflow-x': scaleOverflow()
+      }],
+      /**
+       * Overflow Y
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-y': [{
+        'overflow-y': scaleOverflow()
+      }],
+      /**
+       * Overscroll Behavior
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      overscroll: [{
+        overscroll: scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior X
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-x': [{
+        'overscroll-x': scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior Y
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-y': [{
+        'overscroll-y': scaleOverscroll()
+      }],
+      /**
+       * Position
+       * @see https://tailwindcss.com/docs/position
+       */
+      position: ['static', 'fixed', 'absolute', 'relative', 'sticky'],
+      /**
+       * Top / Right / Bottom / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      inset: [{
+        inset: scaleInset()
+      }],
+      /**
+       * Right / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-x': [{
+        'inset-x': scaleInset()
+      }],
+      /**
+       * Top / Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-y': [{
+        'inset-y': scaleInset()
+      }],
+      /**
+       * Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      start: [{
+        start: scaleInset()
+      }],
+      /**
+       * End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      end: [{
+        end: scaleInset()
+      }],
+      /**
+       * Top
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      top: [{
+        top: scaleInset()
+      }],
+      /**
+       * Right
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      right: [{
+        right: scaleInset()
+      }],
+      /**
+       * Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      bottom: [{
+        bottom: scaleInset()
+      }],
+      /**
+       * Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      left: [{
+        left: scaleInset()
+      }],
+      /**
+       * Visibility
+       * @see https://tailwindcss.com/docs/visibility
+       */
+      visibility: ['visible', 'invisible', 'collapse'],
+      /**
+       * Z-Index
+       * @see https://tailwindcss.com/docs/z-index
+       */
+      z: [{
+        z: [isInteger, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------------
+      // --- Flexbox and Grid ---
+      // ------------------------
+      /**
+       * Flex Basis
+       * @see https://tailwindcss.com/docs/flex-basis
+       */
+      basis: [{
+        basis: [isFraction, 'full', 'auto', themeContainer, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * Flex Direction
+       * @see https://tailwindcss.com/docs/flex-direction
+       */
+      'flex-direction': [{
+        flex: ['row', 'row-reverse', 'col', 'col-reverse']
+      }],
+      /**
+       * Flex Wrap
+       * @see https://tailwindcss.com/docs/flex-wrap
+       */
+      'flex-wrap': [{
+        flex: ['nowrap', 'wrap', 'wrap-reverse']
+      }],
+      /**
+       * Flex
+       * @see https://tailwindcss.com/docs/flex
+       */
+      flex: [{
+        flex: [isNumber, isFraction, 'auto', 'initial', 'none', isArbitraryValue]
+      }],
+      /**
+       * Flex Grow
+       * @see https://tailwindcss.com/docs/flex-grow
+       */
+      grow: [{
+        grow: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Flex Shrink
+       * @see https://tailwindcss.com/docs/flex-shrink
+       */
+      shrink: [{
+        shrink: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Order
+       * @see https://tailwindcss.com/docs/order
+       */
+      order: [{
+        order: [isInteger, 'first', 'last', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Grid Template Columns
+       * @see https://tailwindcss.com/docs/grid-template-columns
+       */
+      'grid-cols': [{
+        'grid-cols': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Column Start / End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start-end': [{
+        col: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Column Start
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start': [{
+        'col-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Column End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-end': [{
+        'col-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Template Rows
+       * @see https://tailwindcss.com/docs/grid-template-rows
+       */
+      'grid-rows': [{
+        'grid-rows': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Row Start / End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start-end': [{
+        row: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Row Start
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start': [{
+        'row-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Row End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-end': [{
+        'row-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Auto Flow
+       * @see https://tailwindcss.com/docs/grid-auto-flow
+       */
+      'grid-flow': [{
+        'grid-flow': ['row', 'col', 'dense', 'row-dense', 'col-dense']
+      }],
+      /**
+       * Grid Auto Columns
+       * @see https://tailwindcss.com/docs/grid-auto-columns
+       */
+      'auto-cols': [{
+        'auto-cols': scaleGridAutoColsRows()
+      }],
+      /**
+       * Grid Auto Rows
+       * @see https://tailwindcss.com/docs/grid-auto-rows
+       */
+      'auto-rows': [{
+        'auto-rows': scaleGridAutoColsRows()
+      }],
+      /**
+       * Gap
+       * @see https://tailwindcss.com/docs/gap
+       */
+      gap: [{
+        gap: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap X
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-x': [{
+        'gap-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap Y
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-y': [{
+        'gap-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Justify Content
+       * @see https://tailwindcss.com/docs/justify-content
+       */
+      'justify-content': [{
+        justify: [...scaleAlignPrimaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Items
+       * @see https://tailwindcss.com/docs/justify-items
+       */
+      'justify-items': [{
+        'justify-items': [...scaleAlignSecondaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Self
+       * @see https://tailwindcss.com/docs/justify-self
+       */
+      'justify-self': [{
+        'justify-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      /**
+       * Align Content
+       * @see https://tailwindcss.com/docs/align-content
+       */
+      'align-content': [{
+        content: ['normal', ...scaleAlignPrimaryAxis()]
+      }],
+      /**
+       * Align Items
+       * @see https://tailwindcss.com/docs/align-items
+       */
+      'align-items': [{
+        items: [...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Align Self
+       * @see https://tailwindcss.com/docs/align-self
+       */
+      'align-self': [{
+        self: ['auto', ...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Place Content
+       * @see https://tailwindcss.com/docs/place-content
+       */
+      'place-content': [{
+        'place-content': scaleAlignPrimaryAxis()
+      }],
+      /**
+       * Place Items
+       * @see https://tailwindcss.com/docs/place-items
+       */
+      'place-items': [{
+        'place-items': [...scaleAlignSecondaryAxis(), 'baseline']
+      }],
+      /**
+       * Place Self
+       * @see https://tailwindcss.com/docs/place-self
+       */
+      'place-self': [{
+        'place-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      // Spacing
+      /**
+       * Padding
+       * @see https://tailwindcss.com/docs/padding
+       */
+      p: [{
+        p: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding X
+       * @see https://tailwindcss.com/docs/padding
+       */
+      px: [{
+        px: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Y
+       * @see https://tailwindcss.com/docs/padding
+       */
+      py: [{
+        py: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      ps: [{
+        ps: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pe: [{
+        pe: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Top
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pt: [{
+        pt: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Right
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pr: [{
+        pr: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Bottom
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pb: [{
+        pb: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Left
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pl: [{
+        pl: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Margin
+       * @see https://tailwindcss.com/docs/margin
+       */
+      m: [{
+        m: scaleMargin()
+      }],
+      /**
+       * Margin X
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mx: [{
+        mx: scaleMargin()
+      }],
+      /**
+       * Margin Y
+       * @see https://tailwindcss.com/docs/margin
+       */
+      my: [{
+        my: scaleMargin()
+      }],
+      /**
+       * Margin Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ms: [{
+        ms: scaleMargin()
+      }],
+      /**
+       * Margin End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      me: [{
+        me: scaleMargin()
+      }],
+      /**
+       * Margin Top
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mt: [{
+        mt: scaleMargin()
+      }],
+      /**
+       * Margin Right
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mr: [{
+        mr: scaleMargin()
+      }],
+      /**
+       * Margin Bottom
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mb: [{
+        mb: scaleMargin()
+      }],
+      /**
+       * Margin Left
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ml: [{
+        ml: scaleMargin()
+      }],
+      /**
+       * Space Between X
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x': [{
+        'space-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between X Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x-reverse': ['space-x-reverse'],
+      /**
+       * Space Between Y
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y': [{
+        'space-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between Y Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y-reverse': ['space-y-reverse'],
+      // --------------
+      // --- Sizing ---
+      // --------------
+      /**
+       * Size
+       * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
+       */
+      size: [{
+        size: scaleSizing()
+      }],
+      /**
+       * Width
+       * @see https://tailwindcss.com/docs/width
+       */
+      w: [{
+        w: [themeContainer, 'screen', ...scaleSizing()]
+      }],
+      /**
+       * Min-Width
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      'min-w': [{
+        'min-w': [themeContainer, 'screen', /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Width
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      'max-w': [{
+        'max-w': [themeContainer, 'screen', 'none', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'prose', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        {
+          screen: [themeBreakpoint]
+        }, ...scaleSizing()]
+      }],
+      /**
+       * Height
+       * @see https://tailwindcss.com/docs/height
+       */
+      h: [{
+        h: ['screen', 'lh', ...scaleSizing()]
+      }],
+      /**
+       * Min-Height
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      'min-h': [{
+        'min-h': ['screen', 'lh', 'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Height
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      'max-h': [{
+        'max-h': ['screen', 'lh', ...scaleSizing()]
+      }],
+      // ------------------
+      // --- Typography ---
+      // ------------------
+      /**
+       * Font Size
+       * @see https://tailwindcss.com/docs/font-size
+       */
+      'font-size': [{
+        text: ['base', themeText, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Font Smoothing
+       * @see https://tailwindcss.com/docs/font-smoothing
+       */
+      'font-smoothing': ['antialiased', 'subpixel-antialiased'],
+      /**
+       * Font Style
+       * @see https://tailwindcss.com/docs/font-style
+       */
+      'font-style': ['italic', 'not-italic'],
+      /**
+       * Font Weight
+       * @see https://tailwindcss.com/docs/font-weight
+       */
+      'font-weight': [{
+        font: [themeFontWeight, isArbitraryVariable, isArbitraryNumber]
+      }],
+      /**
+       * Font Stretch
+       * @see https://tailwindcss.com/docs/font-stretch
+       */
+      'font-stretch': [{
+        'font-stretch': ['ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal', 'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded', isPercent, isArbitraryValue]
+      }],
+      /**
+       * Font Family
+       * @see https://tailwindcss.com/docs/font-family
+       */
+      'font-family': [{
+        font: [isArbitraryVariableFamilyName, isArbitraryValue, themeFont]
+      }],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-normal': ['normal-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-ordinal': ['ordinal'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-slashed-zero': ['slashed-zero'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-figure': ['lining-nums', 'oldstyle-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-spacing': ['proportional-nums', 'tabular-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-fraction': ['diagonal-fractions', 'stacked-fractions'],
+      /**
+       * Letter Spacing
+       * @see https://tailwindcss.com/docs/letter-spacing
+       */
+      tracking: [{
+        tracking: [themeTracking, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Line Clamp
+       * @see https://tailwindcss.com/docs/line-clamp
+       */
+      'line-clamp': [{
+        'line-clamp': [isNumber, 'none', isArbitraryVariable, isArbitraryNumber]
+      }],
+      /**
+       * Line Height
+       * @see https://tailwindcss.com/docs/line-height
+       */
+      leading: [{
+        leading: [/** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        themeLeading, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * List Style Image
+       * @see https://tailwindcss.com/docs/list-style-image
+       */
+      'list-image': [{
+        'list-image': ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * List Style Position
+       * @see https://tailwindcss.com/docs/list-style-position
+       */
+      'list-style-position': [{
+        list: ['inside', 'outside']
+      }],
+      /**
+       * List Style Type
+       * @see https://tailwindcss.com/docs/list-style-type
+       */
+      'list-style-type': [{
+        list: ['disc', 'decimal', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Alignment
+       * @see https://tailwindcss.com/docs/text-align
+       */
+      'text-alignment': [{
+        text: ['left', 'center', 'right', 'justify', 'start', 'end']
+      }],
+      /**
+       * Placeholder Color
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://v3.tailwindcss.com/docs/placeholder-color
+       */
+      'placeholder-color': [{
+        placeholder: scaleColor()
+      }],
+      /**
+       * Text Color
+       * @see https://tailwindcss.com/docs/text-color
+       */
+      'text-color': [{
+        text: scaleColor()
+      }],
+      /**
+       * Text Decoration
+       * @see https://tailwindcss.com/docs/text-decoration
+       */
+      'text-decoration': ['underline', 'overline', 'line-through', 'no-underline'],
+      /**
+       * Text Decoration Style
+       * @see https://tailwindcss.com/docs/text-decoration-style
+       */
+      'text-decoration-style': [{
+        decoration: [...scaleLineStyle(), 'wavy']
+      }],
+      /**
+       * Text Decoration Thickness
+       * @see https://tailwindcss.com/docs/text-decoration-thickness
+       */
+      'text-decoration-thickness': [{
+        decoration: [isNumber, 'from-font', 'auto', isArbitraryVariable, isArbitraryLength]
+      }],
+      /**
+       * Text Decoration Color
+       * @see https://tailwindcss.com/docs/text-decoration-color
+       */
+      'text-decoration-color': [{
+        decoration: scaleColor()
+      }],
+      /**
+       * Text Underline Offset
+       * @see https://tailwindcss.com/docs/text-underline-offset
+       */
+      'underline-offset': [{
+        'underline-offset': [isNumber, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Transform
+       * @see https://tailwindcss.com/docs/text-transform
+       */
+      'text-transform': ['uppercase', 'lowercase', 'capitalize', 'normal-case'],
+      /**
+       * Text Overflow
+       * @see https://tailwindcss.com/docs/text-overflow
+       */
+      'text-overflow': ['truncate', 'text-ellipsis', 'text-clip'],
+      /**
+       * Text Wrap
+       * @see https://tailwindcss.com/docs/text-wrap
+       */
+      'text-wrap': [{
+        text: ['wrap', 'nowrap', 'balance', 'pretty']
+      }],
+      /**
+       * Text Indent
+       * @see https://tailwindcss.com/docs/text-indent
+       */
+      indent: [{
+        indent: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Vertical Alignment
+       * @see https://tailwindcss.com/docs/vertical-align
+       */
+      'vertical-align': [{
+        align: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Whitespace
+       * @see https://tailwindcss.com/docs/whitespace
+       */
+      whitespace: [{
+        whitespace: ['normal', 'nowrap', 'pre', 'pre-line', 'pre-wrap', 'break-spaces']
+      }],
+      /**
+       * Word Break
+       * @see https://tailwindcss.com/docs/word-break
+       */
+      break: [{
+        break: ['normal', 'words', 'all', 'keep']
+      }],
+      /**
+       * Overflow Wrap
+       * @see https://tailwindcss.com/docs/overflow-wrap
+       */
+      wrap: [{
+        wrap: ['break-word', 'anywhere', 'normal']
+      }],
+      /**
+       * Hyphens
+       * @see https://tailwindcss.com/docs/hyphens
+       */
+      hyphens: [{
+        hyphens: ['none', 'manual', 'auto']
+      }],
+      /**
+       * Content
+       * @see https://tailwindcss.com/docs/content
+       */
+      content: [{
+        content: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -------------------
+      // --- Backgrounds ---
+      // -------------------
+      /**
+       * Background Attachment
+       * @see https://tailwindcss.com/docs/background-attachment
+       */
+      'bg-attachment': [{
+        bg: ['fixed', 'local', 'scroll']
+      }],
+      /**
+       * Background Clip
+       * @see https://tailwindcss.com/docs/background-clip
+       */
+      'bg-clip': [{
+        'bg-clip': ['border', 'padding', 'content', 'text']
+      }],
+      /**
+       * Background Origin
+       * @see https://tailwindcss.com/docs/background-origin
+       */
+      'bg-origin': [{
+        'bg-origin': ['border', 'padding', 'content']
+      }],
+      /**
+       * Background Position
+       * @see https://tailwindcss.com/docs/background-position
+       */
+      'bg-position': [{
+        bg: scaleBgPosition()
+      }],
+      /**
+       * Background Repeat
+       * @see https://tailwindcss.com/docs/background-repeat
+       */
+      'bg-repeat': [{
+        bg: scaleBgRepeat()
+      }],
+      /**
+       * Background Size
+       * @see https://tailwindcss.com/docs/background-size
+       */
+      'bg-size': [{
+        bg: scaleBgSize()
+      }],
+      /**
+       * Background Image
+       * @see https://tailwindcss.com/docs/background-image
+       */
+      'bg-image': [{
+        bg: ['none', {
+          linear: [{
+            to: ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']
+          }, isInteger, isArbitraryVariable, isArbitraryValue],
+          radial: ['', isArbitraryVariable, isArbitraryValue],
+          conic: [isInteger, isArbitraryVariable, isArbitraryValue]
+        }, isArbitraryVariableImage, isArbitraryImage]
+      }],
+      /**
+       * Background Color
+       * @see https://tailwindcss.com/docs/background-color
+       */
+      'bg-color': [{
+        bg: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops From Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from-pos': [{
+        from: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops Via Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via-pos': [{
+        via: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops To Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to-pos': [{
+        to: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops From
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from': [{
+        from: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops Via
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via': [{
+        via: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops To
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to': [{
+        to: scaleColor()
+      }],
+      // ---------------
+      // --- Borders ---
+      // ---------------
+      /**
+       * Border Radius
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      rounded: [{
+        rounded: scaleRadius()
+      }],
+      /**
+       * Border Radius Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-s': [{
+        'rounded-s': scaleRadius()
+      }],
+      /**
+       * Border Radius End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-e': [{
+        'rounded-e': scaleRadius()
+      }],
+      /**
+       * Border Radius Top
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-t': [{
+        'rounded-t': scaleRadius()
+      }],
+      /**
+       * Border Radius Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-r': [{
+        'rounded-r': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-b': [{
+        'rounded-b': scaleRadius()
+      }],
+      /**
+       * Border Radius Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-l': [{
+        'rounded-l': scaleRadius()
+      }],
+      /**
+       * Border Radius Start Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ss': [{
+        'rounded-ss': scaleRadius()
+      }],
+      /**
+       * Border Radius Start End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-se': [{
+        'rounded-se': scaleRadius()
+      }],
+      /**
+       * Border Radius End End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ee': [{
+        'rounded-ee': scaleRadius()
+      }],
+      /**
+       * Border Radius End Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-es': [{
+        'rounded-es': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tl': [{
+        'rounded-tl': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tr': [{
+        'rounded-tr': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-br': [{
+        'rounded-br': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-bl': [{
+        'rounded-bl': scaleRadius()
+      }],
+      /**
+       * Border Width
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w': [{
+        border: scaleBorderWidth()
+      }],
+      /**
+       * Border Width X
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-x': [{
+        'border-x': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Y
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-y': [{
+        'border-y': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-s': [{
+        'border-s': scaleBorderWidth()
+      }],
+      /**
+       * Border Width End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-e': [{
+        'border-e': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Top
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-t': [{
+        'border-t': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Right
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-r': [{
+        'border-r': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Bottom
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-b': [{
+        'border-b': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Left
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-l': [{
+        'border-l': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x': [{
+        'divide-x': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x-reverse': ['divide-x-reverse'],
+      /**
+       * Divide Width Y
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y': [{
+        'divide-y': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width Y Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y-reverse': ['divide-y-reverse'],
+      /**
+       * Border Style
+       * @see https://tailwindcss.com/docs/border-style
+       */
+      'border-style': [{
+        border: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Divide Style
+       * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
+       */
+      'divide-style': [{
+        divide: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Border Color
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color': [{
+        border: scaleColor()
+      }],
+      /**
+       * Border Color X
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-x': [{
+        'border-x': scaleColor()
+      }],
+      /**
+       * Border Color Y
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-y': [{
+        'border-y': scaleColor()
+      }],
+      /**
+       * Border Color S
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-s': [{
+        'border-s': scaleColor()
+      }],
+      /**
+       * Border Color E
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-e': [{
+        'border-e': scaleColor()
+      }],
+      /**
+       * Border Color Top
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-t': [{
+        'border-t': scaleColor()
+      }],
+      /**
+       * Border Color Right
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-r': [{
+        'border-r': scaleColor()
+      }],
+      /**
+       * Border Color Bottom
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-b': [{
+        'border-b': scaleColor()
+      }],
+      /**
+       * Border Color Left
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-l': [{
+        'border-l': scaleColor()
+      }],
+      /**
+       * Divide Color
+       * @see https://tailwindcss.com/docs/divide-color
+       */
+      'divide-color': [{
+        divide: scaleColor()
+      }],
+      /**
+       * Outline Style
+       * @see https://tailwindcss.com/docs/outline-style
+       */
+      'outline-style': [{
+        outline: [...scaleLineStyle(), 'none', 'hidden']
+      }],
+      /**
+       * Outline Offset
+       * @see https://tailwindcss.com/docs/outline-offset
+       */
+      'outline-offset': [{
+        'outline-offset': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Outline Width
+       * @see https://tailwindcss.com/docs/outline-width
+       */
+      'outline-w': [{
+        outline: ['', isNumber, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Outline Color
+       * @see https://tailwindcss.com/docs/outline-color
+       */
+      'outline-color': [{
+        outline: scaleColor()
+      }],
+      // ---------------
+      // --- Effects ---
+      // ---------------
+      /**
+       * Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow
+       */
+      shadow: [{
+        shadow: [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+       */
+      'shadow-color': [{
+        shadow: scaleColor()
+      }],
+      /**
+       * Inset Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+       */
+      'inset-shadow': [{
+        'inset-shadow': ['none', themeInsetShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Inset Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+       */
+      'inset-shadow-color': [{
+        'inset-shadow': scaleColor()
+      }],
+      /**
+       * Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+       */
+      'ring-w': [{
+        ring: scaleBorderWidth()
+      }],
+      /**
+       * Ring Width Inset
+       * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-w-inset': ['ring-inset'],
+      /**
+       * Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+       */
+      'ring-color': [{
+        ring: scaleColor()
+      }],
+      /**
+       * Ring Offset Width
+       * @see https://v3.tailwindcss.com/docs/ring-offset-width
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-w': [{
+        'ring-offset': [isNumber, isArbitraryLength]
+      }],
+      /**
+       * Ring Offset Color
+       * @see https://v3.tailwindcss.com/docs/ring-offset-color
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-color': [{
+        'ring-offset': scaleColor()
+      }],
+      /**
+       * Inset Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+       */
+      'inset-ring-w': [{
+        'inset-ring': scaleBorderWidth()
+      }],
+      /**
+       * Inset Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+       */
+      'inset-ring-color': [{
+        'inset-ring': scaleColor()
+      }],
+      /**
+       * Text Shadow
+       * @see https://tailwindcss.com/docs/text-shadow
+       */
+      'text-shadow': [{
+        'text-shadow': ['none', themeTextShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Text Shadow Color
+       * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
+       */
+      'text-shadow-color': [{
+        'text-shadow': scaleColor()
+      }],
+      /**
+       * Opacity
+       * @see https://tailwindcss.com/docs/opacity
+       */
+      opacity: [{
+        opacity: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Mix Blend Mode
+       * @see https://tailwindcss.com/docs/mix-blend-mode
+       */
+      'mix-blend': [{
+        'mix-blend': [...scaleBlendMode(), 'plus-darker', 'plus-lighter']
+      }],
+      /**
+       * Background Blend Mode
+       * @see https://tailwindcss.com/docs/background-blend-mode
+       */
+      'bg-blend': [{
+        'bg-blend': scaleBlendMode()
+      }],
+      /**
+       * Mask Clip
+       * @see https://tailwindcss.com/docs/mask-clip
+       */
+      'mask-clip': [{
+        'mask-clip': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }, 'mask-no-clip'],
+      /**
+       * Mask Composite
+       * @see https://tailwindcss.com/docs/mask-composite
+       */
+      'mask-composite': [{
+        mask: ['add', 'subtract', 'intersect', 'exclude']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image-linear-pos': [{
+        'mask-linear': [isNumber]
+      }],
+      'mask-image-linear-from-pos': [{
+        'mask-linear-from': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-to-pos': [{
+        'mask-linear-to': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-from-color': [{
+        'mask-linear-from': scaleColor()
+      }],
+      'mask-image-linear-to-color': [{
+        'mask-linear-to': scaleColor()
+      }],
+      'mask-image-t-from-pos': [{
+        'mask-t-from': scaleMaskImagePosition()
+      }],
+      'mask-image-t-to-pos': [{
+        'mask-t-to': scaleMaskImagePosition()
+      }],
+      'mask-image-t-from-color': [{
+        'mask-t-from': scaleColor()
+      }],
+      'mask-image-t-to-color': [{
+        'mask-t-to': scaleColor()
+      }],
+      'mask-image-r-from-pos': [{
+        'mask-r-from': scaleMaskImagePosition()
+      }],
+      'mask-image-r-to-pos': [{
+        'mask-r-to': scaleMaskImagePosition()
+      }],
+      'mask-image-r-from-color': [{
+        'mask-r-from': scaleColor()
+      }],
+      'mask-image-r-to-color': [{
+        'mask-r-to': scaleColor()
+      }],
+      'mask-image-b-from-pos': [{
+        'mask-b-from': scaleMaskImagePosition()
+      }],
+      'mask-image-b-to-pos': [{
+        'mask-b-to': scaleMaskImagePosition()
+      }],
+      'mask-image-b-from-color': [{
+        'mask-b-from': scaleColor()
+      }],
+      'mask-image-b-to-color': [{
+        'mask-b-to': scaleColor()
+      }],
+      'mask-image-l-from-pos': [{
+        'mask-l-from': scaleMaskImagePosition()
+      }],
+      'mask-image-l-to-pos': [{
+        'mask-l-to': scaleMaskImagePosition()
+      }],
+      'mask-image-l-from-color': [{
+        'mask-l-from': scaleColor()
+      }],
+      'mask-image-l-to-color': [{
+        'mask-l-to': scaleColor()
+      }],
+      'mask-image-x-from-pos': [{
+        'mask-x-from': scaleMaskImagePosition()
+      }],
+      'mask-image-x-to-pos': [{
+        'mask-x-to': scaleMaskImagePosition()
+      }],
+      'mask-image-x-from-color': [{
+        'mask-x-from': scaleColor()
+      }],
+      'mask-image-x-to-color': [{
+        'mask-x-to': scaleColor()
+      }],
+      'mask-image-y-from-pos': [{
+        'mask-y-from': scaleMaskImagePosition()
+      }],
+      'mask-image-y-to-pos': [{
+        'mask-y-to': scaleMaskImagePosition()
+      }],
+      'mask-image-y-from-color': [{
+        'mask-y-from': scaleColor()
+      }],
+      'mask-image-y-to-color': [{
+        'mask-y-to': scaleColor()
+      }],
+      'mask-image-radial': [{
+        'mask-radial': [isArbitraryVariable, isArbitraryValue]
+      }],
+      'mask-image-radial-from-pos': [{
+        'mask-radial-from': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-to-pos': [{
+        'mask-radial-to': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-from-color': [{
+        'mask-radial-from': scaleColor()
+      }],
+      'mask-image-radial-to-color': [{
+        'mask-radial-to': scaleColor()
+      }],
+      'mask-image-radial-shape': [{
+        'mask-radial': ['circle', 'ellipse']
+      }],
+      'mask-image-radial-size': [{
+        'mask-radial': [{
+          closest: ['side', 'corner'],
+          farthest: ['side', 'corner']
+        }]
+      }],
+      'mask-image-radial-pos': [{
+        'mask-radial-at': scalePosition()
+      }],
+      'mask-image-conic-pos': [{
+        'mask-conic': [isNumber]
+      }],
+      'mask-image-conic-from-pos': [{
+        'mask-conic-from': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-to-pos': [{
+        'mask-conic-to': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-from-color': [{
+        'mask-conic-from': scaleColor()
+      }],
+      'mask-image-conic-to-color': [{
+        'mask-conic-to': scaleColor()
+      }],
+      /**
+       * Mask Mode
+       * @see https://tailwindcss.com/docs/mask-mode
+       */
+      'mask-mode': [{
+        mask: ['alpha', 'luminance', 'match']
+      }],
+      /**
+       * Mask Origin
+       * @see https://tailwindcss.com/docs/mask-origin
+       */
+      'mask-origin': [{
+        'mask-origin': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }],
+      /**
+       * Mask Position
+       * @see https://tailwindcss.com/docs/mask-position
+       */
+      'mask-position': [{
+        mask: scaleBgPosition()
+      }],
+      /**
+       * Mask Repeat
+       * @see https://tailwindcss.com/docs/mask-repeat
+       */
+      'mask-repeat': [{
+        mask: scaleBgRepeat()
+      }],
+      /**
+       * Mask Size
+       * @see https://tailwindcss.com/docs/mask-size
+       */
+      'mask-size': [{
+        mask: scaleBgSize()
+      }],
+      /**
+       * Mask Type
+       * @see https://tailwindcss.com/docs/mask-type
+       */
+      'mask-type': [{
+        'mask-type': ['alpha', 'luminance']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image': [{
+        mask: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ---------------
+      // --- Filters ---
+      // ---------------
+      /**
+       * Filter
+       * @see https://tailwindcss.com/docs/filter
+       */
+      filter: [{
+        filter: [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Blur
+       * @see https://tailwindcss.com/docs/blur
+       */
+      blur: [{
+        blur: scaleBlur()
+      }],
+      /**
+       * Brightness
+       * @see https://tailwindcss.com/docs/brightness
+       */
+      brightness: [{
+        brightness: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Contrast
+       * @see https://tailwindcss.com/docs/contrast
+       */
+      contrast: [{
+        contrast: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Drop Shadow
+       * @see https://tailwindcss.com/docs/drop-shadow
+       */
+      'drop-shadow': [{
+        'drop-shadow': [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeDropShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Drop Shadow Color
+       * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
+       */
+      'drop-shadow-color': [{
+        'drop-shadow': scaleColor()
+      }],
+      /**
+       * Grayscale
+       * @see https://tailwindcss.com/docs/grayscale
+       */
+      grayscale: [{
+        grayscale: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Hue Rotate
+       * @see https://tailwindcss.com/docs/hue-rotate
+       */
+      'hue-rotate': [{
+        'hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Invert
+       * @see https://tailwindcss.com/docs/invert
+       */
+      invert: [{
+        invert: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Saturate
+       * @see https://tailwindcss.com/docs/saturate
+       */
+      saturate: [{
+        saturate: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Sepia
+       * @see https://tailwindcss.com/docs/sepia
+       */
+      sepia: [{
+        sepia: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Filter
+       * @see https://tailwindcss.com/docs/backdrop-filter
+       */
+      'backdrop-filter': [{
+        'backdrop-filter': [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Blur
+       * @see https://tailwindcss.com/docs/backdrop-blur
+       */
+      'backdrop-blur': [{
+        'backdrop-blur': scaleBlur()
+      }],
+      /**
+       * Backdrop Brightness
+       * @see https://tailwindcss.com/docs/backdrop-brightness
+       */
+      'backdrop-brightness': [{
+        'backdrop-brightness': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Contrast
+       * @see https://tailwindcss.com/docs/backdrop-contrast
+       */
+      'backdrop-contrast': [{
+        'backdrop-contrast': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Grayscale
+       * @see https://tailwindcss.com/docs/backdrop-grayscale
+       */
+      'backdrop-grayscale': [{
+        'backdrop-grayscale': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Hue Rotate
+       * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+       */
+      'backdrop-hue-rotate': [{
+        'backdrop-hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Invert
+       * @see https://tailwindcss.com/docs/backdrop-invert
+       */
+      'backdrop-invert': [{
+        'backdrop-invert': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Opacity
+       * @see https://tailwindcss.com/docs/backdrop-opacity
+       */
+      'backdrop-opacity': [{
+        'backdrop-opacity': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Saturate
+       * @see https://tailwindcss.com/docs/backdrop-saturate
+       */
+      'backdrop-saturate': [{
+        'backdrop-saturate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Sepia
+       * @see https://tailwindcss.com/docs/backdrop-sepia
+       */
+      'backdrop-sepia': [{
+        'backdrop-sepia': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      // --------------
+      // --- Tables ---
+      // --------------
+      /**
+       * Border Collapse
+       * @see https://tailwindcss.com/docs/border-collapse
+       */
+      'border-collapse': [{
+        border: ['collapse', 'separate']
+      }],
+      /**
+       * Border Spacing
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing': [{
+        'border-spacing': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing X
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-x': [{
+        'border-spacing-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing Y
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-y': [{
+        'border-spacing-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Table Layout
+       * @see https://tailwindcss.com/docs/table-layout
+       */
+      'table-layout': [{
+        table: ['auto', 'fixed']
+      }],
+      /**
+       * Caption Side
+       * @see https://tailwindcss.com/docs/caption-side
+       */
+      caption: [{
+        caption: ['top', 'bottom']
+      }],
+      // ---------------------------------
+      // --- Transitions and Animation ---
+      // ---------------------------------
+      /**
+       * Transition Property
+       * @see https://tailwindcss.com/docs/transition-property
+       */
+      transition: [{
+        transition: ['', 'all', 'colors', 'opacity', 'shadow', 'transform', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Behavior
+       * @see https://tailwindcss.com/docs/transition-behavior
+       */
+      'transition-behavior': [{
+        transition: ['normal', 'discrete']
+      }],
+      /**
+       * Transition Duration
+       * @see https://tailwindcss.com/docs/transition-duration
+       */
+      duration: [{
+        duration: [isNumber, 'initial', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Timing Function
+       * @see https://tailwindcss.com/docs/transition-timing-function
+       */
+      ease: [{
+        ease: ['linear', 'initial', themeEase, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Delay
+       * @see https://tailwindcss.com/docs/transition-delay
+       */
+      delay: [{
+        delay: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Animation
+       * @see https://tailwindcss.com/docs/animation
+       */
+      animate: [{
+        animate: ['none', themeAnimate, isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------
+      // --- Transforms ---
+      // ------------------
+      /**
+       * Backface Visibility
+       * @see https://tailwindcss.com/docs/backface-visibility
+       */
+      backface: [{
+        backface: ['hidden', 'visible']
+      }],
+      /**
+       * Perspective
+       * @see https://tailwindcss.com/docs/perspective
+       */
+      perspective: [{
+        perspective: [themePerspective, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Perspective Origin
+       * @see https://tailwindcss.com/docs/perspective-origin
+       */
+      'perspective-origin': [{
+        'perspective-origin': scalePositionWithArbitrary()
+      }],
+      /**
+       * Rotate
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      rotate: [{
+        rotate: scaleRotate()
+      }],
+      /**
+       * Rotate X
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-x': [{
+        'rotate-x': scaleRotate()
+      }],
+      /**
+       * Rotate Y
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-y': [{
+        'rotate-y': scaleRotate()
+      }],
+      /**
+       * Rotate Z
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-z': [{
+        'rotate-z': scaleRotate()
+      }],
+      /**
+       * Scale
+       * @see https://tailwindcss.com/docs/scale
+       */
+      scale: [{
+        scale: scaleScale()
+      }],
+      /**
+       * Scale X
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-x': [{
+        'scale-x': scaleScale()
+      }],
+      /**
+       * Scale Y
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-y': [{
+        'scale-y': scaleScale()
+      }],
+      /**
+       * Scale Z
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-z': [{
+        'scale-z': scaleScale()
+      }],
+      /**
+       * Scale 3D
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-3d': ['scale-3d'],
+      /**
+       * Skew
+       * @see https://tailwindcss.com/docs/skew
+       */
+      skew: [{
+        skew: scaleSkew()
+      }],
+      /**
+       * Skew X
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-x': [{
+        'skew-x': scaleSkew()
+      }],
+      /**
+       * Skew Y
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-y': [{
+        'skew-y': scaleSkew()
+      }],
+      /**
+       * Transform
+       * @see https://tailwindcss.com/docs/transform
+       */
+      transform: [{
+        transform: [isArbitraryVariable, isArbitraryValue, '', 'none', 'gpu', 'cpu']
+      }],
+      /**
+       * Transform Origin
+       * @see https://tailwindcss.com/docs/transform-origin
+       */
+      'transform-origin': [{
+        origin: scalePositionWithArbitrary()
+      }],
+      /**
+       * Transform Style
+       * @see https://tailwindcss.com/docs/transform-style
+       */
+      'transform-style': [{
+        transform: ['3d', 'flat']
+      }],
+      /**
+       * Translate
+       * @see https://tailwindcss.com/docs/translate
+       */
+      translate: [{
+        translate: scaleTranslate()
+      }],
+      /**
+       * Translate X
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-x': [{
+        'translate-x': scaleTranslate()
+      }],
+      /**
+       * Translate Y
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-y': [{
+        'translate-y': scaleTranslate()
+      }],
+      /**
+       * Translate Z
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-z': [{
+        'translate-z': scaleTranslate()
+      }],
+      /**
+       * Translate None
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-none': ['translate-none'],
+      // ---------------------
+      // --- Interactivity ---
+      // ---------------------
+      /**
+       * Accent Color
+       * @see https://tailwindcss.com/docs/accent-color
+       */
+      accent: [{
+        accent: scaleColor()
+      }],
+      /**
+       * Appearance
+       * @see https://tailwindcss.com/docs/appearance
+       */
+      appearance: [{
+        appearance: ['none', 'auto']
+      }],
+      /**
+       * Caret Color
+       * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+       */
+      'caret-color': [{
+        caret: scaleColor()
+      }],
+      /**
+       * Color Scheme
+       * @see https://tailwindcss.com/docs/color-scheme
+       */
+      'color-scheme': [{
+        scheme: ['normal', 'dark', 'light', 'light-dark', 'only-dark', 'only-light']
+      }],
+      /**
+       * Cursor
+       * @see https://tailwindcss.com/docs/cursor
+       */
+      cursor: [{
+        cursor: ['auto', 'default', 'pointer', 'wait', 'text', 'move', 'help', 'not-allowed', 'none', 'context-menu', 'progress', 'cell', 'crosshair', 'vertical-text', 'alias', 'copy', 'no-drop', 'grab', 'grabbing', 'all-scroll', 'col-resize', 'row-resize', 'n-resize', 'e-resize', 's-resize', 'w-resize', 'ne-resize', 'nw-resize', 'se-resize', 'sw-resize', 'ew-resize', 'ns-resize', 'nesw-resize', 'nwse-resize', 'zoom-in', 'zoom-out', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Field Sizing
+       * @see https://tailwindcss.com/docs/field-sizing
+       */
+      'field-sizing': [{
+        'field-sizing': ['fixed', 'content']
+      }],
+      /**
+       * Pointer Events
+       * @see https://tailwindcss.com/docs/pointer-events
+       */
+      'pointer-events': [{
+        'pointer-events': ['auto', 'none']
+      }],
+      /**
+       * Resize
+       * @see https://tailwindcss.com/docs/resize
+       */
+      resize: [{
+        resize: ['none', '', 'y', 'x']
+      }],
+      /**
+       * Scroll Behavior
+       * @see https://tailwindcss.com/docs/scroll-behavior
+       */
+      'scroll-behavior': [{
+        scroll: ['auto', 'smooth']
+      }],
+      /**
+       * Scroll Margin
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-m': [{
+        'scroll-m': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin X
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mx': [{
+        'scroll-mx': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Y
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-my': [{
+        'scroll-my': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ms': [{
+        'scroll-ms': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-me': [{
+        'scroll-me': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Top
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mt': [{
+        'scroll-mt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Right
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mr': [{
+        'scroll-mr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Bottom
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mb': [{
+        'scroll-mb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Left
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ml': [{
+        'scroll-ml': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-p': [{
+        'scroll-p': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding X
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-px': [{
+        'scroll-px': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Y
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-py': [{
+        'scroll-py': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-ps': [{
+        'scroll-ps': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pe': [{
+        'scroll-pe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Top
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pt': [{
+        'scroll-pt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Right
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pr': [{
+        'scroll-pr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Bottom
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pb': [{
+        'scroll-pb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Left
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pl': [{
+        'scroll-pl': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Snap Align
+       * @see https://tailwindcss.com/docs/scroll-snap-align
+       */
+      'snap-align': [{
+        snap: ['start', 'end', 'center', 'align-none']
+      }],
+      /**
+       * Scroll Snap Stop
+       * @see https://tailwindcss.com/docs/scroll-snap-stop
+       */
+      'snap-stop': [{
+        snap: ['normal', 'always']
+      }],
+      /**
+       * Scroll Snap Type
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-type': [{
+        snap: ['none', 'x', 'y', 'both']
+      }],
+      /**
+       * Scroll Snap Type Strictness
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-strictness': [{
+        snap: ['mandatory', 'proximity']
+      }],
+      /**
+       * Touch Action
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      touch: [{
+        touch: ['auto', 'none', 'manipulation']
+      }],
+      /**
+       * Touch Action X
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-x': [{
+        'touch-pan': ['x', 'left', 'right']
+      }],
+      /**
+       * Touch Action Y
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-y': [{
+        'touch-pan': ['y', 'up', 'down']
+      }],
+      /**
+       * Touch Action Pinch Zoom
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-pz': ['touch-pinch-zoom'],
+      /**
+       * User Select
+       * @see https://tailwindcss.com/docs/user-select
+       */
+      select: [{
+        select: ['none', 'text', 'all', 'auto']
+      }],
+      /**
+       * Will Change
+       * @see https://tailwindcss.com/docs/will-change
+       */
+      'will-change': [{
+        'will-change': ['auto', 'scroll', 'contents', 'transform', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -----------
+      // --- SVG ---
+      // -----------
+      /**
+       * Fill
+       * @see https://tailwindcss.com/docs/fill
+       */
+      fill: [{
+        fill: ['none', ...scaleColor()]
+      }],
+      /**
+       * Stroke Width
+       * @see https://tailwindcss.com/docs/stroke-width
+       */
+      'stroke-w': [{
+        stroke: [isNumber, isArbitraryVariableLength, isArbitraryLength, isArbitraryNumber]
+      }],
+      /**
+       * Stroke
+       * @see https://tailwindcss.com/docs/stroke
+       */
+      stroke: [{
+        stroke: ['none', ...scaleColor()]
+      }],
+      // ---------------------
+      // --- Accessibility ---
+      // ---------------------
+      /**
+       * Forced Color Adjust
+       * @see https://tailwindcss.com/docs/forced-color-adjust
+       */
+      'forced-color-adjust': [{
+        'forced-color-adjust': ['auto', 'none']
+      }]
+    },
+    conflictingClassGroups: {
+      overflow: ['overflow-x', 'overflow-y'],
+      overscroll: ['overscroll-x', 'overscroll-y'],
+      inset: ['inset-x', 'inset-y', 'start', 'end', 'top', 'right', 'bottom', 'left'],
+      'inset-x': ['right', 'left'],
+      'inset-y': ['top', 'bottom'],
+      flex: ['basis', 'grow', 'shrink'],
+      gap: ['gap-x', 'gap-y'],
+      p: ['px', 'py', 'ps', 'pe', 'pt', 'pr', 'pb', 'pl'],
+      px: ['pr', 'pl'],
+      py: ['pt', 'pb'],
+      m: ['mx', 'my', 'ms', 'me', 'mt', 'mr', 'mb', 'ml'],
+      mx: ['mr', 'ml'],
+      my: ['mt', 'mb'],
+      size: ['w', 'h'],
+      'font-size': ['leading'],
+      'fvn-normal': ['fvn-ordinal', 'fvn-slashed-zero', 'fvn-figure', 'fvn-spacing', 'fvn-fraction'],
+      'fvn-ordinal': ['fvn-normal'],
+      'fvn-slashed-zero': ['fvn-normal'],
+      'fvn-figure': ['fvn-normal'],
+      'fvn-spacing': ['fvn-normal'],
+      'fvn-fraction': ['fvn-normal'],
+      'line-clamp': ['display', 'overflow'],
+      rounded: ['rounded-s', 'rounded-e', 'rounded-t', 'rounded-r', 'rounded-b', 'rounded-l', 'rounded-ss', 'rounded-se', 'rounded-ee', 'rounded-es', 'rounded-tl', 'rounded-tr', 'rounded-br', 'rounded-bl'],
+      'rounded-s': ['rounded-ss', 'rounded-es'],
+      'rounded-e': ['rounded-se', 'rounded-ee'],
+      'rounded-t': ['rounded-tl', 'rounded-tr'],
+      'rounded-r': ['rounded-tr', 'rounded-br'],
+      'rounded-b': ['rounded-br', 'rounded-bl'],
+      'rounded-l': ['rounded-tl', 'rounded-bl'],
+      'border-spacing': ['border-spacing-x', 'border-spacing-y'],
+      'border-w': ['border-w-x', 'border-w-y', 'border-w-s', 'border-w-e', 'border-w-t', 'border-w-r', 'border-w-b', 'border-w-l'],
+      'border-w-x': ['border-w-r', 'border-w-l'],
+      'border-w-y': ['border-w-t', 'border-w-b'],
+      'border-color': ['border-color-x', 'border-color-y', 'border-color-s', 'border-color-e', 'border-color-t', 'border-color-r', 'border-color-b', 'border-color-l'],
+      'border-color-x': ['border-color-r', 'border-color-l'],
+      'border-color-y': ['border-color-t', 'border-color-b'],
+      translate: ['translate-x', 'translate-y', 'translate-none'],
+      'translate-none': ['translate', 'translate-x', 'translate-y', 'translate-z'],
+      'scroll-m': ['scroll-mx', 'scroll-my', 'scroll-ms', 'scroll-me', 'scroll-mt', 'scroll-mr', 'scroll-mb', 'scroll-ml'],
+      'scroll-mx': ['scroll-mr', 'scroll-ml'],
+      'scroll-my': ['scroll-mt', 'scroll-mb'],
+      'scroll-p': ['scroll-px', 'scroll-py', 'scroll-ps', 'scroll-pe', 'scroll-pt', 'scroll-pr', 'scroll-pb', 'scroll-pl'],
+      'scroll-px': ['scroll-pr', 'scroll-pl'],
+      'scroll-py': ['scroll-pt', 'scroll-pb'],
+      touch: ['touch-x', 'touch-y', 'touch-pz'],
+      'touch-x': ['touch'],
+      'touch-y': ['touch'],
+      'touch-pz': ['touch']
+    },
+    conflictingClassGroupModifiers: {
+      'font-size': ['leading']
+    },
+    orderSensitiveModifiers: ['*', '**', 'after', 'backdrop', 'before', 'details-content', 'file', 'first-letter', 'first-line', 'marker', 'placeholder', 'selection']
+  };
+};
+
+/**
+ * @param baseConfig Config where other config will be merged into. This object will be mutated.
+ * @param configExtension Partial config to merge into the `baseConfig`.
+ */
+const mergeConfigs = (baseConfig, {
+  cacheSize,
+  prefix,
+  experimentalParseClassName,
+  extend = {},
+  override = {}
+}) => {
+  overrideProperty(baseConfig, 'cacheSize', cacheSize);
+  overrideProperty(baseConfig, 'prefix', prefix);
+  overrideProperty(baseConfig, 'experimentalParseClassName', experimentalParseClassName);
+  overrideConfigProperties(baseConfig.theme, override.theme);
+  overrideConfigProperties(baseConfig.classGroups, override.classGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroups, override.conflictingClassGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroupModifiers, override.conflictingClassGroupModifiers);
+  overrideProperty(baseConfig, 'orderSensitiveModifiers', override.orderSensitiveModifiers);
+  mergeConfigProperties(baseConfig.theme, extend.theme);
+  mergeConfigProperties(baseConfig.classGroups, extend.classGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroups, extend.conflictingClassGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroupModifiers, extend.conflictingClassGroupModifiers);
+  mergeArrayProperties(baseConfig, extend, 'orderSensitiveModifiers');
+  return baseConfig;
+};
+const overrideProperty = (baseObject, overrideKey, overrideValue) => {
+  if (overrideValue !== undefined) {
+    baseObject[overrideKey] = overrideValue;
+  }
+};
+const overrideConfigProperties = (baseObject, overrideObject) => {
+  if (overrideObject) {
+    for (const key in overrideObject) {
+      overrideProperty(baseObject, key, overrideObject[key]);
+    }
+  }
+};
+const mergeConfigProperties = (baseObject, mergeObject) => {
+  if (mergeObject) {
+    for (const key in mergeObject) {
+      mergeArrayProperties(baseObject, mergeObject, key);
+    }
+  }
+};
+const mergeArrayProperties = (baseObject, mergeObject, key) => {
+  const mergeValue = mergeObject[key];
+  if (mergeValue !== undefined) {
+    baseObject[key] = baseObject[key] ? baseObject[key].concat(mergeValue) : mergeValue;
+  }
+};
+const extendTailwindMerge = (configExtension, ...createConfig) => typeof configExtension === 'function' ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig);
+const twMerge = /*#__PURE__*/createTailwindMerge(getDefaultConfig);
+
+//# sourceMappingURL=bundle-mjs.mjs.map
+
+
+/***/ },
+
+/***/ "./node_modules/zustand/esm/react.mjs"
+/*!********************************************!*\
+  !*** ./node_modules/zustand/esm/react.mjs ***!
+  \********************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   create: () => (/* binding */ create),
+/* harmony export */   useStore: () => (/* binding */ useStore)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var zustand_vanilla__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! zustand/vanilla */ "./node_modules/zustand/esm/vanilla.mjs");
+
+
+
+const identity = (arg) => arg;
+function useStore(api, selector = identity) {
+  const slice = react__WEBPACK_IMPORTED_MODULE_0__.useSyncExternalStore(
+    api.subscribe,
+    react__WEBPACK_IMPORTED_MODULE_0__.useCallback(() => selector(api.getState()), [api, selector]),
+    react__WEBPACK_IMPORTED_MODULE_0__.useCallback(() => selector(api.getInitialState()), [api, selector])
+  );
+  react__WEBPACK_IMPORTED_MODULE_0__.useDebugValue(slice);
+  return slice;
+}
+const createImpl = (createState) => {
+  const api = (0,zustand_vanilla__WEBPACK_IMPORTED_MODULE_1__.createStore)(createState);
+  const useBoundStore = (selector) => useStore(api, selector);
+  Object.assign(useBoundStore, api);
+  return useBoundStore;
+};
+const create = ((createState) => createState ? createImpl(createState) : createImpl);
+
+
+
+
+/***/ },
+
+/***/ "./node_modules/zustand/esm/vanilla.mjs"
+/*!**********************************************!*\
+  !*** ./node_modules/zustand/esm/vanilla.mjs ***!
+  \**********************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createStore: () => (/* binding */ createStore)
+/* harmony export */ });
+const createStoreImpl = (createState) => {
+  let state;
+  const listeners = /* @__PURE__ */ new Set();
+  const setState = (partial, replace) => {
+    const nextState = typeof partial === "function" ? partial(state) : partial;
+    if (!Object.is(nextState, state)) {
+      const previousState = state;
+      state = (replace != null ? replace : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
+      listeners.forEach((listener) => listener(state, previousState));
+    }
+  };
+  const getState = () => state;
+  const getInitialState = () => initialState;
+  const subscribe = (listener) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  };
+  const api = { setState, getState, getInitialState, subscribe };
+  const initialState = state = createState(setState, getState, api);
+  return api;
+};
+const createStore = ((createState) => createState ? createStoreImpl(createState) : createStoreImpl);
+
+
+
+
+/***/ },
+
 /***/ "./src/App.tsx"
 /*!*********************!*\
   !*** ./src/App.tsx ***!
@@ -17166,6 +20835,1323 @@ const App = () => {
 
 /***/ },
 
+/***/ "./src/components/Create/CategorySelector.tsx"
+/*!****************************************************!*\
+  !*** ./src/components/Create/CategorySelector.tsx ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CategorySelector: () => (/* binding */ CategorySelector)
+/* harmony export */ });
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _SourceStatistics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SourceStatistics */ "./src/components/Create/SourceStatistics.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__);
+/**
+ * CategorySelector Component
+ * 
+ * A multi-select dropdown component for selecting WooCommerce product categories.
+ * 
+ * === DATA FLOW ARCHITECTURE ===
+ * 
+ * 1. PRELOADING (Parent Component - StepSource):
+ *    - When StepSource mounts, it calls `preloadCategories()` from Zustand store
+ *    - This ensures categories are cached BEFORE user opens this component
+ *    - Result: Instant display with no loading delay
+ * 
+ * 2. CACHING LAYERS:
+ *    a) localStorage Cache (30-minute TTL):
+ *       - Key: 'productbay_categories_cache'
+ *       - Stores: { categories: Category[], timestamp: number }
+ *       - Persists across browser sessions
+ *    
+ *    b) Zustand Store Cache (in-memory):
+ *       - State: categories[], categoriesLoading, categoriesLastFetched
+ *       - Provides instant access across all components
+ *       - Single source of truth for React components
+ * 
+ * 3. REFRESH STRATEGIES:
+ *    a) Automatic Background Refresh:
+ *       - Triggered when component mounts via `refreshCategoriesIfStale()`
+ *       - Only runs if cache is 5+ minutes old (but < 30 min)
+ *       - Non-blocking: displays cached data immediately while fetching fresh data
+ *       - Updates UI automatically when fresh data arrives
+ *    
+ *    b) Manual Force Reload:
+ *       - Triggered by user clicking "🔄 Reload" button
+ *       - Calls `forceReloadCategories()` - bypasses all caches
+ *       - Shows loading spinner while fetching
+ *       - Useful when user knows categories have changed
+ * 
+ * 4. STATE MANAGEMENT:
+ *    - Categories data: Managed in Zustand store (NOT local state)
+ *    - Selected categories: Stored in tableData.config.categories (Zustand)
+ *    - Local UI state: dropdown open/closed, search query
+ * 
+ * 5. USER EXPERIENCE:
+ *    - First load: Categories may load from API (preloaded in parent)
+ *    - Subsequent loads: Instant display from cache
+ *    - Stale data: Background refresh with seamless update
+ *    - Manual refresh: User has control via reload button
+ *    - Statistics: Shows selected count + total products included
+ */
+
+
+
+
+
+
+
+const CategorySelector = () => {
+  const {
+    tableData,
+    setTableData,
+    categories,
+    categoriesLoading,
+    refreshCategoriesIfStale,
+    forceReloadCategories
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_2__.useTableStore)();
+  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('');
+  const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+  const searchInputRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+
+  /**
+   * Background refresh on component mount
+   * 
+   * When CategorySelector mounts, check if cached data is stale (> 5 min old).
+   * If stale, fetch fresh data in background while displaying cached version.
+   * This ensures users always see up-to-date data without waiting.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    refreshCategoriesIfStale();
+  }, [refreshCategoriesIfStale]);
+
+  /**
+   * Filter categories based on search query (client-side filtering)
+   */
+  const filteredCategories = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(() => {
+    if (searchQuery.trim() === '') {
+      return categories;
+    }
+    const query = searchQuery.toLowerCase();
+    return categories.filter(cat => cat.name.toLowerCase().includes(query));
+  }, [searchQuery, categories]);
+
+  /**
+   * Auto-focus search input when dropdown opens
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    if (open && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 50);
+    } else {
+      setSearchQuery('');
+    }
+  }, [open]);
+
+  /**
+   * Close dropdown on outside click
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    const handleClickOutside = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [open]);
+
+  // Selected category IDs from store
+  const selectedIds = tableData.config.categories || [];
+
+  // Get full category objects for selected IDs
+  const selectedCategories = categories.filter(cat => selectedIds.includes(cat.id));
+
+  // Calculate statistics
+  const totalProducts = selectedCategories.reduce((sum, cat) => sum + cat.count, 0);
+
+  /**
+   * Toggle category selection
+   */
+  const toggleCategory = id => {
+    const newSelected = selectedIds.includes(id) ? selectedIds.filter(catId => catId !== id) : [...selectedIds, id];
+    setTableData({
+      config: {
+        ...tableData.config,
+        categories: newSelected
+      }
+    });
+  };
+
+  /**
+   * Remove category from selection
+   */
+  const removeCategory = id => {
+    const newSelected = selectedIds.filter(catId => catId !== id);
+    setTableData({
+      config: {
+        ...tableData.config,
+        categories: newSelected
+      }
+    });
+  };
+
+  /**
+   * Handle manual reload button click
+   */
+  const handleReload = async e => {
+    e.stopPropagation();
+    await forceReloadCategories();
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    className: "w-full space-y-3",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      className: "relative",
+      ref: dropdownRef,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("min-h-[40px] w-full border border-gray-300 rounded-md px-3 py-2 bg-white cursor-pointer transition-colors", open ? "border-blue-500 ring-2 ring-blue-100" : "hover:border-gray-400"),
+        onClick: () => setOpen(!open),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "flex items-center justify-between gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+            className: "flex-1 flex flex-wrap gap-1.5",
+            children: categoriesLoading && categories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+              className: "text-gray-500 text-sm flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                className: "h-4 w-4 animate-spin"
+              }), " Loading categories..."]
+            }) : selectedCategories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+              className: "text-gray-400 text-sm",
+              children: "Select categories..."
+            }) : selectedCategories.map(cat => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+              className: "inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-sm font-medium",
+              onClick: e => {
+                e.stopPropagation();
+                removeCategory(cat.id);
+              },
+              children: [cat.name, " (", cat.count, ")", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                className: "h-3 w-3 hover:text-blue-900 cursor-pointer"
+              })]
+            }, cat.id))
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("h-4 w-4 text-gray-500 transition-transform flex-shrink-0", open && "transform rotate-180")
+          })]
+        })
+      }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        className: "absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-80 flex flex-col",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: "p-2 border-b border-gray-200",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+            className: "relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              className: "absolute left-2 top-2.5 h-4 w-4 text-gray-400"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+              ref: searchInputRef,
+              type: "text",
+              placeholder: "Search categories...",
+              className: "w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+              value: searchQuery,
+              onChange: e => setSearchQuery(e.target.value),
+              onClick: e => e.stopPropagation()
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: "overflow-y-auto flex-1",
+          children: filteredCategories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+            className: "p-3 text-sm text-gray-500 text-center",
+            children: searchQuery ? 'No categories found matching your search.' : 'No categories available.'
+          }) : filteredCategories.map(category => {
+            const isSelected = selectedIds.includes(category.id);
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center px-3 py-2 text-sm cursor-pointer transition-colors", isSelected ? "bg-blue-50 text-blue-700 hover:bg-blue-100" : "hover:bg-gray-50"),
+              onClick: e => {
+                e.stopPropagation();
+                toggleCategory(category.id);
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+                type: "checkbox",
+                checked: isSelected,
+                onChange: () => {},
+                className: "mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+                className: "flex-1 font-medium",
+                children: category.name
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+                className: "text-xs text-gray-400",
+                children: ["(", category.count, ")"]
+              })]
+            }, category.id);
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            className: "text-xs text-gray-600",
+            children: selectedIds.length > 0 ? `${selectedIds.length} ${selectedIds.length === 1 ? 'category' : 'categories'} selected` : 'No categories selected'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("button", {
+            onClick: handleReload,
+            disabled: categoriesLoading,
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded transition-colors", categoriesLoading ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:bg-blue-50 hover:text-blue-700"),
+            title: "Reload categories from server",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("h-3 w-3", categoriesLoading && "animate-spin")
+            }), "Reload"]
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_SourceStatistics__WEBPACK_IMPORTED_MODULE_1__.SourceStatistics, {
+      categoryCount: selectedCategories.length,
+      productCount: totalProducts
+    })]
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/ProductSearch.tsx"
+/*!*************************************************!*\
+  !*** ./src/components/Create/ProductSearch.tsx ***!
+  \*************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ProductSearch: () => (/* binding */ ProductSearch)
+/* harmony export */ });
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _ui_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/Input */ "./src/components/ui/Input.tsx");
+/* harmony import */ var _ui_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/Modal */ "./src/components/ui/Modal.tsx");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__);
+
+
+
+
+
+
+
+
+const ProductSearch = () => {
+  const {
+    tableData,
+    setTableData
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_4__.useTableStore)();
+  const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)('');
+  const [results, setResults] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)([]);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(false);
+  const [showRemoveAllModal, setShowRemoveAllModal] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(false);
+
+  // Cache for search results to avoid redundant API calls
+  const searchCache = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)(new Map());
+
+  // Persistent storage for selected products (full objects with name, id, sku)
+  const [selectedProductsMap, setSelectedProductsMap] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(new Map());
+
+  /**
+   * Parse search query for special syntax
+   * 
+   * Supports:
+   * - id:123 or ID:123 (case insensitive) - search by exact ID
+   * - sku:ABC123 or SKU:ABC123 (case insensitive) - search by exact SKU
+   * - regular text - search by product name
+   */
+  const parseSearchQuery = q => {
+    const trimmed = q.trim();
+
+    // Check for ID search (case insensitive)
+    const idMatch = trimmed.match(/^id:(.+)$/i);
+    if (idMatch) {
+      return {
+        type: 'id',
+        value: idMatch[1].trim()
+      };
+    }
+
+    // Check for SKU search (case insensitive)
+    const skuMatch = trimmed.match(/^sku:(.+)$/i);
+    if (skuMatch) {
+      return {
+        type: 'sku',
+        value: skuMatch[1].trim()
+      };
+    }
+    return {
+      type: 'name',
+      value: trimmed
+    };
+  };
+
+  /**
+   * Search products with caching and optimized debounce
+   * 
+   * Performance optimizations:
+   * - Reduced debounce from 250ms to 150ms (ultra-fast response)
+   * - Caches search results in memory to avoid redundant API calls
+   * - Checks cache before making API request
+   * - Supports ID and SKU search with special syntax
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    const searchProducts = async () => {
+      if (query.length < 2) {
+        // Reduced from 3 to 2 for faster results
+        setResults([]);
+        return;
+      }
+      const searchParams = parseSearchQuery(query);
+
+      // Build cache key based on search type
+      const cacheKey = `${searchParams.type}:${searchParams.value.toLowerCase()}`;
+
+      // Check cache first
+      if (searchCache.current.has(cacheKey)) {
+        console.log('[ProductSearch] Cache hit for:', cacheKey);
+        setResults(searchCache.current.get(cacheKey));
+        return;
+      }
+      setLoading(true);
+      try {
+        let apiQuery = '';
+
+        // Build API query based on search type
+        if (searchParams.type === 'id') {
+          apiQuery = `products?include=${searchParams.value}`;
+        } else if (searchParams.type === 'sku') {
+          apiQuery = `products?sku=${encodeURIComponent(searchParams.value)}`;
+        } else {
+          apiQuery = `products?search=${encodeURIComponent(searchParams.value)}`;
+        }
+        const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_3__.apiFetch)(apiQuery);
+
+        // Store in cache
+        searchCache.current.set(cacheKey, data);
+        setResults(data);
+        console.log('[ProductSearch] Fetched and cached:', cacheKey);
+      } catch (error) {
+        console.error('Failed to search products', error);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Reduced debounce from 250ms to 150ms for ultra-fast response
+    const timeoutId = setTimeout(searchProducts, 150);
+    return () => clearTimeout(timeoutId);
+  }, [query]);
+
+  /**
+   * Sync selectedProductsMap from tableData on mount
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    const productIds = tableData.config.products || [];
+    const productObjects = tableData.config.productObjects || {};
+    const map = new Map();
+    productIds.forEach(id => {
+      if (productObjects[id]) {
+        map.set(id, productObjects[id]);
+      }
+    });
+    setSelectedProductsMap(map);
+  }, []);
+
+  /**
+   * Memoized Set of selected product IDs for O(1) lookup
+   */
+  const selectedIdsSet = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(() => {
+    return new Set(tableData.config.products || []);
+  }, [tableData.config.products]);
+
+  /**
+   * Optimized toggleProduct with full product persistence
+   */
+  const toggleProduct = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(product => {
+    const currentIds = tableData.config.products || [];
+    const currentObjects = tableData.config.productObjects || {};
+    const isSelected = currentIds.includes(product.id);
+    let newIds;
+    let newObjects;
+    let newMap;
+    if (isSelected) {
+      // Remove product
+      newIds = currentIds.filter(id => id !== product.id);
+      newObjects = {
+        ...currentObjects
+      };
+      delete newObjects[product.id];
+      newMap = new Map(selectedProductsMap);
+      newMap.delete(product.id);
+    } else {
+      // Add product
+      newIds = [...currentIds, product.id];
+      newObjects = {
+        ...currentObjects,
+        [product.id]: product
+      };
+      newMap = new Map(selectedProductsMap);
+      newMap.set(product.id, product);
+    }
+    setSelectedProductsMap(newMap);
+    setTableData({
+      config: {
+        ...tableData.config,
+        products: newIds,
+        productObjects: newObjects
+      }
+    });
+  }, [tableData.config, setTableData, selectedProductsMap]);
+
+  /**
+   * Remove all selected products with confirmation
+   */
+  const handleRemoveAll = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(() => {
+    const count = (tableData.config.products || []).length;
+    if (count === 0) return;
+    setShowRemoveAllModal(true);
+  }, [tableData.config]);
+
+  /**
+   * Confirm remove all action
+   */
+  const confirmRemoveAll = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(() => {
+    setSelectedProductsMap(new Map());
+    setTableData({
+      config: {
+        ...tableData.config,
+        products: [],
+        productObjects: {}
+      }
+    });
+    setShowRemoveAllModal(false);
+  }, [tableData.config, setTableData]);
+
+  /**
+   * Clear search input
+   */
+  const handleClearSearch = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(() => {
+    setQuery('');
+    setResults([]);
+  }, []);
+
+  /**
+   * Fast O(1) selection check using Set
+   */
+  const isSelected = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(id => {
+    return selectedIdsSet.has(id);
+  }, [selectedIdsSet]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+    className: "w-full space-y-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "relative",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        className: "absolute left-3 top-2.5 h-4 w-4 text-gray-400"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_ui_Input__WEBPACK_IMPORTED_MODULE_1__.Input, {
+        placeholder: "Search products by name, or use id:123 or sku:ABC",
+        value: query,
+        onChange: e => setQuery(e.target.value),
+        className: "pl-9 pr-9"
+      }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        className: "absolute right-3 top-2.5 h-4 w-4 animate-spin text-gray-400"
+      }) : query.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+        onClick: handleClearSearch,
+        className: "absolute bg-transparent cursor-pointer right-3 top-2.5 h-4 w-4 text-gray-400 hover:text-gray-600 p-0 m-0",
+        title: "Clear search",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          className: "h-4 w-4 p-0 m-0"
+        })
+      }) : null]
+    }), results.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      className: "border border-gray-200 rounded-md shadow-sm max-h-60 overflow-y-auto divide-y divide-gray-100 bg-white",
+      children: results.map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 transition-colors", isSelected(product.id) && "bg-blue-50/50"),
+        onClick: () => toggleProduct(product),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "h-10 w-10 bg-gray-100 rounded flex-shrink-0 overflow-hidden",
+          children: product.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
+            src: product.image,
+            alt: product.name,
+            className: "h-full w-full object-cover"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          className: "flex-1 min-w-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+            className: "text-sm font-medium text-gray-900 truncate",
+            children: product.name
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            className: "text-xs text-gray-500",
+            children: ["ID: ", product.id, " \u2022 SKU: ", product.sku || 'N/A']
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center", isSelected(product.id) ? "bg-primary border-primary text-white" : "text-transparent"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: "h-3 w-3"
+          })
+        })]
+      }, product.id))
+    }), selectedProductsMap.size > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "pt-2 space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "flex flex-wrap gap-2",
+        children: Array.from(selectedProductsMap.values()).map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          className: "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-sm border border-gray-200",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+            className: "max-w-[150px] truncate",
+            title: `${product.name} (ID: ${product.id}, SKU: ${product.sku || 'N/A'})`,
+            children: product.name
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+            onClick: () => toggleProduct(product),
+            className: "text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0",
+            title: "Remove",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              className: "h-3 w-3"
+            })
+          })]
+        }, product.id))
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        className: "flex items-center gap-4 text-sm bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("button", {
+          onClick: handleRemoveAll,
+          className: "bg-transparent text-red-600 hover:text-red-700 rounded-full hover:bg-red-100 px-2 cursor-pointer flex items-center gap-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            className: "h-4 w-4 mr-2"
+          }), "Remove all"]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "h-4 w-px bg-blue-300"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          className: "flex items-center gap-2 text-indigo-700",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            className: "h-4 w-4"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+            className: "font-semibold",
+            children: selectedProductsMap.size
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
+            className: "text-indigo-600",
+            children: [selectedProductsMap.size === 1 ? 'product' : 'products', " included"]
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_ui_Modal__WEBPACK_IMPORTED_MODULE_2__.Modal, {
+      isOpen: showRemoveAllModal,
+      onClose: () => setShowRemoveAllModal(false),
+      title: "Remove All Products",
+      className: "bg-gray-50",
+      maxWidth: "sm",
+      primaryButton: {
+        text: "Remove All",
+        onClick: confirmRemoveAll,
+        variant: "danger"
+      },
+      secondaryButton: {
+        text: "Cancel",
+        onClick: () => setShowRemoveAllModal(false),
+        variant: "secondary"
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("p", {
+        children: ["Are you sure you want to remove ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("strong", {
+          children: selectedProductsMap.size
+        }), " selected product", selectedProductsMap.size > 1 ? 's' : '', "?"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+        className: "mt-2 text-sm text-gray-500",
+        children: "This action cannot be undone."
+      })]
+    })]
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/SourceStatistics.tsx"
+/*!****************************************************!*\
+  !*** ./src/components/Create/SourceStatistics.tsx ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SourceStatistics: () => (/* binding */ SourceStatistics)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/folder-open.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+/**
+ * SourceStatistics Component
+ * 
+ * A reusable component to display product and category statistics
+ * for different source types (all, sale, category, specific).
+ * 
+ * Features:
+ * - Gradient card design with icons
+ * - Loading state support
+ * - Conditional rendering (only shows when counts > 0)
+ * - Responsive layout with divider
+ */
+
+const SourceStatistics = ({
+  categoryCount,
+  productCount,
+  loading = false,
+  className = ''
+}) => {
+  // Don't render if no data and not loading
+  if (!loading && categoryCount === 0 && productCount === 0) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: `bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-3 ${className}`,
+    children: loading ?
+    /*#__PURE__*/
+    // Skeleton loader - exact same structure as data for consistent height
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "flex items-center gap-4 text-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex items-center gap-2 animate-pulse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-4 bg-blue-200 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-8 bg-blue-200 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-20 bg-blue-200 rounded"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "h-4 w-px bg-blue-300"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex items-center gap-2 animate-pulse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-4 bg-indigo-200 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-12 bg-indigo-200 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-24 bg-indigo-200 rounded"
+        })]
+      })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "flex items-center gap-4 text-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex items-center gap-2 text-blue-700",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          className: "h-4 w-4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "font-semibold",
+          children: categoryCount
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "text-blue-600",
+          children: categoryCount === 1 ? 'category' : 'categories'
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "h-4 w-px bg-blue-300"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex items-center gap-2 text-indigo-700",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          className: "h-4 w-4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "font-semibold",
+          children: productCount
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+          className: "text-indigo-600",
+          children: [productCount === 1 ? 'product' : 'products', " included"]
+        })]
+      })]
+    })
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/StepColumns.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepColumns.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @dnd-kit/sortable */ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js");
+/* harmony import */ var _SortableColumn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SortableColumn */ "./src/components/SortableColumn.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const StepColumns = ({
+  showValidation
+}) => {
+  const {
+    tableData,
+    setTableData
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_1__.useTableStore)();
+
+  // Sensors for DnD
+  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.PointerSensor), (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.KeyboardSensor, {
+    coordinateGetter: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.sortableKeyboardCoordinates
+  }));
+  const handleDragEnd = event => {
+    const {
+      active,
+      over
+    } = event;
+    if (active.id !== over?.id) {
+      const oldIndex = tableData.columns.findIndex(col => col.id === active.id);
+      const newIndex = tableData.columns.findIndex(col => col.id === over?.id);
+      setTableData({
+        columns: (0,_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.arrayMove)(tableData.columns, oldIndex, newIndex)
+      });
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "bg-blue-50 border border-blue-200 rounded-lg p-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+        className: "font-bold text-blue-800 mb-2",
+        children: "Column Manager"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        className: "text-sm text-blue-700",
+        children: "Drag and drop columns to reorder. These columns will be displayed in the frontend."
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "border border-gray-200 rounded-lg overflow-hidden bg-white",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.DndContext, {
+        sensors: sensors,
+        collisionDetection: _dnd_kit_core__WEBPACK_IMPORTED_MODULE_2__.closestCenter,
+        onDragEnd: handleDragEnd,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.SortableContext, {
+          items: tableData.columns.map(c => c.id),
+          strategy: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.verticalListSortingStrategy,
+          children: tableData.columns.map(col => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SortableColumn__WEBPACK_IMPORTED_MODULE_4__.SortableColumn, {
+            id: col.id,
+            label: col.label
+          }, col.id))
+        })
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepColumns);
+
+/***/ },
+
+/***/ "./src/components/Create/StepDesign.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/Create/StepDesign.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepDesign = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "grid grid-cols-2 gap-8 h-full",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "space-y-6 overflow-y-auto pr-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+        className: "font-bold text-gray-800",
+        children: "Design Settings"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block text-sm font-medium mb-2",
+          children: "Border Color"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex gap-2",
+          children: ['#e5e7eb', '#d1d5db', '#9ca3af', '#2563eb'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "w-8 h-8 rounded-full border shadow-sm",
+            style: {
+              backgroundColor: c
+            }
+          }, c))
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block text-sm font-medium mb-2",
+          children: "Header Background"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex gap-2",
+          children: ['#f9fafb', '#f3f4f6', '#eff6ff', '#f0fdf4'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "w-8 h-8 rounded-md border shadow-sm",
+            style: {
+              backgroundColor: c
+            }
+          }, c))
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "text-gray-400",
+        children: "Live Preview Area"
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepDesign);
+
+/***/ },
+
+/***/ "./src/components/Create/StepOptions.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepOptions.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepOptions = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "AJAX Loading"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Load products without refreshing the page."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle",
+        defaultChecked: true
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Quantity Picker"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Show quantity input next to add to cart."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle"
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepOptions);
+
+/***/ },
+
+/***/ "./src/components/Create/StepPerformance.tsx"
+/*!***************************************************!*\
+  !*** ./src/components/Create/StepPerformance.tsx ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepPerformance = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Lazy Load Images"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Improve initial page load time."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle",
+        defaultChecked: true
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Cache Results"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Cache query results for faster subsequent loads."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle"
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepPerformance);
+
+/***/ },
+
+/***/ "./src/components/Create/StepPublish.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepPublish.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+const StepPublish = ({
+  showValidation
+}) => {
+  const {
+    saveTable
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_3__.useTableStore)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useNavigate)();
+  const {
+    id
+  } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)();
+  const handleSave = async () => {
+    const success = await saveTable(id);
+    if (success) {
+      alert('Table saved successfully!');
+      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_5__.PATHS.DASHBOARD);
+    } else {
+      alert('Failed to save table');
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    className: "text-center py-12",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: "w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        size: 40
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+      className: "text-2xl font-bold text-gray-800 mb-2",
+      children: "Ready to Publish!"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+      className: "text-gray-500 mb-8 max-w-md mx-auto",
+      children: "Your table is configured and ready to go. Click the button below to save and get your shortcode."
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+      onClick: handleSave,
+      className: "bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors inline-flex items-center gap-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        size: 20
+      }), "Publish Table"]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepPublish);
+
+/***/ },
+
+/***/ "./src/components/Create/StepSearch.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/Create/StepSearch.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepSearch = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        className: "block text-sm font-medium mb-2",
+        children: "Default Sort Order"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+        className: "w-full border-gray-300 rounded-md",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Newest First"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Price: Low to High"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Price: High to Low"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Name: A to Z"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Enable Search Box"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Allow users to search within the table."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle",
+        defaultChecked: true
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepSearch);
+
+/***/ },
+
+/***/ "./src/components/Create/StepSetup.tsx"
+/*!*********************************************!*\
+  !*** ./src/components/Create/StepSetup.tsx ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_Input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/Input */ "./src/components/ui/Input.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const StepSetup = ({
+  showValidation
+}) => {
+  const {
+    tableData,
+    setTableData
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_1__.useTableStore)();
+  const hasError = showValidation && !tableData.title.trim();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "space-y-6 mb-auto",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
+      className: "font-bold text-blue-800 mb-2",
+      children: ["Table Name ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: "text-red-500",
+        children: "*"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ui_Input__WEBPACK_IMPORTED_MODULE_0__.Input, {
+      type: "text",
+      value: tableData.title,
+      onChange: e => setTableData({
+        title: e.target.value
+      }),
+      placeholder: "e.g. Summer Sale Products",
+      error: hasError ? "Table name is required" : undefined
+    }), hasError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+      className: "text-sm text-red-500 mt-1",
+      children: "Please enter a table name to continue."
+    }), !hasError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+      className: "mt-1 text-sm text-gray-500",
+      children: "Give your table a descriptive name for internal use."
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepSetup);
+
+/***/ },
+
+/***/ "./src/components/Create/StepSource.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/Create/StepSource.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ProductSearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductSearch */ "./src/components/Create/ProductSearch.tsx");
+/* harmony import */ var _CategorySelector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategorySelector */ "./src/components/Create/CategorySelector.tsx");
+/* harmony import */ var _SourceStatistics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SourceStatistics */ "./src/components/Create/SourceStatistics.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const StepSource = ({
+  showValidation
+}) => {
+  const {
+    tableData,
+    setTableData,
+    fetchSourceStats,
+    preloadCategories,
+    sourceStats,
+    sourceStatsLoading
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_4__.useTableStore)();
+  const {
+    source_type
+  } = tableData;
+
+  /**
+   * Preload categories when component mounts
+   * 
+   * This ensures categories are cached and ready before the user
+   * clicks on the "Category" tab, providing instant display with
+   * no loading delay. The preloadCategories action uses intelligent
+   * caching (localStorage + Zustand) to minimize API calls.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    preloadCategories();
+  }, [preloadCategories]);
+  const categories = {
+    all: "Show all published products from your entire store catalog.",
+    sale: "Show only products currently on sale (with sale price set).",
+    category: "Show products from selected WooCommerce categories.",
+    specific: "Manually pick individual products to display."
+  };
+
+  // Calculate statistics for 'specific' source (client-side)
+  const selectedProductIds = tableData.config.products || [];
+  const specificStats = {
+    categories: 0,
+    // We don't track categories for specific products yet
+    products: selectedProductIds.length
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h3", {
+      className: "font-bold text-blue-800 mb-2",
+      children: ["Select a source ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-red-500",
+        children: "*"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mt-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "w-full mx-auto mt-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("nav", {
+          className: "flex border-b border-gray-300 relative",
+          "aria-label": "Tabs",
+          children: Object.keys(categories).map(type => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            onClick: () => setTableData({
+              source_type: type
+            }),
+            className: `relative bg-white py-2 px-4 text-sm font-medium capitalize ${source_type === type ? 'text-blue-600 border border-gray-300 rounded-t-md border-b-0' : 'text-gray-600 border border-transparent hover:text-blue-500'}`,
+            style: {
+              marginBottom: source_type === type ? '-1px' : '0',
+              zIndex: source_type === type ? 10 : 1
+            },
+            children: type === 'all' ? 'All Products' : type
+          }, type))
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        className: "mt-4 text-md text-gray-500",
+        children: categories[source_type]
+      })]
+    }), source_type === 'all' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "mt-6 animate-fade-in",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SourceStatistics__WEBPACK_IMPORTED_MODULE_3__.SourceStatistics, {
+        categoryCount: sourceStats['all']?.categories || 0,
+        productCount: sourceStats['all']?.products || 0,
+        loading: sourceStatsLoading['all'] || !sourceStats['all']
+      })
+    }), source_type === 'sale' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "mt-6 animate-fade-in",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SourceStatistics__WEBPACK_IMPORTED_MODULE_3__.SourceStatistics, {
+        categoryCount: sourceStats['sale']?.categories || 0,
+        productCount: sourceStats['sale']?.products || 0,
+        loading: sourceStatsLoading['sale'] || !sourceStats['sale']
+      })
+    }), source_type === 'category' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "mt-6 pt-2 animate-fade-in",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_CategorySelector__WEBPACK_IMPORTED_MODULE_2__.CategorySelector, {})
+    }), source_type === 'specific' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "mt-6 pt-2 animate-fade-in space-y-3",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductSearch__WEBPACK_IMPORTED_MODULE_1__.ProductSearch, {})
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepSource);
+
+/***/ },
+
 /***/ "./src/components/Layout/Navbar.tsx"
 /*!******************************************!*\
   !*** ./src/components/Layout/Navbar.tsx ***!
@@ -17176,52 +22162,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/layout-grid.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
-/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ui_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/layout-grid.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
 
 const Navbar = () => {
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_0__.useNavigate)();
-  const navLinks = _utils_routes__WEBPACK_IMPORTED_MODULE_3__.routes.filter(route => route.showInNav);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("nav", {
-    className: "bg-white shadow-sm border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "flex items-center gap-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "bg-wp-btn p-1.5 rounded-lg text-white",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          size: 20,
-          strokeWidth: 2.5
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
+  const navLinks = _utils_routes__WEBPACK_IMPORTED_MODULE_4__.routes.filter(route => route.showInNav);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("nav", {
+    className: "w-full bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex justify-between items-center",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center justify-content-center gap-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        size: 20,
+        strokeWidth: 2.5
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
         className: "text-xl font-bold text-wp-text tracking-tight",
-        children: ["Product", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        children: ["Product", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
           className: "font-normal",
           children: "Bay"
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "flex items-center space-x-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "flex space-x-6 mr-4",
-        children: navLinks.map(link => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.NavLink, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "flex space-x-2 mr-6",
+        children: navLinks.map(link => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.NavLink, {
           to: link.path,
           className: ({
             isActive
-          }) => `text-gray-600 font-medium hover:text-wp-btn transition-colors ${isActive ? "text-wp-btn border-b-2 border-wp-btn pb-1" : ""}`,
+          }) => `   text-gray-600 font-medium hover:text-wp-btn transition-colors px-4 py-2 rounded-md 
+                                    ${isActive ? "bg-gray-200" : "hover:bg-gray-100"}`,
           children: link.label
         }, link.path))
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-        onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_3__.routes.find(r => r.path === '/new')?.path || '/new'),
-        className: "bg-wp-btn hover:bg-wp-btn-hover text-white px-4 py-2 rounded-md font-medium flex items-center gap-2 transition-colors",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          size: 18
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ui_Button__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_4__.PATHS.NEW),
+        variant: "default",
+        size: "lg",
+        className: "cursor-pointer",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          size: 18,
+          className: "mr-2"
         }), "Create Table"]
       })]
     })]
@@ -17296,6 +22285,273 @@ function SortableColumn({
 
 /***/ },
 
+/***/ "./src/components/ui/Button.tsx"
+/*!**************************************!*\
+  !*** ./src/components/ui/Button.tsx ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* binding */ Button),
+/* harmony export */   buttonVariants: () => (/* binding */ buttonVariants)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var class_variance_authority__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! class-variance-authority */ "./node_modules/class-variance-authority/dist/index.mjs");
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const buttonVariants = (0,class_variance_authority__WEBPACK_IMPORTED_MODULE_1__.cva)("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-transform duration-100", {
+  variants: {
+    variant: {
+      default: "bg-blue-600 text-white hover:bg-blue-700 shadow-sm",
+      destructive: "bg-red-500 text-white hover:bg-red-600 shadow-sm",
+      outline: "border border-gray-200 bg-white hover:bg-gray-100 hover:text-gray-900",
+      secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200/80",
+      ghost: "hover:bg-gray-100 hover:text-gray-900",
+      link: "text-blue-600 underline-offset-4 hover:underline",
+      success: "bg-green-600 text-white hover:bg-green-700 shadow-sm"
+    },
+    size: {
+      default: "h-10 px-4 py-2",
+      sm: "h-9 rounded-md px-3",
+      lg: "h-11 rounded-md px-8",
+      icon: "h-10 w-10"
+    }
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default"
+  }
+});
+const Button = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}, ref) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_2__.cn)(buttonVariants({
+      variant,
+      size,
+      className
+    })),
+    ref: ref,
+    ...props
+  });
+});
+Button.displayName = "Button";
+
+
+/***/ },
+
+/***/ "./src/components/ui/Input.tsx"
+/*!*************************************!*\
+  !*** ./src/components/ui/Input.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Input: () => (/* binding */ Input)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * Input component that renders a styled HTML input element.
+ * Supports standard HTML input attributes and a custom error state.
+ */
+const Input = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  type,
+  error,
+  ...props
+}, ref) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+    type: type,
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus:border-blue-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50", error && "border-red-500 focus:border-red-500", className),
+    ref: ref,
+    "aria-invalid": !!error,
+    ...props
+  });
+});
+Input.displayName = "Input";
+
+
+/***/ },
+
+/***/ "./src/components/ui/Modal.tsx"
+/*!*************************************!*\
+  !*** ./src/components/ui/Modal.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Modal: () => (/* binding */ Modal)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * Modal Component
+ * 
+ * A reusable, modern modal dialog with header, body, and footer sections.
+ * 
+ * @example
+ * ```tsx
+ * const [isOpen, setIsOpen] = useState(false);
+ * 
+ * <Modal
+ *   isOpen={isOpen}
+ *   onClose={() => setIsOpen(false)}
+ *   title="Confirm Action"
+ * >
+ *   <p>Are you sure you want to proceed?</p>
+ * </Modal>
+ * ```
+ * 
+ * @example With custom buttons
+ * ```tsx
+ * <Modal
+ *   isOpen={isOpen}
+ *   onClose={() => setIsOpen(false)}
+ *   title="Delete Item"
+ *   primaryButton={{
+ *     text: "Delete",
+ *     onClick: handleDelete,
+ *     variant: "danger"
+ *   }}
+ *   secondaryButton={{
+ *     text: "Cancel",
+ *     onClick: () => setIsOpen(false)
+ *   }}
+ * >
+ *   <p>This action cannot be undone.</p>
+ * </Modal>
+ * ```
+ */
+
+const Modal = ({
+  isOpen,
+  onClose,
+  title,
+  className,
+  children,
+  primaryButton,
+  secondaryButton,
+  maxWidth = 'md',
+  closeOnBackdropClick = true
+}) => {
+  const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // Handle ESC key to close modal
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleEsc = e => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEsc);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
+  // Handle backdrop click
+  const handleBackdropClick = e => {
+    if (closeOnBackdropClick && e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+  if (!isOpen) return null;
+
+  // Max width classes
+  const maxWidthClasses = {
+    sm: 'max-w-sm',
+    md: 'max-w-md',
+    lg: 'max-w-lg',
+    xl: 'max-w-xl'
+  };
+
+  // Button variant styles
+  const getButtonStyles = (variant = 'primary') => {
+    const base = 'px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 cursor-pointer';
+    const variants = {
+      primary: 'bg-blue-600 text-white hover:bg-blue-700/90',
+      secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200/90',
+      danger: 'bg-red-600 text-white hover:bg-red-700/90',
+      success: 'bg-green-600 text-white hover:bg-green-700/90'
+    };
+    return (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)(base, variants[variant]);
+  };
+
+  // Default secondary button
+  const defaultSecondaryButton = {
+    text: 'Cancel',
+    onClick: onClose,
+    variant: 'secondary'
+  };
+  const secondaryBtn = secondaryButton || defaultSecondaryButton;
+  return (
+    /*#__PURE__*/
+    // Modal Parent Container
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/20 backdrop-blur-xs animate-fade-in",
+      onClick: handleBackdropClick,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        ref: modalRef,
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("bg-white rounded-lg shadow-xl w-full animate-scale-in border border-gray-200", className, maxWidthClasses[maxWidth]),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "px-6 py-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+            className: "text-lg font-semibold text-gray-800 m-0",
+            children: title
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "px-6 py-4 text-gray-700",
+          children: children
+        }), (primaryButton || secondaryButton !== undefined) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "flex items-center justify-end gap-3 px-6 py-4 rounded-b-lg",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+            onClick: secondaryBtn.onClick,
+            className: getButtonStyles(secondaryBtn.variant),
+            children: [secondaryBtn.icon, secondaryBtn.text]
+          }), primaryButton && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+            onClick: primaryButton.onClick,
+            className: getButtonStyles(primaryButton.variant),
+            children: [primaryButton.icon, primaryButton.text]
+          })]
+        })]
+      })
+    })
+  );
+};
+
+/***/ },
+
 /***/ "./src/layouts/AdminLayout.tsx"
 /*!*************************************!*\
   !*** ./src/layouts/AdminLayout.tsx ***!
@@ -17318,9 +22574,9 @@ const AdminLayout = ({
   children
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "productbay-app bg-wp-bg min-h-screen font-sans text-wp-text",
+    className: "productbay-app bg-wp-bg font-sans text-wp-text p-0 m-0",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("main", {
-      className: "p-8 max-w-7xl mx-auto",
+      className: "max-w-7xl mx-auto",
       children: children
     })]
   });
@@ -17341,15 +22597,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
-/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _store_systemStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/systemStore */ "./src/store/systemStore.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-play.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/download.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/life-buoy.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/upload.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__);
+
 
 
 
@@ -17357,109 +22619,211 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Dashboard = () => {
-  const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useNavigate)();
+  // Use the system store instead of local state
+  const {
+    status,
+    fetchStatus,
+    error
+  } = (0,_store_systemStore__WEBPACK_IMPORTED_MODULE_4__.useSystemStore)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const fetchStatus = async () => {
-      try {
-        const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_3__.apiFetch)('system/status');
-        setStatus(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Fetch fresh data on mount (background update if data exists)
     fetchStatus();
-  }, []);
-  if (loading) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "p-8 text-center text-gray-500",
-      children: "Loading system status..."
-    });
-  }
+  }, [fetchStatus]);
   if (error) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
       className: "p-4 bg-red-50 text-red-600 rounded-lg",
       children: ["Error: ", error]
     });
   }
-  if (!status) return null;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+
+  // Determine loading state for skeleton (only if no data yet)
+  const isLoading = !status;
+
+  // Helper for skeleton text
+  const SkeletonText = ({
+    className
+  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    className: `h-4 bg-gray-200 rounded animate-pulse ${className}`
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
     className: "space-y-6",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h1", {
-      className: "text-2xl font-bold text-gray-800",
-      children: "Dashboard"
-    }), status.product_count === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "flex justify-between items-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h1", {
+        className: "text-2xl font-bold text-gray-800",
+        children: "Dashboard"
+      })
+    }), !isLoading && status?.product_count === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
       className: "bg-wp-info border-l-4 border-yellow-400 p-4 rounded-r-lg flex items-start gap-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
         className: "text-yellow-600 mt-0.5"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h3", {
           className: "font-bold text-yellow-800",
           children: "No Published Products Found"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
           className: "text-yellow-700 text-sm mt-1",
           children: "ProductBay could not find any 'published' WooCommerce products on your site. ProductBay cannot display products in tables without published products."
         })]
       })]
-    }), status.table_count === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "bg-white p-12 rounded-xl shadow-sm border border-gray-100 text-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), isLoading ?
+    /*#__PURE__*/
+    // LOADING SKELETON
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+      children: [1, 2].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          className: "bg-gray-100 p-3 rounded-lg text-gray-400 h-12 w-12 animate-pulse"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "space-y-2 w-full",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(SkeletonText, {
+            className: "w-24"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(SkeletonText, {
+            className: "w-16 h-8"
+          })]
+        })]
+      }, i))
+    }) : status?.table_count === 0 ?
+    /*#__PURE__*/
+    /* Welcome Hero */
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      className: "bg-white p-12 rounded-xl shadow-sm border border-gray-100 text-center animate-fade-in",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
           size: 32
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h2", {
         className: "text-2xl font-bold text-gray-900 mb-2",
         children: "Welcome to ProductBay"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
         className: "text-gray-500 max-w-md mx-auto mb-8",
-        children: "Get started by creating your first product table. It takes less than 2 minutes significantly improve your conversion rate."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-        to: _utils_routes__WEBPACK_IMPORTED_MODULE_2__.PATHS.NEW,
-        className: "inline-flex items-center gap-2 bg-wp-btn hover:bg-wp-btn-hover text-white px-6 py-3 rounded-lg font-medium transition-colors",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          size: 20
+        children: "Get started by creating your first product table. It takes less than 2 minutes to significantly improve your conversion rate."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+        onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.NEW),
+        className: "cursor-pointer",
+        variant: "default",
+        size: "lg",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          size: 20,
+          className: "mr-2"
         }), "Create First Table"]
       })]
     }) :
     /*#__PURE__*/
     /* Stats Grid */
-    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      className: "grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "bg-purple-50 p-3 rounded-lg text-purple-600",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
             size: 24
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
             className: "text-gray-500 text-sm",
             children: "Published Products"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
             className: "text-2xl font-bold text-gray-900",
-            children: status.product_count
+            children: status?.product_count
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "bg-blue-50 p-3 rounded-lg text-blue-600",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
             size: 24
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
             className: "text-gray-500 text-sm",
             children: "Active Tables"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
             className: "text-2xl font-bold text-gray-900",
-            children: status.table_count
+            children: status?.table_count
           })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex items-center gap-3 mb-4 text-gray-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            className: "text-blue-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h3", {
+            className: "font-bold",
+            children: "Getting Started"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+          className: "text-sm text-gray-500 mb-4",
+          children: "Watch our quick video guide or read the documentation to master ProductBay in minutes."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex gap-3 text-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+            href: "#",
+            className: "text-blue-600 hover:underline underline-offset-4",
+            children: "Watch Video"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+            className: "text-gray-300",
+            children: "|"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+            href: "#",
+            className: "text-blue-600 hover:underline underline-offset-4",
+            children: "Documentation"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex items-center gap-3 mb-4 text-gray-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: "text-green-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h3", {
+            className: "font-bold",
+            children: "Data Management"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+          className: "text-sm text-gray-500 mb-4",
+          children: "Import or export your table configurations for backup or migration."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("button", {
+            className: "flex-1 flex items-center justify-center gap-2 px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              size: 14
+            }), " Import"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("button", {
+            className: "flex-1 flex items-center justify-center gap-2 px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+            disabled: isLoading || status?.table_count === 0,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              size: 14
+            }), " Export"]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex items-center gap-3 mb-4 text-gray-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            className: "text-orange-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h3", {
+            className: "font-bold",
+            children: "Help & Support"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+          className: "text-sm text-gray-500 mb-4",
+          children: "Need help? Have a feature request? We'd love to hear from you."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+          to: "/help",
+          className: "text-blue-600 hover:underline underline-offset-4 text-sm font-medium",
+          children: "Contact Support"
         })]
       })]
     })]
@@ -17617,26 +22981,46 @@ const Design = () => {
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panels-top-left.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/list.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/palette.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/zap.js");
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
-/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
-/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
-/* harmony import */ var _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @dnd-kit/sortable */ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js");
-/* harmony import */ var _components_SortableColumn__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/SortableColumn */ "./src/components/SortableColumn.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/list.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/palette.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/zap.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _components_Create_StepSetup__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/Create/StepSetup */ "./src/components/Create/StepSetup.tsx");
+/* harmony import */ var _components_Create_StepSource__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/Create/StepSource */ "./src/components/Create/StepSource.tsx");
+/* harmony import */ var _components_Create_StepColumns__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/Create/StepColumns */ "./src/components/Create/StepColumns.tsx");
+/* harmony import */ var _components_Create_StepOptions__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../components/Create/StepOptions */ "./src/components/Create/StepOptions.tsx");
+/* harmony import */ var _components_Create_StepSearch__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/Create/StepSearch */ "./src/components/Create/StepSearch.tsx");
+/* harmony import */ var _components_Create_StepDesign__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/Create/StepDesign */ "./src/components/Create/StepDesign.tsx");
+/* harmony import */ var _components_Create_StepPerformance__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/Create/StepPerformance */ "./src/components/Create/StepPerformance.tsx");
+/* harmony import */ var _components_Create_StepPublish__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/Create/StepPublish */ "./src/components/Create/StepPublish.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__);
+
+
+
+
+
+
+
+
+// Step Components
 
 
 
@@ -17649,464 +23033,243 @@ __webpack_require__.r(__webpack_exports__);
 const STEPS = [{
   id: 1,
   label: 'Setup',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"],
+  component: _components_Create_StepSetup__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   id: 2,
   label: 'Source',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _components_Create_StepSource__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   id: 3,
   label: 'Columns',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"],
+  component: _components_Create_StepColumns__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, {
   id: 4,
   label: 'Options',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"],
+  component: _components_Create_StepOptions__WEBPACK_IMPORTED_MODULE_20__["default"]
 }, {
   id: 5,
   label: 'Search',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"],
+  component: _components_Create_StepSearch__WEBPACK_IMPORTED_MODULE_21__["default"]
 }, {
   id: 6,
   label: 'Design',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"],
+  component: _components_Create_StepDesign__WEBPACK_IMPORTED_MODULE_22__["default"]
 }, {
   id: 7,
   label: 'Performance',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"],
+  component: _components_Create_StepPerformance__WEBPACK_IMPORTED_MODULE_23__["default"]
 }, {
   id: 8,
   label: 'Publish',
-  icon: lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"]
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"],
+  component: _components_Create_StepPublish__WEBPACK_IMPORTED_MODULE_24__["default"]
 }];
 const EditTable = () => {
   const {
     id
   } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useParams)();
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
-  const [currentStep, setCurrentStep] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!!id);
-  const [tableData, setTableData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    title: '',
-    source_type: 'all',
-    columns: [],
-    config: {}
-  });
+
+  // Zustand Store
+  const {
+    currentStep,
+    setStep,
+    loadTable,
+    saveTable,
+    resetStore,
+    tableData,
+    fetchSourceStats
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_16__.useTableStore)();
+  const [totalTables, setTotalTables] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [showValidation, setShowValidation] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Initial load logic
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    resetStore(); // Reset store on mount
+
     if (id) {
       loadTable(parseInt(id));
     }
+    const checkTableCount = async () => {
+      if (!id) {
+        try {
+          const status = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_13__.apiFetch)('system/status');
+          setTotalTables(status.table_count);
+        } catch (e) {
+          console.error(e);
+          // Fallback to wizard if check fails or returns 0
+          setTotalTables(0);
+        }
+      }
+    };
+    checkTableCount();
+
+    /**
+     * Preload source statistics for 'all' and 'sale' sources
+     * 
+     * Similar to category preloading, this ensures statistics are ready
+     * before the user selects these sources, providing instant display.
+     * Stats are fetched in parallel with other initialization.
+     */
+    fetchSourceStats('all');
+    fetchSourceStats('sale');
   }, [id]);
-  const loadTable = async tableId => {
-    try {
-      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_12__.apiFetch)(`tables/${tableId}`);
-      setTableData({
-        title: data.title,
-        ...data.config
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+  const handleNext = () => {
+    if (currentStep === 1 && !tableData.title.trim()) {
+      setShowValidation(true);
+      return;
     }
+    setShowValidation(false);
+    setStep(Math.min(8, currentStep + 1));
   };
   const handleSave = async () => {
-    try {
-      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_12__.apiFetch)('tables', {
-        method: 'POST',
-        body: JSON.stringify({
-          id: id,
-          ...tableData
-        })
-      });
+    const success = await saveTable(id);
+    if (success) {
       alert('Table saved successfully!');
-      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_13__.PATHS.DASHBOARD);
-    } catch (error) {
+      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_14__.PATHS.DASHBOARD);
+    } else {
       alert('Failed to save table');
     }
   };
+  const isWizardMode = !id && (totalTables === 0 || totalTables === null);
 
-  // Sensors for DnD
-  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.PointerSensor), (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.KeyboardSensor, {
-    coordinateGetter: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.sortableKeyboardCoordinates
-  }));
-  const handleDragEnd = event => {
-    const {
-      active,
-      over
-    } = event;
-    if (active.id !== over?.id) {
-      setTableData(prev => {
-        const oldIndex = prev.columns.findIndex(col => col.id === active.id);
-        const newIndex = prev.columns.findIndex(col => col.id === over?.id);
-        return {
-          ...prev,
-          columns: (0,_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.arrayMove)(prev.columns, oldIndex, newIndex)
-        };
-      });
-    }
-  };
+  // Render Logic
+  const CurrentStepComponent = STEPS.find(s => s.id === currentStep)?.component || _components_Create_StepSetup__WEBPACK_IMPORTED_MODULE_17__["default"];
 
-  // Initialize columns if empty
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (loading) return;
-    if (!tableData.columns || tableData.columns.length === 0) {
-      setTableData(prev => ({
-        ...prev,
-        columns: [{
-          id: 'image',
-          label: 'Image'
-        }, {
-          id: 'name',
-          label: 'Product Name'
-        }, {
-          id: 'price',
-          label: 'Price'
-        }, {
-          id: 'add-to-cart',
-          label: 'Add to Cart'
-        }]
-      }));
-    }
-  }, [loading]);
-  const renderStepContent = () => {
-    switch (currentStep) {
-      case 1:
-        // Setup
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-          className: "space-y-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-              className: "block text-sm font-medium text-gray-700 mb-1",
-              children: "Table Name"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
-              type: "text",
-              value: tableData.title,
-              onChange: e => setTableData({
-                ...tableData,
-                title: e.target.value
-              }),
-              className: "w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500",
-              placeholder: "e.g. Summer Sale Products"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-              className: "mt-1 text-sm text-gray-500",
-              children: "Give your table a descriptive name for internal use."
-            })]
-          })
-        });
-      case 2:
-        // Source
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "space-y-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-              className: "block text-sm font-medium text-gray-700 mb-3",
-              children: "Select Products Source"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-              className: "grid grid-cols-1 md:grid-cols-3 gap-4",
-              children: ['all', 'category', 'specific'].map(type => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
-                onClick: () => setTableData({
-                  ...tableData,
-                  source_type: type
-                }),
-                className: `p-4 border rounded-lg text-left transition-all ${tableData.source_type === type ? 'border-blue-500 ring-2 ring-blue-50 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'}`,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-                  className: "font-semibold capitalize text-gray-900",
-                  children: type === 'all' ? 'All Products' : type
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-                  className: "text-sm text-gray-500 mt-1",
-                  children: [type === 'all' && 'Display all published products from your store.', type === 'category' && 'Select specific categories or tags to display.', type === 'specific' && 'Manually select individual products.']
-                })]
-              }, type))
-            })]
-          }), tableData.source_type === 'category' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-            className: "p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm border border-yellow-200",
-            children: "Category Selection Component will go here."
-          }), tableData.source_type === 'specific' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-            className: "p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm border border-yellow-200",
-            children: "Product Search Component will go here."
-          })]
-        });
-      case 3:
-        // Columns
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "space-y-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "bg-blue-50 border border-blue-200 rounded-lg p-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-              className: "font-bold text-blue-800 mb-2",
-              children: "Column Manager"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-              className: "text-sm text-blue-700",
-              children: "Drag and drop columns to reorder. These columns will be displayed in the frontend."
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-            className: "border border-gray-200 rounded-lg overflow-hidden bg-white",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
-              sensors: sensors,
-              collisionDetection: _dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.closestCenter,
-              onDragEnd: handleDragEnd,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.SortableContext, {
-                items: tableData.columns.map(c => c.id),
-                strategy: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_15__.verticalListSortingStrategy,
-                children: tableData.columns.map(col => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_SortableColumn__WEBPACK_IMPORTED_MODULE_16__.SortableColumn, {
-                  id: col.id,
-                  label: col.label
-                }, col.id))
-              })
+  // --- Layout Components ---
+
+  const WizardStepper = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+    className: "max-w-4xl mx-auto mb-8 px-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+      className: "text-center mb-10",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("h1", {
+        className: "text-2xl font-bold text-slate-800",
+        children: ["Setup your ", id ? '' : 'first ', "Product Table"]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+      className: "flex justify-between relative px-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+        className: "absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 -mt-3"
+      }), STEPS.map((step, index) => {
+        const isActive = currentStep === step.id;
+        const isCompleted = currentStep > step.id;
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          className: "relative z-0 group text-center flex-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("button", {
+            onClick: () => isCompleted && setStep(step.id),
+            disabled: !isCompleted && !isActive,
+            className: `w-10 h-10 rounded-full flex items-center justify-center mx-auto transition-all border-2
+                                    ${isActive ? 'bg-blue-600 border-blue-600 text-white shadow-md scale-110' : isCompleted ? 'bg-green-500 border-green-500 text-white cursor-pointer' : 'bg-white border-gray-300 text-gray-400'}`,
+            children: isCompleted ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              size: 18
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+              children: step.id
             })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            className: `mt-2 text-xs font-medium uppercase tracking-wide transition-colors ${isActive ? 'text-blue-600 font-bold' : isCompleted ? 'text-green-600' : 'text-gray-400'}`,
+            children: step.label
+          }), index !== STEPS.length - 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            className: `absolute top-5 left-1/2 w-full h-0.5 -z-10 transition-all duration-300 origin-left
+                                        ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}`
           })]
-        });
-      case 4:
-        // Options
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "space-y-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "flex items-center justify-between p-4 border rounded-lg",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-                className: "font-medium",
-                children: "AJAX Loading"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-                className: "text-sm text-gray-500",
-                children: "Load products without refreshing the page."
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
-              type: "checkbox",
-              className: "toggle",
-              defaultChecked: true
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "flex items-center justify-between p-4 border rounded-lg",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-                className: "font-medium",
-                children: "Quantity Picker"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-                className: "text-sm text-gray-500",
-                children: "Show quantity input next to add to cart."
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
-              type: "checkbox",
-              className: "toggle"
-            })]
-          })]
-        });
-      case 5:
-        // Search & Sort
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "space-y-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "p-4 border rounded-lg",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-              className: "block text-sm font-medium mb-2",
-              children: "Default Sort Order"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("select", {
-              className: "w-full border-gray-300 rounded-md",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
-                children: "Newest First"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
-                children: "Price: Low to High"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
-                children: "Price: High to Low"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("option", {
-                children: "Name: A to Z"
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "flex items-center justify-between p-4 border rounded-lg",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-                className: "font-medium",
-                children: "Enable Search Box"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-                className: "text-sm text-gray-500",
-                children: "Allow users to search within the table."
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
-              type: "checkbox",
-              className: "toggle",
-              defaultChecked: true
-            })]
-          })]
-        });
-      case 6:
-        // Design
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "grid grid-cols-2 gap-8 h-full",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "space-y-6 overflow-y-auto pr-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-              className: "font-bold text-gray-800",
-              children: "Design Settings"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-                className: "block text-sm font-medium mb-2",
-                children: "Border Color"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-                className: "flex gap-2",
-                children: ['#e5e7eb', '#d1d5db', '#9ca3af', '#2563eb'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
-                  className: "w-8 h-8 rounded-full border shadow-sm",
-                  style: {
-                    backgroundColor: c
-                  }
-                }, c))
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-                className: "block text-sm font-medium mb-2",
-                children: "Header Background"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-                className: "flex gap-2",
-                children: ['#f9fafb', '#f3f4f6', '#eff6ff', '#f0fdf4'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
-                  className: "w-8 h-8 rounded-md border shadow-sm",
-                  style: {
-                    backgroundColor: c
-                  }
-                }, c))
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-            className: "bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-              className: "text-gray-400",
-              children: "Live Preview Area"
-            })
-          })]
-        });
-      case 7:
-        // Performance
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "space-y-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "flex items-center justify-between p-4 border rounded-lg",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-                className: "font-medium",
-                children: "Lazy Load Images"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-                className: "text-sm text-gray-500",
-                children: "Improve initial page load time."
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
-              type: "checkbox",
-              className: "toggle",
-              defaultChecked: true
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-            className: "flex items-center justify-between p-4 border rounded-lg",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h3", {
-                className: "font-medium",
-                children: "Cache Results"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-                className: "text-sm text-gray-500",
-                children: "Cache query results for faster subsequent loads."
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
-              type: "checkbox",
-              className: "toggle"
-            })]
-          })]
-        });
-      case 8:
-        // Publish
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "text-center py-12",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-            className: "w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              size: 40
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
-            className: "text-2xl font-bold text-gray-800 mb-2",
-            children: "Ready to Publish!"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-            className: "text-gray-500 mb-8 max-w-md mx-auto",
-            children: "Your table is configured and ready to go. Click the button below to save and get your shortcode."
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
-            onClick: handleSave,
-            className: "bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors inline-flex items-center gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              size: 20
-            }), "Publish Table"]
-          })]
-        });
-    }
-  };
-  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-    className: "p-8 text-center",
-    children: "Loading..."
-  });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-    className: "flex h-[calc(100vh-100px)] -m-8 bg-gray-50",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-      className: "w-64 bg-white border-r border-gray-200 overflow-y-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-        className: "p-6 border-b border-gray-100",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
-          className: "font-bold text-gray-800",
-          children: "Table Builder"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
-          className: "text-xs text-gray-400 mt-1",
-          children: id ? 'Editing Table' : 'New Table'
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("nav", {
-        className: "p-4 space-y-1",
-        children: STEPS.map(step => {
-          const Icon = step.icon;
-          const isActive = currentStep === step.id;
-          const isCompleted = currentStep > step.id;
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
-            onClick: () => setCurrentStep(step.id),
-            className: `w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive ? 'bg-blue-50 text-blue-700' : isCompleted ? 'text-gray-700 hover:bg-gray-50' : 'text-gray-400 hover:bg-gray-50'}`,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-              className: `p-1.5 rounded-md ${isActive ? 'bg-blue-100 text-blue-600' : isCompleted ? 'bg-green-100 text-green-600' : 'bg-gray-100'}`,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(Icon, {
-                size: 16
-              })
-            }), step.label]
-          }, step.id);
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-      className: "flex-1 flex flex-col overflow-hidden",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("header", {
-        className: "bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h1", {
-          className: "text-xl font-bold text-gray-800",
-          children: STEPS[currentStep - 1].label
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-          className: "flex gap-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
-            onClick: () => setCurrentStep(prev => Math.max(1, prev - 1)),
-            disabled: currentStep === 1,
-            className: "px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md disabled:opacity-50",
-            children: "Back"
-          }), currentStep < 8 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
-            onClick: () => setCurrentStep(prev => Math.min(8, prev + 1)),
-            className: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2",
-            children: ["Next Step ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              size: 16
-            })]
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
-            onClick: handleSave,
-            className: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              size: 16
-            }), " Save & Publish"]
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("main", {
-        className: "flex-1 p-8 overflow-y-auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-          className: "max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px]",
-          children: renderStepContent()
-        })
+        }, step.id);
       })]
     })]
   });
+  const TabNavigation = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+    className: "bg-white border-b border-gray-200 sticky top-0 z-20 px-8 flex items-center gap-1 shadow-sm overflow-x-auto",
+    children: STEPS.map(step => {
+      const isActive = currentStep === step.id;
+      const Icon = step.icon;
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("button", {
+        onClick: () => setStep(step.id),
+        className: `flex items-center gap-2 px-4 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                            ${isActive ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Icon, {
+          size: 16
+        }), step.label]
+      }, step.id);
+    })
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+    className: `min-h-[calc(100vh-100px)] -m-8 ${isWizardMode ? 'p-8' : 'bg-gray-50'}`,
+    children: [isWizardMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(WizardStepper, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(TabNavigation, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("main", {
+      className: `${isWizardMode ? 'max-w-4xl mx-auto' : 'p-8 max-w-7xl mx-auto'}`,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+        className: "flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px] relative transition-all duration-500",
+        children: [!isWizardMode && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          className: "mb-6 pb-6 border-b border-gray-100 flex justify-between items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
+            className: "text-xl font-bold text-gray-800",
+            children: STEPS[currentStep - 1].label
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            className: "flex gap-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("button", {
+              onClick: handleSave,
+              className: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2 text-sm font-medium",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                size: 16
+              }), " Save Changes"]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+          className: "flex-1",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(CurrentStepComponent, {
+            showValidation: showValidation
+          })
+        }), isWizardMode && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          className: "mt-8 pt-6 flex justify-between items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_15__.Button, {
+            onClick: () => {
+              if (currentStep === 1) navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_14__.PATHS.DASHBOARD);else setStep(currentStep - 1);
+            },
+            variant: "outline",
+            size: "default",
+            children: currentStep === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                size: 18
+              }), " Back to Dashboard"]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                size: 18
+              }), " Previous Step"]
+            })
+          }), currentStep < 8 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_15__.Button, {
+            onClick: handleNext,
+            variant: "default",
+            size: "default",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: ["Next Step ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                size: 18
+              })]
+            })
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_15__.Button, {
+            onClick: handleSave,
+            variant: "success",
+            size: "default",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                size: 18
+              }), " Finish & Publish"]
+            })
+          })]
+        })]
+      })
+    })]
+  });
 };
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditTable);
 
 /***/ },
 
@@ -18442,6 +23605,391 @@ const Tables = () => {
 
 /***/ },
 
+/***/ "./src/store/systemStore.ts"
+/*!**********************************!*\
+  !*** ./src/store/systemStore.ts ***!
+  \**********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useSystemStore: () => (/* binding */ useSystemStore)
+/* harmony export */ });
+/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zustand */ "./node_modules/zustand/esm/react.mjs");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+
+
+const useSystemStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get) => ({
+  status: null,
+  loading: false,
+  error: null,
+  fetchStatus: async () => {
+    // If we already have data, we're not technically "loading" in a blocking way
+    // but we still want to indicate a background refresh might be happening if needed.
+    // For this UI, we'll just set loading=true only if we have NO data.
+    if (!get().status) {
+      set({
+        loading: true
+      });
+    }
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('system/status');
+      set({
+        status: data,
+        loading: false,
+        error: null
+      });
+    } catch (err) {
+      set({
+        error: err.message,
+        loading: false
+      });
+    }
+  }
+}));
+
+/***/ },
+
+/***/ "./src/store/tableStore.ts"
+/*!*********************************!*\
+  !*** ./src/store/tableStore.ts ***!
+  \*********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useTableStore: () => (/* binding */ useTableStore)
+/* harmony export */ });
+/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zustand */ "./node_modules/zustand/esm/react.mjs");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+
+
+const DEFAULT_DATA = {
+  title: '',
+  source_type: 'all',
+  columns: [{
+    id: 'image',
+    label: 'Image'
+  }, {
+    id: 'name',
+    label: 'Product Name'
+  }, {
+    id: 'price',
+    label: 'Price'
+  }, {
+    id: 'add-to-cart',
+    label: 'Add to Cart'
+  }],
+  config: {}
+};
+
+// Constants for category caching
+const CACHE_KEY = 'productbay_categories_cache';
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes - full cache expiration
+const STALE_DURATION = 1000 * 60 * 5; // 5 minutes - triggers background refresh
+
+const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get) => ({
+  currentStep: 1,
+  tableData: DEFAULT_DATA,
+  isLoading: false,
+  isSaving: false,
+  error: null,
+  // Category cache state
+  categories: [],
+  categoriesLoading: false,
+  categoriesLastFetched: null,
+  // Source statistics state
+  sourceStats: {},
+  sourceStatsLoading: {},
+  setStep: step => set({
+    currentStep: step
+  }),
+  setTableData: data => set(state => ({
+    tableData: {
+      ...state.tableData,
+      ...data
+    }
+  })),
+  resetStore: () => set({
+    currentStep: 1,
+    tableData: DEFAULT_DATA,
+    isLoading: false,
+    error: null
+  }),
+  loadTable: async id => {
+    set({
+      isLoading: true,
+      error: null
+    });
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)(`tables/${id}`);
+      set({
+        tableData: {
+          title: data.title,
+          source_type: data.source_type || 'all',
+          columns: data.columns || DEFAULT_DATA.columns,
+          config: data.config || {}
+        }
+      });
+    } catch (error) {
+      console.error('Failed to load table:', error);
+      set({
+        error: 'Failed to load table data'
+      });
+    } finally {
+      set({
+        isLoading: false
+      });
+    }
+  },
+  saveTable: async id => {
+    set({
+      isSaving: true,
+      error: null
+    });
+    const {
+      tableData
+    } = get();
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('tables', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: id,
+          ...tableData
+        })
+      });
+      return true;
+    } catch (error) {
+      console.error('Failed to save table:', error);
+      set({
+        error: 'Failed to save table'
+      });
+      return false;
+    } finally {
+      set({
+        isSaving: false
+      });
+    }
+  },
+  /**
+   * Preload categories with intelligent caching
+   * 
+   * Data Flow:
+   * 1. Check localStorage cache first
+   * 2. If cache exists and is valid (< 30 min old), use it
+   * 3. If cache is expired or missing, fetch from WordPress API
+   * 4. Update both localStorage and Zustand store state
+   * 
+   * This is called by parent components (like StepSource) on mount
+   * to ensure categories are ready before the user interacts with CategorySelector.
+   */
+  preloadCategories: async () => {
+    // Avoid redundant fetches if already loading
+    if (get().categoriesLoading) return;
+    set({
+      categoriesLoading: true
+    });
+    try {
+      // Step 1: Check localStorage cache
+      const cachedData = localStorage.getItem(CACHE_KEY);
+      if (cachedData) {
+        const parsed = JSON.parse(cachedData);
+        const now = Date.now();
+
+        // Step 2: Use cache if not expired (< 30 minutes)
+        if (now - parsed.timestamp < CACHE_DURATION) {
+          console.log('[CategoryCache] Using cached categories from localStorage');
+          set({
+            categories: parsed.categories,
+            categoriesLastFetched: parsed.timestamp,
+            categoriesLoading: false
+          });
+          return;
+        }
+      }
+
+      // Step 3: Fetch fresh data from API
+      console.log('[CategoryCache] Fetching categories from API');
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
+      const timestamp = Date.now();
+
+      // Step 4: Update both caches
+      const cacheData = {
+        categories: data,
+        timestamp
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      set({
+        categories: data,
+        categoriesLastFetched: timestamp,
+        categoriesLoading: false
+      });
+    } catch (error) {
+      console.error('[CategoryCache] Failed to load categories:', error);
+      set({
+        categoriesLoading: false
+      });
+    }
+  },
+  /**
+   * Refresh categories if cache is stale (background refresh)
+   * 
+   * This is called when CategorySelector mounts. If the cached data is older
+   * than 5 minutes (but less than 30 minutes), it will fetch fresh data in the
+   * background without blocking the UI. Users see cached data immediately and
+   * get automatic updates when fresh data arrives.
+   * 
+   * Data Flow:
+   * 1. Check if cache is stale (> 5 min old)
+   * 2. If stale, fetch from API in background (non-blocking)
+   * 3. Update localStorage and store when fresh data arrives
+   */
+  refreshCategoriesIfStale: async () => {
+    const {
+      categoriesLastFetched,
+      categoriesLoading
+    } = get();
+
+    // Skip if already loading or no cache exists
+    if (categoriesLoading || !categoriesLastFetched) return;
+    const now = Date.now();
+    const isStale = now - categoriesLastFetched > STALE_DURATION;
+
+    // Only refresh if stale
+    if (!isStale) return;
+    console.log('[CategoryCache] Cache is stale, refreshing in background');
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
+      const timestamp = Date.now();
+
+      // Update both caches
+      const cacheData = {
+        categories: data,
+        timestamp
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      set({
+        categories: data,
+        categoriesLastFetched: timestamp
+      });
+      console.log('[CategoryCache] Background refresh complete');
+    } catch (error) {
+      console.error('[CategoryCache] Background refresh failed:', error);
+    }
+  },
+  /**
+   * Force reload categories (manual user-triggered refresh)
+   * 
+   * Bypasses all caches and fetches fresh data from the API.
+   * This is triggered when the user clicks the "Reload" button.
+   * 
+   * Data Flow:
+   * 1. Set loading state (shows spinner in UI)
+   * 2. Fetch fresh data from WordPress API
+   * 3. Clear old cache and update with new data
+   * 4. Update store state and clear loading
+   */
+  forceReloadCategories: async () => {
+    set({
+      categoriesLoading: true
+    });
+    try {
+      console.log('[CategoryCache] Force reloading categories from API');
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
+      const timestamp = Date.now();
+
+      // Update both caches
+      const cacheData = {
+        categories: data,
+        timestamp
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      set({
+        categories: data,
+        categoriesLastFetched: timestamp,
+        categoriesLoading: false
+      });
+      console.log('[CategoryCache] Force reload complete');
+    } catch (error) {
+      console.error('[CategoryCache] Force reload failed:', error);
+      set({
+        categoriesLoading: false
+      });
+    }
+  },
+  /**
+   * Fetch source statistics for a given source type
+   * 
+   * Fetches product and category counts for 'all' and 'sale' source types.
+   * For 'category' and 'specific', stats are calculated client-side.
+   * 
+   * Data Flow:
+   * 1. Set loading state for this source type
+   * 2. Fetch from WordPress API (/source-stats?type=...)
+   * 3. Update sourceStats cache
+   * 4. Clear loading state
+   * 
+   * Caching: In-memory only (Zustand store), no localStorage persistence.
+   * Stats may change frequently as products are added/removed.
+   */
+  fetchSourceStats: async sourceType => {
+    const {
+      sourceStatsLoading,
+      sourceStats
+    } = get();
+
+    // Skip if already loading
+    if (sourceStatsLoading[sourceType]) {
+      console.log(`[SourceStats] Already loading ${sourceType}, skipping...`);
+      return;
+    }
+
+    // Skip if data already exists (cache hit)
+    if (sourceStats[sourceType]) {
+      console.log(`[SourceStats] Cache hit for ${sourceType}, using cached data`);
+      return;
+    }
+
+    // Skip client-side calculated sources
+    if (sourceType === 'category' || sourceType === 'specific') return;
+
+    // Set loading state for this source
+    set(state => ({
+      sourceStatsLoading: {
+        ...state.sourceStatsLoading,
+        [sourceType]: true
+      }
+    }));
+    try {
+      console.log(`[SourceStats] Fetching stats for source type: ${sourceType}`);
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)(`source-stats?type=${sourceType}`);
+      set(state => ({
+        sourceStats: {
+          ...state.sourceStats,
+          [sourceType]: data
+        },
+        sourceStatsLoading: {
+          ...state.sourceStatsLoading,
+          [sourceType]: false
+        }
+      }));
+      console.log(`[SourceStats] Stats loaded for ${sourceType}:`, data);
+    } catch (error) {
+      console.error(`[SourceStats] Failed to fetch stats for ${sourceType}:`, error);
+
+      // Clear loading state on error
+      set(state => ({
+        sourceStatsLoading: {
+          ...state.sourceStatsLoading,
+          [sourceType]: false
+        }
+      }));
+    }
+  }
+}));
+
+/***/ },
+
 /***/ "./src/utils/api.ts"
 /*!**************************!*\
   !*** ./src/utils/api.ts ***!
@@ -18472,6 +24020,26 @@ const apiFetch = async (path, options = {}) => {
 
 /***/ },
 
+/***/ "./src/utils/cn.ts"
+/*!*************************!*\
+  !*** ./src/utils/cn.ts ***!
+  \*************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cn: () => (/* binding */ cn)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
+
+
+function cn(...inputs) {
+  return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)((0,clsx__WEBPACK_IMPORTED_MODULE_0__.clsx)(inputs));
+}
+
+/***/ },
+
 /***/ "./src/utils/routes.ts"
 /*!*****************************!*\
   !*** ./src/utils/routes.ts ***!
@@ -18499,7 +24067,10 @@ const PATHS = {
   DASHBOARD: '/',
   NEW: '/new',
   EDIT: '/edit/:id',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  HELP: '/help',
+  TABLES: '/tables',
+  DESIGN: '/design'
 };
 const routes = [{
   path: PATHS.DASHBOARD,
@@ -18507,12 +24078,12 @@ const routes = [{
   label: 'Dashboard',
   showInNav: true
 }, {
-  path: '/tables',
+  path: PATHS.TABLES,
   element: _pages_Tables__WEBPACK_IMPORTED_MODULE_3__["default"],
   label: 'Tables',
   showInNav: true
 }, {
-  path: '/design',
+  path: PATHS.DESIGN,
   element: _pages_Design__WEBPACK_IMPORTED_MODULE_4__["default"],
   label: 'Design',
   showInNav: true
@@ -18522,7 +24093,7 @@ const routes = [{
   label: 'Settings',
   showInNav: true
 }, {
-  path: '/help',
+  path: PATHS.HELP,
   element: _pages_Help__WEBPACK_IMPORTED_MODULE_5__["default"],
   label: 'Help',
   showInNav: true
@@ -18700,19 +24271,46 @@ var __webpack_exports__ = {};
   \***********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App */ "./src/App.tsx");
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
 
-_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default()(() => {
-  const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createRoot)(document.getElementById("productbay-root"));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_App__WEBPACK_IMPORTED_MODULE_0__["default"], {}));
+
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2___default()(() => {
+  // Handle deep linking from WP Admin Menu
+  if (!window.location.hash) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("page");
+    switch (page) {
+      case "productbay-tables":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.TABLES}`;
+        break;
+      case "productbay-new":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.NEW}`;
+        break;
+      case "productbay-settings":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.SETTINGS}`;
+        break;
+      case "productbay-help":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.HELP}`;
+        break;
+      case "productbay":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.DASHBOARD}`;
+        break;
+    }
+  }
+  const container = document.getElementById("productbay-root");
+  if (container) {
+    const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createRoot)(container);
+    root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_App__WEBPACK_IMPORTED_MODULE_0__["default"], {}));
+  }
 });
 })();
 
