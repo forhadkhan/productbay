@@ -78,6 +78,27 @@ class Router
             'callback' => [new \ProductBay\Api\SystemController($this->repository, $this->request), 'get_status'],
             'permission_callback' => [$this, 'permission_check']
         ]);
+
+        // Products & Categories
+        $products_controller = new \ProductBay\Api\ProductsController($this->request);
+
+        \register_rest_route('productbay/v1', '/products', [
+            'methods'  => 'GET',
+            'callback' => [$products_controller, 'index'],
+            'permission_callback' => [$this, 'permission_check']
+        ]);
+
+        \register_rest_route('productbay/v1', '/categories', [
+            'methods'  => 'GET',
+            'callback' => [$products_controller, 'categories'],
+            'permission_callback' => [$this, 'permission_check']
+        ]);
+
+        \register_rest_route('productbay/v1', '/source-stats', [
+            'methods'  => 'GET',
+            'callback' => [$products_controller, 'sourceStats'],
+            'permission_callback' => [$this, 'permission_check']
+        ]);
     }
 
 
