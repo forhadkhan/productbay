@@ -1,7 +1,8 @@
+import { Button } from "../ui/Button";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutGrid, Plus } from "lucide-react";
+import { LayoutGridIcon, PlusIcon } from "lucide-react";
 
-import { routes } from '../../utils/routes';
+import { routes, PATHS } from '../../utils/routes';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -9,26 +10,25 @@ const Navbar = () => {
     const navLinks = routes.filter(route => route.showInNav);
 
     return (
-        <nav className="bg-white shadow-sm border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+        <nav className="w-full bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex justify-between items-center">
             {/* Logo / Brand */}
-            <div className="flex items-center gap-2">
-                <div className="bg-wp-btn p-1.5 rounded-lg text-white">
-                    <LayoutGrid size={20} strokeWidth={2.5} />
-                </div>
+            <div className="flex items-center justify-content-center gap-2">
+                <LayoutGridIcon size={20} strokeWidth={2.5} />
                 <span className="text-xl font-bold text-wp-text tracking-tight">
                     Product<span className="font-normal">Bay</span>
                 </span>
             </div>
 
             {/* Navigation Links */}
-            <div className="flex items-center space-x-6">
-                <div className="flex space-x-6 mr-4">
+            <div className="flex items-center">
+                <div className="flex space-x-2 mr-6">
                     {navLinks.map((link) => (
                         <NavLink
                             key={link.path}
                             to={link.path}
                             className={({ isActive }) =>
-                                `text-gray-600 font-medium hover:text-wp-btn transition-colors ${isActive ? "text-wp-btn border-b-2 border-wp-btn pb-1" : ""
+                                `   text-gray-600 font-medium hover:text-wp-btn transition-colors px-4 py-2 rounded-md 
+                                    ${isActive ? "bg-gray-200" : "hover:bg-gray-100"
                                 }`
                             }
                         >
@@ -37,13 +37,16 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                <button
-                    onClick={() => navigate(routes.find(r => r.path === '/new')?.path || '/new')}
-                    className="bg-wp-btn hover:bg-wp-btn-hover text-white px-4 py-2 rounded-md font-medium flex items-center gap-2 transition-colors"
+                {/* Create Table Button */}
+                <Button
+                    onClick={() => navigate(PATHS.NEW)}
+                    variant="default"
+                    size="lg"
+                    className="cursor-pointer"
                 >
-                    <Plus size={18} />
+                    <PlusIcon size={18} className="mr-2" />
                     Create Table
-                </button>
+                </Button>
             </div>
         </nav>
     );
