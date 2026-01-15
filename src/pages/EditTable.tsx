@@ -38,7 +38,8 @@ const EditTable = () => {
         loadTable,
         saveTable,
         resetStore,
-        tableData
+        tableData,
+        fetchSourceStats
     } = useTableStore();
 
     const [totalTables, setTotalTables] = useState<number | null>(null);
@@ -65,6 +66,16 @@ const EditTable = () => {
             }
         };
         checkTableCount();
+
+        /**
+         * Preload source statistics for 'all' and 'sale' sources
+         * 
+         * Similar to category preloading, this ensures statistics are ready
+         * before the user selects these sources, providing instant display.
+         * Stats are fetched in parallel with other initialization.
+         */
+        fetchSourceStats('all');
+        fetchSourceStats('sale');
     }, [id]);
 
     const handleNext = () => {
@@ -167,9 +178,9 @@ const EditTable = () => {
 
             {/* Main Content Area */}
             <main className={`${isWizardMode ? 'max-w-4xl mx-auto' : 'p-8 max-w-7xl mx-auto'}`}>
-                <div className={`bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px] relative transition-all duration-500`}>
+                <div className="flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px] relative transition-all duration-500">
 
-                    {/* Step Title for Editor Mode (Already in Wizard Header) */}
+                    {/* Step Title for Editor Mode */}
                     {!isWizardMode && (
                         <div className="mb-6 pb-6 border-b border-gray-100 flex justify-between items-center">
                             <h2 className="text-xl font-bold text-gray-800">{STEPS[currentStep - 1].label}</h2>
@@ -184,11 +195,13 @@ const EditTable = () => {
                         </div>
                     )}
 
-                    <CurrentStepComponent showValidation={showValidation} />
+                    <div className="flex-1">
+                        <CurrentStepComponent showValidation={showValidation} />
+                    </div>
 
                     {/* Wizard Footer Navigation */}
                     {isWizardMode && (
-                        <div className="mt-12 pt-6 border-t border-gray-100 flex justify-between items-center">
+                        <div className="mt-8 pt-6 flex justify-between items-center">
                             <Button
                                 onClick={() => {
                                     if (currentStep === 1) navigate(PATHS.DASHBOARD);
@@ -198,13 +211,13 @@ const EditTable = () => {
                                 size="default"
                             >
                                 {currentStep === 1 ? (
-                                    <>
+                                    <span className="flex items-center gap-2">
                                         <ChevronLeftIcon size={18} /> Back to Dashboard
-                                    </>
+                                    </span>
                                 ) : (
-                                    <>
+                                    <span className="flex items-center gap-2">
                                         <ChevronLeftIcon size={18} /> Previous Step
-                                    </>
+                                    </span>
                                 )}
                             </Button>
 
@@ -214,34 +227,19 @@ const EditTable = () => {
                                     variant="default"
                                     size="default"
                                 >
-                                    Next Step <ChevronRightIcon size={18} />
+                                    <span className="flex items-center gap-2">
+                                        Next Step <ChevronRightIcon size={18} />
+                                    </span>
                                 </Button>
                             ) : (
-                                /* Only show finish button if NOT in Step 8 content (Step 8 handles its own action) 
-                                   Actually Step 8 has the big button. So we might hide this button on step 8 ?
-                                   The original code had the Finish button in the footer for the last step.
-                                   But step 8 component ALSO has a big button. 
-                                   Let's check StepPublish.tsx content. It has a big button.
-                                   The logic below puts the "Finish" button in the footer if currentStep is 8 (condition was currentStep < 8 else Finish).
-                                   Since StepPublish is step 8, we probably don't need the footer "Finish" button if the component has one, OR we keep it for consistency.
-                                   Original had the button in the footer switch case logic? No, the original footer was OUTSIDE the switch.
-                                   Original: case 8 return content WITH button.
-                                   Original footer: checked if < 8 show Next, else show Finish.
-                                   So on step 8, we had DOUBLE buttons? 
-                                   Let's look at original `EditTable.tsx`:
-                                   `case 8`: returns the big "Ready to Publish" div with a button.
-                                   Footer: logic `currentStep < 8 ? Next : Finish`.
-                                   So yes, on step 8 there would be two buttons if not careful.
-                                   However, in `StepPublish.tsx`, I included the big button.
-                                   I'll remove the footer button for step 8 to avoid duplication, or keep it as a sticky footer action.
-                                   Let's keep the footer button as it is the primary navigation area.
-                                */
                                 <Button
                                     onClick={handleSave}
                                     variant="success"
                                     size="default"
                                 >
-                                    <SaveIcon size={18} /> Finish & Publish
+                                    <span className="flex items-center gap-2">
+                                        <SaveIcon size={18} /> Finish & Publish
+                                    </span>
                                 </Button>
                             )}
                         </div>
