@@ -1,5 +1,6 @@
 import React from 'react';
 import { FolderOpen, Package } from 'lucide-react';
+import { Skeleton } from '../ui/Skeleton';
 
 /**
  * SourceStatistics Component
@@ -42,20 +43,20 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
                 // Skeleton loader - exact same structure as data for consistent height
                 <div className="flex items-center gap-4 text-sm">
                     {/* Category skeleton */}
-                    <div className="flex items-center gap-2 animate-pulse">
-                        <div className="h-4 w-4 bg-blue-200 rounded"></div>
-                        <div className="h-4 w-8 bg-blue-200 rounded"></div>
-                        <div className="h-4 w-20 bg-blue-200 rounded"></div>
+                    <div className="flex items-center gap-2">
+                        <Skeleton className="h-4 w-4 rounded" />
+                        <Skeleton className="h-4 w-8 rounded" />
+                        <Skeleton className="h-4 w-20 rounded" />
                     </div>
 
                     {/* Divider */}
                     <div className="h-4 w-px bg-blue-300"></div>
 
                     {/* Product skeleton */}
-                    <div className="flex items-center gap-2 animate-pulse">
-                        <div className="h-4 w-4 bg-indigo-200 rounded"></div>
-                        <div className="h-4 w-12 bg-indigo-200 rounded"></div>
-                        <div className="h-4 w-24 bg-indigo-200 rounded"></div>
+                    <div className="flex items-center gap-2">
+                        <Skeleton className="h-4 w-4 rounded" />
+                        <Skeleton className="h-4 w-12 rounded" />
+                        <Skeleton className="h-4 w-24 rounded" />
                     </div>
                 </div>
             ) : (

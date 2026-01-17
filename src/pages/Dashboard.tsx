@@ -3,6 +3,7 @@ import { PATHS } from '../utils/routes';
 import { Button } from "../components/ui/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useSystemStore } from '../store/systemStore';
+import { Skeleton } from '../components/ui/Skeleton';
 import { AlertCircleIcon, DatabaseIcon, PackageIcon, PlusIcon, PlayCircleIcon, DownloadIcon, UploadIcon, LifeBuoyIcon, ChevronRightIcon } from 'lucide-react';
 
 const Dashboard = () => {
@@ -22,10 +23,6 @@ const Dashboard = () => {
     // Determine loading state for skeleton (only if no data yet)
     const isLoading = !status;
 
-    // Helper for skeleton text
-    const SkeletonText = ({ className }: { className?: string }) => (
-        <div className={`h-4 bg-gray-200 rounded animate-pulse ${className}`} />
-    );
 
     return (
         <div className="space-y-6">
@@ -52,10 +49,10 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {[1, 2].map((i) => (
                         <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                            <div className="bg-gray-100 p-3 rounded-lg text-gray-400 h-12 w-12 animate-pulse" />
+                            <Skeleton className="h-12 w-12 rounded-lg" />
                             <div className="space-y-2 w-full">
-                                <SkeletonText className="w-24" />
-                                <SkeletonText className="w-16 h-8" />
+                                <Skeleton className="h-4 w-24" />
+                                <Skeleton className="h-8 w-16" />
                             </div>
                         </div>
                     ))}
