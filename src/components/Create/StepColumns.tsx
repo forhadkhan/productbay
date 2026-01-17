@@ -1,8 +1,8 @@
-import React from 'react';
-import { useTableStore } from '../../store/tableStore';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { StepHeading } from './StepHeading';
 import { SortableColumn } from '../SortableColumn';
+import { useTableStore } from '../../store/tableStore';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 
 interface StepProps {
     showValidation?: boolean;
@@ -34,12 +34,10 @@ const StepColumns = ({ showValidation }: StepProps) => {
 
     return (
         <div className="space-y-6">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h3 className="font-bold text-blue-800 mb-2">Column Manager</h3>
-                <p className="text-sm text-blue-700">
-                    Drag and drop columns to reorder. These columns will be displayed in the frontend.
-                </p>
-            </div>
+            <StepHeading title="Column Manager" />
+            <p className="text-sm text-blue-700 mt-0">
+                Drag and drop columns to reorder. These columns will be displayed in the frontend.
+            </p>
             <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
                 <DndContext
                     sensors={sensors}

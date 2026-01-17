@@ -1,4 +1,4 @@
-import React from 'react';
+import { StepHeading } from './StepHeading';
 
 interface StepProps {
     showValidation?: boolean;
@@ -8,7 +8,7 @@ const StepDesign = ({ showValidation }: StepProps) => {
     return (
         <div className="grid grid-cols-2 gap-8 h-full">
             <div className="space-y-6 overflow-y-auto pr-4">
-                <h3 className="font-bold text-gray-800">Design Settings</h3>
+                <StepHeading title="Design Settings" />
                 <div>
                     <label className="block text-sm font-medium mb-2">Border Color</label>
                     <div className="flex gap-2">

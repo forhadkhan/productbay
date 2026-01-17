@@ -1,4 +1,5 @@
 import { Input } from '../ui/Input';
+import { StepHeading } from './StepHeading';
 import { useTableStore } from '../../store/tableStore';
 
 export interface StepProps {
@@ -11,9 +12,7 @@ const StepSetup = ({ showValidation }: StepProps) => {
 
     return (
         <div className="space-y-6 mb-auto">
-            <h3 className="font-bold text-blue-800 mb-2">
-                Table Name <span className="text-red-500">*</span>
-            </h3>
+            <StepHeading title="Table Name" required />
             <Input
                 type="text"
                 value={tableData.title}
