@@ -21,58 +21,12 @@
     position: fixed !important;
 }
 
-
-/*
- * WordPress Admin Integration
- *
- * WordPress wraps admin pages in a .wrap div with margins/padding.
- * We need to escape these constraints for full-height sidebar integration.
- */
-
-/* Remove WordPress wrapper constraints */
-#productbay-root {
-    margin: 0 !important;
+/* Remove padding from wp-content */
+#wpcontent {
     padding: 0 !important;
-    position: fixed !important;
-    top: 32px !important;
-    /* WordPress admin bar height */
-    left: 160px !important;
-    /* WordPress sidebar width (collapsed) */
-    right: 0 !important;
-    bottom: 0 !important;
-    width: auto !important;
-    max-width: none !important;
-    overflow: auto !important;
 }
 
-/* Adjust for expanded WordPress sidebar */
-@media screen and (min-width: 961px) {
-    body.folded #productbay-root {
-        left: 36px !important;
-        /* Collapsed sidebar width */
-    }
-
-    body:not(.folded) #productbay-root {
-        left: 160px !important;
-        /* Expanded sidebar width */
-    }
-}
-
-/* Mobile responsive */
-@media screen and (max-width: 960px) {
-    #productbay-root {
-        left: 0 !important;
-        /* No sidebar on mobile */
-        top: 46px !important;
-        /* Mobile admin bar height */
-    }
-}
-
-/* App container takes full available space */
-.productbay-app {
-    min-height: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
+/* Remove wordepress default admin footer */
+#wpfooter {
+    display: none !important;
 }
