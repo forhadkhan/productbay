@@ -79,9 +79,27 @@ const EditTable = () => {
     }, [id]);
 
     const handleNext = () => {
+        // Step 1: Validate table title
         if (currentStep === 1 && !tableData.title.trim()) {
             setShowValidation(true);
             return;
+        }
+
+        // Step 2: Validate source selection
+        if (currentStep === 2) {
+            const { source_type, config } = tableData;
+
+            // Category source requires at least one category selected
+            if (source_type === 'category' && (!config.categories || config.categories.length === 0)) {
+                setShowValidation(true);
+                return;
+            }
+
+            // Specific products source requires at least one product selected
+            if (source_type === 'specific' && (!config.products || config.products.length === 0)) {
+                setShowValidation(true);
+                return;
+            }
         }
 
         setShowValidation(false);

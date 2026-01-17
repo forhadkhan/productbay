@@ -4,6 +4,16 @@ import { ProductSearch } from './ProductSearch';
 import { CategorySelector } from './CategorySelector';
 import { SourceStatistics } from './SourceStatistics';
 import { useTableStore } from '../../store/tableStore';
+import { CircleCheckIcon, CircleIcon, AlertCircleIcon } from 'lucide-react';
+import { Alert, AlertDescription } from '../ui/Alert';
+
+// Human-readable labels for source types
+const SOURCE_LABELS: Record<string, string> = {
+    all: 'All Products',
+    sale: 'Sale Products',
+    category: 'Specific Categories',
+    specific: 'Individual Products'
+};
 
 const StepSource = ({ showValidation }: StepProps) => {
     const {
@@ -37,15 +47,51 @@ const StepSource = ({ showValidation }: StepProps) => {
 
     // Calculate statistics for 'specific' source (client-side)
     const selectedProductIds = tableData.config.products || [];
+    const selectedCategoryIds = tableData.config.categories || [];
     const specificStats = {
         categories: 0, // We don't track categories for specific products yet
         products: selectedProductIds.length
     };
 
+    // Check if source selection is complete
+    const isSourceComplete =
+        source_type === 'all' ||
+        source_type === 'sale' ||
+        (source_type === 'category' && selectedCategoryIds.length > 0) ||
+        (source_type === 'specific' && selectedProductIds.length > 0);
+
+    // Validation logic
+    const hasValidationError = showValidation && (
+        (source_type === 'category' && selectedCategoryIds.length === 0) ||
+        (source_type === 'specific' && selectedProductIds.length === 0)
+    );
+
+    const getValidationMessage = () => {
+        if (!showValidation) return null;
+        if (source_type === 'category' && selectedCategoryIds.length === 0) {
+            return 'Please select at least one category to continue.';
+        }
+        if (source_type === 'specific' && selectedProductIds.length === 0) {
+            return 'Please select at least one product to continue.';
+        }
+        return null;
+    };
+
     return (
         <div className="space-y-6">
-            <h3 className="font-bold text-blue-800 mb-2">
-                Select a source <span className="text-red-500">*</span>
+            {/* Source Selection - Show selected source type and validation status */}
+            <h3 className="font-bold text-blue-800 pb-2">
+                Source:
+                <span className={`inline-flex items-center rounded-full font-medium border ml-2 px-2 py-1 justify-center text-base ${isSourceComplete
+                    ? 'bg-green-50 border-green-300 text-green-700'
+                    : 'bg-gray-50 border-gray-300 text-gray-600'
+                    }`}>
+                    {isSourceComplete
+                        ? <CircleCheckIcon className="w-4 h-4 mr-1.5" />
+                        : <CircleIcon className="w-4 h-4 mr-1.5" />
+                    }
+                    {SOURCE_LABELS[source_type] || 'All Products'}
+                </span>
             </h3>
             <div className="mt-2">
                 <div className="w-full mx-auto mt-2">
@@ -109,6 +155,14 @@ const StepSource = ({ showValidation }: StepProps) => {
                     {/* <label className="block text-sm font-medium text-gray-700 mb-2">Search Products</label> */}
                     <ProductSearch />
                 </div>
+            )}
+
+            {/* Validation Error Message */}
+            {hasValidationError && (
+                <Alert variant="destructive" className="mt-4">
+                    <AlertCircleIcon className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                    <AlertDescription>{getValidationMessage()}</AlertDescription>
+                </Alert>
             )}
         </div>
     );
