@@ -48,6 +48,8 @@
  */
 
 import { cn } from '../../utils/cn';
+import { Button } from '../ui/Button';
+import { ConfirmButton } from '../ui/ConfirmButton';
 import { SourceStatistics } from './SourceStatistics';
 import { useTableStore } from '../../store/tableStore';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
@@ -165,6 +167,18 @@ export const CategorySelector: React.FC = () => {
         await forceReloadCategories();
     };
 
+    /**
+     * Clear selection logic
+     */
+    function handleClearSelection(): void {
+        setTableData({
+            config: {
+                ...tableData.config,
+                categories: []
+            }
+        });
+    }
+
     return (
         <div className="w-full space-y-3">
             {/* Main Selector */}
@@ -271,23 +285,46 @@ export const CategorySelector: React.FC = () => {
                                     ? `${selectedIds.length} ${selectedIds.length === 1 ? 'category' : 'categories'} selected`
                                     : 'No categories selected'}
                             </span>
-                            <button
-                                onClick={handleReload}
-                                disabled={categoriesLoading}
-                                className={cn(
-                                    "flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded transition-colors",
-                                    categoriesLoading
-                                        ? "text-gray-400 cursor-not-allowed"
-                                        : "text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-                                )}
-                                title="Reload categories from server"
-                            >
-                                <RefreshCwIcon className={cn(
-                                    "h-3 w-3",
-                                    categoriesLoading && "animate-spin"
-                                )} />
-                                Reload
-                            </button>
+
+                            {/* Action Buttons */}
+                            <div className="flex items-center gap-2">
+                                {/* Clear selection button with confirmation */}
+                                <ConfirmButton
+                                    onConfirm={handleClearSelection}
+                                    variant="ghost"
+                                    size="xs"
+                                    confirmMessage="Clear all?"
+                                    disabled={selectedIds.length === 0}
+                                    className={cn(
+                                        "flex items-center gap-1.5 font-medium hover:bg-red-50 hover:text-red-700 border border-transparent hover:border-gray-200",
+                                        selectedIds.length === 0 ? "text-gray-300" : "text-red-600"
+                                    )}
+                                >
+                                    <XIcon className="h-3 w-3" />
+                                    Clear
+                                </ConfirmButton>
+
+                                {/* Reload button: Manual refresh */}
+                                <Button
+                                    variant="ghost"
+                                    size="xs"
+                                    onClick={handleReload}
+                                    disabled={categoriesLoading}
+                                    className={cn(
+                                        "flex items-center gap-1.5 font-medium transition-colors border border-transparent hover:border-gray-200 cursor-pointer",
+                                        categoriesLoading
+                                            ? "text-gray-400"
+                                            : "text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+                                    )}
+                                    title="Reload categories from server"
+                                >
+                                    <RefreshCwIcon className={cn(
+                                        "h-3 w-3",
+                                        categoriesLoading && "animate-spin"
+                                    )} />
+                                    Reload
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 )}

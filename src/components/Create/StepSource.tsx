@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { StepProps } from './StepSetup';
+import { StepHeading } from './StepHeading';
 import { ProductSearch } from './ProductSearch';
+import { Alert, AlertDescription } from '../ui/Alert';
 import { CategorySelector } from './CategorySelector';
 import { SourceStatistics } from './SourceStatistics';
 import { useTableStore } from '../../store/tableStore';
 import { CircleCheckIcon, CircleIcon, AlertCircleIcon } from 'lucide-react';
-import { Alert, AlertDescription } from '../ui/Alert';
 
 // Human-readable labels for source types
 const SOURCE_LABELS: Record<string, string> = {
@@ -27,16 +28,16 @@ const StepSource = ({ showValidation }: StepProps) => {
     const { source_type } = tableData;
 
     /**
-     * Preload categories when component mounts
-     * 
-     * This ensures categories are cached and ready before the user
-     * clicks on the "Category" tab, providing instant display with
-     * no loading delay. The preloadCategories action uses intelligent
-     * caching (localStorage + Zustand) to minimize API calls.
+     * Preload categories and fetch stats when component mounts or source type changes
      */
     useEffect(() => {
         preloadCategories();
     }, [preloadCategories]);
+
+    // Fetch source statistics based on selected source type
+    useEffect(() => {
+        fetchSourceStats(source_type);
+    }, [source_type, fetchSourceStats]);
 
     const categories = {
         all: "Show all published products from your entire store catalog.",
@@ -80,9 +81,8 @@ const StepSource = ({ showValidation }: StepProps) => {
     return (
         <div className="space-y-6">
             {/* Source Selection - Show selected source type and validation status */}
-            <h3 className="font-bold text-blue-800 pb-2">
-                Source:
-                <span className={`inline-flex items-center rounded-full font-medium border ml-2 px-2 py-1 justify-center text-base ${isSourceComplete
+            <StepHeading title="Source:">
+                <span className={`inline-flex items-center rounded-full font-medium border px-2 py-1 justify-center text-sm ${isSourceComplete
                     ? 'bg-green-50 border-green-300 text-green-700'
                     : 'bg-gray-50 border-gray-300 text-gray-600'
                     }`}>
@@ -92,7 +92,7 @@ const StepSource = ({ showValidation }: StepProps) => {
                     }
                     {SOURCE_LABELS[source_type] || 'All Products'}
                 </span>
-            </h3>
+            </StepHeading>
             <div className="mt-2">
                 <div className="w-full mx-auto mt-2">
                     <nav className="flex border-b border-gray-300 relative" aria-label="Tabs">
@@ -109,7 +109,7 @@ const StepSource = ({ showValidation }: StepProps) => {
                                     zIndex: source_type === type ? 10 : 1,
                                 }}
                             >
-                                {type === 'all' ? 'All Products' : type}
+                                {SOURCE_LABELS[type]}
                             </button>
                         ))}
                     </nav>

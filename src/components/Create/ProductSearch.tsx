@@ -1,7 +1,8 @@
 import { cn } from '../../utils/cn';
 import { Input } from '../ui/Input';
-import { Modal } from '../ui/Modal';
+import { Tooltip } from '../ui/Tooltip';
 import { apiFetch } from '../../utils/api';
+import { ConfirmButton } from '../ui/ConfirmButton';
 import { useTableStore, Product } from '../../store/tableStore';
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { SearchIcon, XIcon, CheckIcon, Loader2Icon, Trash2Icon, PackageIcon } from 'lucide-react';
@@ -11,7 +12,6 @@ export const ProductSearch: React.FC = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<Product[]>([]);
     const [loading, setLoading] = useState(false);
-    const [showRemoveAllModal, setShowRemoveAllModal] = useState(false);
 
     // Cache for search results to avoid redundant API calls
     const searchCache = useRef<Map<string, Product[]>>(new Map());
@@ -174,18 +174,12 @@ export const ProductSearch: React.FC = () => {
     }, [tableData.config, setTableData, selectedProductsMap]);
 
     /**
-     * Remove all selected products with confirmation
-     */
-    const handleRemoveAll = useCallback(() => {
-        const count = (tableData.config.products || []).length;
-        if (count === 0) return;
-        setShowRemoveAllModal(true);
-    }, [tableData.config]);
-
-    /**
      * Confirm remove all action
      */
     const confirmRemoveAll = useCallback(() => {
+        const count = (tableData.config.products || []).length;
+        if (count === 0) return;
+
         setSelectedProductsMap(new Map());
         setTableData({
             config: {
@@ -194,7 +188,6 @@ export const ProductSearch: React.FC = () => {
                 productObjects: {}
             }
         });
-        setShowRemoveAllModal(false);
     }, [tableData.config, setTableData]);
 
     /**
@@ -215,25 +208,27 @@ export const ProductSearch: React.FC = () => {
     return (
         <div className="w-full space-y-4">
             {/* Search Input */}
-            <div className="relative">
-                <SearchIcon className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+            <div className="relative flex items-center">
+                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
                     placeholder="Search products by name, or use id:123 or sku:ABC"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     className="pl-9 pr-9"
                 />
-                {loading ? (
-                    <Loader2Icon className="absolute right-3 top-2.5 h-4 w-4 animate-spin text-gray-400" />
-                ) : query.length > 0 ? (
-                    <button
-                        onClick={handleClearSearch}
-                        className="absolute bg-transparent cursor-pointer right-3 top-2.5 h-4 w-4 text-gray-400 hover:text-gray-600 p-0 m-0"
-                        title="Clear search"
-                    >
-                        <XIcon className="h-4 w-4 p-0 m-0" />
-                    </button>
-                ) : null}
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
+                    {loading ? (
+                        <Loader2Icon className="h-4 w-4 animate-spin text-gray-400" />
+                    ) : query.length > 0 ? (
+                        <button
+                            onClick={handleClearSearch}
+                            className="bg-transparent cursor-pointer text-gray-400 hover:text-gray-600 p-0 m-0 flex items-center justify-center"
+                            title="Clear search"
+                        >
+                            <XIcon className="h-4 w-4" />
+                        </button>
+                    ) : null}
+                </div>
             </div>
 
             {/* Search Results */}
@@ -273,13 +268,15 @@ export const ProductSearch: React.FC = () => {
                     <div className="flex flex-wrap gap-2">
                         {Array.from(selectedProductsMap.values()).map(product => (
                             <div key={product.id} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-sm border border-gray-200">
-                                <span className="max-w-[150px] truncate" title={`${product.name} (ID: ${product.id}, SKU: ${product.sku || 'N/A'})`}>
-                                    {product.name}
-                                </span>
+                                <Tooltip content={`${product.name} (ID: ${product.id}, SKU: ${product.sku || 'N/A'})`} className='bg-blue-800'>
+                                    <span className="max-w-[150px] truncate block cursor-help">
+                                        {product.name}
+                                    </span>
+                                </Tooltip>
                                 <button
                                     onClick={() => toggleProduct(product)}
-                                    className="text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0"
-                                    title="Remove"
+                                    title={`Remove "${product.name}"`}
+                                    className="text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center"
                                 >
                                     <XIcon className="h-3 w-3" />
                                 </button>
@@ -288,15 +285,18 @@ export const ProductSearch: React.FC = () => {
                     </div>
 
                     {/* Product count and remove */}
-                    <div className="flex items-center gap-4 text-sm bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-3 ">
+                    <div className="flex items-center gap-4 text-sm bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-2 ">
                         {/* Remove all selection */}
-                        <button
-                            onClick={handleRemoveAll}
-                            className="bg-transparent text-red-600 hover:text-red-700 rounded-full hover:bg-red-100 px-2 cursor-pointer flex items-center gap-1"
+                        <ConfirmButton
+                            onConfirm={confirmRemoveAll}
+                            variant="ghost"
+                            size="sm"
+                            confirmMessage={`Remove ${selectedProductsMap.size} ${selectedProductsMap.size === 1 ? 'product' : 'products'}?`}
+                            className="font-normal text-red-600 hover:text-red-700 rounded-md hover:bg-red-100 px-2 py-0 flex items-center gap-1"
                         >
-                            <Trash2Icon className="h-4 w-4 mr-2" />
+                            <Trash2Icon className="h-4 w-4 mr-1" />
                             Remove all
-                        </button>
+                        </ConfirmButton>
 
                         {/* Divider */}
                         <div className="h-4 w-px bg-blue-300"></div>
@@ -313,31 +313,6 @@ export const ProductSearch: React.FC = () => {
                 </div>
             )}
 
-            {/* Remove All Confirmation Modal */}
-            <Modal
-                isOpen={showRemoveAllModal}
-                onClose={() => setShowRemoveAllModal(false)}
-                title="Remove All Products"
-                className="bg-gray-50"
-                maxWidth="sm"
-                primaryButton={{
-                    text: "Remove All",
-                    onClick: confirmRemoveAll,
-                    variant: "danger",
-                }}
-                secondaryButton={{
-                    text: "Cancel",
-                    onClick: () => setShowRemoveAllModal(false),
-                    variant: "secondary"
-                }}
-            >
-                <p>
-                    Are you sure you want to remove <strong>{selectedProductsMap.size}</strong> selected product{selectedProductsMap.size > 1 ? 's' : ''}?
-                </p>
-                <p className="mt-2 text-sm text-gray-500">
-                    This action cannot be undone.
-                </p>
-            </Modal>
         </div>
     );
 };
