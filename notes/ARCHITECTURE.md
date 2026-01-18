@@ -198,6 +198,22 @@ setCategories(fresh); // UI updates seamlessly
 3. **Input Sanitization**: All user inputs sanitized via WordPress functions
 4. **Output Escaping**: All output properly escaped for XSS prevention
 
+---
+
+## Lifecycle & Cleanup
+
+### Uninstallation Process
+ProductBay follows WordPress best practices for data management during the plugin lifecycle:
+
+1. **Deactivation**: No data is removed. This allows users to temporarily disable the plugin without losing their tables or configuration.
+2. **Uninstallation**: When the plugin is deleted from the WordPress dashboard, `uninstall.php` is executed.
+    - **Security**: The script verifies the `WP_UNINSTALL_PLUGIN` constant to prevent unauthorized access.
+    - **Configurable Cleanup**: The plugin removes all Custom Post Type data (`productbay_table`) and options (`productbay_settings`). If the settings haven't been saved to the database yet, cleanup defaults to **enabled**.
+    - **Orphan Data Prevention**: Force-deletion of posts ensures associated metadata is removed. As an extra safety net, a direct `$wpdb` SQL query is executed to wipe any residual `_productbay_config` metadata across the entire database.
+
+> [!IMPORTANT]
+> The cleanup behavior is controlled by the [delete_on_uninstall](../uninstall.php) setting in [productbay_settings](../app/Api/SettingsController.php). If set to `false`, data will be preserved even after uninstallation.
+
 
 ---
 
@@ -208,5 +224,5 @@ Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
 
 ---
 
-**Last Updated**: 2026-01-20  
+**Last Updated**: 2026-01-22  
 **Maintainer**: ProductBay Development Team

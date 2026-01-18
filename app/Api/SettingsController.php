@@ -34,7 +34,7 @@ class SettingsController
         return [
             'add_to_cart_text' => 'Add to Cart',
             'products_per_page' => 10,
-            'delete_on_uninstall' => false,
+            'delete_on_uninstall' => true,
             'design' => [
                 'header_bg' => '#f3f4f6',
                 'border_color' => '#e5e7eb'

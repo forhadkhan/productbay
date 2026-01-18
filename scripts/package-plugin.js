@@ -21,6 +21,7 @@ const INCLUDES = [
     'languages',
     // 'vendor',    // We generate this inside PLUGIN_DIR
     'productbay.php',
+    'uninstall.php',
     'readme.txt', // Must exist for WP.org
     'index.php',
     'LICENSE',
