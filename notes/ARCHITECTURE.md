@@ -201,5 +201,12 @@ setCategories(fresh); // UI updates seamlessly
 
 ---
 
+## Build Process & Release
+We cannot use this development project directly in production. To get a distribution-ready zip file of the plugin we can run `bun run release`, which will give us an installable zip for our plugin with the latest changes.
+
+Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
+
+---
+
 **Last Updated**: 2026-01-20  
 **Maintainer**: ProductBay Development Team

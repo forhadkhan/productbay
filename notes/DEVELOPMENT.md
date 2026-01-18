@@ -45,15 +45,17 @@ This document contains detailed information about the project structure, develop
    ``` 
    etc. 
 
-6. **More**  
+6. **Build and zip the plugin**
+   Get a distribution-ready zip file of the plugin with the latest changes.
+   ```bash
+   bun run release
+   ``` 
+
+7. **More**  
    Format code:
    ```bash
    bun run format
    ```
-   Plugin Zip:
-   ```bash
-   bun run plugin-zip
-   ``` 
    Check Engines:
    ```bash
    bun run check-engines
