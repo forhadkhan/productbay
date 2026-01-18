@@ -65,3 +65,7 @@ export const routes: RouteConfig[] = [
         showInNav: false
     }
 ];
+
+export const WC_PRODUCTS_PATH = '/wp-admin/edit.php?post_type=product';
+export const WC_ADD_PRODUCT_PATH = '/wp-admin/post-new.php?post_type=product';
+export const WC_ADMIN_PRODUCTS_PATH = '/wp-admin/admin.php?page=wc-admin&task=products';

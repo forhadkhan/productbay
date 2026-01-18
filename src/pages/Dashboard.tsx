@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { PATHS } from '../utils/routes';
 import { Button } from "../components/ui/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useSystemStore } from '../store/systemStore';
 import { Skeleton } from '../components/ui/Skeleton';
-import { AlertCircleIcon, DatabaseIcon, PackageIcon, PlusIcon, PlayCircleIcon, DownloadIcon, UploadIcon, LifeBuoyIcon, ChevronRightIcon } from 'lucide-react';
+import { useSystemStore } from '../store/systemStore';
+import { PATHS, WC_PRODUCTS_PATH } from '../utils/routes';
+import { DatabaseIcon, PackageIcon, PlusIcon, PlayCircleIcon, DownloadIcon, UploadIcon, LifeBuoyIcon, SheetIcon } from 'lucide-react';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -30,15 +30,35 @@ const Dashboard = () => {
                 <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
             </div>
 
-            {/* Warning: No Products */}
+            {/* 
+                Empty State: No Published Products Found
+                Shown when the site has zero 'published' WooCommerce products.
+                ProductBay requires published products to build and display tables.
+            */}
             {!isLoading && status?.product_count === 0 && (
-                <div className="bg-wp-info border-l-4 border-yellow-400 p-4 rounded-r-lg flex items-start gap-3">
-                    <AlertCircleIcon className="text-yellow-600 mt-0.5" />
-                    <div>
-                        <h3 className="font-bold text-yellow-800">No Published Products Found</h3>
-                        <p className="text-yellow-700 text-sm mt-1">
-                            ProductBay could not find any 'published' WooCommerce products on your site. ProductBay cannot display products in tables without published products.
+                <div className="bg-white p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 mb-6 shadow-sm border border-orange-500">
+                    <div className="p-4 rounded-2xl text-orange-500 shrink-0">
+                        <PackageIcon size={32} />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-lg font-bold text-red-950 m-0 pb-1">No Published Products Found</h3>
+                        <p className="text-gray-600 text-sm max-w-2xl">
+                            <strong>ProductBay</strong> requires published <strong>WooCommerce</strong> products to build your tables.
+                            <br />
+                            We couldn't find any products in your WooCommerce store yet.
+                            <br />
+                            Create your first product to start building high-converting tables.
                         </p>
+                    </div>
+                    <div className="shrink-0">
+                        <Button
+                            variant="secondary"
+                            className="cursor-pointer border border-green-500"
+                            onClick={() => window.open(WC_PRODUCTS_PATH, '_blank')}
+                        >
+                            <PlusIcon size={18} className="mr-2" />
+                            Add Products
+                        </Button>
                     </div>
                 </div>
             )}
@@ -85,17 +105,17 @@ const Dashboard = () => {
                             <PackageIcon size={24} />
                         </div>
                         <div>
-                            <p className="text-gray-500 text-sm">Published Products</p>
+                            <p className="text-gray-500 text-sm">Published WooCommerce Products</p>
                             <p className="text-2xl font-bold text-gray-900">{status?.product_count}</p>
                         </div>
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
                         <div className="bg-blue-50 p-3 rounded-lg text-blue-600">
-                            <DatabaseIcon size={24} />
+                            <SheetIcon size={24} />
                         </div>
                         <div>
-                            <p className="text-gray-500 text-sm">Active Tables</p>
+                            <p className="text-gray-500 text-sm">Active ProductBay Tables</p>
                             <p className="text-2xl font-bold text-gray-900">{status?.table_count}</p>
                         </div>
                     </div>
