@@ -4,6 +4,7 @@ import { SaveIcon, ChevronRightIcon, ChevronLeftIcon, LayoutIcon, ListIcon, Data
 import { apiFetch } from '../utils/api';
 import { PATHS } from '../utils/routes';
 import { Button } from '../components/ui/Button';
+import { Stepper } from '../components/ui/Stepper';
 import { useTableStore } from '../store/tableStore';
 
 // Step Components
@@ -142,40 +143,17 @@ const EditTable = () => {
             <div className="text-center mb-10">
                 <h1 className="text-2xl font-bold text-slate-800">Setup your {id ? '' : 'first '}Product Table</h1>
             </div>
-            <div className="flex justify-between relative px-2">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 -mt-3" />
-                {STEPS.map((step, index) => {
-                    const isActive = currentStep === step.id;
-                    const isCompleted = currentStep > step.id;
-                    return (
-                        <div key={step.id} className="relative z-0 group text-center flex-1">
-                            <button
-                                onClick={() => isCompleted && setStep(step.id)}
-                                disabled={!isCompleted && !isActive}
-                                className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto transition-all border-2
-                                    ${isActive
-                                        ? 'bg-blue-600 border-blue-600 text-white shadow-md scale-110'
-                                        : isCompleted
-                                            ? 'bg-green-500 border-green-500 text-white cursor-pointer'
-                                            : 'bg-white border-gray-300 text-gray-400'
-                                    }`}
-                            >
-                                {isCompleted ? <CheckCircleIcon size={18} /> : <span>{step.id}</span>}
-                            </button>
-                            <div className={`mt-2 text-xs font-medium uppercase tracking-wide transition-colors ${isActive ? 'text-blue-600 font-bold' : isCompleted ? 'text-green-600' : 'text-gray-400'}`}>
-                                {step.label}
-                            </div>
-                            {/* Progress Bar Segment */}
-                            {index !== STEPS.length - 1 && (
-                                <div
-                                    className={`absolute top-5 left-1/2 w-full h-0.5 -z-10 transition-all duration-300 origin-left
-                                        ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}`}
-                                />
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
+            <Stepper
+                steps={STEPS.map(s => s.label)}
+                currentStep={currentStep}
+                onStepClick={(index) => {
+                    const stepId = index + 1;
+                    // Allow navigation to previous completed steps
+                    if (stepId < currentStep) {
+                        setStep(stepId);
+                    }
+                }}
+            />
         </div>
     );
 
