@@ -39,7 +39,8 @@ const EditTable = () => {
         saveTable,
         resetStore,
         tableData,
-        fetchSourceStats
+        fetchSourceStats,
+        sourceStats
     } = useTableStore();
 
     const [totalTables, setTotalTables] = useState<number | null>(null);
@@ -89,6 +90,18 @@ const EditTable = () => {
         if (currentStep === 2) {
             const { source_type, config } = tableData;
 
+            // All products source requires at least one product in store
+            if (source_type === 'all' && (sourceStats['all']?.products || 0) === 0) {
+                setShowValidation(true);
+                return;
+            }
+
+            // Sale products source requires at least one sale product
+            if (source_type === 'sale' && (sourceStats['sale']?.products || 0) === 0) {
+                setShowValidation(true);
+                return;
+            }
+
             // Category source requires at least one category selected
             if (source_type === 'category' && (!config.categories || config.categories.length === 0)) {
                 setShowValidation(true);
@@ -105,6 +118,7 @@ const EditTable = () => {
         setShowValidation(false);
         setStep(Math.min(8, currentStep + 1));
     };
+
 
     const handleSave = async () => {
         const success = await saveTable(id);
@@ -225,6 +239,7 @@ const EditTable = () => {
                                     if (currentStep === 1) navigate(PATHS.DASHBOARD);
                                     else setStep(currentStep - 1);
                                 }}
+                                className="cursor-pointer"
                                 variant="outline"
                                 size="default"
                             >
@@ -233,7 +248,7 @@ const EditTable = () => {
                                         <ChevronLeftIcon size={18} /> Back to Dashboard
                                     </span>
                                 ) : (
-                                    <span className="flex items-center gap-2">
+                                    <span className="flex items-center gap-2 ">
                                         <ChevronLeftIcon size={18} /> Previous Step
                                     </span>
                                 )}
@@ -241,6 +256,7 @@ const EditTable = () => {
 
                             {currentStep < 8 ? (
                                 <Button
+                                    className="cursor-pointer"
                                     onClick={handleNext}
                                     variant="default"
                                     size="default"
@@ -251,6 +267,7 @@ const EditTable = () => {
                                 </Button>
                             ) : (
                                 <Button
+                                    className="cursor-pointer"
                                     onClick={handleSave}
                                     variant="success"
                                     size="default"

@@ -22,6 +22,8 @@ interface SourceStatisticsProps {
     productCount: number;
     /** Loading state indicator */
     loading?: boolean;
+    /** Whether to show even if counts are zero */
+    showEmpty?: boolean;
     /** Optional CSS class name for customization */
     className?: string;
 }
@@ -30,10 +32,11 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
     categoryCount,
     productCount,
     loading = false,
+    showEmpty = false,
     className = ''
 }) => {
-    // Don't render if no data and not loading
-    if (!loading && categoryCount === 0 && productCount === 0) {
+    // Don't render if no data and not loading, unless showEmpty is true
+    if (!loading && !showEmpty && categoryCount === 0 && productCount === 0) {
         return null;
     }
 

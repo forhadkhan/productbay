@@ -334,6 +334,7 @@ export const CategorySelector: React.FC = () => {
             <SourceStatistics
                 categoryCount={selectedCategories.length}
                 productCount={totalProducts}
+                showEmpty={true}
             />
         </div>
     );
