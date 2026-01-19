@@ -6,8 +6,16 @@ use ProductBay\Http\Request;
 
 class ProductsController
 {
+    /**
+     * @var Request
+     */
     protected $request;
 
+    /**
+     * Initialize the controller
+     * 
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -122,6 +130,10 @@ class ProductsController
     /**
      * Get source statistics (category and product counts) for a given source type.
      * 
+     * Supported Types:
+     * - all: All published products
+     * - sale: Products currently on sale (uses WC native logic)
+     * 
      * @return array Statistics data with 'categories' and 'products' counts
      */
     public function sourceStats()
@@ -147,31 +159,17 @@ class ProductsController
                 break;
 
             case 'sale':
-                // Get products on sale
-                $sale_products = \wc_get_products([
-                    'status' => 'publish',
-                    'limit' => -1,
-                    'meta_query' => [
-                        'relation' => 'OR',
-                        [
-                            'key' => '_sale_price',
-                            'value' => 0,
-                            'compare' => '>',
-                            'type' => 'NUMERIC'
-                        ]
-                    ]
-                ]);
-                $stats['products'] = count($sale_products);
+                // Get products on sale using WC native function (handles dates, variations, etc.)
+                $sale_ids = \wc_get_product_ids_on_sale();
+                $stats['products'] = count($sale_ids);
 
-                // Get unique categories from sale products
-                $category_ids = [];
-                foreach ($sale_products as $product) {
-                    $product_cats = \wp_get_post_terms($product->get_id(), 'product_cat', ['fields' => 'ids']);
-                    if (!is_wp_error($product_cats)) {
-                        $category_ids = array_merge($category_ids, $product_cats);
+                if (!empty($sale_ids)) {
+                    // Get unique categories from sale products
+                    $terms = \wp_get_object_terms($sale_ids, 'product_cat', ['fields' => 'ids']);
+                    if (!is_wp_error($terms)) {
+                        $stats['categories'] = count(array_unique($terms));
                     }
                 }
-                $stats['categories'] = count(array_unique($category_ids));
                 break;
         }
 

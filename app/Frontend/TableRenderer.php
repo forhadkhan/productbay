@@ -6,18 +6,35 @@ use ProductBay\Data\TableRepository;
 
 class TableRenderer
 {
+    /**
+     * @var TableRepository
+     */
     protected $repository;
 
+    /**
+     * Initialize the renderer
+     * 
+     * @param TableRepository $repository
+     */
     public function __construct(TableRepository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * Initialize hooks (Shortcode)
+     */
     public function init()
     {
         \add_shortcode('productbay', [$this, 'render_shortcode']);
     }
 
+    /**
+     * Render the shortcode [productbay id="123"]
+     * 
+     * @param array $atts Shortcode attributes
+     * @return string HTML content
+     */
     public function render_shortcode($atts)
     {
         $atts = \shortcode_atts([
@@ -36,6 +53,14 @@ class TableRenderer
         return $this->render_table_html($table);
     }
 
+    /**
+     * Render the table HTML based on configuration
+     * 
+     * Handles product querying, filtering, and HTML generation.
+     * 
+     * @param array $table Table data from repository
+     * @return string HTML content
+     */
     private function render_table_html($table)
     {
         $config = $table['config'] ?? [];
@@ -58,9 +83,42 @@ class TableRenderer
             'status' => 'publish'
         ];
 
-        // Apply Source Filter
-        if (($config['source_type'] ?? 'all') === 'specific' && !empty($config['specific_products'])) {
-            $args['post__in'] = $config['specific_products'];
+        /**
+         *  Apply Source Filter
+         *  Source Types: all, specific, category, sale
+         * 
+         * @var string $source_type
+         * @var array $config
+         * 
+         * **/
+
+        // Source Type: all > select all products
+        $source_type = $config['source_type'] ?? 'all';
+
+        // Source Type: specific > select specific products
+        if ($source_type === 'specific' && !empty($config['products'])) {
+            $args['post__in'] = $config['products'];
+        }
+        // Source Type: category > select products by category
+        elseif ($source_type === 'category' && !empty($config['categories'])) {
+            $args['tax_query'] = [
+                [
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => $config['categories'],
+                    'operator' => 'IN',
+                ],
+            ];
+        }
+        // Source Type: sale > select products on sale
+        elseif ($source_type === 'sale') {
+            $sale_ids = \wc_get_product_ids_on_sale();
+            if (!empty($sale_ids)) {
+                $args['post__in'] = $sale_ids;
+            } else {
+                // Force empty result if no products are on sale
+                $args['post__in'] = [0];
+            }
         }
 
         $query = new \WP_Query($args);
