@@ -1,6 +1,24 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { ChevronDown, Check } from 'lucide-react';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const selectVariants = cva(
+	'relative flex w-full items-center justify-between rounded-md border border-gray-300 bg-white text-sm ring-offset-white placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200',
+	{
+		variants: {
+			size: {
+				default: 'h-10 px-3 py-2',
+				sm: 'h-9 rounded-md px-3',
+				xs: 'h-8 rounded px-2 text-xs',
+				lg: 'h-11 rounded-md px-8',
+			},
+		},
+		defaultVariants: {
+			size: 'default',
+		},
+	}
+);
 
 export interface SelectOption {
 	/** The display text for the option */
@@ -9,7 +27,9 @@ export interface SelectOption {
 	value: string;
 }
 
-export interface SelectProps {
+export interface SelectProps
+	extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
+	VariantProps<typeof selectVariants> {
 	/** The currently selected value */
 	value?: string;
 	/** Callback when the selected value changes */
@@ -20,8 +40,6 @@ export interface SelectProps {
 	placeholder?: string;
 	/** Optional title/label at the top of the dropdown list */
 	label?: string;
-	/** Additional CSS classes for the container */
-	className?: string;
 	/** Whether the select is disabled */
 	disabled?: boolean;
 	/** Optional icon to display on the left of the trigger button */
@@ -39,6 +57,7 @@ export interface SelectProps {
  * - Click outside to close
  * - Optional icon support
  * - Click label/title to deselect (if allowed)
+ * - Sizing support (default, sm, xs, lg)
  */
 const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 	(
@@ -52,6 +71,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 			disabled,
 			icon,
 			allowDeselect = false,
+			size,
+			...props
 		},
 		ref
 	) => {
@@ -84,15 +105,16 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 			<div
 				className={cn('relative w-full', className)}
 				ref={containerRef}
+				{...props}
 			>
 				<button
 					type="button"
 					onClick={() => !disabled && setIsOpen(!isOpen)}
 					className={cn(
-						'flex h-10 w-full items-center justify-between rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200',
-						isOpen &&
-						'ring-1 ring-blue-500 border-blue-500',
-						className
+						selectVariants({ size }),
+						isOpen && 'ring-1 ring-blue-500 border-blue-500',
+						// Ensure button fills container if width isn't specified in variants
+						'w-full'
 					)}
 					disabled={disabled}
 				>
@@ -117,7 +139,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 				</button>
 
 				{isOpen && (
-					<div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-200 bg-white shadow-md animate-in fade-in-80 slide-in-from-top-1">
+					<div className="absolute top-full left-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-200 bg-white shadow-md animate-in fade-in-80 slide-in-from-top-1">
 						{label && (
 							<div
 								onClick={() => {
