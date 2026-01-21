@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '../components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Select } from '../components/ui/Select';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon } from 'lucide-react';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -19,6 +19,14 @@ const BULK_OPTIONS = [
 	{ label: 'Delete', value: 'delete' },
 	{ label: 'Set Active', value: 'active' },
 	{ label: 'Set Deactive', value: 'deactive' },
+];
+
+const ROWS_PER_PAGE_OPTIONS = [
+	{ label: '10', value: '10' },
+	{ label: '20', value: '20' },
+	{ label: '50', value: '50' },
+	{ label: '100', value: '100' },
+	{ label: 'Custom', value: 'custom' },
 ];
 
 const FILTER_OPTIONS = [
@@ -38,7 +46,9 @@ const Tables = () => {
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 	const [selectedBulkAction, setSelectedBulkAction] = useState('');
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 10;
+	const [jumpPage, setJumpPage] = useState('');
+	const [itemsPerPage, setItemsPerPage] = useState(10);
+	const [isCustomPerPage, setIsCustomPerPage] = useState(false);
 
 	useEffect(() => {
 		loadTables();
@@ -156,6 +166,10 @@ const Tables = () => {
 			</div>
 		);
 
+	function handlePreview(id: number): void {
+		throw new Error('Function not implemented.');
+	}
+
 	return (
 		<div className="space-y-6">
 			{ /* Header */}
@@ -227,14 +241,14 @@ const Tables = () => {
 			</div>
 
 			{ /* Table */}
-			<div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+			<div className="bg-white rounded-lg shadow-xs border border-gray-200 overflow-hidden">
 				<table className="w-full text-left border-collapse">
 					<thead className="bg-gray-50 border-b border-gray-200">
 						<tr>
 							<th className="px-4 py-4 w-10 text-center">
 								<input
 									type="checkbox"
-									className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+									className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
 									checked={
 										currentTables.length > 0 &&
 										selectedRows.length ===
@@ -276,7 +290,7 @@ const Tables = () => {
 									<td className="px-4 py-4 text-center">
 										<input
 											type="checkbox"
-											className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+											className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
 											checked={selectedRows.includes(
 												table.id
 											)}
@@ -327,6 +341,17 @@ const Tables = () => {
 											</span>
 											<button
 												onClick={() =>
+													handlePreview(table.id)
+												}
+												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+											>
+												Preview
+											</button>
+											<span className="text-gray-300">
+												|
+											</span>
+											<button
+												onClick={() =>
 													handleToggleActive(
 														table.id,
 														table.status
@@ -356,10 +381,10 @@ const Tables = () => {
 											onClick={() =>
 												copyShortcode(table.shortcode)
 											}
-											className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors"
+											className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors"
 										>
 											{table.shortcode}
-											<CopyIcon size={12} />
+											<CopyIcon className="w-4 h-4 ml-1" />
 										</button>
 									</td>
 									<td className="px-6 py-4 text-sm text-gray-600">
@@ -374,6 +399,7 @@ const Tables = () => {
 
 			{ /* Pagination Menu */}
 			<div className="flex justify-between items-center">
+				{/* Pagination Info */}
 				<div className="text-sm text-gray-500 px-1">
 					Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
 					{Math.min(
@@ -382,42 +408,135 @@ const Tables = () => {
 					)}{' '}
 					of {filteredTables.length} entries
 				</div>
-				<div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-xs border border-gray-200">
-					<Button
-						size="xs"
-						variant="outline"
-						onClick={() =>
-							setCurrentPage((p) => Math.max(1, p - 1))
-						}
-						disabled={currentPage === 1}
-					>
-						<ChevronLeftIcon size={16} />
-					</Button>
-					{Array.from(
-						{ length: totalPages },
-						(_, i) => i + 1
-					).map((page) => (
+				{/* Pagination Controlls */}
+				<div className="flex items-center gap-4 bg-white px-4 py-2 rounded-lg shadow-xs border border-gray-200">
+					{/* Rows Per Page */}
+					<div className="flex items-center justify-center gap-2 h-8 pr-4 border-r border-gray-200 ">
+						<span className="text-sm text-gray-500 whitespace-nowrap hidden sm:inline">
+							Rows per page:
+						</span>
+						{isCustomPerPage ? (
+							<div className="relative w-26">
+								<Input
+									type="number"
+									min={1}
+									className="h-8 pr-6 text-xs" // Match xs size
+									value={itemsPerPage}
+									onChange={(e) => {
+										const val = parseInt(e.target.value);
+										if (!isNaN(val) && val > 0) {
+											setItemsPerPage(val);
+											setCurrentPage(1);
+										} else if (e.target.value === '') {
+											// Allow empty while typing, but handle carefully
+											setItemsPerPage(0); // or handle as string intermediate
+										}
+									}}
+								/>
+								<button
+									onClick={() => {
+										setItemsPerPage(10);
+										setIsCustomPerPage(false);
+										setCurrentPage(1);
+									}}
+									className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+								>
+									<XIcon className="w-3 h-3" />
+								</button>
+							</div>
+						) : (
+							<div className="w-26">
+								<Select
+									size="xs"
+									options={ROWS_PER_PAGE_OPTIONS}
+									value={itemsPerPage.toString()}
+									onChange={(val) => {
+										if (val === 'custom') {
+											setIsCustomPerPage(true);
+										} else {
+											setItemsPerPage(Number(val));
+											setCurrentPage(1);
+										}
+									}}
+								/>
+							</div>
+						)}
+					</div>
+
+					<div className="flex items-center gap-2">
+						{/* Previous Page Button */}
 						<Button
-							key={page}
 							size="xs"
-							variant={currentPage === page ? 'default' : 'outline'}
-							onClick={() => setCurrentPage(page)}
+							variant="outline"
+							onClick={() =>
+								setCurrentPage((p) => Math.max(1, p - 1))
+							}
+							disabled={currentPage === 1}
 						>
-							{page}
+							<ChevronLeftIcon size={16} />
 						</Button>
-					))}
-					<Button
-						size="xs"
-						variant="outline"
-						onClick={() =>
-							setCurrentPage((p) =>
-								Math.min(totalPages, p + 1)
-							)
-						}
-						disabled={currentPage === totalPages}
-					>
-						<ChevronRightIcon size={16} />
-					</Button>
+						{/* Page Number Buttons */}
+						{Array.from(
+							{ length: totalPages },
+							(_, i) => i + 1
+						).map((page) => (
+							<Button
+								key={page}
+								size="xs"
+								variant={
+									currentPage === page
+										? 'default'
+										: 'outline'
+								}
+								disabled={currentPage === page}
+								onClick={() => setCurrentPage(page)}
+							>
+								{page}
+							</Button>
+						))}
+						{/* Next Page Button */}
+						<Button
+							size="xs"
+							variant="outline"
+							onClick={() =>
+								setCurrentPage((p) =>
+									Math.min(totalPages, p + 1)
+								)
+							}
+							disabled={currentPage === totalPages}
+						>
+							<ChevronRightIcon size={16} />
+						</Button>
+					</div>
+
+					{/* Go to Page */}
+					<div className="flex items-center gap-2 border-l border-gray-200 pl-4 h-8">
+						<span className="text-sm text-gray-500 whitespace-nowrap">
+							Go to page
+						</span>
+						<Input
+							type="number"
+							min={1}
+							max={totalPages}
+							className="w-16 h-8 text-xs px-2"
+							value={jumpPage}
+							onChange={(e) => setJumpPage(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									const page = parseInt(jumpPage);
+									if (
+										!isNaN(page) &&
+										page >= 1 &&
+										page <= totalPages
+									) {
+										setCurrentPage(page);
+										setJumpPage('');
+									}
+								}
+							}}
+							placeholder="#"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
