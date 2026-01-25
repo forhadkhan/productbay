@@ -24,7 +24,7 @@ class Admin
             'manage_options',
             'productbay',
             [$this, 'render_app'],
-            'dashicons-grid-view',
+            'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNNDggMGM4LjgzNyAwIDE2IDcuMTYzIDE2IDE2djMyYzAgOC44MzctNy4xNjMgMTYtMTYgMTZIMTZDNy4xNjMgNjQgMCA1Ni44MzcgMCA0OFYxNkMwIDcuMTYzIDcuMTYzIDAgMTYgMHpNMjEuNzU2IDEzLjQyOGE4LjUzNCA4LjUzNCAwIDAgMC04LjUzMyA4LjUzM3YyMC4yNjdhOC41MzMgOC41MzMgMCAwIDAgOC41MzMgOC41MzNoMjAuMjY3YTguNTMzIDguNTMzIDAgMCAwIDguNTMzLTguNTM0VjIxLjk2MmE4LjUzNCA4LjUzNCAwIDAgMC04LjUzMy04LjUzM3ptMy4yMDMgMTcuNnYxNS40NjZoLTMuMjAzYTQuMjY3IDQuMjY3IDAgMCAxLTQuMjY3LTQuMjY3di0xMS4yem0yMS4zMyAwdjExLjJhNC4yNjcgNC4yNjcgMCAwIDEtNC4yNjcgNC4yNjZIMjkuMjI3VjMxLjAyN3pNMjQuOTYgMTcuNjkzdjkuMDY3aC03LjQ3di00LjhhNC4yNjcgNC4yNjcgMCAwIDEgNC4yNjctNC4yNjd6bTE3LjA2NCAwYTQuMjY3IDQuMjY3IDAgMCAxIDQuMjY2IDQuMjY3djQuOEgyOS4yMjZ2LTkuMDY3eiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==',
             58
         );
 
@@ -40,19 +40,10 @@ class Admin
 
         \add_submenu_page(
             'productbay',
-            \__('All Tables', 'productbay'),
-            \__('All Tables', 'productbay'),
+            \__('Tables', 'productbay'),
+            \__('Tables', 'productbay'),
             'manage_options',
             'productbay-tables',
-            [$this, 'render_app']
-        );
-
-        \add_submenu_page(
-            'productbay',
-            \__('Add New Table', 'productbay'),
-            \__('Add New Table', 'productbay'),
-            'manage_options',
-            'productbay-new',
             [$this, 'render_app']
         );
 
@@ -67,10 +58,10 @@ class Admin
 
         \add_submenu_page(
             'productbay',
-            \__('Help', 'productbay'),
-            \__('Help', 'productbay'),
+            \__('Add New Table', 'productbay'),
+            \__('Add New Table', 'productbay'),
             'manage_options',
-            'productbay-help',
+            'productbay-new',
             [$this, 'render_app']
         );
     }

@@ -20,9 +20,6 @@ domReady(() => {
             case "productbay-settings":
                 window.location.hash = `#${PATHS.SETTINGS}`;
                 break;
-            case "productbay-help":
-                window.location.hash = `#${PATHS.HELP}`;
-                break;
             case "productbay":
                 window.location.hash = `#${PATHS.DASHBOARD}`;
                 break;
