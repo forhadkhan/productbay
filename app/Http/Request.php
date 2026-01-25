@@ -1,6 +1,6 @@
 <?php
 
-namespace ProductBay\Http;
+namespace WpabProductBay\Http;
 
 class Request
 {

@@ -29,7 +29,7 @@
 
 
 // Namespace - ProductBay
-namespace ProductBay;
+namespace WpabProductBay;
 
 /**
  * Prevent Direct File Access

@@ -1,9 +1,9 @@
 <?php
 
-namespace ProductBay\Api;
+namespace WpabProductBay\Api;
 
-use ProductBay\Http\Request;
-use ProductBay\Data\TableRepository;
+use WpabProductBay\Http\Request;
+use WpabProductBay\Data\TableRepository;
 
 class SystemController
 {

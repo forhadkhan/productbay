@@ -1,8 +1,8 @@
 <?php
 
-namespace ProductBay\Api;
+namespace WpabProductBay\Api;
 
-use ProductBay\Http\Request;
+use WpabProductBay\Http\Request;
 
 class SettingsController
 {

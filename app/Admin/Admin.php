@@ -1,12 +1,42 @@
 <?php
 
-namespace ProductBay\Admin;
+declare(strict_types=1);
 
+namespace WpabProductBay\Admin;
+
+use WpabProductBay\Core\Constants;
+
+/**
+ * Class Admin
+ *
+ * Handles the administrative area functionality of the plugin.
+ * This class is responsible for registering menu pages, enqueueing scripts,
+ * and initializing the React application container.
+ *
+ * @package ProductBay\Admin
+ */
 class Admin
 {
+    /**
+     * The repository instance (placeholder for future implementation).
+     *
+     * @var mixed
+     */
     protected $repository;
+
+    /**
+     * The request instance (placeholder for future implementation).
+     *
+     * @var mixed
+     */
     protected $request;
 
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @param mixed $repository Repository instance.
+     * @param mixed $request    Request instance.
+     */
     public function __construct($repository, $request)
     {
         $this->repository = $repository;
@@ -14,73 +44,91 @@ class Admin
     }
 
     /**
-     * Add the menu page.
+     * Register the administration menu for this plugin into the WordPress Dashboard menu.
+     *
+     * Registers a top-level menu page and several submenus to navigate the React application.
+     *
+     * @return void
      */
-    public function register_menu()
+    public function register_menu(): void
     {
+        // Register top-level menu page
         \add_menu_page(
-            \__('ProductBay', 'productbay'),
-            \__('ProductBay', 'productbay'),
-            'manage_options',
-            'productbay',
+            \__('ProductBay', Constants::TEXT_DOMAIN),
+            \__('ProductBay', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG,
             [$this, 'render_app'],
-            'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNNDggMGM4LjgzNyAwIDE2IDcuMTYzIDE2IDE2djMyYzAgOC44MzctNy4xNjMgMTYtMTYgMTZIMTZDNy4xNjMgNjQgMCA1Ni44MzcgMCA0OFYxNkMwIDcuMTYzIDcuMTYzIDAgMTYgMHpNMjEuNzU2IDEzLjQyOGE4LjUzNCA4LjUzNCAwIDAgMC04LjUzMyA4LjUzM3YyMC4yNjdhOC41MzMgOC41MzMgMCAwIDAgOC41MzMgOC41MzNoMjAuMjY3YTguNTMzIDguNTMzIDAgMCAwIDguNTMzLTguNTM0VjIxLjk2MmE4LjUzNCA4LjUzNCAwIDAgMC04LjUzMy04LjUzM3ptMy4yMDMgMTcuNnYxNS40NjZoLTMuMjAzYTQuMjY3IDQuMjY3IDAgMCAxLTQuMjY3LTQuMjY3di0xMS4yem0yMS4zMyAwdjExLjJhNC4yNjcgNC4yNjcgMCAwIDEtNC4yNjcgNC4yNjZIMjkuMjI3VjMxLjAyN3pNMjQuOTYgMTcuNjkzdjkuMDY3aC03LjQ3di00LjhhNC4yNjcgNC4yNjcgMCAwIDEgNC4yNjctNC4yNjd6bTE3LjA2NCAwYTQuMjY3IDQuMjY3IDAgMCAxIDQuMjY2IDQuMjY3djQuOEgyOS4yMjZ2LTkuMDY3eiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==',
+            Constants::MENU_ICON,
             58
         );
 
-        // Submenus
+        // Register "Dashboard" submenu (Same slug as parent to hide top-level duplicate)
         \add_submenu_page(
-            'productbay',
-            \__('Dashboard', 'productbay'),
-            \__('Dashboard', 'productbay'),
-            'manage_options',
-            'productbay',
+            Constants::MENU_SLUG,
+            \__('Dashboard', Constants::TEXT_DOMAIN),
+            \__('Dashboard', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG,
             [$this, 'render_app']
         );
 
+        // Register "Tables" submenu
         \add_submenu_page(
-            'productbay',
-            \__('Tables', 'productbay'),
-            \__('Tables', 'productbay'),
-            'manage_options',
-            'productbay-tables',
+            Constants::MENU_SLUG,
+            \__('Tables', Constants::TEXT_DOMAIN),
+            \__('Tables', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG . '-tables',
             [$this, 'render_app']
         );
 
+        // Register "Settings" submenu
         \add_submenu_page(
-            'productbay',
-            \__('Settings', 'productbay'),
-            \__('Settings', 'productbay'),
-            'manage_options',
-            'productbay-settings',
+            Constants::MENU_SLUG,
+            \__('Settings', Constants::TEXT_DOMAIN),
+            \__('Settings', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG . '-settings',
             [$this, 'render_app']
         );
 
+        // Register "Add New Table" submenu
         \add_submenu_page(
-            'productbay',
-            \__('Add New Table', 'productbay'),
-            \__('Add New Table', 'productbay'),
-            'manage_options',
-            'productbay-new',
+            Constants::MENU_SLUG,
+            \__('Add New Table', Constants::TEXT_DOMAIN),
+            \__('Add New Table', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG . '-new',
             [$this, 'render_app']
         );
     }
 
     /**
-     * Render the React Root Div.
+     * Render the React App Root Container.
+     *
+     * This function outputs the HTML div where the React application will mount.
+     *
+     * @return void
      */
-    public function render_app()
+    public function render_app(): void
     {
         echo '<div id="productbay-root" class="productbay-wrapper"></div>';
     }
 
     /**
-     * Load the React App.
+     * Enqueue the admin-specific stylesheets and JavaScript files.
+     *
+     * This method checks if the current page is a ProductBay page and only then loads
+     * the necessary assets, ensuring performance optimization on other admin pages.
+     *
+     * @param string $hook The current admin page hook.
+     * @return void
      */
-    public function enqueue_scripts($hook)
+    public function enqueue_scripts(string $hook): void
     {
         // Allow loading on any productbay page
-        if (strpos($hook, 'page_productbay') === false && $hook !== 'toplevel_page_productbay') {
+        if (strpos($hook, 'page_productbay') === false && $hook !== 'toplevel_page_' . Constants::MENU_SLUG) {
             return;
         }
 
@@ -93,6 +141,7 @@ class Admin
 
         $asset = include $asset_path;
 
+        // Enqueue the main React app script
         \wp_enqueue_script(
             'productbay-admin',
             PRODUCTBAY_URL . 'assets/js/admin.js',
@@ -101,21 +150,21 @@ class Admin
             true
         );
 
-        // Pass PHP data to React
+        // Pass PHP data to React script via localization
         \wp_localize_script('productbay-admin', 'productBaySettings', [
-            'apiUrl' => \rest_url('productbay/v1/'),
+            'apiUrl' => \rest_url(Constants::PLUGIN_SLUG . '/v1/'),
             'nonce'  => \wp_create_nonce('wp_rest'),
         ]);
 
-        // Enqueue styles
+        // Enqueue global admin styles
         \wp_enqueue_style(
             'productbay-admin-css',
             PRODUCTBAY_URL . 'assets/css/admin.css',
             [],
-            PRODUCTBAY_VERSION
+            Constants::VERSION
         );
 
-        // Load translations
-        \wp_set_script_translations('productbay-admin', 'productbay', PRODUCTBAY_PATH . 'languages');
+        // Load translations for the React app
+        \wp_set_script_translations('productbay-admin', Constants::TEXT_DOMAIN, PRODUCTBAY_PATH . 'languages');
     }
 }

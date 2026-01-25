@@ -1,6 +1,8 @@
 <?php
-namespace ProductBay\Utils;
 
-class Utils {
+namespace WpabProductBay\Utils;
+
+class Utils
+{
     // 
 }
