@@ -2,9 +2,6721 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs"
+/***/ "./node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js"
 /*!***********************************************************************!*\
-  !*** ./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs ***!
+  !*** ./node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HiddenText: () => (/* binding */ HiddenText),
+/* harmony export */   LiveRegion: () => (/* binding */ LiveRegion),
+/* harmony export */   useAnnouncement: () => (/* binding */ useAnnouncement)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const hiddenStyles = {
+  display: 'none'
+};
+function HiddenText(_ref) {
+  let {
+    id,
+    value
+  } = _ref;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: id,
+    style: hiddenStyles
+  }, value);
+}
+
+function LiveRegion(_ref) {
+  let {
+    id,
+    announcement,
+    ariaLiveType = "assertive"
+  } = _ref;
+  // Hide element visually but keep it readable by screen readers
+  const visuallyHidden = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: 1,
+    height: 1,
+    margin: -1,
+    border: 0,
+    padding: 0,
+    overflow: 'hidden',
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(100%)',
+    whiteSpace: 'nowrap'
+  };
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: id,
+    style: visuallyHidden,
+    role: "status",
+    "aria-live": ariaLiveType,
+    "aria-atomic": true
+  }, announcement);
+}
+
+function useAnnouncement() {
+  const [announcement, setAnnouncement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const announce = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(value => {
+    if (value != null) {
+      setAnnouncement(value);
+    }
+  }, []);
+  return {
+    announce,
+    announcement
+  };
+}
+
+
+//# sourceMappingURL=accessibility.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/@dnd-kit/core/dist/core.esm.js"
+/*!*****************************************************!*\
+  !*** ./node_modules/@dnd-kit/core/dist/core.esm.js ***!
+  \*****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AutoScrollActivator: () => (/* binding */ AutoScrollActivator),
+/* harmony export */   DndContext: () => (/* binding */ DndContext),
+/* harmony export */   DragOverlay: () => (/* binding */ DragOverlay),
+/* harmony export */   KeyboardCode: () => (/* binding */ KeyboardCode),
+/* harmony export */   KeyboardSensor: () => (/* binding */ KeyboardSensor),
+/* harmony export */   MeasuringFrequency: () => (/* binding */ MeasuringFrequency),
+/* harmony export */   MeasuringStrategy: () => (/* binding */ MeasuringStrategy),
+/* harmony export */   MouseSensor: () => (/* binding */ MouseSensor),
+/* harmony export */   PointerSensor: () => (/* binding */ PointerSensor),
+/* harmony export */   TouchSensor: () => (/* binding */ TouchSensor),
+/* harmony export */   TraversalOrder: () => (/* binding */ TraversalOrder),
+/* harmony export */   applyModifiers: () => (/* binding */ applyModifiers),
+/* harmony export */   closestCenter: () => (/* binding */ closestCenter),
+/* harmony export */   closestCorners: () => (/* binding */ closestCorners),
+/* harmony export */   defaultAnnouncements: () => (/* binding */ defaultAnnouncements),
+/* harmony export */   defaultCoordinates: () => (/* binding */ defaultCoordinates),
+/* harmony export */   defaultDropAnimation: () => (/* binding */ defaultDropAnimationConfiguration),
+/* harmony export */   defaultDropAnimationSideEffects: () => (/* binding */ defaultDropAnimationSideEffects),
+/* harmony export */   defaultKeyboardCoordinateGetter: () => (/* binding */ defaultKeyboardCoordinateGetter),
+/* harmony export */   defaultScreenReaderInstructions: () => (/* binding */ defaultScreenReaderInstructions),
+/* harmony export */   getClientRect: () => (/* binding */ getClientRect),
+/* harmony export */   getFirstCollision: () => (/* binding */ getFirstCollision),
+/* harmony export */   getScrollableAncestors: () => (/* binding */ getScrollableAncestors),
+/* harmony export */   pointerWithin: () => (/* binding */ pointerWithin),
+/* harmony export */   rectIntersection: () => (/* binding */ rectIntersection),
+/* harmony export */   useDndContext: () => (/* binding */ useDndContext),
+/* harmony export */   useDndMonitor: () => (/* binding */ useDndMonitor),
+/* harmony export */   useDraggable: () => (/* binding */ useDraggable),
+/* harmony export */   useDroppable: () => (/* binding */ useDroppable),
+/* harmony export */   useSensor: () => (/* binding */ useSensor),
+/* harmony export */   useSensors: () => (/* binding */ useSensors)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @dnd-kit/utilities */ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js");
+/* harmony import */ var _dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @dnd-kit/accessibility */ "./node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js");
+
+
+
+
+
+const DndMonitorContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+
+function useDndMonitor(listener) {
+  const registerListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DndMonitorContext);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!registerListener) {
+      throw new Error('useDndMonitor must be used within a children of <DndContext>');
+    }
+
+    const unsubscribe = registerListener(listener);
+    return unsubscribe;
+  }, [listener, registerListener]);
+}
+
+function useDndMonitorProvider() {
+  const [listeners] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => new Set());
+  const registerListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(listener => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }, [listeners]);
+  const dispatch = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(_ref => {
+    let {
+      type,
+      event
+    } = _ref;
+    listeners.forEach(listener => {
+      var _listener$type;
+
+      return (_listener$type = listener[type]) == null ? void 0 : _listener$type.call(listener, event);
+    });
+  }, [listeners]);
+  return [dispatch, registerListener];
+}
+
+const defaultScreenReaderInstructions = {
+  draggable: "\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.\n  "
+};
+const defaultAnnouncements = {
+  onDragStart(_ref) {
+    let {
+      active
+    } = _ref;
+    return "Picked up draggable item " + active.id + ".";
+  },
+
+  onDragOver(_ref2) {
+    let {
+      active,
+      over
+    } = _ref2;
+
+    if (over) {
+      return "Draggable item " + active.id + " was moved over droppable area " + over.id + ".";
+    }
+
+    return "Draggable item " + active.id + " is no longer over a droppable area.";
+  },
+
+  onDragEnd(_ref3) {
+    let {
+      active,
+      over
+    } = _ref3;
+
+    if (over) {
+      return "Draggable item " + active.id + " was dropped over droppable area " + over.id;
+    }
+
+    return "Draggable item " + active.id + " was dropped.";
+  },
+
+  onDragCancel(_ref4) {
+    let {
+      active
+    } = _ref4;
+    return "Dragging was cancelled. Draggable item " + active.id + " was dropped.";
+  }
+
+};
+
+function Accessibility(_ref) {
+  let {
+    announcements = defaultAnnouncements,
+    container,
+    hiddenTextDescribedById,
+    screenReaderInstructions = defaultScreenReaderInstructions
+  } = _ref;
+  const {
+    announce,
+    announcement
+  } = (0,_dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__.useAnnouncement)();
+  const liveRegionId = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)("DndLiveRegion");
+  const [mounted, setMounted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setMounted(true);
+  }, []);
+  useDndMonitor((0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    onDragStart(_ref2) {
+      let {
+        active
+      } = _ref2;
+      announce(announcements.onDragStart({
+        active
+      }));
+    },
+
+    onDragMove(_ref3) {
+      let {
+        active,
+        over
+      } = _ref3;
+
+      if (announcements.onDragMove) {
+        announce(announcements.onDragMove({
+          active,
+          over
+        }));
+      }
+    },
+
+    onDragOver(_ref4) {
+      let {
+        active,
+        over
+      } = _ref4;
+      announce(announcements.onDragOver({
+        active,
+        over
+      }));
+    },
+
+    onDragEnd(_ref5) {
+      let {
+        active,
+        over
+      } = _ref5;
+      announce(announcements.onDragEnd({
+        active,
+        over
+      }));
+    },
+
+    onDragCancel(_ref6) {
+      let {
+        active,
+        over
+      } = _ref6;
+      announce(announcements.onDragCancel({
+        active,
+        over
+      }));
+    }
+
+  }), [announce, announcements]));
+
+  if (!mounted) {
+    return null;
+  }
+
+  const markup = react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__.HiddenText, {
+    id: hiddenTextDescribedById,
+    value: screenReaderInstructions.draggable
+  }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_dnd_kit_accessibility__WEBPACK_IMPORTED_MODULE_3__.LiveRegion, {
+    id: liveRegionId,
+    announcement: announcement
+  }));
+  return container ? (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(markup, container) : markup;
+}
+
+var Action;
+
+(function (Action) {
+  Action["DragStart"] = "dragStart";
+  Action["DragMove"] = "dragMove";
+  Action["DragEnd"] = "dragEnd";
+  Action["DragCancel"] = "dragCancel";
+  Action["DragOver"] = "dragOver";
+  Action["RegisterDroppable"] = "registerDroppable";
+  Action["SetDroppableDisabled"] = "setDroppableDisabled";
+  Action["UnregisterDroppable"] = "unregisterDroppable";
+})(Action || (Action = {}));
+
+function noop() {}
+
+function useSensor(sensor, options) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    sensor,
+    options: options != null ? options : {}
+  }), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [sensor, options]);
+}
+
+function useSensors() {
+  for (var _len = arguments.length, sensors = new Array(_len), _key = 0; _key < _len; _key++) {
+    sensors[_key] = arguments[_key];
+  }
+
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => [...sensors].filter(sensor => sensor != null), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [...sensors]);
+}
+
+const defaultCoordinates = /*#__PURE__*/Object.freeze({
+  x: 0,
+  y: 0
+});
+
+/**
+ * Returns the distance between two points
+ */
+function distanceBetween(p1, p2) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
+function getRelativeTransformOrigin(event, rect) {
+  const eventCoordinates = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(event);
+
+  if (!eventCoordinates) {
+    return '0 0';
+  }
+
+  const transformOrigin = {
+    x: (eventCoordinates.x - rect.left) / rect.width * 100,
+    y: (eventCoordinates.y - rect.top) / rect.height * 100
+  };
+  return transformOrigin.x + "% " + transformOrigin.y + "%";
+}
+
+/**
+ * Sort collisions from smallest to greatest value
+ */
+function sortCollisionsAsc(_ref, _ref2) {
+  let {
+    data: {
+      value: a
+    }
+  } = _ref;
+  let {
+    data: {
+      value: b
+    }
+  } = _ref2;
+  return a - b;
+}
+/**
+ * Sort collisions from greatest to smallest value
+ */
+
+function sortCollisionsDesc(_ref3, _ref4) {
+  let {
+    data: {
+      value: a
+    }
+  } = _ref3;
+  let {
+    data: {
+      value: b
+    }
+  } = _ref4;
+  return b - a;
+}
+/**
+ * Returns the coordinates of the corners of a given rectangle:
+ * [TopLeft {x, y}, TopRight {x, y}, BottomLeft {x, y}, BottomRight {x, y}]
+ */
+
+function cornersOfRectangle(_ref5) {
+  let {
+    left,
+    top,
+    height,
+    width
+  } = _ref5;
+  return [{
+    x: left,
+    y: top
+  }, {
+    x: left + width,
+    y: top
+  }, {
+    x: left,
+    y: top + height
+  }, {
+    x: left + width,
+    y: top + height
+  }];
+}
+function getFirstCollision(collisions, property) {
+  if (!collisions || collisions.length === 0) {
+    return null;
+  }
+
+  const [firstCollision] = collisions;
+  return property ? firstCollision[property] : firstCollision;
+}
+
+/**
+ * Returns the coordinates of the center of a given ClientRect
+ */
+
+function centerOfRectangle(rect, left, top) {
+  if (left === void 0) {
+    left = rect.left;
+  }
+
+  if (top === void 0) {
+    top = rect.top;
+  }
+
+  return {
+    x: left + rect.width * 0.5,
+    y: top + rect.height * 0.5
+  };
+}
+/**
+ * Returns the closest rectangles from an array of rectangles to the center of a given
+ * rectangle.
+ */
+
+
+const closestCenter = _ref => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const centerRect = centerOfRectangle(collisionRect, collisionRect.left, collisionRect.top);
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect) {
+      const distBetween = distanceBetween(centerOfRectangle(rect), centerRect);
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: distBetween
+        }
+      });
+    }
+  }
+
+  return collisions.sort(sortCollisionsAsc);
+};
+
+/**
+ * Returns the closest rectangles from an array of rectangles to the corners of
+ * another rectangle.
+ */
+
+const closestCorners = _ref => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const corners = cornersOfRectangle(collisionRect);
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect) {
+      const rectCorners = cornersOfRectangle(rect);
+      const distances = corners.reduce((accumulator, corner, index) => {
+        return accumulator + distanceBetween(rectCorners[index], corner);
+      }, 0);
+      const effectiveDistance = Number((distances / 4).toFixed(4));
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: effectiveDistance
+        }
+      });
+    }
+  }
+
+  return collisions.sort(sortCollisionsAsc);
+};
+
+/**
+ * Returns the intersecting rectangle area between two rectangles
+ */
+
+function getIntersectionRatio(entry, target) {
+  const top = Math.max(target.top, entry.top);
+  const left = Math.max(target.left, entry.left);
+  const right = Math.min(target.left + target.width, entry.left + entry.width);
+  const bottom = Math.min(target.top + target.height, entry.top + entry.height);
+  const width = right - left;
+  const height = bottom - top;
+
+  if (left < right && top < bottom) {
+    const targetArea = target.width * target.height;
+    const entryArea = entry.width * entry.height;
+    const intersectionArea = width * height;
+    const intersectionRatio = intersectionArea / (targetArea + entryArea - intersectionArea);
+    return Number(intersectionRatio.toFixed(4));
+  } // Rectangles do not overlap, or overlap has an area of zero (edge/corner overlap)
+
+
+  return 0;
+}
+/**
+ * Returns the rectangles that has the greatest intersection area with a given
+ * rectangle in an array of rectangles.
+ */
+
+const rectIntersection = _ref => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect) {
+      const intersectionRatio = getIntersectionRatio(rect, collisionRect);
+
+      if (intersectionRatio > 0) {
+        collisions.push({
+          id,
+          data: {
+            droppableContainer,
+            value: intersectionRatio
+          }
+        });
+      }
+    }
+  }
+
+  return collisions.sort(sortCollisionsDesc);
+};
+
+/**
+ * Check if a given point is contained within a bounding rectangle
+ */
+
+function isPointWithinRect(point, rect) {
+  const {
+    top,
+    left,
+    bottom,
+    right
+  } = rect;
+  return top <= point.y && point.y <= bottom && left <= point.x && point.x <= right;
+}
+/**
+ * Returns the rectangles that the pointer is hovering over
+ */
+
+
+const pointerWithin = _ref => {
+  let {
+    droppableContainers,
+    droppableRects,
+    pointerCoordinates
+  } = _ref;
+
+  if (!pointerCoordinates) {
+    return [];
+  }
+
+  const collisions = [];
+
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+
+    if (rect && isPointWithinRect(pointerCoordinates, rect)) {
+      /* There may be more than a single rectangle intersecting
+       * with the pointer coordinates. In order to sort the
+       * colliding rectangles, we measure the distance between
+       * the pointer and the corners of the intersecting rectangle
+       */
+      const corners = cornersOfRectangle(rect);
+      const distances = corners.reduce((accumulator, corner) => {
+        return accumulator + distanceBetween(pointerCoordinates, corner);
+      }, 0);
+      const effectiveDistance = Number((distances / 4).toFixed(4));
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: effectiveDistance
+        }
+      });
+    }
+  }
+
+  return collisions.sort(sortCollisionsAsc);
+};
+
+function adjustScale(transform, rect1, rect2) {
+  return { ...transform,
+    scaleX: rect1 && rect2 ? rect1.width / rect2.width : 1,
+    scaleY: rect1 && rect2 ? rect1.height / rect2.height : 1
+  };
+}
+
+function getRectDelta(rect1, rect2) {
+  return rect1 && rect2 ? {
+    x: rect1.left - rect2.left,
+    y: rect1.top - rect2.top
+  } : defaultCoordinates;
+}
+
+function createRectAdjustmentFn(modifier) {
+  return function adjustClientRect(rect) {
+    for (var _len = arguments.length, adjustments = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      adjustments[_key - 1] = arguments[_key];
+    }
+
+    return adjustments.reduce((acc, adjustment) => ({ ...acc,
+      top: acc.top + modifier * adjustment.y,
+      bottom: acc.bottom + modifier * adjustment.y,
+      left: acc.left + modifier * adjustment.x,
+      right: acc.right + modifier * adjustment.x
+    }), { ...rect
+    });
+  };
+}
+const getAdjustedRect = /*#__PURE__*/createRectAdjustmentFn(1);
+
+function parseTransform(transform) {
+  if (transform.startsWith('matrix3d(')) {
+    const transformArray = transform.slice(9, -1).split(/, /);
+    return {
+      x: +transformArray[12],
+      y: +transformArray[13],
+      scaleX: +transformArray[0],
+      scaleY: +transformArray[5]
+    };
+  } else if (transform.startsWith('matrix(')) {
+    const transformArray = transform.slice(7, -1).split(/, /);
+    return {
+      x: +transformArray[4],
+      y: +transformArray[5],
+      scaleX: +transformArray[0],
+      scaleY: +transformArray[3]
+    };
+  }
+
+  return null;
+}
+
+function inverseTransform(rect, transform, transformOrigin) {
+  const parsedTransform = parseTransform(transform);
+
+  if (!parsedTransform) {
+    return rect;
+  }
+
+  const {
+    scaleX,
+    scaleY,
+    x: translateX,
+    y: translateY
+  } = parsedTransform;
+  const x = rect.left - translateX - (1 - scaleX) * parseFloat(transformOrigin);
+  const y = rect.top - translateY - (1 - scaleY) * parseFloat(transformOrigin.slice(transformOrigin.indexOf(' ') + 1));
+  const w = scaleX ? rect.width / scaleX : rect.width;
+  const h = scaleY ? rect.height / scaleY : rect.height;
+  return {
+    width: w,
+    height: h,
+    top: y,
+    right: x + w,
+    bottom: y + h,
+    left: x
+  };
+}
+
+const defaultOptions = {
+  ignoreTransform: false
+};
+/**
+ * Returns the bounding client rect of an element relative to the viewport.
+ */
+
+function getClientRect(element, options) {
+  if (options === void 0) {
+    options = defaultOptions;
+  }
+
+  let rect = element.getBoundingClientRect();
+
+  if (options.ignoreTransform) {
+    const {
+      transform,
+      transformOrigin
+    } = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element).getComputedStyle(element);
+
+    if (transform) {
+      rect = inverseTransform(rect, transform, transformOrigin);
+    }
+  }
+
+  const {
+    top,
+    left,
+    width,
+    height,
+    bottom,
+    right
+  } = rect;
+  return {
+    top,
+    left,
+    width,
+    height,
+    bottom,
+    right
+  };
+}
+/**
+ * Returns the bounding client rect of an element relative to the viewport.
+ *
+ * @remarks
+ * The ClientRect returned by this method does not take into account transforms
+ * applied to the element it measures.
+ *
+ */
+
+function getTransformAgnosticClientRect(element) {
+  return getClientRect(element, {
+    ignoreTransform: true
+  });
+}
+
+function getWindowClientRect(element) {
+  const width = element.innerWidth;
+  const height = element.innerHeight;
+  return {
+    top: 0,
+    left: 0,
+    right: width,
+    bottom: height,
+    width,
+    height
+  };
+}
+
+function isFixed(node, computedStyle) {
+  if (computedStyle === void 0) {
+    computedStyle = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(node).getComputedStyle(node);
+  }
+
+  return computedStyle.position === 'fixed';
+}
+
+function isScrollable(element, computedStyle) {
+  if (computedStyle === void 0) {
+    computedStyle = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element).getComputedStyle(element);
+  }
+
+  const overflowRegex = /(auto|scroll|overlay)/;
+  const properties = ['overflow', 'overflowX', 'overflowY'];
+  return properties.some(property => {
+    const value = computedStyle[property];
+    return typeof value === 'string' ? overflowRegex.test(value) : false;
+  });
+}
+
+function getScrollableAncestors(element, limit) {
+  const scrollParents = [];
+
+  function findScrollableAncestors(node) {
+    if (limit != null && scrollParents.length >= limit) {
+      return scrollParents;
+    }
+
+    if (!node) {
+      return scrollParents;
+    }
+
+    if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isDocument)(node) && node.scrollingElement != null && !scrollParents.includes(node.scrollingElement)) {
+      scrollParents.push(node.scrollingElement);
+      return scrollParents;
+    }
+
+    if (!(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(node) || (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isSVGElement)(node)) {
+      return scrollParents;
+    }
+
+    if (scrollParents.includes(node)) {
+      return scrollParents;
+    }
+
+    const computedStyle = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element).getComputedStyle(node);
+
+    if (node !== element) {
+      if (isScrollable(node, computedStyle)) {
+        scrollParents.push(node);
+      }
+    }
+
+    if (isFixed(node, computedStyle)) {
+      return scrollParents;
+    }
+
+    return findScrollableAncestors(node.parentNode);
+  }
+
+  if (!element) {
+    return scrollParents;
+  }
+
+  return findScrollableAncestors(element);
+}
+function getFirstScrollableAncestor(node) {
+  const [firstScrollableAncestor] = getScrollableAncestors(node, 1);
+  return firstScrollableAncestor != null ? firstScrollableAncestor : null;
+}
+
+function getScrollableElement(element) {
+  if (!_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.canUseDOM || !element) {
+    return null;
+  }
+
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isWindow)(element)) {
+    return element;
+  }
+
+  if (!(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isNode)(element)) {
+    return null;
+  }
+
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isDocument)(element) || element === (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(element).scrollingElement) {
+    return window;
+  }
+
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(element)) {
+    return element;
+  }
+
+  return null;
+}
+
+function getScrollXCoordinate(element) {
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isWindow)(element)) {
+    return element.scrollX;
+  }
+
+  return element.scrollLeft;
+}
+function getScrollYCoordinate(element) {
+  if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isWindow)(element)) {
+    return element.scrollY;
+  }
+
+  return element.scrollTop;
+}
+function getScrollCoordinates(element) {
+  return {
+    x: getScrollXCoordinate(element),
+    y: getScrollYCoordinate(element)
+  };
+}
+
+var Direction;
+
+(function (Direction) {
+  Direction[Direction["Forward"] = 1] = "Forward";
+  Direction[Direction["Backward"] = -1] = "Backward";
+})(Direction || (Direction = {}));
+
+function isDocumentScrollingElement(element) {
+  if (!_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.canUseDOM || !element) {
+    return false;
+  }
+
+  return element === document.scrollingElement;
+}
+
+function getScrollPosition(scrollingContainer) {
+  const minScroll = {
+    x: 0,
+    y: 0
+  };
+  const dimensions = isDocumentScrollingElement(scrollingContainer) ? {
+    height: window.innerHeight,
+    width: window.innerWidth
+  } : {
+    height: scrollingContainer.clientHeight,
+    width: scrollingContainer.clientWidth
+  };
+  const maxScroll = {
+    x: scrollingContainer.scrollWidth - dimensions.width,
+    y: scrollingContainer.scrollHeight - dimensions.height
+  };
+  const isTop = scrollingContainer.scrollTop <= minScroll.y;
+  const isLeft = scrollingContainer.scrollLeft <= minScroll.x;
+  const isBottom = scrollingContainer.scrollTop >= maxScroll.y;
+  const isRight = scrollingContainer.scrollLeft >= maxScroll.x;
+  return {
+    isTop,
+    isLeft,
+    isBottom,
+    isRight,
+    maxScroll,
+    minScroll
+  };
+}
+
+const defaultThreshold = {
+  x: 0.2,
+  y: 0.2
+};
+function getScrollDirectionAndSpeed(scrollContainer, scrollContainerRect, _ref, acceleration, thresholdPercentage) {
+  let {
+    top,
+    left,
+    right,
+    bottom
+  } = _ref;
+
+  if (acceleration === void 0) {
+    acceleration = 10;
+  }
+
+  if (thresholdPercentage === void 0) {
+    thresholdPercentage = defaultThreshold;
+  }
+
+  const {
+    isTop,
+    isBottom,
+    isLeft,
+    isRight
+  } = getScrollPosition(scrollContainer);
+  const direction = {
+    x: 0,
+    y: 0
+  };
+  const speed = {
+    x: 0,
+    y: 0
+  };
+  const threshold = {
+    height: scrollContainerRect.height * thresholdPercentage.y,
+    width: scrollContainerRect.width * thresholdPercentage.x
+  };
+
+  if (!isTop && top <= scrollContainerRect.top + threshold.height) {
+    // Scroll Up
+    direction.y = Direction.Backward;
+    speed.y = acceleration * Math.abs((scrollContainerRect.top + threshold.height - top) / threshold.height);
+  } else if (!isBottom && bottom >= scrollContainerRect.bottom - threshold.height) {
+    // Scroll Down
+    direction.y = Direction.Forward;
+    speed.y = acceleration * Math.abs((scrollContainerRect.bottom - threshold.height - bottom) / threshold.height);
+  }
+
+  if (!isRight && right >= scrollContainerRect.right - threshold.width) {
+    // Scroll Right
+    direction.x = Direction.Forward;
+    speed.x = acceleration * Math.abs((scrollContainerRect.right - threshold.width - right) / threshold.width);
+  } else if (!isLeft && left <= scrollContainerRect.left + threshold.width) {
+    // Scroll Left
+    direction.x = Direction.Backward;
+    speed.x = acceleration * Math.abs((scrollContainerRect.left + threshold.width - left) / threshold.width);
+  }
+
+  return {
+    direction,
+    speed
+  };
+}
+
+function getScrollElementRect(element) {
+  if (element === document.scrollingElement) {
+    const {
+      innerWidth,
+      innerHeight
+    } = window;
+    return {
+      top: 0,
+      left: 0,
+      right: innerWidth,
+      bottom: innerHeight,
+      width: innerWidth,
+      height: innerHeight
+    };
+  }
+
+  const {
+    top,
+    left,
+    right,
+    bottom
+  } = element.getBoundingClientRect();
+  return {
+    top,
+    left,
+    right,
+    bottom,
+    width: element.clientWidth,
+    height: element.clientHeight
+  };
+}
+
+function getScrollOffsets(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(acc, getScrollCoordinates(node));
+  }, defaultCoordinates);
+}
+function getScrollXOffset(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return acc + getScrollXCoordinate(node);
+  }, 0);
+}
+function getScrollYOffset(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return acc + getScrollYCoordinate(node);
+  }, 0);
+}
+
+function scrollIntoViewIfNeeded(element, measure) {
+  if (measure === void 0) {
+    measure = getClientRect;
+  }
+
+  if (!element) {
+    return;
+  }
+
+  const {
+    top,
+    left,
+    bottom,
+    right
+  } = measure(element);
+  const firstScrollableAncestor = getFirstScrollableAncestor(element);
+
+  if (!firstScrollableAncestor) {
+    return;
+  }
+
+  if (bottom <= 0 || right <= 0 || top >= window.innerHeight || left >= window.innerWidth) {
+    element.scrollIntoView({
+      block: 'center',
+      inline: 'center'
+    });
+  }
+}
+
+const properties = [['x', ['left', 'right'], getScrollXOffset], ['y', ['top', 'bottom'], getScrollYOffset]];
+class Rect {
+  constructor(rect, element) {
+    this.rect = void 0;
+    this.width = void 0;
+    this.height = void 0;
+    this.top = void 0;
+    this.bottom = void 0;
+    this.right = void 0;
+    this.left = void 0;
+    const scrollableAncestors = getScrollableAncestors(element);
+    const scrollOffsets = getScrollOffsets(scrollableAncestors);
+    this.rect = { ...rect
+    };
+    this.width = rect.width;
+    this.height = rect.height;
+
+    for (const [axis, keys, getScrollOffset] of properties) {
+      for (const key of keys) {
+        Object.defineProperty(this, key, {
+          get: () => {
+            const currentOffsets = getScrollOffset(scrollableAncestors);
+            const scrollOffsetsDeltla = scrollOffsets[axis] - currentOffsets;
+            return this.rect[key] + scrollOffsetsDeltla;
+          },
+          enumerable: true
+        });
+      }
+    }
+
+    Object.defineProperty(this, 'rect', {
+      enumerable: false
+    });
+  }
+
+}
+
+class Listeners {
+  constructor(target) {
+    this.target = void 0;
+    this.listeners = [];
+
+    this.removeAll = () => {
+      this.listeners.forEach(listener => {
+        var _this$target;
+
+        return (_this$target = this.target) == null ? void 0 : _this$target.removeEventListener(...listener);
+      });
+    };
+
+    this.target = target;
+  }
+
+  add(eventName, handler, options) {
+    var _this$target2;
+
+    (_this$target2 = this.target) == null ? void 0 : _this$target2.addEventListener(eventName, handler, options);
+    this.listeners.push([eventName, handler, options]);
+  }
+
+}
+
+function getEventListenerTarget(target) {
+  // If the `event.target` element is removed from the document events will still be targeted
+  // at it, and hence won't always bubble up to the window or document anymore.
+  // If there is any risk of an element being removed while it is being dragged,
+  // the best practice is to attach the event listeners directly to the target.
+  // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget
+  const {
+    EventTarget
+  } = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(target);
+  return target instanceof EventTarget ? target : (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(target);
+}
+
+function hasExceededDistance(delta, measurement) {
+  const dx = Math.abs(delta.x);
+  const dy = Math.abs(delta.y);
+
+  if (typeof measurement === 'number') {
+    return Math.sqrt(dx ** 2 + dy ** 2) > measurement;
+  }
+
+  if ('x' in measurement && 'y' in measurement) {
+    return dx > measurement.x && dy > measurement.y;
+  }
+
+  if ('x' in measurement) {
+    return dx > measurement.x;
+  }
+
+  if ('y' in measurement) {
+    return dy > measurement.y;
+  }
+
+  return false;
+}
+
+var EventName;
+
+(function (EventName) {
+  EventName["Click"] = "click";
+  EventName["DragStart"] = "dragstart";
+  EventName["Keydown"] = "keydown";
+  EventName["ContextMenu"] = "contextmenu";
+  EventName["Resize"] = "resize";
+  EventName["SelectionChange"] = "selectionchange";
+  EventName["VisibilityChange"] = "visibilitychange";
+})(EventName || (EventName = {}));
+
+function preventDefault(event) {
+  event.preventDefault();
+}
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
+var KeyboardCode;
+
+(function (KeyboardCode) {
+  KeyboardCode["Space"] = "Space";
+  KeyboardCode["Down"] = "ArrowDown";
+  KeyboardCode["Right"] = "ArrowRight";
+  KeyboardCode["Left"] = "ArrowLeft";
+  KeyboardCode["Up"] = "ArrowUp";
+  KeyboardCode["Esc"] = "Escape";
+  KeyboardCode["Enter"] = "Enter";
+  KeyboardCode["Tab"] = "Tab";
+})(KeyboardCode || (KeyboardCode = {}));
+
+const defaultKeyboardCodes = {
+  start: [KeyboardCode.Space, KeyboardCode.Enter],
+  cancel: [KeyboardCode.Esc],
+  end: [KeyboardCode.Space, KeyboardCode.Enter, KeyboardCode.Tab]
+};
+const defaultKeyboardCoordinateGetter = (event, _ref) => {
+  let {
+    currentCoordinates
+  } = _ref;
+
+  switch (event.code) {
+    case KeyboardCode.Right:
+      return { ...currentCoordinates,
+        x: currentCoordinates.x + 25
+      };
+
+    case KeyboardCode.Left:
+      return { ...currentCoordinates,
+        x: currentCoordinates.x - 25
+      };
+
+    case KeyboardCode.Down:
+      return { ...currentCoordinates,
+        y: currentCoordinates.y + 25
+      };
+
+    case KeyboardCode.Up:
+      return { ...currentCoordinates,
+        y: currentCoordinates.y - 25
+      };
+  }
+
+  return undefined;
+};
+
+class KeyboardSensor {
+  constructor(props) {
+    this.props = void 0;
+    this.autoScrollEnabled = false;
+    this.referenceCoordinates = void 0;
+    this.listeners = void 0;
+    this.windowListeners = void 0;
+    this.props = props;
+    const {
+      event: {
+        target
+      }
+    } = props;
+    this.props = props;
+    this.listeners = new Listeners((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(target));
+    this.windowListeners = new Listeners((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(target));
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.attach();
+  }
+
+  attach() {
+    this.handleStart();
+    this.windowListeners.add(EventName.Resize, this.handleCancel);
+    this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+    setTimeout(() => this.listeners.add(EventName.Keydown, this.handleKeyDown));
+  }
+
+  handleStart() {
+    const {
+      activeNode,
+      onStart
+    } = this.props;
+    const node = activeNode.node.current;
+
+    if (node) {
+      scrollIntoViewIfNeeded(node);
+    }
+
+    onStart(defaultCoordinates);
+  }
+
+  handleKeyDown(event) {
+    if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(event)) {
+      const {
+        active,
+        context,
+        options
+      } = this.props;
+      const {
+        keyboardCodes = defaultKeyboardCodes,
+        coordinateGetter = defaultKeyboardCoordinateGetter,
+        scrollBehavior = 'smooth'
+      } = options;
+      const {
+        code
+      } = event;
+
+      if (keyboardCodes.end.includes(code)) {
+        this.handleEnd(event);
+        return;
+      }
+
+      if (keyboardCodes.cancel.includes(code)) {
+        this.handleCancel(event);
+        return;
+      }
+
+      const {
+        collisionRect
+      } = context.current;
+      const currentCoordinates = collisionRect ? {
+        x: collisionRect.left,
+        y: collisionRect.top
+      } : defaultCoordinates;
+
+      if (!this.referenceCoordinates) {
+        this.referenceCoordinates = currentCoordinates;
+      }
+
+      const newCoordinates = coordinateGetter(event, {
+        active,
+        context: context.current,
+        currentCoordinates
+      });
+
+      if (newCoordinates) {
+        const coordinatesDelta = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(newCoordinates, currentCoordinates);
+        const scrollDelta = {
+          x: 0,
+          y: 0
+        };
+        const {
+          scrollableAncestors
+        } = context.current;
+
+        for (const scrollContainer of scrollableAncestors) {
+          const direction = event.code;
+          const {
+            isTop,
+            isRight,
+            isLeft,
+            isBottom,
+            maxScroll,
+            minScroll
+          } = getScrollPosition(scrollContainer);
+          const scrollElementRect = getScrollElementRect(scrollContainer);
+          const clampedCoordinates = {
+            x: Math.min(direction === KeyboardCode.Right ? scrollElementRect.right - scrollElementRect.width / 2 : scrollElementRect.right, Math.max(direction === KeyboardCode.Right ? scrollElementRect.left : scrollElementRect.left + scrollElementRect.width / 2, newCoordinates.x)),
+            y: Math.min(direction === KeyboardCode.Down ? scrollElementRect.bottom - scrollElementRect.height / 2 : scrollElementRect.bottom, Math.max(direction === KeyboardCode.Down ? scrollElementRect.top : scrollElementRect.top + scrollElementRect.height / 2, newCoordinates.y))
+          };
+          const canScrollX = direction === KeyboardCode.Right && !isRight || direction === KeyboardCode.Left && !isLeft;
+          const canScrollY = direction === KeyboardCode.Down && !isBottom || direction === KeyboardCode.Up && !isTop;
+
+          if (canScrollX && clampedCoordinates.x !== newCoordinates.x) {
+            const newScrollCoordinates = scrollContainer.scrollLeft + coordinatesDelta.x;
+            const canScrollToNewCoordinates = direction === KeyboardCode.Right && newScrollCoordinates <= maxScroll.x || direction === KeyboardCode.Left && newScrollCoordinates >= minScroll.x;
+
+            if (canScrollToNewCoordinates && !coordinatesDelta.y) {
+              // We don't need to update coordinates, the scroll adjustment alone will trigger
+              // logic to auto-detect the new container we are over
+              scrollContainer.scrollTo({
+                left: newScrollCoordinates,
+                behavior: scrollBehavior
+              });
+              return;
+            }
+
+            if (canScrollToNewCoordinates) {
+              scrollDelta.x = scrollContainer.scrollLeft - newScrollCoordinates;
+            } else {
+              scrollDelta.x = direction === KeyboardCode.Right ? scrollContainer.scrollLeft - maxScroll.x : scrollContainer.scrollLeft - minScroll.x;
+            }
+
+            if (scrollDelta.x) {
+              scrollContainer.scrollBy({
+                left: -scrollDelta.x,
+                behavior: scrollBehavior
+              });
+            }
+
+            break;
+          } else if (canScrollY && clampedCoordinates.y !== newCoordinates.y) {
+            const newScrollCoordinates = scrollContainer.scrollTop + coordinatesDelta.y;
+            const canScrollToNewCoordinates = direction === KeyboardCode.Down && newScrollCoordinates <= maxScroll.y || direction === KeyboardCode.Up && newScrollCoordinates >= minScroll.y;
+
+            if (canScrollToNewCoordinates && !coordinatesDelta.x) {
+              // We don't need to update coordinates, the scroll adjustment alone will trigger
+              // logic to auto-detect the new container we are over
+              scrollContainer.scrollTo({
+                top: newScrollCoordinates,
+                behavior: scrollBehavior
+              });
+              return;
+            }
+
+            if (canScrollToNewCoordinates) {
+              scrollDelta.y = scrollContainer.scrollTop - newScrollCoordinates;
+            } else {
+              scrollDelta.y = direction === KeyboardCode.Down ? scrollContainer.scrollTop - maxScroll.y : scrollContainer.scrollTop - minScroll.y;
+            }
+
+            if (scrollDelta.y) {
+              scrollContainer.scrollBy({
+                top: -scrollDelta.y,
+                behavior: scrollBehavior
+              });
+            }
+
+            break;
+          }
+        }
+
+        this.handleMove(event, (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(newCoordinates, this.referenceCoordinates), scrollDelta));
+      }
+    }
+  }
+
+  handleMove(event, coordinates) {
+    const {
+      onMove
+    } = this.props;
+    event.preventDefault();
+    onMove(coordinates);
+  }
+
+  handleEnd(event) {
+    const {
+      onEnd
+    } = this.props;
+    event.preventDefault();
+    this.detach();
+    onEnd();
+  }
+
+  handleCancel(event) {
+    const {
+      onCancel
+    } = this.props;
+    event.preventDefault();
+    this.detach();
+    onCancel();
+  }
+
+  detach() {
+    this.listeners.removeAll();
+    this.windowListeners.removeAll();
+  }
+
+}
+KeyboardSensor.activators = [{
+  eventName: 'onKeyDown',
+  handler: (event, _ref, _ref2) => {
+    let {
+      keyboardCodes = defaultKeyboardCodes,
+      onActivation
+    } = _ref;
+    let {
+      active
+    } = _ref2;
+    const {
+      code
+    } = event.nativeEvent;
+
+    if (keyboardCodes.start.includes(code)) {
+      const activator = active.activatorNode.current;
+
+      if (activator && event.target !== activator) {
+        return false;
+      }
+
+      event.preventDefault();
+      onActivation == null ? void 0 : onActivation({
+        event: event.nativeEvent
+      });
+      return true;
+    }
+
+    return false;
+  }
+}];
+
+function isDistanceConstraint(constraint) {
+  return Boolean(constraint && 'distance' in constraint);
+}
+
+function isDelayConstraint(constraint) {
+  return Boolean(constraint && 'delay' in constraint);
+}
+
+class AbstractPointerSensor {
+  constructor(props, events, listenerTarget) {
+    var _getEventCoordinates;
+
+    if (listenerTarget === void 0) {
+      listenerTarget = getEventListenerTarget(props.event.target);
+    }
+
+    this.props = void 0;
+    this.events = void 0;
+    this.autoScrollEnabled = true;
+    this.document = void 0;
+    this.activated = false;
+    this.initialCoordinates = void 0;
+    this.timeoutId = null;
+    this.listeners = void 0;
+    this.documentListeners = void 0;
+    this.windowListeners = void 0;
+    this.props = props;
+    this.events = events;
+    const {
+      event
+    } = props;
+    const {
+      target
+    } = event;
+    this.props = props;
+    this.events = events;
+    this.document = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(target);
+    this.documentListeners = new Listeners(this.document);
+    this.listeners = new Listeners(listenerTarget);
+    this.windowListeners = new Listeners((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(target));
+    this.initialCoordinates = (_getEventCoordinates = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(event)) != null ? _getEventCoordinates : defaultCoordinates;
+    this.handleStart = this.handleStart.bind(this);
+    this.handleMove = this.handleMove.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+    this.removeTextSelection = this.removeTextSelection.bind(this);
+    this.attach();
+  }
+
+  attach() {
+    const {
+      events,
+      props: {
+        options: {
+          activationConstraint,
+          bypassActivationConstraint
+        }
+      }
+    } = this;
+    this.listeners.add(events.move.name, this.handleMove, {
+      passive: false
+    });
+    this.listeners.add(events.end.name, this.handleEnd);
+
+    if (events.cancel) {
+      this.listeners.add(events.cancel.name, this.handleCancel);
+    }
+
+    this.windowListeners.add(EventName.Resize, this.handleCancel);
+    this.windowListeners.add(EventName.DragStart, preventDefault);
+    this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+    this.windowListeners.add(EventName.ContextMenu, preventDefault);
+    this.documentListeners.add(EventName.Keydown, this.handleKeydown);
+
+    if (activationConstraint) {
+      if (bypassActivationConstraint != null && bypassActivationConstraint({
+        event: this.props.event,
+        activeNode: this.props.activeNode,
+        options: this.props.options
+      })) {
+        return this.handleStart();
+      }
+
+      if (isDelayConstraint(activationConstraint)) {
+        this.timeoutId = setTimeout(this.handleStart, activationConstraint.delay);
+        this.handlePending(activationConstraint);
+        return;
+      }
+
+      if (isDistanceConstraint(activationConstraint)) {
+        this.handlePending(activationConstraint);
+        return;
+      }
+    }
+
+    this.handleStart();
+  }
+
+  detach() {
+    this.listeners.removeAll();
+    this.windowListeners.removeAll(); // Wait until the next event loop before removing document listeners
+    // This is necessary because we listen for `click` and `selection` events on the document
+
+    setTimeout(this.documentListeners.removeAll, 50);
+
+    if (this.timeoutId !== null) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+  }
+
+  handlePending(constraint, offset) {
+    const {
+      active,
+      onPending
+    } = this.props;
+    onPending(active, constraint, this.initialCoordinates, offset);
+  }
+
+  handleStart() {
+    const {
+      initialCoordinates
+    } = this;
+    const {
+      onStart
+    } = this.props;
+
+    if (initialCoordinates) {
+      this.activated = true; // Stop propagation of click events once activation constraints are met
+
+      this.documentListeners.add(EventName.Click, stopPropagation, {
+        capture: true
+      }); // Remove any text selection from the document
+
+      this.removeTextSelection(); // Prevent further text selection while dragging
+
+      this.documentListeners.add(EventName.SelectionChange, this.removeTextSelection);
+      onStart(initialCoordinates);
+    }
+  }
+
+  handleMove(event) {
+    var _getEventCoordinates2;
+
+    const {
+      activated,
+      initialCoordinates,
+      props
+    } = this;
+    const {
+      onMove,
+      options: {
+        activationConstraint
+      }
+    } = props;
+
+    if (!initialCoordinates) {
+      return;
+    }
+
+    const coordinates = (_getEventCoordinates2 = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(event)) != null ? _getEventCoordinates2 : defaultCoordinates;
+    const delta = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(initialCoordinates, coordinates); // Constraint validation
+
+    if (!activated && activationConstraint) {
+      if (isDistanceConstraint(activationConstraint)) {
+        if (activationConstraint.tolerance != null && hasExceededDistance(delta, activationConstraint.tolerance)) {
+          return this.handleCancel();
+        }
+
+        if (hasExceededDistance(delta, activationConstraint.distance)) {
+          return this.handleStart();
+        }
+      }
+
+      if (isDelayConstraint(activationConstraint)) {
+        if (hasExceededDistance(delta, activationConstraint.tolerance)) {
+          return this.handleCancel();
+        }
+      }
+
+      this.handlePending(activationConstraint, delta);
+      return;
+    }
+
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+
+    onMove(coordinates);
+  }
+
+  handleEnd() {
+    const {
+      onAbort,
+      onEnd
+    } = this.props;
+    this.detach();
+
+    if (!this.activated) {
+      onAbort(this.props.active);
+    }
+
+    onEnd();
+  }
+
+  handleCancel() {
+    const {
+      onAbort,
+      onCancel
+    } = this.props;
+    this.detach();
+
+    if (!this.activated) {
+      onAbort(this.props.active);
+    }
+
+    onCancel();
+  }
+
+  handleKeydown(event) {
+    if (event.code === KeyboardCode.Esc) {
+      this.handleCancel();
+    }
+  }
+
+  removeTextSelection() {
+    var _this$document$getSel;
+
+    (_this$document$getSel = this.document.getSelection()) == null ? void 0 : _this$document$getSel.removeAllRanges();
+  }
+
+}
+
+const events = {
+  cancel: {
+    name: 'pointercancel'
+  },
+  move: {
+    name: 'pointermove'
+  },
+  end: {
+    name: 'pointerup'
+  }
+};
+class PointerSensor extends AbstractPointerSensor {
+  constructor(props) {
+    const {
+      event
+    } = props; // Pointer events stop firing if the target is unmounted while dragging
+    // Therefore we attach listeners to the owner document instead
+
+    const listenerTarget = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(event.target);
+    super(props, events, listenerTarget);
+  }
+
+}
+PointerSensor.activators = [{
+  eventName: 'onPointerDown',
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+
+    if (!event.isPrimary || event.button !== 0) {
+      return false;
+    }
+
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+
+const events$1 = {
+  move: {
+    name: 'mousemove'
+  },
+  end: {
+    name: 'mouseup'
+  }
+};
+var MouseButton;
+
+(function (MouseButton) {
+  MouseButton[MouseButton["RightClick"] = 2] = "RightClick";
+})(MouseButton || (MouseButton = {}));
+
+class MouseSensor extends AbstractPointerSensor {
+  constructor(props) {
+    super(props, events$1, (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(props.event.target));
+  }
+
+}
+MouseSensor.activators = [{
+  eventName: 'onMouseDown',
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+
+    if (event.button === MouseButton.RightClick) {
+      return false;
+    }
+
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+
+const events$2 = {
+  cancel: {
+    name: 'touchcancel'
+  },
+  move: {
+    name: 'touchmove'
+  },
+  end: {
+    name: 'touchend'
+  }
+};
+class TouchSensor extends AbstractPointerSensor {
+  constructor(props) {
+    super(props, events$2);
+  }
+
+  static setup() {
+    // Adding a non-capture and non-passive `touchmove` listener in order
+    // to force `event.preventDefault()` calls to work in dynamically added
+    // touchmove event handlers. This is required for iOS Safari.
+    window.addEventListener(events$2.move.name, noop, {
+      capture: false,
+      passive: false
+    });
+    return function teardown() {
+      window.removeEventListener(events$2.move.name, noop);
+    }; // We create a new handler because the teardown function of another sensor
+    // could remove our event listener if we use a referentially equal listener.
+
+    function noop() {}
+  }
+
+}
+TouchSensor.activators = [{
+  eventName: 'onTouchStart',
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+    const {
+      touches
+    } = event;
+
+    if (touches.length > 1) {
+      return false;
+    }
+
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+
+var AutoScrollActivator;
+
+(function (AutoScrollActivator) {
+  AutoScrollActivator[AutoScrollActivator["Pointer"] = 0] = "Pointer";
+  AutoScrollActivator[AutoScrollActivator["DraggableRect"] = 1] = "DraggableRect";
+})(AutoScrollActivator || (AutoScrollActivator = {}));
+
+var TraversalOrder;
+
+(function (TraversalOrder) {
+  TraversalOrder[TraversalOrder["TreeOrder"] = 0] = "TreeOrder";
+  TraversalOrder[TraversalOrder["ReversedTreeOrder"] = 1] = "ReversedTreeOrder";
+})(TraversalOrder || (TraversalOrder = {}));
+
+function useAutoScroller(_ref) {
+  let {
+    acceleration,
+    activator = AutoScrollActivator.Pointer,
+    canScroll,
+    draggingRect,
+    enabled,
+    interval = 5,
+    order = TraversalOrder.TreeOrder,
+    pointerCoordinates,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    delta,
+    threshold
+  } = _ref;
+  const scrollIntent = useScrollIntent({
+    delta,
+    disabled: !enabled
+  });
+  const [setAutoScrollInterval, clearAutoScrollInterval] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useInterval)();
+  const scrollSpeed = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    x: 0,
+    y: 0
+  });
+  const scrollDirection = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    x: 0,
+    y: 0
+  });
+  const rect = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    switch (activator) {
+      case AutoScrollActivator.Pointer:
+        return pointerCoordinates ? {
+          top: pointerCoordinates.y,
+          bottom: pointerCoordinates.y,
+          left: pointerCoordinates.x,
+          right: pointerCoordinates.x
+        } : null;
+
+      case AutoScrollActivator.DraggableRect:
+        return draggingRect;
+    }
+  }, [activator, draggingRect, pointerCoordinates]);
+  const scrollContainerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const autoScroll = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    const scrollContainer = scrollContainerRef.current;
+
+    if (!scrollContainer) {
+      return;
+    }
+
+    const scrollLeft = scrollSpeed.current.x * scrollDirection.current.x;
+    const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
+    scrollContainer.scrollBy(scrollLeft, scrollTop);
+  }, []);
+  const sortedScrollableAncestors = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!enabled || !scrollableAncestors.length || !rect) {
+      clearAutoScrollInterval();
+      return;
+    }
+
+    for (const scrollContainer of sortedScrollableAncestors) {
+      if ((canScroll == null ? void 0 : canScroll(scrollContainer)) === false) {
+        continue;
+      }
+
+      const index = scrollableAncestors.indexOf(scrollContainer);
+      const scrollContainerRect = scrollableAncestorRects[index];
+
+      if (!scrollContainerRect) {
+        continue;
+      }
+
+      const {
+        direction,
+        speed
+      } = getScrollDirectionAndSpeed(scrollContainer, scrollContainerRect, rect, acceleration, threshold);
+
+      for (const axis of ['x', 'y']) {
+        if (!scrollIntent[axis][direction[axis]]) {
+          speed[axis] = 0;
+          direction[axis] = 0;
+        }
+      }
+
+      if (speed.x > 0 || speed.y > 0) {
+        clearAutoScrollInterval();
+        scrollContainerRef.current = scrollContainer;
+        setAutoScrollInterval(autoScroll, interval);
+        scrollSpeed.current = speed;
+        scrollDirection.current = direction;
+        return;
+      }
+    }
+
+    scrollSpeed.current = {
+      x: 0,
+      y: 0
+    };
+    scrollDirection.current = {
+      x: 0,
+      y: 0
+    };
+    clearAutoScrollInterval();
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [acceleration, autoScroll, canScroll, clearAutoScrollInterval, enabled, interval, // eslint-disable-next-line react-hooks/exhaustive-deps
+  JSON.stringify(rect), // eslint-disable-next-line react-hooks/exhaustive-deps
+  JSON.stringify(scrollIntent), setAutoScrollInterval, scrollableAncestors, sortedScrollableAncestors, scrollableAncestorRects, // eslint-disable-next-line react-hooks/exhaustive-deps
+  JSON.stringify(threshold)]);
+}
+const defaultScrollIntent = {
+  x: {
+    [Direction.Backward]: false,
+    [Direction.Forward]: false
+  },
+  y: {
+    [Direction.Backward]: false,
+    [Direction.Forward]: false
+  }
+};
+
+function useScrollIntent(_ref2) {
+  let {
+    delta,
+    disabled
+  } = _ref2;
+  const previousDelta = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(delta);
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousIntent => {
+    if (disabled || !previousDelta || !previousIntent) {
+      // Reset scroll intent tracking when auto-scrolling is disabled
+      return defaultScrollIntent;
+    }
+
+    const direction = {
+      x: Math.sign(delta.x - previousDelta.x),
+      y: Math.sign(delta.y - previousDelta.y)
+    }; // Keep track of the user intent to scroll in each direction for both axis
+
+    return {
+      x: {
+        [Direction.Backward]: previousIntent.x[Direction.Backward] || direction.x === -1,
+        [Direction.Forward]: previousIntent.x[Direction.Forward] || direction.x === 1
+      },
+      y: {
+        [Direction.Backward]: previousIntent.y[Direction.Backward] || direction.y === -1,
+        [Direction.Forward]: previousIntent.y[Direction.Forward] || direction.y === 1
+      }
+    };
+  }, [disabled, delta, previousDelta]);
+}
+
+function useCachedNode(draggableNodes, id) {
+  const draggableNode = id != null ? draggableNodes.get(id) : undefined;
+  const node = draggableNode ? draggableNode.node.current : null;
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(cachedNode => {
+    var _ref;
+
+    if (id == null) {
+      return null;
+    } // In some cases, the draggable node can unmount while dragging
+    // This is the case for virtualized lists. In those situations,
+    // we fall back to the last known value for that node.
+
+
+    return (_ref = node != null ? node : cachedNode) != null ? _ref : null;
+  }, [node, id]);
+}
+
+function useCombineActivators(sensors, getSyntheticHandler) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => sensors.reduce((accumulator, sensor) => {
+    const {
+      sensor: Sensor
+    } = sensor;
+    const sensorActivators = Sensor.activators.map(activator => ({
+      eventName: activator.eventName,
+      handler: getSyntheticHandler(activator.handler, sensor)
+    }));
+    return [...accumulator, ...sensorActivators];
+  }, []), [sensors, getSyntheticHandler]);
+}
+
+var MeasuringStrategy;
+
+(function (MeasuringStrategy) {
+  MeasuringStrategy[MeasuringStrategy["Always"] = 0] = "Always";
+  MeasuringStrategy[MeasuringStrategy["BeforeDragging"] = 1] = "BeforeDragging";
+  MeasuringStrategy[MeasuringStrategy["WhileDragging"] = 2] = "WhileDragging";
+})(MeasuringStrategy || (MeasuringStrategy = {}));
+
+var MeasuringFrequency;
+
+(function (MeasuringFrequency) {
+  MeasuringFrequency["Optimized"] = "optimized";
+})(MeasuringFrequency || (MeasuringFrequency = {}));
+
+const defaultValue = /*#__PURE__*/new Map();
+function useDroppableMeasuring(containers, _ref) {
+  let {
+    dragging,
+    dependencies,
+    config
+  } = _ref;
+  const [queue, setQueue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const {
+    frequency,
+    measure,
+    strategy
+  } = config;
+  const containersRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(containers);
+  const disabled = isDisabled();
+  const disabledRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(disabled);
+  const measureDroppableContainers = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (ids) {
+    if (ids === void 0) {
+      ids = [];
+    }
+
+    if (disabledRef.current) {
+      return;
+    }
+
+    setQueue(value => {
+      if (value === null) {
+        return ids;
+      }
+
+      return value.concat(ids.filter(id => !value.includes(id)));
+    });
+  }, [disabledRef]);
+  const timeoutId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const droppableRects = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousValue => {
+    if (disabled && !dragging) {
+      return defaultValue;
+    }
+
+    if (!previousValue || previousValue === defaultValue || containersRef.current !== containers || queue != null) {
+      const map = new Map();
+
+      for (let container of containers) {
+        if (!container) {
+          continue;
+        }
+
+        if (queue && queue.length > 0 && !queue.includes(container.id) && container.rect.current) {
+          // This container does not need to be re-measured
+          map.set(container.id, container.rect.current);
+          continue;
+        }
+
+        const node = container.node.current;
+        const rect = node ? new Rect(measure(node), node) : null;
+        container.rect.current = rect;
+
+        if (rect) {
+          map.set(container.id, rect);
+        }
+      }
+
+      return map;
+    }
+
+    return previousValue;
+  }, [containers, queue, dragging, disabled, measure]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    containersRef.current = containers;
+  }, [containers]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled) {
+      return;
+    }
+
+    measureDroppableContainers();
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [dragging, disabled]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (queue && queue.length > 0) {
+      setQueue(null);
+    }
+  }, //eslint-disable-next-line react-hooks/exhaustive-deps
+  [JSON.stringify(queue)]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled || typeof frequency !== 'number' || timeoutId.current !== null) {
+      return;
+    }
+
+    timeoutId.current = setTimeout(() => {
+      measureDroppableContainers();
+      timeoutId.current = null;
+    }, frequency);
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [frequency, disabled, measureDroppableContainers, ...dependencies]);
+  return {
+    droppableRects,
+    measureDroppableContainers,
+    measuringScheduled: queue != null
+  };
+
+  function isDisabled() {
+    switch (strategy) {
+      case MeasuringStrategy.Always:
+        return false;
+
+      case MeasuringStrategy.BeforeDragging:
+        return dragging;
+
+      default:
+        return !dragging;
+    }
+  }
+}
+
+function useInitialValue(value, computeFn) {
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousValue => {
+    if (!value) {
+      return null;
+    }
+
+    if (previousValue) {
+      return previousValue;
+    }
+
+    return typeof computeFn === 'function' ? computeFn(value) : value;
+  }, [computeFn, value]);
+}
+
+function useInitialRect(node, measure) {
+  return useInitialValue(node, measure);
+}
+
+/**
+ * Returns a new MutationObserver instance.
+ * If `MutationObserver` is undefined in the execution environment, returns `undefined`.
+ */
+
+function useMutationObserver(_ref) {
+  let {
+    callback,
+    disabled
+  } = _ref;
+  const handleMutations = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useEvent)(callback);
+  const mutationObserver = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (disabled || typeof window === 'undefined' || typeof window.MutationObserver === 'undefined') {
+      return undefined;
+    }
+
+    const {
+      MutationObserver
+    } = window;
+    return new MutationObserver(handleMutations);
+  }, [handleMutations, disabled]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    return () => mutationObserver == null ? void 0 : mutationObserver.disconnect();
+  }, [mutationObserver]);
+  return mutationObserver;
+}
+
+/**
+ * Returns a new ResizeObserver instance bound to the `onResize` callback.
+ * If `ResizeObserver` is undefined in the execution environment, returns `undefined`.
+ */
+
+function useResizeObserver(_ref) {
+  let {
+    callback,
+    disabled
+  } = _ref;
+  const handleResize = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useEvent)(callback);
+  const resizeObserver = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (disabled || typeof window === 'undefined' || typeof window.ResizeObserver === 'undefined') {
+      return undefined;
+    }
+
+    const {
+      ResizeObserver
+    } = window;
+    return new ResizeObserver(handleResize);
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [disabled]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    return () => resizeObserver == null ? void 0 : resizeObserver.disconnect();
+  }, [resizeObserver]);
+  return resizeObserver;
+}
+
+function defaultMeasure(element) {
+  return new Rect(getClientRect(element), element);
+}
+
+function useRect(element, measure, fallbackRect) {
+  if (measure === void 0) {
+    measure = defaultMeasure;
+  }
+
+  const [rect, setRect] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+
+  function measureRect() {
+    setRect(currentRect => {
+      if (!element) {
+        return null;
+      }
+
+      if (element.isConnected === false) {
+        var _ref;
+
+        // Fall back to last rect we measured if the element is
+        // no longer connected to the DOM.
+        return (_ref = currentRect != null ? currentRect : fallbackRect) != null ? _ref : null;
+      }
+
+      const newRect = measure(element);
+
+      if (JSON.stringify(currentRect) === JSON.stringify(newRect)) {
+        return currentRect;
+      }
+
+      return newRect;
+    });
+  }
+
+  const mutationObserver = useMutationObserver({
+    callback(records) {
+      if (!element) {
+        return;
+      }
+
+      for (const record of records) {
+        const {
+          type,
+          target
+        } = record;
+
+        if (type === 'childList' && target instanceof HTMLElement && target.contains(element)) {
+          measureRect();
+          break;
+        }
+      }
+    }
+
+  });
+  const resizeObserver = useResizeObserver({
+    callback: measureRect
+  });
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    measureRect();
+
+    if (element) {
+      resizeObserver == null ? void 0 : resizeObserver.observe(element);
+      mutationObserver == null ? void 0 : mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    } else {
+      resizeObserver == null ? void 0 : resizeObserver.disconnect();
+      mutationObserver == null ? void 0 : mutationObserver.disconnect();
+    }
+  }, [element]);
+  return rect;
+}
+
+function useRectDelta(rect) {
+  const initialRect = useInitialValue(rect);
+  return getRectDelta(rect, initialRect);
+}
+
+const defaultValue$1 = [];
+function useScrollableAncestors(node) {
+  const previousNode = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(node);
+  const ancestors = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLazyMemo)(previousValue => {
+    if (!node) {
+      return defaultValue$1;
+    }
+
+    if (previousValue && previousValue !== defaultValue$1 && node && previousNode.current && node.parentNode === previousNode.current.parentNode) {
+      return previousValue;
+    }
+
+    return getScrollableAncestors(node);
+  }, [node]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    previousNode.current = node;
+  }, [node]);
+  return ancestors;
+}
+
+function useScrollOffsets(elements) {
+  const [scrollCoordinates, setScrollCoordinates] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const prevElements = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(elements); // To-do: Throttle the handleScroll callback
+
+  const handleScroll = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(event => {
+    const scrollingElement = getScrollableElement(event.target);
+
+    if (!scrollingElement) {
+      return;
+    }
+
+    setScrollCoordinates(scrollCoordinates => {
+      if (!scrollCoordinates) {
+        return null;
+      }
+
+      scrollCoordinates.set(scrollingElement, getScrollCoordinates(scrollingElement));
+      return new Map(scrollCoordinates);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const previousElements = prevElements.current;
+
+    if (elements !== previousElements) {
+      cleanup(previousElements);
+      const entries = elements.map(element => {
+        const scrollableElement = getScrollableElement(element);
+
+        if (scrollableElement) {
+          scrollableElement.addEventListener('scroll', handleScroll, {
+            passive: true
+          });
+          return [scrollableElement, getScrollCoordinates(scrollableElement)];
+        }
+
+        return null;
+      }).filter(entry => entry != null);
+      setScrollCoordinates(entries.length ? new Map(entries) : null);
+      prevElements.current = elements;
+    }
+
+    return () => {
+      cleanup(elements);
+      cleanup(previousElements);
+    };
+
+    function cleanup(elements) {
+      elements.forEach(element => {
+        const scrollableElement = getScrollableElement(element);
+        scrollableElement == null ? void 0 : scrollableElement.removeEventListener('scroll', handleScroll);
+      });
+    }
+  }, [handleScroll, elements]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (elements.length) {
+      return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
+    }
+
+    return defaultCoordinates;
+  }, [elements, scrollCoordinates]);
+}
+
+function useScrollOffsetsDelta(scrollOffsets, dependencies) {
+  if (dependencies === void 0) {
+    dependencies = [];
+  }
+
+  const initialScrollOffsets = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    initialScrollOffsets.current = null;
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  dependencies);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
+
+    if (hasScrollOffsets && !initialScrollOffsets.current) {
+      initialScrollOffsets.current = scrollOffsets;
+    }
+
+    if (!hasScrollOffsets && initialScrollOffsets.current) {
+      initialScrollOffsets.current = null;
+    }
+  }, [scrollOffsets]);
+  return initialScrollOffsets.current ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
+}
+
+function useSensorSetup(sensors) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.canUseDOM) {
+      return;
+    }
+
+    const teardownFns = sensors.map(_ref => {
+      let {
+        sensor
+      } = _ref;
+      return sensor.setup == null ? void 0 : sensor.setup();
+    });
+    return () => {
+      for (const teardown of teardownFns) {
+        teardown == null ? void 0 : teardown();
+      }
+    };
+  }, // TO-DO: Sensors length could theoretically change which would not be a valid dependency
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  sensors.map(_ref2 => {
+    let {
+      sensor
+    } = _ref2;
+    return sensor;
+  }));
+}
+
+function useSyntheticListeners(listeners, id) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return listeners.reduce((acc, _ref) => {
+      let {
+        eventName,
+        handler
+      } = _ref;
+
+      acc[eventName] = event => {
+        handler(event, id);
+      };
+
+      return acc;
+    }, {});
+  }, [listeners, id]);
+}
+
+function useWindowRect(element) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => element ? getWindowClientRect(element) : null, [element]);
+}
+
+const defaultValue$2 = [];
+function useRects(elements, measure) {
+  if (measure === void 0) {
+    measure = getClientRect;
+  }
+
+  const [firstElement] = elements;
+  const windowRect = useWindowRect(firstElement ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(firstElement) : null);
+  const [rects, setRects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultValue$2);
+
+  function measureRects() {
+    setRects(() => {
+      if (!elements.length) {
+        return defaultValue$2;
+      }
+
+      return elements.map(element => isDocumentScrollingElement(element) ? windowRect : new Rect(measure(element), element));
+    });
+  }
+
+  const resizeObserver = useResizeObserver({
+    callback: measureRects
+  });
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    resizeObserver == null ? void 0 : resizeObserver.disconnect();
+    measureRects();
+    elements.forEach(element => resizeObserver == null ? void 0 : resizeObserver.observe(element));
+  }, [elements]);
+  return rects;
+}
+
+function getMeasurableNode(node) {
+  if (!node) {
+    return null;
+  }
+
+  if (node.children.length > 1) {
+    return node;
+  }
+
+  const firstChild = node.children[0];
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(firstChild) ? firstChild : node;
+}
+
+function useDragOverlayMeasuring(_ref) {
+  let {
+    measure
+  } = _ref;
+  const [rect, setRect] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const handleResize = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(entries => {
+    for (const {
+      target
+    } of entries) {
+      if ((0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(target)) {
+        setRect(rect => {
+          const newRect = measure(target);
+          return rect ? { ...rect,
+            width: newRect.width,
+            height: newRect.height
+          } : newRect;
+        });
+        break;
+      }
+    }
+  }, [measure]);
+  const resizeObserver = useResizeObserver({
+    callback: handleResize
+  });
+  const handleNodeChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(element => {
+    const node = getMeasurableNode(element);
+    resizeObserver == null ? void 0 : resizeObserver.disconnect();
+
+    if (node) {
+      resizeObserver == null ? void 0 : resizeObserver.observe(node);
+    }
+
+    setRect(node ? measure(node) : null);
+  }, [measure, resizeObserver]);
+  const [nodeRef, setRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)(handleNodeChange);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    nodeRef,
+    rect,
+    setRef
+  }), [rect, nodeRef, setRef]);
+}
+
+const defaultSensors = [{
+  sensor: PointerSensor,
+  options: {}
+}, {
+  sensor: KeyboardSensor,
+  options: {}
+}];
+const defaultData = {
+  current: {}
+};
+const defaultMeasuringConfiguration = {
+  draggable: {
+    measure: getTransformAgnosticClientRect
+  },
+  droppable: {
+    measure: getTransformAgnosticClientRect,
+    strategy: MeasuringStrategy.WhileDragging,
+    frequency: MeasuringFrequency.Optimized
+  },
+  dragOverlay: {
+    measure: getClientRect
+  }
+};
+
+class DroppableContainersMap extends Map {
+  get(id) {
+    var _super$get;
+
+    return id != null ? (_super$get = super.get(id)) != null ? _super$get : undefined : undefined;
+  }
+
+  toArray() {
+    return Array.from(this.values());
+  }
+
+  getEnabled() {
+    return this.toArray().filter(_ref => {
+      let {
+        disabled
+      } = _ref;
+      return !disabled;
+    });
+  }
+
+  getNodeFor(id) {
+    var _this$get$node$curren, _this$get;
+
+    return (_this$get$node$curren = (_this$get = this.get(id)) == null ? void 0 : _this$get.node.current) != null ? _this$get$node$curren : undefined;
+  }
+
+}
+
+const defaultPublicContext = {
+  activatorEvent: null,
+  active: null,
+  activeNode: null,
+  activeNodeRect: null,
+  collisions: null,
+  containerNodeRect: null,
+  draggableNodes: /*#__PURE__*/new Map(),
+  droppableRects: /*#__PURE__*/new Map(),
+  droppableContainers: /*#__PURE__*/new DroppableContainersMap(),
+  over: null,
+  dragOverlay: {
+    nodeRef: {
+      current: null
+    },
+    rect: null,
+    setRef: noop
+  },
+  scrollableAncestors: [],
+  scrollableAncestorRects: [],
+  measuringConfiguration: defaultMeasuringConfiguration,
+  measureDroppableContainers: noop,
+  windowRect: null,
+  measuringScheduled: false
+};
+const defaultInternalContext = {
+  activatorEvent: null,
+  activators: [],
+  active: null,
+  activeNodeRect: null,
+  ariaDescribedById: {
+    draggable: ''
+  },
+  dispatch: noop,
+  draggableNodes: /*#__PURE__*/new Map(),
+  over: null,
+  measureDroppableContainers: noop
+};
+const InternalContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(defaultInternalContext);
+const PublicContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(defaultPublicContext);
+
+function getInitialState() {
+  return {
+    draggable: {
+      active: null,
+      initialCoordinates: {
+        x: 0,
+        y: 0
+      },
+      nodes: new Map(),
+      translate: {
+        x: 0,
+        y: 0
+      }
+    },
+    droppable: {
+      containers: new DroppableContainersMap()
+    }
+  };
+}
+function reducer(state, action) {
+  switch (action.type) {
+    case Action.DragStart:
+      return { ...state,
+        draggable: { ...state.draggable,
+          initialCoordinates: action.initialCoordinates,
+          active: action.active
+        }
+      };
+
+    case Action.DragMove:
+      if (state.draggable.active == null) {
+        return state;
+      }
+
+      return { ...state,
+        draggable: { ...state.draggable,
+          translate: {
+            x: action.coordinates.x - state.draggable.initialCoordinates.x,
+            y: action.coordinates.y - state.draggable.initialCoordinates.y
+          }
+        }
+      };
+
+    case Action.DragEnd:
+    case Action.DragCancel:
+      return { ...state,
+        draggable: { ...state.draggable,
+          active: null,
+          initialCoordinates: {
+            x: 0,
+            y: 0
+          },
+          translate: {
+            x: 0,
+            y: 0
+          }
+        }
+      };
+
+    case Action.RegisterDroppable:
+      {
+        const {
+          element
+        } = action;
+        const {
+          id
+        } = element;
+        const containers = new DroppableContainersMap(state.droppable.containers);
+        containers.set(id, element);
+        return { ...state,
+          droppable: { ...state.droppable,
+            containers
+          }
+        };
+      }
+
+    case Action.SetDroppableDisabled:
+      {
+        const {
+          id,
+          key,
+          disabled
+        } = action;
+        const element = state.droppable.containers.get(id);
+
+        if (!element || key !== element.key) {
+          return state;
+        }
+
+        const containers = new DroppableContainersMap(state.droppable.containers);
+        containers.set(id, { ...element,
+          disabled
+        });
+        return { ...state,
+          droppable: { ...state.droppable,
+            containers
+          }
+        };
+      }
+
+    case Action.UnregisterDroppable:
+      {
+        const {
+          id,
+          key
+        } = action;
+        const element = state.droppable.containers.get(id);
+
+        if (!element || key !== element.key) {
+          return state;
+        }
+
+        const containers = new DroppableContainersMap(state.droppable.containers);
+        containers.delete(id);
+        return { ...state,
+          droppable: { ...state.droppable,
+            containers
+          }
+        };
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
+function RestoreFocus(_ref) {
+  let {
+    disabled
+  } = _ref;
+  const {
+    active,
+    activatorEvent,
+    draggableNodes
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(InternalContext);
+  const previousActivatorEvent = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(activatorEvent);
+  const previousActiveId = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(active == null ? void 0 : active.id); // Restore keyboard focus on the activator node
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled) {
+      return;
+    }
+
+    if (!activatorEvent && previousActivatorEvent && previousActiveId != null) {
+      if (!(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(previousActivatorEvent)) {
+        return;
+      }
+
+      if (document.activeElement === previousActivatorEvent.target) {
+        // No need to restore focus
+        return;
+      }
+
+      const draggableNode = draggableNodes.get(previousActiveId);
+
+      if (!draggableNode) {
+        return;
+      }
+
+      const {
+        activatorNode,
+        node
+      } = draggableNode;
+
+      if (!activatorNode.current && !node.current) {
+        return;
+      }
+
+      requestAnimationFrame(() => {
+        for (const element of [activatorNode.current, node.current]) {
+          if (!element) {
+            continue;
+          }
+
+          const focusableNode = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.findFirstFocusableNode)(element);
+
+          if (focusableNode) {
+            focusableNode.focus();
+            break;
+          }
+        }
+      });
+    }
+  }, [activatorEvent, disabled, draggableNodes, previousActiveId, previousActivatorEvent]);
+  return null;
+}
+
+function applyModifiers(modifiers, _ref) {
+  let {
+    transform,
+    ...args
+  } = _ref;
+  return modifiers != null && modifiers.length ? modifiers.reduce((accumulator, modifier) => {
+    return modifier({
+      transform: accumulator,
+      ...args
+    });
+  }, transform) : transform;
+}
+
+function useMeasuringConfiguration(config) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    draggable: { ...defaultMeasuringConfiguration.draggable,
+      ...(config == null ? void 0 : config.draggable)
+    },
+    droppable: { ...defaultMeasuringConfiguration.droppable,
+      ...(config == null ? void 0 : config.droppable)
+    },
+    dragOverlay: { ...defaultMeasuringConfiguration.dragOverlay,
+      ...(config == null ? void 0 : config.dragOverlay)
+    }
+  }), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [config == null ? void 0 : config.draggable, config == null ? void 0 : config.droppable, config == null ? void 0 : config.dragOverlay]);
+}
+
+function useLayoutShiftScrollCompensation(_ref) {
+  let {
+    activeNode,
+    measure,
+    initialRect,
+    config = true
+  } = _ref;
+  const initialized = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const {
+    x,
+    y
+  } = typeof config === 'boolean' ? {
+    x: config,
+    y: config
+  } : config;
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    const disabled = !x && !y;
+
+    if (disabled || !activeNode) {
+      initialized.current = false;
+      return;
+    }
+
+    if (initialized.current || !initialRect) {
+      // Return early if layout shift scroll compensation was already attempted
+      // or if there is no initialRect to compare to.
+      return;
+    } // Get the most up to date node ref for the active draggable
+
+
+    const node = activeNode == null ? void 0 : activeNode.node.current;
+
+    if (!node || node.isConnected === false) {
+      // Return early if there is no attached node ref or if the node is
+      // disconnected from the document.
+      return;
+    }
+
+    const rect = measure(node);
+    const rectDelta = getRectDelta(rect, initialRect);
+
+    if (!x) {
+      rectDelta.x = 0;
+    }
+
+    if (!y) {
+      rectDelta.y = 0;
+    } // Only perform layout shift scroll compensation once
+
+
+    initialized.current = true;
+
+    if (Math.abs(rectDelta.x) > 0 || Math.abs(rectDelta.y) > 0) {
+      const firstScrollableAncestor = getFirstScrollableAncestor(node);
+
+      if (firstScrollableAncestor) {
+        firstScrollableAncestor.scrollBy({
+          top: rectDelta.y,
+          left: rectDelta.x
+        });
+      }
+    }
+  }, [activeNode, x, y, initialRect, measure]);
+}
+
+const ActiveDraggableContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({ ...defaultCoordinates,
+  scaleX: 1,
+  scaleY: 1
+});
+var Status;
+
+(function (Status) {
+  Status[Status["Uninitialized"] = 0] = "Uninitialized";
+  Status[Status["Initializing"] = 1] = "Initializing";
+  Status[Status["Initialized"] = 2] = "Initialized";
+})(Status || (Status = {}));
+
+const DndContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function DndContext(_ref) {
+  var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
+
+  let {
+    id,
+    accessibility,
+    autoScroll = true,
+    children,
+    sensors = defaultSensors,
+    collisionDetection = rectIntersection,
+    measuring,
+    modifiers,
+    ...props
+  } = _ref;
+  const store = (0,react__WEBPACK_IMPORTED_MODULE_0__.useReducer)(reducer, undefined, getInitialState);
+  const [state, dispatch] = store;
+  const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
+  const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Status.Uninitialized);
+  const isInitialized = status === Status.Initialized;
+  const {
+    draggable: {
+      active: activeId,
+      nodes: draggableNodes,
+      translate
+    },
+    droppable: {
+      containers: droppableContainers
+    }
+  } = state;
+  const node = activeId != null ? draggableNodes.get(activeId) : null;
+  const activeRects = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    initial: null,
+    translated: null
+  });
+  const active = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _node$data;
+
+    return activeId != null ? {
+      id: activeId,
+      // It's possible for the active node to unmount while dragging
+      data: (_node$data = node == null ? void 0 : node.data) != null ? _node$data : defaultData,
+      rect: activeRects
+    } : null;
+  }, [activeId, node]);
+  const activeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [activeSensor, setActiveSensor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [activatorEvent, setActivatorEvent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const latestProps = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(props, Object.values(props));
+  const draggableDescribedById = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)("DndDescribedBy", id);
+  const enabledDroppableContainers = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const measuringConfiguration = useMeasuringConfiguration(measuring);
+  const {
+    droppableRects,
+    measureDroppableContainers,
+    measuringScheduled
+  } = useDroppableMeasuring(enabledDroppableContainers, {
+    dragging: isInitialized,
+    dependencies: [translate.x, translate.y],
+    config: measuringConfiguration.droppable
+  });
+  const activeNode = useCachedNode(draggableNodes, activeId);
+  const activationCoordinates = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => activatorEvent ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getEventCoordinates)(activatorEvent) : null, [activatorEvent]);
+  const autoScrollOptions = getAutoScrollerOptions();
+  const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
+  useLayoutShiftScrollCompensation({
+    activeNode: activeId != null ? draggableNodes.get(activeId) : null,
+    config: autoScrollOptions.layoutShiftCompensation,
+    initialRect: initialActiveNodeRect,
+    measure: measuringConfiguration.draggable.measure
+  });
+  const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
+  const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
+  const sensorContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    activatorEvent: null,
+    active: null,
+    activeNode,
+    collisionRect: null,
+    collisions: null,
+    droppableRects,
+    draggableNodes,
+    draggingNode: null,
+    draggingNodeRect: null,
+    droppableContainers,
+    over: null,
+    scrollableAncestors: [],
+    scrollAdjustedTranslate: null
+  });
+  const overNode = droppableContainers.getNodeFor((_sensorContext$curren = sensorContext.current.over) == null ? void 0 : _sensorContext$curren.id);
+  const dragOverlay = useDragOverlayMeasuring({
+    measure: measuringConfiguration.dragOverlay.measure
+  }); // Use the rect of the drag overlay if it is mounted
+
+  const draggingNode = (_dragOverlay$nodeRef$ = dragOverlay.nodeRef.current) != null ? _dragOverlay$nodeRef$ : activeNode;
+  const draggingNodeRect = isInitialized ? (_dragOverlay$rect = dragOverlay.rect) != null ? _dragOverlay$rect : activeNodeRect : null;
+  const usesDragOverlay = Boolean(dragOverlay.nodeRef.current && dragOverlay.rect); // The delta between the previous and new position of the draggable node
+  // is only relevant when there is no drag overlay
+
+  const nodeRectDelta = useRectDelta(usesDragOverlay ? null : activeNodeRect); // Get the window rect of the dragging node
+
+  const windowRect = useWindowRect(draggingNode ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(draggingNode) : null); // Get scrollable ancestors of the dragging node
+
+  const scrollableAncestors = useScrollableAncestors(isInitialized ? overNode != null ? overNode : activeNode : null);
+  const scrollableAncestorRects = useRects(scrollableAncestors); // Apply modifiers
+
+  const modifiedTranslate = applyModifiers(modifiers, {
+    transform: {
+      x: translate.x - nodeRectDelta.x,
+      y: translate.y - nodeRectDelta.y,
+      scaleX: 1,
+      scaleY: 1
+    },
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect,
+    over: sensorContext.current.over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  });
+  const pointerCoordinates = activationCoordinates ? (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(activationCoordinates, translate) : null;
+  const scrollOffsets = useScrollOffsets(scrollableAncestors); // Represents the scroll delta since dragging was initiated
+
+  const scrollAdjustment = useScrollOffsetsDelta(scrollOffsets); // Represents the scroll delta since the last time the active node rect was measured
+
+  const activeNodeScrollDelta = useScrollOffsetsDelta(scrollOffsets, [activeNodeRect]);
+  const scrollAdjustedTranslate = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(modifiedTranslate, scrollAdjustment);
+  const collisionRect = draggingNodeRect ? getAdjustedRect(draggingNodeRect, modifiedTranslate) : null;
+  const collisions = active && collisionRect ? collisionDetection({
+    active,
+    collisionRect,
+    droppableRects,
+    droppableContainers: enabledDroppableContainers,
+    pointerCoordinates
+  }) : null;
+  const overId = getFirstCollision(collisions, 'id');
+  const [over, setOver] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // When there is no drag overlay used, we need to account for the
+  // window scroll delta
+
+  const appliedTranslate = usesDragOverlay ? modifiedTranslate : (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.add)(modifiedTranslate, activeNodeScrollDelta);
+  const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? void 0 : over.rect) != null ? _over$rect : null, activeNodeRect);
+  const activeSensorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const instantiateSensor = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((event, _ref2) => {
+    let {
+      sensor: Sensor,
+      options
+    } = _ref2;
+
+    if (activeRef.current == null) {
+      return;
+    }
+
+    const activeNode = draggableNodes.get(activeRef.current);
+
+    if (!activeNode) {
+      return;
+    }
+
+    const activatorEvent = event.nativeEvent;
+    const sensorInstance = new Sensor({
+      active: activeRef.current,
+      activeNode,
+      event: activatorEvent,
+      options,
+      // Sensors need to be instantiated with refs for arguments that change over time
+      // otherwise they are frozen in time with the stale arguments
+      context: sensorContext,
+
+      onAbort(id) {
+        const draggableNode = draggableNodes.get(id);
+
+        if (!draggableNode) {
+          return;
+        }
+
+        const {
+          onDragAbort
+        } = latestProps.current;
+        const event = {
+          id
+        };
+        onDragAbort == null ? void 0 : onDragAbort(event);
+        dispatchMonitorEvent({
+          type: 'onDragAbort',
+          event
+        });
+      },
+
+      onPending(id, constraint, initialCoordinates, offset) {
+        const draggableNode = draggableNodes.get(id);
+
+        if (!draggableNode) {
+          return;
+        }
+
+        const {
+          onDragPending
+        } = latestProps.current;
+        const event = {
+          id,
+          constraint,
+          initialCoordinates,
+          offset
+        };
+        onDragPending == null ? void 0 : onDragPending(event);
+        dispatchMonitorEvent({
+          type: 'onDragPending',
+          event
+        });
+      },
+
+      onStart(initialCoordinates) {
+        const id = activeRef.current;
+
+        if (id == null) {
+          return;
+        }
+
+        const draggableNode = draggableNodes.get(id);
+
+        if (!draggableNode) {
+          return;
+        }
+
+        const {
+          onDragStart
+        } = latestProps.current;
+        const event = {
+          activatorEvent,
+          active: {
+            id,
+            data: draggableNode.data,
+            rect: activeRects
+          }
+        };
+        (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+          onDragStart == null ? void 0 : onDragStart(event);
+          setStatus(Status.Initializing);
+          dispatch({
+            type: Action.DragStart,
+            initialCoordinates,
+            active: id
+          });
+          dispatchMonitorEvent({
+            type: 'onDragStart',
+            event
+          });
+          setActiveSensor(activeSensorRef.current);
+          setActivatorEvent(activatorEvent);
+        });
+      },
+
+      onMove(coordinates) {
+        dispatch({
+          type: Action.DragMove,
+          coordinates
+        });
+      },
+
+      onEnd: createHandler(Action.DragEnd),
+      onCancel: createHandler(Action.DragCancel)
+    });
+    activeSensorRef.current = sensorInstance;
+
+    function createHandler(type) {
+      return async function handler() {
+        const {
+          active,
+          collisions,
+          over,
+          scrollAdjustedTranslate
+        } = sensorContext.current;
+        let event = null;
+
+        if (active && scrollAdjustedTranslate) {
+          const {
+            cancelDrop
+          } = latestProps.current;
+          event = {
+            activatorEvent,
+            active: active,
+            collisions,
+            delta: scrollAdjustedTranslate,
+            over
+          };
+
+          if (type === Action.DragEnd && typeof cancelDrop === 'function') {
+            const shouldCancel = await Promise.resolve(cancelDrop(event));
+
+            if (shouldCancel) {
+              type = Action.DragCancel;
+            }
+          }
+        }
+
+        activeRef.current = null;
+        (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+          dispatch({
+            type
+          });
+          setStatus(Status.Uninitialized);
+          setOver(null);
+          setActiveSensor(null);
+          setActivatorEvent(null);
+          activeSensorRef.current = null;
+          const eventName = type === Action.DragEnd ? 'onDragEnd' : 'onDragCancel';
+
+          if (event) {
+            const handler = latestProps.current[eventName];
+            handler == null ? void 0 : handler(event);
+            dispatchMonitorEvent({
+              type: eventName,
+              event
+            });
+          }
+        });
+      };
+    }
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [draggableNodes]);
+  const bindActivatorToSensorInstantiator = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((handler, sensor) => {
+    return (event, active) => {
+      const nativeEvent = event.nativeEvent;
+      const activeDraggableNode = draggableNodes.get(active);
+
+      if ( // Another sensor is already instantiating
+      activeRef.current !== null || // No active draggable
+      !activeDraggableNode || // Event has already been captured
+      nativeEvent.dndKit || nativeEvent.defaultPrevented) {
+        return;
+      }
+
+      const activationContext = {
+        active: activeDraggableNode
+      };
+      const shouldActivate = handler(event, sensor.options, activationContext);
+
+      if (shouldActivate === true) {
+        nativeEvent.dndKit = {
+          capturedBy: sensor.sensor
+        };
+        activeRef.current = active;
+        instantiateSensor(event, sensor);
+      }
+    };
+  }, [draggableNodes, instantiateSensor]);
+  const activators = useCombineActivators(sensors, bindActivatorToSensorInstantiator);
+  useSensorSetup(sensors);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (activeNodeRect && status === Status.Initializing) {
+      setStatus(Status.Initialized);
+    }
+  }, [activeNodeRect, status]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const {
+      onDragMove
+    } = latestProps.current;
+    const {
+      active,
+      activatorEvent,
+      collisions,
+      over
+    } = sensorContext.current;
+
+    if (!active || !activatorEvent) {
+      return;
+    }
+
+    const event = {
+      active,
+      activatorEvent,
+      collisions,
+      delta: {
+        x: scrollAdjustedTranslate.x,
+        y: scrollAdjustedTranslate.y
+      },
+      over
+    };
+    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+      onDragMove == null ? void 0 : onDragMove(event);
+      dispatchMonitorEvent({
+        type: 'onDragMove',
+        event
+      });
+    });
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const {
+      active,
+      activatorEvent,
+      collisions,
+      droppableContainers,
+      scrollAdjustedTranslate
+    } = sensorContext.current;
+
+    if (!active || activeRef.current == null || !activatorEvent || !scrollAdjustedTranslate) {
+      return;
+    }
+
+    const {
+      onDragOver
+    } = latestProps.current;
+    const overContainer = droppableContainers.get(overId);
+    const over = overContainer && overContainer.rect.current ? {
+      id: overContainer.id,
+      rect: overContainer.rect.current,
+      data: overContainer.data,
+      disabled: overContainer.disabled
+    } : null;
+    const event = {
+      active,
+      activatorEvent,
+      collisions,
+      delta: {
+        x: scrollAdjustedTranslate.x,
+        y: scrollAdjustedTranslate.y
+      },
+      over
+    };
+    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.unstable_batchedUpdates)(() => {
+      setOver(over);
+      onDragOver == null ? void 0 : onDragOver(event);
+      dispatchMonitorEvent({
+        type: 'onDragOver',
+        event
+      });
+    });
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [overId]);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    sensorContext.current = {
+      activatorEvent,
+      active,
+      activeNode,
+      collisionRect,
+      collisions,
+      droppableRects,
+      draggableNodes,
+      draggingNode,
+      draggingNodeRect,
+      droppableContainers,
+      over,
+      scrollableAncestors,
+      scrollAdjustedTranslate
+    };
+    activeRects.current = {
+      initial: draggingNodeRect,
+      translated: collisionRect
+    };
+  }, [active, activeNode, collisions, collisionRect, draggableNodes, draggingNode, draggingNodeRect, droppableRects, droppableContainers, over, scrollableAncestors, scrollAdjustedTranslate]);
+  useAutoScroller({ ...autoScrollOptions,
+    delta: translate,
+    draggingRect: collisionRect,
+    pointerCoordinates,
+    scrollableAncestors,
+    scrollableAncestorRects
+  });
+  const publicContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const context = {
+      active,
+      activeNode,
+      activeNodeRect,
+      activatorEvent,
+      collisions,
+      containerNodeRect,
+      dragOverlay,
+      draggableNodes,
+      droppableContainers,
+      droppableRects,
+      over,
+      measureDroppableContainers,
+      scrollableAncestors,
+      scrollableAncestorRects,
+      measuringConfiguration,
+      measuringScheduled,
+      windowRect
+    };
+    return context;
+  }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
+  const internalContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const context = {
+      activatorEvent,
+      activators,
+      active,
+      activeNodeRect,
+      ariaDescribedById: {
+        draggable: draggableDescribedById
+      },
+      dispatch,
+      draggableNodes,
+      over,
+      measureDroppableContainers
+    };
+    return context;
+  }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(DndMonitorContext.Provider, {
+    value: registerMonitorListener
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InternalContext.Provider, {
+    value: internalContext
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(PublicContext.Provider, {
+    value: publicContext
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ActiveDraggableContext.Provider, {
+    value: transform
+  }, children)), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RestoreFocus, {
+    disabled: (accessibility == null ? void 0 : accessibility.restoreFocus) === false
+  })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Accessibility, { ...accessibility,
+    hiddenTextDescribedById: draggableDescribedById
+  }));
+
+  function getAutoScrollerOptions() {
+    const activeSensorDisablesAutoscroll = (activeSensor == null ? void 0 : activeSensor.autoScrollEnabled) === false;
+    const autoScrollGloballyDisabled = typeof autoScroll === 'object' ? autoScroll.enabled === false : autoScroll === false;
+    const enabled = isInitialized && !activeSensorDisablesAutoscroll && !autoScrollGloballyDisabled;
+
+    if (typeof autoScroll === 'object') {
+      return { ...autoScroll,
+        enabled
+      };
+    }
+
+    return {
+      enabled
+    };
+  }
+});
+
+const NullContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+const defaultRole = 'button';
+const ID_PREFIX = 'Draggable';
+function useDraggable(_ref) {
+  let {
+    id,
+    data,
+    disabled = false,
+    attributes
+  } = _ref;
+  const key = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)(ID_PREFIX);
+  const {
+    activators,
+    activatorEvent,
+    active,
+    activeNodeRect,
+    ariaDescribedById,
+    draggableNodes,
+    over
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(InternalContext);
+  const {
+    role = defaultRole,
+    roleDescription = 'draggable',
+    tabIndex = 0
+  } = attributes != null ? attributes : {};
+  const isDragging = (active == null ? void 0 : active.id) === id;
+  const transform = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(isDragging ? ActiveDraggableContext : NullContext);
+  const [node, setNodeRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)();
+  const [activatorNode, setActivatorNodeRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)();
+  const listeners = useSyntheticListeners(activators, id);
+  const dataRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(data);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    draggableNodes.set(id, {
+      id,
+      key,
+      node,
+      activatorNode,
+      data: dataRef
+    });
+    return () => {
+      const node = draggableNodes.get(id);
+
+      if (node && node.key === key) {
+        draggableNodes.delete(id);
+      }
+    };
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [draggableNodes, id]);
+  const memoizedAttributes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    role,
+    tabIndex,
+    'aria-disabled': disabled,
+    'aria-pressed': isDragging && role === defaultRole ? true : undefined,
+    'aria-roledescription': roleDescription,
+    'aria-describedby': ariaDescribedById.draggable
+  }), [disabled, role, tabIndex, isDragging, roleDescription, ariaDescribedById.draggable]);
+  return {
+    active,
+    activatorEvent,
+    activeNodeRect,
+    attributes: memoizedAttributes,
+    isDragging,
+    listeners: disabled ? undefined : listeners,
+    node,
+    over,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform
+  };
+}
+
+function useDndContext() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PublicContext);
+}
+
+const ID_PREFIX$1 = 'Droppable';
+const defaultResizeObserverConfig = {
+  timeout: 25
+};
+function useDroppable(_ref) {
+  let {
+    data,
+    disabled = false,
+    id,
+    resizeObserverConfig
+  } = _ref;
+  const key = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)(ID_PREFIX$1);
+  const {
+    active,
+    dispatch,
+    over,
+    measureDroppableContainers
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(InternalContext);
+  const previous = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    disabled
+  });
+  const resizeObserverConnected = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const rect = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const callbackId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const {
+    disabled: resizeObserverDisabled,
+    updateMeasurementsFor,
+    timeout: resizeObserverTimeout
+  } = { ...defaultResizeObserverConfig,
+    ...resizeObserverConfig
+  };
+  const ids = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(updateMeasurementsFor != null ? updateMeasurementsFor : id);
+  const handleResize = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (!resizeObserverConnected.current) {
+      // ResizeObserver invokes the `handleResize` callback as soon as `observe` is called,
+      // assuming the element is rendered and displayed.
+      resizeObserverConnected.current = true;
+      return;
+    }
+
+    if (callbackId.current != null) {
+      clearTimeout(callbackId.current);
+    }
+
+    callbackId.current = setTimeout(() => {
+      measureDroppableContainers(Array.isArray(ids.current) ? ids.current : [ids.current]);
+      callbackId.current = null;
+    }, resizeObserverTimeout);
+  }, //eslint-disable-next-line react-hooks/exhaustive-deps
+  [resizeObserverTimeout]);
+  const resizeObserver = useResizeObserver({
+    callback: handleResize,
+    disabled: resizeObserverDisabled || !active
+  });
+  const handleNodeChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((newElement, previousElement) => {
+    if (!resizeObserver) {
+      return;
+    }
+
+    if (previousElement) {
+      resizeObserver.unobserve(previousElement);
+      resizeObserverConnected.current = false;
+    }
+
+    if (newElement) {
+      resizeObserver.observe(newElement);
+    }
+  }, [resizeObserver]);
+  const [nodeRef, setNodeRef] = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useNodeRef)(handleNodeChange);
+  const dataRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useLatestValue)(data);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!resizeObserver || !nodeRef.current) {
+      return;
+    }
+
+    resizeObserver.disconnect();
+    resizeObserverConnected.current = false;
+    resizeObserver.observe(nodeRef.current);
+  }, [nodeRef, resizeObserver]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    dispatch({
+      type: Action.RegisterDroppable,
+      element: {
+        id,
+        key,
+        disabled,
+        node: nodeRef,
+        rect,
+        data: dataRef
+      }
+    });
+    return () => dispatch({
+      type: Action.UnregisterDroppable,
+      key,
+      id
+    });
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [id]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (disabled !== previous.current.disabled) {
+      dispatch({
+        type: Action.SetDroppableDisabled,
+        id,
+        key,
+        disabled
+      });
+      previous.current.disabled = disabled;
+    }
+  }, [id, key, disabled, dispatch]);
+  return {
+    active,
+    rect,
+    isOver: (over == null ? void 0 : over.id) === id,
+    node: nodeRef,
+    over,
+    setNodeRef
+  };
+}
+
+function AnimationManager(_ref) {
+  let {
+    animation,
+    children
+  } = _ref;
+  const [clonedChildren, setClonedChildren] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [element, setElement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const previousChildren = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.usePrevious)(children);
+
+  if (!children && !clonedChildren && previousChildren) {
+    setClonedChildren(previousChildren);
+  }
+
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (!element) {
+      return;
+    }
+
+    const key = clonedChildren == null ? void 0 : clonedChildren.key;
+    const id = clonedChildren == null ? void 0 : clonedChildren.props.id;
+
+    if (key == null || id == null) {
+      setClonedChildren(null);
+      return;
+    }
+
+    Promise.resolve(animation(id, element)).then(() => {
+      setClonedChildren(null);
+    });
+  }, [animation, clonedChildren, element]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, children, clonedChildren ? (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(clonedChildren, {
+    ref: setElement
+  }) : null);
+}
+
+const defaultTransform = {
+  x: 0,
+  y: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+function NullifiedContextProvider(_ref) {
+  let {
+    children
+  } = _ref;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InternalContext.Provider, {
+    value: defaultInternalContext
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ActiveDraggableContext.Provider, {
+    value: defaultTransform
+  }, children));
+}
+
+const baseStyles = {
+  position: 'fixed',
+  touchAction: 'none'
+};
+
+const defaultTransition = activatorEvent => {
+  const isKeyboardActivator = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(activatorEvent);
+  return isKeyboardActivator ? 'transform 250ms ease' : undefined;
+};
+
+const PositionedOverlay = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, ref) => {
+  let {
+    as,
+    activatorEvent,
+    adjustScale,
+    children,
+    className,
+    rect,
+    style,
+    transform,
+    transition = defaultTransition
+  } = _ref;
+
+  if (!rect) {
+    return null;
+  }
+
+  const scaleAdjustedTransform = adjustScale ? transform : { ...transform,
+    scaleX: 1,
+    scaleY: 1
+  };
+  const styles = { ...baseStyles,
+    width: rect.width,
+    height: rect.height,
+    top: rect.top,
+    left: rect.left,
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transform.toString(scaleAdjustedTransform),
+    transformOrigin: adjustScale && activatorEvent ? getRelativeTransformOrigin(activatorEvent, rect) : undefined,
+    transition: typeof transition === 'function' ? transition(activatorEvent) : transition,
+    ...style
+  };
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(as, {
+    className,
+    style: styles,
+    ref
+  }, children);
+});
+
+const defaultDropAnimationSideEffects = options => _ref => {
+  let {
+    active,
+    dragOverlay
+  } = _ref;
+  const originalStyles = {};
+  const {
+    styles,
+    className
+  } = options;
+
+  if (styles != null && styles.active) {
+    for (const [key, value] of Object.entries(styles.active)) {
+      if (value === undefined) {
+        continue;
+      }
+
+      originalStyles[key] = active.node.style.getPropertyValue(key);
+      active.node.style.setProperty(key, value);
+    }
+  }
+
+  if (styles != null && styles.dragOverlay) {
+    for (const [key, value] of Object.entries(styles.dragOverlay)) {
+      if (value === undefined) {
+        continue;
+      }
+
+      dragOverlay.node.style.setProperty(key, value);
+    }
+  }
+
+  if (className != null && className.active) {
+    active.node.classList.add(className.active);
+  }
+
+  if (className != null && className.dragOverlay) {
+    dragOverlay.node.classList.add(className.dragOverlay);
+  }
+
+  return function cleanup() {
+    for (const [key, value] of Object.entries(originalStyles)) {
+      active.node.style.setProperty(key, value);
+    }
+
+    if (className != null && className.active) {
+      active.node.classList.remove(className.active);
+    }
+  };
+};
+
+const defaultKeyframeResolver = _ref2 => {
+  let {
+    transform: {
+      initial,
+      final
+    }
+  } = _ref2;
+  return [{
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transform.toString(initial)
+  }, {
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transform.toString(final)
+  }];
+};
+
+const defaultDropAnimationConfiguration = {
+  duration: 250,
+  easing: 'ease',
+  keyframes: defaultKeyframeResolver,
+  sideEffects: /*#__PURE__*/defaultDropAnimationSideEffects({
+    styles: {
+      active: {
+        opacity: '0'
+      }
+    }
+  })
+};
+function useDropAnimation(_ref3) {
+  let {
+    config,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  } = _ref3;
+  return (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useEvent)((id, node) => {
+    if (config === null) {
+      return;
+    }
+
+    const activeDraggable = draggableNodes.get(id);
+
+    if (!activeDraggable) {
+      return;
+    }
+
+    const activeNode = activeDraggable.node.current;
+
+    if (!activeNode) {
+      return;
+    }
+
+    const measurableNode = getMeasurableNode(node);
+
+    if (!measurableNode) {
+      return;
+    }
+
+    const {
+      transform
+    } = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.getWindow)(node).getComputedStyle(node);
+    const parsedTransform = parseTransform(transform);
+
+    if (!parsedTransform) {
+      return;
+    }
+
+    const animation = typeof config === 'function' ? config : createDefaultDropAnimation(config);
+    scrollIntoViewIfNeeded(activeNode, measuringConfiguration.draggable.measure);
+    return animation({
+      active: {
+        id,
+        data: activeDraggable.data,
+        node: activeNode,
+        rect: measuringConfiguration.draggable.measure(activeNode)
+      },
+      draggableNodes,
+      dragOverlay: {
+        node,
+        rect: measuringConfiguration.dragOverlay.measure(measurableNode)
+      },
+      droppableContainers,
+      measuringConfiguration,
+      transform: parsedTransform
+    });
+  });
+}
+
+function createDefaultDropAnimation(options) {
+  const {
+    duration,
+    easing,
+    sideEffects,
+    keyframes
+  } = { ...defaultDropAnimationConfiguration,
+    ...options
+  };
+  return _ref4 => {
+    let {
+      active,
+      dragOverlay,
+      transform,
+      ...rest
+    } = _ref4;
+
+    if (!duration) {
+      // Do not animate if animation duration is zero.
+      return;
+    }
+
+    const delta = {
+      x: dragOverlay.rect.left - active.rect.left,
+      y: dragOverlay.rect.top - active.rect.top
+    };
+    const scale = {
+      scaleX: transform.scaleX !== 1 ? active.rect.width * transform.scaleX / dragOverlay.rect.width : 1,
+      scaleY: transform.scaleY !== 1 ? active.rect.height * transform.scaleY / dragOverlay.rect.height : 1
+    };
+    const finalTransform = {
+      x: transform.x - delta.x,
+      y: transform.y - delta.y,
+      ...scale
+    };
+    const animationKeyframes = keyframes({ ...rest,
+      active,
+      dragOverlay,
+      transform: {
+        initial: transform,
+        final: finalTransform
+      }
+    });
+    const [firstKeyframe] = animationKeyframes;
+    const lastKeyframe = animationKeyframes[animationKeyframes.length - 1];
+
+    if (JSON.stringify(firstKeyframe) === JSON.stringify(lastKeyframe)) {
+      // The start and end keyframes are the same, infer that there is no animation needed.
+      return;
+    }
+
+    const cleanup = sideEffects == null ? void 0 : sideEffects({
+      active,
+      dragOverlay,
+      ...rest
+    });
+    const animation = dragOverlay.node.animate(animationKeyframes, {
+      duration,
+      easing,
+      fill: 'forwards'
+    });
+    return new Promise(resolve => {
+      animation.onfinish = () => {
+        cleanup == null ? void 0 : cleanup();
+        resolve();
+      };
+    });
+  };
+}
+
+let key = 0;
+function useKey(id) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (id == null) {
+      return;
+    }
+
+    key++;
+    return key;
+  }, [id]);
+}
+
+const DragOverlay = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().memo(_ref => {
+  let {
+    adjustScale = false,
+    children,
+    dropAnimation: dropAnimationConfig,
+    style,
+    transition,
+    modifiers,
+    wrapperElement = 'div',
+    className,
+    zIndex = 999
+  } = _ref;
+  const {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggableNodes,
+    droppableContainers,
+    dragOverlay,
+    over,
+    measuringConfiguration,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  } = useDndContext();
+  const transform = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ActiveDraggableContext);
+  const key = useKey(active == null ? void 0 : active.id);
+  const modifiedTransform = applyModifiers(modifiers, {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect: dragOverlay.rect,
+    over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    transform,
+    windowRect
+  });
+  const initialRect = useInitialValue(activeNodeRect);
+  const dropAnimation = useDropAnimation({
+    config: dropAnimationConfig,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  }); // We need to wait for the active node to be measured before connecting the drag overlay ref
+  // otherwise collisions can be computed against a mispositioned drag overlay
+
+  const ref = initialRect ? dragOverlay.setRef : undefined;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(NullifiedContextProvider, null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(AnimationManager, {
+    animation: dropAnimation
+  }, active && key ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement(PositionedOverlay, {
+    key: key,
+    id: active.id,
+    ref: ref,
+    as: wrapperElement,
+    activatorEvent: activatorEvent,
+    adjustScale: adjustScale,
+    className: className,
+    transition: transition,
+    rect: initialRect,
+    style: {
+      zIndex,
+      ...style
+    },
+    transform: modifiedTransform
+  }, children) : null));
+});
+
+
+//# sourceMappingURL=core.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/@dnd-kit/sortable/dist/sortable.esm.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SortableContext: () => (/* binding */ SortableContext),
+/* harmony export */   arrayMove: () => (/* binding */ arrayMove),
+/* harmony export */   arraySwap: () => (/* binding */ arraySwap),
+/* harmony export */   defaultAnimateLayoutChanges: () => (/* binding */ defaultAnimateLayoutChanges),
+/* harmony export */   defaultNewIndexGetter: () => (/* binding */ defaultNewIndexGetter),
+/* harmony export */   hasSortableData: () => (/* binding */ hasSortableData),
+/* harmony export */   horizontalListSortingStrategy: () => (/* binding */ horizontalListSortingStrategy),
+/* harmony export */   rectSortingStrategy: () => (/* binding */ rectSortingStrategy),
+/* harmony export */   rectSwappingStrategy: () => (/* binding */ rectSwappingStrategy),
+/* harmony export */   sortableKeyboardCoordinates: () => (/* binding */ sortableKeyboardCoordinates),
+/* harmony export */   useSortable: () => (/* binding */ useSortable),
+/* harmony export */   verticalListSortingStrategy: () => (/* binding */ verticalListSortingStrategy)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @dnd-kit/utilities */ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js");
+
+
+
+
+/**
+ * Move an array item to a different position. Returns a new array with the item moved to the new position.
+ */
+function arrayMove(array, from, to) {
+  const newArray = array.slice();
+  newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0]);
+  return newArray;
+}
+
+/**
+ * Swap an array item to a different position. Returns a new array with the item swapped to the new position.
+ */
+function arraySwap(array, from, to) {
+  const newArray = array.slice();
+  newArray[from] = array[to];
+  newArray[to] = array[from];
+  return newArray;
+}
+
+function getSortedRects(items, rects) {
+  return items.reduce((accumulator, id, index) => {
+    const rect = rects.get(id);
+
+    if (rect) {
+      accumulator[index] = rect;
+    }
+
+    return accumulator;
+  }, Array(items.length));
+}
+
+function isValidIndex(index) {
+  return index !== null && index >= 0;
+}
+
+function itemsEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function normalizeDisabled(disabled) {
+  if (typeof disabled === 'boolean') {
+    return {
+      draggable: disabled,
+      droppable: disabled
+    };
+  }
+
+  return disabled;
+}
+
+// To-do: We should be calculating scale transformation
+const defaultScale = {
+  scaleX: 1,
+  scaleY: 1
+};
+const horizontalListSortingStrategy = _ref => {
+  var _rects$activeIndex;
+
+  let {
+    rects,
+    activeNodeRect: fallbackActiveRect,
+    activeIndex,
+    overIndex,
+    index
+  } = _ref;
+  const activeNodeRect = (_rects$activeIndex = rects[activeIndex]) != null ? _rects$activeIndex : fallbackActiveRect;
+
+  if (!activeNodeRect) {
+    return null;
+  }
+
+  const itemGap = getItemGap(rects, index, activeIndex);
+
+  if (index === activeIndex) {
+    const newIndexRect = rects[overIndex];
+
+    if (!newIndexRect) {
+      return null;
+    }
+
+    return {
+      x: activeIndex < overIndex ? newIndexRect.left + newIndexRect.width - (activeNodeRect.left + activeNodeRect.width) : newIndexRect.left - activeNodeRect.left,
+      y: 0,
+      ...defaultScale
+    };
+  }
+
+  if (index > activeIndex && index <= overIndex) {
+    return {
+      x: -activeNodeRect.width - itemGap,
+      y: 0,
+      ...defaultScale
+    };
+  }
+
+  if (index < activeIndex && index >= overIndex) {
+    return {
+      x: activeNodeRect.width + itemGap,
+      y: 0,
+      ...defaultScale
+    };
+  }
+
+  return {
+    x: 0,
+    y: 0,
+    ...defaultScale
+  };
+};
+
+function getItemGap(rects, index, activeIndex) {
+  const currentRect = rects[index];
+  const previousRect = rects[index - 1];
+  const nextRect = rects[index + 1];
+
+  if (!currentRect || !previousRect && !nextRect) {
+    return 0;
+  }
+
+  if (activeIndex < index) {
+    return previousRect ? currentRect.left - (previousRect.left + previousRect.width) : nextRect.left - (currentRect.left + currentRect.width);
+  }
+
+  return nextRect ? nextRect.left - (currentRect.left + currentRect.width) : currentRect.left - (previousRect.left + previousRect.width);
+}
+
+const rectSortingStrategy = _ref => {
+  let {
+    rects,
+    activeIndex,
+    overIndex,
+    index
+  } = _ref;
+  const newRects = arrayMove(rects, overIndex, activeIndex);
+  const oldRect = rects[index];
+  const newRect = newRects[index];
+
+  if (!newRect || !oldRect) {
+    return null;
+  }
+
+  return {
+    x: newRect.left - oldRect.left,
+    y: newRect.top - oldRect.top,
+    scaleX: newRect.width / oldRect.width,
+    scaleY: newRect.height / oldRect.height
+  };
+};
+
+const rectSwappingStrategy = _ref => {
+  let {
+    activeIndex,
+    index,
+    rects,
+    overIndex
+  } = _ref;
+  let oldRect;
+  let newRect;
+
+  if (index === activeIndex) {
+    oldRect = rects[index];
+    newRect = rects[overIndex];
+  }
+
+  if (index === overIndex) {
+    oldRect = rects[index];
+    newRect = rects[activeIndex];
+  }
+
+  if (!newRect || !oldRect) {
+    return null;
+  }
+
+  return {
+    x: newRect.left - oldRect.left,
+    y: newRect.top - oldRect.top,
+    scaleX: newRect.width / oldRect.width,
+    scaleY: newRect.height / oldRect.height
+  };
+};
+
+// To-do: We should be calculating scale transformation
+const defaultScale$1 = {
+  scaleX: 1,
+  scaleY: 1
+};
+const verticalListSortingStrategy = _ref => {
+  var _rects$activeIndex;
+
+  let {
+    activeIndex,
+    activeNodeRect: fallbackActiveRect,
+    index,
+    rects,
+    overIndex
+  } = _ref;
+  const activeNodeRect = (_rects$activeIndex = rects[activeIndex]) != null ? _rects$activeIndex : fallbackActiveRect;
+
+  if (!activeNodeRect) {
+    return null;
+  }
+
+  if (index === activeIndex) {
+    const overIndexRect = rects[overIndex];
+
+    if (!overIndexRect) {
+      return null;
+    }
+
+    return {
+      x: 0,
+      y: activeIndex < overIndex ? overIndexRect.top + overIndexRect.height - (activeNodeRect.top + activeNodeRect.height) : overIndexRect.top - activeNodeRect.top,
+      ...defaultScale$1
+    };
+  }
+
+  const itemGap = getItemGap$1(rects, index, activeIndex);
+
+  if (index > activeIndex && index <= overIndex) {
+    return {
+      x: 0,
+      y: -activeNodeRect.height - itemGap,
+      ...defaultScale$1
+    };
+  }
+
+  if (index < activeIndex && index >= overIndex) {
+    return {
+      x: 0,
+      y: activeNodeRect.height + itemGap,
+      ...defaultScale$1
+    };
+  }
+
+  return {
+    x: 0,
+    y: 0,
+    ...defaultScale$1
+  };
+};
+
+function getItemGap$1(clientRects, index, activeIndex) {
+  const currentRect = clientRects[index];
+  const previousRect = clientRects[index - 1];
+  const nextRect = clientRects[index + 1];
+
+  if (!currentRect) {
+    return 0;
+  }
+
+  if (activeIndex < index) {
+    return previousRect ? currentRect.top - (previousRect.top + previousRect.height) : nextRect ? nextRect.top - (currentRect.top + currentRect.height) : 0;
+  }
+
+  return nextRect ? nextRect.top - (currentRect.top + currentRect.height) : previousRect ? currentRect.top - (previousRect.top + previousRect.height) : 0;
+}
+
+const ID_PREFIX = 'Sortable';
+const Context = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createContext({
+  activeIndex: -1,
+  containerId: ID_PREFIX,
+  disableTransforms: false,
+  items: [],
+  overIndex: -1,
+  useDragOverlay: false,
+  sortedRects: [],
+  strategy: rectSortingStrategy,
+  disabled: {
+    draggable: false,
+    droppable: false
+  }
+});
+function SortableContext(_ref) {
+  let {
+    children,
+    id,
+    items: userDefinedItems,
+    strategy = rectSortingStrategy,
+    disabled: disabledProp = false
+  } = _ref;
+  const {
+    active,
+    dragOverlay,
+    droppableRects,
+    over,
+    measureDroppableContainers
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.useDndContext)();
+  const containerId = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useUniqueId)(ID_PREFIX, id);
+  const useDragOverlay = Boolean(dragOverlay.rect !== null);
+  const items = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => userDefinedItems.map(item => typeof item === 'object' && 'id' in item ? item.id : item), [userDefinedItems]);
+  const isDragging = active != null;
+  const activeIndex = active ? items.indexOf(active.id) : -1;
+  const overIndex = over ? items.indexOf(over.id) : -1;
+  const previousItemsRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(items);
+  const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
+  const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
+  const disabled = normalizeDisabled(disabledProp);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (itemsHaveChanged && isDragging) {
+      measureDroppableContainers(items);
+    }
+  }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    previousItemsRef.current = items;
+  }, [items]);
+  const contextValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    activeIndex,
+    containerId,
+    disabled,
+    disableTransforms,
+    items,
+    overIndex,
+    useDragOverlay,
+    sortedRects: getSortedRects(items, droppableRects),
+    strategy
+  }), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Context.Provider, {
+    value: contextValue
+  }, children);
+}
+
+const defaultNewIndexGetter = _ref => {
+  let {
+    id,
+    items,
+    activeIndex,
+    overIndex
+  } = _ref;
+  return arrayMove(items, activeIndex, overIndex).indexOf(id);
+};
+const defaultAnimateLayoutChanges = _ref2 => {
+  let {
+    containerId,
+    isSorting,
+    wasDragging,
+    index,
+    items,
+    newIndex,
+    previousItems,
+    previousContainerId,
+    transition
+  } = _ref2;
+
+  if (!transition || !wasDragging) {
+    return false;
+  }
+
+  if (previousItems !== items && index === newIndex) {
+    return false;
+  }
+
+  if (isSorting) {
+    return true;
+  }
+
+  return newIndex !== index && containerId === previousContainerId;
+};
+const defaultTransition = {
+  duration: 200,
+  easing: 'ease'
+};
+const transitionProperty = 'transform';
+const disabledTransition = /*#__PURE__*/_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transition.toString({
+  property: transitionProperty,
+  duration: 0,
+  easing: 'linear'
+});
+const defaultAttributes = {
+  roleDescription: 'sortable'
+};
+
+/*
+ * When the index of an item changes while sorting,
+ * we need to temporarily disable the transforms
+ */
+
+function useDerivedTransform(_ref) {
+  let {
+    disabled,
+    index,
+    node,
+    rect
+  } = _ref;
+  const [derivedTransform, setDerivedtransform] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const previousIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(index);
+  (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useIsomorphicLayoutEffect)(() => {
+    if (!disabled && index !== previousIndex.current && node.current) {
+      const initial = rect.current;
+
+      if (initial) {
+        const current = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.getClientRect)(node.current, {
+          ignoreTransform: true
+        });
+        const delta = {
+          x: initial.left - current.left,
+          y: initial.top - current.top,
+          scaleX: initial.width / current.width,
+          scaleY: initial.height / current.height
+        };
+
+        if (delta.x || delta.y) {
+          setDerivedtransform(delta);
+        }
+      }
+    }
+
+    if (index !== previousIndex.current) {
+      previousIndex.current = index;
+    }
+  }, [disabled, index, node, rect]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (derivedTransform) {
+      setDerivedtransform(null);
+    }
+  }, [derivedTransform]);
+  return derivedTransform;
+}
+
+function useSortable(_ref) {
+  let {
+    animateLayoutChanges = defaultAnimateLayoutChanges,
+    attributes: userDefinedAttributes,
+    disabled: localDisabled,
+    data: customData,
+    getNewIndex = defaultNewIndexGetter,
+    id,
+    strategy: localStrategy,
+    resizeObserverConfig,
+    transition = defaultTransition
+  } = _ref;
+  const {
+    items,
+    containerId,
+    activeIndex,
+    disabled: globalDisabled,
+    disableTransforms,
+    sortedRects,
+    overIndex,
+    useDragOverlay,
+    strategy: globalStrategy
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(Context);
+  const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
+  const index = items.indexOf(id);
+  const data = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({
+    sortable: {
+      containerId,
+      index,
+      items
+    },
+    ...customData
+  }), [containerId, customData, index, items]);
+  const itemsAfterCurrentSortable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => items.slice(items.indexOf(id)), [items, id]);
+  const {
+    rect,
+    node,
+    isOver,
+    setNodeRef: setDroppableNodeRef
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.useDroppable)({
+    id,
+    data,
+    disabled: disabled.droppable,
+    resizeObserverConfig: {
+      updateMeasurementsFor: itemsAfterCurrentSortable,
+      ...resizeObserverConfig
+    }
+  });
+  const {
+    active,
+    activatorEvent,
+    activeNodeRect,
+    attributes,
+    setNodeRef: setDraggableNodeRef,
+    listeners,
+    isDragging,
+    over,
+    setActivatorNodeRef,
+    transform
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.useDraggable)({
+    id,
+    data,
+    attributes: { ...defaultAttributes,
+      ...userDefinedAttributes
+    },
+    disabled: disabled.draggable
+  });
+  const setNodeRef = (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.useCombinedRefs)(setDroppableNodeRef, setDraggableNodeRef);
+  const isSorting = Boolean(active);
+  const displaceItem = isSorting && !disableTransforms && isValidIndex(activeIndex) && isValidIndex(overIndex);
+  const shouldDisplaceDragSource = !useDragOverlay && isDragging;
+  const dragSourceDisplacement = shouldDisplaceDragSource && displaceItem ? transform : null;
+  const strategy = localStrategy != null ? localStrategy : globalStrategy;
+  const finalTransform = displaceItem ? dragSourceDisplacement != null ? dragSourceDisplacement : strategy({
+    rects: sortedRects,
+    activeNodeRect,
+    activeIndex,
+    overIndex,
+    index
+  }) : null;
+  const newIndex = isValidIndex(activeIndex) && isValidIndex(overIndex) ? getNewIndex({
+    id,
+    items,
+    activeIndex,
+    overIndex
+  }) : index;
+  const activeId = active == null ? void 0 : active.id;
+  const previous = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    activeId,
+    items,
+    newIndex,
+    containerId
+  });
+  const itemsHaveChanged = items !== previous.current.items;
+  const shouldAnimateLayoutChanges = animateLayoutChanges({
+    active,
+    containerId,
+    isDragging,
+    isSorting,
+    id,
+    index,
+    items,
+    newIndex: previous.current.newIndex,
+    previousItems: previous.current.items,
+    previousContainerId: previous.current.containerId,
+    transition,
+    wasDragging: previous.current.activeId != null
+  });
+  const derivedTransform = useDerivedTransform({
+    disabled: !shouldAnimateLayoutChanges,
+    index,
+    node,
+    rect
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isSorting && previous.current.newIndex !== newIndex) {
+      previous.current.newIndex = newIndex;
+    }
+
+    if (containerId !== previous.current.containerId) {
+      previous.current.containerId = containerId;
+    }
+
+    if (items !== previous.current.items) {
+      previous.current.items = items;
+    }
+  }, [isSorting, newIndex, containerId, items]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (activeId === previous.current.activeId) {
+      return;
+    }
+
+    if (activeId != null && previous.current.activeId == null) {
+      previous.current.activeId = activeId;
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      previous.current.activeId = activeId;
+    }, 50);
+    return () => clearTimeout(timeoutId);
+  }, [activeId]);
+  return {
+    active,
+    activeIndex,
+    attributes,
+    data,
+    rect,
+    index,
+    newIndex,
+    items,
+    isOver,
+    isSorting,
+    isDragging,
+    listeners,
+    node,
+    overIndex,
+    over,
+    setNodeRef,
+    setActivatorNodeRef,
+    setDroppableNodeRef,
+    setDraggableNodeRef,
+    transform: derivedTransform != null ? derivedTransform : finalTransform,
+    transition: getTransition()
+  };
+
+  function getTransition() {
+    if ( // Temporarily disable transitions for a single frame to set up derived transforms
+    derivedTransform || // Or to prevent items jumping to back to their "new" position when items change
+    itemsHaveChanged && previous.current.newIndex === index) {
+      return disabledTransition;
+    }
+
+    if (shouldDisplaceDragSource && !(0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.isKeyboardEvent)(activatorEvent) || !transition) {
+      return undefined;
+    }
+
+    if (isSorting || shouldAnimateLayoutChanges) {
+      return _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.CSS.Transition.toString({ ...transition,
+        property: transitionProperty
+      });
+    }
+
+    return undefined;
+  }
+}
+
+function normalizeLocalDisabled(localDisabled, globalDisabled) {
+  var _localDisabled$dragga, _localDisabled$droppa;
+
+  if (typeof localDisabled === 'boolean') {
+    return {
+      draggable: localDisabled,
+      // Backwards compatibility
+      droppable: false
+    };
+  }
+
+  return {
+    draggable: (_localDisabled$dragga = localDisabled == null ? void 0 : localDisabled.draggable) != null ? _localDisabled$dragga : globalDisabled.draggable,
+    droppable: (_localDisabled$droppa = localDisabled == null ? void 0 : localDisabled.droppable) != null ? _localDisabled$droppa : globalDisabled.droppable
+  };
+}
+
+function hasSortableData(entry) {
+  if (!entry) {
+    return false;
+  }
+
+  const data = entry.data.current;
+
+  if (data && 'sortable' in data && typeof data.sortable === 'object' && 'containerId' in data.sortable && 'items' in data.sortable && 'index' in data.sortable) {
+    return true;
+  }
+
+  return false;
+}
+
+const directions = [_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Down, _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Right, _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Up, _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Left];
+const sortableKeyboardCoordinates = (event, _ref) => {
+  let {
+    context: {
+      active,
+      collisionRect,
+      droppableRects,
+      droppableContainers,
+      over,
+      scrollableAncestors
+    }
+  } = _ref;
+
+  if (directions.includes(event.code)) {
+    event.preventDefault();
+
+    if (!active || !collisionRect) {
+      return;
+    }
+
+    const filteredContainers = [];
+    droppableContainers.getEnabled().forEach(entry => {
+      if (!entry || entry != null && entry.disabled) {
+        return;
+      }
+
+      const rect = droppableRects.get(entry.id);
+
+      if (!rect) {
+        return;
+      }
+
+      switch (event.code) {
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Down:
+          if (collisionRect.top < rect.top) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Up:
+          if (collisionRect.top > rect.top) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Left:
+          if (collisionRect.left > rect.left) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+
+        case _dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.KeyboardCode.Right:
+          if (collisionRect.left < rect.left) {
+            filteredContainers.push(entry);
+          }
+
+          break;
+      }
+    });
+    const collisions = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.closestCorners)({
+      active,
+      collisionRect: collisionRect,
+      droppableRects,
+      droppableContainers: filteredContainers,
+      pointerCoordinates: null
+    });
+    let closestId = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.getFirstCollision)(collisions, 'id');
+
+    if (closestId === (over == null ? void 0 : over.id) && collisions.length > 1) {
+      closestId = collisions[1].id;
+    }
+
+    if (closestId != null) {
+      const activeDroppable = droppableContainers.get(active.id);
+      const newDroppable = droppableContainers.get(closestId);
+      const newRect = newDroppable ? droppableRects.get(newDroppable.id) : null;
+      const newNode = newDroppable == null ? void 0 : newDroppable.node.current;
+
+      if (newNode && newRect && activeDroppable && newDroppable) {
+        const newScrollAncestors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_1__.getScrollableAncestors)(newNode);
+        const hasDifferentScrollAncestors = newScrollAncestors.some((element, index) => scrollableAncestors[index] !== element);
+        const hasSameContainer = isSameContainer(activeDroppable, newDroppable);
+        const isAfterActive = isAfter(activeDroppable, newDroppable);
+        const offset = hasDifferentScrollAncestors || !hasSameContainer ? {
+          x: 0,
+          y: 0
+        } : {
+          x: isAfterActive ? collisionRect.width - newRect.width : 0,
+          y: isAfterActive ? collisionRect.height - newRect.height : 0
+        };
+        const rectCoordinates = {
+          x: newRect.left,
+          y: newRect.top
+        };
+        const newCoordinates = offset.x && offset.y ? rectCoordinates : (0,_dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_2__.subtract)(rectCoordinates, offset);
+        return newCoordinates;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+function isSameContainer(a, b) {
+  if (!hasSortableData(a) || !hasSortableData(b)) {
+    return false;
+  }
+
+  return a.data.current.sortable.containerId === b.data.current.sortable.containerId;
+}
+
+function isAfter(a, b) {
+  if (!hasSortableData(a) || !hasSortableData(b)) {
+    return false;
+  }
+
+  if (!isSameContainer(a, b)) {
+    return false;
+  }
+
+  return a.data.current.sortable.index < b.data.current.sortable.index;
+}
+
+
+//# sourceMappingURL=sortable.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/@dnd-kit/utilities/dist/utilities.esm.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CSS: () => (/* binding */ CSS),
+/* harmony export */   add: () => (/* binding */ add),
+/* harmony export */   canUseDOM: () => (/* binding */ canUseDOM),
+/* harmony export */   findFirstFocusableNode: () => (/* binding */ findFirstFocusableNode),
+/* harmony export */   getEventCoordinates: () => (/* binding */ getEventCoordinates),
+/* harmony export */   getOwnerDocument: () => (/* binding */ getOwnerDocument),
+/* harmony export */   getWindow: () => (/* binding */ getWindow),
+/* harmony export */   hasViewportRelativeCoordinates: () => (/* binding */ hasViewportRelativeCoordinates),
+/* harmony export */   isDocument: () => (/* binding */ isDocument),
+/* harmony export */   isHTMLElement: () => (/* binding */ isHTMLElement),
+/* harmony export */   isKeyboardEvent: () => (/* binding */ isKeyboardEvent),
+/* harmony export */   isNode: () => (/* binding */ isNode),
+/* harmony export */   isSVGElement: () => (/* binding */ isSVGElement),
+/* harmony export */   isTouchEvent: () => (/* binding */ isTouchEvent),
+/* harmony export */   isWindow: () => (/* binding */ isWindow),
+/* harmony export */   subtract: () => (/* binding */ subtract),
+/* harmony export */   useCombinedRefs: () => (/* binding */ useCombinedRefs),
+/* harmony export */   useEvent: () => (/* binding */ useEvent),
+/* harmony export */   useInterval: () => (/* binding */ useInterval),
+/* harmony export */   useIsomorphicLayoutEffect: () => (/* binding */ useIsomorphicLayoutEffect),
+/* harmony export */   useLatestValue: () => (/* binding */ useLatestValue),
+/* harmony export */   useLazyMemo: () => (/* binding */ useLazyMemo),
+/* harmony export */   useNodeRef: () => (/* binding */ useNodeRef),
+/* harmony export */   usePrevious: () => (/* binding */ usePrevious),
+/* harmony export */   useUniqueId: () => (/* binding */ useUniqueId)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function useCombinedRefs() {
+  for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
+    refs[_key] = arguments[_key];
+  }
+
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => node => {
+    refs.forEach(ref => ref(node));
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  refs);
+}
+
+// https://github.com/facebook/react/blob/master/packages/shared/ExecutionEnvironment.js
+const canUseDOM = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined';
+
+function isWindow(element) {
+  const elementString = Object.prototype.toString.call(element);
+  return elementString === '[object Window]' || // In Electron context the Window object serializes to [object global]
+  elementString === '[object global]';
+}
+
+function isNode(node) {
+  return 'nodeType' in node;
+}
+
+function getWindow(target) {
+  var _target$ownerDocument, _target$ownerDocument2;
+
+  if (!target) {
+    return window;
+  }
+
+  if (isWindow(target)) {
+    return target;
+  }
+
+  if (!isNode(target)) {
+    return window;
+  }
+
+  return (_target$ownerDocument = (_target$ownerDocument2 = target.ownerDocument) == null ? void 0 : _target$ownerDocument2.defaultView) != null ? _target$ownerDocument : window;
+}
+
+function isDocument(node) {
+  const {
+    Document
+  } = getWindow(node);
+  return node instanceof Document;
+}
+
+function isHTMLElement(node) {
+  if (isWindow(node)) {
+    return false;
+  }
+
+  return node instanceof getWindow(node).HTMLElement;
+}
+
+function isSVGElement(node) {
+  return node instanceof getWindow(node).SVGElement;
+}
+
+function getOwnerDocument(target) {
+  if (!target) {
+    return document;
+  }
+
+  if (isWindow(target)) {
+    return target.document;
+  }
+
+  if (!isNode(target)) {
+    return document;
+  }
+
+  if (isDocument(target)) {
+    return target;
+  }
+
+  if (isHTMLElement(target) || isSVGElement(target)) {
+    return target.ownerDocument;
+  }
+
+  return document;
+}
+
+/**
+ * A hook that resolves to useEffect on the server and useLayoutEffect on the client
+ * @param callback {function} Callback function that is invoked when the dependencies of the hook change
+ */
+
+const useIsomorphicLayoutEffect = canUseDOM ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+function useEvent(handler) {
+  const handlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(handler);
+  useIsomorphicLayoutEffect(() => {
+    handlerRef.current = handler;
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return handlerRef.current == null ? void 0 : handlerRef.current(...args);
+  }, []);
+}
+
+function useInterval() {
+  const intervalRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const set = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((listener, duration) => {
+    intervalRef.current = setInterval(listener, duration);
+  }, []);
+  const clear = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+  return [set, clear];
+}
+
+function useLatestValue(value, dependencies) {
+  if (dependencies === void 0) {
+    dependencies = [value];
+  }
+
+  const valueRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  useIsomorphicLayoutEffect(() => {
+    if (valueRef.current !== value) {
+      valueRef.current = value;
+    }
+  }, dependencies);
+  return valueRef;
+}
+
+function useLazyMemo(callback, dependencies) {
+  const valueRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const newValue = callback(valueRef.current);
+    valueRef.current = newValue;
+    return newValue;
+  }, // eslint-disable-next-line react-hooks/exhaustive-deps
+  [...dependencies]);
+}
+
+function useNodeRef(onChange) {
+  const onChangeHandler = useEvent(onChange);
+  const node = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const setNodeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(element => {
+    if (element !== node.current) {
+      onChangeHandler == null ? void 0 : onChangeHandler(element, node.current);
+    }
+
+    node.current = element;
+  }, //eslint-disable-next-line
+  []);
+  return [node, setNodeRef];
+}
+
+function usePrevious(value) {
+  const ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
+
+let ids = {};
+function useUniqueId(prefix, value) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (value) {
+      return value;
+    }
+
+    const id = ids[prefix] == null ? 0 : ids[prefix] + 1;
+    ids[prefix] = id;
+    return prefix + "-" + id;
+  }, [prefix, value]);
+}
+
+function createAdjustmentFn(modifier) {
+  return function (object) {
+    for (var _len = arguments.length, adjustments = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      adjustments[_key - 1] = arguments[_key];
+    }
+
+    return adjustments.reduce((accumulator, adjustment) => {
+      const entries = Object.entries(adjustment);
+
+      for (const [key, valueAdjustment] of entries) {
+        const value = accumulator[key];
+
+        if (value != null) {
+          accumulator[key] = value + modifier * valueAdjustment;
+        }
+      }
+
+      return accumulator;
+    }, { ...object
+    });
+  };
+}
+
+const add = /*#__PURE__*/createAdjustmentFn(1);
+const subtract = /*#__PURE__*/createAdjustmentFn(-1);
+
+function hasViewportRelativeCoordinates(event) {
+  return 'clientX' in event && 'clientY' in event;
+}
+
+function isKeyboardEvent(event) {
+  if (!event) {
+    return false;
+  }
+
+  const {
+    KeyboardEvent
+  } = getWindow(event.target);
+  return KeyboardEvent && event instanceof KeyboardEvent;
+}
+
+function isTouchEvent(event) {
+  if (!event) {
+    return false;
+  }
+
+  const {
+    TouchEvent
+  } = getWindow(event.target);
+  return TouchEvent && event instanceof TouchEvent;
+}
+
+/**
+ * Returns the normalized x and y coordinates for mouse and touch events.
+ */
+
+function getEventCoordinates(event) {
+  if (isTouchEvent(event)) {
+    if (event.touches && event.touches.length) {
+      const {
+        clientX: x,
+        clientY: y
+      } = event.touches[0];
+      return {
+        x,
+        y
+      };
+    } else if (event.changedTouches && event.changedTouches.length) {
+      const {
+        clientX: x,
+        clientY: y
+      } = event.changedTouches[0];
+      return {
+        x,
+        y
+      };
+    }
+  }
+
+  if (hasViewportRelativeCoordinates(event)) {
+    return {
+      x: event.clientX,
+      y: event.clientY
+    };
+  }
+
+  return null;
+}
+
+const CSS = /*#__PURE__*/Object.freeze({
+  Translate: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+
+      const {
+        x,
+        y
+      } = transform;
+      return "translate3d(" + (x ? Math.round(x) : 0) + "px, " + (y ? Math.round(y) : 0) + "px, 0)";
+    }
+
+  },
+  Scale: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+
+      const {
+        scaleX,
+        scaleY
+      } = transform;
+      return "scaleX(" + scaleX + ") scaleY(" + scaleY + ")";
+    }
+
+  },
+  Transform: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+
+      return [CSS.Translate.toString(transform), CSS.Scale.toString(transform)].join(' ');
+    }
+
+  },
+  Transition: {
+    toString(_ref) {
+      let {
+        property,
+        duration,
+        easing
+      } = _ref;
+      return property + " " + duration + "ms " + easing;
+    }
+
+  }
+});
+
+const SELECTOR = 'a,frame,iframe,input:not([type=hidden]):not(:disabled),select:not(:disabled),textarea:not(:disabled),button:not(:disabled),*[tabindex]';
+function findFirstFocusableNode(element) {
+  if (element.matches(SELECTOR)) {
+    return element;
+  }
+
+  return element.querySelector(SELECTOR);
+}
+
+
+//# sourceMappingURL=utilities.esm.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/class-variance-authority/dist/index.mjs"
+/*!**************************************************************!*\
+  !*** ./node_modules/class-variance-authority/dist/index.mjs ***!
+  \**************************************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cva: () => (/* binding */ cva),
+/* harmony export */   cx: () => (/* binding */ cx)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/**
+ * Copyright 2022 Joe Bell. All rights reserved.
+ *
+ * This file is licensed to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR REPRESENTATIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */ 
+const falsyToString = (value)=>typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
+const cx = clsx__WEBPACK_IMPORTED_MODULE_0__.clsx;
+const cva = (base, config)=>(props)=>{
+        var _config_compoundVariants;
+        if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+        const { variants, defaultVariants } = config;
+        const getVariantClassNames = Object.keys(variants).map((variant)=>{
+            const variantProp = props === null || props === void 0 ? void 0 : props[variant];
+            const defaultVariantProp = defaultVariants === null || defaultVariants === void 0 ? void 0 : defaultVariants[variant];
+            if (variantProp === null) return null;
+            const variantKey = falsyToString(variantProp) || falsyToString(defaultVariantProp);
+            return variants[variant][variantKey];
+        });
+        const propsWithoutUndefined = props && Object.entries(props).reduce((acc, param)=>{
+            let [key, value] = param;
+            if (value === undefined) {
+                return acc;
+            }
+            acc[key] = value;
+            return acc;
+        }, {});
+        const getCompoundVariantClassNames = config === null || config === void 0 ? void 0 : (_config_compoundVariants = config.compoundVariants) === null || _config_compoundVariants === void 0 ? void 0 : _config_compoundVariants.reduce((acc, param)=>{
+            let { class: cvClass, className: cvClassName, ...compoundVariantOptions } = param;
+            return Object.entries(compoundVariantOptions).every((param)=>{
+                let [key, value] = param;
+                return Array.isArray(value) ? value.includes({
+                    ...defaultVariants,
+                    ...propsWithoutUndefined
+                }[key]) : ({
+                    ...defaultVariants,
+                    ...propsWithoutUndefined
+                })[key] === value;
+            }) ? [
+                ...acc,
+                cvClass,
+                cvClassName
+            ] : acc;
+        }, []);
+        return cx(base, getVariantClassNames, getCompoundVariantClassNames, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+    };
+
+
+
+/***/ },
+
+/***/ "./node_modules/clsx/dist/clsx.mjs"
+/*!*****************************************!*\
+  !*** ./node_modules/clsx/dist/clsx.mjs ***!
+  \*****************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clsx: () => (/* binding */ clsx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f)}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clsx);
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/Icon.js"
+/*!****************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/Icon.js ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Icon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultAttributes.js */ "./node_modules/lucide-react/dist/esm/defaultAttributes.js");
+/* harmony import */ var _shared_src_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/src/utils.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+const Icon = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+  ({
+    color = "currentColor",
+    size = 24,
+    strokeWidth = 2,
+    absoluteStrokeWidth,
+    className = "",
+    children,
+    iconNode,
+    ...rest
+  }, ref) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(
+    "svg",
+    {
+      ref,
+      ..._defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+      width: size,
+      height: size,
+      stroke: color,
+      strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
+      className: (0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_2__.mergeClasses)("lucide", className),
+      ...!children && !(0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_2__.hasA11yProp)(rest) && { "aria-hidden": "true" },
+      ...rest
+    },
+    [
+      ...iconNode.map(([tag, attrs]) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(tag, attrs)),
+      ...Array.isArray(children) ? children : [children]
+    ]
+  )
+);
+
+
+//# sourceMappingURL=Icon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/createLucideIcon.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/createLucideIcon.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createLucideIcon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shared/src/utils.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils.js");
+/* harmony import */ var _Icon_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon.js */ "./node_modules/lucide-react/dist/esm/Icon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+const createLucideIcon = (iconName, iconNode) => {
+  const Component = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+    ({ className, ...props }, ref) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      ref,
+      iconNode,
+      className: (0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.mergeClasses)(
+        `lucide-${(0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.toKebabCase)((0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.toPascalCase)(iconName))}`,
+        `lucide-${iconName}`,
+        className
+      ),
+      ...props
+    })
+  );
+  Component.displayName = (0,_shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__.toPascalCase)(iconName);
+  return Component;
+};
+
+
+//# sourceMappingURL=createLucideIcon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/defaultAttributes.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/defaultAttributes.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ defaultAttributes)
+/* harmony export */ });
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+
+//# sourceMappingURL=defaultAttributes.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/check.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/check.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Check)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("check", __iconNode);
+
+
+//# sourceMappingURL=check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-down.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronDown)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-down", __iconNode);
+
+
+//# sourceMappingURL=chevron-down.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-left.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronLeft)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]];
+const ChevronLeft = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-left", __iconNode);
+
+
+//# sourceMappingURL=chevron-left.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-right.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronRight)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-right", __iconNode);
+
+
+//# sourceMappingURL=chevron-right.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-alert.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleAlert)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-alert", __iconNode);
+
+
+//# sourceMappingURL=circle-alert.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js"
+/*!**********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-check-big.js ***!
+  \**********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleCheckBig)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
+  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+];
+const CircleCheckBig = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-check-big", __iconNode);
+
+
+//# sourceMappingURL=circle-check-big.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-check.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-check.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleCheck)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const CircleCheck = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-check", __iconNode);
+
+
+//# sourceMappingURL=circle-check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-play.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-play.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CirclePlay)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z",
+      key: "kmsa83"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
+];
+const CirclePlay = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-play", __iconNode);
+
+
+//# sourceMappingURL=circle-play.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Circle)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
+const Circle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle", __iconNode);
+
+
+//# sourceMappingURL=circle.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/copy.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/copy.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Copy)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+];
+const Copy = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("copy", __iconNode);
+
+
+//# sourceMappingURL=copy.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/database.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/database.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Database)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["ellipse", { cx: "12", cy: "5", rx: "9", ry: "3", key: "msslwz" }],
+  ["path", { d: "M3 5V19A9 3 0 0 0 21 19V5", key: "1wlel7" }],
+  ["path", { d: "M3 12A9 3 0 0 0 21 12", key: "mv7ke4" }]
+];
+const Database = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("database", __iconNode);
+
+
+//# sourceMappingURL=database.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/download.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/download.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Download)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 15V3", key: "m9g1x1" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
+];
+const Download = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("download", __iconNode);
+
+
+//# sourceMappingURL=download.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/external-link.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/external-link.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ExternalLink)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+];
+const ExternalLink = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("external-link", __iconNode);
+
+
+//# sourceMappingURL=external-link.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/folder-open.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/folder-open.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ FolderOpen)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2",
+      key: "usdka0"
+    }
+  ]
+];
+const FolderOpen = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("folder-open", __iconNode);
+
+
+//# sourceMappingURL=folder-open.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/grip-vertical.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/grip-vertical.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ GripVertical)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
+  ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
+  ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
+  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
+  ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
+  ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
+];
+const GripVertical = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("grip-vertical", __iconNode);
+
+
+//# sourceMappingURL=grip-vertical.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/layout-grid.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/layout-grid.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LayoutGrid)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
+  ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
+];
+const LayoutGrid = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("layout-grid", __iconNode);
+
+
+//# sourceMappingURL=layout-grid.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/life-buoy.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/life-buoy.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LifeBuoy)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m4.93 4.93 4.24 4.24", key: "1ymg45" }],
+  ["path", { d: "m14.83 9.17 4.24-4.24", key: "1cb5xl" }],
+  ["path", { d: "m14.83 14.83 4.24 4.24", key: "q42g0n" }],
+  ["path", { d: "m9.17 14.83-4.24 4.24", key: "bqpfvv" }],
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }]
+];
+const LifeBuoy = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("life-buoy", __iconNode);
+
+
+//# sourceMappingURL=life-buoy.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/list.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/list.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ List)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M3 5h.01", key: "18ugdj" }],
+  ["path", { d: "M3 12h.01", key: "nlz23k" }],
+  ["path", { d: "M3 19h.01", key: "noohij" }],
+  ["path", { d: "M8 5h13", key: "1pao27" }],
+  ["path", { d: "M8 12h13", key: "1za7za" }],
+  ["path", { d: "M8 19h13", key: "m83p4d" }]
+];
+const List = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("list", __iconNode);
+
+
+//# sourceMappingURL=list.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/loader-circle.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LoaderCircle)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("loader-circle", __iconNode);
+
+
+//# sourceMappingURL=loader-circle.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/package.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/package.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Package)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z",
+      key: "1a0edw"
+    }
+  ],
+  ["path", { d: "M12 22V12", key: "d0xqtd" }],
+  ["polyline", { points: "3.29 7 12 12 20.71 7", key: "ousv84" }],
+  ["path", { d: "m7.5 4.27 9 5.15", key: "1c824w" }]
+];
+const Package = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("package", __iconNode);
+
+
+//# sourceMappingURL=package.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/palette.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/palette.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Palette)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z",
+      key: "e79jfc"
+    }
+  ],
+  ["circle", { cx: "13.5", cy: "6.5", r: ".5", fill: "currentColor", key: "1okk4w" }],
+  ["circle", { cx: "17.5", cy: "10.5", r: ".5", fill: "currentColor", key: "f64h9f" }],
+  ["circle", { cx: "6.5", cy: "12.5", r: ".5", fill: "currentColor", key: "qy21gx" }],
+  ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor", key: "fotxhn" }]
+];
+const Palette = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("palette", __iconNode);
+
+
+//# sourceMappingURL=palette.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/panels-top-left.js"
+/*!*********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/panels-top-left.js ***!
+  \*********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ PanelsTopLeft)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M3 9h18", key: "1pudct" }],
+  ["path", { d: "M9 21V9", key: "1oto5p" }]
+];
+const PanelsTopLeft = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("panels-top-left", __iconNode);
+
+
+//# sourceMappingURL=panels-top-left.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/plus.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/plus.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Plus)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "M12 5v14", key: "s699le" }]
+];
+const Plus = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("plus", __iconNode);
+
+
+//# sourceMappingURL=plus.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/refresh-cw.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ RefreshCw)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
+];
+const RefreshCw = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("refresh-cw", __iconNode);
+
+
+//# sourceMappingURL=refresh-cw.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/save.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/save.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Save)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+      key: "1c8476"
+    }
+  ],
+  ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
+  ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
+];
+const Save = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("save", __iconNode);
+
+
+//# sourceMappingURL=save.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/search.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/search.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Search)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+];
+const Search = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("search", __iconNode);
+
+
+//# sourceMappingURL=search.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/settings.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/settings.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Settings)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
+      key: "1i5ecw"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+];
+const Settings = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("settings", __iconNode);
+
+
+//# sourceMappingURL=settings.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/sheet.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/sheet.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Sheet)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
+  ["line", { x1: "3", x2: "21", y1: "9", y2: "9", key: "1vqk6q" }],
+  ["line", { x1: "3", x2: "21", y1: "15", y2: "15", key: "o2sbyz" }],
+  ["line", { x1: "9", x2: "9", y1: "9", y2: "21", key: "1ib60c" }],
+  ["line", { x1: "15", x2: "15", y1: "9", y2: "21", key: "1n26ft" }]
+];
+const Sheet = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("sheet", __iconNode);
+
+
+//# sourceMappingURL=sheet.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/square-pen.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/square-pen.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ SquarePen)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7", key: "1m0v6g" }],
+  [
+    "path",
+    {
+      d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",
+      key: "ohrbg2"
+    }
+  ]
+];
+const SquarePen = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("square-pen", __iconNode);
+
+
+//# sourceMappingURL=square-pen.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/trash-2.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/trash-2.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Trash2)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M10 11v6", key: "nco0om" }],
+  ["path", { d: "M14 11v6", key: "outv1u" }],
+  ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
+];
+const Trash2 = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("trash-2", __iconNode);
+
+
+//# sourceMappingURL=trash-2.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/upload.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/upload.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Upload)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 3v12", key: "1x0j5s" }],
+  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
+];
+const Upload = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("upload", __iconNode);
+
+
+//# sourceMappingURL=upload.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/x.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/x.js ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ X)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+const X = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("x", __iconNode);
+
+
+//# sourceMappingURL=x.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/zap.js"
+/*!*********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/zap.js ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Zap)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
+      key: "1xq2db"
+    }
+  ]
+];
+const Zap = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("zap", __iconNode);
+
+
+//# sourceMappingURL=zap.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasA11yProp: () => (/* binding */ hasA11yProp),
+/* harmony export */   mergeClasses: () => (/* binding */ mergeClasses),
+/* harmony export */   toCamelCase: () => (/* binding */ toCamelCase),
+/* harmony export */   toKebabCase: () => (/* binding */ toKebabCase),
+/* harmony export */   toPascalCase: () => (/* binding */ toPascalCase)
+/* harmony export */ });
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const toCamelCase = (string) => string.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+);
+const toPascalCase = (string) => {
+  const camelCase = toCamelCase(string);
+  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+};
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+const hasA11yProp = (props) => {
+  for (const prop in props) {
+    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
+      return true;
+    }
+  }
+};
+
+
+//# sourceMappingURL=utils.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs"
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs ***!
   \***********************************************************************/
 (__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
@@ -64,7 +6776,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createClientRoutes: () => (/* binding */ createClientRoutes),
 /* harmony export */   createClientRoutesWithHMRRevalidationOptOut: () => (/* binding */ createClientRoutesWithHMRRevalidationOptOut),
 /* harmony export */   createContext: () => (/* binding */ createContext),
+/* harmony export */   createHashHistory: () => (/* binding */ createHashHistory),
 /* harmony export */   createHashRouter: () => (/* binding */ createHashRouter),
+/* harmony export */   createMemoryHistory: () => (/* binding */ createMemoryHistory),
 /* harmony export */   createMemoryRouter: () => (/* binding */ createMemoryRouter),
 /* harmony export */   createPath: () => (/* binding */ createPath),
 /* harmony export */   createRequestInit: () => (/* binding */ createRequestInit),
@@ -152,7 +6866,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /**
- * react-router v7.11.0
+ * react-router v7.12.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -862,12 +7576,12 @@ function generatePath(originalPath, params = {}) {
       const star = "*";
       return stringify2(params[star]);
     }
-    const keyMatch = segment.match(/^:([\w-]+)(\??)$/);
+    const keyMatch = segment.match(/^:([\w-]+)(\??)(.*)/);
     if (keyMatch) {
-      const [, key, optional] = keyMatch;
+      const [, key, optional, suffix] = keyMatch;
       let param = params[key];
       invariant(optional === "?" || param != null, `Missing ":${key}" param`);
-      return encodeURIComponent(stringify2(param));
+      return encodeURIComponent(stringify2(param)) + suffix;
     }
     return segment.replace(/\?$/g, "");
   }).filter((segment) => !!segment);
@@ -1224,6 +7938,9 @@ function getRouteInstrumentationUpdates(fns, route) {
         (...args) => getHandlerInfo(args[0])
       );
       if (instrumented) {
+        if (key === "loader" && original.hydrate === true) {
+          instrumented.hydrate = true;
+        }
         instrumented[UninstrumentedSymbol] = original;
         updates[key] = instrumented;
       }
@@ -2167,7 +8884,8 @@ function createRouter(init) {
         let location2 = normalizeRedirectLocation(
           result.response.headers.get("Location"),
           new URL(request.url),
-          basename
+          basename,
+          init.history
         );
         replace2 = location2 === state.location.pathname + state.location.search;
       }
@@ -2801,7 +9519,8 @@ function createRouter(init) {
     location = normalizeRedirectLocation(
       location,
       new URL(request.url),
-      basename
+      basename,
+      init.history
     );
     let redirectLocation = createLocation(state.location, location, {
       _isRedirect: true
@@ -5060,14 +11779,37 @@ function normalizeRelativeRoutingRedirectResponse(response, request, routeId, ma
   }
   return response;
 }
-function normalizeRedirectLocation(location, currentUrl, basename) {
+function normalizeRedirectLocation(location, currentUrl, basename, historyInstance) {
+  let invalidProtocols = [
+    "about:",
+    "blob:",
+    "chrome:",
+    "chrome-untrusted:",
+    "content:",
+    "data:",
+    "devtools:",
+    "file:",
+    "filesystem:",
+    // eslint-disable-next-line no-script-url
+    "javascript:"
+  ];
   if (isAbsoluteUrl(location)) {
     let normalizedLocation = location;
     let url = normalizedLocation.startsWith("//") ? new URL(currentUrl.protocol + normalizedLocation) : new URL(normalizedLocation);
+    if (invalidProtocols.includes(url.protocol)) {
+      throw new Error("Invalid redirect location");
+    }
     let isSameBasename = stripBasename(url.pathname, basename) != null;
     if (url.origin === currentUrl.origin && isSameBasename) {
       return url.pathname + url.search + url.hash;
     }
+  }
+  try {
+    let url = historyInstance.createURL(location);
+    if (invalidProtocols.includes(url.protocol)) {
+      throw new Error("Invalid redirect location");
+    }
+  } catch (e) {
   }
   return location;
 }
@@ -7914,7 +14656,7 @@ function StreamTransfer({
     )));
   }
 }
-function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules, ssr, basename) {
+function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules, ssr, basename, trailingSlashAware) {
   let dataStrategy = getSingleFetchDataStrategyImpl(
     getRouter,
     (match) => {
@@ -7929,26 +14671,43 @@ function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules
     },
     fetchAndDecodeViaTurboStream,
     ssr,
-    basename
+    basename,
+    trailingSlashAware
   );
   return async (args) => args.runClientMiddleware(dataStrategy);
 }
-function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode, ssr, basename, shouldAllowOptOut = () => true) {
+function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode, ssr, basename, trailingSlashAware, shouldAllowOptOut = () => true) {
   return async (args) => {
     let { request, matches, fetcherKey } = args;
     let router = getRouter();
     if (request.method !== "GET") {
-      return singleFetchActionStrategy(args, fetchAndDecode, basename);
+      return singleFetchActionStrategy(
+        args,
+        fetchAndDecode,
+        basename,
+        trailingSlashAware
+      );
     }
     let foundRevalidatingServerLoader = matches.some((m) => {
       let { hasLoader, hasClientLoader } = getRouteInfo(m);
       return m.shouldCallHandler() && hasLoader && !hasClientLoader;
     });
     if (!ssr && !foundRevalidatingServerLoader) {
-      return nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename);
+      return nonSsrStrategy(
+        args,
+        getRouteInfo,
+        fetchAndDecode,
+        basename,
+        trailingSlashAware
+      );
     }
     if (fetcherKey) {
-      return singleFetchLoaderFetcherStrategy(args, fetchAndDecode, basename);
+      return singleFetchLoaderFetcherStrategy(
+        args,
+        fetchAndDecode,
+        basename,
+        trailingSlashAware
+      );
     }
     return singleFetchLoaderNavigationStrategy(
       args,
@@ -7957,19 +14716,23 @@ function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode,
       fetchAndDecode,
       ssr,
       basename,
+      trailingSlashAware,
       shouldAllowOptOut
     );
   };
 }
-async function singleFetchActionStrategy(args, fetchAndDecode, basename) {
+async function singleFetchActionStrategy(args, fetchAndDecode, basename, trailingSlashAware) {
   let actionMatch = args.matches.find((m) => m.shouldCallHandler());
   invariant2(actionMatch, "No action match found");
   let actionStatus = void 0;
   let result = await actionMatch.resolve(async (handler) => {
     let result2 = await handler(async () => {
-      let { data: data2, status } = await fetchAndDecode(args, basename, [
-        actionMatch.route.id
-      ]);
+      let { data: data2, status } = await fetchAndDecode(
+        args,
+        basename,
+        trailingSlashAware,
+        [actionMatch.route.id]
+      );
       actionStatus = status;
       return unwrapSingleFetchResult(data2, actionMatch.route.id);
     });
@@ -7985,7 +14748,7 @@ async function singleFetchActionStrategy(args, fetchAndDecode, basename) {
     }
   };
 }
-async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename) {
+async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename, trailingSlashAware) {
   let matchesToLoad = args.matches.filter((m) => m.shouldCallHandler());
   let results = {};
   await Promise.all(
@@ -7995,7 +14758,12 @@ async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename) {
           let { hasClientLoader } = getRouteInfo(m);
           let routeId = m.route.id;
           let result = hasClientLoader ? await handler(async () => {
-            let { data: data2 } = await fetchAndDecode(args, basename, [routeId]);
+            let { data: data2 } = await fetchAndDecode(
+              args,
+              basename,
+              trailingSlashAware,
+              [routeId]
+            );
             return unwrapSingleFetchResult(data2, routeId);
           }) : await handler();
           results[m.route.id] = { type: "data", result };
@@ -8007,7 +14775,7 @@ async function nonSsrStrategy(args, getRouteInfo, fetchAndDecode, basename) {
   );
   return results;
 }
-async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, fetchAndDecode, ssr, basename, shouldAllowOptOut = () => true) {
+async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, fetchAndDecode, ssr, basename, trailingSlashAware, shouldAllowOptOut = () => true) {
   let routesParams = /* @__PURE__ */ new Set();
   let foundOptOutRoute = false;
   let routeDfds = args.matches.map(() => createDeferred2());
@@ -8033,7 +14801,12 @@ async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, f
           }
           try {
             let result = await handler(async () => {
-              let { data: data2 } = await fetchAndDecode(args, basename, [routeId]);
+              let { data: data2 } = await fetchAndDecode(
+                args,
+                basename,
+                trailingSlashAware,
+                [routeId]
+              );
               return unwrapSingleFetchResult(data2, routeId);
             });
             results[routeId] = { type: "data", result };
@@ -8064,7 +14837,12 @@ async function singleFetchLoaderNavigationStrategy(args, router, getRouteInfo, f
   } else {
     let targetRoutes = ssr && foundOptOutRoute && routesParams.size > 0 ? [...routesParams.keys()] : void 0;
     try {
-      let data2 = await fetchAndDecode(args, basename, targetRoutes);
+      let data2 = await fetchAndDecode(
+        args,
+        basename,
+        trailingSlashAware,
+        targetRoutes
+      );
       singleFetchDfd.resolve(data2.data);
     } catch (e) {
       singleFetchDfd.reject(e);
@@ -8110,13 +14888,15 @@ async function bubbleMiddlewareErrors(singleFetchPromise, matches, routesParams,
   } catch (e) {
   }
 }
-async function singleFetchLoaderFetcherStrategy(args, fetchAndDecode, basename) {
+async function singleFetchLoaderFetcherStrategy(args, fetchAndDecode, basename, trailingSlashAware) {
   let fetcherMatch = args.matches.find((m) => m.shouldCallHandler());
   invariant2(fetcherMatch, "No fetcher match found");
   let routeId = fetcherMatch.route.id;
   let result = await fetcherMatch.resolve(
     async (handler) => handler(async () => {
-      let { data: data2 } = await fetchAndDecode(args, basename, [routeId]);
+      let { data: data2 } = await fetchAndDecode(args, basename, trailingSlashAware, [
+        routeId
+      ]);
       return unwrapSingleFetchResult(data2, routeId);
     })
   );
@@ -8136,25 +14916,33 @@ function stripIndexParam(url) {
   }
   return url;
 }
-function singleFetchUrl(reqUrl, basename, extension) {
+function singleFetchUrl(reqUrl, basename, trailingSlashAware, extension) {
   let url = typeof reqUrl === "string" ? new URL(
     reqUrl,
     // This can be called during the SSR flow via PrefetchPageLinksImpl so
     // don't assume window is available
     typeof window === "undefined" ? "server://singlefetch/" : window.location.origin
   ) : reqUrl;
-  if (url.pathname === "/") {
-    url.pathname = `_root.${extension}`;
-  } else if (basename && stripBasename(url.pathname, basename) === "/") {
-    url.pathname = `${basename.replace(/\/$/, "")}/_root.${extension}`;
+  if (trailingSlashAware) {
+    if (url.pathname.endsWith("/")) {
+      url.pathname = `${url.pathname}_.${extension}`;
+    } else {
+      url.pathname = `${url.pathname}.${extension}`;
+    }
   } else {
-    url.pathname = `${url.pathname.replace(/\/$/, "")}.${extension}`;
+    if (url.pathname === "/") {
+      url.pathname = `_root.${extension}`;
+    } else if (basename && stripBasename(url.pathname, basename) === "/") {
+      url.pathname = `${basename.replace(/\/$/, "")}/_root.${extension}`;
+    } else {
+      url.pathname = `${url.pathname.replace(/\/$/, "")}.${extension}`;
+    }
   }
   return url;
 }
-async function fetchAndDecodeViaTurboStream(args, basename, targetRoutes) {
+async function fetchAndDecodeViaTurboStream(args, basename, trailingSlashAware, targetRoutes) {
   let { request } = args;
-  let url = singleFetchUrl(request.url, basename, "data");
+  let url = singleFetchUrl(request.url, basename, trailingSlashAware, "data");
   if (request.method === "GET") {
     url = stripIndexParam(url);
     if (targetRoutes) {
@@ -9344,7 +16132,7 @@ function PrefetchPageLinksImpl({
   ...linkProps
 }) {
   let location = useLocation();
-  let { manifest, routeModules } = useFrameworkContext();
+  let { future, manifest, routeModules } = useFrameworkContext();
   let { basename } = useDataRouterContext2();
   let { loaderData, matches } = useDataRouterStateContext();
   let newMatchesForData = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(
@@ -9391,7 +16179,12 @@ function PrefetchPageLinksImpl({
     if (routesParams.size === 0) {
       return [];
     }
-    let url = singleFetchUrl(page, basename, "data");
+    let url = singleFetchUrl(
+      page,
+      basename,
+      future.unstable_trailingSlashAwareDataRequests,
+      "data"
+    );
     if (foundOptOutRoute && routesParams.size > 0) {
       url.searchParams.set(
         "_routes",
@@ -9401,6 +16194,7 @@ function PrefetchPageLinksImpl({
     return [url.pathname + url.search];
   }, [
     basename,
+    future.unstable_trailingSlashAwareDataRequests,
     loaderData,
     location,
     manifest,
@@ -9644,6 +16438,7 @@ import(${JSON.stringify(manifest.entry.module)});`;
   return isHydrated || isRSCRouterContext ? null : /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, typeof manifest.sri === "object" ? /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
     "script",
     {
+      ...scriptProps,
       "rr-importmap": "",
       type: "importmap",
       suppressHydrationWarning: true,
@@ -9801,7 +16596,7 @@ var isBrowser2 = typeof window !== "undefined" && typeof window.document !== "un
 try {
   if (isBrowser2) {
     window.__reactRouterVersion = // @ts-expect-error
-    "7.11.0";
+    "7.12.0";
   }
 } catch (e) {
 }
@@ -10229,9 +17024,9 @@ function ScrollRestoration({
       ...props,
       suppressHydrationWarning: true,
       dangerouslySetInnerHTML: {
-        __html: `(${restoreScroll})(${JSON.stringify(
-          storageKey || SCROLL_RESTORATION_STORAGE_KEY
-        )}, ${JSON.stringify(ssrKey)})`
+        __html: `(${restoreScroll})(${escapeHtml(
+          JSON.stringify(storageKey || SCROLL_RESTORATION_STORAGE_KEY)
+        )}, ${escapeHtml(JSON.stringify(ssrKey))})`
       }
     }
   );
@@ -10709,7 +17504,7 @@ function StaticRouterProvider({
       actionData: context.actionData,
       errors: serializeErrors(context.errors)
     };
-    let json = htmlEscape(JSON.stringify(JSON.stringify(data2)));
+    let json = escapeHtml(JSON.stringify(JSON.stringify(data2)));
     hydrateScript = `window.__staticRouterHydrationData = JSON.parse(${json});`;
   }
   let { state } = dataRouterContext.router;
@@ -10920,17 +17715,3218 @@ function encodeLocation(to) {
   };
 }
 var ABSOLUTE_URL_REGEX3 = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
-var ESCAPE_LOOKUP2 = {
-  "&": "\\u0026",
-  ">": "\\u003e",
-  "<": "\\u003c",
-  "\u2028": "\\u2028",
-  "\u2029": "\\u2029"
+
+
+
+
+/***/ },
+
+/***/ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs"
+/*!*********************************************************!*\
+  !*** ./node_modules/tailwind-merge/dist/bundle-mjs.mjs ***!
+  \*********************************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createTailwindMerge: () => (/* binding */ createTailwindMerge),
+/* harmony export */   extendTailwindMerge: () => (/* binding */ extendTailwindMerge),
+/* harmony export */   fromTheme: () => (/* binding */ fromTheme),
+/* harmony export */   getDefaultConfig: () => (/* binding */ getDefaultConfig),
+/* harmony export */   mergeConfigs: () => (/* binding */ mergeConfigs),
+/* harmony export */   twJoin: () => (/* binding */ twJoin),
+/* harmony export */   twMerge: () => (/* binding */ twMerge),
+/* harmony export */   validators: () => (/* binding */ validators)
+/* harmony export */ });
+/**
+ * Concatenates two arrays faster than the array spread operator.
+ */
+const concatArrays = (array1, array2) => {
+  // Pre-allocate for better V8 optimization
+  const combinedArray = new Array(array1.length + array2.length);
+  for (let i = 0; i < array1.length; i++) {
+    combinedArray[i] = array1[i];
+  }
+  for (let i = 0; i < array2.length; i++) {
+    combinedArray[array1.length + i] = array2[i];
+  }
+  return combinedArray;
 };
-var ESCAPE_REGEX2 = /[&><\u2028\u2029]/g;
-function htmlEscape(str) {
-  return str.replace(ESCAPE_REGEX2, (match) => ESCAPE_LOOKUP2[match]);
+
+// Factory function ensures consistent object shapes
+const createClassValidatorObject = (classGroupId, validator) => ({
+  classGroupId,
+  validator
+});
+// Factory ensures consistent ClassPartObject shape
+const createClassPartObject = (nextPart = new Map(), validators = null, classGroupId) => ({
+  nextPart,
+  validators,
+  classGroupId
+});
+const CLASS_PART_SEPARATOR = '-';
+const EMPTY_CONFLICTS = [];
+// I use two dots here because one dot is used as prefix for class groups in plugins
+const ARBITRARY_PROPERTY_PREFIX = 'arbitrary..';
+const createClassGroupUtils = config => {
+  const classMap = createClassMap(config);
+  const {
+    conflictingClassGroups,
+    conflictingClassGroupModifiers
+  } = config;
+  const getClassGroupId = className => {
+    if (className.startsWith('[') && className.endsWith(']')) {
+      return getGroupIdForArbitraryProperty(className);
+    }
+    const classParts = className.split(CLASS_PART_SEPARATOR);
+    // Classes like `-inset-1` produce an empty string as first classPart. We assume that classes for negative values are used correctly and skip it.
+    const startIndex = classParts[0] === '' && classParts.length > 1 ? 1 : 0;
+    return getGroupRecursive(classParts, startIndex, classMap);
+  };
+  const getConflictingClassGroupIds = (classGroupId, hasPostfixModifier) => {
+    if (hasPostfixModifier) {
+      const modifierConflicts = conflictingClassGroupModifiers[classGroupId];
+      const baseConflicts = conflictingClassGroups[classGroupId];
+      if (modifierConflicts) {
+        if (baseConflicts) {
+          // Merge base conflicts with modifier conflicts
+          return concatArrays(baseConflicts, modifierConflicts);
+        }
+        // Only modifier conflicts
+        return modifierConflicts;
+      }
+      // Fall back to without postfix if no modifier conflicts
+      return baseConflicts || EMPTY_CONFLICTS;
+    }
+    return conflictingClassGroups[classGroupId] || EMPTY_CONFLICTS;
+  };
+  return {
+    getClassGroupId,
+    getConflictingClassGroupIds
+  };
+};
+const getGroupRecursive = (classParts, startIndex, classPartObject) => {
+  const classPathsLength = classParts.length - startIndex;
+  if (classPathsLength === 0) {
+    return classPartObject.classGroupId;
+  }
+  const currentClassPart = classParts[startIndex];
+  const nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+  if (nextClassPartObject) {
+    const result = getGroupRecursive(classParts, startIndex + 1, nextClassPartObject);
+    if (result) return result;
+  }
+  const validators = classPartObject.validators;
+  if (validators === null) {
+    return undefined;
+  }
+  // Build classRest string efficiently by joining from startIndex onwards
+  const classRest = startIndex === 0 ? classParts.join(CLASS_PART_SEPARATOR) : classParts.slice(startIndex).join(CLASS_PART_SEPARATOR);
+  const validatorsLength = validators.length;
+  for (let i = 0; i < validatorsLength; i++) {
+    const validatorObj = validators[i];
+    if (validatorObj.validator(classRest)) {
+      return validatorObj.classGroupId;
+    }
+  }
+  return undefined;
+};
+/**
+ * Get the class group ID for an arbitrary property.
+ *
+ * @param className - The class name to get the group ID for. Is expected to be string starting with `[` and ending with `]`.
+ */
+const getGroupIdForArbitraryProperty = className => className.slice(1, -1).indexOf(':') === -1 ? undefined : (() => {
+  const content = className.slice(1, -1);
+  const colonIndex = content.indexOf(':');
+  const property = content.slice(0, colonIndex);
+  return property ? ARBITRARY_PROPERTY_PREFIX + property : undefined;
+})();
+/**
+ * Exported for testing only
+ */
+const createClassMap = config => {
+  const {
+    theme,
+    classGroups
+  } = config;
+  return processClassGroups(classGroups, theme);
+};
+// Split into separate functions to maintain monomorphic call sites
+const processClassGroups = (classGroups, theme) => {
+  const classMap = createClassPartObject();
+  for (const classGroupId in classGroups) {
+    const group = classGroups[classGroupId];
+    processClassesRecursively(group, classMap, classGroupId, theme);
+  }
+  return classMap;
+};
+const processClassesRecursively = (classGroup, classPartObject, classGroupId, theme) => {
+  const len = classGroup.length;
+  for (let i = 0; i < len; i++) {
+    const classDefinition = classGroup[i];
+    processClassDefinition(classDefinition, classPartObject, classGroupId, theme);
+  }
+};
+// Split into separate functions for each type to maintain monomorphic call sites
+const processClassDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (typeof classDefinition === 'string') {
+    processStringDefinition(classDefinition, classPartObject, classGroupId);
+    return;
+  }
+  if (typeof classDefinition === 'function') {
+    processFunctionDefinition(classDefinition, classPartObject, classGroupId, theme);
+    return;
+  }
+  processObjectDefinition(classDefinition, classPartObject, classGroupId, theme);
+};
+const processStringDefinition = (classDefinition, classPartObject, classGroupId) => {
+  const classPartObjectToEdit = classDefinition === '' ? classPartObject : getPart(classPartObject, classDefinition);
+  classPartObjectToEdit.classGroupId = classGroupId;
+};
+const processFunctionDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (isThemeGetter(classDefinition)) {
+    processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+    return;
+  }
+  if (classPartObject.validators === null) {
+    classPartObject.validators = [];
+  }
+  classPartObject.validators.push(createClassValidatorObject(classGroupId, classDefinition));
+};
+const processObjectDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  const entries = Object.entries(classDefinition);
+  const len = entries.length;
+  for (let i = 0; i < len; i++) {
+    const [key, value] = entries[i];
+    processClassesRecursively(value, getPart(classPartObject, key), classGroupId, theme);
+  }
+};
+const getPart = (classPartObject, path) => {
+  let current = classPartObject;
+  const parts = path.split(CLASS_PART_SEPARATOR);
+  const len = parts.length;
+  for (let i = 0; i < len; i++) {
+    const part = parts[i];
+    let next = current.nextPart.get(part);
+    if (!next) {
+      next = createClassPartObject();
+      current.nextPart.set(part, next);
+    }
+    current = next;
+  }
+  return current;
+};
+// Type guard maintains monomorphic check
+const isThemeGetter = func => 'isThemeGetter' in func && func.isThemeGetter === true;
+
+// LRU cache implementation using plain objects for simplicity
+const createLruCache = maxCacheSize => {
+  if (maxCacheSize < 1) {
+    return {
+      get: () => undefined,
+      set: () => {}
+    };
+  }
+  let cacheSize = 0;
+  let cache = Object.create(null);
+  let previousCache = Object.create(null);
+  const update = (key, value) => {
+    cache[key] = value;
+    cacheSize++;
+    if (cacheSize > maxCacheSize) {
+      cacheSize = 0;
+      previousCache = cache;
+      cache = Object.create(null);
+    }
+  };
+  return {
+    get(key) {
+      let value = cache[key];
+      if (value !== undefined) {
+        return value;
+      }
+      if ((value = previousCache[key]) !== undefined) {
+        update(key, value);
+        return value;
+      }
+    },
+    set(key, value) {
+      if (key in cache) {
+        cache[key] = value;
+      } else {
+        update(key, value);
+      }
+    }
+  };
+};
+const IMPORTANT_MODIFIER = '!';
+const MODIFIER_SEPARATOR = ':';
+const EMPTY_MODIFIERS = [];
+// Pre-allocated result object shape for consistency
+const createResultObject = (modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition, isExternal) => ({
+  modifiers,
+  hasImportantModifier,
+  baseClassName,
+  maybePostfixModifierPosition,
+  isExternal
+});
+const createParseClassName = config => {
+  const {
+    prefix,
+    experimentalParseClassName
+  } = config;
+  /**
+   * Parse class name into parts.
+   *
+   * Inspired by `splitAtTopLevelOnly` used in Tailwind CSS
+   * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.2.2/src/util/splitAtTopLevelOnly.js
+   */
+  let parseClassName = className => {
+    // Use simple array with push for better performance
+    const modifiers = [];
+    let bracketDepth = 0;
+    let parenDepth = 0;
+    let modifierStart = 0;
+    let postfixModifierPosition;
+    const len = className.length;
+    for (let index = 0; index < len; index++) {
+      const currentCharacter = className[index];
+      if (bracketDepth === 0 && parenDepth === 0) {
+        if (currentCharacter === MODIFIER_SEPARATOR) {
+          modifiers.push(className.slice(modifierStart, index));
+          modifierStart = index + 1;
+          continue;
+        }
+        if (currentCharacter === '/') {
+          postfixModifierPosition = index;
+          continue;
+        }
+      }
+      if (currentCharacter === '[') bracketDepth++;else if (currentCharacter === ']') bracketDepth--;else if (currentCharacter === '(') parenDepth++;else if (currentCharacter === ')') parenDepth--;
+    }
+    const baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.slice(modifierStart);
+    // Inline important modifier check
+    let baseClassName = baseClassNameWithImportantModifier;
+    let hasImportantModifier = false;
+    if (baseClassNameWithImportantModifier.endsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(0, -1);
+      hasImportantModifier = true;
+    } else if (
+    /**
+     * In Tailwind CSS v3 the important modifier was at the start of the base class name. This is still supported for legacy reasons.
+     * @see https://github.com/dcastil/tailwind-merge/issues/513#issuecomment-2614029864
+     */
+    baseClassNameWithImportantModifier.startsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(1);
+      hasImportantModifier = true;
+    }
+    const maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : undefined;
+    return createResultObject(modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition);
+  };
+  if (prefix) {
+    const fullPrefix = prefix + MODIFIER_SEPARATOR;
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => className.startsWith(fullPrefix) ? parseClassNameOriginal(className.slice(fullPrefix.length)) : createResultObject(EMPTY_MODIFIERS, false, className, undefined, true);
+  }
+  if (experimentalParseClassName) {
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => experimentalParseClassName({
+      className,
+      parseClassName: parseClassNameOriginal
+    });
+  }
+  return parseClassName;
+};
+
+/**
+ * Sorts modifiers according to following schema:
+ * - Predefined modifiers are sorted alphabetically
+ * - When an arbitrary variant appears, it must be preserved which modifiers are before and after it
+ */
+const createSortModifiers = config => {
+  // Pre-compute weights for all known modifiers for O(1) comparison
+  const modifierWeights = new Map();
+  // Assign weights to sensitive modifiers (highest priority, but preserve order)
+  config.orderSensitiveModifiers.forEach((mod, index) => {
+    modifierWeights.set(mod, 1000000 + index); // High weights for sensitive mods
+  });
+  return modifiers => {
+    const result = [];
+    let currentSegment = [];
+    // Process modifiers in one pass
+    for (let i = 0; i < modifiers.length; i++) {
+      const modifier = modifiers[i];
+      // Check if modifier is sensitive (starts with '[' or in orderSensitiveModifiers)
+      const isArbitrary = modifier[0] === '[';
+      const isOrderSensitive = modifierWeights.has(modifier);
+      if (isArbitrary || isOrderSensitive) {
+        // Sort and flush current segment alphabetically
+        if (currentSegment.length > 0) {
+          currentSegment.sort();
+          result.push(...currentSegment);
+          currentSegment = [];
+        }
+        result.push(modifier);
+      } else {
+        // Regular modifier - add to current segment for batch sorting
+        currentSegment.push(modifier);
+      }
+    }
+    // Sort and add any remaining segment items
+    if (currentSegment.length > 0) {
+      currentSegment.sort();
+      result.push(...currentSegment);
+    }
+    return result;
+  };
+};
+const createConfigUtils = config => ({
+  cache: createLruCache(config.cacheSize),
+  parseClassName: createParseClassName(config),
+  sortModifiers: createSortModifiers(config),
+  ...createClassGroupUtils(config)
+});
+const SPLIT_CLASSES_REGEX = /\s+/;
+const mergeClassList = (classList, configUtils) => {
+  const {
+    parseClassName,
+    getClassGroupId,
+    getConflictingClassGroupIds,
+    sortModifiers
+  } = configUtils;
+  /**
+   * Set of classGroupIds in following format:
+   * `{importantModifier}{variantModifiers}{classGroupId}`
+   * @example 'float'
+   * @example 'hover:focus:bg-color'
+   * @example 'md:!pr'
+   */
+  const classGroupsInConflict = [];
+  const classNames = classList.trim().split(SPLIT_CLASSES_REGEX);
+  let result = '';
+  for (let index = classNames.length - 1; index >= 0; index -= 1) {
+    const originalClassName = classNames[index];
+    const {
+      isExternal,
+      modifiers,
+      hasImportantModifier,
+      baseClassName,
+      maybePostfixModifierPosition
+    } = parseClassName(originalClassName);
+    if (isExternal) {
+      result = originalClassName + (result.length > 0 ? ' ' + result : result);
+      continue;
+    }
+    let hasPostfixModifier = !!maybePostfixModifierPosition;
+    let classGroupId = getClassGroupId(hasPostfixModifier ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+    if (!classGroupId) {
+      if (!hasPostfixModifier) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      classGroupId = getClassGroupId(baseClassName);
+      if (!classGroupId) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      hasPostfixModifier = false;
+    }
+    // Fast path: skip sorting for empty or single modifier
+    const variantModifier = modifiers.length === 0 ? '' : modifiers.length === 1 ? modifiers[0] : sortModifiers(modifiers).join(':');
+    const modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+    const classId = modifierId + classGroupId;
+    if (classGroupsInConflict.indexOf(classId) > -1) {
+      // Tailwind class omitted due to conflict
+      continue;
+    }
+    classGroupsInConflict.push(classId);
+    const conflictGroups = getConflictingClassGroupIds(classGroupId, hasPostfixModifier);
+    for (let i = 0; i < conflictGroups.length; ++i) {
+      const group = conflictGroups[i];
+      classGroupsInConflict.push(modifierId + group);
+    }
+    // Tailwind class not in conflict
+    result = originalClassName + (result.length > 0 ? ' ' + result : result);
+  }
+  return result;
+};
+
+/**
+ * The code in this file is copied from https://github.com/lukeed/clsx and modified to suit the needs of tailwind-merge better.
+ *
+ * Specifically:
+ * - Runtime code from https://github.com/lukeed/clsx/blob/v1.2.1/src/index.js
+ * - TypeScript types from https://github.com/lukeed/clsx/blob/v1.2.1/clsx.d.ts
+ *
+ * Original code has MIT license: Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+ */
+const twJoin = (...classLists) => {
+  let index = 0;
+  let argument;
+  let resolvedValue;
+  let string = '';
+  while (index < classLists.length) {
+    if (argument = classLists[index++]) {
+      if (resolvedValue = toValue(argument)) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const toValue = mix => {
+  // Fast path for strings
+  if (typeof mix === 'string') {
+    return mix;
+  }
+  let resolvedValue;
+  let string = '';
+  for (let k = 0; k < mix.length; k++) {
+    if (mix[k]) {
+      if (resolvedValue = toValue(mix[k])) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const createTailwindMerge = (createConfigFirst, ...createConfigRest) => {
+  let configUtils;
+  let cacheGet;
+  let cacheSet;
+  let functionToCall;
+  const initTailwindMerge = classList => {
+    const config = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
+    configUtils = createConfigUtils(config);
+    cacheGet = configUtils.cache.get;
+    cacheSet = configUtils.cache.set;
+    functionToCall = tailwindMerge;
+    return tailwindMerge(classList);
+  };
+  const tailwindMerge = classList => {
+    const cachedResult = cacheGet(classList);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    const result = mergeClassList(classList, configUtils);
+    cacheSet(classList, result);
+    return result;
+  };
+  functionToCall = initTailwindMerge;
+  return (...args) => functionToCall(twJoin(...args));
+};
+const fallbackThemeArr = [];
+const fromTheme = key => {
+  const themeGetter = theme => theme[key] || fallbackThemeArr;
+  themeGetter.isThemeGetter = true;
+  return themeGetter;
+};
+const arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+const arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+const fractionRegex = /^\d+\/\d+$/;
+const tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+const lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+const colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
+// Shadow always begins with x and y offset separated by underscore optionally prepended by inset
+const shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+const imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+const isFraction = value => fractionRegex.test(value);
+const isNumber = value => !!value && !Number.isNaN(Number(value));
+const isInteger = value => !!value && Number.isInteger(Number(value));
+const isPercent = value => value.endsWith('%') && isNumber(value.slice(0, -1));
+const isTshirtSize = value => tshirtUnitRegex.test(value);
+const isAny = () => true;
+const isLengthOnly = value =>
+// `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
+// For example, `hsl(0 0% 0%)` would be classified as a length without this check.
+// I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
+lengthUnitRegex.test(value) && !colorFunctionRegex.test(value);
+const isNever = () => false;
+const isShadow = value => shadowRegex.test(value);
+const isImage = value => imageRegex.test(value);
+const isAnyNonArbitrary = value => !isArbitraryValue(value) && !isArbitraryVariable(value);
+const isArbitrarySize = value => getIsArbitraryValue(value, isLabelSize, isNever);
+const isArbitraryValue = value => arbitraryValueRegex.test(value);
+const isArbitraryLength = value => getIsArbitraryValue(value, isLabelLength, isLengthOnly);
+const isArbitraryNumber = value => getIsArbitraryValue(value, isLabelNumber, isNumber);
+const isArbitraryPosition = value => getIsArbitraryValue(value, isLabelPosition, isNever);
+const isArbitraryImage = value => getIsArbitraryValue(value, isLabelImage, isImage);
+const isArbitraryShadow = value => getIsArbitraryValue(value, isLabelShadow, isShadow);
+const isArbitraryVariable = value => arbitraryVariableRegex.test(value);
+const isArbitraryVariableLength = value => getIsArbitraryVariable(value, isLabelLength);
+const isArbitraryVariableFamilyName = value => getIsArbitraryVariable(value, isLabelFamilyName);
+const isArbitraryVariablePosition = value => getIsArbitraryVariable(value, isLabelPosition);
+const isArbitraryVariableSize = value => getIsArbitraryVariable(value, isLabelSize);
+const isArbitraryVariableImage = value => getIsArbitraryVariable(value, isLabelImage);
+const isArbitraryVariableShadow = value => getIsArbitraryVariable(value, isLabelShadow, true);
+// Helpers
+const getIsArbitraryValue = (value, testLabel, testValue) => {
+  const result = arbitraryValueRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return testValue(result[2]);
+  }
+  return false;
+};
+const getIsArbitraryVariable = (value, testLabel, shouldMatchNoLabel = false) => {
+  const result = arbitraryVariableRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return shouldMatchNoLabel;
+  }
+  return false;
+};
+// Labels
+const isLabelPosition = label => label === 'position' || label === 'percentage';
+const isLabelImage = label => label === 'image' || label === 'url';
+const isLabelSize = label => label === 'length' || label === 'size' || label === 'bg-size';
+const isLabelLength = label => label === 'length';
+const isLabelNumber = label => label === 'number';
+const isLabelFamilyName = label => label === 'family-name';
+const isLabelShadow = label => label === 'shadow';
+const validators = /*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  isAny,
+  isAnyNonArbitrary,
+  isArbitraryImage,
+  isArbitraryLength,
+  isArbitraryNumber,
+  isArbitraryPosition,
+  isArbitraryShadow,
+  isArbitrarySize,
+  isArbitraryValue,
+  isArbitraryVariable,
+  isArbitraryVariableFamilyName,
+  isArbitraryVariableImage,
+  isArbitraryVariableLength,
+  isArbitraryVariablePosition,
+  isArbitraryVariableShadow,
+  isArbitraryVariableSize,
+  isFraction,
+  isInteger,
+  isNumber,
+  isPercent,
+  isTshirtSize
+}, Symbol.toStringTag, {
+  value: 'Module'
+});
+const getDefaultConfig = () => {
+  /**
+   * Theme getters for theme variable namespaces
+   * @see https://tailwindcss.com/docs/theme#theme-variable-namespaces
+   */
+  /***/
+  const themeColor = fromTheme('color');
+  const themeFont = fromTheme('font');
+  const themeText = fromTheme('text');
+  const themeFontWeight = fromTheme('font-weight');
+  const themeTracking = fromTheme('tracking');
+  const themeLeading = fromTheme('leading');
+  const themeBreakpoint = fromTheme('breakpoint');
+  const themeContainer = fromTheme('container');
+  const themeSpacing = fromTheme('spacing');
+  const themeRadius = fromTheme('radius');
+  const themeShadow = fromTheme('shadow');
+  const themeInsetShadow = fromTheme('inset-shadow');
+  const themeTextShadow = fromTheme('text-shadow');
+  const themeDropShadow = fromTheme('drop-shadow');
+  const themeBlur = fromTheme('blur');
+  const themePerspective = fromTheme('perspective');
+  const themeAspect = fromTheme('aspect');
+  const themeEase = fromTheme('ease');
+  const themeAnimate = fromTheme('animate');
+  /**
+   * Helpers to avoid repeating the same scales
+   *
+   * We use functions that create a new array every time they're called instead of static arrays.
+   * This ensures that users who modify any scale by mutating the array (e.g. with `array.push(element)`) don't accidentally mutate arrays in other parts of the config.
+   */
+  /***/
+  const scaleBreak = () => ['auto', 'avoid', 'all', 'avoid-page', 'page', 'left', 'right', 'column'];
+  const scalePosition = () => ['center', 'top', 'bottom', 'left', 'right', 'top-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-top', 'top-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-top', 'bottom-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-bottom', 'bottom-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-bottom'];
+  const scalePositionWithArbitrary = () => [...scalePosition(), isArbitraryVariable, isArbitraryValue];
+  const scaleOverflow = () => ['auto', 'hidden', 'clip', 'visible', 'scroll'];
+  const scaleOverscroll = () => ['auto', 'contain', 'none'];
+  const scaleUnambiguousSpacing = () => [isArbitraryVariable, isArbitraryValue, themeSpacing];
+  const scaleInset = () => [isFraction, 'full', 'auto', ...scaleUnambiguousSpacing()];
+  const scaleGridTemplateColsRows = () => [isInteger, 'none', 'subgrid', isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartAndEnd = () => ['auto', {
+    span: ['full', isInteger, isArbitraryVariable, isArbitraryValue]
+  }, isInteger, isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartOrEnd = () => [isInteger, 'auto', isArbitraryVariable, isArbitraryValue];
+  const scaleGridAutoColsRows = () => ['auto', 'min', 'max', 'fr', isArbitraryVariable, isArbitraryValue];
+  const scaleAlignPrimaryAxis = () => ['start', 'end', 'center', 'between', 'around', 'evenly', 'stretch', 'baseline', 'center-safe', 'end-safe'];
+  const scaleAlignSecondaryAxis = () => ['start', 'end', 'center', 'stretch', 'center-safe', 'end-safe'];
+  const scaleMargin = () => ['auto', ...scaleUnambiguousSpacing()];
+  const scaleSizing = () => [isFraction, 'auto', 'full', 'dvw', 'dvh', 'lvw', 'lvh', 'svw', 'svh', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleColor = () => [themeColor, isArbitraryVariable, isArbitraryValue];
+  const scaleBgPosition = () => [...scalePosition(), isArbitraryVariablePosition, isArbitraryPosition, {
+    position: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleBgRepeat = () => ['no-repeat', {
+    repeat: ['', 'x', 'y', 'space', 'round']
+  }];
+  const scaleBgSize = () => ['auto', 'cover', 'contain', isArbitraryVariableSize, isArbitrarySize, {
+    size: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleGradientStopPosition = () => [isPercent, isArbitraryVariableLength, isArbitraryLength];
+  const scaleRadius = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', 'full', themeRadius, isArbitraryVariable, isArbitraryValue];
+  const scaleBorderWidth = () => ['', isNumber, isArbitraryVariableLength, isArbitraryLength];
+  const scaleLineStyle = () => ['solid', 'dashed', 'dotted', 'double'];
+  const scaleBlendMode = () => ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+  const scaleMaskImagePosition = () => [isNumber, isPercent, isArbitraryVariablePosition, isArbitraryPosition];
+  const scaleBlur = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', themeBlur, isArbitraryVariable, isArbitraryValue];
+  const scaleRotate = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleScale = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleSkew = () => [isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleTranslate = () => [isFraction, 'full', ...scaleUnambiguousSpacing()];
+  return {
+    cacheSize: 500,
+    theme: {
+      animate: ['spin', 'ping', 'pulse', 'bounce'],
+      aspect: ['video'],
+      blur: [isTshirtSize],
+      breakpoint: [isTshirtSize],
+      color: [isAny],
+      container: [isTshirtSize],
+      'drop-shadow': [isTshirtSize],
+      ease: ['in', 'out', 'in-out'],
+      font: [isAnyNonArbitrary],
+      'font-weight': ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+      'inset-shadow': [isTshirtSize],
+      leading: ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
+      perspective: ['dramatic', 'near', 'normal', 'midrange', 'distant', 'none'],
+      radius: [isTshirtSize],
+      shadow: [isTshirtSize],
+      spacing: ['px', isNumber],
+      text: [isTshirtSize],
+      'text-shadow': [isTshirtSize],
+      tracking: ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest']
+    },
+    classGroups: {
+      // --------------
+      // --- Layout ---
+      // --------------
+      /**
+       * Aspect Ratio
+       * @see https://tailwindcss.com/docs/aspect-ratio
+       */
+      aspect: [{
+        aspect: ['auto', 'square', isFraction, isArbitraryValue, isArbitraryVariable, themeAspect]
+      }],
+      /**
+       * Container
+       * @see https://tailwindcss.com/docs/container
+       * @deprecated since Tailwind CSS v4.0.0
+       */
+      container: ['container'],
+      /**
+       * Columns
+       * @see https://tailwindcss.com/docs/columns
+       */
+      columns: [{
+        columns: [isNumber, isArbitraryValue, isArbitraryVariable, themeContainer]
+      }],
+      /**
+       * Break After
+       * @see https://tailwindcss.com/docs/break-after
+       */
+      'break-after': [{
+        'break-after': scaleBreak()
+      }],
+      /**
+       * Break Before
+       * @see https://tailwindcss.com/docs/break-before
+       */
+      'break-before': [{
+        'break-before': scaleBreak()
+      }],
+      /**
+       * Break Inside
+       * @see https://tailwindcss.com/docs/break-inside
+       */
+      'break-inside': [{
+        'break-inside': ['auto', 'avoid', 'avoid-page', 'avoid-column']
+      }],
+      /**
+       * Box Decoration Break
+       * @see https://tailwindcss.com/docs/box-decoration-break
+       */
+      'box-decoration': [{
+        'box-decoration': ['slice', 'clone']
+      }],
+      /**
+       * Box Sizing
+       * @see https://tailwindcss.com/docs/box-sizing
+       */
+      box: [{
+        box: ['border', 'content']
+      }],
+      /**
+       * Display
+       * @see https://tailwindcss.com/docs/display
+       */
+      display: ['block', 'inline-block', 'inline', 'flex', 'inline-flex', 'table', 'inline-table', 'table-caption', 'table-cell', 'table-column', 'table-column-group', 'table-footer-group', 'table-header-group', 'table-row-group', 'table-row', 'flow-root', 'grid', 'inline-grid', 'contents', 'list-item', 'hidden'],
+      /**
+       * Screen Reader Only
+       * @see https://tailwindcss.com/docs/display#screen-reader-only
+       */
+      sr: ['sr-only', 'not-sr-only'],
+      /**
+       * Floats
+       * @see https://tailwindcss.com/docs/float
+       */
+      float: [{
+        float: ['right', 'left', 'none', 'start', 'end']
+      }],
+      /**
+       * Clear
+       * @see https://tailwindcss.com/docs/clear
+       */
+      clear: [{
+        clear: ['left', 'right', 'both', 'none', 'start', 'end']
+      }],
+      /**
+       * Isolation
+       * @see https://tailwindcss.com/docs/isolation
+       */
+      isolation: ['isolate', 'isolation-auto'],
+      /**
+       * Object Fit
+       * @see https://tailwindcss.com/docs/object-fit
+       */
+      'object-fit': [{
+        object: ['contain', 'cover', 'fill', 'none', 'scale-down']
+      }],
+      /**
+       * Object Position
+       * @see https://tailwindcss.com/docs/object-position
+       */
+      'object-position': [{
+        object: scalePositionWithArbitrary()
+      }],
+      /**
+       * Overflow
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      overflow: [{
+        overflow: scaleOverflow()
+      }],
+      /**
+       * Overflow X
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-x': [{
+        'overflow-x': scaleOverflow()
+      }],
+      /**
+       * Overflow Y
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-y': [{
+        'overflow-y': scaleOverflow()
+      }],
+      /**
+       * Overscroll Behavior
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      overscroll: [{
+        overscroll: scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior X
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-x': [{
+        'overscroll-x': scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior Y
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-y': [{
+        'overscroll-y': scaleOverscroll()
+      }],
+      /**
+       * Position
+       * @see https://tailwindcss.com/docs/position
+       */
+      position: ['static', 'fixed', 'absolute', 'relative', 'sticky'],
+      /**
+       * Top / Right / Bottom / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      inset: [{
+        inset: scaleInset()
+      }],
+      /**
+       * Right / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-x': [{
+        'inset-x': scaleInset()
+      }],
+      /**
+       * Top / Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-y': [{
+        'inset-y': scaleInset()
+      }],
+      /**
+       * Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      start: [{
+        start: scaleInset()
+      }],
+      /**
+       * End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      end: [{
+        end: scaleInset()
+      }],
+      /**
+       * Top
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      top: [{
+        top: scaleInset()
+      }],
+      /**
+       * Right
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      right: [{
+        right: scaleInset()
+      }],
+      /**
+       * Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      bottom: [{
+        bottom: scaleInset()
+      }],
+      /**
+       * Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      left: [{
+        left: scaleInset()
+      }],
+      /**
+       * Visibility
+       * @see https://tailwindcss.com/docs/visibility
+       */
+      visibility: ['visible', 'invisible', 'collapse'],
+      /**
+       * Z-Index
+       * @see https://tailwindcss.com/docs/z-index
+       */
+      z: [{
+        z: [isInteger, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------------
+      // --- Flexbox and Grid ---
+      // ------------------------
+      /**
+       * Flex Basis
+       * @see https://tailwindcss.com/docs/flex-basis
+       */
+      basis: [{
+        basis: [isFraction, 'full', 'auto', themeContainer, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * Flex Direction
+       * @see https://tailwindcss.com/docs/flex-direction
+       */
+      'flex-direction': [{
+        flex: ['row', 'row-reverse', 'col', 'col-reverse']
+      }],
+      /**
+       * Flex Wrap
+       * @see https://tailwindcss.com/docs/flex-wrap
+       */
+      'flex-wrap': [{
+        flex: ['nowrap', 'wrap', 'wrap-reverse']
+      }],
+      /**
+       * Flex
+       * @see https://tailwindcss.com/docs/flex
+       */
+      flex: [{
+        flex: [isNumber, isFraction, 'auto', 'initial', 'none', isArbitraryValue]
+      }],
+      /**
+       * Flex Grow
+       * @see https://tailwindcss.com/docs/flex-grow
+       */
+      grow: [{
+        grow: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Flex Shrink
+       * @see https://tailwindcss.com/docs/flex-shrink
+       */
+      shrink: [{
+        shrink: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Order
+       * @see https://tailwindcss.com/docs/order
+       */
+      order: [{
+        order: [isInteger, 'first', 'last', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Grid Template Columns
+       * @see https://tailwindcss.com/docs/grid-template-columns
+       */
+      'grid-cols': [{
+        'grid-cols': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Column Start / End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start-end': [{
+        col: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Column Start
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start': [{
+        'col-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Column End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-end': [{
+        'col-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Template Rows
+       * @see https://tailwindcss.com/docs/grid-template-rows
+       */
+      'grid-rows': [{
+        'grid-rows': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Row Start / End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start-end': [{
+        row: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Row Start
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start': [{
+        'row-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Row End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-end': [{
+        'row-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Auto Flow
+       * @see https://tailwindcss.com/docs/grid-auto-flow
+       */
+      'grid-flow': [{
+        'grid-flow': ['row', 'col', 'dense', 'row-dense', 'col-dense']
+      }],
+      /**
+       * Grid Auto Columns
+       * @see https://tailwindcss.com/docs/grid-auto-columns
+       */
+      'auto-cols': [{
+        'auto-cols': scaleGridAutoColsRows()
+      }],
+      /**
+       * Grid Auto Rows
+       * @see https://tailwindcss.com/docs/grid-auto-rows
+       */
+      'auto-rows': [{
+        'auto-rows': scaleGridAutoColsRows()
+      }],
+      /**
+       * Gap
+       * @see https://tailwindcss.com/docs/gap
+       */
+      gap: [{
+        gap: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap X
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-x': [{
+        'gap-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap Y
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-y': [{
+        'gap-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Justify Content
+       * @see https://tailwindcss.com/docs/justify-content
+       */
+      'justify-content': [{
+        justify: [...scaleAlignPrimaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Items
+       * @see https://tailwindcss.com/docs/justify-items
+       */
+      'justify-items': [{
+        'justify-items': [...scaleAlignSecondaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Self
+       * @see https://tailwindcss.com/docs/justify-self
+       */
+      'justify-self': [{
+        'justify-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      /**
+       * Align Content
+       * @see https://tailwindcss.com/docs/align-content
+       */
+      'align-content': [{
+        content: ['normal', ...scaleAlignPrimaryAxis()]
+      }],
+      /**
+       * Align Items
+       * @see https://tailwindcss.com/docs/align-items
+       */
+      'align-items': [{
+        items: [...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Align Self
+       * @see https://tailwindcss.com/docs/align-self
+       */
+      'align-self': [{
+        self: ['auto', ...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Place Content
+       * @see https://tailwindcss.com/docs/place-content
+       */
+      'place-content': [{
+        'place-content': scaleAlignPrimaryAxis()
+      }],
+      /**
+       * Place Items
+       * @see https://tailwindcss.com/docs/place-items
+       */
+      'place-items': [{
+        'place-items': [...scaleAlignSecondaryAxis(), 'baseline']
+      }],
+      /**
+       * Place Self
+       * @see https://tailwindcss.com/docs/place-self
+       */
+      'place-self': [{
+        'place-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      // Spacing
+      /**
+       * Padding
+       * @see https://tailwindcss.com/docs/padding
+       */
+      p: [{
+        p: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding X
+       * @see https://tailwindcss.com/docs/padding
+       */
+      px: [{
+        px: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Y
+       * @see https://tailwindcss.com/docs/padding
+       */
+      py: [{
+        py: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      ps: [{
+        ps: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pe: [{
+        pe: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Top
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pt: [{
+        pt: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Right
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pr: [{
+        pr: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Bottom
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pb: [{
+        pb: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Left
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pl: [{
+        pl: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Margin
+       * @see https://tailwindcss.com/docs/margin
+       */
+      m: [{
+        m: scaleMargin()
+      }],
+      /**
+       * Margin X
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mx: [{
+        mx: scaleMargin()
+      }],
+      /**
+       * Margin Y
+       * @see https://tailwindcss.com/docs/margin
+       */
+      my: [{
+        my: scaleMargin()
+      }],
+      /**
+       * Margin Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ms: [{
+        ms: scaleMargin()
+      }],
+      /**
+       * Margin End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      me: [{
+        me: scaleMargin()
+      }],
+      /**
+       * Margin Top
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mt: [{
+        mt: scaleMargin()
+      }],
+      /**
+       * Margin Right
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mr: [{
+        mr: scaleMargin()
+      }],
+      /**
+       * Margin Bottom
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mb: [{
+        mb: scaleMargin()
+      }],
+      /**
+       * Margin Left
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ml: [{
+        ml: scaleMargin()
+      }],
+      /**
+       * Space Between X
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x': [{
+        'space-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between X Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x-reverse': ['space-x-reverse'],
+      /**
+       * Space Between Y
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y': [{
+        'space-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between Y Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y-reverse': ['space-y-reverse'],
+      // --------------
+      // --- Sizing ---
+      // --------------
+      /**
+       * Size
+       * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
+       */
+      size: [{
+        size: scaleSizing()
+      }],
+      /**
+       * Width
+       * @see https://tailwindcss.com/docs/width
+       */
+      w: [{
+        w: [themeContainer, 'screen', ...scaleSizing()]
+      }],
+      /**
+       * Min-Width
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      'min-w': [{
+        'min-w': [themeContainer, 'screen', /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Width
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      'max-w': [{
+        'max-w': [themeContainer, 'screen', 'none', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'prose', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        {
+          screen: [themeBreakpoint]
+        }, ...scaleSizing()]
+      }],
+      /**
+       * Height
+       * @see https://tailwindcss.com/docs/height
+       */
+      h: [{
+        h: ['screen', 'lh', ...scaleSizing()]
+      }],
+      /**
+       * Min-Height
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      'min-h': [{
+        'min-h': ['screen', 'lh', 'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Height
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      'max-h': [{
+        'max-h': ['screen', 'lh', ...scaleSizing()]
+      }],
+      // ------------------
+      // --- Typography ---
+      // ------------------
+      /**
+       * Font Size
+       * @see https://tailwindcss.com/docs/font-size
+       */
+      'font-size': [{
+        text: ['base', themeText, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Font Smoothing
+       * @see https://tailwindcss.com/docs/font-smoothing
+       */
+      'font-smoothing': ['antialiased', 'subpixel-antialiased'],
+      /**
+       * Font Style
+       * @see https://tailwindcss.com/docs/font-style
+       */
+      'font-style': ['italic', 'not-italic'],
+      /**
+       * Font Weight
+       * @see https://tailwindcss.com/docs/font-weight
+       */
+      'font-weight': [{
+        font: [themeFontWeight, isArbitraryVariable, isArbitraryNumber]
+      }],
+      /**
+       * Font Stretch
+       * @see https://tailwindcss.com/docs/font-stretch
+       */
+      'font-stretch': [{
+        'font-stretch': ['ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal', 'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded', isPercent, isArbitraryValue]
+      }],
+      /**
+       * Font Family
+       * @see https://tailwindcss.com/docs/font-family
+       */
+      'font-family': [{
+        font: [isArbitraryVariableFamilyName, isArbitraryValue, themeFont]
+      }],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-normal': ['normal-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-ordinal': ['ordinal'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-slashed-zero': ['slashed-zero'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-figure': ['lining-nums', 'oldstyle-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-spacing': ['proportional-nums', 'tabular-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-fraction': ['diagonal-fractions', 'stacked-fractions'],
+      /**
+       * Letter Spacing
+       * @see https://tailwindcss.com/docs/letter-spacing
+       */
+      tracking: [{
+        tracking: [themeTracking, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Line Clamp
+       * @see https://tailwindcss.com/docs/line-clamp
+       */
+      'line-clamp': [{
+        'line-clamp': [isNumber, 'none', isArbitraryVariable, isArbitraryNumber]
+      }],
+      /**
+       * Line Height
+       * @see https://tailwindcss.com/docs/line-height
+       */
+      leading: [{
+        leading: [/** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        themeLeading, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * List Style Image
+       * @see https://tailwindcss.com/docs/list-style-image
+       */
+      'list-image': [{
+        'list-image': ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * List Style Position
+       * @see https://tailwindcss.com/docs/list-style-position
+       */
+      'list-style-position': [{
+        list: ['inside', 'outside']
+      }],
+      /**
+       * List Style Type
+       * @see https://tailwindcss.com/docs/list-style-type
+       */
+      'list-style-type': [{
+        list: ['disc', 'decimal', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Alignment
+       * @see https://tailwindcss.com/docs/text-align
+       */
+      'text-alignment': [{
+        text: ['left', 'center', 'right', 'justify', 'start', 'end']
+      }],
+      /**
+       * Placeholder Color
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://v3.tailwindcss.com/docs/placeholder-color
+       */
+      'placeholder-color': [{
+        placeholder: scaleColor()
+      }],
+      /**
+       * Text Color
+       * @see https://tailwindcss.com/docs/text-color
+       */
+      'text-color': [{
+        text: scaleColor()
+      }],
+      /**
+       * Text Decoration
+       * @see https://tailwindcss.com/docs/text-decoration
+       */
+      'text-decoration': ['underline', 'overline', 'line-through', 'no-underline'],
+      /**
+       * Text Decoration Style
+       * @see https://tailwindcss.com/docs/text-decoration-style
+       */
+      'text-decoration-style': [{
+        decoration: [...scaleLineStyle(), 'wavy']
+      }],
+      /**
+       * Text Decoration Thickness
+       * @see https://tailwindcss.com/docs/text-decoration-thickness
+       */
+      'text-decoration-thickness': [{
+        decoration: [isNumber, 'from-font', 'auto', isArbitraryVariable, isArbitraryLength]
+      }],
+      /**
+       * Text Decoration Color
+       * @see https://tailwindcss.com/docs/text-decoration-color
+       */
+      'text-decoration-color': [{
+        decoration: scaleColor()
+      }],
+      /**
+       * Text Underline Offset
+       * @see https://tailwindcss.com/docs/text-underline-offset
+       */
+      'underline-offset': [{
+        'underline-offset': [isNumber, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Transform
+       * @see https://tailwindcss.com/docs/text-transform
+       */
+      'text-transform': ['uppercase', 'lowercase', 'capitalize', 'normal-case'],
+      /**
+       * Text Overflow
+       * @see https://tailwindcss.com/docs/text-overflow
+       */
+      'text-overflow': ['truncate', 'text-ellipsis', 'text-clip'],
+      /**
+       * Text Wrap
+       * @see https://tailwindcss.com/docs/text-wrap
+       */
+      'text-wrap': [{
+        text: ['wrap', 'nowrap', 'balance', 'pretty']
+      }],
+      /**
+       * Text Indent
+       * @see https://tailwindcss.com/docs/text-indent
+       */
+      indent: [{
+        indent: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Vertical Alignment
+       * @see https://tailwindcss.com/docs/vertical-align
+       */
+      'vertical-align': [{
+        align: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Whitespace
+       * @see https://tailwindcss.com/docs/whitespace
+       */
+      whitespace: [{
+        whitespace: ['normal', 'nowrap', 'pre', 'pre-line', 'pre-wrap', 'break-spaces']
+      }],
+      /**
+       * Word Break
+       * @see https://tailwindcss.com/docs/word-break
+       */
+      break: [{
+        break: ['normal', 'words', 'all', 'keep']
+      }],
+      /**
+       * Overflow Wrap
+       * @see https://tailwindcss.com/docs/overflow-wrap
+       */
+      wrap: [{
+        wrap: ['break-word', 'anywhere', 'normal']
+      }],
+      /**
+       * Hyphens
+       * @see https://tailwindcss.com/docs/hyphens
+       */
+      hyphens: [{
+        hyphens: ['none', 'manual', 'auto']
+      }],
+      /**
+       * Content
+       * @see https://tailwindcss.com/docs/content
+       */
+      content: [{
+        content: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -------------------
+      // --- Backgrounds ---
+      // -------------------
+      /**
+       * Background Attachment
+       * @see https://tailwindcss.com/docs/background-attachment
+       */
+      'bg-attachment': [{
+        bg: ['fixed', 'local', 'scroll']
+      }],
+      /**
+       * Background Clip
+       * @see https://tailwindcss.com/docs/background-clip
+       */
+      'bg-clip': [{
+        'bg-clip': ['border', 'padding', 'content', 'text']
+      }],
+      /**
+       * Background Origin
+       * @see https://tailwindcss.com/docs/background-origin
+       */
+      'bg-origin': [{
+        'bg-origin': ['border', 'padding', 'content']
+      }],
+      /**
+       * Background Position
+       * @see https://tailwindcss.com/docs/background-position
+       */
+      'bg-position': [{
+        bg: scaleBgPosition()
+      }],
+      /**
+       * Background Repeat
+       * @see https://tailwindcss.com/docs/background-repeat
+       */
+      'bg-repeat': [{
+        bg: scaleBgRepeat()
+      }],
+      /**
+       * Background Size
+       * @see https://tailwindcss.com/docs/background-size
+       */
+      'bg-size': [{
+        bg: scaleBgSize()
+      }],
+      /**
+       * Background Image
+       * @see https://tailwindcss.com/docs/background-image
+       */
+      'bg-image': [{
+        bg: ['none', {
+          linear: [{
+            to: ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']
+          }, isInteger, isArbitraryVariable, isArbitraryValue],
+          radial: ['', isArbitraryVariable, isArbitraryValue],
+          conic: [isInteger, isArbitraryVariable, isArbitraryValue]
+        }, isArbitraryVariableImage, isArbitraryImage]
+      }],
+      /**
+       * Background Color
+       * @see https://tailwindcss.com/docs/background-color
+       */
+      'bg-color': [{
+        bg: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops From Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from-pos': [{
+        from: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops Via Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via-pos': [{
+        via: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops To Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to-pos': [{
+        to: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops From
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from': [{
+        from: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops Via
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via': [{
+        via: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops To
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to': [{
+        to: scaleColor()
+      }],
+      // ---------------
+      // --- Borders ---
+      // ---------------
+      /**
+       * Border Radius
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      rounded: [{
+        rounded: scaleRadius()
+      }],
+      /**
+       * Border Radius Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-s': [{
+        'rounded-s': scaleRadius()
+      }],
+      /**
+       * Border Radius End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-e': [{
+        'rounded-e': scaleRadius()
+      }],
+      /**
+       * Border Radius Top
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-t': [{
+        'rounded-t': scaleRadius()
+      }],
+      /**
+       * Border Radius Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-r': [{
+        'rounded-r': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-b': [{
+        'rounded-b': scaleRadius()
+      }],
+      /**
+       * Border Radius Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-l': [{
+        'rounded-l': scaleRadius()
+      }],
+      /**
+       * Border Radius Start Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ss': [{
+        'rounded-ss': scaleRadius()
+      }],
+      /**
+       * Border Radius Start End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-se': [{
+        'rounded-se': scaleRadius()
+      }],
+      /**
+       * Border Radius End End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ee': [{
+        'rounded-ee': scaleRadius()
+      }],
+      /**
+       * Border Radius End Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-es': [{
+        'rounded-es': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tl': [{
+        'rounded-tl': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tr': [{
+        'rounded-tr': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-br': [{
+        'rounded-br': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-bl': [{
+        'rounded-bl': scaleRadius()
+      }],
+      /**
+       * Border Width
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w': [{
+        border: scaleBorderWidth()
+      }],
+      /**
+       * Border Width X
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-x': [{
+        'border-x': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Y
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-y': [{
+        'border-y': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-s': [{
+        'border-s': scaleBorderWidth()
+      }],
+      /**
+       * Border Width End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-e': [{
+        'border-e': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Top
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-t': [{
+        'border-t': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Right
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-r': [{
+        'border-r': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Bottom
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-b': [{
+        'border-b': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Left
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-l': [{
+        'border-l': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x': [{
+        'divide-x': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x-reverse': ['divide-x-reverse'],
+      /**
+       * Divide Width Y
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y': [{
+        'divide-y': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width Y Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y-reverse': ['divide-y-reverse'],
+      /**
+       * Border Style
+       * @see https://tailwindcss.com/docs/border-style
+       */
+      'border-style': [{
+        border: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Divide Style
+       * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
+       */
+      'divide-style': [{
+        divide: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Border Color
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color': [{
+        border: scaleColor()
+      }],
+      /**
+       * Border Color X
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-x': [{
+        'border-x': scaleColor()
+      }],
+      /**
+       * Border Color Y
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-y': [{
+        'border-y': scaleColor()
+      }],
+      /**
+       * Border Color S
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-s': [{
+        'border-s': scaleColor()
+      }],
+      /**
+       * Border Color E
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-e': [{
+        'border-e': scaleColor()
+      }],
+      /**
+       * Border Color Top
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-t': [{
+        'border-t': scaleColor()
+      }],
+      /**
+       * Border Color Right
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-r': [{
+        'border-r': scaleColor()
+      }],
+      /**
+       * Border Color Bottom
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-b': [{
+        'border-b': scaleColor()
+      }],
+      /**
+       * Border Color Left
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-l': [{
+        'border-l': scaleColor()
+      }],
+      /**
+       * Divide Color
+       * @see https://tailwindcss.com/docs/divide-color
+       */
+      'divide-color': [{
+        divide: scaleColor()
+      }],
+      /**
+       * Outline Style
+       * @see https://tailwindcss.com/docs/outline-style
+       */
+      'outline-style': [{
+        outline: [...scaleLineStyle(), 'none', 'hidden']
+      }],
+      /**
+       * Outline Offset
+       * @see https://tailwindcss.com/docs/outline-offset
+       */
+      'outline-offset': [{
+        'outline-offset': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Outline Width
+       * @see https://tailwindcss.com/docs/outline-width
+       */
+      'outline-w': [{
+        outline: ['', isNumber, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Outline Color
+       * @see https://tailwindcss.com/docs/outline-color
+       */
+      'outline-color': [{
+        outline: scaleColor()
+      }],
+      // ---------------
+      // --- Effects ---
+      // ---------------
+      /**
+       * Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow
+       */
+      shadow: [{
+        shadow: [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+       */
+      'shadow-color': [{
+        shadow: scaleColor()
+      }],
+      /**
+       * Inset Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+       */
+      'inset-shadow': [{
+        'inset-shadow': ['none', themeInsetShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Inset Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+       */
+      'inset-shadow-color': [{
+        'inset-shadow': scaleColor()
+      }],
+      /**
+       * Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+       */
+      'ring-w': [{
+        ring: scaleBorderWidth()
+      }],
+      /**
+       * Ring Width Inset
+       * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-w-inset': ['ring-inset'],
+      /**
+       * Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+       */
+      'ring-color': [{
+        ring: scaleColor()
+      }],
+      /**
+       * Ring Offset Width
+       * @see https://v3.tailwindcss.com/docs/ring-offset-width
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-w': [{
+        'ring-offset': [isNumber, isArbitraryLength]
+      }],
+      /**
+       * Ring Offset Color
+       * @see https://v3.tailwindcss.com/docs/ring-offset-color
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-color': [{
+        'ring-offset': scaleColor()
+      }],
+      /**
+       * Inset Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+       */
+      'inset-ring-w': [{
+        'inset-ring': scaleBorderWidth()
+      }],
+      /**
+       * Inset Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+       */
+      'inset-ring-color': [{
+        'inset-ring': scaleColor()
+      }],
+      /**
+       * Text Shadow
+       * @see https://tailwindcss.com/docs/text-shadow
+       */
+      'text-shadow': [{
+        'text-shadow': ['none', themeTextShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Text Shadow Color
+       * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
+       */
+      'text-shadow-color': [{
+        'text-shadow': scaleColor()
+      }],
+      /**
+       * Opacity
+       * @see https://tailwindcss.com/docs/opacity
+       */
+      opacity: [{
+        opacity: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Mix Blend Mode
+       * @see https://tailwindcss.com/docs/mix-blend-mode
+       */
+      'mix-blend': [{
+        'mix-blend': [...scaleBlendMode(), 'plus-darker', 'plus-lighter']
+      }],
+      /**
+       * Background Blend Mode
+       * @see https://tailwindcss.com/docs/background-blend-mode
+       */
+      'bg-blend': [{
+        'bg-blend': scaleBlendMode()
+      }],
+      /**
+       * Mask Clip
+       * @see https://tailwindcss.com/docs/mask-clip
+       */
+      'mask-clip': [{
+        'mask-clip': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }, 'mask-no-clip'],
+      /**
+       * Mask Composite
+       * @see https://tailwindcss.com/docs/mask-composite
+       */
+      'mask-composite': [{
+        mask: ['add', 'subtract', 'intersect', 'exclude']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image-linear-pos': [{
+        'mask-linear': [isNumber]
+      }],
+      'mask-image-linear-from-pos': [{
+        'mask-linear-from': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-to-pos': [{
+        'mask-linear-to': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-from-color': [{
+        'mask-linear-from': scaleColor()
+      }],
+      'mask-image-linear-to-color': [{
+        'mask-linear-to': scaleColor()
+      }],
+      'mask-image-t-from-pos': [{
+        'mask-t-from': scaleMaskImagePosition()
+      }],
+      'mask-image-t-to-pos': [{
+        'mask-t-to': scaleMaskImagePosition()
+      }],
+      'mask-image-t-from-color': [{
+        'mask-t-from': scaleColor()
+      }],
+      'mask-image-t-to-color': [{
+        'mask-t-to': scaleColor()
+      }],
+      'mask-image-r-from-pos': [{
+        'mask-r-from': scaleMaskImagePosition()
+      }],
+      'mask-image-r-to-pos': [{
+        'mask-r-to': scaleMaskImagePosition()
+      }],
+      'mask-image-r-from-color': [{
+        'mask-r-from': scaleColor()
+      }],
+      'mask-image-r-to-color': [{
+        'mask-r-to': scaleColor()
+      }],
+      'mask-image-b-from-pos': [{
+        'mask-b-from': scaleMaskImagePosition()
+      }],
+      'mask-image-b-to-pos': [{
+        'mask-b-to': scaleMaskImagePosition()
+      }],
+      'mask-image-b-from-color': [{
+        'mask-b-from': scaleColor()
+      }],
+      'mask-image-b-to-color': [{
+        'mask-b-to': scaleColor()
+      }],
+      'mask-image-l-from-pos': [{
+        'mask-l-from': scaleMaskImagePosition()
+      }],
+      'mask-image-l-to-pos': [{
+        'mask-l-to': scaleMaskImagePosition()
+      }],
+      'mask-image-l-from-color': [{
+        'mask-l-from': scaleColor()
+      }],
+      'mask-image-l-to-color': [{
+        'mask-l-to': scaleColor()
+      }],
+      'mask-image-x-from-pos': [{
+        'mask-x-from': scaleMaskImagePosition()
+      }],
+      'mask-image-x-to-pos': [{
+        'mask-x-to': scaleMaskImagePosition()
+      }],
+      'mask-image-x-from-color': [{
+        'mask-x-from': scaleColor()
+      }],
+      'mask-image-x-to-color': [{
+        'mask-x-to': scaleColor()
+      }],
+      'mask-image-y-from-pos': [{
+        'mask-y-from': scaleMaskImagePosition()
+      }],
+      'mask-image-y-to-pos': [{
+        'mask-y-to': scaleMaskImagePosition()
+      }],
+      'mask-image-y-from-color': [{
+        'mask-y-from': scaleColor()
+      }],
+      'mask-image-y-to-color': [{
+        'mask-y-to': scaleColor()
+      }],
+      'mask-image-radial': [{
+        'mask-radial': [isArbitraryVariable, isArbitraryValue]
+      }],
+      'mask-image-radial-from-pos': [{
+        'mask-radial-from': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-to-pos': [{
+        'mask-radial-to': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-from-color': [{
+        'mask-radial-from': scaleColor()
+      }],
+      'mask-image-radial-to-color': [{
+        'mask-radial-to': scaleColor()
+      }],
+      'mask-image-radial-shape': [{
+        'mask-radial': ['circle', 'ellipse']
+      }],
+      'mask-image-radial-size': [{
+        'mask-radial': [{
+          closest: ['side', 'corner'],
+          farthest: ['side', 'corner']
+        }]
+      }],
+      'mask-image-radial-pos': [{
+        'mask-radial-at': scalePosition()
+      }],
+      'mask-image-conic-pos': [{
+        'mask-conic': [isNumber]
+      }],
+      'mask-image-conic-from-pos': [{
+        'mask-conic-from': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-to-pos': [{
+        'mask-conic-to': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-from-color': [{
+        'mask-conic-from': scaleColor()
+      }],
+      'mask-image-conic-to-color': [{
+        'mask-conic-to': scaleColor()
+      }],
+      /**
+       * Mask Mode
+       * @see https://tailwindcss.com/docs/mask-mode
+       */
+      'mask-mode': [{
+        mask: ['alpha', 'luminance', 'match']
+      }],
+      /**
+       * Mask Origin
+       * @see https://tailwindcss.com/docs/mask-origin
+       */
+      'mask-origin': [{
+        'mask-origin': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }],
+      /**
+       * Mask Position
+       * @see https://tailwindcss.com/docs/mask-position
+       */
+      'mask-position': [{
+        mask: scaleBgPosition()
+      }],
+      /**
+       * Mask Repeat
+       * @see https://tailwindcss.com/docs/mask-repeat
+       */
+      'mask-repeat': [{
+        mask: scaleBgRepeat()
+      }],
+      /**
+       * Mask Size
+       * @see https://tailwindcss.com/docs/mask-size
+       */
+      'mask-size': [{
+        mask: scaleBgSize()
+      }],
+      /**
+       * Mask Type
+       * @see https://tailwindcss.com/docs/mask-type
+       */
+      'mask-type': [{
+        'mask-type': ['alpha', 'luminance']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image': [{
+        mask: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ---------------
+      // --- Filters ---
+      // ---------------
+      /**
+       * Filter
+       * @see https://tailwindcss.com/docs/filter
+       */
+      filter: [{
+        filter: [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Blur
+       * @see https://tailwindcss.com/docs/blur
+       */
+      blur: [{
+        blur: scaleBlur()
+      }],
+      /**
+       * Brightness
+       * @see https://tailwindcss.com/docs/brightness
+       */
+      brightness: [{
+        brightness: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Contrast
+       * @see https://tailwindcss.com/docs/contrast
+       */
+      contrast: [{
+        contrast: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Drop Shadow
+       * @see https://tailwindcss.com/docs/drop-shadow
+       */
+      'drop-shadow': [{
+        'drop-shadow': [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeDropShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Drop Shadow Color
+       * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
+       */
+      'drop-shadow-color': [{
+        'drop-shadow': scaleColor()
+      }],
+      /**
+       * Grayscale
+       * @see https://tailwindcss.com/docs/grayscale
+       */
+      grayscale: [{
+        grayscale: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Hue Rotate
+       * @see https://tailwindcss.com/docs/hue-rotate
+       */
+      'hue-rotate': [{
+        'hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Invert
+       * @see https://tailwindcss.com/docs/invert
+       */
+      invert: [{
+        invert: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Saturate
+       * @see https://tailwindcss.com/docs/saturate
+       */
+      saturate: [{
+        saturate: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Sepia
+       * @see https://tailwindcss.com/docs/sepia
+       */
+      sepia: [{
+        sepia: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Filter
+       * @see https://tailwindcss.com/docs/backdrop-filter
+       */
+      'backdrop-filter': [{
+        'backdrop-filter': [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Blur
+       * @see https://tailwindcss.com/docs/backdrop-blur
+       */
+      'backdrop-blur': [{
+        'backdrop-blur': scaleBlur()
+      }],
+      /**
+       * Backdrop Brightness
+       * @see https://tailwindcss.com/docs/backdrop-brightness
+       */
+      'backdrop-brightness': [{
+        'backdrop-brightness': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Contrast
+       * @see https://tailwindcss.com/docs/backdrop-contrast
+       */
+      'backdrop-contrast': [{
+        'backdrop-contrast': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Grayscale
+       * @see https://tailwindcss.com/docs/backdrop-grayscale
+       */
+      'backdrop-grayscale': [{
+        'backdrop-grayscale': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Hue Rotate
+       * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+       */
+      'backdrop-hue-rotate': [{
+        'backdrop-hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Invert
+       * @see https://tailwindcss.com/docs/backdrop-invert
+       */
+      'backdrop-invert': [{
+        'backdrop-invert': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Opacity
+       * @see https://tailwindcss.com/docs/backdrop-opacity
+       */
+      'backdrop-opacity': [{
+        'backdrop-opacity': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Saturate
+       * @see https://tailwindcss.com/docs/backdrop-saturate
+       */
+      'backdrop-saturate': [{
+        'backdrop-saturate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Sepia
+       * @see https://tailwindcss.com/docs/backdrop-sepia
+       */
+      'backdrop-sepia': [{
+        'backdrop-sepia': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      // --------------
+      // --- Tables ---
+      // --------------
+      /**
+       * Border Collapse
+       * @see https://tailwindcss.com/docs/border-collapse
+       */
+      'border-collapse': [{
+        border: ['collapse', 'separate']
+      }],
+      /**
+       * Border Spacing
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing': [{
+        'border-spacing': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing X
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-x': [{
+        'border-spacing-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing Y
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-y': [{
+        'border-spacing-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Table Layout
+       * @see https://tailwindcss.com/docs/table-layout
+       */
+      'table-layout': [{
+        table: ['auto', 'fixed']
+      }],
+      /**
+       * Caption Side
+       * @see https://tailwindcss.com/docs/caption-side
+       */
+      caption: [{
+        caption: ['top', 'bottom']
+      }],
+      // ---------------------------------
+      // --- Transitions and Animation ---
+      // ---------------------------------
+      /**
+       * Transition Property
+       * @see https://tailwindcss.com/docs/transition-property
+       */
+      transition: [{
+        transition: ['', 'all', 'colors', 'opacity', 'shadow', 'transform', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Behavior
+       * @see https://tailwindcss.com/docs/transition-behavior
+       */
+      'transition-behavior': [{
+        transition: ['normal', 'discrete']
+      }],
+      /**
+       * Transition Duration
+       * @see https://tailwindcss.com/docs/transition-duration
+       */
+      duration: [{
+        duration: [isNumber, 'initial', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Timing Function
+       * @see https://tailwindcss.com/docs/transition-timing-function
+       */
+      ease: [{
+        ease: ['linear', 'initial', themeEase, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Delay
+       * @see https://tailwindcss.com/docs/transition-delay
+       */
+      delay: [{
+        delay: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Animation
+       * @see https://tailwindcss.com/docs/animation
+       */
+      animate: [{
+        animate: ['none', themeAnimate, isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------
+      // --- Transforms ---
+      // ------------------
+      /**
+       * Backface Visibility
+       * @see https://tailwindcss.com/docs/backface-visibility
+       */
+      backface: [{
+        backface: ['hidden', 'visible']
+      }],
+      /**
+       * Perspective
+       * @see https://tailwindcss.com/docs/perspective
+       */
+      perspective: [{
+        perspective: [themePerspective, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Perspective Origin
+       * @see https://tailwindcss.com/docs/perspective-origin
+       */
+      'perspective-origin': [{
+        'perspective-origin': scalePositionWithArbitrary()
+      }],
+      /**
+       * Rotate
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      rotate: [{
+        rotate: scaleRotate()
+      }],
+      /**
+       * Rotate X
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-x': [{
+        'rotate-x': scaleRotate()
+      }],
+      /**
+       * Rotate Y
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-y': [{
+        'rotate-y': scaleRotate()
+      }],
+      /**
+       * Rotate Z
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-z': [{
+        'rotate-z': scaleRotate()
+      }],
+      /**
+       * Scale
+       * @see https://tailwindcss.com/docs/scale
+       */
+      scale: [{
+        scale: scaleScale()
+      }],
+      /**
+       * Scale X
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-x': [{
+        'scale-x': scaleScale()
+      }],
+      /**
+       * Scale Y
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-y': [{
+        'scale-y': scaleScale()
+      }],
+      /**
+       * Scale Z
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-z': [{
+        'scale-z': scaleScale()
+      }],
+      /**
+       * Scale 3D
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-3d': ['scale-3d'],
+      /**
+       * Skew
+       * @see https://tailwindcss.com/docs/skew
+       */
+      skew: [{
+        skew: scaleSkew()
+      }],
+      /**
+       * Skew X
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-x': [{
+        'skew-x': scaleSkew()
+      }],
+      /**
+       * Skew Y
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-y': [{
+        'skew-y': scaleSkew()
+      }],
+      /**
+       * Transform
+       * @see https://tailwindcss.com/docs/transform
+       */
+      transform: [{
+        transform: [isArbitraryVariable, isArbitraryValue, '', 'none', 'gpu', 'cpu']
+      }],
+      /**
+       * Transform Origin
+       * @see https://tailwindcss.com/docs/transform-origin
+       */
+      'transform-origin': [{
+        origin: scalePositionWithArbitrary()
+      }],
+      /**
+       * Transform Style
+       * @see https://tailwindcss.com/docs/transform-style
+       */
+      'transform-style': [{
+        transform: ['3d', 'flat']
+      }],
+      /**
+       * Translate
+       * @see https://tailwindcss.com/docs/translate
+       */
+      translate: [{
+        translate: scaleTranslate()
+      }],
+      /**
+       * Translate X
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-x': [{
+        'translate-x': scaleTranslate()
+      }],
+      /**
+       * Translate Y
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-y': [{
+        'translate-y': scaleTranslate()
+      }],
+      /**
+       * Translate Z
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-z': [{
+        'translate-z': scaleTranslate()
+      }],
+      /**
+       * Translate None
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-none': ['translate-none'],
+      // ---------------------
+      // --- Interactivity ---
+      // ---------------------
+      /**
+       * Accent Color
+       * @see https://tailwindcss.com/docs/accent-color
+       */
+      accent: [{
+        accent: scaleColor()
+      }],
+      /**
+       * Appearance
+       * @see https://tailwindcss.com/docs/appearance
+       */
+      appearance: [{
+        appearance: ['none', 'auto']
+      }],
+      /**
+       * Caret Color
+       * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+       */
+      'caret-color': [{
+        caret: scaleColor()
+      }],
+      /**
+       * Color Scheme
+       * @see https://tailwindcss.com/docs/color-scheme
+       */
+      'color-scheme': [{
+        scheme: ['normal', 'dark', 'light', 'light-dark', 'only-dark', 'only-light']
+      }],
+      /**
+       * Cursor
+       * @see https://tailwindcss.com/docs/cursor
+       */
+      cursor: [{
+        cursor: ['auto', 'default', 'pointer', 'wait', 'text', 'move', 'help', 'not-allowed', 'none', 'context-menu', 'progress', 'cell', 'crosshair', 'vertical-text', 'alias', 'copy', 'no-drop', 'grab', 'grabbing', 'all-scroll', 'col-resize', 'row-resize', 'n-resize', 'e-resize', 's-resize', 'w-resize', 'ne-resize', 'nw-resize', 'se-resize', 'sw-resize', 'ew-resize', 'ns-resize', 'nesw-resize', 'nwse-resize', 'zoom-in', 'zoom-out', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Field Sizing
+       * @see https://tailwindcss.com/docs/field-sizing
+       */
+      'field-sizing': [{
+        'field-sizing': ['fixed', 'content']
+      }],
+      /**
+       * Pointer Events
+       * @see https://tailwindcss.com/docs/pointer-events
+       */
+      'pointer-events': [{
+        'pointer-events': ['auto', 'none']
+      }],
+      /**
+       * Resize
+       * @see https://tailwindcss.com/docs/resize
+       */
+      resize: [{
+        resize: ['none', '', 'y', 'x']
+      }],
+      /**
+       * Scroll Behavior
+       * @see https://tailwindcss.com/docs/scroll-behavior
+       */
+      'scroll-behavior': [{
+        scroll: ['auto', 'smooth']
+      }],
+      /**
+       * Scroll Margin
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-m': [{
+        'scroll-m': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin X
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mx': [{
+        'scroll-mx': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Y
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-my': [{
+        'scroll-my': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ms': [{
+        'scroll-ms': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-me': [{
+        'scroll-me': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Top
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mt': [{
+        'scroll-mt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Right
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mr': [{
+        'scroll-mr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Bottom
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mb': [{
+        'scroll-mb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Left
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ml': [{
+        'scroll-ml': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-p': [{
+        'scroll-p': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding X
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-px': [{
+        'scroll-px': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Y
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-py': [{
+        'scroll-py': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-ps': [{
+        'scroll-ps': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pe': [{
+        'scroll-pe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Top
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pt': [{
+        'scroll-pt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Right
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pr': [{
+        'scroll-pr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Bottom
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pb': [{
+        'scroll-pb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Left
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pl': [{
+        'scroll-pl': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Snap Align
+       * @see https://tailwindcss.com/docs/scroll-snap-align
+       */
+      'snap-align': [{
+        snap: ['start', 'end', 'center', 'align-none']
+      }],
+      /**
+       * Scroll Snap Stop
+       * @see https://tailwindcss.com/docs/scroll-snap-stop
+       */
+      'snap-stop': [{
+        snap: ['normal', 'always']
+      }],
+      /**
+       * Scroll Snap Type
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-type': [{
+        snap: ['none', 'x', 'y', 'both']
+      }],
+      /**
+       * Scroll Snap Type Strictness
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-strictness': [{
+        snap: ['mandatory', 'proximity']
+      }],
+      /**
+       * Touch Action
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      touch: [{
+        touch: ['auto', 'none', 'manipulation']
+      }],
+      /**
+       * Touch Action X
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-x': [{
+        'touch-pan': ['x', 'left', 'right']
+      }],
+      /**
+       * Touch Action Y
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-y': [{
+        'touch-pan': ['y', 'up', 'down']
+      }],
+      /**
+       * Touch Action Pinch Zoom
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-pz': ['touch-pinch-zoom'],
+      /**
+       * User Select
+       * @see https://tailwindcss.com/docs/user-select
+       */
+      select: [{
+        select: ['none', 'text', 'all', 'auto']
+      }],
+      /**
+       * Will Change
+       * @see https://tailwindcss.com/docs/will-change
+       */
+      'will-change': [{
+        'will-change': ['auto', 'scroll', 'contents', 'transform', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -----------
+      // --- SVG ---
+      // -----------
+      /**
+       * Fill
+       * @see https://tailwindcss.com/docs/fill
+       */
+      fill: [{
+        fill: ['none', ...scaleColor()]
+      }],
+      /**
+       * Stroke Width
+       * @see https://tailwindcss.com/docs/stroke-width
+       */
+      'stroke-w': [{
+        stroke: [isNumber, isArbitraryVariableLength, isArbitraryLength, isArbitraryNumber]
+      }],
+      /**
+       * Stroke
+       * @see https://tailwindcss.com/docs/stroke
+       */
+      stroke: [{
+        stroke: ['none', ...scaleColor()]
+      }],
+      // ---------------------
+      // --- Accessibility ---
+      // ---------------------
+      /**
+       * Forced Color Adjust
+       * @see https://tailwindcss.com/docs/forced-color-adjust
+       */
+      'forced-color-adjust': [{
+        'forced-color-adjust': ['auto', 'none']
+      }]
+    },
+    conflictingClassGroups: {
+      overflow: ['overflow-x', 'overflow-y'],
+      overscroll: ['overscroll-x', 'overscroll-y'],
+      inset: ['inset-x', 'inset-y', 'start', 'end', 'top', 'right', 'bottom', 'left'],
+      'inset-x': ['right', 'left'],
+      'inset-y': ['top', 'bottom'],
+      flex: ['basis', 'grow', 'shrink'],
+      gap: ['gap-x', 'gap-y'],
+      p: ['px', 'py', 'ps', 'pe', 'pt', 'pr', 'pb', 'pl'],
+      px: ['pr', 'pl'],
+      py: ['pt', 'pb'],
+      m: ['mx', 'my', 'ms', 'me', 'mt', 'mr', 'mb', 'ml'],
+      mx: ['mr', 'ml'],
+      my: ['mt', 'mb'],
+      size: ['w', 'h'],
+      'font-size': ['leading'],
+      'fvn-normal': ['fvn-ordinal', 'fvn-slashed-zero', 'fvn-figure', 'fvn-spacing', 'fvn-fraction'],
+      'fvn-ordinal': ['fvn-normal'],
+      'fvn-slashed-zero': ['fvn-normal'],
+      'fvn-figure': ['fvn-normal'],
+      'fvn-spacing': ['fvn-normal'],
+      'fvn-fraction': ['fvn-normal'],
+      'line-clamp': ['display', 'overflow'],
+      rounded: ['rounded-s', 'rounded-e', 'rounded-t', 'rounded-r', 'rounded-b', 'rounded-l', 'rounded-ss', 'rounded-se', 'rounded-ee', 'rounded-es', 'rounded-tl', 'rounded-tr', 'rounded-br', 'rounded-bl'],
+      'rounded-s': ['rounded-ss', 'rounded-es'],
+      'rounded-e': ['rounded-se', 'rounded-ee'],
+      'rounded-t': ['rounded-tl', 'rounded-tr'],
+      'rounded-r': ['rounded-tr', 'rounded-br'],
+      'rounded-b': ['rounded-br', 'rounded-bl'],
+      'rounded-l': ['rounded-tl', 'rounded-bl'],
+      'border-spacing': ['border-spacing-x', 'border-spacing-y'],
+      'border-w': ['border-w-x', 'border-w-y', 'border-w-s', 'border-w-e', 'border-w-t', 'border-w-r', 'border-w-b', 'border-w-l'],
+      'border-w-x': ['border-w-r', 'border-w-l'],
+      'border-w-y': ['border-w-t', 'border-w-b'],
+      'border-color': ['border-color-x', 'border-color-y', 'border-color-s', 'border-color-e', 'border-color-t', 'border-color-r', 'border-color-b', 'border-color-l'],
+      'border-color-x': ['border-color-r', 'border-color-l'],
+      'border-color-y': ['border-color-t', 'border-color-b'],
+      translate: ['translate-x', 'translate-y', 'translate-none'],
+      'translate-none': ['translate', 'translate-x', 'translate-y', 'translate-z'],
+      'scroll-m': ['scroll-mx', 'scroll-my', 'scroll-ms', 'scroll-me', 'scroll-mt', 'scroll-mr', 'scroll-mb', 'scroll-ml'],
+      'scroll-mx': ['scroll-mr', 'scroll-ml'],
+      'scroll-my': ['scroll-mt', 'scroll-mb'],
+      'scroll-p': ['scroll-px', 'scroll-py', 'scroll-ps', 'scroll-pe', 'scroll-pt', 'scroll-pr', 'scroll-pb', 'scroll-pl'],
+      'scroll-px': ['scroll-pr', 'scroll-pl'],
+      'scroll-py': ['scroll-pt', 'scroll-pb'],
+      touch: ['touch-x', 'touch-y', 'touch-pz'],
+      'touch-x': ['touch'],
+      'touch-y': ['touch'],
+      'touch-pz': ['touch']
+    },
+    conflictingClassGroupModifiers: {
+      'font-size': ['leading']
+    },
+    orderSensitiveModifiers: ['*', '**', 'after', 'backdrop', 'before', 'details-content', 'file', 'first-letter', 'first-line', 'marker', 'placeholder', 'selection']
+  };
+};
+
+/**
+ * @param baseConfig Config where other config will be merged into. This object will be mutated.
+ * @param configExtension Partial config to merge into the `baseConfig`.
+ */
+const mergeConfigs = (baseConfig, {
+  cacheSize,
+  prefix,
+  experimentalParseClassName,
+  extend = {},
+  override = {}
+}) => {
+  overrideProperty(baseConfig, 'cacheSize', cacheSize);
+  overrideProperty(baseConfig, 'prefix', prefix);
+  overrideProperty(baseConfig, 'experimentalParseClassName', experimentalParseClassName);
+  overrideConfigProperties(baseConfig.theme, override.theme);
+  overrideConfigProperties(baseConfig.classGroups, override.classGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroups, override.conflictingClassGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroupModifiers, override.conflictingClassGroupModifiers);
+  overrideProperty(baseConfig, 'orderSensitiveModifiers', override.orderSensitiveModifiers);
+  mergeConfigProperties(baseConfig.theme, extend.theme);
+  mergeConfigProperties(baseConfig.classGroups, extend.classGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroups, extend.conflictingClassGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroupModifiers, extend.conflictingClassGroupModifiers);
+  mergeArrayProperties(baseConfig, extend, 'orderSensitiveModifiers');
+  return baseConfig;
+};
+const overrideProperty = (baseObject, overrideKey, overrideValue) => {
+  if (overrideValue !== undefined) {
+    baseObject[overrideKey] = overrideValue;
+  }
+};
+const overrideConfigProperties = (baseObject, overrideObject) => {
+  if (overrideObject) {
+    for (const key in overrideObject) {
+      overrideProperty(baseObject, key, overrideObject[key]);
+    }
+  }
+};
+const mergeConfigProperties = (baseObject, mergeObject) => {
+  if (mergeObject) {
+    for (const key in mergeObject) {
+      mergeArrayProperties(baseObject, mergeObject, key);
+    }
+  }
+};
+const mergeArrayProperties = (baseObject, mergeObject, key) => {
+  const mergeValue = mergeObject[key];
+  if (mergeValue !== undefined) {
+    baseObject[key] = baseObject[key] ? baseObject[key].concat(mergeValue) : mergeValue;
+  }
+};
+const extendTailwindMerge = (configExtension, ...createConfig) => typeof configExtension === 'function' ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig);
+const twMerge = /*#__PURE__*/createTailwindMerge(getDefaultConfig);
+
+//# sourceMappingURL=bundle-mjs.mjs.map
+
+
+/***/ },
+
+/***/ "./node_modules/zustand/esm/react.mjs"
+/*!********************************************!*\
+  !*** ./node_modules/zustand/esm/react.mjs ***!
+  \********************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   create: () => (/* binding */ create),
+/* harmony export */   useStore: () => (/* binding */ useStore)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var zustand_vanilla__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! zustand/vanilla */ "./node_modules/zustand/esm/vanilla.mjs");
+
+
+
+const identity = (arg) => arg;
+function useStore(api, selector = identity) {
+  const slice = react__WEBPACK_IMPORTED_MODULE_0__.useSyncExternalStore(
+    api.subscribe,
+    react__WEBPACK_IMPORTED_MODULE_0__.useCallback(() => selector(api.getState()), [api, selector]),
+    react__WEBPACK_IMPORTED_MODULE_0__.useCallback(() => selector(api.getInitialState()), [api, selector])
+  );
+  react__WEBPACK_IMPORTED_MODULE_0__.useDebugValue(slice);
+  return slice;
 }
+const createImpl = (createState) => {
+  const api = (0,zustand_vanilla__WEBPACK_IMPORTED_MODULE_1__.createStore)(createState);
+  const useBoundStore = (selector) => useStore(api, selector);
+  Object.assign(useBoundStore, api);
+  return useBoundStore;
+};
+const create = ((createState) => createState ? createImpl(createState) : createImpl);
+
+
+
+
+/***/ },
+
+/***/ "./node_modules/zustand/esm/vanilla.mjs"
+/*!**********************************************!*\
+  !*** ./node_modules/zustand/esm/vanilla.mjs ***!
+  \**********************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createStore: () => (/* binding */ createStore)
+/* harmony export */ });
+const createStoreImpl = (createState) => {
+  let state;
+  const listeners = /* @__PURE__ */ new Set();
+  const setState = (partial, replace) => {
+    const nextState = typeof partial === "function" ? partial(state) : partial;
+    if (!Object.is(nextState, state)) {
+      const previousState = state;
+      state = (replace != null ? replace : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
+      listeners.forEach((listener) => listener(state, previousState));
+    }
+  };
+  const getState = () => state;
+  const getInitialState = () => initialState;
+  const subscribe = (listener) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  };
+  const api = { setState, getState, getInitialState, subscribe };
+  const initialState = state = createState(setState, getState, api);
+  return api;
+};
+const createStore = ((createState) => createState ? createStoreImpl(createState) : createStoreImpl);
 
 
 
@@ -10947,8 +20943,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs");
-/* harmony import */ var _components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout/Navbar */ "./src/components/Layout/Navbar.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layouts/AdminLayout */ "./src/layouts/AdminLayout.tsx");
 /* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/routes */ "./src/utils/routes.ts");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
@@ -10958,21 +20954,1483 @@ __webpack_require__.r(__webpack_exports__);
 
 const App = () => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.HashRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "productbay-app bg-gray-50 min-h-screen",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "p-8 max-w-7xl mx-auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Routes, {
-          children: _utils_routes__WEBPACK_IMPORTED_MODULE_2__.routes.map(route => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Route, {
-            path: route.path,
-            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(route.element, {})
-          }, route.path))
-        })
-      })]
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Routes, {
+        children: _utils_routes__WEBPACK_IMPORTED_MODULE_2__.routes.map(route => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_0__.Route, {
+          path: route.path,
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(route.element, {})
+        }, route.path))
+      })
     })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ },
+
+/***/ "./src/components/Create/CategorySelector.tsx"
+/*!****************************************************!*\
+  !*** ./src/components/Create/CategorySelector.tsx ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CategorySelector: () => (/* binding */ CategorySelector)
+/* harmony export */ });
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _ui_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var _ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/ConfirmButton */ "./src/components/ui/ConfirmButton.tsx");
+/* harmony import */ var _SourceStatistics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SourceStatistics */ "./src/components/Create/SourceStatistics.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__);
+/**
+ * CategorySelector Component
+ * 
+ * A multi-select dropdown component for selecting WooCommerce product categories.
+ * 
+ * === DATA FLOW ARCHITECTURE ===
+ * 
+ * 1. PRELOADING (Parent Component - StepSource):
+ *    - When StepSource mounts, it calls `preloadCategories()` from Zustand store
+ *    - This ensures categories are cached BEFORE user opens this component
+ *    - Result: Instant display with no loading delay
+ * 
+ * 2. CACHING LAYERS:
+ *    a) localStorage Cache (30-minute TTL):
+ *       - Key: 'productbay_categories_cache'
+ *       - Stores: { categories: Category[], timestamp: number }
+ *       - Persists across browser sessions
+ *    
+ *    b) Zustand Store Cache (in-memory):
+ *       - State: categories[], categoriesLoading, categoriesLastFetched
+ *       - Provides instant access across all components
+ *       - Single source of truth for React components
+ * 
+ * 3. REFRESH STRATEGIES:
+ *    a) Automatic Background Refresh:
+ *       - Triggered when component mounts via `refreshCategoriesIfStale()`
+ *       - Only runs if cache is 5+ minutes old (but < 30 min)
+ *       - Non-blocking: displays cached data immediately while fetching fresh data
+ *       - Updates UI automatically when fresh data arrives
+ *    
+ *    b) Manual Force Reload:
+ *       - Triggered by user clicking "🔄 Reload" button
+ *       - Calls `forceReloadCategories()` - bypasses all caches
+ *       - Shows loading spinner while fetching
+ *       - Useful when user knows categories have changed
+ * 
+ * 4. STATE MANAGEMENT:
+ *    - Categories data: Managed in Zustand store (NOT local state)
+ *    - Selected categories: Stored in tableData.config.categories (Zustand)
+ *    - Local UI state: dropdown open/closed, search query
+ * 
+ * 5. USER EXPERIENCE:
+ *    - First load: Categories may load from API (preloaded in parent)
+ *    - Subsequent loads: Instant display from cache
+ *    - Stale data: Background refresh with seamless update
+ *    - Manual refresh: User has control via reload button
+ *    - Statistics: Shows selected count + total products included
+ */
+
+
+
+
+
+
+
+
+
+const CategorySelector = () => {
+  const {
+    tableData,
+    setTableData,
+    categories,
+    categoriesLoading,
+    refreshCategoriesIfStale,
+    forceReloadCategories
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_4__.useTableStore)();
+  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(false);
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)('');
+  const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)(null);
+  const searchInputRef = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)(null);
+
+  /**
+   * Background refresh on component mount
+   * 
+   * When CategorySelector mounts, check if cached data is stale (> 5 min old).
+   * If stale, fetch fresh data in background while displaying cached version.
+   * This ensures users always see up-to-date data without waiting.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    refreshCategoriesIfStale();
+  }, [refreshCategoriesIfStale]);
+
+  /**
+   * Filter categories based on search query (client-side filtering)
+   */
+  const filteredCategories = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(() => {
+    if (searchQuery.trim() === '') {
+      return categories;
+    }
+    const query = searchQuery.toLowerCase();
+    return categories.filter(cat => cat.name.toLowerCase().includes(query));
+  }, [searchQuery, categories]);
+
+  /**
+   * Auto-focus search input when dropdown opens
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    if (open && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 50);
+    } else {
+      setSearchQuery('');
+    }
+  }, [open]);
+
+  /**
+   * Close dropdown on outside click
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    const handleClickOutside = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [open]);
+
+  // Selected category IDs from store
+  const selectedIds = tableData.config.categories || [];
+
+  // Get full category objects for selected IDs
+  const selectedCategories = categories.filter(cat => selectedIds.includes(cat.id));
+
+  // Calculate statistics
+  const totalProducts = selectedCategories.reduce((sum, cat) => sum + cat.count, 0);
+
+  /**
+   * Toggle category selection
+   */
+  const toggleCategory = id => {
+    const newSelected = selectedIds.includes(id) ? selectedIds.filter(catId => catId !== id) : [...selectedIds, id];
+    setTableData({
+      config: {
+        ...tableData.config,
+        categories: newSelected
+      }
+    });
+  };
+
+  /**
+   * Remove category from selection
+   */
+  const removeCategory = id => {
+    const newSelected = selectedIds.filter(catId => catId !== id);
+    setTableData({
+      config: {
+        ...tableData.config,
+        categories: newSelected
+      }
+    });
+  };
+
+  /**
+   * Handle manual reload button click
+   */
+  const handleReload = async e => {
+    e.stopPropagation();
+    await forceReloadCategories();
+  };
+
+  /**
+   * Clear selection logic
+   */
+  function handleClearSelection() {
+    setTableData({
+      config: {
+        ...tableData.config,
+        categories: []
+      }
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    className: "w-full space-y-3",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "relative",
+      ref: dropdownRef,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("min-h-[40px] w-full border border-gray-300 rounded-md px-3 py-2 bg-white cursor-pointer transition-colors", open ? "border-blue-500 ring-2 ring-blue-100" : "hover:border-gray-400"),
+        onClick: () => setOpen(!open),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "flex items-center justify-between gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+            className: "flex-1 flex flex-wrap gap-1.5",
+            children: categoriesLoading && categories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+              className: "text-gray-500 text-sm flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                className: "h-4 w-4 animate-spin"
+              }), " Loading categories..."]
+            }) : selectedCategories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+              className: "text-gray-400 text-sm",
+              children: "Select categories..."
+            }) : selectedCategories.map(cat => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+              className: "inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-sm font-medium",
+              onClick: e => {
+                e.stopPropagation();
+                removeCategory(cat.id);
+              },
+              children: [cat.name, " (", cat.count, ")", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                className: "h-3 w-3 hover:text-blue-900 cursor-pointer"
+              })]
+            }, cat.id))
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("h-4 w-4 text-gray-500 transition-transform flex-shrink-0", open && "transform rotate-180")
+          })]
+        })
+      }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-80 flex flex-col",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "p-2 border-b border-gray-200",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+            className: "relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              className: "absolute left-2 top-2.5 h-4 w-4 text-gray-400"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
+              ref: searchInputRef,
+              type: "text",
+              placeholder: "Search categories...",
+              className: "w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+              value: searchQuery,
+              onChange: e => setSearchQuery(e.target.value),
+              onClick: e => e.stopPropagation()
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "overflow-y-auto flex-1",
+          children: filteredCategories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+            className: "p-3 text-sm text-gray-500 text-center",
+            children: searchQuery ? 'No categories found matching your search.' : 'No categories available.'
+          }) : filteredCategories.map(category => {
+            const isSelected = selectedIds.includes(category.id);
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center px-3 py-2 text-sm cursor-pointer transition-colors", isSelected ? "bg-blue-50 text-blue-700 hover:bg-blue-100" : "hover:bg-gray-50"),
+              onClick: e => {
+                e.stopPropagation();
+                toggleCategory(category.id);
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
+                type: "checkbox",
+                checked: isSelected,
+                onChange: () => {},
+                className: "mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+                className: "flex-1 font-medium",
+                children: category.name
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+                className: "text-xs text-gray-400",
+                children: ["(", category.count, ")"]
+              })]
+            }, category.id);
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+            className: "text-xs text-gray-600",
+            children: selectedIds.length > 0 ? `${selectedIds.length} ${selectedIds.length === 1 ? 'category' : 'categories'} selected` : 'No categories selected'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+            className: "flex items-center gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_2__.ConfirmButton, {
+              onConfirm: handleClearSelection,
+              variant: "ghost",
+              size: "xs",
+              confirmMessage: "Clear all?",
+              disabled: selectedIds.length === 0,
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center gap-1.5 font-medium hover:bg-red-50 hover:text-red-700 border border-transparent hover:border-gray-200", selectedIds.length === 0 ? "text-gray-300" : "text-red-600"),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                className: "h-3 w-3"
+              }), "Clear"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              variant: "ghost",
+              size: "xs",
+              onClick: handleReload,
+              disabled: categoriesLoading,
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center gap-1.5 font-medium transition-colors border border-transparent hover:border-gray-200 cursor-pointer", categoriesLoading ? "text-gray-400" : "text-blue-600 hover:bg-blue-50 hover:text-blue-700"),
+              title: "Reload categories from server",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("h-3 w-3", categoriesLoading && "animate-spin")
+              }), "Reload"]
+            })]
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_SourceStatistics__WEBPACK_IMPORTED_MODULE_3__.SourceStatistics, {
+      categoryCount: selectedCategories.length,
+      productCount: totalProducts,
+      showEmpty: true
+    })]
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/ProductSearch.tsx"
+/*!*************************************************!*\
+  !*** ./src/components/Create/ProductSearch.tsx ***!
+  \*************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ProductSearch: () => (/* binding */ ProductSearch)
+/* harmony export */ });
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _ui_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/Input */ "./src/components/ui/Input.tsx");
+/* harmony import */ var _ui_Tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/Tooltip */ "./src/components/ui/Tooltip.tsx");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ui/ConfirmButton */ "./src/components/ui/ConfirmButton.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__);
+
+
+
+
+
+
+
+
+
+const ProductSearch = () => {
+  const {
+    tableData,
+    setTableData
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore)();
+  const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)('');
+  const [results, setResults] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)([]);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(false);
+
+  // Cache for search results to avoid redundant API calls
+  const searchCache = (0,react__WEBPACK_IMPORTED_MODULE_6__.useRef)(new Map());
+
+  // Persistent storage for selected products (full objects with name, id, sku)
+  const [selectedProductsMap, setSelectedProductsMap] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(new Map());
+
+  /**
+   * Parse search query for special syntax
+   * 
+   * Supports:
+   * - id:123 or ID:123 (case insensitive) - search by exact ID
+   * - sku:ABC123 or SKU:ABC123 (case insensitive) - search by exact SKU
+   * - regular text - search by product name
+   */
+  const parseSearchQuery = q => {
+    const trimmed = q.trim();
+
+    // Check for ID search (case insensitive)
+    const idMatch = trimmed.match(/^id:(.+)$/i);
+    if (idMatch) {
+      return {
+        type: 'id',
+        value: idMatch[1].trim()
+      };
+    }
+
+    // Check for SKU search (case insensitive)
+    const skuMatch = trimmed.match(/^sku:(.+)$/i);
+    if (skuMatch) {
+      return {
+        type: 'sku',
+        value: skuMatch[1].trim()
+      };
+    }
+    return {
+      type: 'name',
+      value: trimmed
+    };
+  };
+
+  /**
+   * Search products with caching and optimized debounce
+   * 
+   * Performance optimizations:
+   * - Reduced debounce from 250ms to 150ms (ultra-fast response)
+   * - Caches search results in memory to avoid redundant API calls
+   * - Checks cache before making API request
+   * - Supports ID and SKU search with special syntax
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+    const searchProducts = async () => {
+      if (query.length < 2) {
+        // Reduced from 3 to 2 for faster results
+        setResults([]);
+        return;
+      }
+      const searchParams = parseSearchQuery(query);
+
+      // Build cache key based on search type
+      const cacheKey = `${searchParams.type}:${searchParams.value.toLowerCase()}`;
+
+      // Check cache first
+      if (searchCache.current.has(cacheKey)) {
+        console.log('[ProductSearch] Cache hit for:', cacheKey);
+        setResults(searchCache.current.get(cacheKey));
+        return;
+      }
+      setLoading(true);
+      try {
+        let apiQuery = '';
+
+        // Build API query based on search type
+        if (searchParams.type === 'id') {
+          apiQuery = `products?include=${searchParams.value}`;
+        } else if (searchParams.type === 'sku') {
+          apiQuery = `products?sku=${encodeURIComponent(searchParams.value)}`;
+        } else {
+          apiQuery = `products?search=${encodeURIComponent(searchParams.value)}`;
+        }
+        const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_3__.apiFetch)(apiQuery);
+
+        // Store in cache
+        searchCache.current.set(cacheKey, data);
+        setResults(data);
+        console.log('[ProductSearch] Fetched and cached:', cacheKey);
+      } catch (error) {
+        console.error('Failed to search products', error);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Reduced debounce from 250ms to 150ms for ultra-fast response
+    const timeoutId = setTimeout(searchProducts, 150);
+    return () => clearTimeout(timeoutId);
+  }, [query]);
+
+  /**
+   * Sync selectedProductsMap from tableData on mount
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+    const productIds = tableData.config.products || [];
+    const productObjects = tableData.config.productObjects || {};
+    const map = new Map();
+    productIds.forEach(id => {
+      if (productObjects[id]) {
+        map.set(id, productObjects[id]);
+      }
+    });
+    setSelectedProductsMap(map);
+  }, []);
+
+  /**
+   * Memoized Set of selected product IDs for O(1) lookup
+   */
+  const selectedIdsSet = (0,react__WEBPACK_IMPORTED_MODULE_6__.useMemo)(() => {
+    return new Set(tableData.config.products || []);
+  }, [tableData.config.products]);
+
+  /**
+   * Optimized toggleProduct with full product persistence
+   */
+  const toggleProduct = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)(product => {
+    const currentIds = tableData.config.products || [];
+    const currentObjects = tableData.config.productObjects || {};
+    const isSelected = currentIds.includes(product.id);
+    let newIds;
+    let newObjects;
+    let newMap;
+    if (isSelected) {
+      // Remove product
+      newIds = currentIds.filter(id => id !== product.id);
+      newObjects = {
+        ...currentObjects
+      };
+      delete newObjects[product.id];
+      newMap = new Map(selectedProductsMap);
+      newMap.delete(product.id);
+    } else {
+      // Add product
+      newIds = [...currentIds, product.id];
+      newObjects = {
+        ...currentObjects,
+        [product.id]: product
+      };
+      newMap = new Map(selectedProductsMap);
+      newMap.set(product.id, product);
+    }
+    setSelectedProductsMap(newMap);
+    setTableData({
+      config: {
+        ...tableData.config,
+        products: newIds,
+        productObjects: newObjects
+      }
+    });
+  }, [tableData.config, setTableData, selectedProductsMap]);
+
+  /**
+   * Confirm remove all action
+   */
+  const confirmRemoveAll = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)(() => {
+    const count = (tableData.config.products || []).length;
+    if (count === 0) return;
+    setSelectedProductsMap(new Map());
+    setTableData({
+      config: {
+        ...tableData.config,
+        products: [],
+        productObjects: {}
+      }
+    });
+  }, [tableData.config, setTableData]);
+
+  /**
+   * Clear search input
+   */
+  const handleClearSearch = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)(() => {
+    setQuery('');
+    setResults([]);
+  }, []);
+
+  /**
+   * Fast O(1) selection check using Set
+   */
+  const isSelected = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)(id => {
+    return selectedIdsSet.has(id);
+  }, [selectedIdsSet]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    className: "w-full space-y-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      className: "relative flex items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        className: "absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ui_Input__WEBPACK_IMPORTED_MODULE_1__.Input, {
+        placeholder: "Search products by name, or use id:123 or sku:ABC",
+        value: query,
+        onChange: e => setQuery(e.target.value),
+        className: "pl-9 pr-9"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "absolute right-3 top-1/2 -translate-y-1/2 flex items-center",
+        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          className: "h-4 w-4 animate-spin text-gray-400"
+        }) : query.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+          onClick: handleClearSearch,
+          className: "bg-transparent cursor-pointer text-gray-400 hover:text-gray-600 p-0 m-0 flex items-center justify-center",
+          title: "Clear search",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            className: "h-4 w-4"
+          })
+        }) : null
+      })]
+    }), results.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "border border-gray-200 rounded-md shadow-sm max-h-60 overflow-y-auto divide-y divide-gray-100 bg-white",
+      children: results.map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 transition-colors", isSelected(product.id) && "bg-blue-50/50"),
+        onClick: () => toggleProduct(product),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          className: "h-10 w-10 bg-gray-100 rounded flex-shrink-0 overflow-hidden",
+          children: product.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
+            src: product.image,
+            alt: product.name,
+            className: "h-full w-full object-cover"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex-1 min-w-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "text-sm font-medium text-gray-900 truncate",
+            children: product.name
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "text-xs text-gray-500",
+            children: ["ID: ", product.id, " \u2022 SKU: ", product.sku || 'N/A']
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center", isSelected(product.id) ? "bg-primary border-primary text-white" : "text-transparent"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            className: "h-3 w-3"
+          })
+        })]
+      }, product.id))
+    }), selectedProductsMap.size > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      className: "pt-2 space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "flex flex-wrap gap-2",
+        children: Array.from(selectedProductsMap.values()).map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-sm border border-gray-200",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ui_Tooltip__WEBPACK_IMPORTED_MODULE_2__.Tooltip, {
+            content: `${product.name} (ID: ${product.id}, SKU: ${product.sku || 'N/A'})`,
+            className: "bg-blue-800",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+              className: "max-w-[150px] truncate block cursor-help",
+              children: product.name
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+            onClick: () => toggleProduct(product),
+            title: `Remove "${product.name}"`,
+            className: "text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              className: "h-3 w-3"
+            })
+          })]
+        }, product.id))
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "flex items-center gap-4 text-sm bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-2 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_4__.ConfirmButton, {
+          onConfirm: confirmRemoveAll,
+          variant: "ghost",
+          size: "sm",
+          confirmMessage: `Remove ${selectedProductsMap.size} ${selectedProductsMap.size === 1 ? 'product' : 'products'}?`,
+          className: "font-normal text-red-600 hover:text-red-700 rounded-md hover:bg-red-100 px-2 py-0 flex items-center gap-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            className: "h-4 w-4 mr-1"
+          }), "Remove all"]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          className: "h-4 w-px bg-blue-300"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex items-center gap-2 text-indigo-700",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            className: "h-4 w-4"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+            className: "font-semibold",
+            children: selectedProductsMap.size
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+            className: "text-indigo-600",
+            children: [selectedProductsMap.size === 1 ? 'product' : 'products', " included"]
+          })]
+        })]
+      })]
+    })]
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/SourceStatistics.tsx"
+/*!****************************************************!*\
+  !*** ./src/components/Create/SourceStatistics.tsx ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SourceStatistics: () => (/* binding */ SourceStatistics)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/folder-open.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var _ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/Skeleton */ "./src/components/ui/Skeleton.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+/**
+ * SourceStatistics Component
+ * 
+ * A reusable component to display product and category statistics
+ * for different source types (all, sale, category, specific).
+ * 
+ * Features:
+ * - Gradient card design with icons
+ * - Loading state support
+ * - Conditional rendering (only shows when counts > 0)
+ * - Responsive layout with divider
+ */
+
+const SourceStatistics = ({
+  categoryCount,
+  productCount,
+  loading = false,
+  showEmpty = false,
+  className = ''
+}) => {
+  // Don't render if no data and not loading, unless showEmpty is true
+  if (!loading && !showEmpty && categoryCount === 0 && productCount === 0) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: `bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-3 ${className}`,
+    children: loading ?
+    /*#__PURE__*/
+    // Skeleton loader - exact same structure as data for consistent height
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center gap-4 text-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex items-center gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-4 w-4 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-4 w-8 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-4 w-20 rounded"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "h-4 w-px bg-blue-300"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex items-center gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-4 w-4 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-4 w-12 rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-4 w-24 rounded"
+        })]
+      })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center gap-4 text-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex items-center gap-2 text-blue-700",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          className: "h-4 w-4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "font-semibold",
+          children: categoryCount
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "text-blue-600",
+          children: categoryCount === 1 ? 'category' : 'categories'
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "h-4 w-px bg-blue-300"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex items-center gap-2 text-indigo-700",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          className: "h-4 w-4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "font-semibold",
+          children: productCount
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+          className: "text-indigo-600",
+          children: [productCount === 1 ? 'product' : 'products', " included"]
+        })]
+      })]
+    })
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/StepColumns.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepColumns.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StepHeading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StepHeading */ "./src/components/Create/StepHeading.tsx");
+/* harmony import */ var _SortableColumn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../SortableColumn */ "./src/components/SortableColumn.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @dnd-kit/sortable */ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js");
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const StepColumns = ({
+  showValidation
+}) => {
+  const {
+    tableData,
+    setTableData
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_2__.useTableStore)();
+
+  // Sensors for DnD
+  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.PointerSensor), (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.KeyboardSensor, {
+    coordinateGetter: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.sortableKeyboardCoordinates
+  }));
+  const handleDragEnd = event => {
+    const {
+      active,
+      over
+    } = event;
+    if (active.id !== over?.id) {
+      const oldIndex = tableData.columns.findIndex(col => col.id === active.id);
+      const newIndex = tableData.columns.findIndex(col => col.id === over?.id);
+      setTableData({
+        columns: (0,_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.arrayMove)(tableData.columns, oldIndex, newIndex)
+      });
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_StepHeading__WEBPACK_IMPORTED_MODULE_0__.StepHeading, {
+      title: "Column Manager"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+      className: "text-sm text-blue-700 mt-0",
+      children: "Drag and drop columns to reorder. These columns will be displayed in the frontend."
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "border border-gray-200 rounded-lg overflow-hidden bg-white",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.DndContext, {
+        sensors: sensors,
+        collisionDetection: _dnd_kit_core__WEBPACK_IMPORTED_MODULE_4__.closestCenter,
+        onDragEnd: handleDragEnd,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.SortableContext, {
+          items: tableData.columns.map(c => c.id),
+          strategy: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_3__.verticalListSortingStrategy,
+          children: tableData.columns.map(col => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SortableColumn__WEBPACK_IMPORTED_MODULE_1__.SortableColumn, {
+            id: col.id,
+            label: col.label
+          }, col.id))
+        })
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepColumns);
+
+/***/ },
+
+/***/ "./src/components/Create/StepDesign.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/Create/StepDesign.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StepHeading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StepHeading */ "./src/components/Create/StepHeading.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepDesign = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "grid grid-cols-2 gap-8 h-full",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "space-y-6 overflow-y-auto pr-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_StepHeading__WEBPACK_IMPORTED_MODULE_0__.StepHeading, {
+        title: "Design Settings"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block text-sm font-medium mb-2",
+          children: "Border Color"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex gap-2",
+          children: ['#e5e7eb', '#d1d5db', '#9ca3af', '#2563eb'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "w-8 h-8 rounded-full border shadow-sm",
+            style: {
+              backgroundColor: c
+            }
+          }, c))
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block text-sm font-medium mb-2",
+          children: "Header Background"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex gap-2",
+          children: ['#f9fafb', '#f3f4f6', '#eff6ff', '#f0fdf4'].map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "w-8 h-8 rounded-md border shadow-sm",
+            style: {
+              backgroundColor: c
+            }
+          }, c))
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "text-gray-400",
+        children: "Live Preview Area"
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepDesign);
+
+/***/ },
+
+/***/ "./src/components/Create/StepHeading.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepHeading.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   StepHeading: () => (/* binding */ StepHeading)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * A reusable heading component for wizard steps in the Table Creation process.
+ * Standardizes typography and spacing across different steps.
+ */
+const StepHeading = ({
+  title,
+  children,
+  className,
+  required = false
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("font-bold text-blue-800 m-0 pb-6 flex items-center flex-wrap gap-2 leading-none", className),
+    children: [title, required && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+      className: "text-red-500 font-bold",
+      children: "*"
+    }), children]
+  });
+};
+
+/***/ },
+
+/***/ "./src/components/Create/StepOptions.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepOptions.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepOptions = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "AJAX Loading"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Load products without refreshing the page."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle",
+        defaultChecked: true
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Quantity Picker"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Show quantity input next to add to cart."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle"
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepOptions);
+
+/***/ },
+
+/***/ "./src/components/Create/StepPerformance.tsx"
+/*!***************************************************!*\
+  !*** ./src/components/Create/StepPerformance.tsx ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepPerformance = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Lazy Load Images"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Improve initial page load time."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle",
+        defaultChecked: true
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Cache Results"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Cache query results for faster subsequent loads."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle"
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepPerformance);
+
+/***/ },
+
+/***/ "./src/components/Create/StepPublish.tsx"
+/*!***********************************************!*\
+  !*** ./src/components/Create/StepPublish.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+const StepPublish = ({
+  showValidation
+}) => {
+  const {
+    saveTable
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_3__.useTableStore)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useNavigate)();
+  const {
+    id
+  } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)();
+  const handleSave = async () => {
+    const success = await saveTable(id);
+    if (success) {
+      alert('Table saved successfully!');
+      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_5__.PATHS.DASHBOARD);
+    } else {
+      alert('Failed to save table');
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    className: "text-center py-12",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: "w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        size: 40
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+      className: "text-2xl font-bold text-gray-800 mb-2",
+      children: "Ready to Publish!"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+      className: "text-gray-500 mb-8 max-w-md mx-auto",
+      children: "Your table is configured and ready to go. Click the button below to save and get your shortcode."
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+      onClick: handleSave,
+      className: "bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors inline-flex items-center gap-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        size: 20
+      }), "Publish Table"]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepPublish);
+
+/***/ },
+
+/***/ "./src/components/Create/StepSearch.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/Create/StepSearch.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const StepSearch = ({
+  showValidation
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        className: "block text-sm font-medium mb-2",
+        children: "Default Sort Order"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+        className: "w-full border-gray-300 rounded-md",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Newest First"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Price: Low to High"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Price: High to Low"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+          children: "Name: A to Z"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center justify-between p-4 border rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+          className: "font-medium",
+          children: "Enable Search Box"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-sm text-gray-500",
+          children: "Allow users to search within the table."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "checkbox",
+        className: "toggle",
+        defaultChecked: true
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepSearch);
+
+/***/ },
+
+/***/ "./src/components/Create/StepSetup.tsx"
+/*!*********************************************!*\
+  !*** ./src/components/Create/StepSetup.tsx ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_Input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/Input */ "./src/components/ui/Input.tsx");
+/* harmony import */ var _StepHeading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StepHeading */ "./src/components/Create/StepHeading.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const StepSetup = ({
+  showValidation
+}) => {
+  const {
+    tableData,
+    setTableData
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_2__.useTableStore)();
+  const hasError = showValidation && !tableData.title.trim();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "space-y-6 mb-auto",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_StepHeading__WEBPACK_IMPORTED_MODULE_1__.StepHeading, {
+      title: "Table Name",
+      required: true
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ui_Input__WEBPACK_IMPORTED_MODULE_0__.Input, {
+      type: "text",
+      value: tableData.title,
+      onChange: e => setTableData({
+        title: e.target.value
+      }),
+      placeholder: "e.g. Summer Sale Products",
+      error: hasError ? "Table name is required" : undefined
+    }), hasError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "text-sm text-red-500 mt-1",
+      children: "Please enter a table name to continue."
+    }), !hasError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "mt-1 text-sm text-gray-500",
+      children: "Give your table a descriptive name for internal use."
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepSetup);
+
+/***/ },
+
+/***/ "./src/components/Create/StepSource.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/Create/StepSource.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _StepHeading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StepHeading */ "./src/components/Create/StepHeading.tsx");
+/* harmony import */ var _ProductSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductSearch */ "./src/components/Create/ProductSearch.tsx");
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/Alert */ "./src/components/ui/Alert.tsx");
+/* harmony import */ var _CategorySelector__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CategorySelector */ "./src/components/Create/CategorySelector.tsx");
+/* harmony import */ var _SourceStatistics__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SourceStatistics */ "./src/components/Create/SourceStatistics.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/external-link.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__);
+
+
+
+
+
+
+
+
+
+// Human-readable labels for source types
+
+const SOURCE_LABELS = {
+  all: 'All Products',
+  sale: 'Sale Products',
+  category: 'Specific Categories',
+  specific: 'Individual Products'
+};
+const StepSource = ({
+  showValidation
+}) => {
+  const {
+    tableData,
+    setTableData,
+    fetchSourceStats,
+    preloadCategories,
+    sourceStats,
+    sourceStatsLoading
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_6__.useTableStore)();
+  const {
+    source_type
+  } = tableData;
+
+  /**
+   * Preload categories and fetch stats when component mounts or source type changes
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    preloadCategories();
+  }, [preloadCategories]);
+
+  // Fetch source statistics based on selected source type
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetchSourceStats(source_type);
+  }, [source_type, fetchSourceStats]);
+  const categories = {
+    all: "Show all published products from your entire store catalog.",
+    sale: "Show only products currently on sale (with sale price set).",
+    category: "Show products from selected WooCommerce categories.",
+    specific: "Manually pick individual products to display."
+  };
+
+  // Calculate statistics for 'specific' source (client-side)
+  const selectedProductIds = tableData.config.products || [];
+  const selectedCategoryIds = tableData.config.categories || [];
+  const specificStats = {
+    categories: 0,
+    // We don't track categories for specific products yet
+    products: selectedProductIds.length
+  };
+
+  // Check if source selection is complete
+  const isSourceComplete = source_type === 'all' && (sourceStats['all']?.products || 0) > 0 || source_type === 'sale' && (sourceStats['sale']?.products || 0) > 0 || source_type === 'category' && selectedCategoryIds.length > 0 || source_type === 'specific' && selectedProductIds.length > 0;
+
+  // Validation logic
+  const hasValidationError = showValidation && (source_type === 'category' && selectedCategoryIds.length === 0 || source_type === 'specific' && selectedProductIds.length === 0);
+  const getValidationMessage = () => {
+    if (!showValidation) return null;
+    if (source_type === 'all' && (sourceStats['all']?.products || 0) === 0) {
+      return 'Your store has no products. Please add some products to create a table.';
+    }
+    if (source_type === 'sale' && (sourceStats['sale']?.products || 0) === 0) {
+      return 'No products are currently on sale. Please set a sale price for some products or choose a different source.';
+    }
+    if (source_type === 'category' && selectedCategoryIds.length === 0) {
+      return 'Please select at least one category to continue.';
+    }
+    if (source_type === 'specific' && selectedProductIds.length === 0) {
+      return 'Please select at least one product to continue.';
+    }
+    return null;
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_StepHeading__WEBPACK_IMPORTED_MODULE_1__.StepHeading, {
+      title: "Source:",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+        className: `inline-flex items-center rounded-full font-medium border px-2 py-1 justify-center text-sm ${isSourceComplete ? 'bg-green-50 border-green-300 text-green-700' : 'bg-gray-50 border-gray-300 text-gray-600'}`,
+        children: [isSourceComplete ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          className: "w-4 h-4 mr-1.5"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          className: "w-4 h-4 mr-1.5"
+        }), SOURCE_LABELS[source_type] || 'All Products']
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "mt-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "w-full mx-auto mt-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("nav", {
+          className: "flex border-b border-gray-300 relative",
+          "aria-label": "Tabs",
+          children: Object.keys(categories).map(type => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+            onClick: () => setTableData({
+              source_type: type
+            }),
+            className: `relative bg-white py-2 px-4 text-sm font-medium capitalize ${source_type === type ? 'text-blue-600 border border-gray-300 rounded-t-md border-b-0' : 'text-gray-600 border border-transparent hover:text-blue-500'}`,
+            style: {
+              marginBottom: source_type === type ? '-1px' : '0',
+              zIndex: source_type === type ? 10 : 1
+            },
+            children: SOURCE_LABELS[type]
+          }, type))
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+        className: "mt-4 text-md text-gray-500",
+        children: categories[source_type]
+      })]
+    }), source_type === 'all' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "mt-6 animate-fade-in space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_SourceStatistics__WEBPACK_IMPORTED_MODULE_5__.SourceStatistics, {
+        categoryCount: sourceStats['all']?.categories || 0,
+        productCount: sourceStats['all']?.products || 0,
+        loading: sourceStatsLoading['all'] || !sourceStats['all'],
+        showEmpty: true
+      }), !sourceStatsLoading['all'] && sourceStats['all']?.products === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__.Alert, {
+        variant: "warning",
+        className: "bg-amber-50 border-amber-200",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          className: "w-4 h-4 mt-0.5 text-amber-600"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__.AlertDescription, {
+          className: "text-amber-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "font-bold m-0",
+            children: "No products found!"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "text-sm mt-2 m-0",
+            children: "Your WooCommerce store appears to be empty. You need at least one product to create a meaningful table."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("a", {
+            target: "_blank",
+            href: `${window.ajaxurl?.split('admin-ajax.php')[0]}post-new.php?post_type=product`,
+            className: "mt-2 inline-flex items-center text-sm text-amber-900 hover:text-blue-600 border border-amber-900 hover:border-blue-500 px-2 py-1 rounded-md focus:ring-none",
+            children: ["Add your first product ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              className: "w-3 h-3 ml-1"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("a", {
+            target: "_blank",
+            href: `${window.ajaxurl?.split('admin-ajax.php')[0]}edit.php?post_type=product`,
+            className: "mt-2 ml-2 inline-flex items-center text-sm text-amber-900 hover:text-blue-600 border border-amber-900 hover:border-blue-500 px-2 py-1 rounded-md focus:ring-none",
+            children: ["Manage your products ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              className: "w-3 h-3 ml-1"
+            })]
+          })]
+        })]
+      })]
+    }), source_type === 'sale' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "mt-6 animate-fade-in space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_SourceStatistics__WEBPACK_IMPORTED_MODULE_5__.SourceStatistics, {
+        categoryCount: sourceStats['sale']?.categories || 0,
+        productCount: sourceStats['sale']?.products || 0,
+        loading: sourceStatsLoading['sale'] || !sourceStats['sale'],
+        showEmpty: true
+      }), !sourceStatsLoading['sale'] && sourceStats['sale']?.products === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__.Alert, {
+        variant: "warning",
+        className: "bg-amber-50 border-amber-200",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          className: "w-4 h-4 mt-0.5 text-amber-600"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__.AlertDescription, {
+          className: "text-amber-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "font-bold m-0",
+            children: "No products on sale!"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "text-sm mt-2 m-0",
+            children: "There are no products with a sale price set in your store."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("a", {
+            target: "_blank",
+            href: `${window.ajaxurl?.split('admin-ajax.php')[0]}edit.php?post_type=product`,
+            className: "mt-2 inline-flex items-center text-sm text-amber-900 hover:text-blue-600 border border-amber-900 hover:border-blue-500 px-2 py-1 rounded-md focus:ring-none",
+            children: ["Manage your products ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              className: "w-3 h-3 ml-1"
+            })]
+          })]
+        })]
+      })]
+    }), source_type === 'category' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "mt-6 pt-2 animate-fade-in",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_CategorySelector__WEBPACK_IMPORTED_MODULE_4__.CategorySelector, {})
+    }), source_type === 'specific' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "mt-6 pt-2 animate-fade-in space-y-3",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_ProductSearch__WEBPACK_IMPORTED_MODULE_2__.ProductSearch, {})
+    }), hasValidationError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__.Alert, {
+      variant: "destructive",
+      className: "mt-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        className: "w-4 h-4 mt-0.5 flex-shrink-0"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__.AlertDescription, {
+        children: getValidationMessage()
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepSource);
 
 /***/ },
 
@@ -10986,39 +22444,650 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _ui_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/layout-grid.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+const Navbar = () => {
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
+  const navLinks = _utils_routes__WEBPACK_IMPORTED_MODULE_4__.routes.filter(route => route.showInNav);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("nav", {
+    className: "w-full bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex justify-between items-center",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center justify-content-center gap-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        size: 20,
+        strokeWidth: 2.5
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+        className: "text-xl font-bold text-wp-text tracking-tight",
+        children: ["Product", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "font-normal",
+          children: "Bay"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "flex space-x-2 mr-6",
+        children: navLinks.map(link => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.NavLink, {
+          to: link.path,
+          className: ({
+            isActive
+          }) => `   text-gray-600 font-medium hover:text-wp-btn transition-colors px-4 py-2 rounded-md 
+                                    ${isActive ? "bg-gray-200" : "hover:bg-gray-100"}`,
+          children: link.label
+        }, link.path))
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ui_Button__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_4__.PATHS.NEW),
+        variant: "default",
+        size: "lg",
+        className: "cursor-pointer",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          size: 18,
+          className: "mr-2"
+        }), "Create Table"]
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navbar);
+
+/***/ },
+
+/***/ "./src/components/SortableColumn.tsx"
+/*!*******************************************!*\
+  !*** ./src/components/SortableColumn.tsx ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SortableColumn: () => (/* binding */ SortableColumn)
+/* harmony export */ });
+/* harmony import */ var _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @dnd-kit/sortable */ "./node_modules/@dnd-kit/sortable/dist/sortable.esm.js");
+/* harmony import */ var _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @dnd-kit/utilities */ "./node_modules/@dnd-kit/utilities/dist/utilities.esm.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/grip-vertical.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+function SortableColumn({
+  id,
+  label
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = (0,_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_0__.useSortable)({
+    id
+  });
+  const style = {
+    transform: _dnd_kit_utilities__WEBPACK_IMPORTED_MODULE_1__.CSS.Transform.toString(transform),
+    transition
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    ref: setNodeRef,
+    style: style,
+    className: "p-4 flex items-center justify-between hover:bg-gray-50 bg-white border-b border-gray-100 last:border-0",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        ...attributes,
+        ...listeners,
+        className: "text-gray-400 cursor-move hover:text-gray-600",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          size: 16
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        className: "font-medium text-gray-700",
+        children: label
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+      className: "text-gray-400 hover:text-blue-600 p-2 rounded hover:bg-blue-50 transition-colors",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        size: 16
+      })
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./src/components/ui/Alert.tsx"
+/*!*************************************!*\
+  !*** ./src/components/ui/Alert.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Alert: () => (/* binding */ Alert),
+/* harmony export */   AlertDescription: () => (/* binding */ AlertDescription),
+/* harmony export */   AlertTitle: () => (/* binding */ AlertTitle)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs");
-/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var class_variance_authority__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! class-variance-authority */ "./node_modules/class-variance-authority/dist/index.mjs");
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 
-const Navbar = () => {
-  const navLinks = _utils_routes__WEBPACK_IMPORTED_MODULE_2__.routes.filter(route => route.showInNav);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("nav", {
-    className: "bg-white shadow-md border-b border-gray-200 px-8 py-4 flex justify-between items-center",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "font-medium text-2xl text-blue-600 tracking-wide hover:text-blue-700 transition-colors",
-      children: ["Product", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-        className: "font-bold ",
-        children: "Bay"
+/**
+ * Alert variant styles using class-variance-authority (CVA).
+ * 
+ * Provides consistent styling for alert components with support for:
+ * - default: Neutral informational alerts
+ * - destructive: Error/warning alerts (red styling)
+ * - warning: Caution alerts (amber styling)
+ * - success: Confirmation alerts (green styling)
+ */
+
+const alertVariants = (0,class_variance_authority__WEBPACK_IMPORTED_MODULE_1__.cva)("relative w-full rounded-lg border px-4 py-3 text-sm flex items-start gap-3", {
+  variants: {
+    variant: {
+      default: "bg-gray-50 border-gray-200 text-gray-800",
+      destructive: "bg-red-50 border-red-200 text-red-800",
+      warning: "bg-amber-50 border-amber-200 text-amber-800",
+      success: "bg-green-50 border-green-200 text-green-800"
+    }
+  },
+  defaultVariants: {
+    variant: "default"
+  }
+});
+
+/**
+ * Alert component for displaying contextual feedback messages.
+ * 
+ * @example
+ * // Destructive alert with icon
+ * <Alert variant="destructive">
+ *     <AlertCircleIcon className="w-4 h-4" />
+ *     <AlertDescription>Please select at least one category.</AlertDescription>
+ * </Alert>
+ * 
+ * @example
+ * // Success alert with title and description
+ * <Alert variant="success">
+ *     <CheckCircleIcon className="w-4 h-4" />
+ *     <div>
+ *         <AlertTitle>Success!</AlertTitle>
+ *         <AlertDescription>Your changes have been saved.</AlertDescription>
+ *     </div>
+ * </Alert>
+ */
+function Alert({
+  className,
+  variant,
+  ...props
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    "data-slot": "alert",
+    role: "alert",
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_2__.cn)(alertVariants({
+      variant
+    }), className),
+    ...props
+  });
+}
+
+/**
+ * AlertTitle component for the alert heading.
+ * Should be used as a direct child of Alert.
+ */
+function AlertTitle({
+  className,
+  ...props
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    "data-slot": "alert-title",
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_2__.cn)("font-medium leading-tight", className),
+    ...props
+  });
+}
+
+/**
+ * AlertDescription component for the alert body text.
+ * Should be used as a direct child of Alert.
+ */
+function AlertDescription({
+  className,
+  ...props
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    "data-slot": "alert-description",
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_2__.cn)("text-sm [&_p]:leading-relaxed", className),
+    ...props
+  });
+}
+
+
+/***/ },
+
+/***/ "./src/components/ui/Button.tsx"
+/*!**************************************!*\
+  !*** ./src/components/ui/Button.tsx ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* binding */ Button),
+/* harmony export */   buttonVariants: () => (/* binding */ buttonVariants)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var class_variance_authority__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! class-variance-authority */ "./node_modules/class-variance-authority/dist/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const buttonVariants = (0,class_variance_authority__WEBPACK_IMPORTED_MODULE_2__.cva)("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-transform duration-100", {
+  variants: {
+    variant: {
+      default: "bg-blue-600 text-white hover:bg-blue-700 shadow-sm",
+      destructive: "bg-red-500 text-white hover:bg-red-600 shadow-sm",
+      outline: "border border-gray-200 bg-white hover:bg-gray-100 hover:text-gray-900",
+      secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200/80",
+      ghost: "hover:bg-gray-100 hover:text-gray-900",
+      link: "text-blue-600 underline-offset-4 hover:underline",
+      success: "bg-green-600 text-white hover:bg-green-700 shadow-sm"
+    },
+    size: {
+      default: "h-10 px-4 py-2",
+      sm: "h-9 rounded-md px-3",
+      xs: "h-7 rounded px-2 text-xs",
+      lg: "h-11 rounded-md px-8",
+      icon: "h-10 w-10"
+    }
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default"
+  }
+});
+const Button = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}, ref) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)(buttonVariants({
+      variant,
+      size,
+      className
+    })),
+    ref: ref,
+    ...props
+  });
+});
+Button.displayName = "Button";
+
+
+/***/ },
+
+/***/ "./src/components/ui/ConfirmButton.tsx"
+/*!*********************************************!*\
+  !*** ./src/components/ui/ConfirmButton.tsx ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ConfirmButton: () => (/* binding */ ConfirmButton)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+/**
+ * A feature-rich button that shows a confirmation popover before executing an action.
+ * This is more user-friendly as it doesn't change the layout of the page.
+ */
+const ConfirmButton = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  variant = "destructive",
+  size = "sm",
+  onConfirm,
+  onCancel,
+  children,
+  confirmIcon,
+  cancelIcon,
+  confirmMessage,
+  popoverPosition = "top",
+  ...props
+}, ref) => {
+  const [isConfirming, setIsConfirming] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+  const containerRef = react__WEBPACK_IMPORTED_MODULE_0__.useRef(null);
+  const handleInitialClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsConfirming(true);
+  };
+  const handleConfirm = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    onConfirm();
+    setIsConfirming(false);
+  };
+  const handleCancel = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onCancel) onCancel();
+    setIsConfirming(false);
+  };
+
+  // Close on outside click
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => {
+    if (!isConfirming) return;
+    const handleOutsideClick = e => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsConfirming(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isConfirming]);
+
+  // Position classes for the popover
+  const positionClasses = {
+    top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+    bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+    left: "right-full top-1/2 -translate-y-1/2 mr-2",
+    right: "left-full top-1/2 -translate-y-1/2 ml-2"
+  };
+
+  // Arrow position classes
+  const arrowClasses = {
+    top: "top-full left-1/2 -translate-x-1/2 border-t-white border-x-transparent border-b-transparent",
+    bottom: "bottom-full left-1/2 -translate-x-1/2 border-b-white border-x-transparent border-t-transparent",
+    left: "left-full top-1/2 -translate-y-1/2 border-l-white border-y-transparent border-r-transparent",
+    right: "right-full top-1/2 -translate-y-1/2 border-r-white border-y-transparent border-l-transparent"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "relative inline-block",
+    ref: containerRef,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      ref: ref,
+      variant: variant,
+      size: size,
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("cursor-pointer", className),
+      onClick: handleInitialClick,
+      ...props,
+      children: children
+    }), isConfirming && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("absolute z-[100] flex flex-col items-center animate-in fade-in zoom-in-95 duration-200", positionClasses[popoverPosition]),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "bg-white border border-gray-200 rounded-lg shadow-xl p-1.5 flex items-center gap-1 min-w-max",
+        children: [confirmMessage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "text-xs font-medium px-2 text-gray-700",
+          children: confirmMessage
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "flex items-center border border-gray-200 rounded-md",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            type: "button",
+            onClick: handleConfirm,
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("flex items-center justify-center p-1.5 bg-transparent transition-colors cursor-pointer", variant === "destructive" ? "text-red-600 hover:bg-red-50" : "text-green-600 hover:bg-green-50"),
+            title: "Confirm",
+            children: confirmIcon || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              className: "h-4 w-4 font-bold",
+              strokeWidth: 2.5
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "w-px h-4 bg-gray-200 mx-0.5"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            type: "button",
+            onClick: handleCancel,
+            className: "flex items-center justify-center p-1.5 bg-transparent text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-pointer",
+            title: "Cancel",
+            children: cancelIcon || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              className: "h-4 w-4 font-bold",
+              strokeWidth: 2.5
+            })
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("absolute w-0 h-0 border-[6px]", arrowClasses[popoverPosition].replace(/-white/g, "-gray-100"), popoverPosition === 'top' ? 'mt-[1px]' : popoverPosition === 'bottom' ? 'mb-[1px]' : popoverPosition === 'left' ? 'ml-[1px]' : 'mr-[1px]')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("absolute w-0 h-0 border-[5px]", arrowClasses[popoverPosition])
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "flex space-x-6",
-      children: navLinks.map(link => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.NavLink, {
-        to: link.path,
-        className: ({
-          isActive
-        }) => `text-gray-700 font-medium hover:text-blue-600 transition-colors ${isActive ? "text-blue-600 border-b-2 border-blue-600 pb-1" : ""}`,
-        children: link.label
-      }, link.path))
+    })]
+  });
+});
+ConfirmButton.displayName = "ConfirmButton";
+
+/***/ },
+
+/***/ "./src/components/ui/Input.tsx"
+/*!*************************************!*\
+  !*** ./src/components/ui/Input.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Input: () => (/* binding */ Input)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * Input component that renders a styled HTML input element.
+ * Supports standard HTML input attributes and a custom error state.
+ */
+const Input = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  type,
+  error,
+  ...props
+}, ref) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+    type: type,
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus:border-blue-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50", error && "border-red-500 focus:border-red-500", className),
+    ref: ref,
+    "aria-invalid": !!error,
+    ...props
+  });
+});
+Input.displayName = "Input";
+
+
+/***/ },
+
+/***/ "./src/components/ui/Skeleton.tsx"
+/*!****************************************!*\
+  !*** ./src/components/ui/Skeleton.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Skeleton: () => (/* binding */ Skeleton)
+/* harmony export */ });
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function Skeleton({
+  className,
+  ...props
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    "data-slot": "skeleton",
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("bg-gray-200 rounded-md animate-pulse", className),
+    ...props
+  });
+}
+
+
+/***/ },
+
+/***/ "./src/components/ui/Tooltip.tsx"
+/*!***************************************!*\
+  !*** ./src/components/ui/Tooltip.tsx ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Tooltip: () => (/* binding */ Tooltip)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * A reusable Tooltip component with support for text selection and interaction.
+ */
+const Tooltip = ({
+  content,
+  children,
+  position = "top",
+  className,
+  delay = 0,
+  hideDelay = 150
+}) => {
+  const [isVisible, setIsVisible] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+  const showTimeoutRef = react__WEBPACK_IMPORTED_MODULE_0__.useRef(null);
+  const hideTimeoutRef = react__WEBPACK_IMPORTED_MODULE_0__.useRef(null);
+  const clearTimeouts = () => {
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = null;
+    }
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+  };
+  const showTooltip = () => {
+    clearTimeouts();
+    if (!isVisible) {
+      showTimeoutRef.current = window.setTimeout(() => setIsVisible(true), delay);
+    }
+  };
+  const hideTooltip = () => {
+    clearTimeouts();
+    if (isVisible) {
+      hideTimeoutRef.current = window.setTimeout(() => setIsVisible(false), hideDelay);
+    }
+  };
+
+  // Cleanup on unmount
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => {
+    return () => clearTimeouts();
+  }, []);
+
+  // Position classes
+  const positionClasses = {
+    top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+    bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+    left: "right-full top-1/2 -translate-y-1/2 mr-2",
+    right: "left-full top-1/2 -translate-y-1/2 ml-2"
+  };
+
+  // Arrow positioning classes for the rotated square
+  const arrowPositions = {
+    top: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",
+    bottom: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",
+    left: "right-0 top-1/2 -translate-y-1/2 translate-x-1/2",
+    right: "left-0 top-1/2 -translate-y-1/2 -translate-x-1/2"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "relative inline-block",
+    onMouseEnter: showTooltip,
+    onMouseLeave: hideTooltip,
+    onFocus: showTooltip,
+    onBlur: hideTooltip,
+    children: [children, isVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("absolute z-[110] px-3 py-1.5 text-xs font-normal text-white bg-gray-800 rounded shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 select-text cursor-auto", positionClasses[position], className),
+      role: "tooltip",
+      onMouseEnter: showTooltip // Keep open when hovering the tooltip itself
+      ,
+      onMouseLeave: hideTooltip,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: "relative z-10",
+        children: content
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("absolute w-2 h-2 bg-inherit transform rotate-45", arrowPositions[position])
+      })]
     })]
   });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navbar);
+
+/***/ },
+
+/***/ "./src/layouts/AdminLayout.tsx"
+/*!*************************************!*\
+  !*** ./src/layouts/AdminLayout.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Layout/Navbar */ "./src/components/Layout/Navbar.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const AdminLayout = ({
+  children
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "productbay-app bg-wp-bg font-sans text-wp-text p-0 m-0",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Layout_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("main", {
+      className: "p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto",
+      children: children
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminLayout);
 
 /***/ },
 
@@ -11034,33 +23103,394 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-JMJ3UQ3L.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var _components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ui/Skeleton */ "./src/components/ui/Skeleton.tsx");
+/* harmony import */ var _store_systemStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/systemStore */ "./src/store/systemStore.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-play.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/download.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/life-buoy.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/sheet.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/upload.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__);
+
+
+
+
+
 
 
 
 const Dashboard = () => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex justify-between items-center mb-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
+  // Use the system store instead of local state
+  const {
+    status,
+    fetchStatus,
+    error
+  } = (0,_store_systemStore__WEBPACK_IMPORTED_MODULE_4__.useSystemStore)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // Fetch fresh data on mount (background update if data exists)
+    fetchStatus();
+  }, [fetchStatus]);
+  if (error) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+      className: "p-4 bg-red-50 text-red-600 rounded-lg",
+      children: ["Error: ", error]
+    });
+  }
+
+  // Determine loading state for skeleton (only if no data yet)
+  const isLoading = !status;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+      className: "flex justify-between items-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h1", {
         className: "text-2xl font-bold text-gray-800",
-        children: "Product Tables"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-        to: "/new",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "border border-blue-600 px-4 py-2 rounded hover:bg-blue-700 hover:text-white",
-          children: "Create New Table"
+        children: "Dashboard"
+      })
+    }), !isLoading && status?.product_count === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+      className: "bg-white p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 mb-6 shadow-sm border border-orange-500",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+        className: "p-4 rounded-2xl text-orange-500 shrink-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          size: 32
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "flex-1 text-center md:text-left",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h3", {
+          className: "text-lg font-bold text-red-950 m-0 pb-1",
+          children: "No Published Products Found"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+          className: "text-gray-600 text-sm max-w-2xl",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+            children: "ProductBay"
+          }), " requires published ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+            children: "WooCommerce"
+          }), " products to build your tables.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("br", {}), "We couldn't find any products in your WooCommerce store yet.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("br", {}), "Create your first product to start building high-converting tables."]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+        className: "shrink-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+          variant: "secondary",
+          className: "cursor-pointer border border-green-500",
+          onClick: () => window.open(_utils_routes__WEBPACK_IMPORTED_MODULE_5__.WC_PRODUCTS_PATH, '_blank'),
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            size: 18,
+            className: "mr-2"
+          }), "Add Products"]
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "p-6 text-xl text-center text-gray-500",
-      children: "No tables found. Create one to get started!"
+    }), isLoading ?
+    /*#__PURE__*/
+    // LOADING SKELETON
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+      className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+      children: [1, 2].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+          className: "h-12 w-12 rounded-lg"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          className: "space-y-2 w-full",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+            className: "h-4 w-24"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_3__.Skeleton, {
+            className: "h-8 w-16"
+          })]
+        })]
+      }, i))
+    }) : status?.table_count === 0 ?
+    /*#__PURE__*/
+    /* Welcome Hero */
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+      className: "bg-white p-12 rounded-xl shadow-sm border border-gray-100 text-center animate-fade-in",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+        className: "bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          size: 32
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h2", {
+        className: "text-2xl font-bold text-gray-900 mb-2",
+        children: "Welcome to ProductBay"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+        className: "text-gray-500 max-w-md mx-auto mb-8",
+        children: "Get started by creating your first product table. It takes less than 2 minutes to significantly improve your conversion rate."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+        onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_5__.PATHS.NEW),
+        className: "cursor-pointer",
+        variant: "default",
+        size: "lg",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          size: 20,
+          className: "mr-2"
+        }), "Create First Table"]
+      })]
+    }) :
+    /*#__PURE__*/
+    /* Stats Grid */
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+      className: "grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+          className: "bg-purple-50 p-3 rounded-lg text-purple-600",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            size: 24
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+            className: "text-gray-500 text-sm",
+            children: "Published WooCommerce Products"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+            className: "text-2xl font-bold text-gray-900",
+            children: status?.product_count
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+          className: "bg-blue-50 p-3 rounded-lg text-blue-600",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            size: 24
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+            className: "text-gray-500 text-sm",
+            children: "Active ProductBay Tables"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+            className: "text-2xl font-bold text-gray-900",
+            children: status?.table_count
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+      className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          className: "flex items-center gap-3 mb-4 text-gray-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            className: "text-blue-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h3", {
+            className: "font-bold",
+            children: "Getting Started"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+          className: "text-sm text-gray-500 mb-4",
+          children: "Watch our quick video guide or read the documentation to master ProductBay in minutes."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          className: "flex gap-3 text-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
+            href: "#",
+            className: "text-blue-600 hover:underline underline-offset-4",
+            children: "Watch Video"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+            className: "text-gray-300",
+            children: "|"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
+            href: "#",
+            className: "text-blue-600 hover:underline underline-offset-4",
+            children: "Documentation"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          className: "flex items-center gap-3 mb-4 text-gray-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: "text-green-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h3", {
+            className: "font-bold",
+            children: "Data Management"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+          className: "text-sm text-gray-500 mb-4",
+          children: "Import or export your table configurations for backup or migration."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          className: "flex gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("button", {
+            className: "flex-1 flex items-center justify-center gap-2 px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              size: 14
+            }), " Import"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("button", {
+            className: "flex-1 flex items-center justify-center gap-2 px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+            disabled: isLoading || status?.table_count === 0,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              size: 14
+            }), " Export"]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "bg-white p-6 rounded-lg shadow-sm border border-gray-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+          className: "flex items-center gap-3 mb-4 text-gray-800",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            className: "text-orange-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h3", {
+            className: "font-bold",
+            children: "Help & Support"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+          className: "text-sm text-gray-500 mb-4",
+          children: "Need help? Have a feature request? We'd love to hear from you."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "/help",
+          className: "text-blue-600 hover:underline underline-offset-4 text-sm font-medium",
+          children: "Contact Support"
+        })]
+      })]
     })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
+
+/***/ },
+
+/***/ "./src/pages/Design.tsx"
+/*!******************************!*\
+  !*** ./src/pages/Design.tsx ***!
+  \******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const Design = () => {
+  const [settings, setSettings] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    design: {}
+  });
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadSettings();
+  }, []);
+  const loadSettings = async () => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings');
+      setSettings(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings', {
+        method: 'POST',
+        body: JSON.stringify({
+          settings
+        })
+      });
+      alert('Design settings saved!');
+    } catch (error) {
+      alert('Failed to save settings');
+    } finally {
+      setSaving(false);
+    }
+  };
+  const updateDesign = (key, value) => {
+    setSettings({
+      ...settings,
+      design: {
+        ...settings.design,
+        [key]: value
+      }
+    });
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "p-8 text-center",
+    children: "Loading design settings..."
+  });
+  const design = settings.design || {
+    header_bg: '#f3f4f6',
+    border_color: '#e5e7eb'
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "max-w-4xl mx-auto space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      className: "text-2xl font-bold text-gray-800",
+      children: "Global Design Defaults"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "text-gray-500",
+      children: "These settings apply to all new tables. You can override them in individual table settings."
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "p-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "text-lg font-medium text-gray-900 mb-6",
+          children: "Color Palette"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "grid grid-cols-1 md:grid-cols-2 gap-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-2",
+              children: "Header Background"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "flex items-center gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "color",
+                value: design.header_bg,
+                onChange: e => updateDesign('header_bg', e.target.value),
+                className: "h-10 w-20 p-1 rounded border border-gray-300 cursor-pointer"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-gray-500 font-mono text-sm",
+                children: design.header_bg
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-2",
+              children: "Border Color"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "flex items-center gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "color",
+                value: design.border_color,
+                onChange: e => updateDesign('border_color', e.target.value),
+                className: "h-10 w-20 p-1 rounded border border-gray-300 cursor-pointer"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-gray-500 font-mono text-sm",
+                children: design.border_color
+              })]
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-6 bg-gray-50 rounded-b-lg flex justify-end",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+          onClick: handleSave,
+          disabled: saving,
+          className: "bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            size: 18
+          }), saving ? 'Saving...' : 'Save Global Design']
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Design);
 
 /***/ },
 
@@ -11076,22 +23506,358 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check-big.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panels-top-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/database.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/list.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/palette.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/zap.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _components_Create_StepSetup__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/Create/StepSetup */ "./src/components/Create/StepSetup.tsx");
+/* harmony import */ var _components_Create_StepSource__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/Create/StepSource */ "./src/components/Create/StepSource.tsx");
+/* harmony import */ var _components_Create_StepColumns__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/Create/StepColumns */ "./src/components/Create/StepColumns.tsx");
+/* harmony import */ var _components_Create_StepOptions__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../components/Create/StepOptions */ "./src/components/Create/StepOptions.tsx");
+/* harmony import */ var _components_Create_StepSearch__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/Create/StepSearch */ "./src/components/Create/StepSearch.tsx");
+/* harmony import */ var _components_Create_StepDesign__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/Create/StepDesign */ "./src/components/Create/StepDesign.tsx");
+/* harmony import */ var _components_Create_StepPerformance__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/Create/StepPerformance */ "./src/components/Create/StepPerformance.tsx");
+/* harmony import */ var _components_Create_StepPublish__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/Create/StepPublish */ "./src/components/Create/StepPublish.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__);
 
 
+
+
+
+
+
+
+// Step Components
+
+
+
+
+
+
+
+
+
+const STEPS = [{
+  id: 1,
+  label: 'Setup',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"],
+  component: _components_Create_StepSetup__WEBPACK_IMPORTED_MODULE_17__["default"]
+}, {
+  id: 2,
+  label: 'Source',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _components_Create_StepSource__WEBPACK_IMPORTED_MODULE_18__["default"]
+}, {
+  id: 3,
+  label: 'Columns',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"],
+  component: _components_Create_StepColumns__WEBPACK_IMPORTED_MODULE_19__["default"]
+}, {
+  id: 4,
+  label: 'Options',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"],
+  component: _components_Create_StepOptions__WEBPACK_IMPORTED_MODULE_20__["default"]
+}, {
+  id: 5,
+  label: 'Search',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"],
+  component: _components_Create_StepSearch__WEBPACK_IMPORTED_MODULE_21__["default"]
+}, {
+  id: 6,
+  label: 'Design',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"],
+  component: _components_Create_StepDesign__WEBPACK_IMPORTED_MODULE_22__["default"]
+}, {
+  id: 7,
+  label: 'Performance',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"],
+  component: _components_Create_StepPerformance__WEBPACK_IMPORTED_MODULE_23__["default"]
+}, {
+  id: 8,
+  label: 'Publish',
+  icon: lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"],
+  component: _components_Create_StepPublish__WEBPACK_IMPORTED_MODULE_24__["default"]
+}];
 const EditTable = () => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "p-6 bg-white rounded shadow",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-      className: "text-2xl font-bold mb-4",
-      children: "Edit Table"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-      children: "Form to edit table settings will go here."
+  const {
+    id
+  } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useParams)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
+
+  // Zustand Store
+  const {
+    currentStep,
+    setStep,
+    loadTable,
+    saveTable,
+    resetStore,
+    tableData,
+    fetchSourceStats,
+    sourceStats
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_16__.useTableStore)();
+  const [totalTables, setTotalTables] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [showValidation, setShowValidation] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Initial load logic
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    resetStore(); // Reset store on mount
+
+    if (id) {
+      loadTable(parseInt(id));
+    }
+    const checkTableCount = async () => {
+      if (!id) {
+        try {
+          const status = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_13__.apiFetch)('system/status');
+          setTotalTables(status.table_count);
+        } catch (e) {
+          console.error(e);
+          // Fallback to wizard if check fails or returns 0
+          setTotalTables(0);
+        }
+      }
+    };
+    checkTableCount();
+
+    /**
+     * Preload source statistics for 'all' and 'sale' sources
+     * 
+     * Similar to category preloading, this ensures statistics are ready
+     * before the user selects these sources, providing instant display.
+     * Stats are fetched in parallel with other initialization.
+     */
+    fetchSourceStats('all');
+    fetchSourceStats('sale');
+  }, [id]);
+  const handleNext = () => {
+    // Step 1: Validate table title
+    if (currentStep === 1 && !tableData.title.trim()) {
+      setShowValidation(true);
+      return;
+    }
+
+    // Step 2: Validate source selection
+    if (currentStep === 2) {
+      const {
+        source_type,
+        config
+      } = tableData;
+
+      // All products source requires at least one product in store
+      if (source_type === 'all' && (sourceStats['all']?.products || 0) === 0) {
+        setShowValidation(true);
+        return;
+      }
+
+      // Sale products source requires at least one sale product
+      if (source_type === 'sale' && (sourceStats['sale']?.products || 0) === 0) {
+        setShowValidation(true);
+        return;
+      }
+
+      // Category source requires at least one category selected
+      if (source_type === 'category' && (!config.categories || config.categories.length === 0)) {
+        setShowValidation(true);
+        return;
+      }
+
+      // Specific products source requires at least one product selected
+      if (source_type === 'specific' && (!config.products || config.products.length === 0)) {
+        setShowValidation(true);
+        return;
+      }
+    }
+    setShowValidation(false);
+    setStep(Math.min(8, currentStep + 1));
+  };
+  const handleSave = async () => {
+    const success = await saveTable(id);
+    if (success) {
+      alert('Table saved successfully!');
+      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_14__.PATHS.DASHBOARD);
+    } else {
+      alert('Failed to save table');
+    }
+  };
+  const isWizardMode = !id && (totalTables === 0 || totalTables === null);
+
+  // Render Logic
+  const CurrentStepComponent = STEPS.find(s => s.id === currentStep)?.component || _components_Create_StepSetup__WEBPACK_IMPORTED_MODULE_17__["default"];
+
+  // --- Layout Components ---
+
+  const WizardStepper = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+    className: "max-w-4xl mx-auto mb-8 px-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+      className: "text-center mb-10",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("h1", {
+        className: "text-2xl font-bold text-slate-800",
+        children: ["Setup your ", id ? '' : 'first ', "Product Table"]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+      className: "flex justify-between relative px-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+        className: "absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 -mt-3"
+      }), STEPS.map((step, index) => {
+        const isActive = currentStep === step.id;
+        const isCompleted = currentStep > step.id;
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          className: "relative z-0 group text-center flex-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("button", {
+            onClick: () => isCompleted && setStep(step.id),
+            disabled: !isCompleted && !isActive,
+            className: `w-10 h-10 rounded-full flex items-center justify-center mx-auto transition-all border-2
+                                    ${isActive ? 'bg-blue-600 border-blue-600 text-white shadow-md scale-110' : isCompleted ? 'bg-green-500 border-green-500 text-white cursor-pointer' : 'bg-white border-gray-300 text-gray-400'}`,
+            children: isCompleted ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              size: 18
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+              children: step.id
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            className: `mt-2 text-xs font-medium uppercase tracking-wide transition-colors ${isActive ? 'text-blue-600 font-bold' : isCompleted ? 'text-green-600' : 'text-gray-400'}`,
+            children: step.label
+          }), index !== STEPS.length - 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            className: `absolute top-5 left-1/2 w-full h-0.5 -z-10 transition-all duration-300 origin-left
+                                        ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}`
+          })]
+        }, step.id);
+      })]
+    })]
+  });
+  const TabNavigation = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+    className: "bg-white border-b border-gray-200 sticky top-0 z-20 px-8 flex items-center gap-1 shadow-sm overflow-x-auto",
+    children: STEPS.map(step => {
+      const isActive = currentStep === step.id;
+      const Icon = step.icon;
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("button", {
+        onClick: () => setStep(step.id),
+        className: `flex items-center gap-2 px-4 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                            ${isActive ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Icon, {
+          size: 16
+        }), step.label]
+      }, step.id);
+    })
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+    className: `min-h-[calc(100vh-100px)] -m-8 ${isWizardMode ? 'p-8' : 'bg-gray-50'}`,
+    children: [isWizardMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(WizardStepper, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(TabNavigation, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("main", {
+      className: `${isWizardMode ? 'max-w-4xl mx-auto' : 'p-8 max-w-7xl mx-auto'}`,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+        className: "flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 p-8 min-h-[500px] relative transition-all duration-500",
+        children: [!isWizardMode && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          className: "mb-6 pb-6 border-b border-gray-100 flex justify-between items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
+            className: "text-xl font-bold text-gray-800",
+            children: STEPS[currentStep - 1].label
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            className: "flex gap-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("button", {
+              onClick: handleSave,
+              className: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2 text-sm font-medium",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                size: 16
+              }), " Save Changes"]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+          className: "flex-1",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(CurrentStepComponent, {
+            showValidation: showValidation
+          })
+        }), isWizardMode && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          className: "mt-8 pt-6 flex justify-between items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_15__.Button, {
+            onClick: () => {
+              if (currentStep === 1) navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_14__.PATHS.DASHBOARD);else setStep(currentStep - 1);
+            },
+            className: "cursor-pointer",
+            variant: "outline",
+            size: "default",
+            children: currentStep === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                size: 18
+              }), " Back to Dashboard"]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2 ",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                size: 18
+              }), " Previous Step"]
+            })
+          }), currentStep < 8 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_15__.Button, {
+            className: "cursor-pointer",
+            onClick: handleNext,
+            variant: "default",
+            size: "default",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: ["Next Step ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                size: 18
+              })]
+            })
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_15__.Button, {
+            className: "cursor-pointer",
+            onClick: handleSave,
+            variant: "success",
+            size: "default",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                size: 18
+              }), " Finish & Publish"]
+            })
+          })]
+        })]
+      })
     })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditTable);
+
+/***/ },
+
+/***/ "./src/pages/Help.tsx"
+/*!****************************!*\
+  !*** ./src/pages/Help.tsx ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const Help = () => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "bg-white shadow rounded-lg p-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+      className: "text-2xl font-bold mb-4",
+      children: "Help"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+      children: "System status and help will be here."
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Help);
 
 /***/ },
 
@@ -11107,17 +23873,727 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 const Settings = () => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "text-2xl",
-    children: "Settings Page"
+  const [settings, setSettings] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadSettings();
+  }, []);
+  const loadSettings = async () => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings');
+      setSettings(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_2__.apiFetch)('settings', {
+        method: 'POST',
+        body: JSON.stringify({
+          settings
+        })
+      });
+      alert('Settings saved!');
+    } catch (error) {
+      alert('Failed to save settings');
+    } finally {
+      setSaving(false);
+    }
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "p-8 text-center",
+    children: "Loading settings..."
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "max-w-4xl mx-auto space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      className: "text-2xl font-bold text-gray-800",
+      children: "Plugin Settings"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "p-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "text-lg font-medium text-gray-900 mb-4",
+          children: "General Settings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-1",
+              children: "Add to Cart Button Text"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              value: settings.add_to_cart_text || '',
+              onChange: e => setSettings({
+                ...settings,
+                add_to_cart_text: e.target.value
+              }),
+              className: "w-full px-4 py-2 border border-gray-300 rounded-md"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "block text-sm font-medium text-gray-700 mb-1",
+              children: "Default Products Per Page"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "number",
+              value: settings.products_per_page || 10,
+              onChange: e => setSettings({
+                ...settings,
+                products_per_page: parseInt(e.target.value)
+              }),
+              className: "w-full px-4 py-2 border border-gray-300 rounded-md"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "p-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "text-lg font-medium text-red-600 mb-4",
+          children: "Uninstall Options"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex items-center justify-between",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "font-medium text-gray-800",
+              children: "Delete Data on Uninstall"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "text-sm text-gray-500",
+              children: "Enable this to wipe all tables and settings when deleting the plugin."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "checkbox",
+            checked: settings.delete_on_uninstall || false,
+            onChange: e => setSettings({
+              ...settings,
+              delete_on_uninstall: e.target.checked
+            }),
+            className: "toggle"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-6 bg-gray-50 rounded-b-lg flex justify-end",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+          onClick: handleSave,
+          disabled: saving,
+          className: "bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            size: 18
+          }), saving ? 'Saving...' : 'Save Changes']
+        })
+      })]
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
+
+/***/ },
+
+/***/ "./src/pages/Tables.tsx"
+/*!******************************!*\
+  !*** ./src/pages/Tables.tsx ***!
+  \******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/square-pen.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/copy.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+const Tables = () => {
+  const [tables, setTables] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadTables();
+  }, []);
+  const loadTables = async () => {
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_6__.apiFetch)('tables');
+      setTables(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleDelete = async id => {
+    if (!confirm('Are you sure you want to delete this table?')) return;
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_6__.apiFetch)(`tables/${id}`, {
+        method: 'DELETE'
+      });
+      loadTables();
+    } catch (error) {
+      alert('Failed to delete table');
+    }
+  };
+  const copyShortcode = shortcode => {
+    navigator.clipboard.writeText(shortcode);
+    alert('Shortcode copied!');
+  };
+  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    className: "p-8 text-center text-gray-500",
+    children: "Loading tables..."
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "flex justify-between items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h1", {
+        className: "text-2xl font-bold text-gray-800",
+        children: "All Tables"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        to: _utils_routes__WEBPACK_IMPORTED_MODULE_7__.PATHS.NEW,
+        className: "bg-wp-btn hover:bg-wp-btn-hover text-white px-4 py-2 rounded-md font-medium flex items-center gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          size: 18
+        }), "Create New"]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("table", {
+        className: "w-full text-left border-collapse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("thead", {
+          className: "bg-gray-50 border-b border-gray-200",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              children: "Table Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              children: "Shortcode"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              children: "Date"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
+              className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right",
+              children: "Actions"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("tbody", {
+          className: "divide-y divide-gray-200",
+          children: tables.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("tr", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              colSpan: 4,
+              className: "px-6 py-12 text-center text-gray-400",
+              children: "No tables found. Create your first one."
+            })
+          }) : tables.map(table => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("tr", {
+            className: "group hover:bg-gray-50 transition-colors",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("td", {
+              className: "px-6 py-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "font-medium text-wp-text text-base",
+                children: table.title
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "text-xs text-gray-400 mt-0.5 capitalize",
+                children: table.status
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              className: "px-6 py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
+                onClick: () => copyShortcode(table.shortcode),
+                className: "bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors",
+                children: [table.shortcode, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  size: 12
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              className: "px-6 py-4 text-sm text-gray-500",
+              children: new Date(table.date).toLocaleDateString()
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+              className: "px-6 py-4 text-right",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+                className: "flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                  to: `/edit/${table.id}`,
+                  className: "text-blue-600 hover:text-blue-800 p-1.5 hover:bg-blue-50 rounded",
+                  title: "Edit Table",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    size: 16
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+                  onClick: () => handleDelete(table.id),
+                  className: "text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 rounded",
+                  title: "Delete Table",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    size: 16
+                  })
+                })]
+              })
+            })]
+          }, table.id))
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tables);
+
+/***/ },
+
+/***/ "./src/store/systemStore.ts"
+/*!**********************************!*\
+  !*** ./src/store/systemStore.ts ***!
+  \**********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useSystemStore: () => (/* binding */ useSystemStore)
+/* harmony export */ });
+/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zustand */ "./node_modules/zustand/esm/react.mjs");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+
+
+const useSystemStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get) => ({
+  status: null,
+  loading: false,
+  error: null,
+  fetchStatus: async () => {
+    // If we already have data, we're not technically "loading" in a blocking way
+    // but we still want to indicate a background refresh might be happening if needed.
+    // For this UI, we'll just set loading=true only if we have NO data.
+    if (!get().status) {
+      set({
+        loading: true
+      });
+    }
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('system/status');
+      set({
+        status: data,
+        loading: false,
+        error: null
+      });
+    } catch (err) {
+      set({
+        error: err.message,
+        loading: false
+      });
+    }
+  }
+}));
+
+/***/ },
+
+/***/ "./src/store/tableStore.ts"
+/*!*********************************!*\
+  !*** ./src/store/tableStore.ts ***!
+  \*********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useTableStore: () => (/* binding */ useTableStore)
+/* harmony export */ });
+/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zustand */ "./node_modules/zustand/esm/react.mjs");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.ts");
+
+
+const DEFAULT_DATA = {
+  title: '',
+  source_type: 'all',
+  columns: [{
+    id: 'image',
+    label: 'Image'
+  }, {
+    id: 'name',
+    label: 'Product Name'
+  }, {
+    id: 'price',
+    label: 'Price'
+  }, {
+    id: 'add-to-cart',
+    label: 'Add to Cart'
+  }],
+  config: {}
+};
+
+// Constants for category caching
+const CACHE_KEY = 'productbay_categories_cache';
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes - full cache expiration
+const STALE_DURATION = 1000 * 60 * 5; // 5 minutes - triggers background refresh
+
+const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get) => ({
+  currentStep: 1,
+  tableData: DEFAULT_DATA,
+  isLoading: false,
+  isSaving: false,
+  error: null,
+  // Category cache state
+  categories: [],
+  categoriesLoading: false,
+  categoriesLastFetched: null,
+  // Source statistics state
+  sourceStats: {},
+  sourceStatsLoading: {},
+  setStep: step => set({
+    currentStep: step
+  }),
+  setTableData: data => set(state => ({
+    tableData: {
+      ...state.tableData,
+      ...data
+    }
+  })),
+  resetStore: () => set({
+    currentStep: 1,
+    tableData: DEFAULT_DATA,
+    isLoading: false,
+    error: null
+  }),
+  loadTable: async id => {
+    set({
+      isLoading: true,
+      error: null
+    });
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)(`tables/${id}`);
+      set({
+        tableData: {
+          title: data.title,
+          source_type: data.source_type || 'all',
+          columns: data.columns || DEFAULT_DATA.columns,
+          config: data.config || {}
+        }
+      });
+    } catch (error) {
+      console.error('Failed to load table:', error);
+      set({
+        error: 'Failed to load table data'
+      });
+    } finally {
+      set({
+        isLoading: false
+      });
+    }
+  },
+  saveTable: async id => {
+    set({
+      isSaving: true,
+      error: null
+    });
+    const {
+      tableData
+    } = get();
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('tables', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: id,
+          ...tableData
+        })
+      });
+      return true;
+    } catch (error) {
+      console.error('Failed to save table:', error);
+      set({
+        error: 'Failed to save table'
+      });
+      return false;
+    } finally {
+      set({
+        isSaving: false
+      });
+    }
+  },
+  /**
+   * Preload categories with intelligent caching
+   * 
+   * Data Flow:
+   * 1. Check localStorage cache first
+   * 2. If cache exists and is valid (< 30 min old), use it
+   * 3. If cache is expired or missing, fetch from WordPress API
+   * 4. Update both localStorage and Zustand store state
+   * 
+   * This is called by parent components (like StepSource) on mount
+   * to ensure categories are ready before the user interacts with CategorySelector.
+   */
+  preloadCategories: async () => {
+    // Avoid redundant fetches if already loading
+    if (get().categoriesLoading) return;
+    set({
+      categoriesLoading: true
+    });
+    try {
+      // Step 1: Check localStorage cache
+      const cachedData = localStorage.getItem(CACHE_KEY);
+      if (cachedData) {
+        const parsed = JSON.parse(cachedData);
+        const now = Date.now();
+
+        // Step 2: Use cache if not expired (< 30 minutes)
+        if (now - parsed.timestamp < CACHE_DURATION) {
+          console.log('[CategoryCache] Using cached categories from localStorage');
+          set({
+            categories: parsed.categories,
+            categoriesLastFetched: parsed.timestamp,
+            categoriesLoading: false
+          });
+          return;
+        }
+      }
+
+      // Step 3: Fetch fresh data from API
+      console.log('[CategoryCache] Fetching categories from API');
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
+      const timestamp = Date.now();
+
+      // Step 4: Update both caches
+      const cacheData = {
+        categories: data,
+        timestamp
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      set({
+        categories: data,
+        categoriesLastFetched: timestamp,
+        categoriesLoading: false
+      });
+    } catch (error) {
+      console.error('[CategoryCache] Failed to load categories:', error);
+      set({
+        categoriesLoading: false
+      });
+    }
+  },
+  /**
+   * Refresh categories if cache is stale (background refresh)
+   * 
+   * This is called when CategorySelector mounts. If the cached data is older
+   * than 5 minutes (but less than 30 minutes), it will fetch fresh data in the
+   * background without blocking the UI. Users see cached data immediately and
+   * get automatic updates when fresh data arrives.
+   * 
+   * Data Flow:
+   * 1. Check if cache is stale (> 5 min old)
+   * 2. If stale, fetch from API in background (non-blocking)
+   * 3. Update localStorage and store when fresh data arrives
+   */
+  refreshCategoriesIfStale: async () => {
+    const {
+      categoriesLastFetched,
+      categoriesLoading
+    } = get();
+
+    // Skip if already loading or no cache exists
+    if (categoriesLoading || !categoriesLastFetched) return;
+    const now = Date.now();
+    const isStale = now - categoriesLastFetched > STALE_DURATION;
+
+    // Only refresh if stale
+    if (!isStale) return;
+    console.log('[CategoryCache] Cache is stale, refreshing in background');
+    try {
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
+      const timestamp = Date.now();
+
+      // Update both caches
+      const cacheData = {
+        categories: data,
+        timestamp
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      set({
+        categories: data,
+        categoriesLastFetched: timestamp
+      });
+      console.log('[CategoryCache] Background refresh complete');
+    } catch (error) {
+      console.error('[CategoryCache] Background refresh failed:', error);
+    }
+  },
+  /**
+   * Force reload categories (manual user-triggered refresh)
+   * 
+   * Bypasses all caches and fetches fresh data from the API.
+   * This is triggered when the user clicks the "Reload" button.
+   * 
+   * Data Flow:
+   * 1. Set loading state (shows spinner in UI)
+   * 2. Fetch fresh data from WordPress API
+   * 3. Clear old cache and update with new data
+   * 4. Update store state and clear loading
+   */
+  forceReloadCategories: async () => {
+    set({
+      categoriesLoading: true
+    });
+    try {
+      console.log('[CategoryCache] Force reloading categories from API');
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
+      const timestamp = Date.now();
+
+      // Update both caches
+      const cacheData = {
+        categories: data,
+        timestamp
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      set({
+        categories: data,
+        categoriesLastFetched: timestamp,
+        categoriesLoading: false
+      });
+      console.log('[CategoryCache] Force reload complete');
+    } catch (error) {
+      console.error('[CategoryCache] Force reload failed:', error);
+      set({
+        categoriesLoading: false
+      });
+    }
+  },
+  /**
+   * Fetch source statistics for a given source type
+   * 
+   * Fetches product and category counts for 'all' and 'sale' source types.
+   * For 'category' and 'specific', stats are calculated client-side.
+   * 
+   * Data Flow:
+   * 1. Set loading state for this source type
+   * 2. Fetch from WordPress API (/source-stats?type=...)
+   * 3. Update sourceStats cache
+   * 4. Clear loading state
+   * 
+   * Caching: In-memory only (Zustand store), no localStorage persistence.
+   * Stats may change frequently as products are added/removed.
+   */
+  fetchSourceStats: async sourceType => {
+    const {
+      sourceStatsLoading,
+      sourceStats
+    } = get();
+
+    // Skip if already loading
+    if (sourceStatsLoading[sourceType]) {
+      console.log(`[SourceStats] Already loading ${sourceType}, skipping...`);
+      return;
+    }
+
+    // Skip if data already exists (cache hit)
+    if (sourceStats[sourceType]) {
+      console.log(`[SourceStats] Cache hit for ${sourceType}, using cached data`);
+      return;
+    }
+
+    // Skip client-side calculated sources
+    if (sourceType === 'category' || sourceType === 'specific') return;
+
+    // Set loading state for this source
+    set(state => ({
+      sourceStatsLoading: {
+        ...state.sourceStatsLoading,
+        [sourceType]: true
+      }
+    }));
+    try {
+      console.log(`[SourceStats] Fetching stats for source type: ${sourceType}`);
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)(`source-stats?type=${sourceType}`);
+      set(state => ({
+        sourceStats: {
+          ...state.sourceStats,
+          [sourceType]: data
+        },
+        sourceStatsLoading: {
+          ...state.sourceStatsLoading,
+          [sourceType]: false
+        }
+      }));
+      console.log(`[SourceStats] Stats loaded for ${sourceType}:`, data);
+    } catch (error) {
+      console.error(`[SourceStats] Failed to fetch stats for ${sourceType}:`, error);
+
+      // Clear loading state on error
+      set(state => ({
+        sourceStatsLoading: {
+          ...state.sourceStatsLoading,
+          [sourceType]: false
+        }
+      }));
+    }
+  }
+}));
+
+/***/ },
+
+/***/ "./src/utils/api.ts"
+/*!**************************!*\
+  !*** ./src/utils/api.ts ***!
+  \**************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   apiFetch: () => (/* binding */ apiFetch)
+/* harmony export */ });
+const apiFetch = async (path, options = {}) => {
+  const url = `${productBaySettings.apiUrl}${path.replace(/^\//, '')}`;
+  const headers = {
+    'X-WP-Nonce': productBaySettings.nonce,
+    'Content-Type': 'application/json',
+    ...options.headers
+  };
+  const response = await fetch(url, {
+    ...options,
+    headers
+  });
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || 'API Request Failed');
+  }
+  return response.json();
+};
+
+/***/ },
+
+/***/ "./src/utils/cn.ts"
+/*!*************************!*\
+  !*** ./src/utils/cn.ts ***!
+  \*************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cn: () => (/* binding */ cn)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
+
+
+function cn(...inputs) {
+  return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)((0,clsx__WEBPACK_IMPORTED_MODULE_0__.clsx)(inputs));
+}
 
 /***/ },
 
@@ -11129,33 +24605,70 @@ const Settings = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PATHS: () => (/* binding */ PATHS),
+/* harmony export */   WC_ADD_PRODUCT_PATH: () => (/* binding */ WC_ADD_PRODUCT_PATH),
+/* harmony export */   WC_ADMIN_PRODUCTS_PATH: () => (/* binding */ WC_ADMIN_PRODUCTS_PATH),
+/* harmony export */   WC_PRODUCTS_PATH: () => (/* binding */ WC_PRODUCTS_PATH),
 /* harmony export */   routes: () => (/* binding */ routes)
 /* harmony export */ });
 /* harmony import */ var _pages_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pages/Dashboard */ "./src/pages/Dashboard.tsx");
 /* harmony import */ var _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../pages/EditTable */ "./src/pages/EditTable.tsx");
 /* harmony import */ var _pages_Settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/Settings */ "./src/pages/Settings.tsx");
+/* harmony import */ var _pages_Tables__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pages/Tables */ "./src/pages/Tables.tsx");
+/* harmony import */ var _pages_Design__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pages/Design */ "./src/pages/Design.tsx");
+/* harmony import */ var _pages_Help__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/Help */ "./src/pages/Help.tsx");
 
 
 
+
+
+
+const PATHS = {
+  DASHBOARD: '/',
+  NEW: '/new',
+  EDIT: '/edit/:id',
+  SETTINGS: '/settings',
+  HELP: '/help',
+  TABLES: '/tables',
+  DESIGN: '/design'
+};
 const routes = [{
-  path: '/',
+  path: PATHS.DASHBOARD,
   element: _pages_Dashboard__WEBPACK_IMPORTED_MODULE_0__["default"],
+  label: 'Dashboard',
+  showInNav: true
+}, {
+  path: PATHS.TABLES,
+  element: _pages_Tables__WEBPACK_IMPORTED_MODULE_3__["default"],
   label: 'Tables',
   showInNav: true
 }, {
-  path: '/new',
-  element: _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__["default"],
-  showInNav: false
+  path: PATHS.DESIGN,
+  element: _pages_Design__WEBPACK_IMPORTED_MODULE_4__["default"],
+  label: 'Design',
+  showInNav: true
 }, {
-  path: '/edit/:id',
-  element: _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__["default"],
-  showInNav: false
-}, {
-  path: '/settings',
+  path: PATHS.SETTINGS,
   element: _pages_Settings__WEBPACK_IMPORTED_MODULE_2__["default"],
   label: 'Settings',
   showInNav: true
+}, {
+  path: PATHS.HELP,
+  element: _pages_Help__WEBPACK_IMPORTED_MODULE_5__["default"],
+  label: 'Help',
+  showInNav: true
+}, {
+  path: PATHS.NEW,
+  element: _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__["default"],
+  showInNav: false
+}, {
+  path: PATHS.EDIT,
+  element: _pages_EditTable__WEBPACK_IMPORTED_MODULE_1__["default"],
+  showInNav: false
 }];
+const WC_PRODUCTS_PATH = '/wp-admin/edit.php?post_type=product';
+const WC_ADD_PRODUCT_PATH = '/wp-admin/post-new.php?post_type=product';
+const WC_ADMIN_PRODUCTS_PATH = '/wp-admin/admin.php?page=wc-admin&task=products';
 
 /***/ },
 
@@ -11186,6 +24699,16 @@ module.exports = window["wp"]["element"];
 (module) {
 
 module.exports = window["React"];
+
+/***/ },
+
+/***/ "react-dom"
+/*!***************************!*\
+  !*** external "ReactDOM" ***!
+  \***************************/
+(module) {
+
+module.exports = window["ReactDOM"];
 
 /***/ },
 
@@ -11311,19 +24834,46 @@ var __webpack_exports__ = {};
   \***********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App */ "./src/App.tsx");
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
 
-_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default()(() => {
-  const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createRoot)(document.getElementById("productbay-root"));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_App__WEBPACK_IMPORTED_MODULE_0__["default"], {}));
+
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2___default()(() => {
+  // Handle deep linking from WP Admin Menu
+  if (!window.location.hash) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("page");
+    switch (page) {
+      case "productbay-tables":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.TABLES}`;
+        break;
+      case "productbay-new":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.NEW}`;
+        break;
+      case "productbay-settings":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.SETTINGS}`;
+        break;
+      case "productbay-help":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.HELP}`;
+        break;
+      case "productbay":
+        window.location.hash = `#${_utils_routes__WEBPACK_IMPORTED_MODULE_1__.PATHS.DASHBOARD}`;
+        break;
+    }
+  }
+  const container = document.getElementById("productbay-root");
+  if (container) {
+    const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createRoot)(container);
+    root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_App__WEBPACK_IMPORTED_MODULE_0__["default"], {}));
+  }
 });
 })();
 

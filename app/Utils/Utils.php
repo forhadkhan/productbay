@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils;
+namespace ProductBay\Utils;
 
 class Utils {
     // 

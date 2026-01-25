@@ -1,1 +1,32 @@
-@import "tailwindcss";
+@config "../../tailwind.config.js";
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+/* Essential Scoped Preflight */
+#productbay-root,
+#productbay-root *,
+#productbay-root ::before,
+#productbay-root ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+}
+
+#productbay-root a {
+    text-decoration: none;
+}
+
+/* Modal should be fixed to viewport, not just the plugin container */
+#productbay-root .fixed {
+    position: fixed !important;
+}
+
+/* Remove padding from wp-content */
+#wpcontent {
+    padding: 0 !important;
+}
+
+/* Remove wordepress default admin footer */
+#wpfooter {
+    display: none !important;
+}
