@@ -40,7 +40,7 @@ export const routes: RouteConfig[] = [
         path: PATHS.DESIGN,
         element: Design,
         label: 'Design',
-        showInNav: true
+        showInNav: false
     },
     {
         path: PATHS.SETTINGS,
@@ -52,7 +52,7 @@ export const routes: RouteConfig[] = [
         path: PATHS.HELP,
         element: Help,
         label: 'Help',
-        showInNav: true
+        showInNav: false
     },
     {
         path: PATHS.NEW,
