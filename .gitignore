@@ -23,6 +23,7 @@ dist/
 
 # IDE & System
 .idea/
+.agent/
 .DS_Store
 Thumbs.db
 *.log
