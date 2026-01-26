@@ -59,7 +59,7 @@ const Settings = () => {
 		} catch (error) {
 			toast({
 				title: 'Failed to save settings',
-				description: 'An error occurred while saving your settings.',
+				description: (error as Error).message || 'An error occurred while saving your settings.',
 				type: 'error',
 			});
 		}

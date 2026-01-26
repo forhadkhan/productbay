@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { Skeleton } from '../ui/Skeleton';
+import { Toggle } from '@/components/ui/Toggle';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 interface UninstallOptionsProps {
     settings: any;
@@ -38,17 +39,16 @@ const UninstallOptions = memo(({ settings, setSettings, loading }: UninstallOpti
                         deleting the plugin.
                     </p>
                 </div>
-                <input
-                    type="checkbox"
-                    checked={settings.delete_on_uninstall || false}
+                <Toggle
+                    checked={settings.delete_on_uninstall ?? true}
                     onChange={(e) =>
                         setSettings({
                             ...settings,
                             delete_on_uninstall: e.target.checked,
                         })
                     }
-                    className="toggle"
                     disabled={loading}
+                    className="flex-shrink-0 border-gray-200"
                 />
             </div>
         </div>

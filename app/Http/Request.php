@@ -4,6 +4,30 @@ namespace WpabProductBay\Http;
 
 class Request
 {
+    public function __construct()
+    {
+        $this->handleJsonInput();
+    }
+
+    /**
+     * Handle JSON input for REST API requests
+     */
+    private function handleJsonInput()
+    {
+        if (
+            isset($_SERVER['CONTENT_TYPE']) &&
+            strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false
+        ) {
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+
+            // error_log('ProductBay API Input: ' . print_r($data, true));
+
+            if (is_array($data)) {
+                $_REQUEST = array_merge($_REQUEST, $data);
+            }
+        }
+    }
     /**
      * Get a value from $_REQUEST with sanitization.
      */
@@ -23,6 +47,10 @@ class Request
     {
         if (is_array($value)) {
             return array_map([$this, 'sanitize'], $value);
+        }
+
+        if (is_bool($value)) {
+            return $value;
         }
 
         return \sanitize_text_field(wp_unslash($value));

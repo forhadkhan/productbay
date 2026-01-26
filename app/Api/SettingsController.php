@@ -19,9 +19,20 @@ class SettingsController
         return get_option(self::OPTION_NAME, $this->defaults());
     }
 
-    public function update_settings()
+    /**
+     * Update settings via REST API.
+     * 
+     * @param \WP_REST_Request $request The REST request object containing JSON body.
+     * @return array The updated settings.
+     */
+    public function update_settings(\WP_REST_Request $request)
     {
-        $settings = $this->request->get('settings');
+        $settings = $request->get_param('settings');
+
+        if (!is_array($settings)) {
+            $settings = [];
+        }
+
         // Merge with defaults to ensure structure
         $settings = array_merge($this->defaults(), $settings);
 
