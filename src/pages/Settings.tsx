@@ -1,133 +1,163 @@
-import { useEffect, useState } from 'react';
 import { Save } from 'lucide-react';
-import { apiFetch } from '../utils/api';
+import { apiFetch } from '@/utils/api';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/Button';
+import { useToast } from '@/context/ToastContext';
+import { Tabs, TabOption } from '@/components/ui/Tabs';
+
+type SettingsTabValue = 'default' | 'advanced' | 'plugin';
+
+const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
+	{
+		value: 'default',
+		label: 'Default',
+	},
+	{
+		value: 'advanced',
+		label: 'Advanced',
+	},
+	{
+		value: 'plugin',
+		label: 'Plugin',
+	},
+];
 
 const Settings = () => {
-	const [ settings, setSettings ] = useState< any >( {} );
-	const [ loading, setLoading ] = useState( true );
-	const [ saving, setSaving ] = useState( false );
+	const [settings, setSettings] = useState<any>({});
+	const [loading, setLoading] = useState(true);
+	const [saving, setSaving] = useState(false);
+	const [activeTab, setActiveTab] = useState<SettingsTabValue>('default');
 
-	useEffect( () => {
+	/** Toast hook for displaying notifications */
+	const { toast } = useToast();
+
+	useEffect(() => {
 		loadSettings();
-	}, [] );
+	}, []);
 
 	const loadSettings = async () => {
 		try {
-			const data = await apiFetch( 'settings' );
-			setSettings( data );
-		} catch ( error ) {
-			console.error( error );
+			const data = await apiFetch('settings');
+			setSettings(data);
+		} catch (error) {
+			console.error(error);
 		} finally {
-			setLoading( false );
+			setLoading(false);
 		}
 	};
 
 	const handleSave = async () => {
-		setSaving( true );
+		setSaving(true);
 		try {
-			await apiFetch( 'settings', {
+			await apiFetch('settings', {
 				method: 'POST',
-				body: JSON.stringify( { settings } ),
-			} );
-			alert( 'Settings saved!' );
-		} catch ( error ) {
-			alert( 'Failed to save settings' );
+				body: JSON.stringify({ settings }),
+			});
+			toast({
+				title: 'Settings saved!',
+				description: 'Your settings have been saved successfully.',
+				type: 'success',
+			});
+		} catch (error) {
+			toast({
+				title: 'Failed to save settings',
+				description: 'An error occurred while saving your settings.',
+				type: 'error',
+			});
 		} finally {
-			setSaving( false );
+			setSaving(false);
 		}
 	};
 
-	if ( loading )
+	if (loading)
 		return <div className="p-8 text-center">Loading settings...</div>;
 
 	return (
 		<div className="max-w-4xl mx-auto space-y-6">
-			<h1 className="text-2xl font-bold text-gray-800">
-				Plugin Settings
-			</h1>
-
-			<div className="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200">
-				<div className="p-6">
-					<h3 className="text-lg font-medium text-gray-900 mb-4">
-						General Settings
-					</h3>
-					<div className="space-y-4">
-						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-1">
-								Add to Cart Button Text
-							</label>
-							<input
-								type="text"
-								value={ settings.add_to_cart_text || '' }
-								onChange={ ( e ) =>
-									setSettings( {
-										...settings,
-										add_to_cart_text: e.target.value,
-									} )
-								}
-								className="w-full px-4 py-2 border border-gray-300 rounded-md"
-							/>
-						</div>
-						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-1">
-								Default Products Per Page
-							</label>
-							<input
-								type="number"
-								value={ settings.products_per_page || 10 }
-								onChange={ ( e ) =>
-									setSettings( {
-										...settings,
-										products_per_page: parseInt(
-											e.target.value
-										),
-									} )
-								}
-								className="w-full px-4 py-2 border border-gray-300 rounded-md"
-							/>
-						</div>
-					</div>
-				</div>
-
-				<div className="p-6">
-					<h3 className="text-lg font-medium text-red-600 mb-4">
-						Uninstall Options
-					</h3>
-					<div className="flex items-center justify-between">
-						<div>
-							<span className="font-medium text-gray-800">
-								Delete Data on Uninstall
-							</span>
-							<p className="text-sm text-gray-500">
-								Enable this to wipe all tables and settings when
-								deleting the plugin.
-							</p>
-						</div>
-						<input
-							type="checkbox"
-							checked={ settings.delete_on_uninstall || false }
-							onChange={ ( e ) =>
-								setSettings( {
-									...settings,
-									delete_on_uninstall: e.target.checked,
-								} )
-							}
-							className="toggle"
-						/>
-					</div>
-				</div>
-
-				<div className="p-6 bg-gray-50 rounded-b-lg flex justify-end">
-					<button
-						onClick={ handleSave }
-						disabled={ saving }
-						className="bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50"
-					>
-						<Save size={ 18 } />
-						{ saving ? 'Saving...' : 'Save Changes' }
-					</button>
-				</div>
+			<div className="flex items-center justify-between">
+				<h1 className="text-2xl font-bold text-gray-800 m-0">
+					Settings
+				</h1>
+				<Button
+					onClick={handleSave}
+					disabled={saving}
+					variant="default"
+					size="sm"
+					className="w-36"
+				>
+					<Save className="w-4 h-4 mr-2" />
+					{saving ? 'Saving...' : 'Save Changes'}
+				</Button>
 			</div>
+
+			<Tabs
+				tabs={SETTINGS_TABS}
+				value={activeTab}
+				onChange={setActiveTab}
+				aria-label="Settings tabs"
+			>
+				{/* Default Tab Content */}
+				{activeTab === 'default' && (
+					<div className="space-y-6">
+						<div className="p-6">
+							<h3 className="text-lg font-medium text-gray-900 mb-4">
+								General Settings
+							</h3>
+							<div className="space-y-4">
+								<p>Settings will be available soon.</p>
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Advanced Tab Content */}
+				{activeTab === 'advanced' && (
+					<div className="space-y-6">
+						{/* Toast Testing Section */}
+						<div className="p-6">
+							<h3 className="text-lg font-medium text-gray-900 mb-4">
+								Advanced Settings
+							</h3>
+							<div className="space-y-4">
+								<p>Settings will be available soon.</p>
+							</div>
+						</div>
+					</div>
+				)}
+
+				{/* Plugin Tab Content */}
+				{activeTab === 'plugin' && (
+					<div className="space-y-6">
+						<div className="p-6">
+							<h3 className="text-lg font-semibold text-red-600 mb-4">
+								Uninstall Options
+							</h3>
+							<div className="flex items-center justify-between p-4 border border-red-100 bg-red-50 rounded-lg">
+								<div>
+									<span className="font-medium text-gray-800">
+										Delete Data on Uninstall
+									</span>
+									<p className="text-sm text-gray-600 mt-1">
+										Enable this to wipe all tables and settings when
+										deleting the plugin.
+									</p>
+								</div>
+								<input
+									type="checkbox"
+									checked={settings.delete_on_uninstall || false}
+									onChange={(e) =>
+										setSettings({
+											...settings,
+											delete_on_uninstall: e.target.checked,
+										})
+									}
+									className="toggle"
+								/>
+							</div>
+						</div>
+					</div>
+				)}
+			</Tabs>
 		</div>
 	);
 };
