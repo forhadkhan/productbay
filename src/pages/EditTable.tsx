@@ -20,14 +20,14 @@ import { Stepper } from '../components/ui/Stepper';
 import { useTableStore } from '../store/tableStore';
 
 // Step Components
-import StepSetup from '../components/Create/sections/StepSetup';
-import StepSource from '../components/Create/sections/StepSource';
-import StepColumns from '../components/Create/sections/StepColumns';
-import StepOptions from '../components/Create/sections/StepOptions';
-import StepSearch from '../components/Create/sections/StepSearch';
-import StepDesign from '../components/Create/sections/StepDesign';
-import StepPerformance from '../components/Create/sections/StepPerformance';
-import StepPublish from '../components/Create/sections/StepPublish';
+import StepSetup from '../components/Table/sections/StepSetup';
+import StepSource from '../components/Table/sections/StepSource';
+import StepColumns from '../components/Table/sections/StepColumns';
+import StepOptions from '../components/Table/sections/StepOptions';
+import StepSearch from '../components/Table/sections/StepSearch';
+import StepDesign from '../components/Table/sections/StepDesign';
+import StepPerformance from '../components/Table/sections/StepPerformance';
+import StepPublish from '../components/Table/sections/StepPublish';
 
 const STEPS = [
 	{ id: 1, label: 'Setup', icon: LayoutIcon, component: StepSetup },
