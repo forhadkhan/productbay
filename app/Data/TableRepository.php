@@ -1,6 +1,6 @@
 <?php
 
-namespace ProductBay\Data;
+namespace WpabProductBay\Data;
 
 class TableRepository
 {

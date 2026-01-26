@@ -1,55 +1,63 @@
-import { Button } from "../ui/Button";
-import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutGridIcon, PlusIcon } from "lucide-react";
+import { Button } from '../ui/Button';
+import { PlusIcon } from 'lucide-react';
+import ProductBayLogo from '../ui/ProductBayLogo';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { routes, PATHS } from '../../utils/routes';
 
 const Navbar = () => {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    const navLinks = routes.filter(route => route.showInNav);
+	const navLinks = routes.filter( ( route ) => route.showInNav );
 
-    return (
-        <nav className="w-full bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex justify-between items-center">
-            {/* Logo / Brand */}
-            <div className="flex items-center justify-content-center gap-2">
-                <LayoutGridIcon size={20} strokeWidth={2.5} />
-                <span className="text-xl font-bold text-wp-text tracking-tight">
-                    Product<span className="font-normal">Bay</span>
-                </span>
-            </div>
+	return (
+		<nav className="w-full bg-white shadow-sm border-b border-gray-200 py-3 px-6 h-16 flex justify-between items-center">
+			{ /* Logo / Brand */ }
+			<div className="flex items-center justify-content-center gap-2">
+				<ProductBayLogo className="h-9 w-auto" />
+			</div>
 
-            {/* Navigation Links */}
-            <div className="flex items-center">
-                <div className="flex space-x-2 mr-6">
-                    {navLinks.map((link) => (
-                        <NavLink
-                            key={link.path}
-                            to={link.path}
-                            className={({ isActive }) =>
-                                `   text-gray-600 font-medium hover:text-wp-btn transition-colors px-4 py-2 rounded-md 
-                                    ${isActive ? "bg-gray-200" : "hover:bg-gray-100"
-                                }`
-                            }
-                        >
-                            {link.label}
-                        </NavLink>
-                    ))}
-                </div>
+			{ /* Navigation Links */ }
+			<div className="flex items-center">
+				<div className="flex space-x-2 mr-8">
+					{ navLinks.map( ( link ) => (
+						<NavLink
+							key={ link.path }
+							to={ link.path }
+							className={ ( { isActive } ) =>
+								`   flex items-center px-4 h-9 rounded-lg text-sm font-semibold transition-colors
+                                    ${
+										isActive
+											? 'bg-productbay-secondary text-gray-900'
+											: 'text-gray-500 hover:text-gray-900'
+									}`
+							}
+						>
+							{ link.label }
+						</NavLink>
+					) ) }
+				</div>
 
-                {/* Create Table Button */}
-                <Button
-                    onClick={() => navigate(PATHS.NEW)}
-                    variant="default"
-                    size="lg"
-                    className="cursor-pointer"
-                >
-                    <PlusIcon size={18} className="mr-2" />
-                    Create Table
-                </Button>
-            </div>
-        </nav>
-    );
+				{ /* Create Table Button */ }
+				<Button
+					onClick={ () => navigate( PATHS.NEW ) }
+					variant="outline"
+					className="cursor-pointer w-[136px] h-10 px-4 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 flex items-center justify-between"
+				>
+					<span className="font-semibold">Add Tables</span>
+					<div className="w-6 h-6 flex items-center justify-center p-0.5">
+						<div className="w-full h-full bg-productbay-primary rounded-full flex items-center justify-center">
+							<PlusIcon
+								size={ 12 }
+								className="text-white"
+								strokeWidth={ 3 }
+							/>
+						</div>
+					</div>
+				</Button>
+			</div>
+		</nav>
+	);
 };
 
 export default Navbar;

@@ -1,9 +1,9 @@
 <?php
 
-namespace ProductBay\Frontend;
+namespace WpabProductBay\Frontend;
 
-use ProductBay\Data\TableRepository;
-use ProductBay\Http\Request;
+use WpabProductBay\Data\TableRepository;
+use WpabProductBay\Http\Request;
 
 class AjaxRenderer
 {

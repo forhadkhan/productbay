@@ -1,8 +1,8 @@
 <?php
 
-namespace ProductBay\Http;
+namespace WpabProductBay\Http;
 
-use ProductBay\Data\TableRepository;
+use WpabProductBay\Data\TableRepository;
 
 class Router
 {
@@ -29,7 +29,7 @@ class Router
 
     public function register_routes()
     {
-        $controller = new \ProductBay\Api\TablesController($this->repository, $this->request);
+        $controller = new \WpabProductBay\Api\TablesController($this->repository, $this->request);
 
         // List Tables
         \register_rest_route('productbay/v1', '/tables', [
@@ -60,7 +60,7 @@ class Router
         ]);
 
         // Settings
-        $settings_controller = new \ProductBay\Api\SettingsController($this->request);
+        $settings_controller = new \WpabProductBay\Api\SettingsController($this->request);
         \register_rest_route('productbay/v1', '/settings', [
             'methods'  => 'GET',
             'callback' => [$settings_controller, 'get_settings'],
@@ -75,12 +75,12 @@ class Router
 
         \register_rest_route('productbay/v1', '/system/status', [
             'methods'  => 'GET',
-            'callback' => [new \ProductBay\Api\SystemController($this->repository, $this->request), 'get_status'],
+            'callback' => [new \WpabProductBay\Api\SystemController($this->repository, $this->request), 'get_status'],
             'permission_callback' => [$this, 'permission_check']
         ]);
 
         // Products & Categories
-        $products_controller = new \ProductBay\Api\ProductsController($this->request);
+        $products_controller = new \WpabProductBay\Api\ProductsController($this->request);
 
         \register_rest_route('productbay/v1', '/products', [
             'methods'  => 'GET',

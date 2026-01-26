@@ -1,8 +1,8 @@
 <?php
 
-namespace ProductBay\Frontend;
+namespace WpabProductBay\Frontend;
 
-use ProductBay\Data\TableRepository;
+use WpabProductBay\Data\TableRepository;
 
 class TableRenderer
 {

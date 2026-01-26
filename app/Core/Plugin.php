@@ -1,18 +1,32 @@
 <?php
 
-namespace ProductBay\Core;
+namespace WpabProductBay\Core;
 
-use ProductBay\Admin\Admin;
+use WpabProductBay\Admin\Admin;
 
+/**
+ * Class Plugin
+ *
+ * The main plugin class which handles the loading of all dependencies.
+ *
+ * @package WpabProductBay\Core
+ */
 class Plugin
 {
     /**
-     * @var \ProductBay\Data\TableRepository
+     * The loader that's responsible for maintaining and registering all hooks.
+     *
+     * @var \WpabProductBay\Core\Loader
+     */
+    protected $loader;
+
+    /**
+     * @var \WpabProductBay\Data\TableRepository
      */
     protected $table_repository;
 
     /**
-     * @var \ProductBay\Http\Request
+     * @var \WpabProductBay\Http\Request
      */
     protected $request;
 
@@ -22,12 +36,26 @@ class Plugin
         $this->init_components();
     }
 
+    /**
+     * Load all dependencies for the plugin.
+     *
+     * Initializes the TableRepository and Request classes.
+     *
+     * @return void
+     */
     private function load_dependencies()
     {
-        $this->table_repository = new \ProductBay\Data\TableRepository();
-        $this->request = new \ProductBay\Http\Request();
+        $this->table_repository = new \WpabProductBay\Data\TableRepository();
+        $this->request = new \WpabProductBay\Http\Request();
     }
 
+    /**
+     * Initialize the plugin components.
+     *
+     * Sets up the Admin area, API Router, and Frontend renderers.
+     *
+     * @return void
+     */
     private function init_components()
     {
         // Admin Area
@@ -38,14 +66,14 @@ class Plugin
         }
 
         // API Router
-        $router = new \ProductBay\Http\Router($this->table_repository, $this->request);
+        $router = new \WpabProductBay\Http\Router($this->table_repository, $this->request);
         $router->init();
 
         // Frontend
-        $table_renderer = new \ProductBay\Frontend\TableRenderer($this->table_repository);
+        $table_renderer = new \WpabProductBay\Frontend\TableRenderer($this->table_repository);
         $table_renderer->init();
 
-        $ajax_renderer = new \ProductBay\Frontend\AjaxRenderer($this->table_repository, $this->request);
+        $ajax_renderer = new \WpabProductBay\Frontend\AjaxRenderer($this->table_repository, $this->request);
         $ajax_renderer->init();
     }
 }

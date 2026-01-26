@@ -1,6 +1,8 @@
 <?php
-namespace ProductBay\Utils;
 
-class Config {
+namespace WpabProductBay\Utils;
+
+class Config
+{
     //
 }

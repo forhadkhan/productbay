@@ -3,13 +3,13 @@ import { cn } from '../../utils/cn';
 
 /**
  * Modal Component
- * 
+ *
  * A reusable, modern modal dialog with header, body, and footer sections.
- * 
+ *
  * @example
  * ```tsx
  * const [isOpen, setIsOpen] = useState(false);
- * 
+ *
  * <Modal
  *   isOpen={isOpen}
  *   onClose={() => setIsOpen(false)}
@@ -18,7 +18,7 @@ import { cn } from '../../utils/cn';
  *   <p>Are you sure you want to proceed?</p>
  * </Modal>
  * ```
- * 
+ *
  * @example With custom buttons
  * ```tsx
  * <Modal
@@ -41,162 +41,167 @@ import { cn } from '../../utils/cn';
  */
 
 export interface ModalButton {
-    /** Button text */
-    text: string;
-    /** Click handler */
-    onClick: () => void;
-    /** Button style variant */
-    variant?: 'primary' | 'secondary' | 'danger' | 'success';
-    /** Optional icon to show before text */
-    icon?: React.ReactNode;
+	/** Button text */
+	text: string;
+	/** Click handler */
+	onClick: () => void;
+	/** Button style variant */
+	variant?: 'primary' | 'secondary' | 'danger' | 'success';
+	/** Optional icon to show before text */
+	icon?: React.ReactNode;
 }
 
 export interface ModalProps {
-    /** Controls modal visibility */
-    isOpen: boolean;
-    /** Callback when modal should close */
-    onClose: () => void;
-    /** Modal title shown in header */
-    title: string;
-    /** Modal container class */
-    className?: string;
-    /** Modal content (can be text, HTML, or React components) */
-    children: React.ReactNode;
-    /** Primary action button (right side) */
-    primaryButton?: ModalButton;
-    /** Secondary action button (left side, defaults to Cancel) */
-    secondaryButton?: ModalButton;
-    /** Maximum width of modal */
-    maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
-    /** Whether clicking backdrop closes modal (default: true) */
-    closeOnBackdropClick?: boolean;
+	/** Controls modal visibility */
+	isOpen: boolean;
+	/** Callback when modal should close */
+	onClose: () => void;
+	/** Modal title shown in header */
+	title: string;
+	/** Modal container class */
+	className?: string;
+	/** Modal content (can be text, HTML, or React components) */
+	children: React.ReactNode;
+	/** Primary action button (right side) */
+	primaryButton?: ModalButton;
+	/** Secondary action button (left side, defaults to Cancel) */
+	secondaryButton?: ModalButton;
+	/** Maximum width of modal */
+	maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
+	/** Whether clicking backdrop closes modal (default: true) */
+	closeOnBackdropClick?: boolean;
 }
 
-export const Modal: React.FC<ModalProps> = ({
-    isOpen,
-    onClose,
-    title,
-    className,
-    children,
-    primaryButton,
-    secondaryButton,
-    maxWidth = 'md',
-    closeOnBackdropClick = true
-}) => {
-    const modalRef = useRef<HTMLDivElement>(null);
+export const Modal: React.FC< ModalProps > = ( {
+	isOpen,
+	onClose,
+	title,
+	className,
+	children,
+	primaryButton,
+	secondaryButton,
+	maxWidth = 'md',
+	closeOnBackdropClick = true,
+} ) => {
+	const modalRef = useRef< HTMLDivElement >( null );
 
-    // Handle ESC key to close modal
-    useEffect(() => {
-        const handleEsc = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && isOpen) {
-                onClose();
-            }
-        };
+	// Handle ESC key to close modal
+	useEffect( () => {
+		const handleEsc = ( e: KeyboardEvent ) => {
+			if ( e.key === 'Escape' && isOpen ) {
+				onClose();
+			}
+		};
 
-        if (isOpen) {
-            document.addEventListener('keydown', handleEsc);
-            // Prevent body scroll when modal is open
-            document.body.style.overflow = 'hidden';
-        }
+		if ( isOpen ) {
+			document.addEventListener( 'keydown', handleEsc );
+			// Prevent body scroll when modal is open
+			document.body.style.overflow = 'hidden';
+		}
 
-        return () => {
-            document.removeEventListener('keydown', handleEsc);
-            document.body.style.overflow = 'unset';
-        };
-    }, [isOpen, onClose]);
+		return () => {
+			document.removeEventListener( 'keydown', handleEsc );
+			document.body.style.overflow = 'unset';
+		};
+	}, [ isOpen, onClose ] );
 
-    // Handle backdrop click
-    const handleBackdropClick = (e: React.MouseEvent) => {
-        if (closeOnBackdropClick && e.target === e.currentTarget) {
-            onClose();
-        }
-    };
+	// Handle backdrop click
+	const handleBackdropClick = ( e: React.MouseEvent ) => {
+		if ( closeOnBackdropClick && e.target === e.currentTarget ) {
+			onClose();
+		}
+	};
 
-    if (!isOpen) return null;
+	if ( ! isOpen ) return null;
 
-    // Max width classes
-    const maxWidthClasses = {
-        sm: 'max-w-sm',
-        md: 'max-w-md',
-        lg: 'max-w-lg',
-        xl: 'max-w-xl'
-    };
+	// Max width classes
+	const maxWidthClasses = {
+		sm: 'max-w-sm',
+		md: 'max-w-md',
+		lg: 'max-w-lg',
+		xl: 'max-w-xl',
+	};
 
-    // Button variant styles
-    const getButtonStyles = (variant: ModalButton['variant'] = 'primary') => {
-        const base = 'px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 cursor-pointer';
+	// Button variant styles
+	const getButtonStyles = (
+		variant: ModalButton[ 'variant' ] = 'primary'
+	) => {
+		const base =
+			'px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 cursor-pointer';
 
-        const variants = {
-            primary: 'bg-blue-600 text-white hover:bg-blue-700/90',
-            secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200/90',
-            danger: 'bg-red-600 text-white hover:bg-red-700/90',
-            success: 'bg-green-600 text-white hover:bg-green-700/90'
-        };
+		const variants = {
+			primary: 'bg-blue-600 text-white hover:bg-blue-700/90',
+			secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200/90',
+			danger: 'bg-red-600 text-white hover:bg-red-700/90',
+			success: 'bg-green-600 text-white hover:bg-green-700/90',
+		};
 
-        return cn(base, variants[variant]);
-    };
+		return cn( base, variants[ variant ] );
+	};
 
-    // Default secondary button
-    const defaultSecondaryButton: ModalButton = {
-        text: 'Cancel',
-        onClick: onClose,
-        variant: 'secondary'
-    };
+	// Default secondary button
+	const defaultSecondaryButton: ModalButton = {
+		text: 'Cancel',
+		onClick: onClose,
+		variant: 'secondary',
+	};
 
-    const secondaryBtn = secondaryButton || defaultSecondaryButton;
+	const secondaryBtn = secondaryButton || defaultSecondaryButton;
 
-    return (
-        // Modal Parent Container
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/20 backdrop-blur-xs animate-fade-in"
-            onClick={handleBackdropClick}
-        >
-            {/* Modal Content */}
-            <div
-                ref={modalRef}
-                className={cn(
-                    "bg-white rounded-lg shadow-xl w-full animate-scale-in border border-gray-200",
-                    className,
-                    maxWidthClasses[maxWidth]
-                )}
-            >
-                {/* Header */}
-                <div className="px-6 py-4">
-                    <h3 className="text-lg font-semibold text-gray-800 m-0">
-                        {title}
-                    </h3>
-                </div>
+	return (
+		// Modal Parent Container
+		<div
+			className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/20 backdrop-blur-xs animate-fade-in"
+			onClick={ handleBackdropClick }
+		>
+			{ /* Modal Content */ }
+			<div
+				ref={ modalRef }
+				className={ cn(
+					'bg-white rounded-lg shadow-xl w-full animate-scale-in border border-gray-200',
+					className,
+					maxWidthClasses[ maxWidth ]
+				) }
+			>
+				{ /* Header */ }
+				<div className="px-6 py-4">
+					<h3 className="text-lg font-semibold text-gray-800 m-0">
+						{ title }
+					</h3>
+				</div>
 
-                {/* Body */}
-                <div className="px-6 py-4 text-gray-700">
-                    {children}
-                </div>
+				{ /* Body */ }
+				<div className="px-6 py-4 text-gray-700">{ children }</div>
 
-                {/* Footer */}
-                {(primaryButton || secondaryButton !== undefined) && (
-                    <div className="flex items-center justify-end gap-3 px-6 py-4 rounded-b-lg">
-                        {/* Secondary Button (Left) */}
-                        <button
-                            onClick={secondaryBtn.onClick}
-                            className={getButtonStyles(secondaryBtn.variant)}
-                        >
-                            {secondaryBtn.icon}
-                            {secondaryBtn.text}
-                        </button>
+				{ /* Footer */ }
+				{ ( primaryButton || secondaryButton !== undefined ) && (
+					<div className="flex items-center justify-end gap-3 px-6 py-4 rounded-b-lg">
+						{ /* Secondary Button (Left) */ }
+						<button
+							onClick={ secondaryBtn.onClick }
+							className={ getButtonStyles(
+								secondaryBtn.variant
+							) }
+						>
+							{ secondaryBtn.icon }
+							{ secondaryBtn.text }
+						</button>
 
-                        {/* Primary Button (Right) */}
-                        {primaryButton && (
-                            <button
-                                onClick={primaryButton.onClick}
-                                className={getButtonStyles(primaryButton.variant)}
-                            >
-                                {primaryButton.icon}
-                                {primaryButton.text}
-                            </button>
-                        )}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+						{ /* Primary Button (Right) */ }
+						{ primaryButton && (
+							<button
+								onClick={ primaryButton.onClick }
+								className={ getButtonStyles(
+									primaryButton.variant
+								) }
+							>
+								{ primaryButton.icon }
+								{ primaryButton.text }
+							</button>
+						) }
+					</div>
+				) }
+			</div>
+		</div>
+	);
 };
