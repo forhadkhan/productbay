@@ -4,6 +4,7 @@ import EditTable from '../pages/EditTable';
 import Settings from '../pages/Settings';
 import Tables from '../pages/Tables';
 import Design from '../pages/Design';
+import Table from '../pages/Table';
 import Help from '../pages/Help';
 
 export interface RouteConfig {
@@ -56,7 +57,7 @@ export const routes: RouteConfig[] = [
 	},
 	{
 		path: PATHS.NEW,
-		element: EditTable,
+		element: Table,
 		showInNav: false,
 	},
 	{

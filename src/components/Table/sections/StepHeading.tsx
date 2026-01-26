@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '../../utils/cn';
+import { cn } from '../../../utils/cn';
 
 interface StepHeadingProps {
 	/**
@@ -24,22 +24,22 @@ interface StepHeadingProps {
  * A reusable heading component for wizard steps in the Table Creation process.
  * Standardizes typography and spacing across different steps.
  */
-export const StepHeading: React.FC< StepHeadingProps > = ( {
+export const StepHeading: React.FC<StepHeadingProps> = ({
 	title,
 	children,
 	className,
 	required = false,
-} ) => {
+}) => {
 	return (
 		<h3
-			className={ cn(
+			className={cn(
 				'font-bold text-blue-800 m-0 pb-6 flex items-center flex-wrap gap-2 leading-none',
 				className
-			) }
+			)}
 		>
-			{ title }
-			{ required && <span className="text-red-500 font-bold">*</span> }
-			{ children }
+			{title}
+			{required && <span className="text-red-500 font-bold">*</span>}
+			{children}
 		</h3>
 	);
 };

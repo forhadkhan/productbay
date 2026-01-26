@@ -1,6 +1,6 @@
 import { StepHeading } from './StepHeading';
-import { SortableColumn } from '../SortableColumn';
-import { useTableStore } from '../../store/tableStore';
+import { SortableColumn } from '../../SortableColumn';
+import { useTableStore } from '../../../store/tableStore';
 import {
 	arrayMove,
 	SortableContext,
@@ -21,31 +21,31 @@ interface StepProps {
 	showValidation?: boolean;
 }
 
-const StepColumns = ( { showValidation }: StepProps ) => {
+const StepColumns = ({ showValidation }: StepProps) => {
 	const { tableData, setTableData } = useTableStore();
 
 	// Sensors for DnD
 	const sensors = useSensors(
-		useSensor( PointerSensor ),
-		useSensor( KeyboardSensor, {
+		useSensor(PointerSensor),
+		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
-		} )
+		})
 	);
 
-	const handleDragEnd = ( event: DragEndEvent ) => {
+	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
 
-		if ( active.id !== over?.id ) {
+		if (active.id !== over?.id) {
 			const oldIndex = tableData.columns.findIndex(
-				( col ) => col.id === active.id
+				(col) => col.id === active.id
 			);
 			const newIndex = tableData.columns.findIndex(
-				( col ) => col.id === over?.id
+				(col) => col.id === over?.id
 			);
 
-			setTableData( {
-				columns: arrayMove( tableData.columns, oldIndex, newIndex ),
-			} );
+			setTableData({
+				columns: arrayMove(tableData.columns, oldIndex, newIndex),
+			});
 		}
 	};
 
@@ -58,21 +58,21 @@ const StepColumns = ( { showValidation }: StepProps ) => {
 			</p>
 			<div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
 				<DndContext
-					sensors={ sensors }
-					collisionDetection={ closestCenter }
-					onDragEnd={ handleDragEnd }
+					sensors={sensors}
+					collisionDetection={closestCenter}
+					onDragEnd={handleDragEnd}
 				>
 					<SortableContext
-						items={ tableData.columns.map( ( c ) => c.id ) }
-						strategy={ verticalListSortingStrategy }
+						items={tableData.columns.map((c) => c.id)}
+						strategy={verticalListSortingStrategy}
 					>
-						{ tableData.columns.map( ( col ) => (
+						{tableData.columns.map((col) => (
 							<SortableColumn
-								key={ col.id }
-								id={ col.id }
-								label={ col.label }
+								key={col.id}
+								id={col.id}
+								label={col.label}
 							/>
-						) ) }
+						))}
 					</SortableContext>
 				</DndContext>
 			</div>

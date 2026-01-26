@@ -47,11 +47,11 @@
  *    - Statistics: Shows selected count + total products included
  */
 
-import { cn } from '../../utils/cn';
-import { Button } from '../ui/Button';
-import { ConfirmButton } from '../ui/ConfirmButton';
+import { cn } from '../../../utils/cn';
+import { Button } from '../../ui/Button';
+import { ConfirmButton } from '../../ui/ConfirmButton';
 import { SourceStatistics } from './SourceStatistics';
-import { useTableStore } from '../../store/tableStore';
+import { useTableStore } from '../../../store/tableStore';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import {
 	XIcon,
@@ -71,10 +71,10 @@ export const CategorySelector: React.FC = () => {
 		forceReloadCategories,
 	} = useTableStore();
 
-	const [ open, setOpen ] = useState( false );
-	const [ searchQuery, setSearchQuery ] = useState( '' );
-	const dropdownRef = useRef< HTMLDivElement >( null );
-	const searchInputRef = useRef< HTMLInputElement >( null );
+	const [open, setOpen] = useState(false);
+	const [searchQuery, setSearchQuery] = useState('');
+	const dropdownRef = useRef<HTMLDivElement>(null);
+	const searchInputRef = useRef<HTMLInputElement>(null);
 
 	/**
 	 * Background refresh on component mount
@@ -83,101 +83,101 @@ export const CategorySelector: React.FC = () => {
 	 * If stale, fetch fresh data in background while displaying cached version.
 	 * This ensures users always see up-to-date data without waiting.
 	 */
-	useEffect( () => {
+	useEffect(() => {
 		refreshCategoriesIfStale();
-	}, [ refreshCategoriesIfStale ] );
+	}, [refreshCategoriesIfStale]);
 
 	/**
 	 * Filter categories based on search query (client-side filtering)
 	 */
-	const filteredCategories = useMemo( () => {
-		if ( searchQuery.trim() === '' ) {
+	const filteredCategories = useMemo(() => {
+		if (searchQuery.trim() === '') {
 			return categories;
 		}
 		const query = searchQuery.toLowerCase();
-		return categories.filter( ( cat ) =>
-			cat.name.toLowerCase().includes( query )
+		return categories.filter((cat) =>
+			cat.name.toLowerCase().includes(query)
 		);
-	}, [ searchQuery, categories ] );
+	}, [searchQuery, categories]);
 
 	/**
 	 * Auto-focus search input when dropdown opens
 	 */
-	useEffect( () => {
-		if ( open && searchInputRef.current ) {
-			setTimeout( () => searchInputRef.current?.focus(), 50 );
+	useEffect(() => {
+		if (open && searchInputRef.current) {
+			setTimeout(() => searchInputRef.current?.focus(), 50);
 		} else {
-			setSearchQuery( '' );
+			setSearchQuery('');
 		}
-	}, [ open ] );
+	}, [open]);
 
 	/**
 	 * Close dropdown on outside click
 	 */
-	useEffect( () => {
-		const handleClickOutside = ( event: MouseEvent ) => {
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
 			if (
 				dropdownRef.current &&
-				! dropdownRef.current.contains( event.target as Node )
+				!dropdownRef.current.contains(event.target as Node)
 			) {
-				setOpen( false );
+				setOpen(false);
 			}
 		};
 
-		if ( open ) {
-			document.addEventListener( 'mousedown', handleClickOutside );
+		if (open) {
+			document.addEventListener('mousedown', handleClickOutside);
 			return () =>
-				document.removeEventListener( 'mousedown', handleClickOutside );
+				document.removeEventListener('mousedown', handleClickOutside);
 		}
-	}, [ open ] );
+	}, [open]);
 
 	// Selected category IDs from store
 	const selectedIds = tableData.config.categories || [];
 
 	// Get full category objects for selected IDs
-	const selectedCategories = categories.filter( ( cat ) =>
-		selectedIds.includes( cat.id )
+	const selectedCategories = categories.filter((cat) =>
+		selectedIds.includes(cat.id)
 	);
 
 	// Calculate statistics
 	const totalProducts = selectedCategories.reduce(
-		( sum, cat ) => sum + cat.count,
+		(sum, cat) => sum + cat.count,
 		0
 	);
 
 	/**
 	 * Toggle category selection
 	 */
-	const toggleCategory = ( id: number ) => {
-		const newSelected = selectedIds.includes( id )
-			? selectedIds.filter( ( catId ) => catId !== id )
-			: [ ...selectedIds, id ];
+	const toggleCategory = (id: number) => {
+		const newSelected = selectedIds.includes(id)
+			? selectedIds.filter((catId) => catId !== id)
+			: [...selectedIds, id];
 
-		setTableData( {
+		setTableData({
 			config: {
 				...tableData.config,
 				categories: newSelected,
 			},
-		} );
+		});
 	};
 
 	/**
 	 * Remove category from selection
 	 */
-	const removeCategory = ( id: number ) => {
-		const newSelected = selectedIds.filter( ( catId ) => catId !== id );
-		setTableData( {
+	const removeCategory = (id: number) => {
+		const newSelected = selectedIds.filter((catId) => catId !== id);
+		setTableData({
 			config: {
 				...tableData.config,
 				categories: newSelected,
 			},
-		} );
+		});
 	};
 
 	/**
 	 * Handle manual reload button click
 	 */
-	const handleReload = async ( e: React.MouseEvent ) => {
+	const handleReload = async (e: React.MouseEvent) => {
 		e.stopPropagation();
 		await forceReloadCategories();
 	};
@@ -186,33 +186,33 @@ export const CategorySelector: React.FC = () => {
 	 * Clear selection logic
 	 */
 	function handleClearSelection(): void {
-		setTableData( {
+		setTableData({
 			config: {
 				...tableData.config,
 				categories: [],
 			},
-		} );
+		});
 	}
 
 	return (
 		<div className="w-full space-y-3">
-			{ /* Main Selector */ }
-			<div className="relative" ref={ dropdownRef }>
-				{ /* Select Input */ }
+			{ /* Main Selector */}
+			<div className="relative" ref={dropdownRef}>
+				{ /* Select Input */}
 				<div
-					className={ cn(
+					className={cn(
 						'min-h-[40px] w-full border border-gray-300 rounded-md px-3 py-2 bg-white cursor-pointer transition-colors',
 						open
 							? 'border-blue-500 ring-2 ring-blue-100'
 							: 'hover:border-gray-400'
-					) }
-					onClick={ () => setOpen( ! open ) }
+					)}
+					onClick={() => setOpen(!open)}
 				>
 					<div className="flex items-center justify-between gap-2">
 						<div className="flex-1 flex flex-wrap gap-1.5">
-							{ categoriesLoading && categories.length === 0 ? (
+							{categoriesLoading && categories.length === 0 ? (
 								<span className="text-gray-500 text-sm flex items-center gap-2">
-									<Loader2Icon className="h-4 w-4 animate-spin" />{ ' ' }
+									<Loader2Icon className="h-4 w-4 animate-spin" />{' '}
 									Loading categories...
 								</span>
 							) : selectedCategories.length === 0 ? (
@@ -220,161 +220,160 @@ export const CategorySelector: React.FC = () => {
 									Select categories...
 								</span>
 							) : (
-								selectedCategories.map( ( cat ) => (
+								selectedCategories.map((cat) => (
 									<span
-										key={ cat.id }
+										key={cat.id}
 										className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-sm font-medium"
-										onClick={ ( e ) => {
+										onClick={(e) => {
 											e.stopPropagation();
-											removeCategory( cat.id );
-										} }
+											removeCategory(cat.id);
+										}}
 									>
-										{ cat.name } ({ cat.count })
+										{cat.name} ({cat.count})
 										<XIcon className="h-3 w-3 hover:text-blue-900 cursor-pointer" />
 									</span>
-								) )
-							) }
+								))
+							)}
 						</div>
 						<ChevronDownIcon
-							className={ cn(
+							className={cn(
 								'h-4 w-4 text-gray-500 transition-transform flex-shrink-0',
 								open && 'transform rotate-180'
-							) }
+							)}
 						/>
 					</div>
 				</div>
 
-				{ /* Dropdown */ }
-				{ open && (
+				{ /* Dropdown */}
+				{open && (
 					<div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-80 flex flex-col">
-						{ /* Search Input */ }
+						{ /* Search Input */}
 						<div className="p-2 border-b border-gray-200">
 							<div className="relative">
 								<SearchIcon className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
 								<input
-									ref={ searchInputRef }
+									ref={searchInputRef}
 									type="text"
 									placeholder="Search categories..."
 									className="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-									value={ searchQuery }
-									onChange={ ( e ) =>
-										setSearchQuery( e.target.value )
+									value={searchQuery}
+									onChange={(e) =>
+										setSearchQuery(e.target.value)
 									}
-									onClick={ ( e ) => e.stopPropagation() }
+									onClick={(e) => e.stopPropagation()}
 								/>
 							</div>
 						</div>
 
-						{ /* Options List */ }
+						{ /* Options List */}
 						<div className="overflow-y-auto flex-1">
-							{ filteredCategories.length === 0 ? (
+							{filteredCategories.length === 0 ? (
 								<div className="p-3 text-sm text-gray-500 text-center">
-									{ searchQuery
+									{searchQuery
 										? 'No categories found matching your search.'
-										: 'No categories available.' }
+										: 'No categories available.'}
 								</div>
 							) : (
-								filteredCategories.map( ( category ) => {
+								filteredCategories.map((category) => {
 									const isSelected = selectedIds.includes(
 										category.id
 									);
 									return (
 										<div
-											key={ category.id }
-											className={ cn(
+											key={category.id}
+											className={cn(
 												'flex items-center px-3 py-2 text-sm cursor-pointer transition-colors',
 												isSelected
 													? 'bg-blue-50 text-blue-700 hover:bg-blue-100'
 													: 'hover:bg-gray-50'
-											) }
-											onClick={ ( e ) => {
+											)}
+											onClick={(e) => {
 												e.stopPropagation();
-												toggleCategory( category.id );
-											} }
+												toggleCategory(category.id);
+											}}
 										>
 											<input
 												type="checkbox"
-												checked={ isSelected }
-												onChange={ () => {} }
+												checked={isSelected}
+												onChange={() => { }}
 												className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
 											/>
 											<span className="flex-1 font-medium">
-												{ category.name }
+												{category.name}
 											</span>
 											<span className="text-xs text-gray-400">
-												({ category.count })
+												({category.count})
 											</span>
 										</div>
 									);
-								} )
-							) }
+								})
+							)}
 						</div>
 
-						{ /* Footer with selection count and reload button */ }
+						{ /* Footer with selection count and reload button */}
 						<div className="p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md">
 							<span className="text-xs text-gray-600">
-								{ selectedIds.length > 0
-									? `${ selectedIds.length } ${
-											selectedIds.length === 1
-												? 'category'
-												: 'categories'
-									  } selected`
-									: 'No categories selected' }
+								{selectedIds.length > 0
+									? `${selectedIds.length} ${selectedIds.length === 1
+										? 'category'
+										: 'categories'
+									} selected`
+									: 'No categories selected'}
 							</span>
 
-							{ /* Action Buttons */ }
+							{ /* Action Buttons */}
 							<div className="flex items-center gap-2">
-								{ /* Clear selection button with confirmation */ }
+								{ /* Clear selection button with confirmation */}
 								<ConfirmButton
-									onConfirm={ handleClearSelection }
+									onConfirm={handleClearSelection}
 									variant="ghost"
 									size="xs"
 									confirmMessage="Clear all?"
-									disabled={ selectedIds.length === 0 }
-									className={ cn(
+									disabled={selectedIds.length === 0}
+									className={cn(
 										'flex items-center gap-1.5 font-medium hover:bg-red-50 hover:text-red-700 border border-transparent hover:border-gray-200',
 										selectedIds.length === 0
 											? 'text-gray-300'
 											: 'text-red-600'
-									) }
+									)}
 								>
 									<XIcon className="h-3 w-3" />
 									Clear
 								</ConfirmButton>
 
-								{ /* Reload button: Manual refresh */ }
+								{ /* Reload button: Manual refresh */}
 								<Button
 									variant="ghost"
 									size="xs"
-									onClick={ handleReload }
-									disabled={ categoriesLoading }
-									className={ cn(
+									onClick={handleReload}
+									disabled={categoriesLoading}
+									className={cn(
 										'flex items-center gap-1.5 font-medium transition-colors border border-transparent hover:border-gray-200 cursor-pointer',
 										categoriesLoading
 											? 'text-gray-400'
 											: 'text-blue-600 hover:bg-blue-50 hover:text-blue-700'
-									) }
+									)}
 									title="Reload categories from server"
 								>
 									<RefreshCwIcon
-										className={ cn(
+										className={cn(
 											'h-3 w-3',
 											categoriesLoading && 'animate-spin'
-										) }
+										)}
 									/>
 									Reload
 								</Button>
 							</div>
 						</div>
 					</div>
-				) }
+				)}
 			</div>
 
-			{ /* Statistics Display */ }
+			{ /* Statistics Display */}
 			<SourceStatistics
-				categoryCount={ selectedCategories.length }
-				productCount={ totalProducts }
-				showEmpty={ true }
+				categoryCount={selectedCategories.length}
+				productCount={totalProducts}
+				showEmpty={true}
 			/>
 		</div>
 	);
