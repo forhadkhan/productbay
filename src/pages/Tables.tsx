@@ -1,9 +1,10 @@
+import { apiFetch } from '@/utils/api';
 import { Link } from 'react-router-dom';
-import { apiFetch } from '../utils/api';
 import { useEffect, useState } from 'react';
-import { Input } from '../components/ui/Input';
+import { __, sprintf } from '@wordpress/i18n';
+import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { Select } from '../components/ui/Select';
+import { Select } from '@/components/ui/Select';
 import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon } from 'lucide-react';
 
 interface Table {
@@ -15,27 +16,41 @@ interface Table {
 	source?: string; // Optional for now, assuming API might not send it yet
 }
 
+/**
+ * Bulk action options for table management
+ */
 const BULK_OPTIONS = [
-	{ label: 'Delete', value: 'delete' },
-	{ label: 'Set Active', value: 'active' },
-	{ label: 'Set Deactive', value: 'deactive' },
+	{ label: __('Delete', 'productbay'), value: 'delete' },
+	{ label: __('Set Active', 'productbay'), value: 'active' },
+	{ label: __('Set Deactive', 'productbay'), value: 'deactive' },
 ];
 
+/**
+ * Rows per page pagination options
+ */
 const ROWS_PER_PAGE_OPTIONS = [
 	{ label: '10', value: '10' },
 	{ label: '20', value: '20' },
 	{ label: '50', value: '50' },
 	{ label: '100', value: '100' },
-	{ label: 'Custom', value: 'custom' },
+	{ label: __('Custom', 'productbay'), value: 'custom' },
 ];
 
+/**
+ * Status filter options for table listing
+ */
 const FILTER_OPTIONS = [
-	{ label: 'All Dates', value: 'all' },
-	{ label: 'Published', value: 'publish' },
-	{ label: 'Drafts', value: 'draft' },
-	{ label: 'Trash', value: 'trash' },
+	{ label: __('All Dates', 'productbay'), value: 'all' },
+	{ label: __('Published', 'productbay'), value: 'publish' },
+	{ label: __('Drafts', 'productbay'), value: 'draft' },
+	{ label: __('Trash', 'productbay'), value: 'trash' },
 ];
 
+/**
+ * Tables Page Component
+ *
+ * Lists all ProductBay tables with search, filter, bulk actions, and pagination.
+ */
 const Tables = () => {
 	const [tables, setTables] = useState<Table[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -72,13 +87,13 @@ const Tables = () => {
 
 	// Actions
 	const handleDelete = async (id: number) => {
-		if (!confirm('Are you sure you want to delete this table?'))
+		if (!confirm(__('Are you sure you want to delete this table?', 'productbay')))
 			return;
 		try {
 			await apiFetch(`tables/${id}`, { method: 'DELETE' });
 			loadTables();
 		} catch (error) {
-			alert('Failed to delete table');
+			alert(__('Failed to delete table', 'productbay'));
 		}
 	};
 
@@ -87,14 +102,14 @@ const Tables = () => {
 		const tableToClone = tables.find((t) => t.id === id);
 		if (tableToClone) {
 			// Logic to call API would go here
-			alert(`Duplicate functionality for Table ID: ${id}`);
+			alert(sprintf(__('Duplicate functionality for Table ID: %d', 'productbay'), id));
 		}
 	};
 
 	const handleToggleActive = (id: number, currentStatus: string) => {
 		// Placeholder for toggle active/deactive
 		alert(
-			`Toggle Active/Deactive for Table ID: ${id}. Current: ${currentStatus}`
+			sprintf(__('Toggle Active/Deactive for Table ID: %1$d. Current: %2$s', 'productbay'), id, currentStatus)
 		);
 		// Optimistic update for UI demo
 		setTables(
@@ -112,7 +127,7 @@ const Tables = () => {
 
 	const copyShortcode = (shortcode: string) => {
 		navigator.clipboard.writeText(shortcode);
-		alert('Shortcode copied!');
+		alert(__('Shortcode copied!', 'productbay'));
 	};
 
 	// Bulk Actions
@@ -135,9 +150,7 @@ const Tables = () => {
 	const handleBulkAction = () => {
 		if (!selectedBulkAction || selectedRows.length === 0) return;
 		alert(
-			`Performing "${selectedBulkAction}" on items: ${selectedRows.join(
-				', '
-			)}`
+			sprintf(__('Performing "%1$s" on items: %2$s', 'productbay'), selectedBulkAction, selectedRows.join(', '))
 		);
 		setSelectedRows([]); // Reset selection
 		setSelectedBulkAction('');
@@ -162,7 +175,7 @@ const Tables = () => {
 	if (loading)
 		return (
 			<div className="p-8 text-center text-gray-500">
-				Loading tables...
+				{__('Loading tables...', 'productbay')}
 			</div>
 		);
 
@@ -174,7 +187,7 @@ const Tables = () => {
 		<div className="space-y-6">
 			{ /* Header */}
 			<div className="flex justify-between items-center">
-				<h1 className="text-2xl font-bold text-gray-800">All Tables</h1>
+				<h1 className="text-2xl font-bold text-gray-800 m-0">{__('All Tables', 'productbay')}</h1>
 			</div>
 
 			{ /* Top Menu: Bulk Actions & Search/Filter */}
@@ -183,8 +196,8 @@ const Tables = () => {
 				<div className="flex items-center gap-2 w-full sm:w-auto">
 					<div className="w-48">
 						<Select
-							placeholder="Bulk Actions"
-							label="Actions"
+							placeholder={__('Bulk Actions', 'productbay')}
+							label={__('Actions', 'productbay')}
 							allowDeselect={true}
 							options={BULK_OPTIONS}
 							value={selectedBulkAction}
@@ -198,11 +211,11 @@ const Tables = () => {
 						}
 						onClick={handleBulkAction}
 					>
-						Apply
+						{__('Apply', 'productbay')}
 					</button>
 					{selectedRows.length > 0 && (
 						<span className="text-sm text-gray-500 ml-2">
-							{selectedRows.length} items selected
+							{sprintf(__('%d items selected', 'productbay'), selectedRows.length)}
 						</span>
 					)}
 				</div>
@@ -212,7 +225,7 @@ const Tables = () => {
 					{ /* Filter */}
 					<div className="w-40">
 						<Select
-							label="Filter by Status"
+							label={__('Filter by Status', 'productbay')}
 							options={FILTER_OPTIONS}
 							value={filterStatus}
 							allowDeselect={true}
@@ -229,7 +242,7 @@ const Tables = () => {
 						/>
 						<Input
 							type="text"
-							placeholder="Search tables..."
+							placeholder={__('Search tables...', 'productbay')}
 							className="pl-9"
 							value={searchQuery}
 							onChange={(e) =>
@@ -258,16 +271,16 @@ const Tables = () => {
 								/>
 							</th>
 							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-16">
-								ID
+								{__('ID', 'productbay')}
 							</th>
 							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								Title
+								{__('Title', 'productbay')}
 							</th>
 							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								Shortcode
+								{__('Shortcode', 'productbay')}
 							</th>
 							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								Product Source
+								{__('Product Source', 'productbay')}
 							</th>
 						</tr>
 					</thead>
@@ -278,7 +291,7 @@ const Tables = () => {
 									colSpan={5}
 									className="px-6 py-12 text-center text-gray-400"
 								>
-									No tables found matching your criteria.
+									{__('No tables found.', 'productbay')}
 								</td>
 							</tr>
 						) : (
@@ -323,7 +336,7 @@ const Tables = () => {
 												to={`/edit/${table.id}`}
 												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 											>
-												Edit
+												{__('Edit', 'productbay')}
 											</Link>
 											<span className="text-gray-300">
 												|
@@ -334,7 +347,7 @@ const Tables = () => {
 												}
 												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 											>
-												Duplicate
+												{__('Duplicate', 'productbay')}
 											</button>
 											<span className="text-gray-300">
 												|
@@ -345,7 +358,7 @@ const Tables = () => {
 												}
 												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 											>
-												Preview
+												{__('Preview', 'productbay')}
 											</button>
 											<span className="text-gray-300">
 												|
@@ -360,8 +373,8 @@ const Tables = () => {
 												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 											>
 												{table.status === 'publish'
-													? 'Deactivate'
-													: 'Activate'}
+													? __('Deactivate', 'productbay')
+													: __('Activate', 'productbay')}
 											</button>
 											<span className="text-gray-300">
 												|
@@ -372,7 +385,7 @@ const Tables = () => {
 												}
 												className="text-red-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 											>
-												Delete
+												{__('Delete', 'productbay')}
 											</button>
 										</div>
 									</td>
@@ -401,19 +414,19 @@ const Tables = () => {
 			<div className="flex justify-between items-center">
 				{/* Pagination Info */}
 				<div className="text-sm text-gray-500 px-1">
-					Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
-					{Math.min(
-						currentPage * itemsPerPage,
+					{sprintf(
+						__('Showing %1$d to %2$d of %3$d entries', 'productbay'),
+						(currentPage - 1) * itemsPerPage + 1,
+						Math.min(currentPage * itemsPerPage, filteredTables.length),
 						filteredTables.length
-					)}{' '}
-					of {filteredTables.length} entries
+					)}
 				</div>
 				{/* Pagination Controlls */}
 				<div className="flex items-center gap-4 bg-white px-4 py-2 rounded-lg shadow-xs border border-gray-200">
 					{/* Rows Per Page */}
 					<div className="flex items-center justify-center gap-2 h-8 pr-4 border-r border-gray-200 ">
 						<span className="text-sm text-gray-500 whitespace-nowrap hidden sm:inline">
-							Rows per page:
+							{__('Rows per page:', 'productbay')}
 						</span>
 						{isCustomPerPage ? (
 							<div className="relative w-26">
@@ -512,7 +525,7 @@ const Tables = () => {
 					{/* Go to Page */}
 					<div className="flex items-center gap-2 border-l border-gray-200 pl-4 h-8">
 						<span className="text-sm text-gray-500 whitespace-nowrap">
-							Go to page
+							{__('Go to page', 'productbay')}
 						</span>
 						<Input
 							type="number"

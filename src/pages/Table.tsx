@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { __ } from '@wordpress/i18n';
 import { Tabs, TabOption } from '../components/ui/Tabs';
 import LivePreview from '@/components/Table/LivePreview';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -20,21 +21,26 @@ type TableTabValue = 'table' | 'display' | 'settings';
 const TABLE_TABS: TabOption<TableTabValue>[] = [
     {
         value: 'table',
-        label: 'Table',
+        label: __('Table', 'productbay'),
         icon: <TableIcon />,
     },
     {
         value: 'display',
-        label: 'Display',
+        label: __('Display', 'productbay'),
         icon: <MonitorIcon />,
     },
     {
         value: 'settings',
-        label: 'Settings',
+        label: __('Settings', 'productbay'),
         icon: <SettingsIcon />,
     },
 ];
 
+/**
+ * Table Page Component
+ *
+ * Displays tabbed interface for configuring individual table with live preview.
+ */
 const Table = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -49,24 +55,24 @@ const Table = () => {
                 value={activeTab}
                 className="md:col-span-3"
                 onChange={setActiveTab}
-                aria-label="Table configuration tabs"
+                aria-label={__('Table configuration tabs', 'productbay')}
             >
                 {/* Render content based on active tab */}
                 {activeTab === 'table' && (
                     <div>
-                        <p className="text-gray-700">Table Tab Content</p>
+                        <p className="text-gray-700">{__('Table Tab Content', 'productbay')}</p>
                         {/* TODO: Add table configuration components */}
                     </div>
                 )}
                 {activeTab === 'display' && (
                     <div>
-                        <p className="text-gray-700">Display Tab Content</p>
+                        <p className="text-gray-700">{__('Display Tab Content', 'productbay')}</p>
                         {/* TODO: Add display configuration components */}
                     </div>
                 )}
                 {activeTab === 'settings' && (
                     <div>
-                        <p className="text-gray-700">Settings Tab Content</p>
+                        <p className="text-gray-700">{__('Settings Tab Content', 'productbay')}</p>
                         {/* TODO: Add settings configuration components */}
                     </div>
                 )}

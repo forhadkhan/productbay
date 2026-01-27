@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { __ } from '@wordpress/i18n';
 import { Toggle } from '@/components/ui/Toggle';
 import { Skeleton } from '@/components/ui/Skeleton';
 
@@ -8,6 +9,12 @@ interface UninstallOptionsProps {
     loading: boolean;
 }
 
+/**
+ * UninstallOptions Component
+ *
+ * Settings section for configuring data deletion behavior on plugin uninstall.
+ * Allows users to choose whether to preserve or delete plugin data.
+ */
 const UninstallOptions = memo(({ settings, setSettings, loading }: UninstallOptionsProps) => {
     if (loading) {
         return (
@@ -27,16 +34,15 @@ const UninstallOptions = memo(({ settings, setSettings, loading }: UninstallOpti
     return (
         <div className="p-6">
             <h3 className="text-lg font-semibold text-red-600 mt-0 mb-4">
-                Uninstall Options
+                {__('Uninstall Options', 'productbay')}
             </h3>
             <div className="flex items-center justify-between p-4 border border-red-100 bg-red-50 rounded-lg">
                 <div>
                     <span className="font-medium text-gray-800">
-                        Delete Data on Uninstall
+                        {__('Delete Data on Uninstall', 'productbay')}
                     </span>
                     <p className="text-sm text-gray-600 mt-1">
-                        Enable this to wipe all tables and settings when
-                        deleting the plugin.
+                        {__('Enable this to wipe all tables and settings when deleting the plugin.', 'productbay')}
                     </p>
                 </div>
                 <Toggle

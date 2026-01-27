@@ -4,28 +4,37 @@ import { Tabs, TabOption } from '@/components/ui/Tabs';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useToast } from '@/context/ToastContext';
 import { Button } from '@/components/ui/Button';
-import { Save } from 'lucide-react';
+import { SaveIcon } from 'lucide-react';
+import { __ } from '@wordpress/i18n';
 
 // Lazy load settings components
 const UninstallOptions = lazy(() => import('@/components/Settings/UninstallOptions'));
 
 type SettingsTabValue = 'default' | 'advanced' | 'plugin';
 
+/**
+ * Settings tab configuration with translated labels
+ */
 const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 	{
 		value: 'default',
-		label: 'Default',
+		label: __('Default', 'productbay'),
 	},
 	{
 		value: 'advanced',
-		label: 'Advanced',
+		label: __('Advanced', 'productbay'),
 	},
 	{
 		value: 'plugin',
-		label: 'Plugin',
+		label: __('Plugin', 'productbay'),
 	},
 ];
 
+/**
+ * Settings Page Component
+ *
+ * Manages plugin settings with tabbed interface for Default, Advanced, and Plugin options.
+ */
 const Settings = () => {
 	const [activeTab, setActiveTab] = useState<SettingsTabValue>('default');
 
@@ -52,14 +61,14 @@ const Settings = () => {
 		try {
 			await saveSettings();
 			toast({
-				title: 'Settings saved!',
-				description: 'Your settings have been saved successfully.',
+				title: __('Settings saved!', 'productbay'),
+				description: __('Your settings have been saved successfully.', 'productbay'),
 				type: 'success',
 			});
 		} catch (error) {
 			toast({
-				title: 'Failed to save settings',
-				description: (error as Error).message || 'An error occurred while saving your settings.',
+				title: __('Failed to save settings', 'productbay'),
+				description: (error as Error).message || __('An error occurred while saving your settings.', 'productbay'),
 				type: 'error',
 			});
 		}
@@ -82,7 +91,7 @@ const Settings = () => {
 			<div className="flex items-center justify-between">
 				{/* Title */}
 				<h1 className="text-2xl font-bold text-gray-800 m-0">
-					Settings
+					{__('Settings', 'productbay')}
 				</h1>
 				{/* Save Button */}
 				<Button
@@ -92,8 +101,8 @@ const Settings = () => {
 					size="sm"
 					className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'}`}
 				>
-					<Save className="w-4 h-4 mr-2" />
-					{saving ? 'Saving...' : 'Save Changes'}
+					<SaveIcon className="w-4 h-4 mr-2" />
+					{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
 				</Button>
 			</div>
 
@@ -102,7 +111,7 @@ const Settings = () => {
 				tabs={SETTINGS_TABS}
 				value={activeTab}
 				onChange={setActiveTab}
-				aria-label="Settings tabs"
+				aria-label={__('Settings tabs', 'productbay')}
 			>
 				{/* Tab Content */}
 				<Suspense fallback={<SettingsTabSkeleton />}>
@@ -111,9 +120,9 @@ const Settings = () => {
 						<div className="space-y-6">
 							<div className="p-6">
 								<h3 className="text-lg font-medium text-gray-900 mt-0 mb-4">
-									General Settings
+									{__('General Settings', 'productbay')}
 								</h3>
-								<p className="text-gray-500">Settings will be available soon</p>
+								<p className="text-gray-500">{__('Settings will be available soon', 'productbay')}</p>
 							</div>
 						</div>
 					)}
@@ -123,9 +132,9 @@ const Settings = () => {
 						<div className="space-y-6">
 							<div className="p-6">
 								<h3 className="text-lg font-medium text-gray-900 mt-0 mb-4">
-									Advanced Settings
+									{__('Advanced Settings', 'productbay')}
 								</h3>
-								<p className="text-gray-500">Settings will be available soon</p>
+								<p className="text-gray-500">{__('Settings will be available soon', 'productbay')}</p>
 							</div>
 						</div>
 					)}
