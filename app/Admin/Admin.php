@@ -121,6 +121,67 @@ class Admin
     }
 
     /**
+     * Register ProductBay in the WordPress admin bar.
+     *
+     * Adds a top-level node with the plugin icon and dropdown submenu items
+     * for quick access to Dashboard, Tables, Settings, and Add New Table.
+     *
+     * @param \WP_Admin_Bar $wp_admin_bar The WordPress admin bar instance.
+     * @return void
+     */
+    public function register_admin_bar(\WP_Admin_Bar $wp_admin_bar): void
+    {
+        // Only show for users with appropriate capabilities
+        if (!\current_user_can(Constants::CAPABILITY)) {
+            return;
+        }
+
+        // Add parent node with icon using flexbox for perfect alignment
+        $wp_admin_bar->add_node([
+            'id'    => Constants::MENU_SLUG,
+            'title' => '<span style="display: flex; align-items: center;">'
+                . '<span>' . \__('ProductBay', Constants::TEXT_DOMAIN) . '</span>'
+                . '</span>',
+            'href'  => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash'),
+            'meta'  => [
+                'title' => \__('ProductBay', Constants::TEXT_DOMAIN),
+            ],
+        ]);
+
+        // Add Dashboard submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-dash',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Dashboard', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash'),
+        ]);
+
+        // Add Tables submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-tables',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Tables', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-tables'),
+        ]);
+
+        // Add Settings submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-settings',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Settings', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
+        ]);
+
+        // Add "Add New Table" submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-new',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Add New Table', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
+        ]);
+    }
+
+    /**
      * Render the React App Root Container.
      *
      * This function outputs the HTML div where the React application will mount.

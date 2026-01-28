@@ -63,6 +63,10 @@ class Plugin
             $admin = new Admin($this->table_repository, $this->request);
             \add_action('admin_menu', [$admin, 'register_menu']);
             \add_action('admin_enqueue_scripts', [$admin, 'enqueue_scripts']);
+
+            // Admin bar - registered inside is_admin() since Admin class is instantiated here
+            // Priority 100 ensures it appears after core items
+            \add_action('admin_bar_menu', [$admin, 'register_admin_bar'], 100);
         }
 
         // API Router
