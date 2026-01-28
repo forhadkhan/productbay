@@ -131,6 +131,10 @@ All REST API endpoints are registered under the `/productbay/v1` namespace:
 
 Detailed documentation for specific components and features:
 
+### System Architecture
+
+- **[Routing & Navigation](./ROUTING.md)** - React Router integration with WordPress Admin Menu sync
+
 ### UI Components
 
 - **[CategorySelector](./CategorySelectorArchitecture.md)** - Multi-select category picker with intelligent caching

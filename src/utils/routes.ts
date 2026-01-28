@@ -24,7 +24,7 @@ export interface RouteConfig {
  * Centralized path definitions for routing
  */
 export const PATHS = {
-	DASHBOARD: '/',
+	DASHBOARD: '/dash',
 	NEW: '/new',
 	EDIT: '/edit/:id',
 	SETTINGS: '/settings',

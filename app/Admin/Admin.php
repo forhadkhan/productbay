@@ -63,13 +63,13 @@ class Admin
             58
         );
 
-        // Register "Dashboard" submenu (Same slug as parent to hide top-level duplicate)
+        // Register "Dashboard" submenu with unique slug for proper menu sync
         \add_submenu_page(
             Constants::MENU_SLUG,
             \__('Dashboard', Constants::TEXT_DOMAIN),
             \__('Dashboard', Constants::TEXT_DOMAIN),
             Constants::CAPABILITY,
-            Constants::MENU_SLUG,
+            Constants::MENU_SLUG . '-dash',
             [$this, 'render_app']
         );
 
@@ -102,6 +102,11 @@ class Admin
             Constants::MENU_SLUG . '-new',
             [$this, 'render_app']
         );
+
+        // Remove the auto-generated duplicate parent menu entry
+        // WordPress automatically creates a submenu with the parent's slug
+        // We remove it since we have a dedicated Dashboard submenu
+        \remove_submenu_page(Constants::MENU_SLUG, Constants::MENU_SLUG);
     }
 
     /**
