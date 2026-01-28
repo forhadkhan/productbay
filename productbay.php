@@ -44,16 +44,34 @@ if (! defined('ABSPATH')) {
  * Prefixed with PRODUCTBAY_
  */
 define('PRODUCTBAY_VERSION', '1.0.0');
-define('PRODUCTBAY_PATH', \plugin_dir_path(__FILE__));
-define('PRODUCTBAY_URL', \plugin_dir_url(__FILE__));
 define('PRODUCTBAY_PLUGIN_NAME', 'productbay');
 define('PRODUCTBAY_TEXT_DOMAIN', 'productbay');
 define('PRODUCTBAY_OPTION_NAME', 'productbay');
+define('PRODUCTBAY_URL', \plugin_dir_url(__FILE__));
+define('PRODUCTBAY_PATH', \plugin_dir_path(__FILE__));
 define('PRODUCTBAY_PLUGIN_BASENAME', \plugin_basename(__FILE__));
-define('PRODUCTBAY_DEV_MODE', true);
 
-// Autoloader
+// Autoloader (must be loaded before using any composer packages)
 require_once __DIR__ . '/vendor/autoload.php';
+
+/**
+ * Load Environment Variables from .env file (development only)
+ * The .env file should NOT be included in production releases.
+ * If .env doesn't exist, the plugin uses production defaults.
+ */
+$dotenv_path = __DIR__ . '/.env';
+if (\file_exists($dotenv_path) && \class_exists('Dotenv\\Dotenv')) {
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
+}
+
+/**
+ * Development Mode Constant
+ * Loaded from .env file if available, defaults to false for production.
+ * When true: enables file-based cache busting, debug features, etc.
+ * When false: uses production-optimized settings.
+ */
+define('PRODUCTBAY_DEV_MODE', \filter_var($_ENV['PRODUCTBAY_DEV_MODE'] ?? false, FILTER_VALIDATE_BOOLEAN));
 
 /**
  * Initialization

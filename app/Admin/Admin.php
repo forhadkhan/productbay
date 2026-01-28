@@ -156,12 +156,19 @@ class Admin
             'nonce'  => \wp_create_nonce('wp_rest'),
         ]);
 
-        // Enqueue global admin styles
+        // Enqueue global admin styles with smart cache busting
+        // Uses file modification time in dev mode for instant refresh,
+        // or plugin version in production for proper cache control
+        $css_path = PRODUCTBAY_PATH . 'assets/css/admin.css';
+        $css_version = \defined('PRODUCTBAY_DEV_MODE') && PRODUCTBAY_DEV_MODE && \file_exists($css_path)
+            ? (string) \filemtime($css_path)
+            : Constants::VERSION;
+
         \wp_enqueue_style(
             'productbay-admin-css',
             PRODUCTBAY_URL . 'assets/css/admin.css',
             [],
-            Constants::VERSION
+            $css_version
         );
 
         // Load translations for the React app
