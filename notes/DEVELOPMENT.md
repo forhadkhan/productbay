@@ -51,7 +51,18 @@ This document contains detailed information about the project structure, develop
    bun run release
    ``` 
 
-7. **More**  
+7. **i18n (Translations)**  
+   After writing translatable strings, build to extract them:
+   ```bash
+   bun run build
+   ```
+   Convert `.po` files to JSON for React (requires WP-CLI):
+   ```bash
+   bun i18n:make-json
+   ```
+   See [notes/TRANSLATIONS.md](./notes/TRANSLATIONS.md) for complete workflow.
+
+8. **More**  
    Format code:
    ```bash
    bun run format
@@ -213,5 +224,12 @@ Always keep metadata consistent across:
 1.  `productbay.php` (Plugin Header)
 2.  `composer.json`
 3.  `package.json`
+
+---
+
+## 🌐 Internationalization (i18n)
+
+ProductBay supports translations for both PHP and React. See complete documentation:
+- **[TRANSLATIONS.md](./TRANSLATIONS.md)** - Full translation workflow and examples
 
 

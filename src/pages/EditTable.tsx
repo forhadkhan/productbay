@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTableStore } from '@/store/tableStore';
+import { Stepper } from '@/components/ui/Stepper';
+import { Button } from '@/components/ui/Button';
+import { useEffect, useState } from 'react';
+import { apiFetch } from '@/utils/api';
+import { PATHS } from '@/utils/routes';
+import { __ } from '@wordpress/i18n';
 import {
 	SaveIcon,
 	ChevronRightIcon,
@@ -13,33 +19,39 @@ import {
 	ZapIcon,
 	CheckCircleIcon,
 } from 'lucide-react';
-import { apiFetch } from '../utils/api';
-import { PATHS } from '../utils/routes';
-import { Button } from '../components/ui/Button';
-import { Stepper } from '../components/ui/Stepper';
-import { useTableStore } from '../store/tableStore';
 
 // Step Components
-import StepSetup from '../components/Table/sections/StepSetup';
-import StepSource from '../components/Table/sections/StepSource';
-import StepColumns from '../components/Table/sections/StepColumns';
-import StepOptions from '../components/Table/sections/StepOptions';
-import StepSearch from '../components/Table/sections/StepSearch';
-import StepDesign from '../components/Table/sections/StepDesign';
-import StepPerformance from '../components/Table/sections/StepPerformance';
-import StepPublish from '../components/Table/sections/StepPublish';
+import StepSetup from '@/components/Table/sections/StepSetup';
+import StepSource from '@/components/Table/sections/StepSource';
+import StepSearch from '@/components/Table/sections/StepSearch';
+import StepDesign from '@/components/Table/sections/StepDesign';
+import StepColumns from '@/components/Table/sections/StepColumns';
+import StepOptions from '@/components/Table/sections/StepOptions';
+import StepPublish from '@/components/Table/sections/StepPublish';
+import StepPerformance from '@/components/Table/sections/StepPerformance';
 
+/**
+ * Step configuration for table creation/editing wizard
+ * Each step has an id, translatable label, icon, and component
+ */
 const STEPS = [
-	{ id: 1, label: 'Setup', icon: LayoutIcon, component: StepSetup },
-	{ id: 2, label: 'Source', icon: DatabaseIcon, component: StepSource },
-	{ id: 3, label: 'Columns', icon: ListIcon, component: StepColumns },
-	{ id: 4, label: 'Options', icon: SettingsIcon, component: StepOptions },
-	{ id: 5, label: 'Search', icon: SearchIcon, component: StepSearch },
-	{ id: 6, label: 'Design', icon: PaletteIcon, component: StepDesign },
-	{ id: 7, label: 'Performance', icon: ZapIcon, component: StepPerformance },
-	{ id: 8, label: 'Publish', icon: CheckCircleIcon, component: StepPublish },
+	{ id: 1, label: __('Setup', 'productbay'), icon: LayoutIcon, component: StepSetup },
+	{ id: 2, label: __('Source', 'productbay'), icon: DatabaseIcon, component: StepSource },
+	{ id: 3, label: __('Columns', 'productbay'), icon: ListIcon, component: StepColumns },
+	{ id: 4, label: __('Options', 'productbay'), icon: SettingsIcon, component: StepOptions },
+	{ id: 5, label: __('Search', 'productbay'), icon: SearchIcon, component: StepSearch },
+	{ id: 6, label: __('Design', 'productbay'), icon: PaletteIcon, component: StepDesign },
+	{ id: 7, label: __('Performance', 'productbay'), icon: ZapIcon, component: StepPerformance },
+	{ id: 8, label: __('Publish', 'productbay'), icon: CheckCircleIcon, component: StepPublish },
 ];
 
+/**
+ * EditTable Page Component
+ *
+ * Wizard/tab interface for creating new tables or editing existing ones.
+ * In wizard mode (no existing tables): shows step-by-step flow
+ * In editor mode (existing tables): shows tab navigation
+ */
 const EditTable = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -147,10 +159,10 @@ const EditTable = () => {
 	const handleSave = async () => {
 		const success = await saveTable(id);
 		if (success) {
-			alert('Table saved successfully!');
+			alert(__('Table saved successfully!', 'productbay'));
 			navigate(PATHS.DASHBOARD);
 		} else {
-			alert('Failed to save table');
+			alert(__('Failed to save table', 'productbay'));
 		}
 	};
 
@@ -166,7 +178,10 @@ const EditTable = () => {
 		<div className="max-w-4xl mx-auto mb-8 px-4">
 			<div className="text-center mb-10">
 				<h1 className="text-2xl font-bold text-slate-800">
-					Setup your {id ? '' : 'first '}Product Table
+					{id
+						? __('Setup your Product Table', 'productbay')
+						: __('Setup your first Product Table', 'productbay')
+					}
 				</h1>
 			</div>
 			<Stepper
@@ -231,7 +246,7 @@ const EditTable = () => {
 									onClick={handleSave}
 									className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2 text-sm font-medium"
 								>
-									<SaveIcon size={16} /> Save Changes
+									<SaveIcon size={16} /> {__('Save Changes', 'productbay')}
 								</button>
 							</div>
 						</div>
@@ -258,13 +273,11 @@ const EditTable = () => {
 							>
 								{currentStep === 1 ? (
 									<span className="flex items-center gap-2">
-										<ChevronLeftIcon size={18} /> Back to
-										Dashboard
+										<ChevronLeftIcon size={18} /> {__('Back to Dashboard', 'productbay')}
 									</span>
 								) : (
 									<span className="flex items-center gap-2 ">
-										<ChevronLeftIcon size={18} /> Previous
-										Step
+										<ChevronLeftIcon size={18} /> {__('Previous Step', 'productbay')}
 									</span>
 								)}
 							</Button>
@@ -277,7 +290,7 @@ const EditTable = () => {
 									size="default"
 								>
 									<span className="flex items-center gap-2">
-										Next Step{' '}
+										{__('Next Step', 'productbay')}{' '}
 										<ChevronRightIcon size={18} />
 									</span>
 								</Button>
@@ -289,8 +302,7 @@ const EditTable = () => {
 									size="default"
 								>
 									<span className="flex items-center gap-2">
-										<SaveIcon size={18} /> Finish &
-										Publish
+										<SaveIcon size={18} /> {__('Finish & Publish', 'productbay')}
 									</span>
 								</Button>
 							)}

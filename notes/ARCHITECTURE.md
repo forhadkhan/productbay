@@ -131,6 +131,10 @@ All REST API endpoints are registered under the `/productbay/v1` namespace:
 
 Detailed documentation for specific components and features:
 
+### System Architecture
+
+- **[Routing & Navigation](./ROUTING.md)** - React Router integration with WordPress Admin Menu sync
+
 ### UI Components
 
 - **[CategorySelector](./CategorySelectorArchitecture.md)** - Multi-select category picker with intelligent caching
@@ -191,6 +195,63 @@ setCategories(fresh); // UI updates seamlessly
 
 ---
 
+## Internationalization (i18n)
+
+ProductBay supports full internationalization for both PHP and React code.
+
+### Architecture
+
+```mermaid
+graph LR
+    subgraph Development
+        Code[Source Code] --> Build[bun build]
+        Build --> POT[productbay.pot]
+    end
+    
+    subgraph Translation
+        POT --> PO[.po files]
+        PO --> JSON[.json files]
+        PO --> MO[.mo files]
+    end
+    
+    subgraph Runtime
+        JSON --> React[React UI]
+        MO --> PHP[PHP Backend]
+    end
+```
+
+### Key Components
+
+| Component      | Location                  | Purpose                              |
+| -------------- | ------------------------- | ------------------------------------ |
+| Text Domain    | `productbay`              | Unique identifier for translations   |
+| POT Extraction | WP-CLI `wp i18n make-pot` | Extracts strings from PHP and JS     |
+| PHP Loading    | Plugin bootstrap          | Native WordPress `load_textdomain()` |
+| React Loading  | `Admin.php:168`           | `wp_set_script_translations()`       |
+
+### React i18n Pattern
+
+All user-facing strings in React use `@wordpress/i18n`:
+
+```tsx
+import { __ } from '@wordpress/i18n';
+
+const Component = () => (
+    <h1>{__('Dashboard', 'productbay')}</h1>
+);
+```
+
+### PHP i18n Pattern
+
+```php
+$title = __('Settings', 'productbay');
+_e('Save Changes', 'productbay');
+```
+
+> **See Also**: [TRANSLATIONS.md](./TRANSLATIONS.md) for detailed translation workflow.
+
+---
+
 ## Security Considerations
 
 1. **Nonce Verification**: All API requests include WordPress nonces
@@ -224,5 +285,5 @@ Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
 
 ---
 
-**Last Updated**: 2026-01-22  
+**Last Updated**: 2026-01-27  
 **Maintainer**: ProductBay Development Team

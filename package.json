@@ -39,7 +39,9 @@
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"lint:php": "vendor\\bin\\phpcs",
 		"packages-update": "wp-scripts packages-update",
-		"release": "bun scripts/package-plugin.js"
+		"release": "bun scripts/package-plugin.js",
+		"i18n:make-pot": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot . languages/productbay.pot --domain=productbay --slug=productbay --exclude=node_modules,vendor,dist,notes,instructions",
+		"i18n:make-json": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-json languages --no-purge"
 	},
 	"devDependencies": {
 		"@tailwindcss/cli": "^4.1.18",

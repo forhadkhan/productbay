@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Button } from '../ui/Button';
-import ProductBayLogo from '../ui/ProductBayLogo';
+import { __ } from '@wordpress/i18n';
+import { routes, PATHS } from '@/utils/routes';
+import { Button } from '@/components/ui/Button';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { PlusIcon, MenuIcon, XIcon } from 'lucide-react';
+import ProductBayLogo from '@/components/ui/ProductBayLogo';
 
-import { routes, PATHS } from '../../utils/routes';
 
 /* =============================================================================
  * Navbar Component
@@ -67,7 +68,7 @@ const Navbar = () => {
 						variant="outline"
 						className="cursor-pointer w-[152px] h-10 px-2 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 flex items-center justify-between"
 					>
-						<span className="font-semibold">Add New Table</span>
+						<span className="font-semibold">{__('Add New Table', 'productbay')}</span>
 						<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-1">
 							<PlusIcon
 								size={12}
@@ -83,7 +84,7 @@ const Navbar = () => {
 					type="button"
 					onClick={toggleMobileMenu}
 					className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-					aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+					aria-label={isMobileMenuOpen ? __('Close menu', 'productbay') : __('Open menu', 'productbay')}
 					aria-expanded={isMobileMenuOpen}
 				>
 					{isMobileMenuOpen ? (
@@ -125,7 +126,7 @@ const Navbar = () => {
 							variant="outline"
 							className="cursor-pointer w-full h-10 px-4 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 flex items-center justify-center mt-2"
 						>
-							<span className="font-semibold">Add New Table</span>
+							<span className="font-semibold">{__('Add New Table', 'productbay')}</span>
 							<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-2">
 								<PlusIcon
 									size={12}

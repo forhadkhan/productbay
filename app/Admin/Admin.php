@@ -63,13 +63,13 @@ class Admin
             58
         );
 
-        // Register "Dashboard" submenu (Same slug as parent to hide top-level duplicate)
+        // Register "Dashboard" submenu with unique slug for proper menu sync
         \add_submenu_page(
             Constants::MENU_SLUG,
             \__('Dashboard', Constants::TEXT_DOMAIN),
             \__('Dashboard', Constants::TEXT_DOMAIN),
             Constants::CAPABILITY,
-            Constants::MENU_SLUG,
+            Constants::MENU_SLUG . '-dash',
             [$this, 'render_app']
         );
 
@@ -102,6 +102,83 @@ class Admin
             Constants::MENU_SLUG . '-new',
             [$this, 'render_app']
         );
+
+        // Register submenu under WooCommerce's "Products" menu
+        // Uses WooCommerce's product post type parent slug for integration
+        \add_submenu_page(
+            'edit.php?post_type=product',
+            \__('Tables', Constants::TEXT_DOMAIN),
+            \__('Tables', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG . '-dash',
+            [$this, 'render_app']
+        );
+
+        // Remove the auto-generated duplicate parent menu entry
+        // WordPress automatically creates a submenu with the parent's slug
+        // We remove it since we have a dedicated Dashboard submenu
+        \remove_submenu_page(Constants::MENU_SLUG, Constants::MENU_SLUG);
+    }
+
+    /**
+     * Register ProductBay in the WordPress admin bar.
+     *
+     * Adds a top-level node with the plugin icon and dropdown submenu items
+     * for quick access to Dashboard, Tables, Settings, and Add New Table.
+     *
+     * @param \WP_Admin_Bar $wp_admin_bar The WordPress admin bar instance.
+     * @return void
+     */
+    public function register_admin_bar(\WP_Admin_Bar $wp_admin_bar): void
+    {
+        // Only show for users with appropriate capabilities
+        if (!\current_user_can(Constants::CAPABILITY)) {
+            return;
+        }
+
+        // Add parent node with icon using flexbox for perfect alignment
+        $wp_admin_bar->add_node([
+            'id'    => Constants::MENU_SLUG,
+            'title' => '<span style="display: flex; align-items: center;">'
+                . '<span>' . \__('ProductBay', Constants::TEXT_DOMAIN) . '</span>'
+                . '</span>',
+            'href'  => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash'),
+            'meta'  => [
+                'title' => \__('ProductBay', Constants::TEXT_DOMAIN),
+            ],
+        ]);
+
+        // Add Dashboard submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-dash',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Dashboard', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash'),
+        ]);
+
+        // Add Tables submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-tables',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Tables', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-tables'),
+        ]);
+
+        // Add Settings submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-settings',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Settings', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
+        ]);
+
+        // Add "Add New Table" submenu
+        $wp_admin_bar->add_node([
+            'id'     => Constants::MENU_SLUG . '-new',
+            'parent' => Constants::MENU_SLUG,
+            'title'  => \__('Add New Table', Constants::TEXT_DOMAIN),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
+        ]);
     }
 
     /**
@@ -156,12 +233,19 @@ class Admin
             'nonce'  => \wp_create_nonce('wp_rest'),
         ]);
 
-        // Enqueue global admin styles
+        // Enqueue global admin styles with smart cache busting
+        // Uses file modification time in dev mode for instant refresh,
+        // or plugin version in production for proper cache control
+        $css_path = PRODUCTBAY_PATH . 'assets/css/admin.css';
+        $css_version = \defined('PRODUCTBAY_DEV_MODE') && PRODUCTBAY_DEV_MODE && \file_exists($css_path)
+            ? (string) \filemtime($css_path)
+            : Constants::VERSION;
+
         \wp_enqueue_style(
             'productbay-admin-css',
             PRODUCTBAY_URL . 'assets/css/admin.css',
             [],
-            Constants::VERSION
+            $css_version
         );
 
         // Load translations for the React app
