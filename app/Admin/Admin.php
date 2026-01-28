@@ -103,6 +103,17 @@ class Admin
             [$this, 'render_app']
         );
 
+        // Register submenu under WooCommerce's "Products" menu
+        // Uses WooCommerce's product post type parent slug for integration
+        \add_submenu_page(
+            'edit.php?post_type=product',
+            \__('Tables', Constants::TEXT_DOMAIN),
+            \__('Tables', Constants::TEXT_DOMAIN),
+            Constants::CAPABILITY,
+            Constants::MENU_SLUG . '-dash',
+            [$this, 'render_app']
+        );
+
         // Remove the auto-generated duplicate parent menu entry
         // WordPress automatically creates a submenu with the parent's slug
         // We remove it since we have a dedicated Dashboard submenu
