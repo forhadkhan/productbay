@@ -1,5 +1,10 @@
 <?php
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 namespace WpabProductBay\Core;
 
 use WpabProductBay\Admin\Admin;

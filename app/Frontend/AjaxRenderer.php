@@ -1,5 +1,10 @@
 <?php
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 namespace WpabProductBay\Frontend;
 
 use WpabProductBay\Data\TableRepository;
