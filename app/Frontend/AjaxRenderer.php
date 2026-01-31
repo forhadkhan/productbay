@@ -1,11 +1,11 @@
 <?php
 
+namespace WpabProductBay\Frontend;
+
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
     exit;
 }
-
-namespace WpabProductBay\Frontend;
 
 use WpabProductBay\Data\TableRepository;
 use WpabProductBay\Http\Request;

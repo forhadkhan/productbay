@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+namespace WpabProductBay\Core;
+
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
     exit;
 }
-
-declare(strict_types=1);
-
-namespace WpabProductBay\Core;
 
 /**
  * Class Constants

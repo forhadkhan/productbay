@@ -1,11 +1,11 @@
 <?php
 
+namespace WpabProductBay\Api;
+
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
     exit;
 }
-
-namespace WpabProductBay\Api;
 
 use WpabProductBay\Http\Request;
 
