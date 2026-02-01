@@ -57,24 +57,38 @@ class Admin
      */
     public function register_menu(): void
     {
-        // Register top-level menu page
+        // Register top-level menu page in WordPress admin sidebar
         \add_menu_page(
+            // $page_title: The text displayed in the browser title bar when the menu page is active
             \__('ProductBay', Constants::TEXT_DOMAIN),
+            // $menu_title: The text shown in the admin sidebar menu
             \__('ProductBay', Constants::TEXT_DOMAIN),
+            // $capability: The user capability required to access this menu (e.g., 'manage_options')
             Constants::CAPABILITY,
+            // $menu_slug: Unique identifier for this menu, used in URLs (?page=productbay)
             Constants::MENU_SLUG,
+            // $callback: Function to render the page content (outputs React app container)
             [$this, 'render_app'],
+            // $icon_url: Dashicon class or base64-encoded SVG for the menu icon
             Constants::MENU_ICON,
+            // $position: Menu position in sidebar (58 places it after WooCommerce's Products at 56)
             58
         );
 
         // Register "Dashboard" submenu with unique slug for proper menu sync
+        // This replaces the auto-generated first submenu that duplicates the parent
         \add_submenu_page(
+            // $parent_slug: The slug of the parent menu (must match add_menu_page's $menu_slug)
             Constants::MENU_SLUG,
+            // $page_title: Browser title bar text when this submenu page is active
             \__('Dashboard', Constants::TEXT_DOMAIN),
+            // $menu_title: Text displayed in the submenu list
             \__('Dashboard', Constants::TEXT_DOMAIN),
+            // $capability: User capability required to see/access this submenu
             Constants::CAPABILITY,
+            // $menu_slug: Unique slug for this submenu, used in URL (?page=productbay-dash)
             Constants::MENU_SLUG . '-dash',
+            // $callback: Function to render page content (same React container as parent)
             [$this, 'render_app']
         );
 
@@ -109,14 +123,15 @@ class Admin
         );
 
         // Register submenu under WooCommerce's "Products" menu
-        // Uses WooCommerce's product post type parent slug for integration
+        // Uses a redirect callback to open the ProductBay dashboard in its proper admin URL
+        // This ensures the ProductBay menu is highlighted instead of the Products menu
         \add_submenu_page(
             'edit.php?post_type=product',
             \__('Tables', Constants::TEXT_DOMAIN),
             \__('Tables', Constants::TEXT_DOMAIN),
             Constants::CAPABILITY,
-            Constants::MENU_SLUG . '-dash',
-            [$this, 'render_app']
+            Constants::MENU_SLUG . '-woo-tables',
+            [$this, 'redirect_to_productbay']
         );
 
         // Remove the auto-generated duplicate parent menu entry
@@ -196,6 +211,22 @@ class Admin
     public function render_app(): void
     {
         echo '<div id="productbay-root" class="productbay-wrapper"></div>';
+    }
+
+    /**
+     * Redirect from WooCommerce Products submenu to ProductBay dashboard.
+     *
+     * This callback is used for the "Tables" menu item under Products.
+     * It redirects to the ProductBay admin page, ensuring proper menu highlighting
+     * and a clean URL structure: /wp-admin/admin.php?page=productbay-dash#/dash
+     *
+     * @return void
+     */
+    public function redirect_to_productbay(): void
+    {
+        $redirect_url = \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash#/dash');
+        \wp_safe_redirect($redirect_url);
+        exit;
     }
 
     /**
