@@ -145,6 +145,7 @@ class Admin
      *
      * Adds a top-level node with the plugin icon and dropdown submenu items
      * for quick access to Dashboard, Tables, Settings, and Add New Table.
+     * This feature can be enabled/disabled from Settings > Plugin tab.
      *
      * @param \WP_Admin_Bar $wp_admin_bar The WordPress admin bar instance.
      * @return void
@@ -153,6 +154,15 @@ class Admin
     {
         // Only show for users with appropriate capabilities
         if (!\current_user_can(Constants::CAPABILITY)) {
+            return;
+        }
+
+        // Check if admin bar is enabled in plugin settings
+        // Retrieve the setting from database, default to true if not set
+        $settings = \get_option('productbay_settings', []);
+        $show_admin_bar = $settings['show_admin_bar'] ?? true;
+
+        if (!$show_admin_bar) {
             return;
         }
 

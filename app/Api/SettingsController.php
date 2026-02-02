@@ -50,6 +50,7 @@ class SettingsController
         return [
             'add_to_cart_text' => 'Add to Cart',
             'products_per_page' => 10,
+            'show_admin_bar' => true,
             'delete_on_uninstall' => true,
             'design' => [
                 'header_bg' => '#f3f4f6',
