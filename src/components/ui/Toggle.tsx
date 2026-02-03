@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { forwardRef, type InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { cn } from '@/utils/cn';
 
 /**
@@ -28,7 +28,7 @@ const toggleContainerVariants = cva(
  * Handles the visual appearance of the switch in different states (checked, focused).
  */
 const toggleSwitchVariants = cva(
-    'bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:bg-white after:border-gray-300 after:border after:rounded-full after:transition-all peer-checked:bg-blue-600',
+    'bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[""] after:absolute after:bg-white after:border-gray-300 after:border after:rounded-full after:transition-all peer-checked:bg-blue-600',
     {
         variants: {
             size: {
@@ -60,28 +60,29 @@ export interface ToggleProps
 
 /**
  * A specialized checkbox component that looks like a toggle switch.
- * Supports different sizes and an optional label.
+ * Supports different sizes, an optional label, and accepts additional HTML attributes.
+ * Accessibility is fully functional via native checkbox behavior.
+ * Note: `title` prop is applied to the visible label for tooltip support.
  */
-const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
-    ({ className, size, label, ...props }, ref) => {
-        return (
-            <label className={cn(toggleContainerVariants({ size }), className)}>
-                <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    ref={ref}
-                    {...props}
-                />
-                <div className={cn(toggleSwitchVariants({ size }))}></div>
-                {label && (
-                    <span className="ml-3 text-sm font-medium text-gray-900">
-                        {label}
-                    </span>
-                )}
-            </label>
-        );
-    }
+export const Toggle = ({ className, size, label, title, ...props }: ToggleProps) => (
+    <label
+        className={cn(toggleContainerVariants({ size }), className)}
+        title={title}
+    >
+        <input
+            type="checkbox"
+            className="sr-only peer"
+            {...props}
+        />
+        <div className={cn(toggleSwitchVariants({ size }))}></div>
+        {label && (
+            <span className="ml-3 text-sm font-medium text-gray-900">
+                {label}
+            </span>
+        )}
+    </label>
 );
 Toggle.displayName = 'Toggle';
 
-export { Toggle, toggleContainerVariants };
+export { toggleContainerVariants };
+export default Toggle;
