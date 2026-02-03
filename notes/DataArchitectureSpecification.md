@@ -100,21 +100,41 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
 
     // Type-Specific Settings
     "settings": {
-      "image_size": "thumbnail",
-      "link_target": "lightbox" // "none", "product", "lightbox"
+      "imageSize": "thumbnail",
+      "linkTarget": "lightbox" // "none", "product", "lightbox"
     }
   },
   {
     "id": "col_abc789",
-    "type": "price",
-    "heading": "Price",
+    "type": "cf",
+    "heading": "Weight",
     "advanced": {
-      "show_heading": true,
-      "width": { "value": 20, "unit": "%" },
-      "visibility": "not-mobile",
+      "showHeading": true,
+      "width": { "value": 0, "unit": "auto" }, // "auto", "px", or "%"
+      "visibility": "all",
       "order": 2
     },
-    "settings": {} 
+    "settings": {
+      "metaKey": "_weight",
+      "prefix": "",
+      "suffix": " kg",
+      "fallback": "N/A"
+    }
+  },
+  {
+    "id": "col_xyz456",
+    "type": "combined",
+    "heading": "Product Info",
+    "advanced": {
+      "showHeading": true,
+      "width": { "value": 30, "unit": "%" },
+      "visibility": "desktop",
+      "order": 3
+    },
+    "settings": {
+      "layout": "stacked",       // "inline" or "stacked"
+      "elements": ["name", "price", "sku"]  // Min 2 column types
+    }
   }
 ]
 
