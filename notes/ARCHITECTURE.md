@@ -134,6 +134,7 @@ Detailed documentation for specific components and features:
 ### System Architecture
 
 - **[Routing & Navigation](./ROUTING.md)** - React Router integration with WordPress Admin Menu sync
+- **[Settings System](./SETTINGS.md)** - Plugin settings architecture and reload-required patterns
 
 ### UI Components
 
@@ -285,5 +286,5 @@ Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
 
 ---
 
-**Last Updated**: 2026-01-27  
+**Last Updated**: 2026-02-02  
 **Maintainer**: ProductBay Development Team

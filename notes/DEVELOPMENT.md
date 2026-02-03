@@ -45,15 +45,15 @@ This document contains detailed information about the project structure, develop
    ``` 
    etc. 
 
-6. **Build and zip the plugin**  
-   Get a distribution-ready zip file of the plugin with the latest changes.
-   ```bash
    bun run release
+
+   # for versioned zip
+   bun run release -- --versioned
    ``` 
 
 7. **i18n (Translations)**  
    After writing translatable strings, build to extract them:
-   ```bash
+   
    bun run build
    ```
    Convert `.po` files to JSON for React (requires WP-CLI):

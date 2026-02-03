@@ -12,14 +12,21 @@
     border-style: solid;
 }
 
+/* Container positioning for scoped modals */
+#productbay-root {
+    position: relative;
+    /* 32px is the height of the admin bar */
+    min-height: calc(100vh - 32px);
+}
+
 #productbay-root a {
     text-decoration: none;
 }
 
-/* Modal should be fixed to viewport, not just the plugin container */
-#productbay-root .fixed {
-    position: fixed !important;
-}
+
+/* *********************************
+ * Wordpress default styles override
+ * *********************************/
 
 /* Remove padding from wp-content */
 #wpcontent {
@@ -29,4 +36,9 @@
 /* Remove wordepress default admin footer */
 #wpfooter {
     display: none !important;
+}
+
+/* Remove padding from wpbody-content */
+#wpbody-content {
+    padding: 0 !important;
 }

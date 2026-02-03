@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace WpabProductBay\Core;
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Class Constants
  * 

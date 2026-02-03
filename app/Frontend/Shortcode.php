@@ -2,6 +2,11 @@
 
 namespace WpabProductBay\Frontend;
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Class Shortcode
  *

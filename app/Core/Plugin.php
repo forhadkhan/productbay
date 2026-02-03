@@ -2,6 +2,11 @@
 
 namespace WpabProductBay\Core;
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use WpabProductBay\Admin\Admin;
 
 /**

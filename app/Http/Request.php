@@ -2,6 +2,11 @@
 
 namespace WpabProductBay\Http;
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 class Request
 {
     public function __construct()

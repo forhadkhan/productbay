@@ -2,6 +2,11 @@
 
 namespace WpabProductBay\Api;
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use WpabProductBay\Http\Request;
 use WpabProductBay\Data\TableRepository;
 
