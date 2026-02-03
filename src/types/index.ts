@@ -64,10 +64,15 @@ export interface Column {
         /** Whether to show the column heading */
         showHeading: boolean;
 
-        /** Column width configuration */
+        /** 
+         * Column width configuration
+         * - 'auto': Let browser determine width (recommended default)
+         * - 'px': Fixed pixel width
+         * - '%': Percentage of table width
+         */
         width: {
             value: number;
-            unit: 'px' | '%';
+            unit: 'auto' | 'px' | '%';
         };
 
         /** Responsive visibility mode */
@@ -360,7 +365,7 @@ export const createDefaultColumns = (): Column[] => [
         heading: 'Image',
         advanced: {
             showHeading: true,
-            width: { value: 80, unit: 'px' },
+            width: { value: 0, unit: 'auto' },
             visibility: 'all',
             order: 1,
         },
@@ -375,7 +380,7 @@ export const createDefaultColumns = (): Column[] => [
         heading: 'Product',
         advanced: {
             showHeading: true,
-            width: { value: 30, unit: '%' },
+            width: { value: 0, unit: 'auto' },
             visibility: 'all',
             order: 2,
         },
@@ -386,7 +391,7 @@ export const createDefaultColumns = (): Column[] => [
         heading: 'Price',
         advanced: {
             showHeading: true,
-            width: { value: 15, unit: '%' },
+            width: { value: 0, unit: 'auto' },
             visibility: 'all',
             order: 3,
         },
@@ -397,7 +402,7 @@ export const createDefaultColumns = (): Column[] => [
         heading: 'Add to Cart',
         advanced: {
             showHeading: true,
-            width: { value: 15, unit: '%' },
+            width: { value: 0, unit: 'auto' },
             visibility: 'all',
             order: 4,
         },
@@ -407,3 +412,4 @@ export const createDefaultColumns = (): Column[] => [
 /** Generates a unique column ID */
 export const generateColumnId = (): string =>
     `col_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+
