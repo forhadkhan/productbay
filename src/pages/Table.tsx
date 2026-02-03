@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
+import { useParams } from 'react-router-dom';
+import { useUrlTab } from '@/hooks/useUrlTab';
+import { Button } from '@/components/ui/Button';
+import { Toggle } from '@/components/ui/Toggle';
 import { Tabs, TabOption } from '@/components/ui/Tabs';
 import LivePreview from '@/components/Table/LivePreview';
-import { useUrlTab } from '@/hooks/useUrlTab';
-import { useParams } from 'react-router-dom';
-import { TableIcon, MonitorIcon, SettingsIcon } from 'lucide-react';
+import { EditableText } from '@/components/ui/EditableText';
+import { TableIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
 
 /* =============================================================================
  * Table Page
@@ -53,6 +57,26 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
 const Table = () => {
     const { id } = useParams<{ id: string }>();
 
+    // Table name state with validation
+    const [tableName, setTableName] = useState<string>('');
+    const [nameError, setNameError] = useState<string | undefined>(undefined);
+
+    // Table active/inactive status
+    const [isActive, setIsActive] = useState<boolean>(true);
+
+    /**
+     * Handle table name change with validation.
+     * Clears error on valid input, sets error if empty.
+     */
+    const handleNameChange = (newName: string) => {
+        setTableName(newName);
+        if (newName.trim() === '') {
+            setNameError(__('Table name is required', 'productbay'));
+        } else {
+            setNameError(undefined);
+        }
+    };
+
     /**
      * Sync tab state with URL search params.
      * - Reading: #/new?tab=settings → activeTab = 'settings'
@@ -61,39 +85,79 @@ const Table = () => {
     const [activeTab, setActiveTab] = useUrlTab<TableTabValue>('table', VALID_TABLE_TABS);
 
     return (
-        <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-6">
-            <Tabs
-                tabs={TABLE_TABS}
-                value={activeTab}
-                className="md:col-span-3"
-                onChange={setActiveTab}
-                aria-label={__('Table configuration tabs', 'productbay')}
-            >
-                {/* Render content based on active tab */}
-                {activeTab === 'table' && (
-                    <div>
-                        <p className="text-gray-700">{__('Table Tab Content', 'productbay')}</p>
-                        {/* TODO: Add table configuration components */}
+        <>
+            {/* Header: Table name on left, controls on right */}
+            <div className="flex items-center justify-between mb-6">
+                <EditableText
+                    value={tableName}
+                    error={nameError}
+                    onChange={handleNameChange}
+                    placeholder={__('Enter table name...', 'productbay')}
+                />
+                <div className="flex items-center gap-4">
+                    {/* Active/Inactive toggle with status indicator - hover feedback on container */}
+                    <div className="flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors">
+                        {/* Status dot indicator */}
+                        <span
+                            className={`size-2 rounded-full ${isActive ? 'bg-green-500' : 'bg-gray-400'
+                                }`}
+                        />
+                        {/* Status label with dynamic color - fixed width to prevent layout shift */}
+                        <span
+                            className={`text-sm font-medium min-w-[52px] ${isActive ? 'text-green-600' : 'text-gray-500'
+                                }`}
+                        >
+                            {isActive ? __('Active', 'productbay') : __('Inactive', 'productbay')}
+                        </span>
+                        {/* Toggle switch - only way to toggle */}
+                        <Toggle
+                            size="sm"
+                            checked={isActive}
+                            onChange={(e) => setIsActive(e.target.checked)}
+                            title={isActive ? __('Click toggle to deactivate', 'productbay') : __('Click toggle to activate', 'productbay')}
+                        />
                     </div>
-                )}
-                {activeTab === 'display' && (
-                    <div>
-                        <p className="text-gray-700">{__('Display Tab Content', 'productbay')}</p>
-                        {/* TODO: Add display configuration components */}
-                    </div>
-                )}
-                {activeTab === 'settings' && (
-                    <div>
-                        <p className="text-gray-700">{__('Settings Tab Content', 'productbay')}</p>
-                        {/* TODO: Add settings configuration components */}
-                    </div>
-                )}
-            </Tabs>
+                    {/* Save Table button */}
+                    <Button size="sm">
+                        <SaveIcon className="size-4 mr-2" />
+                        {__('Save Table', 'productbay')}
+                    </Button>
+                </div>
+            </div>
+            <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-6">
+                <Tabs
+                    tabs={TABLE_TABS}
+                    value={activeTab}
+                    className="md:col-span-3"
+                    onChange={setActiveTab}
+                    aria-label={__('Table configuration tabs', 'productbay')}
+                >
+                    {/* Render content based on active tab */}
+                    {activeTab === 'table' && (
+                        <div>
+                            <p className="text-gray-700">{__('Table Tab Content', 'productbay')}</p>
+                            {/* TODO: Add table configuration components */}
+                        </div>
+                    )}
+                    {activeTab === 'display' && (
+                        <div>
+                            <p className="text-gray-700">{__('Display Tab Content', 'productbay')}</p>
+                            {/* TODO: Add display configuration components */}
+                        </div>
+                    )}
+                    {activeTab === 'settings' && (
+                        <div>
+                            <p className="text-gray-700">{__('Settings Tab Content', 'productbay')}</p>
+                            {/* TODO: Add settings configuration components */}
+                        </div>
+                    )}
+                </Tabs>
 
-            <LivePreview
-                className="md:col-span-2"
-            />
-        </div>
+                <LivePreview
+                    className="md:col-span-2"
+                />
+            </div>
+        </>
     );
 };
 
