@@ -1,10 +1,10 @@
 "use strict";
-(globalThis["webpackChunkproductbay"] = globalThis["webpackChunkproductbay"] || []).push([["src_components_Settings_UninstallOptions_tsx"],{
+(globalThis["webpackChunkproductbay"] = globalThis["webpackChunkproductbay"] || []).push([["src_components_Settings_AdminBarOptions_tsx"],{
 
-/***/ "./src/components/Settings/UninstallOptions.tsx"
-/*!******************************************************!*\
-  !*** ./src/components/Settings/UninstallOptions.tsx ***!
-  \******************************************************/
+/***/ "./src/components/Settings/AdminBarOptions.tsx"
+/*!*****************************************************!*\
+  !*** ./src/components/Settings/AdminBarOptions.tsx ***!
+  \*****************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -25,17 +25,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * UninstallOptions Component
+ * AdminBarOptions Component
  *
- * Settings section for configuring data deletion behavior on plugin uninstall.
- * Allows users to choose whether to preserve or delete plugin data.
+ * Settings section for controlling the display of ProductBay in the WordPress admin bar.
+ * When enabled, the plugin will show a quick-access menu in the top admin bar.
  */
-const UninstallOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(({
+const AdminBarOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(({
   settings,
   setSettings,
   loading
 }) => {
-  var _settings$delete_on_u;
+  var _settings$show_admin_;
+  // Show skeleton loading state while settings are being fetched
   if (loading) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "p-6",
@@ -59,23 +60,23 @@ const UninstallOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "p-6",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-      className: "text-lg font-semibold text-red-600 mt-0 mb-4",
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Uninstall Options', 'productbay')
+      className: "text-lg font-semibold text-gray-800 mt-0 mb-4",
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Admin Bar', 'productbay')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "flex items-center justify-between p-4 border border-red-100 bg-red-50 rounded-lg",
+      className: "flex items-center justify-between p-4 border border-gray-200 bg-gray-50 rounded-lg",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
           className: "font-medium text-gray-800",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Delete Data on Uninstall', 'productbay')
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show in Admin Bar', 'productbay')
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "text-sm text-gray-600 mt-1",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable this to wipe all tables and settings when deleting the plugin.', 'productbay')
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display ProductBay menu in the WordPress admin bar at the top of the page for quick access.', 'productbay')
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
-        checked: (_settings$delete_on_u = settings.delete_on_uninstall) !== null && _settings$delete_on_u !== void 0 ? _settings$delete_on_u : true,
+        checked: (_settings$show_admin_ = settings.show_admin_bar) !== null && _settings$show_admin_ !== void 0 ? _settings$show_admin_ : true,
         onChange: e => setSettings({
           ...settings,
-          delete_on_uninstall: e.target.checked
+          show_admin_bar: e.target.checked
         }),
         disabled: loading,
         className: "flex-shrink-0 border-gray-200"
@@ -83,7 +84,7 @@ const UninstallOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(({
     })]
   });
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UninstallOptions);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminBarOptions);
 
 /***/ },
 
@@ -186,4 +187,4 @@ Toggle.displayName = 'Toggle';
 /***/ }
 
 }]);
-//# sourceMappingURL=src_components_Settings_UninstallOptions_tsx.js.map?ver=2911f326dfe3dd71c83e
+//# sourceMappingURL=src_components_Settings_AdminBarOptions_tsx.js.map?ver=b23d48d485a25455636f
