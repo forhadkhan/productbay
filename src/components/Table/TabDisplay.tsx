@@ -1,256 +1,252 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { cn } from '@/utils/cn';
 import { useTableStore } from '@/store/tableStore';
 import { Toggle } from '@/components/ui/Toggle';
-import {
-    PaletteIcon,
-    TypeIcon,
-    TableIcon,
-    ShoppingCartIcon,
-} from 'lucide-react';
+import { ColorPicker } from '@/components/ui/ColorPicker';
+import { cn } from '@/utils/cn';
 
 /* =============================================================================
  * TabDisplay Component
  * =============================================================================
- * Provides styling controls for table appearance:
- * - Header styles (background, text color, font size)
- * - Body styles (background, text, alternating rows, borders)
- * - Button styles (background, text, border radius, icon)
- * 
- * Uses the tableStore style actions to update configuration.
+ * Handles "Table Controls" (Features) and "Colors" (Theming).
+ * Redesigned to match the "Phase 3 Refined" specification.
  * ============================================================================= */
 
-/**
- * Color input component with label and preview
- */
-interface ColorInputProps {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-    className?: string;
-}
 
-const ColorInput: React.FC<ColorInputProps> = ({ label, value, onChange, className }) => (
-    <div className={cn('flex flex-col gap-1', className)}>
-        <label className="text-xs font-medium text-gray-700">{label}</label>
-        <div className="flex items-center gap-2">
-            <input
-                type="color"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="w-8 h-8 rounded border border-gray-300 cursor-pointer p-0.5"
-            />
-            <input
-                type="text"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                placeholder="#000000"
-                className="flex-1 px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500 font-mono"
-            />
-        </div>
-    </div>
-);
 
-/**
- * Section header component for consistent styling
- */
-interface SectionHeaderProps {
-    icon: React.ElementType;
-    title: string;
-    description?: string;
-}
-
-const SectionHeader: React.FC<SectionHeaderProps> = ({ icon: Icon, title, description }) => (
-    <div className="flex items-start gap-3 mb-4">
-        <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-            <Icon className="w-5 h-5" />
-        </div>
-        <div>
-            <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
-            {description && (
-                <p className="text-xs text-gray-500 mt-0.5">{description}</p>
-            )}
-        </div>
-    </div>
-);
-
-/**
- * TabDisplay Component
- * 
- * Renders styling controls for the product table.
- */
 const TabDisplay: React.FC = () => {
     const {
+        settings,
         style,
+        setFeatures,
+        setFilters,
+        setPagination,
         setHeaderStyle,
         setBodyStyle,
         setButtonStyle,
     } = useTableStore();
 
     return (
-        <div className="space-y-8">
-            {/* Header Styles Section */}
-            <section className="bg-white border border-gray-200 rounded-lg p-5">
-                <SectionHeader
-                    icon={TableIcon}
-                    title={__('Header Styles', 'productbay')}
-                    description={__('Customize the appearance of table header row', 'productbay')}
-                />
+        <div className="w-full p-4 space-y-12">
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <ColorInput
-                        label={__('Background Color', 'productbay')}
-                        value={style.header.bgColor}
-                        onChange={(color) => setHeaderStyle({ bgColor: color })}
-                    />
-                    <ColorInput
-                        label={__('Text Color', 'productbay')}
-                        value={style.header.textColor}
-                        onChange={(color) => setHeaderStyle({ textColor: color })}
-                    />
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                            {__('Font Size', 'productbay')}
-                        </label>
-                        <select
-                            value={style.header.fontSize}
-                            onChange={(e) => setHeaderStyle({ fontSize: e.target.value })}
-                            className="px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                        >
-                            <option value="12px">{__('Small (12px)', 'productbay')}</option>
-                            <option value="14px">{__('Medium (14px)', 'productbay')}</option>
-                            <option value="16px">{__('Large (16px)', 'productbay')}</option>
-                            <option value="18px">{__('Extra Large (18px)', 'productbay')}</option>
-                        </select>
+            {/* Section A: Table Controls */}
+            <section className="space-y-6">
+                <div>
+                    <h2 className="text-lg font-semibold text-gray-900 mt-0">
+                        {__('Table Controls', 'productbay')}
+                    </h2>
+                    <p className="text-sm text-gray-500 mt-1">
+                        {__('Configure table functionality and user controls', 'productbay')}
+                    </p>
+                </div>
+
+                <div className="space-y-6 bg-white rounded-lg">
+                    {/* Enable Search Bar */}
+                    <div className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-md">
+                        <div>
+                            <label className="text-sm font-medium text-gray-900 block">
+                                {__('Enable Search Bar', 'productbay')}
+                            </label>
+                            <p className="text-xs text-gray-500">
+                                {__('Allow users to search through products', 'productbay')}
+                            </p>
+                        </div>
+                        <Toggle
+                            checked={settings.features.search}
+                            onChange={(e) => setFeatures({ search: e.target.checked })}
+                        />
                     </div>
+
+                    {/* Enable Pagination */}
+                    <div className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-md">
+                        <div>
+                            <label className="text-sm font-medium text-gray-900 block">
+                                {__('Enable Pagination', 'productbay')}
+                            </label>
+                            <p className="text-xs text-gray-500">
+                                {__('Break large product lists into pages', 'productbay')}
+                            </p>
+                        </div>
+                        <Toggle
+                            checked={settings.features.pagination}
+                            onChange={(e) => setFeatures({ pagination: e.target.checked })}
+                        />
+                    </div>
+
+                    {/* Products Per Page */}
+                    <div className="flex items-center justify-between pt-2 bg-gray-50 px-4 py-2 rounded-md">
+                        <div>
+                            <label className="text-sm font-medium text-gray-900 block">
+                                {__('Products Per Page', 'productbay')}
+                            </label>
+                            <p className="text-xs text-gray-500">
+                                {__('Number of products to display per page', 'productbay')}
+                            </p>
+                        </div>
+                        <input
+                            type="number"
+                            min="1"
+                            max="500"
+                            value={settings.pagination.limit}
+                            onChange={(e) => setPagination({ limit: parseInt(e.target.value) || 10 })}
+                            className="w-24 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+
+                    {/* Enable Price Range */}
+                    <div className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-md">
+                        <div>
+                            <label className="text-sm font-medium text-gray-900 block">
+                                {__('Enable Price Range', 'productbay')}
+                            </label>
+                            <p className="text-xs text-gray-500">
+                                {__('Allow users to filter by price range', 'productbay')}
+                            </p>
+                        </div>
+                        <Toggle
+                            checked={settings.features.priceRange}
+                            onChange={(e) => setFeatures({ priceRange: e.target.checked })}
+                        />
+                    </div>
+
+                    {/* Enable Filter */}
+                    <div className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-md">
+                        <div>
+                            <label className="text-sm font-medium text-gray-900 block">
+                                {__('Enable Filter', 'productbay')}
+                            </label>
+                            <p className="text-xs text-gray-500">
+                                {__('Show filter options above the table', 'productbay')}
+                            </p>
+                        </div>
+                        <Toggle
+                            checked={settings.filters.enabled}
+                            onChange={(e) => setFilters({ enabled: e.target.checked })}
+                        />
+                    </div>
+
+
                 </div>
             </section>
 
-            {/* Body Styles Section */}
-            <section className="bg-white border border-gray-200 rounded-lg p-5">
-                <SectionHeader
-                    icon={TypeIcon}
-                    title={__('Body Styles', 'productbay')}
-                    description={__('Customize the appearance of table rows and cells', 'productbay')}
-                />
+            <hr className="border-gray-200" />
 
+            {/* Section B: Colors (Theming) */}
+            <section className="space-y-8">
+                <div>
+                    <h2 className="text-lg font-semibold text-gray-900">
+                        {__('Colors', 'productbay')}
+                    </h2>
+                    <p className="text-sm text-gray-500 mt-1">
+                        {__('Customize the visual appearance of your table', 'productbay')}
+                    </p>
+                </div>
+
+                {/* Add to Cart Button */}
                 <div className="space-y-4">
-                    {/* Color row */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <ColorInput
-                            label={__('Background Color', 'productbay')}
-                            value={style.body.bgColor}
-                            onChange={(color) => setBodyStyle({ bgColor: color })}
-                        />
-                        <ColorInput
-                            label={__('Text Color', 'productbay')}
-                            value={style.body.textColor}
-                            onChange={(color) => setBodyStyle({ textColor: color })}
-                        />
-                        <ColorInput
-                            label={__('Border Color', 'productbay')}
-                            value={style.body.borderColor}
-                            onChange={(color) => setBodyStyle({ borderColor: color })}
+                    <h3 className="text-sm font-medium text-gray-900">
+                        {__('Add to Cart Button', 'productbay')}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-gray-100 bg-gray-50 px-4 py-2 rounded-md">
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Background', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.button.bgColor}
+                                onChange={(val) => setButtonStyle({ bgColor: val })}
+                            />
+                        </div>
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Text', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.button.textColor}
+                                onChange={(val) => setButtonStyle({ textColor: val })}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Table Header */}
+                <div className="space-y-4">
+                    <h3 className="text-sm font-medium text-gray-900">
+                        {__('Table Header', 'productbay')}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-gray-100 bg-gray-50 px-4 py-2 rounded-md">
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Background', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.header.bgColor}
+                                onChange={(val) => setHeaderStyle({ bgColor: val })}
+                            />
+                        </div>
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Text', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.header.textColor}
+                                onChange={(val) => setHeaderStyle({ textColor: val })}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Table Rows */}
+                <div className="space-y-4">
+                    <h3 className="text-sm font-medium text-gray-900">
+                        {__('Table Rows', 'productbay')}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-gray-100 bg-gray-50 px-4 py-2 rounded-md">
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Background', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.body.bgColor}
+                                onChange={(val) => setBodyStyle({ bgColor: val })}
+                            />
+                        </div>
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Text', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.body.textColor}
+                                onChange={(val) => setBodyStyle({ textColor: val })}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Alternate Rows (Zebra Striping) */}
+                <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-900 block">
+                                {__('Alternate Rows (Zebra Striping)', 'productbay')}
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-1">
+                                {__('Improve table readability with alternating row colors', 'productbay')}
+                            </p>
+                        </div>
+                        <Toggle
+                            checked={style.body.rowAlternate}
+                            onChange={(e) => setBodyStyle({ rowAlternate: e.target.checked })}
                         />
                     </div>
 
-                    {/* Alternating rows */}
-                    <div className="pt-4 border-t border-gray-100">
-                        <div className="flex items-center justify-between mb-3">
-                            <div>
-                                <label className="text-sm font-medium text-gray-900">
-                                    {__('Alternating Row Colors', 'productbay')}
-                                </label>
-                                <p className="text-xs text-gray-500">
-                                    {__('Use different background for even rows', 'productbay')}
-                                </p>
-                            </div>
-                            <Toggle
-                                checked={style.body.rowAlternate}
-                                onChange={(e) => setBodyStyle({ rowAlternate: e.target.checked })}
-                            />
-                        </div>
-
-                        {style.body.rowAlternate && (
-                            <ColorInput
-                                label={__('Alternate Row Color', 'productbay')}
+                    <div className={cn(
+                        "grid grid-cols-1 md:grid-cols-2 gap-8 items-center transition-all duration-300 bg-gray-50 px-4 py-2 rounded-md",
+                        style.body.rowAlternate ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
+                    )}>
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Alternate Background', 'productbay')}</span>
+                            <ColorPicker
                                 value={style.body.altBgColor}
-                                onChange={(color) => setBodyStyle({ altBgColor: color })}
-                                className="max-w-xs"
+                                onChange={(val) => setBodyStyle({ altBgColor: val })}
                             />
-                        )}
-                    </div>
-                </div>
-            </section>
-
-            {/* Button Styles Section */}
-            <section className="bg-white border border-gray-200 rounded-lg p-5">
-                <SectionHeader
-                    icon={ShoppingCartIcon}
-                    title={__('Button Styles', 'productbay')}
-                    description={__('Customize Add to Cart and action buttons', 'productbay')}
-                />
-
-                <div className="space-y-4">
-                    {/* Button colors */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <ColorInput
-                            label={__('Background Color', 'productbay')}
-                            value={style.button.bgColor}
-                            onChange={(color) => setButtonStyle({ bgColor: color })}
-                        />
-                        <ColorInput
-                            label={__('Text Color', 'productbay')}
-                            value={style.button.textColor}
-                            onChange={(color) => setButtonStyle({ textColor: color })}
-                        />
-                        <div className="flex flex-col gap-1">
-                            <label className="text-xs font-medium text-gray-700">
-                                {__('Border Radius', 'productbay')}
-                            </label>
-                            <select
-                                value={style.button.borderRadius}
-                                onChange={(e) => setButtonStyle({ borderRadius: e.target.value })}
-                                className="px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                            >
-                                <option value="0">{__('None (Square)', 'productbay')}</option>
-                                <option value="4px">{__('Small (4px)', 'productbay')}</option>
-                                <option value="8px">{__('Medium (8px)', 'productbay')}</option>
-                                <option value="12px">{__('Large (12px)', 'productbay')}</option>
-                                <option value="9999px">{__('Pill (Full)', 'productbay')}</option>
-                            </select>
+                        </div>
+                        <div className="flex items-center justify-between md:justify-start md:gap-8">
+                            <span className="text-sm text-gray-600 min-w-24">{__('Alternate Text', 'productbay')}</span>
+                            <ColorPicker
+                                value={style.body.altTextColor}
+                                onChange={(val) => setBodyStyle({ altTextColor: val })}
+                            />
                         </div>
                     </div>
-
-                    {/* Button icon */}
-                    <div className="pt-4 border-t border-gray-100">
-                        <div className="flex flex-col gap-1">
-                            <label className="text-xs font-medium text-gray-700">
-                                {__('Button Icon', 'productbay')}
-                            </label>
-                            <select
-                                value={style.button.icon}
-                                onChange={(e) => setButtonStyle({ icon: e.target.value })}
-                                className="max-w-xs px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                            >
-                                <option value="cart">{__('🛒 Cart', 'productbay')}</option>
-                                <option value="plus">{__('➕ Plus', 'productbay')}</option>
-                                <option value="bag">{__('🛍️ Bag', 'productbay')}</option>
-                                <option value="none">{__('No Icon', 'productbay')}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Preview Section (Coming Soon) */}
-            <section className="bg-gray-50 border border-dashed border-gray-300 rounded-lg p-5">
-                <div className="flex items-center justify-center text-gray-500">
-                    <PaletteIcon className="w-5 h-5 mr-2" />
-                    <span className="text-sm">
-                        {__('Live preview coming soon...', 'productbay')}
-                    </span>
                 </div>
             </section>
         </div>

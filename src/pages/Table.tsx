@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/Button';
 import { Toggle } from '@/components/ui/Toggle';
 import { Tabs, TabOption } from '@/components/ui/Tabs';
 import LivePreview from '@/components/Table/LivePreview';
+import TabTable from '@/components/Table/TabTable';
 import { EditableText } from '@/components/ui/EditableText';
 import { TableIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
+import TabDisplay from '@/components/Table/TabDisplay';
 
 /* =============================================================================
  * Table Page
@@ -133,18 +135,8 @@ const Table = () => {
                     aria-label={__('Table configuration tabs', 'productbay')}
                 >
                     {/* Render content based on active tab */}
-                    {activeTab === 'table' && (
-                        <div>
-                            <p className="text-gray-700">{__('Table Tab Content', 'productbay')}</p>
-                            {/* TODO: Add table configuration components */}
-                        </div>
-                    )}
-                    {activeTab === 'display' && (
-                        <div>
-                            <p className="text-gray-700">{__('Display Tab Content', 'productbay')}</p>
-                            {/* TODO: Add display configuration components */}
-                        </div>
-                    )}
+                    {activeTab === 'table' && <TabTable />}
+                    {activeTab === 'display' && <TabDisplay />}
                     {activeTab === 'settings' && (
                         <div>
                             <p className="text-gray-700">{__('Settings Tab Content', 'productbay')}</p>

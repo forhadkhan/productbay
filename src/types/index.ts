@@ -164,6 +164,9 @@ export interface TableSettings {
 
         /** Enable row accordion on mobile */
         responsiveCollapse: boolean;
+
+        /** Enable price range filter */
+        priceRange: boolean;
     };
 
     /** Pagination configuration */
@@ -229,6 +232,7 @@ export interface TableStyle {
         textColor: string;
         rowAlternate: boolean;
         altBgColor: string;
+        altTextColor: string;
         borderColor: string;
     };
 
@@ -314,6 +318,7 @@ export const createDefaultSettings = (): TableSettings => ({
         lazyLoad: false,
         export: false,
         responsiveCollapse: true,
+        priceRange: false,
     },
     pagination: {
         limit: 10,
@@ -347,6 +352,7 @@ export const createDefaultStyle = (): TableStyle => ({
         textColor: '#444444',
         rowAlternate: false,
         altBgColor: '#f9f9f9',
+        altTextColor: '#444444',
         borderColor: '#e5e5e5',
     },
     button: {
