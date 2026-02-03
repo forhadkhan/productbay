@@ -9,6 +9,7 @@ This document details how ProductBay's routing and navigation system works, brid
 - [How It Works](#how-it-works)
 - [File Reference](#file-reference)
 - [Adding New Routes](#adding-new-routes)
+- [URL Tab Sync](#url-tab-sync-useurltab)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -184,6 +185,7 @@ export const useWpMenuSync = () => {
 | `src/utils/routes.ts`              | Defines PATHS and route configs    |
 | `src/index.tsx`                    | Deep linking on initial load       |
 | `src/hooks/useWpMenuSync.ts`       | Syncs menu on navigation           |
+| `src/hooks/useUrlTab.ts`           | Syncs tab state with URL params    |
 | `src/layouts/AdminLayout.tsx`      | Calls `useWpMenuSync()` hook       |
 | `src/components/Layout/Navbar.tsx` | React navigation component         |
 
@@ -272,6 +274,110 @@ case 'productbay-analytics':
 
 ---
 
+## URL Tab Sync (`useUrlTab`)
+
+Pages with tabbed interfaces can sync their active tab with URL search params, enabling:
+- **Deep linking**: `#/settings?tab=plugin` opens Settings with Plugin tab active
+- **Shareable URLs**: Share a link that opens a specific tab
+- **Browser history**: Tab changes can be navigated with back/forward buttons
+
+### Why Search Params (Not Hash Fragments)?
+
+Since the app uses `HashRouter`, the URL hash is already used for routing:
+```
+admin.php?page=productbay#/settings
+                          ↑ Hash used by router
+```
+
+We cannot nest another hash (`#/settings#plugin`), so we use **search params** instead:
+```
+admin.php?page=productbay#/settings?tab=plugin
+                                    ↑ Search param for tab
+```
+
+### Hook: `useUrlTab`
+
+**File**: `src/hooks/useUrlTab.ts`
+
+A drop-in replacement for `useState` that syncs tab state with URL:
+
+```typescript
+import { useUrlTab } from '@/hooks/useUrlTab';
+
+type MyTabValue = 'first' | 'second' | 'third';
+
+const VALID_TABS = ['first', 'second', 'third'] as const;
+
+const MyPage = () => {
+    // Works just like useState, but syncs with URL
+    const [activeTab, setActiveTab] = useUrlTab<MyTabValue>('first', VALID_TABS);
+    
+    return (
+        <Tabs value={activeTab} onChange={setActiveTab}>
+            {/* Tab content */}
+        </Tabs>
+    );
+};
+```
+
+### Hook Parameters
+
+| Parameter    | Type           | Description                                 |
+| ------------ | -------------- | ------------------------------------------- |
+| `defaultTab` | `T`            | Default tab when URL param is empty/invalid |
+| `validTabs`  | `readonly T[]` | Array of valid tab values for validation    |
+| `paramName`  | `string`       | Search param name (default: `'tab'`)        |
+
+### URL Format
+
+| Page     | URL Example               | Active Tab           |
+| -------- | ------------------------- | -------------------- |
+| Settings | `#/settings`              | `default` (fallback) |
+| Settings | `#/settings?tab=plugin`   | `plugin`             |
+| Settings | `#/settings?tab=advanced` | `advanced`           |
+| Table    | `#/new?tab=display`       | `display`            |
+| Table    | `#/new?tab=settings`      | `settings`           |
+
+### Implementation in Pages
+
+**Settings Page** (`src/pages/Settings.tsx`):
+```typescript
+type SettingsTabValue = 'default' | 'advanced' | 'plugin';
+const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin'] as const;
+
+const [activeTab, setActiveTab] = useUrlTab<SettingsTabValue>('default', VALID_SETTINGS_TABS);
+```
+
+**Table Page** (`src/pages/Table.tsx`):
+```typescript
+type TableTabValue = 'table' | 'display' | 'settings';
+const VALID_TABLE_TABS = ['table', 'display', 'settings'] as const;
+
+const [activeTab, setActiveTab] = useUrlTab<TableTabValue>('table', VALID_TABLE_TABS);
+```
+
+### How It Works
+
+```mermaid
+graph LR
+    subgraph "On Page Load"
+        URL[URL ?tab=plugin] --> Hook[useUrlTab]
+        Hook --> State[activeTab = 'plugin']
+    end
+    
+    subgraph "On Tab Click"
+        Click[Click 'Advanced'] --> SetTab[setActiveTab]
+        SetTab --> UpdateState[State = 'advanced']
+        SetTab --> UpdateURL[URL ?tab=advanced]
+    end
+```
+
+1. **On mount**: Hook reads `?tab=` param, validates against `validTabs`, sets state
+2. **On tab click**: `setActiveTab` updates both state AND URL (using `replace: true`)
+3. **On browser back/forward**: Hook syncs state with URL automatically
+
+---
+
 ## Troubleshooting
 
 ### Menu Not Syncing
@@ -309,5 +415,5 @@ const isAbsoluteAdminLink = href.startsWith(window.location.origin) && href.incl
 
 ---
 
-**Last Updated**: 2026-01-28  
+**Last Updated**: 2026-02-03  
 **Related**: [ARCHITECTURE.md](./ARCHITECTURE.md)

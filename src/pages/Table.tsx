@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { Tabs, TabOption } from '../components/ui/Tabs';
+import { Tabs, TabOption } from '@/components/ui/Tabs';
 import LivePreview from '@/components/Table/LivePreview';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useUrlTab } from '@/hooks/useUrlTab';
+import { useParams } from 'react-router-dom';
 import { TableIcon, MonitorIcon, SettingsIcon } from 'lucide-react';
 
 /* =============================================================================
@@ -12,10 +12,19 @@ import { TableIcon, MonitorIcon, SettingsIcon } from 'lucide-react';
  * - Table: Configure table data and structure
  * - Display: Configure how the table is displayed
  * - Settings: Additional table settings
+ * 
+ * Supports URL-based tab navigation via search params.
+ * Example: #/new?tab=settings activates Settings tab.
  * ============================================================================= */
 
 /** Define the available tab values as a union type for type safety */
 type TableTabValue = 'table' | 'display' | 'settings';
+
+/**
+ * Valid tab values for URL search param validation.
+ * Used by useHashTab to validate the ?tab= parameter.
+ */
+const VALID_TABLE_TABS = ['table', 'display', 'settings'] as const;
 
 /** Tab configuration with icons matching the design reference */
 const TABLE_TABS: TabOption<TableTabValue>[] = [
@@ -43,10 +52,13 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
  */
 const Table = () => {
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
 
-    /** Track which tab is currently active */
-    const [activeTab, setActiveTab] = useState<TableTabValue>('table');
+    /**
+     * Sync tab state with URL search params.
+     * - Reading: #/new?tab=settings → activeTab = 'settings'
+     * - Writing: setActiveTab('display') → URL becomes #/new?tab=display
+     */
+    const [activeTab, setActiveTab] = useUrlTab<TableTabValue>('table', VALID_TABLE_TABS);
 
     return (
         <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-6">

@@ -4,6 +4,7 @@ import { Tabs, TabOption } from '@/components/ui/Tabs';
 import { SaveIcon, RefreshCwIcon } from 'lucide-react';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useToast } from '@/context/ToastContext';
+import { useUrlTab } from '@/hooks/useUrlTab';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { __ } from '@wordpress/i18n';
@@ -13,6 +14,12 @@ const AdminBarOptions = lazy(() => import('@/components/Settings/AdminBarOptions
 const UninstallOptions = lazy(() => import('@/components/Settings/UninstallOptions'));
 
 type SettingsTabValue = 'default' | 'advanced' | 'plugin';
+
+/**
+ * Valid tab values for URL search param validation.
+ * Used by useHashTab to validate the ?tab= parameter.
+ */
+const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin'] as const;
 
 /**
  * Settings tab configuration with translated labels
@@ -36,9 +43,16 @@ const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
  * Settings Page Component
  *
  * Manages plugin settings with tabbed interface for Default, Advanced, and Plugin options.
+ * Supports URL-based tab navigation via search params.
+ * Example: #/settings?tab=plugin activates Plugin tab.
  */
 const Settings = () => {
-	const [activeTab, setActiveTab] = useState<SettingsTabValue>('default');
+	/**
+	 * Sync tab state with URL search params.
+	 * - Reading: #/settings?tab=plugin → activeTab = 'plugin'
+	 * - Writing: setActiveTab('advanced') → URL becomes #/settings?tab=advanced
+	 */
+	const [activeTab, setActiveTab] = useUrlTab<SettingsTabValue>('default', VALID_SETTINGS_TABS);
 
 	// State to control reload modal visibility
 	const [showReloadModal, setShowReloadModal] = useState(false);
