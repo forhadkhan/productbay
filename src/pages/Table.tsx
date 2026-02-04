@@ -10,6 +10,7 @@ import TabTable from '@/components/Table/TabTable';
 import { EditableText } from '@/components/ui/EditableText';
 import { TableIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
 import TabDisplay from '@/components/Table/TabDisplay';
+import TabSettings from '@/components/Table/TabSettings';
 
 /* =============================================================================
  * Table Page
@@ -137,12 +138,7 @@ const Table = () => {
                     {/* Render content based on active tab */}
                     {activeTab === 'table' && <TabTable />}
                     {activeTab === 'display' && <TabDisplay />}
-                    {activeTab === 'settings' && (
-                        <div>
-                            <p className="text-gray-700">{__('Settings Tab Content', 'productbay')}</p>
-                            {/* TODO: Add settings configuration components */}
-                        </div>
-                    )}
+                    {activeTab === 'settings' && <TabSettings />}
                 </Tabs>
 
                 <LivePreview
