@@ -1,18 +1,18 @@
+import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useParams } from 'react-router-dom';
 import { useUrlTab } from '@/hooks/useUrlTab';
 import { Button } from '@/components/ui/Button';
 import { Toggle } from '@/components/ui/Toggle';
-import { Tabs, TabOption } from '@/components/ui/Tabs';
-import LivePreview from '@/components/Table/LivePreview';
+import { useTableStore } from '@/store/tableStore';
 import TabTable from '@/components/Table/TabTable';
-import { EditableText } from '@/components/ui/EditableText';
-import { TableIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
+import { Tabs, TabOption } from '@/components/ui/Tabs';
 import TabDisplay from '@/components/Table/TabDisplay';
 import TabSettings from '@/components/Table/TabSettings';
-import { useTableStore } from '@/store/tableStore';
-import { cn } from '@/utils/cn';
+import LivePreview from '@/components/Table/LivePreview';
+import { EditableText } from '@/components/ui/EditableText';
+import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
 
 /* =============================================================================
  * Table Page
@@ -40,7 +40,7 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
     {
         value: 'table',
         label: __('Table', 'productbay'),
-        icon: <TableIcon />,
+        icon: <TablePropertiesIcon />,
     },
     {
         value: 'display',
