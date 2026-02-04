@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import type { SourceType } from '@/types';
 import { useTableStore } from '@/store/tableStore';
-import SectionHeding from '@/components/Table/SectionHeding';
+import SectionHeading from '@/components/Table/SectionHeading';
 import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { AlertCircleIcon, ExternalLinkIcon } from 'lucide-react';
 import ColumnEditor from '@/components/Table/sections/ColumnEditor';
@@ -103,7 +103,7 @@ const TabTable = ({ className }: TabTableProps) => {
              * Section 1: Product Source Selection
              * ================================================================= */}
             <section>
-                <SectionHeding
+                <SectionHeading
                     title={__('Product Source', 'productbay')}
                     description={__('Choose which products to display in this table', 'productbay')}
                     isRequired={true}
@@ -212,7 +212,7 @@ const TabTable = ({ className }: TabTableProps) => {
              * Section 2: Column Configuration
              * ================================================================= */}
             <section className="border-t border-gray-200 pt-8">
-                <SectionHeding
+                <SectionHeading
                     title={__('Table Columns', 'productbay')}
                     description={__('Configure which columns to display and their order', 'productbay')}
                     isRequired={true}

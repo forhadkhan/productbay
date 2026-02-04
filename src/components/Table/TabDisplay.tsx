@@ -5,7 +5,7 @@ import { Toggle } from '@/components/ui/Toggle';
 import { SettingsOption } from './SettingsOption';
 import { useTableStore } from '@/store/tableStore';
 import { ColorPicker } from '@/components/ui/ColorPicker';
-import SectionHeding from '@/components/Table/SectionHeding';
+import SectionHeading from '@/components/Table/SectionHeading';
 
 /* =============================================================================
  * ColorChoice Component (Internal)
@@ -64,7 +64,7 @@ const TabDisplay: React.FC = () => {
 
             {/* Section A: Table Controls */}
             <section className="space-y-6">
-                <SectionHeding
+                <SectionHeading
                     title={__('Table Controls', 'productbay')}
                     description={__('Configure table functionality and user controls', 'productbay')}
                 />
@@ -134,7 +134,7 @@ const TabDisplay: React.FC = () => {
 
             {/* Section B: Colors (Theming) */}
             <section className="space-y-6">
-                <SectionHeding
+                <SectionHeading
                     title={__('Colors', 'productbay')}
                     description={__('Customize the visual appearance of your table', 'productbay')}
                 />

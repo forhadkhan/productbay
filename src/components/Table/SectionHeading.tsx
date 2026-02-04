@@ -1,18 +1,18 @@
 import { cn } from '@/utils/cn';
 
-interface SectionHedingProps {
+interface SectionHeadingProps {
     title: string;
     description?: string;
     className?: string;
     isRequired?: boolean;
 }
 
-export const SectionHeding = ({
+export const SectionHeading = ({
     title,
     description,
     className,
     isRequired = false,
-}: SectionHedingProps) => {
+}: SectionHeadingProps) => {
     return (
         <div className={cn("", className)}>
             <h2 className="text-lg font-semibold text-gray-900 mt-0 mb-1">
@@ -26,4 +26,4 @@ export const SectionHeding = ({
     );
 };
 
-export default SectionHeding;
+export default SectionHeading;
