@@ -1,22 +1,16 @@
+import { cn } from '@/utils/cn';
 import { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
-import { cn } from '@/utils/cn';
+import type { SourceType } from '@/types';
 import { useTableStore } from '@/store/tableStore';
-import { CardRadioGroup, CardRadioOption } from '@/components/ui/CardRadioGroup';
-import { CategorySelector } from '@/components/Table/sections/CategorySelector';
+import SectionHeding from '@/components/Table/SectionHeding';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
+import { AlertCircleIcon, ExternalLinkIcon } from 'lucide-react';
+import ColumnEditor from '@/components/Table/sections/ColumnEditor';
 import { ProductSearch } from '@/components/Table/sections/ProductSearch';
 import { SourceStatistics } from '@/components/Table/sections/SourceStatistics';
-import ColumnEditor from '@/components/Table/sections/ColumnEditor';
-import { Alert, AlertDescription } from '@/components/ui/Alert';
-import type { SourceType } from '@/types';
-import {
-    PackageIcon,
-    TagIcon,
-    FolderIcon,
-    ListIcon,
-    AlertCircleIcon,
-    ExternalLinkIcon,
-} from 'lucide-react';
+import { CategorySelector } from '@/components/Table/sections/CategorySelector';
+import { CardRadioGroup, CardRadioOption } from '@/components/ui/CardRadioGroup';
 
 /* =============================================================================
  * TabTable Component
@@ -104,17 +98,16 @@ const TabTable = ({ className }: TabTableProps) => {
     const isStatsLoading = sourceStatsLoading[source.type] || !currentStats;
 
     return (
-        <div className={cn('w-full space-y-8', className)}>
+        <div className={cn('w-full p-4 space-y-8', className)}>
             {/* =================================================================
              * Section 1: Product Source Selection
              * ================================================================= */}
             <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {__('Product Source', 'productbay')}
-                </h3>
-                <p className="text-sm text-gray-500 mb-4">
-                    {__('Choose which products to display in this table', 'productbay')}
-                </p>
+                <SectionHeding
+                    title={__('Product Source', 'productbay')}
+                    description={__('Choose which products to display in this table', 'productbay')}
+                    isRequired={true}
+                />
 
                 {/* Source type radio cards */}
                 <CardRadioGroup
@@ -219,13 +212,11 @@ const TabTable = ({ className }: TabTableProps) => {
              * Section 2: Column Configuration
              * ================================================================= */}
             <section className="border-t border-gray-200 pt-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {__('Table Columns', 'productbay')}
-                </h3>
-                <p className="text-sm text-gray-500 mb-4">
-                    {__('Configure which columns to display and their order', 'productbay')}
-                </p>
-
+                <SectionHeding
+                    title={__('Table Columns', 'productbay')}
+                    description={__('Configure which columns to display and their order', 'productbay')}
+                    isRequired={true}
+                />
                 <ColumnEditor />
             </section>
         </div>
