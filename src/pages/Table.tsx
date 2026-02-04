@@ -11,6 +11,8 @@ import { EditableText } from '@/components/ui/EditableText';
 import { TableIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
 import TabDisplay from '@/components/Table/TabDisplay';
 import TabSettings from '@/components/Table/TabSettings';
+import { useTableStore } from '@/store/tableStore';
+import { cn } from '@/utils/cn';
 
 /* =============================================================================
  * Table Page
@@ -59,25 +61,49 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
  */
 const Table = () => {
     const { id } = useParams<{ id: string }>();
+    const isNewTable = !id || id === 'new';
 
-    // Table name state with validation
-    const [tableName, setTableName] = useState<string>('');
-    const [nameError, setNameError] = useState<string | undefined>(undefined);
+    // Store access
+    const {
+        tableTitle,
+        setTitle,
+        tableStatus,
+        setStatus,
+        loadTable,
+        saveTable,
+        isLoading,
+        error
+    } = useTableStore();
 
-    // Table active/inactive status
-    const [isActive, setIsActive] = useState<boolean>(true);
+    // Load data on mount
+    useState(() => {
+        if (!isNewTable) {
+            loadTable(parseInt(id));
+        } else {
+            // Reset store for new table
+            useTableStore.getState().resetStore();
+        }
+    });
+
+    // Handle Save
+    const [isSaving, setIsSaving] = useState(false);
+    const handleSave = async () => {
+        setIsSaving(true);
+        const success = await saveTable();
+        setIsSaving(false);
+
+        if (success) {
+            // Optional: Success feedback (toast/notice)
+            // For now, reliance on button state or store should be enough visually if we had a toast
+            console.log('Table saved successfully');
+        }
+    };
 
     /**
-     * Handle table name change with validation.
-     * Clears error on valid input, sets error if empty.
+     * Handle table name change
      */
     const handleNameChange = (newName: string) => {
-        setTableName(newName);
-        if (newName.trim() === '') {
-            setNameError(__('Table name is required', 'productbay'));
-        } else {
-            setNameError(undefined);
-        }
+        setTitle(newName);
     };
 
     /**
@@ -87,13 +113,31 @@ const Table = () => {
      */
     const [activeTab, setActiveTab] = useUrlTab<TableTabValue>('table', VALID_TABLE_TABS);
 
+    // Derived state for UI
+    const isActive = tableStatus === 'publish';
+
+    if (isLoading && !isNewTable) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="bg-red-50 text-red-600 p-4 rounded-md">
+                {__('Error:', 'productbay')} {error}
+            </div>
+        );
+    }
+
     return (
         <>
             {/* Header: Table name on left, controls on right */}
             <div className="flex items-center justify-between mb-6">
                 <EditableText
-                    value={tableName}
-                    error={nameError}
+                    value={tableTitle}
                     onChange={handleNameChange}
                     placeholder={__('Enter table name...', 'productbay')}
                 />
@@ -102,13 +146,11 @@ const Table = () => {
                     <div className="flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors">
                         {/* Status dot indicator */}
                         <span
-                            className={`size-2 rounded-full ${isActive ? 'bg-green-500' : 'bg-gray-400'
-                                }`}
+                            className={cn("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')}
                         />
                         {/* Status label with dynamic color - fixed width to prevent layout shift */}
                         <span
-                            className={`text-sm font-medium min-w-[52px] ${isActive ? 'text-green-600' : 'text-gray-500'
-                                }`}
+                            className={cn("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500')}
                         >
                             {isActive ? __('Active', 'productbay') : __('Inactive', 'productbay')}
                         </span>
@@ -116,14 +158,23 @@ const Table = () => {
                         <Toggle
                             size="sm"
                             checked={isActive}
-                            onChange={(e) => setIsActive(e.target.checked)}
+                            onChange={(e) => setStatus(e.target.checked ? 'publish' : 'draft')}
                             title={isActive ? __('Click toggle to deactivate', 'productbay') : __('Click toggle to activate', 'productbay')}
                         />
                     </div>
                     {/* Save Table button */}
-                    <Button size="sm">
-                        <SaveIcon className="size-4 mr-2" />
-                        {__('Save Table', 'productbay')}
+                    <Button
+                        size="sm"
+                        onClick={handleSave}
+                        disabled={isSaving || isLoading}
+                        className={isSaving ? 'opacity-75 cursor-wait' : ''}
+                    >
+                        {isSaving ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        ) : (
+                            <SaveIcon className="size-4 mr-2" />
+                        )}
+                        {isSaving ? __('Saving...', 'productbay') : __('Save Table', 'productbay')}
                     </Button>
                 </div>
             </div>

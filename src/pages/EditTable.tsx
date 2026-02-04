@@ -157,7 +157,7 @@ const EditTable = () => {
 	};
 
 	const handleSave = async () => {
-		const success = await saveTable(id);
+		const success = await saveTable();
 		if (success) {
 			alert(__('Table saved successfully!', 'productbay'));
 			navigate(PATHS.DASHBOARD);

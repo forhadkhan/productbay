@@ -34,34 +34,34 @@ export interface TooltipProps {
 /**
  * A reusable Tooltip component with support for text selection and interaction.
  */
-export const Tooltip: React.FC< TooltipProps > = ( {
+export const Tooltip: React.FC<TooltipProps> = ({
 	content,
 	children,
 	position = 'top',
 	className,
 	delay = 0,
 	hideDelay = 150,
-} ) => {
-	const [ isVisible, setIsVisible ] = React.useState( false );
-	const showTimeoutRef = React.useRef< number | null >( null );
-	const hideTimeoutRef = React.useRef< number | null >( null );
+}) => {
+	const [isVisible, setIsVisible] = React.useState(false);
+	const showTimeoutRef = React.useRef<number | null>(null);
+	const hideTimeoutRef = React.useRef<number | null>(null);
 
 	const clearTimeouts = () => {
-		if ( showTimeoutRef.current ) {
-			clearTimeout( showTimeoutRef.current );
+		if (showTimeoutRef.current) {
+			clearTimeout(showTimeoutRef.current);
 			showTimeoutRef.current = null;
 		}
-		if ( hideTimeoutRef.current ) {
-			clearTimeout( hideTimeoutRef.current );
+		if (hideTimeoutRef.current) {
+			clearTimeout(hideTimeoutRef.current);
 			hideTimeoutRef.current = null;
 		}
 	};
 
 	const showTooltip = () => {
 		clearTimeouts();
-		if ( ! isVisible ) {
+		if (!isVisible) {
 			showTimeoutRef.current = window.setTimeout(
-				() => setIsVisible( true ),
+				() => setIsVisible(true),
 				delay
 			);
 		}
@@ -69,18 +69,18 @@ export const Tooltip: React.FC< TooltipProps > = ( {
 
 	const hideTooltip = () => {
 		clearTimeouts();
-		if ( isVisible ) {
+		if (isVisible) {
 			hideTimeoutRef.current = window.setTimeout(
-				() => setIsVisible( false ),
+				() => setIsVisible(false),
 				hideDelay
 			);
 		}
 	};
 
 	// Cleanup on unmount
-	React.useEffect( () => {
+	React.useEffect(() => {
 		return () => clearTimeouts();
-	}, [] );
+	}, []);
 
 	// Position classes
 	const positionClasses = {
@@ -100,34 +100,34 @@ export const Tooltip: React.FC< TooltipProps > = ( {
 
 	return (
 		<div
-			className="relative inline-block"
-			onMouseEnter={ showTooltip }
-			onMouseLeave={ hideTooltip }
-			onFocus={ showTooltip }
-			onBlur={ hideTooltip }
+			className="relative inline-block z-30"
+			onMouseEnter={showTooltip}
+			onMouseLeave={hideTooltip}
+			onFocus={showTooltip}
+			onBlur={hideTooltip}
 		>
-			{ children }
-			{ isVisible && (
+			{children}
+			{isVisible && (
 				<div
-					className={ cn(
+					className={cn(
 						'absolute z-[110] px-3 py-1.5 text-xs font-normal text-white bg-gray-800 rounded shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 select-text cursor-auto',
-						positionClasses[ position ],
+						positionClasses[position],
 						className
-					) }
+					)}
 					role="tooltip"
-					onMouseEnter={ showTooltip } // Keep open when hovering the tooltip itself
-					onMouseLeave={ hideTooltip }
+					onMouseEnter={showTooltip} // Keep open when hovering the tooltip itself
+					onMouseLeave={hideTooltip}
 				>
-					<span className="relative z-10">{ content }</span>
-					{ /* Arrow: Rotated square that inherits parent background */ }
+					<span className="relative z-10">{content}</span>
+					{ /* Arrow: Rotated square that inherits parent background */}
 					<div
-						className={ cn(
+						className={cn(
 							'absolute w-2 h-2 bg-inherit transform rotate-45',
-							arrowPositions[ position ]
-						) }
+							arrowPositions[position]
+						)}
 					/>
 				</div>
-			) }
+			)}
 		</div>
 	);
 };

@@ -14,7 +14,7 @@ const StepPublish = ({ showValidation }: StepProps) => {
 	const { id } = useParams();
 
 	const handleSave = async () => {
-		const success = await saveTable(id);
+		const success = await saveTable();
 		if (success) {
 			alert('Table saved successfully!');
 			navigate(PATHS.DASHBOARD);
