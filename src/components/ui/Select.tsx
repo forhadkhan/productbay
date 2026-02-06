@@ -139,7 +139,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 				</button>
 
 				{isOpen && (
-					<div className="absolute top-full left-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-200 bg-white shadow-md animate-in fade-in-80 slide-in-from-top-1">
+					<div className="absolute top-full left-0 z-50 mt-1 max-h-60 min-w-full w-max overflow-auto rounded-md border border-gray-200 bg-white shadow-md animate-in fade-in-80 slide-in-from-top-1">
 						{label && (
 							<div
 								onClick={() => {
