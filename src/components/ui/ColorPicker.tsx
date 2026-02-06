@@ -73,9 +73,9 @@
  */
 
 import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import { cn } from '@/utils/cn';
-import { __ } from '@wordpress/i18n';
 import { Pencil, X } from 'lucide-react';
+import { __ } from '@wordpress/i18n';
+import { cn } from '@/utils/cn';
 
 /* =============================================================================
  * TYPE DEFINITIONS
@@ -1475,9 +1475,9 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                     className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-blue-500 font-medium transition-colors bg-transparent border-0 p-1 cursor-pointer rounded-md hover:bg-gray-50"
                 >
                     {/* Toggle icon between Pencil (closed) and X (open) */}
-                    {isOpen ? <X className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
+                    {(triggerMode === "icon" || triggerMode === "both") && (isOpen ? <span title={__('Close', 'productbay')}><X className="w-3.5 h-3.5" /></span> : <span title={__('Edit Color', 'productbay')}><Pencil className="w-3.5 h-3.5" /></span>)}
                     {/* Toggle text between Edit Color (closed) and Close (open) */}
-                    <span>{isOpen ? __('Close', 'productbay') : __('Edit Color', 'productbay')}</span>
+                    {(triggerMode === "text" || triggerMode === "both") && <span>{isOpen ? __('Close', 'productbay') : __('Edit Color', 'productbay')}</span>}
                 </button>
             </div>
 
