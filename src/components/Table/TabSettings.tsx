@@ -1,10 +1,11 @@
 import React from 'react';
+import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
 import { Toggle } from '@/components/ui/Toggle';
 import { Select } from '@/components/ui/Select';
 import { useTableStore } from '@/store/tableStore';
 import SectionHeading from '@/components/Table/SectionHeading';
-import SettingsOption from '@/components/Table/SettingsOption';
+import { SettingsOption } from '@/components/Table/SettingsOption';
 
 /* =============================================================================
  * TabSettings Component
@@ -62,7 +63,61 @@ const TabSettings: React.FC = () => {
     return (
         <div className="w-full p-4 space-y-8">
 
-            {/* General Settings */}
+            {/* Table Controls - User-facing features */}
+            <SettingsSection
+                title={__('Table Controls', 'productbay')}
+                description={__('Configure table functionality and user controls', 'productbay')}
+            >
+                {/* Enable Search Bar */}
+                <SettingsOption
+                    title={__('Enable Search Bar', 'productbay')}
+                    description={__('Allow users to search through products', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.features.search}
+                        onChange={(e) => setFeatures({ search: e.target.checked })}
+                    />
+                </SettingsOption>
+
+                {/* Enable Pagination */}
+                <SettingsOption
+                    title={__('Enable Pagination', 'productbay')}
+                    description={__('Break large product lists into pages', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.features.pagination}
+                        onChange={(e) => setFeatures({ pagination: e.target.checked })}
+                    />
+                </SettingsOption>
+
+                {/* Products Per Page */}
+                <SettingsOption
+                    title={__('Products Per Page', 'productbay')}
+                    description={__('Number of products to display per page', 'productbay')}
+                >
+                    <input
+                        type="number"
+                        min="1"
+                        max="500"
+                        value={settings.pagination.limit}
+                        onChange={(e) => setPagination({ limit: parseInt(e.target.value) || 10 })}
+                        className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                </SettingsOption>
+
+                {/* Enable Price Range */}
+                <SettingsOption
+                    title={__('Enable Price Range', 'productbay')}
+                    description={__('Allow users to filter by price range', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.features.priceRange}
+                        onChange={(e) => setFeatures({ priceRange: e.target.checked })}
+                    />
+                </SettingsOption>
+            </SettingsSection>
+
+            {/* General Settings - Advanced table features */}
             <SettingsSection
                 title={__('General Settings', 'productbay')}
                 description={__('Configure core table features', 'productbay')}
@@ -85,15 +140,7 @@ const TabSettings: React.FC = () => {
                         onChange={(e) => setFeatures({ export: e.target.checked })}
                     />
                 </SettingsOption>
-                <SettingsOption
-                    title={__('Responsive Accordion', 'productbay')}
-                    description={__('Collapse extra columns into an accordion on mobile', 'productbay')}
-                >
-                    <Toggle
-                        checked={settings.features.responsiveCollapse}
-                        onChange={(e) => setFeatures({ responsiveCollapse: e.target.checked })}
-                    />
-                </SettingsOption>
+
 
                 <SettingsOption
                     title={__('Pagination Position', 'productbay')}
@@ -129,46 +176,48 @@ const TabSettings: React.FC = () => {
                     />
                 </SettingsOption>
 
-                {settings.cart.enable && (
-                    <>
-                        <SettingsOption
-                            title={__('Show Quantity', 'productbay')}
-                            description={__('Display quantity selector next to button', 'productbay')}
-                        >
-                            <Toggle
-                                checked={settings.cart.showQuantity}
-                                onChange={(e) => setCart({ showQuantity: e.target.checked })}
-                            />
-                        </SettingsOption>
-                        <SettingsOption
-                            title={__('AJAX Add to Cart', 'productbay')}
-                            description={__('Add to cart without reloading the page', 'productbay')}
-                        >
-                            <Toggle
-                                checked={settings.cart.ajaxAdd}
-                                onChange={(e) => setCart({ ajaxAdd: e.target.checked })}
-                            />
-                        </SettingsOption>
+                {/* Cart sub-options - Only relevant when Add to Cart is enabled */}
+                <div className={cn(
+                    "transition-all duration-300",
+                    settings.cart.enable ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
+                )}>
+                    <SettingsOption
+                        title={__('Show Quantity', 'productbay')}
+                        description={__('Display quantity selector next to button', 'productbay')}
+                    >
+                        <Toggle
+                            checked={settings.cart.showQuantity}
+                            onChange={(e) => setCart({ showQuantity: e.target.checked })}
+                        />
+                    </SettingsOption>
+                    <SettingsOption
+                        title={__('AJAX Add to Cart', 'productbay')}
+                        description={__('Add to cart without reloading the page', 'productbay')}
+                    >
+                        <Toggle
+                            checked={settings.cart.ajaxAdd}
+                            onChange={(e) => setCart({ ajaxAdd: e.target.checked })}
+                        />
+                    </SettingsOption>
 
-                        <SettingsOption
-                            title={__('Cart Method', 'productbay')}
-                            description={__('Interaction style for adding to cart', 'productbay')}
-                        >
-                            <div className="w-48">
-                                <Select
-                                    size="sm"
-                                    value={settings.cart.method}
-                                    onChange={(val) => setCart({ method: val as any })}
-                                    options={[
-                                        { label: __('Button (Default)', 'productbay'), value: 'button' },
-                                        { label: __('Checkbox (Multi-select)', 'productbay'), value: 'checkbox' },
-                                        { label: __('Text Link', 'productbay'), value: 'text' },
-                                    ]}
-                                />
-                            </div>
-                        </SettingsOption>
-                    </>
-                )}
+                    <SettingsOption
+                        title={__('Cart Method', 'productbay')}
+                        description={__('Interaction style for adding to cart', 'productbay')}
+                    >
+                        <div className="w-48">
+                            <Select
+                                size="sm"
+                                value={settings.cart.method}
+                                onChange={(val) => setCart({ method: val as any })}
+                                options={[
+                                    { label: __('Button (Default)', 'productbay'), value: 'button' },
+                                    { label: __('Checkbox (Multi-select)', 'productbay'), value: 'checkbox' },
+                                    { label: __('Text Link', 'productbay'), value: 'text' },
+                                ]}
+                            />
+                        </div>
+                    </SettingsOption>
+                </div>
             </SettingsSection>
 
             {/* Filter Settings */}
@@ -176,23 +225,40 @@ const TabSettings: React.FC = () => {
                 title={__('Filter Configuration', 'productbay')}
                 description={__('Advanced settings for filters', 'productbay')}
             >
+                {/* Enable Filter */}
                 <SettingsOption
-                    title={__('Filter Position', 'productbay')}
-                    description={__('Where should filters appear?', 'productbay')}
+                    title={__('Enable Filter', 'productbay')}
+                    description={__('Show filter options above the table', 'productbay')}
                 >
-                    <div className="w-48">
-                        <Select
-                            size="sm"
-                            value={settings.filters.position}
-                            onChange={(val) => setFilters({ position: val as any })}
-                            options={[
-                                { label: __('Above Table (Top)', 'productbay'), value: 'top' },
-                                { label: __('Sidebar', 'productbay'), value: 'sidebar' },
-                                { label: __('Modal / Popup', 'productbay'), value: 'modal' },
-                            ]}
-                        />
-                    </div>
+                    <Toggle
+                        checked={settings.filters.enabled}
+                        onChange={(e) => setFilters({ enabled: e.target.checked })}
+                    />
                 </SettingsOption>
+
+                {/* Filter Position - Only relevant when filters are enabled */}
+                <div className={cn(
+                    "transition-all duration-300",
+                    settings.filters.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
+                )}>
+                    <SettingsOption
+                        title={__('Filter Position', 'productbay')}
+                        description={__('Where should filters appear?', 'productbay')}
+                    >
+                        <div className="w-48">
+                            <Select
+                                size="sm"
+                                value={settings.filters.position}
+                                onChange={(val) => setFilters({ position: val as any })}
+                                options={[
+                                    { label: __('Above Table (Top)', 'productbay'), value: 'top' },
+                                    { label: __('Sidebar', 'productbay'), value: 'sidebar' },
+                                    { label: __('Modal / Popup', 'productbay'), value: 'modal' },
+                                ]}
+                            />
+                        </div>
+                    </SettingsOption>
+                </div>
             </SettingsSection>
 
             {/* Performance Settings */}
@@ -219,8 +285,8 @@ const TabSettings: React.FC = () => {
                         min="1"
                         max="10000"
                         value={settings.performance.productLimit}
-                        onChange={(e) => setPerformance({ productLimit: parseInt(e.target.value) || 200 })}
-                        className="w-24 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        onChange={(e) => setPerformance({ productLimit: parseInt(e.target.value) || 500 })}
+                        className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     />
                 </SettingsOption>
             </SettingsSection>

@@ -1,18 +1,21 @@
-import { cn } from '@/utils/cn';
-import { useState } from 'react';
-import { __ } from '@wordpress/i18n';
-import { useParams } from 'react-router-dom';
-import { useUrlTab } from '@/hooks/useUrlTab';
-import { Button } from '@/components/ui/Button';
-import { Toggle } from '@/components/ui/Toggle';
+import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon, CopyIcon, InfoIcon } from 'lucide-react';
+import { EditableText } from '@/components/ui/EditableText';
+import { useParams, useNavigate } from 'react-router-dom';
+import LivePreview from '@/components/Table/LivePreview';
+import TabSettings from '@/components/Table/TabSettings';
+import TabDisplay from '@/components/Table/TabDisplay';
+import { Tabs, TabOption } from '@/components/ui/Tabs';
 import { useTableStore } from '@/store/tableStore';
 import TabTable from '@/components/Table/TabTable';
-import { Tabs, TabOption } from '@/components/ui/Tabs';
-import TabDisplay from '@/components/Table/TabDisplay';
-import TabSettings from '@/components/Table/TabSettings';
-import LivePreview from '@/components/Table/LivePreview';
-import { EditableText } from '@/components/ui/EditableText';
-import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon } from 'lucide-react';
+import { useToast } from '@/context/ToastContext';
+import { Toggle } from '@/components/ui/Toggle';
+import { Button } from '@/components/ui/Button';
+import { useUrlTab } from '@/hooks/useUrlTab';
+import { PATHS } from '@/utils/routes';
+import { __ } from '@wordpress/i18n';
+import { useState } from 'react';
+import { cn } from '@/utils/cn';
+import { Tooltip } from '@/components/ui/Tooltip';
 
 /* =============================================================================
  * Table Page
@@ -62,9 +65,11 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
 const Table = () => {
     const { id } = useParams<{ id: string }>();
     const isNewTable = !id || id === 'new';
+    const navigate = useNavigate();
 
     // Store access
     const {
+        tableId,
         tableTitle,
         setTitle,
         tableStatus,
@@ -85,17 +90,50 @@ const Table = () => {
         }
     });
 
+    // Toast notification
+    const { toast } = useToast();
+
+    // Validation state
+    const [titleError, setTitleError] = useState<string | undefined>(undefined);
+
     // Handle Save
     const [isSaving, setIsSaving] = useState(false);
     const handleSave = async () => {
+        // Validation: Table Name is required
+        if (!tableTitle.trim()) {
+            const errorMsg = __('Table name is required.', 'productbay');
+            setTitleError(errorMsg);
+            toast({
+                title: __('Validation Error', 'productbay'),
+                description: errorMsg,
+                type: 'error'
+            });
+            return;
+        }
+
         setIsSaving(true);
         const success = await saveTable();
         setIsSaving(false);
 
         if (success) {
-            // Optional: Success feedback (toast/notice)
-            // For now, reliance on button state or store should be enough visually if we had a toast
-            console.log('Table saved successfully');
+            toast({
+                title: __('Success', 'productbay'),
+                description: __('Table saved successfully.', 'productbay'),
+                type: 'success'
+            });
+
+            // If it was a new table, redirect to the edit URL with the new ID
+            // We use getState here to ensure we get the fresh ID immediately after save
+            const newId = useTableStore.getState().tableId;
+            if (isNewTable && newId) {
+                navigate(PATHS.TABLE_EDITOR.replace(':id', newId.toString()));
+            }
+        } else {
+            toast({
+                title: __('Error', 'productbay'),
+                description: error || __('Failed to save table.', 'productbay'),
+                type: 'error'
+            });
         }
     };
 
@@ -104,6 +142,7 @@ const Table = () => {
      */
     const handleNameChange = (newName: string) => {
         setTitle(newName);
+        if (titleError) setTitleError(undefined);
     };
 
     /**
@@ -134,11 +173,45 @@ const Table = () => {
 
     return (
         <>
+            {/* Conditional: Shortcode for already saved table */}
+            {tableId && (
+                <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
+                        <code className="bg-gray-100 text-lg px-2 py-1 rounded border border-blue-100 text-blue-800 font-mono">
+                            {`[productbay id="${tableId}"]`}
+                        </code>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                        <Tooltip content={__('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay')}>
+                            <InfoIcon className="size-6 cursor-pointer" />
+                        </Tooltip>
+                        <Button
+                            size="xs"
+                            variant="outline"
+                            onClick={() => {
+                                navigator.clipboard.writeText(`[productbay id="${tableId}"]`);
+                                toast({
+                                    title: __('Copied', 'productbay'),
+                                    description: __('Shortcode copied to clipboard', 'productbay'),
+                                    type: 'success'
+                                });
+                            }}
+                            className="bg-white hover:bg-blue-100 text-blue-700 border-blue-200 cursor-pointer"
+                        >
+                            <CopyIcon className="size-3 mr-1.5" />
+                            {__('Copy', 'productbay')}
+                        </Button>
+                    </div>
+                </div>
+            )}
+
             {/* Header: Table name on left, controls on right */}
             <div className="flex items-center justify-between mb-6">
                 <EditableText
                     value={tableTitle}
                     onChange={handleNameChange}
+                    error={titleError}
                     placeholder={__('Enter table name...', 'productbay')}
                 />
                 <div className="flex items-center gap-4">

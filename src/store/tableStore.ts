@@ -184,6 +184,18 @@ interface TableStore {
 	/** Update button styles */
 	setButtonStyle: (button: Partial<TableStyle['button']>) => void;
 
+	/** Update layout styles */
+	setLayoutStyle: (layout: Partial<TableStyle['layout']>) => void;
+
+	/** Update typography styles */
+	setTypographyStyle: (typography: Partial<TableStyle['typography']>) => void;
+
+	/** Update hover styles */
+	setHoverStyle: (hover: Partial<TableStyle['hover']>) => void;
+
+	/** Update responsive styles */
+	setResponsiveStyle: (responsive: Partial<TableStyle['responsive']>) => void;
+
 	// =========================================================================
 	// Persistence Actions
 	// =========================================================================
@@ -247,7 +259,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 
 	tableId: null,
 	tableTitle: '',
-	tableStatus: 'draft',
+	tableStatus: 'publish',
 	source: defaultSource(),
 	columns: defaultColumns(),
 	settings: defaultSettings(),
@@ -435,6 +447,38 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		isDirty: true,
 	})),
 
+	setLayoutStyle: (layout) => set((state) => ({
+		style: {
+			...state.style,
+			layout: { ...state.style.layout, ...layout }
+		},
+		isDirty: true,
+	})),
+
+	setTypographyStyle: (typography) => set((state) => ({
+		style: {
+			...state.style,
+			typography: { ...state.style.typography, ...typography }
+		},
+		isDirty: true,
+	})),
+
+	setHoverStyle: (hover) => set((state) => ({
+		style: {
+			...state.style,
+			hover: { ...state.style.hover, ...hover }
+		},
+		isDirty: true,
+	})),
+
+	setResponsiveStyle: (responsive) => set((state) => ({
+		style: {
+			...state.style,
+			responsive: { ...state.style.responsive, ...responsive }
+		},
+		isDirty: true,
+	})),
+
 	// =========================================================================
 	// Persistence Actions
 	// =========================================================================
@@ -442,7 +486,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 	resetStore: () => set({
 		tableId: null,
 		tableTitle: '',
-		tableStatus: 'draft',
+		tableStatus: 'publish',
 		source: defaultSource(),
 		columns: defaultColumns(),
 		settings: defaultSettings(),
@@ -504,12 +548,29 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		set({ isSaving: true, error: null });
 
 		try {
+			// Clean source queryArgs based on actve source type for persistence
+			// This ensures we only save relevant data to the DB ("save the one finally remain selected")
+			// while keeping the active state in the store during the session ("remember any choices").
+			const activeType = state.source.type;
+			const cleanedQueryArgs = { ...state.source.queryArgs };
+
+			if (activeType !== 'category') {
+				cleanedQueryArgs.categoryIds = [];
+			}
+
+			if (activeType !== 'specific') {
+				cleanedQueryArgs.postIds = [];
+			}
+
 			// Build payload matching 4-key backend structure
 			const payload: ProductTable = {
 				id: state.tableId || undefined,
 				title: state.tableTitle,
 				status: state.tableStatus,
-				source: state.source,
+				source: {
+					...state.source,
+					queryArgs: cleanedQueryArgs
+				},
 				columns: state.columns,
 				settings: state.settings,
 				style: state.style,

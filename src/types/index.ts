@@ -162,9 +162,6 @@ export interface TableSettings {
         /** Enable CSV/PDF export */
         export: boolean;
 
-        /** Enable row accordion on mobile */
-        responsiveCollapse: boolean;
-
         /** Enable price range filter */
         priceRange: boolean;
     };
@@ -242,6 +239,41 @@ export interface TableStyle {
         textColor: string;
         borderRadius: string;
         icon: string;
+        /** Hover state colors */
+        hoverBgColor: string;
+        hoverTextColor: string;
+    };
+
+    /** Layout & Spacing configuration */
+    layout: {
+        /** Table border style */
+        borderStyle: 'none' | 'solid' | 'dashed';
+        /** Table border color */
+        borderColor: string;
+        /** Table border radius */
+        borderRadius: string;
+        /** Cell padding density */
+        cellPadding: 'compact' | 'normal' | 'spacious';
+    };
+
+    /** Typography settings */
+    typography: {
+        /** Header row font weight */
+        headerFontWeight: 'normal' | 'bold' | 'extrabold';
+    };
+
+    /** Hover & Interaction effects */
+    hover: {
+        /** Enable row hover effect */
+        rowHoverEnabled: boolean;
+        /** Row hover background color */
+        rowHoverBgColor: string;
+    };
+
+    /** Responsive display settings */
+    responsive: {
+        /** Responsive display mode */
+        mode: 'standard' | 'stack' | 'accordion';
     };
 }
 
@@ -317,7 +349,6 @@ export const createDefaultSettings = (): TableSettings => ({
         pagination: true,
         lazyLoad: false,
         export: false,
-        responsiveCollapse: true,
         priceRange: false,
     },
     pagination: {
@@ -336,7 +367,7 @@ export const createDefaultSettings = (): TableSettings => ({
         activeTaxonomies: ['product_cat'],
     },
     performance: {
-        productLimit: 200,
+        productLimit: 500,
     },
 });
 
@@ -360,6 +391,24 @@ export const createDefaultStyle = (): TableStyle => ({
         textColor: '#ffffff',
         borderRadius: '4px',
         icon: 'cart',
+        hoverBgColor: '#135e96',
+        hoverTextColor: '#ffffff',
+    },
+    layout: {
+        borderStyle: 'solid',
+        borderColor: '#e5e5e5',
+        borderRadius: '0px',
+        cellPadding: 'normal',
+    },
+    typography: {
+        headerFontWeight: 'bold',
+    },
+    hover: {
+        rowHoverEnabled: true,
+        rowHoverBgColor: '#f5f5f5',
+    },
+    responsive: {
+        mode: 'standard',
     },
 });
 

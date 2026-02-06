@@ -152,7 +152,8 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
     "pagination": true,
     "lazy_load": false,
     "export": false,
-    "responsive_collapse": true // Row accordion on mobile
+    "price_range": true
+    // "responsive_collapse" removed in favor of style.responsive.mode
   },
   "pagination": {
     "limit": 10,
@@ -170,7 +171,7 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
     "active_taxonomies": ["product_cat", "pa_color"]
   },
   "performance": {
-    "product_limit": 200 // Hard cap for query speed
+    "product_limit": 500 // Hard cap for query speed (Updated default)
   }
 }
 
@@ -199,6 +200,9 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
     "text_color": "#ffffff",
     "border_radius": "4px",
     "icon": "cart"
+  },
+  "responsive": {
+    "mode": "standard" // "standard", "stack", "accordion"
   }
 }
 
