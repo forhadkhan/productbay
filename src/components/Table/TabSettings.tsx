@@ -1,6 +1,7 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { Toggle } from '@/components/ui/Toggle';
+import { Select } from '@/components/ui/Select';
 import { useTableStore } from '@/store/tableStore';
 import SectionHeading from '@/components/Table/SectionHeading';
 import SettingsOption from '@/components/Table/SettingsOption';
@@ -98,15 +99,18 @@ const TabSettings: React.FC = () => {
                     title={__('Pagination Position', 'productbay')}
                     description={__('Where to display pagination controls', 'productbay')}
                 >
-                    <select
-                        value={settings.pagination.position}
-                        onChange={(e) => setPagination({ position: e.target.value as any })}
-                        className="text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    >
-                        <option value="bottom">{__('Bottom', 'productbay')}</option>
-                        <option value="top">{__('Top', 'productbay')}</option>
-                        <option value="both">{__('Both', 'productbay')}</option>
-                    </select>
+                    <div className="w-48">
+                        <Select
+                            size="sm"
+                            value={settings.pagination.position}
+                            onChange={(val) => setPagination({ position: val as any })}
+                            options={[
+                                { label: __('Bottom', 'productbay'), value: 'bottom' },
+                                { label: __('Top', 'productbay'), value: 'top' },
+                                { label: __('Both', 'productbay'), value: 'both' },
+                            ]}
+                        />
+                    </div>
                 </SettingsOption>
             </SettingsSection>
 
@@ -150,15 +154,18 @@ const TabSettings: React.FC = () => {
                             title={__('Cart Method', 'productbay')}
                             description={__('Interaction style for adding to cart', 'productbay')}
                         >
-                            <select
-                                value={settings.cart.method}
-                                onChange={(e) => setCart({ method: e.target.value as any })}
-                                className="text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                            >
-                                <option value="button">{__('Button (Default)', 'productbay')}</option>
-                                <option value="checkbox">{__('Checkbox (Multi-select)', 'productbay')}</option>
-                                <option value="text">{__('Text Link', 'productbay')}</option>
-                            </select>
+                            <div className="w-48">
+                                <Select
+                                    size="sm"
+                                    value={settings.cart.method}
+                                    onChange={(val) => setCart({ method: val as any })}
+                                    options={[
+                                        { label: __('Button (Default)', 'productbay'), value: 'button' },
+                                        { label: __('Checkbox (Multi-select)', 'productbay'), value: 'checkbox' },
+                                        { label: __('Text Link', 'productbay'), value: 'text' },
+                                    ]}
+                                />
+                            </div>
                         </SettingsOption>
                     </>
                 )}
@@ -173,15 +180,18 @@ const TabSettings: React.FC = () => {
                     title={__('Filter Position', 'productbay')}
                     description={__('Where should filters appear?', 'productbay')}
                 >
-                    <select
-                        value={settings.filters.position}
-                        onChange={(e) => setFilters({ position: e.target.value as any })}
-                        className="text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    >
-                        <option value="top">{__('Above Table (Top)', 'productbay')}</option>
-                        <option value="sidebar">{__('Sidebar', 'productbay')}</option>
-                        <option value="modal">{__('Modal / Popup', 'productbay')}</option>
-                    </select>
+                    <div className="w-48">
+                        <Select
+                            size="sm"
+                            value={settings.filters.position}
+                            onChange={(val) => setFilters({ position: val as any })}
+                            options={[
+                                { label: __('Above Table (Top)', 'productbay'), value: 'top' },
+                                { label: __('Sidebar', 'productbay'), value: 'sidebar' },
+                                { label: __('Modal / Popup', 'productbay'), value: 'modal' },
+                            ]}
+                        />
+                    </div>
                 </SettingsOption>
             </SettingsSection>
 
