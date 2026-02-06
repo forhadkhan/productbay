@@ -42,3 +42,37 @@
 #wpbody-content {
     padding: 0 !important;
 }
+
+/* =============================================================================
+ * Global Scrollbar Styling
+ * =============================================================================
+ * 1. Forces vertical scrollbar to prevent layout shift between pages
+ * 2. Customizes scrollbar appearance for a modern, sleek look
+ */
+
+html {
+    /* Always show vertical scrollbar to prevent layout shift */
+    overflow-y: scroll;
+}
+
+/* Scrollbar Dimensions */
+::-webkit-scrollbar {
+    width: 6px; /* Slimmer for modern look */
+    height: 6px;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1; /* Slate 300 - Subtle grey */
+    border-radius: 99px; /* Pill shape */
+}
+
+/* Scrollbar Thumb Hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8; /* Slate 400 - Darker on hover */
+}
