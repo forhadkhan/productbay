@@ -6555,6 +6555,45 @@ const LoaderCircle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defau
 
 /***/ },
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/loader.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/loader.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Loader)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 2v4", key: "3427ic" }],
+  ["path", { d: "m16.2 7.8 2.9-2.9", key: "r700ao" }],
+  ["path", { d: "M18 12h4", key: "wj9ykh" }],
+  ["path", { d: "m16.2 16.2 2.9 2.9", key: "1bxg5t" }],
+  ["path", { d: "M12 18v4", key: "jadmvz" }],
+  ["path", { d: "m4.9 19.1 2.9-2.9", key: "bwix9q" }],
+  ["path", { d: "M2 12h4", key: "j09sii" }],
+  ["path", { d: "m4.9 4.9 2.9 2.9", key: "giyufr" }]
+];
+const Loader = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("loader", __iconNode);
+
+
+//# sourceMappingURL=loader.js.map
+
+
+/***/ },
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/menu.js"
 /*!**********************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/menu.js ***!
@@ -6775,6 +6814,45 @@ const PenLine = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 
 
 //# sourceMappingURL=pen-line.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/pencil.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/pencil.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Pencil)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z",
+      key: "1a8usu"
+    }
+  ],
+  ["path", { d: "m15 5 4 4", key: "1mk7zo" }]
+];
+const Pencil = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("pencil", __iconNode);
+
+
+//# sourceMappingURL=pencil.js.map
 
 
 /***/ },
@@ -22046,18 +22124,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui/Toggle */ "./src/components/ui/Toggle.tsx");
-/* harmony import */ var _SettingsOption__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SettingsOption */ "./src/components/Table/SettingsOption.tsx");
-/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
-/* harmony import */ var _components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/ColorPicker */ "./src/components/ui/ColorPicker.tsx");
-/* harmony import */ var _components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Table/SectionHeading */ "./src/components/Table/SectionHeading.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/ui/Toggle */ "./src/components/ui/Toggle.tsx");
+/* harmony import */ var _components_ui_Select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui/Select */ "./src/components/ui/Select.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ui/ColorPicker */ "./src/components/ui/ColorPicker.tsx");
+/* harmony import */ var _components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Table/SectionHeading */ "./src/components/Table/SectionHeading.tsx");
+/* harmony import */ var _components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Table/SettingsOption */ "./src/components/Table/SettingsOption.tsx");
+/* harmony import */ var _components_ui_CardRadioGroup__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/ui/CardRadioGroup */ "./src/components/ui/CardRadioGroup.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -22080,138 +22159,99 @@ const ColorChoice = ({
   onBgChange,
   onColorChange,
   className
-}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-  className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("grid grid-cols-1 lg:grid-cols-2 gap-4 items-center border-b border-gray-300 py-3", className),
-  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-    className: "flex items-center justify-between lg:justify-start lg:gap-8",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-      className: "text-sm text-gray-600 min-w-[72px]",
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+  className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("grid grid-cols-1 lg:grid-cols-2 gap-4 items-center", className),
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    className: "flex items-center justify-between lg:gap-8 border border-gray-200 p-2 bg-white",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+      className: "text-sm text-gray-600",
       children: labelBg
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_6__.ColorPicker, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_5__.ColorPicker, {
       value: bgColor,
-      onChange: onBgChange
+      onChange: onBgChange,
+      triggerMode: "icon"
     })]
-  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-    className: "flex items-center justify-between lg:justify-start lg:gap-8",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-      className: "text-sm text-gray-600 min-w-[48px]",
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    className: "flex items-center justify-between lg:gap-8 border border-gray-200 p-2 bg-white",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+      className: "text-sm text-gray-600",
       children: labelColor
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_6__.ColorPicker, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_5__.ColorPicker, {
       value: textColor,
-      onChange: onColorChange
+      onChange: onColorChange,
+      triggerMode: "icon"
     })]
   })]
 });
 
-/* ===================================================================================================
+/* =============================================================================
  * TabDisplay Component
- * This component is used to display the table controls and colors for new table or view/update table.
- * =================================================================================================== */
+ * =============================================================================
+ * Handles visual/styling configuration for the table:
+ * - Colors (Button, Header, Body, Zebra Striping)
+ * - Layout & Spacing (Border, Padding)
+ * - Typography (Font Weight)
+ * - Hover & Interaction (Row Hover)
+ * - Responsive Display (Mobile Stacking)
+ * ============================================================================= */
 
 const TabDisplay = () => {
   const {
-    settings,
     style,
-    setFeatures,
-    setFilters,
-    setPagination,
     setHeaderStyle,
     setBodyStyle,
-    setButtonStyle
-  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore)();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    setButtonStyle,
+    setLayoutStyle,
+    setTypographyStyle,
+    setHoverStyle,
+    setResponsiveStyle
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_4__.useTableStore)();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     className: "w-full p-4 space-y-8",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "space-y-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Table Controls', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure table functionality and user controls', 'productbay')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "space-y-4 bg-white rounded-lg",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SettingsOption__WEBPACK_IMPORTED_MODULE_4__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Search Bar', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to search through products', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
-            checked: settings.features.search,
-            onChange: e => setFeatures({
-              search: e.target.checked
-            })
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SettingsOption__WEBPACK_IMPORTED_MODULE_4__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Pagination', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Break large product lists into pages', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
-            checked: settings.features.pagination,
-            onChange: e => setFeatures({
-              pagination: e.target.checked
-            })
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SettingsOption__WEBPACK_IMPORTED_MODULE_4__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Products Per Page', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Number of products to display per page', 'productbay'),
-          className: "pt-2",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
-            type: "number",
-            min: "1",
-            max: "500",
-            value: settings.pagination.limit,
-            onChange: e => setPagination({
-              limit: parseInt(e.target.value) || 10
-            }),
-            className: "w-24 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SettingsOption__WEBPACK_IMPORTED_MODULE_4__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Price Range', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to filter by price range', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
-            checked: settings.features.priceRange,
-            onChange: e => setFeatures({
-              priceRange: e.target.checked
-            })
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SettingsOption__WEBPACK_IMPORTED_MODULE_4__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Filter', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show filter options above the table', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
-            checked: settings.filters.enabled,
-            onChange: e => setFilters({
-              enabled: e.target.checked
-            })
-          })
-        })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
-      className: "space-y-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Colors', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Customize the visual appearance of your table', 'productbay')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Colors', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Customize the visual appearance of your table', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
-          className: "text-sm font-semibold text-gray-900 m-0",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add to Cart Button', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ColorChoice, {
-          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Background', 'productbay'),
-          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Text', 'productbay'),
-          bgColor: style.button.bgColor,
-          textColor: style.button.textColor,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+          className: "text-sm font-semibold text-gray-900 m-0 pb-4",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add to Cart Button', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(ColorChoice, {
+          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background', 'productbay'),
+          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text', 'productbay'),
+          bgColor: style.button.bgColor || '#2271b1',
+          textColor: style.button.textColor || '#ffffff',
           onBgChange: val => setButtonStyle({
             bgColor: val
           }),
           onColorChange: val => setButtonStyle({
             textColor: val
           })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(ColorChoice, {
+          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hover Text', 'productbay'),
+          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hover Background', 'productbay'),
+          bgColor: style.button.hoverBgColor || '#135e96',
+          textColor: style.button.hoverTextColor || '#ffffff',
+          onBgChange: val => setButtonStyle({
+            hoverBgColor: val
+          }),
+          onColorChange: val => setButtonStyle({
+            hoverTextColor: val
+          }),
+          className: "border-none pt-0"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
-          className: "text-sm font-semibold text-gray-900 m-0",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Table Header', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ColorChoice, {
-          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Background', 'productbay'),
-          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Text', 'productbay'),
-          bgColor: style.header.bgColor,
-          textColor: style.header.textColor,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+          className: "text-sm font-semibold text-gray-900 m-0 pb-4",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Table Header', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(ColorChoice, {
+          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text', 'productbay'),
+          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background', 'productbay'),
+          bgColor: style.header.bgColor || '#f0f0f1',
+          textColor: style.header.textColor || '#333333',
           onBgChange: val => setHeaderStyle({
             bgColor: val
           }),
@@ -22219,16 +22259,16 @@ const TabDisplay = () => {
             textColor: val
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
-          className: "text-sm font-semibold text-gray-900 m-0",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Table Rows', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ColorChoice, {
-          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Background', 'productbay'),
-          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Text', 'productbay'),
-          bgColor: style.body.bgColor,
-          textColor: style.body.textColor,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+          className: "text-sm font-semibold text-gray-900 m-0 pb-4",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Table Rows', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(ColorChoice, {
+          labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background', 'productbay'),
+          labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text', 'productbay'),
+          bgColor: style.body.bgColor || '#ffffff',
+          textColor: style.body.textColor || '#444444',
           onBgChange: val => setBodyStyle({
             bgColor: val
           }),
@@ -22236,31 +22276,31 @@ const TabDisplay = () => {
             textColor: val
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "flex items-center justify-between",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
               className: "text-sm font-semibold text-gray-900 block m-0",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Alternate Rows (Zebra Striping)', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Alternate Rows (Zebra Striping)', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
               className: "text-xs text-gray-500 m-0 mt-1",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Improve table readability with alternating row colors', 'productbay')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Improve table readability with alternating row colors', 'productbay')
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
             checked: style.body.rowAlternate,
             onChange: e => setBodyStyle({
               rowAlternate: e.target.checked
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("transition-all duration-300 bg-gray-50 px-4 py-2 rounded-md", style.body.rowAlternate ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ColorChoice, {
-            labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Alternate Background', 'productbay'),
-            labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Alternate Text', 'productbay'),
-            bgColor: style.body.altBgColor,
-            textColor: style.body.altTextColor,
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("transition-all duration-300 px-4 py-2 rounded-md", style.body.rowAlternate ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(ColorChoice, {
+            labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Alternate Background', 'productbay'),
+            labelColor: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Alternate Text', 'productbay'),
+            bgColor: style.body.altBgColor || '#f9f9f9',
+            textColor: style.body.altTextColor || '#444444',
             onBgChange: val => setBodyStyle({
               altBgColor: val
             }),
@@ -22270,6 +22310,185 @@ const TabDisplay = () => {
             className: "border-none py-0 lg:gap-8"
           })
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        className: "space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "flex items-center justify-between",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+              className: "text-sm font-semibold text-gray-900 block m-0",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Row Hover Effect', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+              className: "text-xs text-gray-500 m-0 mt-1",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Highlight rows when mouse hovers over them', 'productbay')
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+            checked: style.hover.rowHoverEnabled,
+            onChange: e => setHoverStyle({
+              rowHoverEnabled: e.target.checked
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("transition-all duration-300 px-4 py-2 rounded-md", style.hover.rowHoverEnabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(ColorChoice, {
+            labelBg: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hover Background', 'productbay'),
+            labelColor: "" // No text color for row hover currently
+            ,
+            bgColor: style.hover.rowHoverBgColor || '#f5f5f5',
+            textColor: "" // Hide text picker
+            ,
+            onBgChange: val => setHoverStyle({
+              rowHoverBgColor: val
+            }),
+            onColorChange: () => {} // No-op
+            ,
+            className: "border-none py-0 lg:gap-8 [&>div:last-child]:hidden"
+          })
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
+      className: "space-y-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Layout & Spacing', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Configure table borders and spacing', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Border Style', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Table border appearance', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: "w-36",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_3__.Select, {
+            size: "sm",
+            value: style.layout.borderStyle,
+            onChange: val => setLayoutStyle({
+              borderStyle: val
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('None', 'productbay'),
+              value: 'none'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Solid', 'productbay'),
+              value: 'solid'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Dashed', 'productbay'),
+              value: 'dashed'
+            }]
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("transition-all duration-300", style.layout.borderStyle !== 'none' ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Border Color', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Color of table borders', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ColorPicker__WEBPACK_IMPORTED_MODULE_5__.ColorPicker, {
+            value: style.layout.borderColor || '#e5e5e5',
+            onChange: val => setLayoutStyle({
+              borderColor: val
+            })
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Border Radius', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Corner roundness of the table', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "flex items-center gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+            type: "number",
+            min: "0",
+            max: "24",
+            value: parseInt(style.layout.borderRadius) || 0,
+            onChange: e => setLayoutStyle({
+              borderRadius: `${e.target.value}px`
+            }),
+            className: "w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            className: "text-sm text-gray-500",
+            children: "px"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cell Padding', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Amount of space inside table cells', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: "w-36",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_3__.Select, {
+            size: "sm",
+            value: style.layout.cellPadding,
+            onChange: val => setLayoutStyle({
+              cellPadding: val
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Compact', 'productbay'),
+              value: 'compact'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Normal', 'productbay'),
+              value: 'normal'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Spacious', 'productbay'),
+              value: 'spacious'
+            }]
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
+      className: "space-y-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Typography', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Font styling options', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Header Font Weight', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Weight of text in table header row', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          className: "w-36",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_3__.Select, {
+            size: "sm",
+            value: style.typography.headerFontWeight,
+            onChange: val => setTypographyStyle({
+              headerFontWeight: val
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Normal', 'productbay'),
+              value: 'normal'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Bold', 'productbay'),
+              value: 'bold'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Extra Bold', 'productbay'),
+              value: 'extrabold'
+            }]
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
+      className: "space-y-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Responsive Display', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Mobile and tablet display settings', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_CardRadioGroup__WEBPACK_IMPORTED_MODULE_8__.CardRadioGroup, {
+        name: "responsive-mode",
+        value: style.responsive.mode,
+        onChange: val => setResponsiveStyle({
+          mode: val
+        }),
+        options: [{
+          value: 'standard',
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Standard Table', 'productbay'),
+          helpText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Horizontal scrolling on small screens', 'productbay')
+        }, {
+          value: 'stack',
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Stack Cards', 'productbay'),
+          helpText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Stack columns vertically like cards', 'productbay')
+        }, {
+          value: 'accordion',
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Accordion', 'productbay'),
+          helpText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Collapse extra columns into expanded row', 'productbay')
+        }],
+        className: "grid grid-cols-1 md:grid-cols-3 gap-3"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        className: "bg-blue-50 border border-blue-200 rounded-md px-4 py-3 mt-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+          className: "text-sm text-blue-700 m-0",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Tip: You can hide specific columns on mobile using the visibility setting in each column\'s advanced options.', 'productbay')
+        })
       })]
     })]
   });
@@ -22290,14 +22509,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/ui/Toggle */ "./src/components/ui/Toggle.tsx");
-/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
-/* harmony import */ var _components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Table/SectionHeading */ "./src/components/Table/SectionHeading.tsx");
-/* harmony import */ var _components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Table/SettingsOption */ "./src/components/Table/SettingsOption.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui/Toggle */ "./src/components/ui/Toggle.tsx");
+/* harmony import */ var _components_ui_Select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ui/Select */ "./src/components/ui/Select.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Table/SectionHeading */ "./src/components/Table/SectionHeading.tsx");
+/* harmony import */ var _components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Table/SettingsOption */ "./src/components/Table/SettingsOption.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
+
 
 
 
@@ -22326,12 +22549,12 @@ const SettingsSection = ({
   title,
   description,
   children
-}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
   className: "space-y-6",
-  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_6__["default"], {
     title: title,
     description: description
-  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
     className: "",
     children: children
   })]
@@ -22344,161 +22567,218 @@ const TabSettings = () => {
     setCart,
     setFilters,
     setPerformance
-  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_3__.useTableStore)();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore)();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "w-full p-4 space-y-8",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('General Settings', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Configure core table features', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Sorting', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Allow users to click column headers to sort', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Table Controls', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure table functionality and user controls', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Search Bar', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to search through products', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: settings.features.search,
+          onChange: e => setFeatures({
+            search: e.target.checked
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Pagination', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Break large product lists into pages', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: settings.features.pagination,
+          onChange: e => setFeatures({
+            pagination: e.target.checked
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Products Per Page', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Number of products to display per page', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+          type: "number",
+          min: "1",
+          max: "500",
+          value: settings.pagination.limit,
+          onChange: e => setPagination({
+            limit: parseInt(e.target.value) || 10
+          }),
+          className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Price Range', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to filter by price range', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: settings.features.priceRange,
+          onChange: e => setFeatures({
+            priceRange: e.target.checked
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('General Settings', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure core table features', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Sorting', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to click column headers to sort', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
           checked: settings.features.sorting,
           onChange: e => setFeatures({
             sorting: e.target.checked
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Export', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show buttons to export table to CSV/PDF', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Export', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show buttons to export table to CSV/PDF', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
           checked: settings.features.export,
           onChange: e => setFeatures({
             export: e.target.checked
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Responsive Accordion', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Collapse extra columns into an accordion on mobile', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
-          checked: settings.features.responsiveCollapse,
-          onChange: e => setFeatures({
-            responsiveCollapse: e.target.checked
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Pagination Position', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Where to display pagination controls', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "w-48",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_4__.Select, {
+            size: "sm",
+            value: settings.pagination.position,
+            onChange: val => setPagination({
+              position: val
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Bottom', 'productbay'),
+              value: 'bottom'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Top', 'productbay'),
+              value: 'top'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Both', 'productbay'),
+              value: 'both'
+            }]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Pagination Position', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Where to display pagination controls', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-          value: settings.pagination.position,
-          onChange: e => setPagination({
-            position: e.target.value
-          }),
-          className: "text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "bottom",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Bottom', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "top",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Top', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "both",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Both', 'productbay')
-          })]
-        })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cart / functionality', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Configure Add to Cart behavior', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Add to Cart', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Allow users to add products to cart directly', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cart / functionality', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure Add to Cart behavior', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Add to Cart', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to add products to cart directly', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
           checked: settings.cart.enable,
           onChange: e => setCart({
             enable: e.target.checked
           })
         })
-      }), settings.cart.enable && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Quantity', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display quantity selector next to button', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("transition-all duration-300", settings.cart.enable ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Quantity', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display quantity selector next to button', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
             checked: settings.cart.showQuantity,
             onChange: e => setCart({
               showQuantity: e.target.checked
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('AJAX Add to Cart', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add to cart without reloading the page', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('AJAX Add to Cart', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add to cart without reloading the page', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
             checked: settings.cart.ajaxAdd,
             onChange: e => setCart({
               ajaxAdd: e.target.checked
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cart Method', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Interaction style for adding to cart', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-            value: settings.cart.method,
-            onChange: e => setCart({
-              method: e.target.value
-            }),
-            className: "text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-              value: "button",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button (Default)', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-              value: "checkbox",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Checkbox (Multi-select)', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-              value: "text",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text Link', 'productbay')
-            })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cart Method', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Interaction style for adding to cart', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            className: "w-48",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_4__.Select, {
+              size: "sm",
+              value: settings.cart.method,
+              onChange: val => setCart({
+                method: val
+              }),
+              options: [{
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Button (Default)', 'productbay'),
+                value: 'button'
+              }, {
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Checkbox (Multi-select)', 'productbay'),
+                value: 'checkbox'
+              }, {
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Text Link', 'productbay'),
+                value: 'text'
+              }]
+            })
           })
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(SettingsSection, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Filter Configuration', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Advanced settings for filters', 'productbay'),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Filter Position', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Where should filters appear?', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-          value: settings.filters.position,
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Configuration', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Advanced settings for filters', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Filter', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show filter options above the table', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: settings.filters.enabled,
           onChange: e => setFilters({
-            position: e.target.value
-          }),
-          className: "text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "top",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Above Table (Top)', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "sidebar",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sidebar', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "modal",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Modal / Popup', 'productbay')
-          })]
+            enabled: e.target.checked
+          })
         })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Performance', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Optimization settings', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lazy Loading', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Load products as user scrolls (Infinite Scroll)', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("transition-all duration-300", settings.filters.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Position', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Where should filters appear?', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            className: "w-48",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_4__.Select, {
+              size: "sm",
+              value: settings.filters.position,
+              onChange: val => setFilters({
+                position: val
+              }),
+              options: [{
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Above Table (Top)', 'productbay'),
+                value: 'top'
+              }, {
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Sidebar', 'productbay'),
+                value: 'sidebar'
+              }, {
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Modal / Popup', 'productbay'),
+                value: 'modal'
+              }]
+            })
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Performance', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Optimization settings', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Lazy Loading', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Load products as user scrolls (Infinite Scroll)', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
           checked: settings.features.lazyLoad,
           onChange: e => setFeatures({
             lazyLoad: e.target.checked
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Max Product Limit', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hard limit on number of products to query', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_7__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Max Product Limit', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Hard limit on number of products to query', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           type: "number",
           min: "1",
           max: "10000",
           value: settings.performance.productLimit,
           onChange: e => setPerformance({
-            productLimit: parseInt(e.target.value) || 200
+            productLimit: parseInt(e.target.value) || 500
           }),
-          className: "w-24 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         })
       })]
     })]
@@ -25467,58 +25747,1560 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/pencil.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/**
+ * =============================================================================
+ * ColorPicker Component
+ * =============================================================================
+ *
+ * A fully custom, dependency-free color picker component inspired by Sketch.
+ * Built entirely with React, no external color picker libraries required.
+ *
+ * -----------------------------------------------------------------------------
+ * FEATURES:
+ * -----------------------------------------------------------------------------
+ * - Saturation/Brightness picker (HSV-based)
+ * - Hue slider (0-360 degrees)
+ * - Alpha/opacity slider with transparency preview
+ * - Multiple color format support: HEX, RGB(A), HSL(A)
+ * - Real-time format switching with automatic value conversion
+ * - Customizable color preset swatches
+ * - Internationalization ready (i18n via @wordpress/i18n)
+ *
+ * INTERACTION SUPPORT:
+ * - Pointer Events API: Unified mouse, touch, and pen/stylus support
+ * - Touch Support: Works on mobile/tablet with touch gestures
+ * - Keyboard Navigation:
+ *   - Arrow keys: Fine adjustment (1% step)
+ *   - Shift + Arrow keys: Larger adjustment (10% step)
+ *   - Page Up/Down: Larger vertical jumps
+ *   - Home/End: Jump to min/max values
+ *   - Tab: Navigate between picker areas
+ *   - Enter/Space: Toggle popover open/close
+ *   - Escape: Close popover
+ * - Visual Feedback: Focus rings, active states, hover effects
+ * - ARIA: Proper slider roles with live value feedback
+ *
+ * -----------------------------------------------------------------------------
+ * ENVIRONMENT COMPATIBILITY:
+ * -----------------------------------------------------------------------------
+ * - React 16.8+ (requires Hooks API)
+ * - Works with SSR frameworks (Next.js, Gatsby) - uses window/document checks
+ * - Compatible with CSS-in-JS and utility-first CSS (Tailwind via cn utility)
+ * - WordPress Gutenberg compatible (uses @wordpress/i18n)
+ * - No external color picker dependencies (react-colorful, etc.)
+ *
+ * -----------------------------------------------------------------------------
+ * BROWSER SUPPORT:
+ * -----------------------------------------------------------------------------
+ * - All modern browsers (Chrome, Firefox, Safari, Edge)
+ * - Pointer Events API: Supported in all modern browsers (IE11+ with polyfill)
+ * - Touch Events: Full support on iOS Safari, Chrome for Android
+ * - CSS features used: linear-gradient, transform, flexbox, grid
+ *
+ * -----------------------------------------------------------------------------
+ * USAGE EXAMPLE:
+ * -----------------------------------------------------------------------------
+ * ```tsx
+ * import { ColorPicker } from '@/components/ui/ColorPicker';
+ *
+ * const MyComponent = () => {
+ *     const [color, setColor] = useState('#ff5500');
+ *
+ *     return (
+ *         <ColorPicker
+ *             value={color}
+ *             onChange={setColor}
+ *             showAlpha={true}
+ *             showPresets={true}
+ *         />
+ *     );
+ * };
+ * ```
+ *
+ * @module ColorPicker
+ * @author forhadakhan
+ */
 
 
 
+
+
+
+/* =============================================================================
+ * TYPE DEFINITIONS
+ * ============================================================================= */
+
+/**
+ * Supported color format types for the format switcher.
+ *
+ * - 'hex': Hexadecimal format (#RRGGBB or #RRGGBBAA)
+ * - 'rgb': RGB/RGBA format (rgba(r, g, b, a))
+ * - 'hsl': HSL/HSLA format (hsla(h, s%, l%, a))
+ */
+
+/* =============================================================================
+ * CONSTANTS
+ * ============================================================================= */
+
+/**
+ * Default color presets displayed in the picker.
+ * A curated palette inspired by popular design tools (Sketch, Figma).
+ * Contains common colors ranging from neutrals to vibrant hues.
+ */
+const DEFAULT_PRESETS = ['#000000', '#4D4D4D', '#999999', '#FFFFFF', '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#A4DD00', '#68CCCA', '#73D8FF', '#AEA1FF', '#FDA1FF', '#333333', '#808080', '#cccccc', '#D33115', '#E27300', '#FCC400', '#B0BC00', '#68BC00', '#16A5A5', '#009CE0', '#7B64FF', '#FA28FF', '#000000', '#666666', '#B3B3B3', '#9F0500', '#C45100', '#FB9E00', '#808900', '#194D33', '#0C797D', '#0062B1', '#653294', '#AB149E'];
+
+/* =============================================================================
+ * HELPER COMPONENTS
+ * ============================================================================= */
+
+/**
+ * Checkerboard pattern component for transparency visualization.
+ *
+ * Creates a classic checkerboard pattern used behind transparent colors
+ * to visually indicate the level of opacity. This is the standard approach
+ * used in professional design tools.
+ *
+ * @param props.className - Additional CSS classes to apply
+ *
+ * @example
+ * <div className="relative">
+ *     <Checkerboard />
+ *     <div style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }} />
+ * </div>
+ */
+const Checkerboard = ({
+  className
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+  className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("absolute inset-0 rounded-full overflow-hidden bg-white", className),
+  style: {
+    // Creates a checkerboard pattern using overlapping diagonal gradients
+    // This technique avoids the need for an image asset
+    backgroundImage: `
+                linear-gradient(45deg, #eee 25%, transparent 25%), 
+                linear-gradient(-45deg, #eee 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #eee 75%), 
+                linear-gradient(-45deg, transparent 75%, #eee 75%)
+            `,
+    backgroundSize: '10px 10px',
+    backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px'
+  }
+});
+
+/* =============================================================================
+ * COLOR CONVERSION UTILITIES
+ * =============================================================================
+ *
+ * Pure functions for converting between color spaces. All functions are
+ * self-contained with no external dependencies.
+ *
+ * Color Spaces Overview:
+ * - RGB: Red, Green, Blue (0-255 each)
+ * - HSL: Hue (0-360°), Saturation (0-100%), Lightness (0-100%)
+ * - HSV: Hue (0-360°), Saturation (0-100%), Value/Brightness (0-100%)
+ * - HEX: Hexadecimal representation of RGB (#RRGGBB or #RRGGBBAA)
+ *
+ * Why HSV for the picker?
+ * The saturation-brightness picker uses HSV because it maps more intuitively
+ * to a 2D plane where X = Saturation and Y = Value (brightness). HSL's
+ * lightness doesn't work as well for this visual representation.
+ */
+
+/**
+ * Converts a hexadecimal color string to RGBA components.
+ *
+ * Supports multiple hex formats:
+ * - 3-character shorthand (#RGB → #RRGGBB)
+ * - 6-character standard (#RRGGBB)
+ * - 8-character with alpha (#RRGGBBAA)
+ *
+ * @param hex - Hex color string (with or without # prefix)
+ * @returns Object containing r, g, b (0-255) and a (0-1) values
+ *
+ * @example
+ * hexToRgba('#ff5500')    // { r: 255, g: 85, b: 0, a: 1 }
+ * hexToRgba('#f50')       // { r: 255, g: 85, b: 0, a: 1 }
+ * hexToRgba('#ff550080')  // { r: 255, g: 85, b: 0, a: 0.5 }
+ */
+const hexToRgba = hex => {
+  let r = 0,
+    g = 0,
+    b = 0,
+    a = 1;
+
+  // Remove the # prefix if present
+  const h = hex.replace('#', '');
+  if (h.length === 3) {
+    // Shorthand format: #RGB → #RRGGBB
+    r = parseInt(h[0] + h[0], 16);
+    g = parseInt(h[1] + h[1], 16);
+    b = parseInt(h[2] + h[2], 16);
+  } else if (h.length === 6) {
+    // Standard format: #RRGGBB
+    r = parseInt(h.substring(0, 2), 16);
+    g = parseInt(h.substring(2, 4), 16);
+    b = parseInt(h.substring(4, 6), 16);
+  } else if (h.length === 8) {
+    // With alpha: #RRGGBBAA
+    r = parseInt(h.substring(0, 2), 16);
+    g = parseInt(h.substring(2, 4), 16);
+    b = parseInt(h.substring(4, 6), 16);
+    // Convert alpha from 0-255 to 0-1 range, rounded to 2 decimal places
+    a = Math.round(parseInt(h.substring(6, 8), 16) / 255 * 100) / 100;
+  }
+  return {
+    r,
+    g,
+    b,
+    a
+  };
+};
+
+/**
+ * Converts RGBA components to a hexadecimal color string.
+ *
+ * @param r - Red component (0-255)
+ * @param g - Green component (0-255)
+ * @param b - Blue component (0-255)
+ * @param a - Alpha/opacity (0-1), only included in output if < 1
+ * @returns Hex color string with # prefix
+ *
+ * @example
+ * rgbaToHex(255, 85, 0, 1)    // '#ff5500'
+ * rgbaToHex(255, 85, 0, 0.5)  // '#ff550080'
+ */
+const rgbaToHex = (r, g, b, a) => {
+  // Helper to convert a number to 2-digit hex
+  const toHex = n => n.toString(16).padStart(2, '0');
+
+  // Only include alpha channel if not fully opaque
+  const alpha = a < 1 ? toHex(Math.round(a * 255)) : '';
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}${alpha}`;
+};
+
+/**
+ * Converts RGBA components to HSLA components.
+ *
+ * Algorithm:
+ * 1. Normalize RGB values to 0-1 range
+ * 2. Find max and min values to determine hue and saturation
+ * 3. Lightness is the average of max and min
+ * 4. Saturation depends on lightness (different formula for light vs dark)
+ * 5. Hue is calculated based on which RGB component is dominant
+ *
+ * @param r - Red component (0-255)
+ * @param g - Green component (0-255)
+ * @param b - Blue component (0-255)
+ * @param a - Alpha/opacity (0-1)
+ * @returns Object with h (0-360), s (0-100), l (0-100), a (0-1)
+ */
+const rgbaToHsla = (r, g, b, a) => {
+  // Normalize RGB to 0-1 range
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s;
+  const l = (max + min) / 2; // Lightness is the midpoint
+
+  if (max === min) {
+    // Achromatic (grayscale) - no hue or saturation
+    h = s = 0;
+  } else {
+    const d = max - min; // Delta between max and min
+
+    // Saturation calculation differs based on lightness
+    // This ensures saturation is perceptually consistent
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    // Calculate hue based on which RGB component is dominant
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+    h /= 6; // Normalize to 0-1 range
+  }
+  return {
+    h: Math.round(h * 360),
+    // Convert to degrees
+    s: Math.round(s * 100),
+    // Convert to percentage
+    l: Math.round(l * 100),
+    // Convert to percentage
+    a
+  };
+};
+
+/**
+ * Converts HSLA components to RGBA components.
+ *
+ * Uses the HSL to RGB algorithm with a helper function 'f' that
+ * calculates each RGB component based on the hue position.
+ *
+ * @param h - Hue (0-360 degrees)
+ * @param s - Saturation (0-100%)
+ * @param l - Lightness (0-100%)
+ * @param a - Alpha/opacity (0-1)
+ * @returns Object with r, g, b (0-255) and a (0-1)
+ */
+const hslaToRgba = (h, s, l, a) => {
+  // Normalize saturation and lightness to 0-1
+  s /= 100;
+  l /= 100;
+
+  // Helper function: calculates position on the color wheel
+  const k = n => (n + h / 30) % 12;
+
+  // Helper function: calculates the RGB component value
+  // This formula handles the conversion from HSL's cylindrical
+  // representation to RGB's cubic representation
+  const f = n => l - s * Math.min(l, 1 - l) * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+  return {
+    r: Math.round(255 * f(0)),
+    g: Math.round(255 * f(8)),
+    b: Math.round(255 * f(4)),
+    a
+  };
+};
+
+/**
+ * Converts HSV (Hue, Saturation, Value) to RGB.
+ *
+ * HSV is used for the saturation-brightness picker because:
+ * - X-axis (Saturation): How vivid the color is
+ * - Y-axis (Value): How bright the color is
+ * This creates an intuitive 2D picker interface.
+ *
+ * @param h - Hue (0-360 degrees)
+ * @param s - Saturation (0-100%)
+ * @param v - Value/Brightness (0-100%)
+ * @returns Object with r, g, b (0-255)
+ */
+const hsvToRgb = (h, s, v) => {
+  // Normalize saturation and value to 0-1
+  s /= 100;
+  v /= 100;
+
+  // The algorithm divides the hue wheel into 6 sectors (60° each)
+  // and interpolates between primary and secondary colors
+  const f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(0, Math.min(k, 4 - k, 1));
+  return {
+    r: Math.round(f(5) * 255),
+    g: Math.round(f(3) * 255),
+    b: Math.round(f(1) * 255)
+  };
+};
+
+/**
+ * Converts RGB to HSV (Hue, Saturation, Value).
+ *
+ * @param r - Red component (0-255)
+ * @param g - Green component (0-255)
+ * @param b - Blue component (0-255)
+ * @returns Object with h (0-360), s (0-100), v (0-100)
+ */
+const rgbToHsv = (r, g, b) => {
+  // Normalize RGB to 0-1 range
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const v = Math.max(r, g, b); // Value is the max RGB component
+  const n = v - Math.min(r, g, b); // Range (delta between max and min)
+
+  // Calculate hue based on which component is maximum
+  // The ternary chain handles each case of the color wheel
+  const h = n && (v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n);
+  return {
+    h: Math.round(60 * (h < 0 ? h + 6 : h)),
+    // Convert to degrees (0-360)
+    s: Math.round(v && n / v * 100),
+    // Saturation as percentage
+    v: Math.round(v * 100) // Value/brightness as percentage
+  };
+};
+
+/* =============================================================================
+ * STRING PARSING UTILITIES
+ * =============================================================================
+ *
+ * Functions to extract color components from CSS color strings.
+ * These handle the various formats users might input or paste.
+ */
+
+/**
+ * Parses an RGB/RGBA color string into its component values.
+ *
+ * Handles multiple input formats:
+ * - 'rgb(255, 85, 0)'
+ * - 'rgba(255, 85, 0, 0.5)'
+ * - Hex fallback if string starts with #
+ *
+ * @param str - Color string to parse
+ * @returns Object with r, g, b, a as strings (for input field binding)
+ */
+const parseRgbaComponents = str => {
+  // Try to match rgba/rgb pattern (permissive with empty values)
+  const match = str.match(/rgba?\((\d*),\s*(\d*),\s*(\d*)(?:,\s*([\d.]*))?\)/);
+  if (!match) {
+    // Fallback: try to match hsl/hsla pattern
+    if (str.startsWith('hsl')) {
+      const hslMatch = str.match(/hsla?\((\d*),\s*([\d.]*)%?,\s*([\d.]*)%?(?:,\s*([\d.]*))?\)/);
+      if (hslMatch) {
+        // If any main component is missing/empty, default to 0 for conversion but keep structure
+        const h = hslMatch[1] ? parseInt(hslMatch[1]) : 0;
+        const s = hslMatch[2] ? parseInt(hslMatch[2]) : 0;
+        const l = hslMatch[3] ? parseInt(hslMatch[3]) : 0;
+        const a = hslMatch[4] ? parseFloat(hslMatch[4]) : 1;
+        const {
+          r,
+          g,
+          b
+        } = hslaToRgba(h, s, l, a);
+        return {
+          r: r.toString(),
+          g: g.toString(),
+          b: b.toString(),
+          a: a.toString()
+        };
+      }
+    }
+
+    // Fallback: try to parse as hex
+    if (str.startsWith('#')) {
+      const {
+        r,
+        g,
+        b,
+        a
+      } = hexToRgba(str);
+      return {
+        r: r.toString(),
+        g: g.toString(),
+        b: b.toString(),
+        a: a.toString()
+      };
+    }
+    // Default fallback for invalid input
+    return {
+      r: '0',
+      g: '0',
+      b: '0',
+      a: '1'
+    };
+  }
+  return {
+    r: match[1],
+    g: match[2],
+    b: match[3],
+    a: match[4] === undefined ? '1' : match[4]
+  };
+};
+
+/**
+ * Parses an HSL/HSLA color string into its component values.
+ *
+ * Handles multiple input formats:
+ * - 'hsl(180, 50%, 50%)'
+ * - 'hsla(180, 50%, 50%, 0.5)'
+ * - Hex fallback if string starts with #
+ * - RGB fallback if string starts with 'rgb'
+ *
+ * @param str - Color string to parse
+ * @returns Object with h, s, l, a as strings (for input field binding)
+ */
+const parseHslaComponents = str => {
+  // Try to match hsla/hsl pattern (permissive)
+  const match = str.match(/hsla?\((\d*),\s*([\d.]*)%?,\s*([\d.]*)%?(?:,\s*([\d.]*))?\)/);
+  if (!match) {
+    // Fallback: try to parse as hex
+    if (str.startsWith('#')) {
+      const rgba = hexToRgba(str);
+      const {
+        h,
+        s,
+        l,
+        a
+      } = rgbaToHsla(rgba.r, rgba.g, rgba.b, rgba.a);
+      return {
+        h: h.toString(),
+        s: s.toString(),
+        l: l.toString(),
+        a: a.toString()
+      };
+    }
+
+    // Fallback: try to parse as rgb
+    if (str.startsWith('rgb')) {
+      const rgba = parseRgbaComponents(str);
+      const {
+        h,
+        s,
+        l,
+        a
+      } = rgbaToHsla(parseInt(rgba.r), parseInt(rgba.g), parseInt(rgba.b), parseFloat(rgba.a));
+      return {
+        h: h.toString(),
+        s: s.toString(),
+        l: l.toString(),
+        a: a.toString()
+      };
+    }
+
+    // Default fallback for invalid input
+    return {
+      h: '0',
+      s: '0',
+      l: '0',
+      a: '1'
+    };
+  }
+  return {
+    h: match[1],
+    s: match[2],
+    l: match[3],
+    a: match[4] === undefined ? '1' : match[4]
+  };
+};
+
+/* =============================================================================
+ * COMPONENT INTERFACES
+ * ============================================================================= */
+
+/**
+ * Props interface for the ColorPicker component.
+ *
+ * @example
+ * // Basic usage with all features
+ * <ColorPicker
+ *     value="#ff5500"
+ *     onChange={(color) => console.log(color)}
+ *     showAlpha={true}
+ *     showPresets={true}
+ * />
+ *
+ * @example
+ * // Custom presets without alpha
+ * <ColorPicker
+ *     value={brandColor}
+ *     onChange={setBrandColor}
+ *     showAlpha={false}
+ *     presets={['#1a1a1a', '#ff0000', '#00ff00', '#0000ff']}
+ * />
+ */
+
+/* =============================================================================
+ * INTERNAL SUB-COMPONENTS
+ * =============================================================================
+ *
+ * These components handle the interactive elements of the color picker.
+ * They are internal and not exported for external use.
+ */
+
+/**
+ * Saturation/Brightness picker sub-component.
+ *
+ * Renders a 2D gradient area where:
+ * - X-axis: Saturation (left = 0%, right = 100%)
+ * - Y-axis: Value/Brightness (bottom = 0%, top = 100%)
+ *
+ * The background color is determined by the current hue, displayed at
+ * full saturation and brightness to provide context.
+ *
+ * INTERACTION SUPPORT:
+ * - Pointer Events API: Unified mouse, touch, and pen support
+ * - Keyboard: Arrow keys for fine control, Page Up/Down for larger steps
+ * - Visual Feedback: Focus ring, active state during drag
+ *
+ * @internal
+ */
+const Saturation = ({
+  h,
+  s,
+  v,
+  onChange
+}) => {
+  // Reference to the container for position calculations
+  const containerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // Track whether the user is currently dragging
+  const [isDragging, setIsDragging] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Track focus state for visual indicator
+  const [isFocused, setIsFocused] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Step sizes for keyboard navigation
+  const STEP_SMALL = 1; // Arrow keys
+  const STEP_LARGE = 10; // Page Up/Down
+
+  /**
+   * Calculates the saturation and value from pointer position.
+   * Works with mouse, touch, and pen events via Pointer Events API.
+   * Clamps values to 0-1 range and converts to 0-100 percentage.
+   */
+  const updatePosition = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(e => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+
+    // Calculate normalized position (0-1)
+    const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+
+    // x = saturation (0-100), y inverted = value (bottom is 0, top is 100)
+    onChange(x * 100, (1 - y) * 100);
+  }, [onChange]);
+
+  /**
+   * Handles pointer down event - starts drag and captures pointer.
+   * Pointer capture ensures we receive all subsequent events even if
+   * the pointer moves outside the element.
+   */
+  const handlePointerDown = e => {
+    e.preventDefault();
+    setIsDragging(true);
+    updatePosition(e);
+
+    // Capture pointer to receive events even when dragged outside
+    // Guard with optional chaining for browser compatibility
+    if (containerRef.current?.setPointerCapture) {
+      containerRef.current.setPointerCapture(e.pointerId);
+    }
+  };
+
+  /**
+   * Handles pointer move event - updates position while dragging.
+   */
+  const handlePointerMove = e => {
+    if (isDragging) {
+      updatePosition(e);
+    }
+  };
+
+  /**
+   * Handles pointer up event - ends drag and releases capture.
+   */
+  const handlePointerUp = e => {
+    setIsDragging(false);
+    // Guard with optional chaining for browser compatibility
+    if (containerRef.current?.releasePointerCapture) {
+      containerRef.current.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  /**
+   * Handles keyboard navigation for accessibility.
+   * - Arrow keys: Fine adjustment (1%)
+   * - Page Up/Down: Larger adjustment (10%)
+   * - Home/End: Jump to min/max values
+   */
+  const handleKeyDown = e => {
+    let newS = s;
+    let newV = v;
+    let handled = true;
+    switch (e.key) {
+      // Horizontal movement (Saturation)
+      case 'ArrowLeft':
+        newS = Math.max(0, s - (e.shiftKey ? STEP_LARGE : STEP_SMALL));
+        break;
+      case 'ArrowRight':
+        newS = Math.min(100, s + (e.shiftKey ? STEP_LARGE : STEP_SMALL));
+        break;
+
+      // Vertical movement (Value/Brightness)
+      case 'ArrowUp':
+        newV = Math.min(100, v + (e.shiftKey ? STEP_LARGE : STEP_SMALL));
+        break;
+      case 'ArrowDown':
+        newV = Math.max(0, v - (e.shiftKey ? STEP_LARGE : STEP_SMALL));
+        break;
+
+      // Large jumps
+      case 'PageUp':
+        newV = Math.min(100, v + STEP_LARGE);
+        break;
+      case 'PageDown':
+        newV = Math.max(0, v - STEP_LARGE);
+        break;
+
+      // Min/Max jumps
+      case 'Home':
+        newS = 0;
+        newV = 100;
+        break;
+      case 'End':
+        newS = 100;
+        newV = 0;
+        break;
+      default:
+        handled = false;
+    }
+    if (handled) {
+      e.preventDefault();
+      onChange(newS, newV);
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    ref: containerRef,
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("relative w-full h-32 cursor-crosshair rounded-t-md overflow-hidden outline-none", "transition-shadow duration-150",
+    // Focus ring for keyboard navigation
+    isFocused && "ring-2 ring-blue-500 ring-offset-2",
+    // Active state during drag
+    isDragging && "ring-2 ring-blue-400")
+    // Make focusable for keyboard navigation
+    ,
+    tabIndex: 0,
+    role: "slider",
+    "aria-label": "Saturation and brightness picker",
+    "aria-valuetext": `Saturation ${Math.round(s)}%, Brightness ${Math.round(v)}%`
+    // Pointer events (unified mouse/touch/pen)
+    ,
+    onPointerDown: handlePointerDown,
+    onPointerMove: handlePointerMove,
+    onPointerUp: handlePointerUp,
+    onPointerCancel: handlePointerUp
+    // Keyboard events
+    ,
+    onKeyDown: handleKeyDown,
+    onFocus: () => setIsFocused(true),
+    onBlur: () => setIsFocused(false)
+    // Prevent touch scroll while interacting
+    ,
+    style: {
+      backgroundColor: `hsl(${h}, 100%, 50%)`,
+      touchAction: 'none'
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "absolute inset-0",
+      style: {
+        backgroundImage: 'linear-gradient(to right, #fff, transparent)'
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "absolute inset-0",
+      style: {
+        backgroundImage: 'linear-gradient(to top, #000, transparent)'
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("absolute w-4 h-4 rounded-full border-2 border-white pointer-events-none -translate-x-1/2 translate-y-1/2", "transition-transform duration-75",
+      // Enhanced shadow and scale during interaction
+      isDragging ? "shadow-lg scale-110" : "shadow-md", isFocused && "ring-2 ring-blue-500 ring-offset-1"),
+      style: {
+        left: `${s}%`,
+        bottom: `${v}%`
+      }
+    })]
+  });
+};
+
+/**
+ * Generic slider sub-component for Hue and Alpha controls.
+ *
+ * Renders a horizontal track with a draggable handle.
+ * The background gradient is provided via the `background` prop,
+ * allowing it to be used for both hue (rainbow) and alpha (transparency).
+ *
+ * INTERACTION SUPPORT:
+ * - Pointer Events API: Unified mouse, touch, and pen support
+ * - Keyboard: Arrow keys for fine control, Home/End for min/max
+ * - Visual Feedback: Focus ring, active state during drag
+ * - ARIA: Proper slider role with live value feedback
+ *
+ * @internal
+ */
+const Slider = ({
+  value,
+  max,
+  onChange,
+  background,
+  ariaLabel = 'Color slider',
+  className
+}) => {
+  // Reference for position calculations
+  const containerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // Track dragging state
+  const [isDragging, setIsDragging] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Track focus state for visual indicator
+  const [isFocused, setIsFocused] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Step sizes for keyboard navigation (percentage of max)
+  const STEP_SMALL = max * 0.01; // 1% step for arrow keys
+  const STEP_LARGE = max * 0.1; // 10% step for shift+arrow or page keys
+
+  /**
+   * Calculates the value from horizontal pointer position.
+   * Works with mouse, touch, and pen events via Pointer Events API.
+   */
+  const updatePosition = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(e => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+
+    // Calculate normalized position and scale to max value
+    const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    onChange(x * max);
+  }, [max, onChange]);
+
+  /**
+   * Handles pointer down event - starts drag and captures pointer.
+   */
+  const handlePointerDown = e => {
+    e.preventDefault();
+    setIsDragging(true);
+    updatePosition(e);
+
+    // Capture pointer for smooth dragging outside element
+    // Guard with optional chaining for browser compatibility
+    if (containerRef.current?.setPointerCapture) {
+      containerRef.current.setPointerCapture(e.pointerId);
+    }
+  };
+
+  /**
+   * Handles pointer move event - updates position while dragging.
+   */
+  const handlePointerMove = e => {
+    if (isDragging) {
+      updatePosition(e);
+    }
+  };
+
+  /**
+   * Handles pointer up event - ends drag and releases capture.
+   */
+  const handlePointerUp = e => {
+    setIsDragging(false);
+    // Guard with optional chaining for browser compatibility
+    if (containerRef.current?.releasePointerCapture) {
+      containerRef.current.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  /**
+   * Handles keyboard navigation for accessibility.
+   * - Arrow keys: Fine adjustment
+   * - Shift + Arrows: Larger adjustment
+   * - Home/End: Jump to min/max
+   */
+  const handleKeyDown = e => {
+    let newValue = value;
+    let handled = true;
+    switch (e.key) {
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        newValue = Math.max(0, value - (e.shiftKey ? STEP_LARGE : STEP_SMALL));
+        break;
+      case 'ArrowRight':
+      case 'ArrowUp':
+        newValue = Math.min(max, value + (e.shiftKey ? STEP_LARGE : STEP_SMALL));
+        break;
+      case 'PageDown':
+        newValue = Math.max(0, value - STEP_LARGE);
+        break;
+      case 'PageUp':
+        newValue = Math.min(max, value + STEP_LARGE);
+        break;
+      case 'Home':
+        newValue = 0;
+        break;
+      case 'End':
+        newValue = max;
+        break;
+      default:
+        handled = false;
+    }
+    if (handled) {
+      e.preventDefault();
+      onChange(newValue);
+    }
+  };
+
+  // Calculate percentage for display
+  const percentage = Math.round(value / max * 100);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    ref: containerRef,
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("relative h-3 rounded-full cursor-pointer outline-none", "transition-shadow duration-150",
+    // Focus ring for keyboard navigation
+    isFocused && "ring-2 ring-blue-500 ring-offset-2",
+    // Active state during drag
+    isDragging && "ring-2 ring-blue-400", className)
+    // Make focusable for keyboard navigation
+    ,
+    tabIndex: 0,
+    role: "slider",
+    "aria-label": ariaLabel,
+    "aria-valuenow": percentage,
+    "aria-valuemin": 0,
+    "aria-valuemax": 100,
+    "aria-valuetext": `${percentage}%`
+    // Pointer events (unified mouse/touch/pen)
+    ,
+    onPointerDown: handlePointerDown,
+    onPointerMove: handlePointerMove,
+    onPointerUp: handlePointerUp,
+    onPointerCancel: handlePointerUp
+    // Keyboard events
+    ,
+    onKeyDown: handleKeyDown,
+    onFocus: () => setIsFocused(true),
+    onBlur: () => setIsFocused(false)
+    // Prevent touch scroll while interacting
+    ,
+    style: {
+      background,
+      touchAction: 'none'
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("absolute w-4 h-4 bg-white border border-gray-200 rounded-full -top-0.5 -translate-x-1/2", "transition-all duration-75",
+      // Enhanced shadow and scale during interaction
+      isDragging ? "shadow-lg scale-110" : "shadow-md", isFocused && "ring-2 ring-blue-500 ring-offset-1"),
+      style: {
+        left: `${value / max * 100}%`
+      }
+    })
+  });
+};
+
+/* =============================================================================
+ * MAIN COMPONENT
+ * ============================================================================= */
 
 /**
  * ColorPicker Component
- * 
- * Renders a color preview circle and "Edit Color" text.
- * Triggers a hidden native color picker on click.
+ *
+ * A premium, fully-featured color picker inspired by professional design tools
+ * like Sketch and Figma. Built entirely in React with no external color picker
+ * dependencies.
+ *
+ * ## Features
+ * - **Interactive visual picker**: HSV-based 2D saturation/brightness grid
+ * - **Multiple formats**: HEX, RGB(A), HSL(A) with real-time conversion
+ * - **Alpha/transparency support**: Optional opacity slider
+ * - **Preset swatches**: Quick access to commonly used colors
+ * - **Accessible**: Full keyboard navigation support
+ * - **i18n ready**: All strings use @wordpress/i18n for translation
+ *
+ * ## Accessibility
+ * - Keyboard navigation: Enter/Space to open, Escape to close
+ * - Focus management: Proper focus states and ARIA labels
+ * - Screen reader support: Descriptive aria-labels
+ *
+ * @example
+ * // Basic usage
+ * <ColorPicker value="#ff5500" onChange={setColor} />
+ *
+ * @example
+ * // Full featured usage
+ * <ColorPicker
+ *     value={color}
+ *     onChange={setColor}
+ *     showAlpha={true}
+ *     showPresets={true}
+ *     presets={brandColors}
+ *     className="my-custom-class"
+ * />
  */
 const ColorPicker = ({
-  value,
+  value = '#000000',
   onChange,
-  className
+  className,
+  showAlpha = true,
+  showPresets = true,
+  presets = DEFAULT_PRESETS,
+  triggerMode = 'both'
 }) => {
-  const inputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const handleClick = () => {
-    inputRef.current?.click();
+  /* -------------------------------------------------------------------------
+   * STATE MANAGEMENT
+   * ------------------------------------------------------------------------- */
+
+  /**
+   * Controls whether the color picker popover is visible.
+   */
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  /**
+   * The currently active color format for display and input.
+   * Determines how the color value is formatted when changed.
+   */
+  const [activeFormat, setActiveFormat] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('hex');
+
+  /**
+   * Reference to the popover element for click-outside detection.
+   */
+  const popoverRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  /**
+   * Reference to the main container for click-outside detection.
+   */
+  const containerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  /**
+   * Safely parsed and validated color value.
+   * Handles empty strings, null, undefined, and malformed input
+   * by falling back to the default color.
+   */
+  const safeValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    // Handle null, undefined, non-string, or empty values
+    if (!value || typeof value !== 'string' || value.trim() === '') {
+      return '#000000';
+    }
+    const trimmed = value.trim().toLowerCase();
+
+    // Validate it looks like a valid color format
+    const isHex = /^#[0-9a-f]{3,8}$/i.test(trimmed);
+    const isRgb = /^rgba?\s*\(/i.test(trimmed);
+    const isHsl = /^hsla?\s*\(/i.test(trimmed);
+    if (!isHex && !isRgb && !isHsl) {
+      return '#000000'; // Fallback for invalid format
+    }
+    return value.trim();
+  }, [value]);
+
+  /* -------------------------------------------------------------------------
+   * EFFECTS
+   * ------------------------------------------------------------------------- */
+
+  /**
+   * Format Detection Effect
+   *
+   * Automatically detects the color format from the incoming value
+   * when the picker opens. This ensures the UI displays the correct
+   * format controls and the user can continue editing in their
+   * preferred format.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!value) return;
+    const normalizedValue = value.toLowerCase().trim();
+
+    // Detect format based on value prefix
+    if (normalizedValue.startsWith('rgb')) {
+      setActiveFormat('rgb');
+    } else if (normalizedValue.startsWith('hsl')) {
+      setActiveFormat('hsl');
+    } else {
+      setActiveFormat('hex');
+    }
+  }, [isOpen]); // Run when picker opens to sync format state
+
+  /**
+   * Click Outside Effect
+   *
+   * Closes the popover when clicking anywhere outside of both
+   * the popover and the trigger container. This provides the
+   * expected UX behavior of dismissing the picker on blur.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleClickOutside = event => {
+      const target = event.target;
+
+      // Check if click is outside both popover and container
+      if (popoverRef.current && !popoverRef.current.contains(target) && containerRef.current && !containerRef.current.contains(target)) {
+        close();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  /**
+   * Escape Key Effect
+   *
+   * Closes the popover when the Escape key is pressed.
+   * This is a standard accessibility pattern for modal-like
+   * components.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleKeyDown = e => {
+      if (e.key === 'Escape') close();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
+
+  /* -------------------------------------------------------------------------
+   * TOGGLE AND CLOSE HANDLERS
+   * ------------------------------------------------------------------------- */
+
+  /**
+   * Toggles the picker open/closed state.
+   * Prevents event propagation to avoid triggering parent handlers.
+   */
+  const toggle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(e => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setIsOpen(prev => !prev);
+  }, []);
+
+  /**
+   * Closes the picker.
+   * Memoized to maintain stable reference for effect dependencies.
+   */
+  const close = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => setIsOpen(false), []);
+
+  /* -------------------------------------------------------------------------
+   * COLOR VALUE DERIVATION
+   * ------------------------------------------------------------------------- */
+
+  /**
+   * Parse current value to RGBA components for display and calculations.
+   * The picker internally works with RGB/HSV for the visual interface.
+   * Checks if current active format matches value format to use direct parsing.
+   */
+  const rgba = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    try {
+      if (activeFormat === 'rgb' && safeValue.startsWith('rgb')) {
+        return parseRgbaComponents(safeValue);
+      }
+      // For other formats, convert to RGBA for internal use
+      return parseRgbaComponents(safeValue);
+    } catch {
+      // Fallback for any parsing errors
+      return {
+        r: '0',
+        g: '0',
+        b: '0',
+        a: '1'
+      };
+    }
+  }, [activeFormat, safeValue]);
+
+  /**
+   * Convert RGB to HSV for the saturation/brightness picker.
+   * HSV is more intuitive for the 2D picking interface.
+   */
+  const hsv = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    // Safely parse RGB values, defaulting to 0 for empty/invalid strings
+    const r = rgba.r ? parseInt(rgba.r, 10) : 0;
+    const g = rgba.g ? parseInt(rgba.g, 10) : 0;
+    const b = rgba.b ? parseInt(rgba.b, 10) : 0;
+    return rgbToHsv(isNaN(r) ? 0 : r, isNaN(g) ? 0 : g, isNaN(b) ? 0 : b);
+  }, [rgba.r, rgba.g, rgba.b]);
+
+  /**
+   * Derive HSL components for display in HSL format mode.
+   * Computed from RGBA for accurate conversion, unless already in HSL mode.
+   */
+  const hsla = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    try {
+      if (activeFormat === 'hsl' && safeValue.startsWith('hsl')) {
+        return parseHslaComponents(safeValue);
+      }
+      // Safely parse values with NaN fallbacks
+      const r = rgba.r ? parseInt(rgba.r, 10) : 0;
+      const g = rgba.g ? parseInt(rgba.g, 10) : 0;
+      const b = rgba.b ? parseInt(rgba.b, 10) : 0;
+      const a = rgba.a ? parseFloat(rgba.a) : 1;
+      return rgbaToHsla(isNaN(r) ? 0 : r, isNaN(g) ? 0 : g, isNaN(b) ? 0 : b, isNaN(a) ? 1 : a);
+    } catch {
+      return {
+        h: '0',
+        s: '0',
+        l: '0',
+        a: '1'
+      };
+    }
+  }, [activeFormat, safeValue, rgba.r, rgba.g, rgba.b, rgba.a]);
+
+  /**
+   * Derive display values for each format.
+   * These are computed from the internal RGBA representation,
+   * ensuring consistent display regardless of the input format.
+   * 
+   * Special case: When editing HEX manually, return the raw value
+   * to prevent snapping/resetting while typing partial hex codes.
+   */
+  const displayHex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    // When editing HEX, preserve raw value to allow typing partial codes
+    // We check 'value' directly (not safeValue) to allow for incomplete inputs like "#" or "#F"
+    if (activeFormat === 'hex' && value && value.trim().startsWith('#')) {
+      return value;
+    }
+    // Safely parse with NaN fallbacks
+    const r = rgba.r ? parseInt(rgba.r, 10) : 0;
+    const g = rgba.g ? parseInt(rgba.g, 10) : 0;
+    const b = rgba.b ? parseInt(rgba.b, 10) : 0;
+    const a = rgba.a ? parseFloat(rgba.a) : 1;
+    return rgbaToHex(isNaN(r) ? 0 : r, isNaN(g) ? 0 : g, isNaN(b) ? 0 : b, isNaN(a) ? 1 : a);
+  }, [activeFormat, value, safeValue, rgba.r, rgba.g, rgba.b, rgba.a]);
+
+  /* -------------------------------------------------------------------------
+   * EVENT HANDLERS
+   * ------------------------------------------------------------------------- */
+
+  /**
+   * Handles changes from the 2D saturation/value picker.
+   *
+   * Converts the new S/V values (with existing H) back to RGB,
+   * then formats according to the active format before calling onChange.
+   *
+   * @param s - New saturation value (0-100)
+   * @param v - New value/brightness (0-100)
+   */
+  const handleHsvChange = (s, v) => {
+    const {
+      r,
+      g,
+      b
+    } = hsvToRgb(hsv.h, s, v);
+    const alpha = parseFloat(rgba.a);
+
+    // Output in the currently active format
+    if (activeFormat === 'hex') {
+      onChange(rgbaToHex(r, g, b, alpha));
+    } else {
+      onChange(`rgba(${r}, ${g}, ${b}, ${rgba.a})`);
+    }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center gap-2', className),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "w-8 h-8 rounded-full border border-gray-200 shadow-sm cursor-pointer transition-transform hover:scale-105",
-      style: {
-        backgroundColor: value
-      },
-      onClick: handleClick,
-      role: "button",
-      tabIndex: 0,
-      onKeyDown: e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleClick();
+
+  /**
+   * Handles changes from the hue slider.
+   *
+   * Updates the hue while keeping saturation and value constant.
+   *
+   * @param h - New hue value (0-360)
+   */
+  const handleHueChange = h => {
+    const {
+      r,
+      g,
+      b
+    } = hsvToRgb(h, hsv.s, hsv.v);
+    const alpha = parseFloat(rgba.a);
+    if (activeFormat === 'hex') {
+      onChange(rgbaToHex(r, g, b, alpha));
+    } else {
+      onChange(`rgba(${r}, ${g}, ${b}, ${rgba.a})`);
+    }
+  };
+
+  /**
+   * Handles changes from the alpha/opacity slider.
+   *
+   * Updates only the alpha channel while keeping the color constant.
+   * Rounds to 2 decimal places for cleaner values.
+   * Uses the already-derived rgba/hsla values for consistency.
+   *
+   * @param a - New alpha value (0-1)
+   */
+  const handleAlphaChange = a => {
+    // Round to 2 decimal places for display cleanliness
+    const roundedA = Math.round(a * 100) / 100;
+
+    // Output in the currently active format
+    if (activeFormat === 'hex') {
+      const hex = rgbaToHex(parseInt(rgba.r), parseInt(rgba.g), parseInt(rgba.b), roundedA);
+      onChange(hex);
+    } else if (activeFormat === 'rgb') {
+      onChange(`rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${roundedA})`);
+    } else {
+      // HSL format: use derived hsla values with updated alpha
+      onChange(`hsla(${hsla.h}, ${hsla.s}%, ${hsla.l}%, ${roundedA})`);
+    }
+  };
+
+  /**
+   * Handles switching between color formats (HEX, RGB, HSL).
+   *
+   * IMPORTANT: This only changes the display format, NOT the actual color.
+   * The color value is preserved exactly - only the format state changes.
+   * The display inputs will show the converted value based on activeFormat.
+   *
+   * We do NOT call onChange here because:
+   * 1. The actual color hasn't changed, only how we display it
+   * 2. Calling onChange causes unnecessary re-renders and potential
+   *    rounding errors when converting between formats repeatedly
+   * 3. The next user interaction will emit in the new format
+   *
+   * @param format - The target format to switch to
+   */
+  const handleFormatSwitch = format => {
+    // No-op if clicking the already active format
+    if (format === activeFormat) return;
+
+    // Only update the format state - display will derive the correct values
+    setActiveFormat(format);
+  };
+
+  /**
+   * Handles changes to individual color component input fields.
+   *
+   * Used for the R/G/B/A and H/S/L/A input fields below the picker.
+   * Includes range validation for each component:
+   * - R, G, B: 0-255 (integers)
+   * - H: 0-360 (integer, degrees)
+   * - S, L: 0-100 (integers, percentages)
+   * - A: 0-1 (decimals allowed)
+   *
+   * @param format - Which format mode is active ('rgb' or 'hsl')
+   * @param key - The component key being changed ('r', 'g', 'b', 'a', 'h', 's', 'l')
+   * @param newVal - The new value as a string
+   */
+  const handleComponentChange = (format, key, newVal) => {
+    // Allow empty string or just a decimal point for intermediate typing
+    // This allows users to clear and retype values
+    const trimmed = newVal.trim();
+
+    // Check if this looks like a valid number pattern (including partial like "0." or ".5")
+    // We accept: empty, digits, digits with decimal, decimal with digits
+    const validPattern = /^-?\d*\.?\d*$/;
+    if (!validPattern.test(trimmed)) {
+      return; // Reject invalid characters
+    }
+
+    // For alpha values, keep decimals as-is; for others, parse as int
+    let outputVal = trimmed;
+
+    // If we have a parseable number, apply range validation
+    if (trimmed !== '' && trimmed !== '.' && trimmed !== '-.') {
+      const numVal = parseFloat(trimmed);
+      if (!isNaN(numVal)) {
+        if (key === 'a') {
+          // Alpha: 0-1 (decimals allowed, max 2 places)
+          // Check decimal precision check
+          if (trimmed.includes('.')) {
+            const decimals = trimmed.split('.')[1];
+            if (decimals && decimals.length > 2) {
+              return; // Do not allow more than 2 decimal places
+            }
+          }
+
+          // Only clamp if the value is clearly out of range
+          if (numVal < 0) outputVal = '0';else if (numVal > 1) outputVal = '1';else outputVal = trimmed; // Preserve exact input
+        } else if (key === 'h') {
+          // Hue: 0-360 (integer)
+          outputVal = Math.max(0, Math.min(360, Math.round(numVal)));
+        } else if (key === 's' || key === 'l') {
+          // Saturation/Lightness: 0-100 (integer)
+          outputVal = Math.max(0, Math.min(100, Math.round(numVal)));
+        } else {
+          // R, G, B: 0-255 (integer)
+          outputVal = Math.max(0, Math.min(255, Math.round(numVal)));
         }
+      }
+    }
+    if (format === 'rgb') {
+      // Build updated RGBA values, preserving string for the alpha field
+      const r = key === 'r' ? outputVal : rgba.r;
+      const g = key === 'g' ? outputVal : rgba.g;
+      const b = key === 'b' ? outputVal : rgba.b;
+      const a = key === 'a' ? outputVal : rgba.a;
+      onChange(`rgba(${r}, ${g}, ${b}, ${a})`);
+    } else {
+      // Build updated HSLA values
+      const h = key === 'h' ? outputVal : hsla.h;
+      const s = key === 's' ? outputVal : hsla.s;
+      const l = key === 'l' ? outputVal : hsla.l;
+      const a = key === 'a' ? outputVal : hsla.a;
+      onChange(`hsla(${h}, ${s}%, ${l}%, ${a})`);
+    }
+  };
+
+  /**
+   * Handles changes to the HEX input field.
+   * Validates character set and length limits.
+   */
+  const handleHexChange = val => {
+    // Enforce max length of 9 characters (#RRGGBBAA)
+    if (val.length > 9) return;
+
+    // Allow allowed characters only: #, 0-9, a-f, A-F
+    if (!/^[0-9a-fA-F#]*$/.test(val)) return;
+
+    // Ensure only one # at the start
+    if (val.indexOf('#') > 0 || (val.match(/#/g) || []).length > 1) return;
+    onChange(val);
+  };
+
+  /* -------------------------------------------------------------------------
+   * RENDER
+   * ------------------------------------------------------------------------- */
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)('relative inline-block', className),
+    ref: containerRef,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center gap-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "relative w-8 h-8 group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Checkerboard, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "absolute inset-0 rounded-full border border-gray-200 shadow-sm cursor-pointer transition-all hover:scale-105 hover:shadow-md ring-offset-2 hover:ring-2 hover:ring-blue-400",
+          style: {
+            backgroundColor: safeValue
+          },
+          onClick: toggle,
+          role: "button",
+          tabIndex: 0,
+          onKeyDown: e => {
+            if (e.key === 'Enter' || e.key === ' ') toggle();
+          },
+          "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Open color picker', 'productbay')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+        type: "button",
+        onClick: toggle,
+        className: "flex items-center gap-1.5 text-sm text-gray-600 hover:text-blue-500 font-medium transition-colors bg-transparent border-0 p-1 cursor-pointer rounded-md hover:bg-gray-50",
+        children: [(triggerMode === "icon" || triggerMode === "both") && (isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Close', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "w-3.5 h-3.5"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit Color', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            className: "w-3.5 h-3.5"
+          })
+        })), (triggerMode === "text" || triggerMode === "both") && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          children: isOpen ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Close', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit Color', 'productbay')
+        })]
+      })]
+    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      ref: popoverRef,
+      className: "absolute z-[100] mt-3 p-3 bg-white rounded-lg shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200 origin-top-left",
+      style: {
+        width: '240px'
       },
-      "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Pick color', 'productbay')
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-      type: "button",
-      onClick: handleClick,
-      className: "text-sm text-blue-500 hover:text-blue-600 font-medium hover:underline bg-transparent border-0 p-0 cursor-pointer",
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Edit Color', 'productbay')
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-      ref: inputRef,
-      type: "color",
-      value: value,
-      onChange: e => onChange(e.target.value),
-      className: "sr-only",
-      "aria-hidden": "true"
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Saturation, {
+          h: hsv.h,
+          s: hsv.s,
+          v: hsv.v,
+          onChange: handleHsvChange
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "mt-3 px-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Slider, {
+            value: hsv.h,
+            max: 360,
+            onChange: handleHueChange,
+            background: "linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)",
+            ariaLabel: "Hue"
+          }), showAlpha && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "mt-2.5 relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Checkerboard, {
+              className: "rounded-full h-3"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Slider, {
+              value: parseFloat(rgba.a) || 0,
+              max: 1,
+              onChange: handleAlphaChange,
+              background: `linear-gradient(to right, transparent, rgb(${rgba.r}, ${rgba.g}, ${rgba.b}))`,
+              ariaLabel: "Opacity"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "px-1",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "flex items-center justify-between mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "flex gap-1 bg-gray-50 p-0.5 rounded-md border border-gray-100",
+            children: ['hex', 'rgb', 'hsl'].map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+              type: "button",
+              onClick: () => handleFormatSwitch(f),
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("px-2 py-0.5 text-[10px] uppercase font-bold rounded transition-all cursor-pointer", activeFormat === f ? "bg-white text-blue-600 shadow-sm ring-1 ring-black/5" : "text-gray-400 hover:text-gray-600"),
+              children: f
+            }, f))
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "relative w-6 h-6 rounded border border-gray-100 shadow-inner overflow-hidden",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Checkerboard, {
+              className: "rounded-none"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "absolute inset-0",
+              style: {
+                backgroundColor: safeValue
+              }
+            })]
+          })]
+        }), activeFormat === 'hex' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "flex flex-col gap-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "text",
+            value: displayHex,
+            onChange: e => handleHexChange(e.target.value),
+            className: "w-full px-2 py-1.5 text-xs border border-gray-200 rounded focus:border-blue-400 focus:outline-none transition-colors font-mono uppercase text-center"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "text-[9px] uppercase text-gray-400 font-bold text-center",
+            children: "Hex"
+          })]
+        }) : activeFormat === 'rgb' ?
+        /*#__PURE__*/
+        /* RGB Inputs: Four fields for R, G, B, A values */
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "grid grid-cols-4 gap-1",
+          children: ['r', 'g', 'b', 'a'].map(key => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "flex flex-col gap-1 text-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              type: "text",
+              inputMode: key === 'a' ? 'decimal' : 'numeric',
+              value: rgba[key],
+              onChange: e => handleComponentChange('rgb', key, e.target.value),
+              className: "w-full px-1 py-1.5 text-xs border border-gray-200 rounded focus:border-blue-400 focus:outline-none transition-colors font-mono text-center"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              className: "text-[9px] uppercase text-gray-400 font-bold",
+              children: key
+            })]
+          }, key))
+        }) :
+        /*#__PURE__*/
+        /* HSL Inputs: Four fields for H, S, L, A values */
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "grid grid-cols-4 gap-1",
+          children: ['h', 's', 'l', 'a'].map(key => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "flex flex-col gap-1 text-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              type: "text",
+              inputMode: key === 'a' ? 'decimal' : 'numeric',
+              value: hsla[key],
+              onChange: e => handleComponentChange('hsl', key, e.target.value),
+              className: "w-full px-1 py-1.5 text-xs border border-gray-200 rounded focus:border-blue-400 focus:outline-none transition-colors font-mono text-center"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              className: "text-[9px] uppercase text-gray-400 font-bold",
+              children: key
+            })]
+          }, key))
+        })]
+      }), showPresets && presets.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "border-t border-gray-100 mt-3 pt-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "text-[10px] uppercase text-gray-400 font-bold ml-1 mb-2 block",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Presets', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "grid grid-cols-8 gap-1.5",
+          children: presets.map((preset, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            type: "button",
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_4__.cn)("w-4 h-4 rounded-sm border border-black/5 hover:scale-125 transition-transform cursor-pointer", value.toLowerCase() === preset.toLowerCase() && "ring-1 ring-blue-500 ring-offset-1"),
+            style: {
+              backgroundColor: preset
+            },
+            onClick: () => onChange(preset),
+            title: preset
+          }, `${preset}-${idx}`))
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "absolute -top-1.5 left-4 w-3 h-3 bg-white border-t border-l border-gray-100 rotate-45"
+      })]
     })]
   });
 };
@@ -26082,6 +27864,51 @@ const Modal = ({
 
 /***/ },
 
+/***/ "./src/components/ui/ProductBayIcon.tsx"
+/*!**********************************************!*\
+  !*** ./src/components/ui/ProductBayIcon.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Icon: () => (/* binding */ Icon),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const ProductBayIcon = ({
+  className,
+  ...props
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+    width: "64",
+    height: "64",
+    viewBox: "0 0 64 64",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    className: className,
+    ...props,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("rect", {
+      width: "64",
+      height: "64",
+      rx: "16",
+      fill: "#F05C2A"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M42.0227 13.4282C46.7355 13.4282 50.5558 17.2487 50.5559 21.9614V42.228C50.5559 46.9409 46.7355 50.7612 42.0227 50.7612H21.7561C17.0433 50.7612 13.2229 46.9408 13.2229 42.228V21.9614C13.223 17.2487 17.0434 13.4283 21.7561 13.4282H42.0227ZM29.2258 46.4946H42.0227C44.3791 46.4946 46.2893 44.5844 46.2893 42.228V31.0278H29.2258V46.4946ZM17.4895 42.228C17.4895 44.5844 19.3997 46.4946 21.7561 46.4946H24.9592V31.0278H17.4895V42.228ZM29.2258 26.7612H46.2893V21.9614C46.2892 19.6051 44.3791 17.6948 42.0227 17.6948H29.2258V26.7612ZM21.7561 17.6948C19.3998 17.6949 17.4896 19.6051 17.4895 21.9614V26.7612H24.9592V17.6948H21.7561Z",
+      fill: "white"
+    })]
+  });
+};
+const Icon = ProductBayIcon;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductBayIcon);
+
+/***/ },
+
 /***/ "./src/components/ui/ProductBayLogo.tsx"
 /*!**********************************************!*\
   !*** ./src/components/ui/ProductBayLogo.tsx ***!
@@ -26234,7 +28061,7 @@ const Select = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
         className: "h-4 w-4 opacity-50 flex-shrink-0 ml-2"
       })]
     }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "absolute top-full left-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-200 bg-white shadow-md animate-in fade-in-80 slide-in-from-top-1",
+      className: "absolute top-full left-0 z-50 mt-1 max-h-60 min-w-full w-max overflow-auto rounded-md border border-gray-200 bg-white shadow-md animate-in fade-in-80 slide-in-from-top-1",
       children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         onClick: () => {
           if (allowDeselect && value) {
@@ -28182,28 +30009,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
-/* harmony import */ var _hooks_useUrlTab__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/hooks/useUrlTab */ "./src/hooks/useUrlTab.ts");
-/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
-/* harmony import */ var _components_ui_Toggle__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/Toggle */ "./src/components/ui/Toggle.tsx");
-/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
-/* harmony import */ var _components_Table_TabTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/Table/TabTable */ "./src/components/Table/TabTable.tsx");
-/* harmony import */ var _components_ui_Tabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/components/ui/Tabs */ "./src/components/ui/Tabs.tsx");
-/* harmony import */ var _components_Table_TabDisplay__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/components/Table/TabDisplay */ "./src/components/Table/TabDisplay.tsx");
-/* harmony import */ var _components_Table_TabSettings__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/components/Table/TabSettings */ "./src/components/Table/TabSettings.tsx");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/copy.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/info.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/monitor.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/table-properties.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash.js");
+/* harmony import */ var _components_ui_EditableText__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/components/ui/EditableText */ "./src/components/ui/EditableText.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs");
 /* harmony import */ var _components_Table_LivePreview__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/components/Table/LivePreview */ "./src/components/Table/LivePreview.tsx");
-/* harmony import */ var _components_ui_EditableText__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/components/ui/EditableText */ "./src/components/ui/EditableText.tsx");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/monitor.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/settings.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/table-properties.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _components_Table_TabSettings__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/components/Table/TabSettings */ "./src/components/Table/TabSettings.tsx");
+/* harmony import */ var _components_Table_TabDisplay__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/components/Table/TabDisplay */ "./src/components/Table/TabDisplay.tsx");
+/* harmony import */ var _components_ui_Tabs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/components/ui/Tabs */ "./src/components/ui/Tabs.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _components_Table_TabTable__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/components/Table/TabTable */ "./src/components/Table/TabTable.tsx");
+/* harmony import */ var _context_ToastContext__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/context/ToastContext */ "./src/context/ToastContext.tsx");
+/* harmony import */ var _components_ui_Toggle__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/components/ui/Toggle */ "./src/components/ui/Toggle.tsx");
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var _hooks_useUrlTab__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/hooks/useUrlTab */ "./src/hooks/useUrlTab.ts");
+/* harmony import */ var _utils_routes__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/utils/routes */ "./src/utils/routes.ts");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/components/ui/Tooltip */ "./src/components/ui/Tooltip.tsx");
+/* harmony import */ var _components_ui_ProductBayIcon__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @/components/ui/ProductBayIcon */ "./src/components/ui/ProductBayIcon.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__);
+
+
+
+
+
 
 
 
@@ -28243,16 +30086,16 @@ const VALID_TABLE_TABS = ['table', 'display', 'settings'];
 /** Tab configuration with icons matching the design reference */
 const TABLE_TABS = [{
   value: 'table',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Table', 'productbay'),
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_17__["default"], {})
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Table', 'productbay'),
+  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {})
 }, {
   value: 'display',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display', 'productbay'),
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_14__["default"], {})
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Display', 'productbay'),
+  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {})
 }, {
   value: 'settings',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Settings', 'productbay'),
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {})
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Settings', 'productbay'),
+  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {})
 }];
 
 /**
@@ -28263,11 +30106,13 @@ const TABLE_TABS = [{
 const Table = () => {
   const {
     id
-  } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useParams)();
+  } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useParams)();
   const isNewTable = !id || id === 'new';
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
 
   // Store access
   const {
+    tableId,
     tableTitle,
     setTitle,
     tableStatus,
@@ -28276,28 +30121,87 @@ const Table = () => {
     saveTable,
     isLoading,
     error
-  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_7__.useTableStore)();
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_16__.useTableStore)();
 
-  // Load data on mount
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(() => {
+  // Load data on mount or ID change
+  (0,react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
     if (!isNewTable) {
       loadTable(parseInt(id));
     } else {
       // Reset store for new table
-      _store_tableStore__WEBPACK_IMPORTED_MODULE_7__.useTableStore.getState().resetStore();
+      _store_tableStore__WEBPACK_IMPORTED_MODULE_16__.useTableStore.getState().resetStore();
     }
-  });
+  }, [id, isNewTable, loadTable]);
+
+  // Toast notification
+  const {
+    toast
+  } = (0,_context_ToastContext__WEBPACK_IMPORTED_MODULE_18__.useToast)();
+
+  // Validation state
+  const [titleError, setTitleError] = (0,react__WEBPACK_IMPORTED_MODULE_25__.useState)(undefined);
+
+  // Handle Delete
+  const handleDelete = async () => {
+    if (!confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Are you sure you want to delete this table? This action cannot be undone.', 'productbay'))) {
+      return;
+    }
+    try {
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_23__.apiFetch)(`tables/${tableId}`, {
+        method: 'DELETE'
+      });
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Deleted', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Table deleted successfully.', 'productbay'),
+        type: 'success'
+      });
+      // Redirect to tables list (Soft navigation)
+      navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_22__.PATHS.TABLES);
+    } catch (error) {
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Error', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Failed to delete table.', 'productbay'),
+        type: 'error'
+      });
+    }
+  };
 
   // Handle Save
-  const [isSaving, setIsSaving] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [isSaving, setIsSaving] = (0,react__WEBPACK_IMPORTED_MODULE_25__.useState)(false);
   const handleSave = async () => {
+    // Validation: Table Name is required
+    if (!tableTitle.trim()) {
+      const errorMsg = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Table name is required.', 'productbay');
+      setTitleError(errorMsg);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Validation Error', 'productbay'),
+        description: errorMsg,
+        type: 'error'
+      });
+      return;
+    }
     setIsSaving(true);
     const success = await saveTable();
     setIsSaving(false);
     if (success) {
-      // Optional: Success feedback (toast/notice)
-      // For now, reliance on button state or store should be enough visually if we had a toast
-      console.log('Table saved successfully');
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Success', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Table saved successfully.', 'productbay'),
+        type: 'success'
+      });
+
+      // If it was a new table, redirect to the edit URL with the new ID
+      const newId = _store_tableStore__WEBPACK_IMPORTED_MODULE_16__.useTableStore.getState().tableId;
+      if (isNewTable && newId) {
+        // Soft redirect to the edit route
+        navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_22__.PATHS.TABLE_EDITOR.replace(':id', newId.toString()));
+      }
+    } else {
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Error', 'productbay'),
+        description: error || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Failed to save table.', 'productbay'),
+        type: 'error'
+      });
     }
   };
 
@@ -28306,6 +30210,7 @@ const Table = () => {
    */
   const handleNameChange = newName => {
     setTitle(newName);
+    if (titleError) setTitleError(undefined);
   };
 
   /**
@@ -28313,68 +30218,146 @@ const Table = () => {
    * - Reading: #/new?tab=settings → activeTab = 'settings'
    * - Writing: setActiveTab('display') → URL becomes #/new?tab=display
    */
-  const [activeTab, setActiveTab] = (0,_hooks_useUrlTab__WEBPACK_IMPORTED_MODULE_4__.useUrlTab)('table', VALID_TABLE_TABS);
+  const [activeTab, setActiveTab] = (0,_hooks_useUrlTab__WEBPACK_IMPORTED_MODULE_21__.useUrlTab)('table', VALID_TABLE_TABS);
 
   // Derived state for UI
   const isActive = tableStatus === 'publish';
   if (isLoading && !isNewTable) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("div", {
       className: "flex items-center justify-center min-h-[400px]",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-        className: "animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_ProductBayIcon__WEBPACK_IMPORTED_MODULE_28__["default"], {
+        className: "animate-pulse size-12"
       })
     });
   }
+
+  // Error / Not Found State
   if (error) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
-      className: "bg-red-50 text-red-600 p-4 rounded-md",
-      children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Error:', 'productbay'), " ", error]
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+      className: "flex flex-col items-center justify-center min-h-[400px] text-center p-8 bg-white rounded-lg shadow-sm border border-gray-200",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("div", {
+        className: "bg-red-50 p-4 rounded-full mb-4 flex items-center justify-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
+          className: "size-8 text-red-500"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("h2", {
+        className: "text-xl font-bold text-gray-800 mb-2",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Table Not Found', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("p", {
+        className: "text-gray-500 max-w-md mb-6",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('The table you are looking for does not exist or has been deleted.', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+        className: "flex gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_20__.Button, {
+          variant: "outline",
+          className: "cursor-pointer",
+          onClick: () => navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_22__.PATHS.TABLES),
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('View Tables', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_20__.Button, {
+          onClick: () => {
+            // Reset store and go to new table
+            _store_tableStore__WEBPACK_IMPORTED_MODULE_16__.useTableStore.getState().resetStore();
+            navigate(_utils_routes__WEBPACK_IMPORTED_MODULE_22__.PATHS.NEW);
+          },
+          className: "cursor-pointer",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            className: "size-4 mr-2"
+          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Create New Table', 'productbay')]
+        })]
+      })]
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.Fragment, {
+    children: [tableId && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+      className: "bg-gray-50 border border-gray-200 rounded-md p-4 mb-6 flex items-center justify-between",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+        className: "flex items-center gap-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+          className: "font-semibold text-lg text-blue-900",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Shortcode:', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("code", {
+          className: "bg-white text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono",
+          children: `[productbay id="${tableId}"]`
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+        className: "flex items-center justify-between gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_27__.Tooltip, {
+          content: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "size-6 text-gray-500 cursor-pointer"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_20__.Button, {
+          size: "xs",
+          variant: "outline",
+          onClick: () => {
+            navigator.clipboard.writeText(`[productbay id="${tableId}"]`);
+            toast({
+              title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Copied', 'productbay'),
+              description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Shortcode copied to clipboard', 'productbay'),
+              type: 'success'
+            });
+          },
+          className: "bg-white hover:bg-blue-100 text-blue-700 border-blue-200 cursor-pointer",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            className: "size-3 mr-1.5"
+          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Copy', 'productbay')]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
       className: "flex items-center justify-between mb-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_ui_EditableText__WEBPACK_IMPORTED_MODULE_13__.EditableText, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_EditableText__WEBPACK_IMPORTED_MODULE_10__.EditableText, {
         value: tableTitle,
         onChange: handleNameChange,
-        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enter table name...', 'productbay')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        error: titleError,
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Enter table name...', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
         className: "flex items-center gap-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        children: [!isNewTable && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_27__.Tooltip, {
+          content: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Delete this table', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_20__.Button, {
+            size: "sm",
+            variant: "ghost",
+            onClick: handleDelete,
+            className: "text-red-500 hover:text-red-700 hover:bg-red-50 px-2 cursor-pointer",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              className: "size-4"
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
           className: "flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
-            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
-            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500'),
-            children: isActive ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Active', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Inactive', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_6__.Toggle, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_26__.cn)("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_26__.cn)("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500'),
+            children: isActive ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Active', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Inactive', 'productbay')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_19__.Toggle, {
             size: "sm",
             checked: isActive,
             onChange: e => setStatus(e.target.checked ? 'publish' : 'draft'),
-            title: isActive ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Click toggle to deactivate', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Click toggle to activate', 'productbay')
+            title: isActive ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Click toggle to deactivate', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Click toggle to activate', 'productbay')
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_5__.Button, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_20__.Button, {
           size: "sm",
           onClick: handleSave,
           disabled: isSaving || isLoading,
-          className: isSaving ? 'opacity-75 cursor-wait' : '',
-          children: [isSaving ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-            className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          className: `w-28 text-left ${isSaving ? 'opacity-75 cursor-wait' : ''}`,
+          children: [isSaving ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            className: "size-4 mr-2 animate-spin"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
             className: "size-4 mr-2"
-          }), isSaving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Saving...', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Table', 'productbay')]
+          }), isSaving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Saving...', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Save Table', 'productbay')]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
       className: "w-full grid grid-cols-1 md:grid-cols-5 gap-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_ui_Tabs__WEBPACK_IMPORTED_MODULE_9__.Tabs, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_components_ui_Tabs__WEBPACK_IMPORTED_MODULE_15__.Tabs, {
         tabs: TABLE_TABS,
         value: activeTab,
         className: "md:col-span-3",
         onChange: setActiveTab,
-        "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Table configuration tabs', 'productbay'),
-        children: [activeTab === 'table' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Table_TabTable__WEBPACK_IMPORTED_MODULE_8__["default"], {}), activeTab === 'display' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Table_TabDisplay__WEBPACK_IMPORTED_MODULE_10__["default"], {}), activeTab === 'settings' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Table_TabSettings__WEBPACK_IMPORTED_MODULE_11__["default"], {})]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Table_LivePreview__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_24__.__)('Table configuration tabs', 'productbay'),
+        children: [activeTab === 'table' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_Table_TabTable__WEBPACK_IMPORTED_MODULE_17__["default"], {}), activeTab === 'display' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_Table_TabDisplay__WEBPACK_IMPORTED_MODULE_14__["default"], {}), activeTab === 'settings' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_Table_TabSettings__WEBPACK_IMPORTED_MODULE_13__["default"], {})]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_Table_LivePreview__WEBPACK_IMPORTED_MODULE_12__["default"], {
         className: "md:col-span-2"
       })]
     })]
@@ -28401,16 +30384,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_ui_Input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ui/Input */ "./src/components/ui/Input.tsx");
-/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
-/* harmony import */ var _components_ui_Select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/Select */ "./src/components/ui/Select.tsx");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/funnel.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/copy.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_ui_Modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ui/Modal */ "./src/components/ui/Modal.tsx");
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var _components_ui_Select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/ui/Select */ "./src/components/ui/Select.tsx");
+/* harmony import */ var _components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/ui/Skeleton */ "./src/components/ui/Skeleton.tsx");
+/* harmony import */ var _context_ToastContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/context/ToastContext */ "./src/context/ToastContext.tsx");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/funnel.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/copy.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__);
+
+
+
 
 
 
@@ -28430,8 +30420,8 @@ const BULK_OPTIONS = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Set Active', 'productbay'),
   value: 'active'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Set Deactive', 'productbay'),
-  value: 'deactive'
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Set Inactive', 'productbay'),
+  value: 'inactive'
 }];
 
 /**
@@ -28458,18 +30448,19 @@ const ROWS_PER_PAGE_OPTIONS = [{
  * Status filter options for table listing
  */
 const FILTER_OPTIONS = [{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('All Dates', 'productbay'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('All Status', 'productbay'),
   value: 'all'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Published', 'productbay'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Active', 'productbay'),
   value: 'publish'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Drafts', 'productbay'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Inactive', 'productbay'),
   value: 'draft'
-}, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Trash', 'productbay'),
-  value: 'trash'
 }];
+
+/**
+ * Modal state for different actions
+ */
 
 /**
  * Tables Page Component
@@ -28489,57 +30480,227 @@ const Tables = () => {
   const [jumpPage, setJumpPage] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('');
   const [itemsPerPage, setItemsPerPage] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(10);
   const [isCustomPerPage, setIsCustomPerPage] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
+
+  // Modal state
+  const [modalState, setModalState] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    type: null,
+    tableId: null,
+    tableName: ''
+  });
+
+  // Action loading state - tracks which table is being acted upon
+  const [actionLoading, setActionLoading] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({});
+
+  // Toast hook
+  const {
+    toast
+  } = (0,_context_ToastContext__WEBPACK_IMPORTED_MODULE_9__.useToast)();
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     loadTables();
   }, []);
   const loadTables = async () => {
     try {
       const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)('tables');
-      // Mocking source for demo if missing
-      const enrichedData = data.map(t => ({
-        ...t,
-        source: t.source || 'WooCommerce' // Default source
-      }));
-      setTables(enrichedData);
+      setTables(data);
     } catch (error) {
       console.error(error);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Error', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Failed to load tables', 'productbay'),
+        type: 'error'
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  // Actions
-  const handleDelete = async id => {
-    if (!confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Are you sure you want to delete this table?', 'productbay'))) return;
+  // Open delete modal
+  const openDeleteModal = (id, title) => {
+    setModalState({
+      type: 'delete',
+      tableId: id,
+      tableName: title
+    });
+  };
+
+  // Open duplicate modal
+  const openDuplicateModal = (id, title) => {
+    setModalState({
+      type: 'duplicate',
+      tableId: id,
+      tableName: title
+    });
+  };
+
+  // Open toggle status modal
+  const openToggleModal = (id, title, currentStatus) => {
+    setModalState({
+      type: 'toggle',
+      tableId: id,
+      tableName: title,
+      currentStatus
+    });
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setModalState({
+      type: null,
+      tableId: null,
+      tableName: ''
+    });
+  };
+
+  // Handle delete action
+  const handleDelete = async () => {
+    if (!modalState.tableId) return;
+    const id = modalState.tableId;
+    setActionLoading(prev => ({
+      ...prev,
+      [id]: 'delete'
+    }));
+    closeModal();
     try {
       await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)(`tables/${id}`, {
         method: 'DELETE'
       });
-      loadTables();
+      setTables(prev => prev.filter(t => t.id !== id));
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Success', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Table deleted successfully', 'productbay'),
+        type: 'success'
+      });
     } catch (error) {
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Failed to delete table', 'productbay'));
+      console.error(error);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Error', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Failed to delete table', 'productbay'),
+        type: 'error'
+      });
+    } finally {
+      setActionLoading(prev => {
+        const newState = {
+          ...prev
+        };
+        delete newState[id];
+        return newState;
+      });
     }
   };
-  const handleDuplicate = id => {
-    // Placeholder for duplication logic
+
+  // Handle duplicate action
+  const handleDuplicate = async () => {
+    if (!modalState.tableId) return;
+    const id = modalState.tableId;
     const tableToClone = tables.find(t => t.id === id);
-    if (tableToClone) {
-      // Logic to call API would go here
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Duplicate functionality for Table ID: %d', 'productbay'), id));
+    if (!tableToClone) return;
+    setActionLoading(prev => ({
+      ...prev,
+      [id]: 'duplicate'
+    }));
+    closeModal();
+    try {
+      // Create payload with duplicated data
+      const payload = {
+        title: `${tableToClone.title} (Copy)`,
+        status: 'draft',
+        // New duplicates start as draft
+        source: tableToClone.source || {},
+        columns: [],
+        settings: {},
+        style: {}
+      };
+      const newTable = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)('tables', {
+        method: 'POST',
+        body: JSON.stringify({
+          data: payload
+        })
+      });
+      setTables(prev => [newTable, ...prev]);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Success', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Table duplicated successfully', 'productbay'),
+        type: 'success'
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Error', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Failed to duplicate table', 'productbay'),
+        type: 'error'
+      });
+    } finally {
+      setActionLoading(prev => {
+        const newState = {
+          ...prev
+        };
+        delete newState[id];
+        return newState;
+      });
     }
   };
-  const handleToggleActive = (id, currentStatus) => {
-    // Placeholder for toggle active/deactive
-    alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Toggle Active/Deactive for Table ID: %1$d. Current: %2$s', 'productbay'), id, currentStatus));
-    // Optimistic update for UI demo
-    setTables(tables.map(t => t.id === id ? {
-      ...t,
-      status: t.status === 'publish' ? 'draft' : 'publish'
-    } : t));
+
+  // Handle toggle active/inactive
+  const handleToggleActive = async () => {
+    if (!modalState.tableId) return;
+    const id = modalState.tableId;
+    const table = tables.find(t => t.id === id);
+    if (!table) return;
+    const newStatus = table.status === 'publish' ? 'draft' : 'publish';
+    setActionLoading(prev => ({
+      ...prev,
+      [id]: 'toggle'
+    }));
+    closeModal();
+    try {
+      const payload = {
+        id: table.id,
+        title: table.title,
+        status: newStatus,
+        source: table.source || {},
+        columns: [],
+        settings: {},
+        style: {}
+      };
+      await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)('tables', {
+        method: 'POST',
+        body: JSON.stringify({
+          data: payload
+        })
+      });
+      setTables(prev => prev.map(t => t.id === id ? {
+        ...t,
+        status: newStatus
+      } : t));
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Success', 'productbay'),
+        description: newStatus === 'publish' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Table activated successfully', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Table deactivated successfully', 'productbay'),
+        type: 'success'
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Error', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Failed to update table status', 'productbay'),
+        type: 'error'
+      });
+    } finally {
+      setActionLoading(prev => {
+        const newState = {
+          ...prev
+        };
+        delete newState[id];
+        return newState;
+      });
+    }
   };
   const copyShortcode = shortcode => {
     navigator.clipboard.writeText(shortcode);
-    alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Shortcode copied!', 'productbay'));
+    toast({
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Success', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Shortcode copied to clipboard', 'productbay'),
+      type: 'success'
+    });
   };
 
   // Bulk Actions
@@ -28557,10 +30718,16 @@ const Tables = () => {
       setSelectedRows([...selectedRows, id]);
     }
   };
-  const handleBulkAction = () => {
+  const handleBulkAction = async () => {
     if (!selectedBulkAction || selectedRows.length === 0) return;
-    alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Performing "%1$s" on items: %2$s', 'productbay'), selectedBulkAction, selectedRows.join(', ')));
-    setSelectedRows([]); // Reset selection
+
+    // TODO: Implement bulk actions
+    toast({
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Not Implemented', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Bulk action "%s" for %d tables', 'productbay'), selectedBulkAction, selectedRows.length),
+      type: 'info'
+    });
+    setSelectedRows([]);
     setSelectedBulkAction('');
   };
 
@@ -28572,28 +30739,21 @@ const Tables = () => {
   });
   const totalPages = Math.ceil(filteredTables.length / itemsPerPage);
   const currentTables = filteredTables.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-    className: "p-8 text-center text-gray-500",
-    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Loading tables...', 'productbay')
-  });
-  function handlePreview(id) {
-    throw new Error('Function not implemented.');
-  }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
     className: "space-y-6",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
       className: "flex justify-between items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h1", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h1", {
         className: "text-2xl font-bold text-gray-800 m-0",
         children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('All Tables', 'productbay')
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
       className: "flex flex-col sm:flex-row justify-between items-center gap-4 py-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "flex items-center gap-2 w-full sm:w-auto",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
           className: "w-48",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_6__.Select, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_7__.Select, {
             placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Bulk Actions', 'productbay'),
             label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Actions', 'productbay'),
             allowDeselect: true,
@@ -28601,35 +30761,35 @@ const Tables = () => {
             value: selectedBulkAction,
             onChange: setSelectedBulkAction
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
           className: "px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded text-sm border border-gray-300 disabled:opacity-50 transition-colors font-medium h-10",
           disabled: selectedRows.length === 0 || !selectedBulkAction,
           onClick: handleBulkAction,
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Apply', 'productbay')
-        }), selectedRows.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+        }), selectedRows.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
           className: "text-sm text-gray-500 ml-2",
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%d items selected', 'productbay'), selectedRows.length)
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "flex items-center gap-2 w-full sm:w-auto",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
           className: "w-40",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_6__.Select, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_7__.Select, {
             label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Filter by Status', 'productbay'),
             options: FILTER_OPTIONS,
             value: filterStatus,
             allowDeselect: true,
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
               className: "w-4 h-4"
             }),
             onChange: setFilterStatus
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "relative w-full sm:w-64",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
             size: 16,
             className: "absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_4__.Input, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_4__.Input, {
             type: "text",
             placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search tables...', 'productbay'),
             className: "pl-9",
@@ -28638,139 +30798,176 @@ const Tables = () => {
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
       className: "bg-white rounded-lg shadow-xs border border-gray-200 overflow-hidden",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("table", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("table", {
         className: "w-full text-left border-collapse",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("thead", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("thead", {
           className: "bg-gray-50 border-b border-gray-200",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("th", {
               className: "px-4 py-4 w-10 text-center",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
                 type: "checkbox",
                 className: "rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500",
                 checked: currentTables.length > 0 && selectedRows.length === currentTables.length,
                 onChange: handleSelectAll
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("th", {
               className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-16",
               children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('ID', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("th", {
               className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
               children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Title', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("th", {
               className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
               children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Shortcode', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("th", {
               className: "px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
               children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Product Source', 'productbay')
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tbody", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("tbody", {
           className: "divide-y divide-gray-200",
-          children: currentTables.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tr", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+          children: loading ? Array.from({
+            length: 5
+          }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+              className: "px-4 py-4 text-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_8__.Skeleton, {
+                className: "h-4 w-4 rounded mx-auto"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+              className: "px-6 py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_8__.Skeleton, {
+                className: "h-4 w-8"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+              className: "px-6 py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+                className: "space-y-2",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_8__.Skeleton, {
+                  className: "h-5 w-48"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+              className: "px-6 py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_8__.Skeleton, {
+                className: "h-8 w-24 rounded"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+              className: "px-6 py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_8__.Skeleton, {
+                className: "h-4 w-24"
+              })
+            })]
+          }, i)) : currentTables.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("tr", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
               colSpan: 5,
               className: "px-6 py-12 text-center text-gray-400",
               children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('No tables found.', 'productbay')
             })
-          }) : currentTables.map(table => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("tr", {
-            className: "group hover:bg-gray-50 transition-colors",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
-              className: "px-4 py-4 text-center",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", {
-                type: "checkbox",
-                className: "rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500",
-                checked: selectedRows.includes(table.id),
-                onChange: () => handleSelectRow(table.id)
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("td", {
-              className: "px-6 py-4 text-sm text-gray-500",
-              children: ["#", table.id]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("td", {
-              className: "px-6 py-4 relative",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-                className: "font-medium text-wp-text text-base",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-                  to: `/edit/${table.id}`,
-                  className: "hover:text-blue-600",
-                  children: table.title
-                }), table.status !== 'publish' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
-                  className: "ml-2 text-xs text-gray-400 font-normal italic",
-                  children: ["\u2014 ", table.status]
+          }) : currentTables.map(table => {
+            const isActing = !!actionLoading[table.id];
+            const actionType = actionLoading[table.id];
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("tr", {
+              className: `group hover:bg-gray-50 transition-colors ${isActing ? 'opacity-50' : ''}`,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+                className: "px-4 py-4 text-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("input", {
+                  type: "checkbox",
+                  className: "rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500",
+                  checked: selectedRows.includes(table.id),
+                  onChange: () => handleSelectRow(table.id),
+                  disabled: isActing
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("td", {
+                className: "px-6 py-4 text-sm text-gray-500",
+                children: ["#", table.id]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("td", {
+                className: "px-6 py-4 relative",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+                  className: "font-medium text-wp-text text-base",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                    to: `/table/${table.id}`,
+                    className: "hover:text-blue-600",
+                    children: [table.title, isActing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                      className: "w-4 h-4 inline-block ml-2 animate-spin"
+                    })]
+                  }), table.status !== 'publish' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("span", {
+                    className: "ml-2 text-xs text-gray-400 font-normal italic",
+                    children: ["\u2014 ", table.status]
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+                  className: "flex items-center gap-2 mt-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                    to: `/table/${table.id}`,
+                    className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit', 'productbay')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+                    className: "text-gray-300",
+                    children: "|"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
+                    onClick: () => openDuplicateModal(table.id, table.title),
+                    className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
+                    disabled: isActing,
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Duplicate', 'productbay')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+                    className: "text-gray-300",
+                    children: "|"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
+                    onClick: () => openToggleModal(table.id, table.title, table.status),
+                    className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
+                    disabled: isActing,
+                    children: table.status === 'publish' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Deactivate', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Activate', 'productbay')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+                    className: "text-gray-300",
+                    children: "|"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
+                    onClick: () => openDeleteModal(table.id, table.title),
+                    className: "text-red-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
+                    disabled: isActing,
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete', 'productbay')
+                  })]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-                className: "flex items-center gap-2 mt-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-                  to: `/edit/${table.id}`,
-                  className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
-                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit', 'productbay')
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-                  className: "text-gray-300",
-                  children: "|"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
-                  onClick: () => handleDuplicate(table.id),
-                  className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
-                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Duplicate', 'productbay')
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-                  className: "text-gray-300",
-                  children: "|"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
-                  onClick: () => handlePreview(table.id),
-                  className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
-                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Preview', 'productbay')
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-                  className: "text-gray-300",
-                  children: "|"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
-                  onClick: () => handleToggleActive(table.id, table.status),
-                  className: "text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
-                  children: table.status === 'publish' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Deactivate', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Activate', 'productbay')
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-                  className: "text-gray-300",
-                  children: "|"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
-                  onClick: () => handleDelete(table.id),
-                  className: "text-red-600 hover:underline underline-offset-4 bg-transparent cursor-pointer",
-                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete', 'productbay')
-                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+                className: "px-6 py-4",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
+                  onClick: () => copyShortcode(table.shortcode),
+                  className: "bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors",
+                  disabled: isActing,
+                  children: [table.shortcode, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    className: "w-4 h-4 ml-1"
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("td", {
+                className: "px-6 py-4 text-sm text-gray-600",
+                children: typeof table.source === 'object' && table.source !== null
+                // @ts-ignore
+                ? table.source.type || 'Custom' : table.source || 'WooCommerce'
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
-              className: "px-6 py-4",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("button", {
-                onClick: () => copyShortcode(table.shortcode),
-                className: "bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors",
-                children: [table.shortcode, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                  className: "w-4 h-4 ml-1"
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
-              className: "px-6 py-4 text-sm text-gray-600",
-              children: table.source
-            })]
-          }, table.id))
+            }, table.id);
+          })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
       className: "flex justify-between items-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
         className: "text-sm text-gray-500 px-1",
         children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Showing %1$d to %2$d of %3$d entries', 'productbay'), (currentPage - 1) * itemsPerPage + 1, Math.min(currentPage * itemsPerPage, filteredTables.length), filteredTables.length)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "flex items-center gap-4 bg-white px-4 py-2 rounded-lg shadow-xs border border-gray-200",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "flex items-center justify-center gap-2 h-8 pr-4 border-r border-gray-200 ",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
             className: "text-sm text-gray-500 whitespace-nowrap hidden sm:inline",
             children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Rows per page:', 'productbay')
-          }), isCustomPerPage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          }), isCustomPerPage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
             className: "relative w-26",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_4__.Input, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_4__.Input, {
               type: "number",
               min: 1,
-              className: "h-8 pr-6 text-xs" // Match xs size
-              ,
+              className: "h-8 pr-6 text-xs",
               value: itemsPerPage,
               onChange: e => {
                 const val = parseInt(e.target.value);
@@ -28778,24 +30975,23 @@ const Tables = () => {
                   setItemsPerPage(val);
                   setCurrentPage(1);
                 } else if (e.target.value === '') {
-                  // Allow empty while typing, but handle carefully
-                  setItemsPerPage(0); // or handle as string intermediate
+                  setItemsPerPage(0);
                 }
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("button", {
               onClick: () => {
                 setItemsPerPage(10);
                 setIsCustomPerPage(false);
                 setCurrentPage(1);
               },
               className: "absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {
                 className: "w-3 h-3"
               })
             })]
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
             className: "w-26",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_6__.Select, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_7__.Select, {
               size: "xs",
               options: ROWS_PER_PAGE_OPTIONS,
               value: itemsPerPage.toString(),
@@ -28809,39 +31005,39 @@ const Tables = () => {
               }
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "flex items-center gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_5__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
             size: "xs",
             variant: "outline",
             onClick: () => setCurrentPage(p => Math.max(1, p - 1)),
             disabled: currentPage === 1,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
               size: 16
             })
           }), Array.from({
             length: totalPages
-          }, (_, i) => i + 1).map(page => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_5__.Button, {
+          }, (_, i) => i + 1).map(page => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
             size: "xs",
             variant: currentPage === page ? 'default' : 'outline',
             disabled: currentPage === page,
             onClick: () => setCurrentPage(page),
             children: page
-          }, page)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_5__.Button, {
+          }, page)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
             size: "xs",
             variant: "outline",
             onClick: () => setCurrentPage(p => Math.min(totalPages, p + 1)),
             disabled: currentPage === totalPages,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
               size: 16
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "flex items-center gap-2 border-l border-gray-200 pl-4 h-8",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
             className: "text-sm text-gray-500 whitespace-nowrap",
             children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Go to page', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_4__.Input, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_4__.Input, {
             type: "number",
             min: 1,
             max: totalPages,
@@ -28861,6 +31057,63 @@ const Tables = () => {
           })]
         })]
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_5__.Modal, {
+      isOpen: modalState.type === 'delete',
+      onClose: closeModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete Table?', 'productbay'),
+      maxWidth: "md",
+      primaryButton: {
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete', 'productbay'),
+        onClick: handleDelete,
+        variant: 'danger'
+      },
+      secondaryButton: {
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Cancel', 'productbay'),
+        onClick: closeModal,
+        variant: 'secondary'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+        className: "text-gray-700",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Are you sure you want to delete "%s"? This action cannot be undone.', 'productbay'), modalState.tableName)
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_5__.Modal, {
+      isOpen: modalState.type === 'duplicate',
+      onClose: closeModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Duplicate Table?', 'productbay'),
+      maxWidth: "md",
+      primaryButton: {
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Duplicate', 'productbay'),
+        onClick: handleDuplicate,
+        variant: 'primary'
+      },
+      secondaryButton: {
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Cancel', 'productbay'),
+        onClick: closeModal,
+        variant: 'secondary'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+        className: "text-gray-700",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Create a copy of "%s"?', 'productbay'), modalState.tableName)
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_5__.Modal, {
+      isOpen: modalState.type === 'toggle',
+      onClose: closeModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Change Table Status?', 'productbay'),
+      maxWidth: "md",
+      primaryButton: {
+        text: modalState.currentStatus === 'publish' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Deactivate', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Activate', 'productbay'),
+        onClick: handleToggleActive,
+        variant: 'primary'
+      },
+      secondaryButton: {
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Cancel', 'productbay'),
+        onClick: closeModal,
+        variant: 'secondary'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+        className: "text-gray-700",
+        children: modalState.currentStatus === 'publish' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Are you sure you want to deactivate "%s"?', 'productbay'), modalState.tableName) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Are you sure you want to activate "%s"?', 'productbay'), modalState.tableName)
+      })
     })]
   });
 };
@@ -29055,7 +31308,7 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
 
   tableId: null,
   tableTitle: '',
-  tableStatus: 'draft',
+  tableStatus: 'publish',
   source: (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSource)(),
   columns: (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultColumns)(),
   settings: (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)(),
@@ -29280,6 +31533,46 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
     },
     isDirty: true
   })),
+  setLayoutStyle: layout => set(state => ({
+    style: {
+      ...state.style,
+      layout: {
+        ...state.style.layout,
+        ...layout
+      }
+    },
+    isDirty: true
+  })),
+  setTypographyStyle: typography => set(state => ({
+    style: {
+      ...state.style,
+      typography: {
+        ...state.style.typography,
+        ...typography
+      }
+    },
+    isDirty: true
+  })),
+  setHoverStyle: hover => set(state => ({
+    style: {
+      ...state.style,
+      hover: {
+        ...state.style.hover,
+        ...hover
+      }
+    },
+    isDirty: true
+  })),
+  setResponsiveStyle: responsive => set(state => ({
+    style: {
+      ...state.style,
+      responsive: {
+        ...state.style.responsive,
+        ...responsive
+      }
+    },
+    isDirty: true
+  })),
   // =========================================================================
   // Persistence Actions
   // =========================================================================
@@ -29287,7 +31580,7 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
   resetStore: () => set({
     tableId: null,
     tableTitle: '',
-    tableStatus: 'draft',
+    tableStatus: 'publish',
     source: (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSource)(),
     columns: (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultColumns)(),
     settings: (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)(),
@@ -29325,14 +31618,21 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)(`tables/${id}`);
 
       // Map API response to store state
+      // Helper to check if source is valid (not empty array)
+      const isSourceValid = s => s && !Array.isArray(s) && typeof s === 'object';
+      const isSettingsValid = s => s && !Array.isArray(s) && typeof s === 'object';
+      const isStyleValid = s => s && !Array.isArray(s) && typeof s === 'object';
       set({
         tableId: data.id,
         tableTitle: data.title || '',
         tableStatus: data.status || 'draft',
-        source: data.source || (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSource)(),
-        columns: data.columns || (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultColumns)(),
-        settings: data.settings || (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)(),
-        style: data.style || (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultStyle)(),
+        // Use default if source is empty array or invalid
+        source: isSourceValid(data.source) ? data.source : (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSource)(),
+        columns: data.columns && data.columns.length > 0 ? data.columns : (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultColumns)(),
+        // Use default if settings is empty array or invalid
+        settings: isSettingsValid(data.settings) ? data.settings : (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)(),
+        // Use default if style is empty array or invalid
+        style: isStyleValid(data.style) ? data.style : (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultStyle)(),
         isDirty: false,
         // Also set legacy state
         tableData: {
@@ -29349,7 +31649,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
         }
       });
     } catch (error) {
-      console.error('Failed to load table:', error);
       set({
         error: 'Failed to load table data'
       });
@@ -29366,19 +31665,38 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       error: null
     });
     try {
+      // Clean source queryArgs based on active source type for persistence
+      // This ensures we only save relevant data to the DB ("save the one finally remain selected")
+      // while keeping the active state in the store during the session ("remember any choices").
+      const activeType = state.source.type;
+      const cleanedQueryArgs = {
+        ...state.source.queryArgs
+      };
+      if (activeType !== 'category') {
+        cleanedQueryArgs.categoryIds = [];
+      }
+      if (activeType !== 'specific') {
+        cleanedQueryArgs.postIds = [];
+      }
+
       // Build payload matching 4-key backend structure
       const payload = {
         id: state.tableId || undefined,
         title: state.tableTitle,
         status: state.tableStatus,
-        source: state.source,
+        source: {
+          ...state.source,
+          queryArgs: cleanedQueryArgs
+        },
         columns: state.columns,
         settings: state.settings,
         style: state.style
       };
       const response = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('tables', {
         method: 'POST',
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          data: payload
+        })
       });
 
       // Update table ID if this was a new table
@@ -29392,7 +31710,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       });
       return true;
     } catch (error) {
-      console.error('Failed to save table:', error);
       set({
         error: 'Failed to save table'
       });
@@ -29465,7 +31782,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
         const parsed = JSON.parse(cachedData);
         const now = Date.now();
         if (now - parsed.timestamp < CACHE_DURATION) {
-          console.log('[CategoryCache] Using cached categories from localStorage');
           set({
             categories: parsed.categories,
             categoriesLastFetched: parsed.timestamp,
@@ -29474,7 +31790,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
           return;
         }
       }
-      console.log('[CategoryCache] Fetching categories from API');
       const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
       const timestamp = Date.now();
       const cacheData = {
@@ -29488,7 +31803,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
         categoriesLoading: false
       });
     } catch (error) {
-      console.error('[CategoryCache] Failed to load categories:', error);
       set({
         categoriesLoading: false
       });
@@ -29503,7 +31817,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
     const now = Date.now();
     const isStale = now - categoriesLastFetched > STALE_DURATION;
     if (!isStale) return;
-    console.log('[CategoryCache] Cache is stale, refreshing in background');
     try {
       const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
       const timestamp = Date.now();
@@ -29516,9 +31829,8 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
         categories: data,
         categoriesLastFetched: timestamp
       });
-      console.log('[CategoryCache] Background refresh complete');
     } catch (error) {
-      console.error('[CategoryCache] Background refresh failed:', error);
+      // Fail silently for background refresh
     }
   },
   forceReloadCategories: async () => {
@@ -29526,7 +31838,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       categoriesLoading: true
     });
     try {
-      console.log('[CategoryCache] Force reloading categories from API');
       const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)('categories');
       const timestamp = Date.now();
       const cacheData = {
@@ -29539,9 +31850,7 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
         categoriesLastFetched: timestamp,
         categoriesLoading: false
       });
-      console.log('[CategoryCache] Force reload complete');
     } catch (error) {
-      console.error('[CategoryCache] Force reload failed:', error);
       set({
         categoriesLoading: false
       });
@@ -29560,12 +31869,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       console.log(`[SourceStats] Already loading ${sourceType}, skipping...`);
       return;
     }
-    if (sourceStats[sourceType]) {
-      console.log(`[SourceStats] Cache hit for ${sourceType}, using cached data`);
-      return;
-    }
-
-    // Skip client-side calculated sources
     if (sourceType === 'category' || sourceType === 'specific') return;
     set(state => ({
       sourceStatsLoading: {
@@ -29710,7 +32013,6 @@ const createDefaultSettings = () => ({
     pagination: true,
     lazyLoad: false,
     export: false,
-    responsiveCollapse: true,
     priceRange: false
   },
   pagination: {
@@ -29729,7 +32031,7 @@ const createDefaultSettings = () => ({
     activeTaxonomies: ['product_cat']
   },
   performance: {
-    productLimit: 200
+    productLimit: 500
   }
 });
 
@@ -29752,7 +32054,25 @@ const createDefaultStyle = () => ({
     bgColor: '#2271b1',
     textColor: '#ffffff',
     borderRadius: '4px',
-    icon: 'cart'
+    icon: 'cart',
+    hoverBgColor: '#135e96',
+    hoverTextColor: '#ffffff'
+  },
+  layout: {
+    borderStyle: 'solid',
+    borderColor: '#e5e5e5',
+    borderRadius: '0px',
+    cellPadding: 'normal'
+  },
+  typography: {
+    headerFontWeight: 'bold'
+  },
+  hover: {
+    rowHoverEnabled: true,
+    rowHoverBgColor: '#f5f5f5'
+  },
+  responsive: {
+    mode: 'standard'
   }
 });
 
@@ -29914,11 +32234,12 @@ __webpack_require__.r(__webpack_exports__);
 const PATHS = {
   DASHBOARD: '/dash',
   NEW: '/new',
-  EDIT: '/edit/:id',
+  EDIT: '/table/:id',
   SETTINGS: '/settings',
   HELP: '/help',
   TABLES: '/tables',
-  DESIGN: '/design'
+  DESIGN: '/design',
+  TABLE_EDITOR: '/table/:id'
 };
 
 /**
@@ -29953,6 +32274,10 @@ const routes = [{
   showInNav: false
 }, {
   path: PATHS.NEW,
+  element: _pages_Table__WEBPACK_IMPORTED_MODULE_6__["default"],
+  showInNav: false
+}, {
+  path: PATHS.TABLE_EDITOR,
   element: _pages_Table__WEBPACK_IMPORTED_MODULE_6__["default"],
   showInNav: false
 }, {
