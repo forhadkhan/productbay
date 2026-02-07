@@ -515,14 +515,22 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			const data = await apiFetch<any>(`tables/${id}`);
 
 			// Map API response to store state
+			// Helper to check if source is valid (not empty array)
+			const isSourceValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+			const isSettingsValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+			const isStyleValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+
 			set({
 				tableId: data.id,
 				tableTitle: data.title || '',
 				tableStatus: data.status || 'draft',
-				source: data.source || defaultSource(),
-				columns: data.columns || defaultColumns(),
-				settings: data.settings || defaultSettings(),
-				style: data.style || defaultStyle(),
+				// Use default if source is empty array or invalid
+				source: isSourceValid(data.source) ? data.source : defaultSource(),
+				columns: (data.columns && data.columns.length > 0) ? data.columns : defaultColumns(),
+				// Use default if settings is empty array or invalid
+				settings: isSettingsValid(data.settings) ? data.settings : defaultSettings(),
+				// Use default if style is empty array or invalid
+				style: isStyleValid(data.style) ? data.style : defaultStyle(),
 				isDirty: false,
 				// Also set legacy state
 				tableData: {
@@ -536,7 +544,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				},
 			});
 		} catch (error) {
-			console.error('Failed to load table:', error);
 			set({ error: 'Failed to load table data' });
 		} finally {
 			set({ isLoading: false });
@@ -548,7 +555,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		set({ isSaving: true, error: null });
 
 		try {
-			// Clean source queryArgs based on actve source type for persistence
+			// Clean source queryArgs based on active source type for persistence
 			// This ensures we only save relevant data to the DB ("save the one finally remain selected")
 			// while keeping the active state in the store during the session ("remember any choices").
 			const activeType = state.source.type;
@@ -578,7 +585,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 
 			const response = await apiFetch<{ id: number }>('tables', {
 				method: 'POST',
-				body: JSON.stringify(payload),
+				body: JSON.stringify({ data: payload }),
 			});
 
 			// Update table ID if this was a new table
@@ -589,7 +596,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			set({ isDirty: false });
 			return true;
 		} catch (error) {
-			console.error('Failed to save table:', error);
 			set({ error: 'Failed to save table' });
 			return false;
 		} finally {
@@ -658,7 +664,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				const now = Date.now();
 
 				if (now - parsed.timestamp < CACHE_DURATION) {
-					console.log('[CategoryCache] Using cached categories from localStorage');
 					set({
 						categories: parsed.categories,
 						categoriesLastFetched: parsed.timestamp,
@@ -668,7 +673,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				}
 			}
 
-			console.log('[CategoryCache] Fetching categories from API');
 			const data = await apiFetch<Category[]>('categories');
 			const timestamp = Date.now();
 
@@ -681,7 +685,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				categoriesLoading: false,
 			});
 		} catch (error) {
-			console.error('[CategoryCache] Failed to load categories:', error);
 			set({ categoriesLoading: false });
 		}
 	},
@@ -696,8 +699,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 
 		if (!isStale) return;
 
-		console.log('[CategoryCache] Cache is stale, refreshing in background');
-
 		try {
 			const data = await apiFetch<Category[]>('categories');
 			const timestamp = Date.now();
@@ -710,9 +711,8 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				categoriesLastFetched: timestamp,
 			});
 
-			console.log('[CategoryCache] Background refresh complete');
 		} catch (error) {
-			console.error('[CategoryCache] Background refresh failed:', error);
+			// Fail silently for background refresh
 		}
 	},
 
@@ -720,7 +720,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		set({ categoriesLoading: true });
 
 		try {
-			console.log('[CategoryCache] Force reloading categories from API');
 			const data = await apiFetch<Category[]>('categories');
 			const timestamp = Date.now();
 
@@ -733,9 +732,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				categoriesLoading: false,
 			});
 
-			console.log('[CategoryCache] Force reload complete');
 		} catch (error) {
-			console.error('[CategoryCache] Force reload failed:', error);
 			set({ categoriesLoading: false });
 		}
 	},
@@ -752,12 +749,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			return;
 		}
 
-		if (sourceStats[sourceType]) {
-			console.log(`[SourceStats] Cache hit for ${sourceType}, using cached data`);
-			return;
-		}
-
-		// Skip client-side calculated sources
 		if (sourceType === 'category' || sourceType === 'specific') return;
 
 		set((state) => ({

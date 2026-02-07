@@ -1,4 +1,4 @@
-import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon, CopyIcon, InfoIcon } from 'lucide-react';
+import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon, CopyIcon, InfoIcon, TrashIcon, AlertCircleIcon, PlusIcon, LoaderIcon } from 'lucide-react';
 import { EditableText } from '@/components/ui/EditableText';
 import { useParams, useNavigate } from 'react-router-dom';
 import LivePreview from '@/components/Table/LivePreview';
@@ -12,10 +12,12 @@ import { Toggle } from '@/components/ui/Toggle';
 import { Button } from '@/components/ui/Button';
 import { useUrlTab } from '@/hooks/useUrlTab';
 import { PATHS } from '@/utils/routes';
+import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/utils/cn';
 import { Tooltip } from '@/components/ui/Tooltip';
+import ProductBayIcon from '@/components/ui/ProductBayIcon';
 
 /* =============================================================================
  * Table Page
@@ -80,21 +82,45 @@ const Table = () => {
         error
     } = useTableStore();
 
-    // Load data on mount
-    useState(() => {
+    // Load data on mount or ID change
+    useEffect(() => {
         if (!isNewTable) {
             loadTable(parseInt(id));
         } else {
             // Reset store for new table
             useTableStore.getState().resetStore();
         }
-    });
+    }, [id, isNewTable, loadTable]);
 
     // Toast notification
     const { toast } = useToast();
 
     // Validation state
     const [titleError, setTitleError] = useState<string | undefined>(undefined);
+
+    // Handle Delete
+    const handleDelete = async () => {
+        if (!confirm(__('Are you sure you want to delete this table? This action cannot be undone.', 'productbay'))) {
+            return;
+        }
+
+        try {
+            await apiFetch(`tables/${tableId}`, { method: 'DELETE' });
+            toast({
+                title: __('Deleted', 'productbay'),
+                description: __('Table deleted successfully.', 'productbay'),
+                type: 'success'
+            });
+            // Redirect to tables list (Soft navigation)
+            navigate(PATHS.TABLES);
+        } catch (error) {
+            toast({
+                title: __('Error', 'productbay'),
+                description: __('Failed to delete table.', 'productbay'),
+                type: 'error'
+            });
+        }
+    };
 
     // Handle Save
     const [isSaving, setIsSaving] = useState(false);
@@ -123,9 +149,9 @@ const Table = () => {
             });
 
             // If it was a new table, redirect to the edit URL with the new ID
-            // We use getState here to ensure we get the fresh ID immediately after save
             const newId = useTableStore.getState().tableId;
             if (isNewTable && newId) {
+                // Soft redirect to the edit route
                 navigate(PATHS.TABLE_EDITOR.replace(':id', newId.toString()));
             }
         } else {
@@ -158,15 +184,44 @@ const Table = () => {
     if (isLoading && !isNewTable) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <ProductBayIcon className="animate-pulse size-12" />
             </div>
         );
     }
 
+    // Error / Not Found State
     if (error) {
         return (
-            <div className="bg-red-50 text-red-600 p-4 rounded-md">
-                {__('Error:', 'productbay')} {error}
+            <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="bg-red-50 p-4 rounded-full mb-4 flex items-center justify-center">
+                    <AlertCircleIcon className="size-8 text-red-500" />
+                </div>
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
+                    {__('Table Not Found', 'productbay')}
+                </h2>
+                <p className="text-gray-500 max-w-md mb-6">
+                    {__('The table you are looking for does not exist or has been deleted.', 'productbay')}
+                </p>
+                <div className="flex gap-4">
+                    <Button
+                        variant="outline"
+                        className="cursor-pointer"
+                        onClick={() => navigate(PATHS.TABLES)}
+                    >
+                        {__('View Tables', 'productbay')}
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            // Reset store and go to new table
+                            useTableStore.getState().resetStore();
+                            navigate(PATHS.NEW);
+                        }}
+                        className="cursor-pointer"
+                    >
+                        <PlusIcon className="size-4 mr-2" />
+                        {__('Create New Table', 'productbay')}
+                    </Button>
+                </div>
             </div>
         );
     }
@@ -175,16 +230,16 @@ const Table = () => {
         <>
             {/* Conditional: Shortcode for already saved table */}
             {tableId && (
-                <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6 flex items-center justify-between">
+                <div className="bg-gray-50 border border-gray-200 rounded-md p-4 mb-6 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
-                        <code className="bg-gray-100 text-lg px-2 py-1 rounded border border-blue-100 text-blue-800 font-mono">
+                        <code className="bg-white text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
                             {`[productbay id="${tableId}"]`}
                         </code>
                     </div>
                     <div className="flex items-center justify-between gap-2">
                         <Tooltip content={__('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay')}>
-                            <InfoIcon className="size-6 cursor-pointer" />
+                            <InfoIcon className="size-6 text-gray-500 cursor-pointer" />
                         </Tooltip>
                         <Button
                             size="xs"
@@ -215,6 +270,20 @@ const Table = () => {
                     placeholder={__('Enter table name...', 'productbay')}
                 />
                 <div className="flex items-center gap-4">
+                    {/* Delete Button (Only for existing tables) */}
+                    {!isNewTable && (
+                        <Tooltip content={__('Delete this table', 'productbay')}>
+                            <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={handleDelete}
+                                className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 cursor-pointer"
+                            >
+                                <TrashIcon className="size-4" />
+                            </Button>
+                        </Tooltip>
+                    )}
+
                     {/* Active/Inactive toggle with status indicator - hover feedback on container */}
                     <div className="flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors">
                         {/* Status dot indicator */}
@@ -240,10 +309,10 @@ const Table = () => {
                         size="sm"
                         onClick={handleSave}
                         disabled={isSaving || isLoading}
-                        className={isSaving ? 'opacity-75 cursor-wait' : ''}
+                        className={`w-28 text-left ${isSaving ? 'opacity-75 cursor-wait' : ''}`}
                     >
                         {isSaving ? (
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            <LoaderIcon className="size-4 mr-2 animate-spin" />
                         ) : (
                             <SaveIcon className="size-4 mr-2" />
                         )}

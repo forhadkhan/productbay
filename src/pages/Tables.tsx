@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
+import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon } from 'lucide-react';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { useToast } from '@/context/ToastContext';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -13,7 +16,7 @@ interface Table {
 	shortcode: string;
 	date: string;
 	status: string; // 'publish' | 'draft' etc.
-	source?: string; // Optional for now, assuming API might not send it yet
+	source?: any;
 }
 
 /**
@@ -22,7 +25,7 @@ interface Table {
 const BULK_OPTIONS = [
 	{ label: __('Delete', 'productbay'), value: 'delete' },
 	{ label: __('Set Active', 'productbay'), value: 'active' },
-	{ label: __('Set Deactive', 'productbay'), value: 'deactive' },
+	{ label: __('Set Inactive', 'productbay'), value: 'inactive' },
 ];
 
 /**
@@ -40,11 +43,20 @@ const ROWS_PER_PAGE_OPTIONS = [
  * Status filter options for table listing
  */
 const FILTER_OPTIONS = [
-	{ label: __('All Dates', 'productbay'), value: 'all' },
-	{ label: __('Published', 'productbay'), value: 'publish' },
-	{ label: __('Drafts', 'productbay'), value: 'draft' },
-	{ label: __('Trash', 'productbay'), value: 'trash' },
+	{ label: __('All Status', 'productbay'), value: 'all' },
+	{ label: __('Active', 'productbay'), value: 'publish' },
+	{ label: __('Inactive', 'productbay'), value: 'draft' },
 ];
+
+/**
+ * Modal state for different actions
+ */
+interface ModalState {
+	type: 'delete' | 'duplicate' | 'toggle' | null;
+	tableId: number | null;
+	tableName: string;
+	currentStatus?: string;
+}
 
 /**
  * Tables Page Component
@@ -65,6 +77,19 @@ const Tables = () => {
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [isCustomPerPage, setIsCustomPerPage] = useState(false);
 
+	// Modal state
+	const [modalState, setModalState] = useState<ModalState>({
+		type: null,
+		tableId: null,
+		tableName: '',
+	});
+
+	// Action loading state - tracks which table is being acted upon
+	const [actionLoading, setActionLoading] = useState<Record<number, string>>({});
+
+	// Toast hook
+	const { toast } = useToast();
+
 	useEffect(() => {
 		loadTables();
 	}, []);
@@ -72,62 +97,182 @@ const Tables = () => {
 	const loadTables = async () => {
 		try {
 			const data = await apiFetch<Table[]>('tables');
-			// Mocking source for demo if missing
-			const enrichedData = data.map((t) => ({
-				...t,
-				source: t.source || 'WooCommerce', // Default source
-			}));
-			setTables(enrichedData);
+			setTables(data);
 		} catch (error) {
 			console.error(error);
+			toast({
+				title: __('Error', 'productbay'),
+				description: __('Failed to load tables', 'productbay'),
+				type: 'error'
+			});
 		} finally {
 			setLoading(false);
 		}
 	};
 
-	// Actions
-	const handleDelete = async (id: number) => {
-		if (!confirm(__('Are you sure you want to delete this table?', 'productbay')))
-			return;
+	// Open delete modal
+	const openDeleteModal = (id: number, title: string) => {
+		setModalState({ type: 'delete', tableId: id, tableName: title });
+	};
+
+	// Open duplicate modal
+	const openDuplicateModal = (id: number, title: string) => {
+		setModalState({ type: 'duplicate', tableId: id, tableName: title });
+	};
+
+	// Open toggle status modal
+	const openToggleModal = (id: number, title: string, currentStatus: string) => {
+		setModalState({ type: 'toggle', tableId: id, tableName: title, currentStatus });
+	};
+
+	// Close modal
+	const closeModal = () => {
+		setModalState({ type: null, tableId: null, tableName: '' });
+	};
+
+	// Handle delete action
+	const handleDelete = async () => {
+		if (!modalState.tableId) return;
+
+		const id = modalState.tableId;
+		setActionLoading(prev => ({ ...prev, [id]: 'delete' }));
+		closeModal();
+
 		try {
 			await apiFetch(`tables/${id}`, { method: 'DELETE' });
-			loadTables();
+			setTables(prev => prev.filter(t => t.id !== id));
+			toast({
+				title: __('Success', 'productbay'),
+				description: __('Table deleted successfully', 'productbay'),
+				type: 'success'
+			});
 		} catch (error) {
-			alert(__('Failed to delete table', 'productbay'));
+			console.error(error);
+			toast({
+				title: __('Error', 'productbay'),
+				description: __('Failed to delete table', 'productbay'),
+				type: 'error'
+			});
+		} finally {
+			setActionLoading(prev => {
+				const newState = { ...prev };
+				delete newState[id];
+				return newState;
+			});
 		}
 	};
 
-	const handleDuplicate = (id: number) => {
-		// Placeholder for duplication logic
-		const tableToClone = tables.find((t) => t.id === id);
-		if (tableToClone) {
-			// Logic to call API would go here
-			alert(sprintf(__('Duplicate functionality for Table ID: %d', 'productbay'), id));
+	// Handle duplicate action
+	const handleDuplicate = async () => {
+		if (!modalState.tableId) return;
+
+		const id = modalState.tableId;
+		const tableToClone = tables.find(t => t.id === id);
+		if (!tableToClone) return;
+
+		setActionLoading(prev => ({ ...prev, [id]: 'duplicate' }));
+		closeModal();
+
+		try {
+			// Create payload with duplicated data
+			const payload = {
+				title: `${tableToClone.title} (Copy)`,
+				status: 'draft', // New duplicates start as draft
+				source: tableToClone.source || {},
+				columns: [],
+				settings: {},
+				style: {},
+			};
+
+			const newTable = await apiFetch<Table>('tables', {
+				method: 'POST',
+				body: JSON.stringify({ data: payload })
+			});
+
+			setTables(prev => [newTable, ...prev]);
+			toast({
+				title: __('Success', 'productbay'),
+				description: __('Table duplicated successfully', 'productbay'),
+				type: 'success'
+			});
+		} catch (error) {
+			console.error(error);
+			toast({
+				title: __('Error', 'productbay'),
+				description: __('Failed to duplicate table', 'productbay'),
+				type: 'error'
+			});
+		} finally {
+			setActionLoading(prev => {
+				const newState = { ...prev };
+				delete newState[id];
+				return newState;
+			});
 		}
 	};
 
-	const handleToggleActive = (id: number, currentStatus: string) => {
-		// Placeholder for toggle active/deactive
-		alert(
-			sprintf(__('Toggle Active/Deactive for Table ID: %1$d. Current: %2$s', 'productbay'), id, currentStatus)
-		);
-		// Optimistic update for UI demo
-		setTables(
-			tables.map((t) =>
-				t.id === id
-					? {
-						...t,
-						status:
-							t.status === 'publish' ? 'draft' : 'publish',
-					}
-					: t
-			)
-		);
+	// Handle toggle active/inactive
+	const handleToggleActive = async () => {
+		if (!modalState.tableId) return;
+
+		const id = modalState.tableId;
+		const table = tables.find(t => t.id === id);
+		if (!table) return;
+
+		const newStatus = table.status === 'publish' ? 'draft' : 'publish';
+		setActionLoading(prev => ({ ...prev, [id]: 'toggle' }));
+		closeModal();
+
+		try {
+			const payload = {
+				id: table.id,
+				title: table.title,
+				status: newStatus,
+				source: table.source || {},
+				columns: [],
+				settings: {},
+				style: {},
+			};
+
+			await apiFetch('tables', {
+				method: 'POST',
+				body: JSON.stringify({ data: payload })
+			});
+
+			setTables(prev =>
+				prev.map(t => t.id === id ? { ...t, status: newStatus } : t)
+			);
+
+			toast({
+				title: __('Success', 'productbay'),
+				description: newStatus === 'publish'
+					? __('Table activated successfully', 'productbay')
+					: __('Table deactivated successfully', 'productbay'),
+				type: 'success'
+			});
+		} catch (error) {
+			console.error(error);
+			toast({
+				title: __('Error', 'productbay'),
+				description: __('Failed to update table status', 'productbay'),
+				type: 'error'
+			});
+		} finally {
+			setActionLoading(prev => {
+				const newState = { ...prev };
+				delete newState[id];
+				return newState;
+			});
+		}
 	};
 
 	const copyShortcode = (shortcode: string) => {
 		navigator.clipboard.writeText(shortcode);
-		alert(__('Shortcode copied!', 'productbay'));
+		toast({
+			title: __('Success', 'productbay'),
+			description: __('Shortcode copied to clipboard', 'productbay'),
+			type: 'success'
+		});
 	};
 
 	// Bulk Actions
@@ -147,12 +292,21 @@ const Tables = () => {
 		}
 	};
 
-	const handleBulkAction = () => {
+	const handleBulkAction = async () => {
 		if (!selectedBulkAction || selectedRows.length === 0) return;
-		alert(
-			sprintf(__('Performing "%1$s" on items: %2$s', 'productbay'), selectedBulkAction, selectedRows.join(', '))
-		);
-		setSelectedRows([]); // Reset selection
+
+		// TODO: Implement bulk actions
+		toast({
+			title: __('Not Implemented', 'productbay'),
+			description: sprintf(
+				__('Bulk action "%s" for %d tables', 'productbay'),
+				selectedBulkAction,
+				selectedRows.length
+			),
+			type: 'info'
+		});
+
+		setSelectedRows([]);
 		setSelectedBulkAction('');
 	};
 
@@ -171,17 +325,6 @@ const Tables = () => {
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	);
-
-	if (loading)
-		return (
-			<div className="p-8 text-center text-gray-500">
-				{__('Loading tables...', 'productbay')}
-			</div>
-		);
-
-	function handlePreview(id: number): void {
-		throw new Error('Function not implemented.');
-	}
 
 	return (
 		<div className="space-y-6">
@@ -285,7 +428,29 @@ const Tables = () => {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-200">
-						{currentTables.length === 0 ? (
+						{loading ? (
+							Array.from({ length: 5 }).map((_, i) => (
+								<tr key={i}>
+									<td className="px-4 py-4 text-center">
+										<Skeleton className="h-4 w-4 rounded mx-auto" />
+									</td>
+									<td className="px-6 py-4">
+										<Skeleton className="h-4 w-8" />
+									</td>
+									<td className="px-6 py-4">
+										<div className="space-y-2">
+											<Skeleton className="h-5 w-48" />
+										</div>
+									</td>
+									<td className="px-6 py-4">
+										<Skeleton className="h-8 w-24 rounded" />
+									</td>
+									<td className="px-6 py-4">
+										<Skeleton className="h-4 w-24" />
+									</td>
+								</tr>
+							))
+						) : currentTables.length === 0 ? (
 							<tr>
 								<td
 									colSpan={5}
@@ -295,116 +460,123 @@ const Tables = () => {
 								</td>
 							</tr>
 						) : (
-							currentTables.map((table) => (
-								<tr
-									key={table.id}
-									className="group hover:bg-gray-50 transition-colors"
-								>
-									<td className="px-4 py-4 text-center">
-										<input
-											type="checkbox"
-											className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
-											checked={selectedRows.includes(
-												table.id
-											)}
-											onChange={() =>
-												handleSelectRow(table.id)
-											}
-										/>
-									</td>
-									<td className="px-6 py-4 text-sm text-gray-500">
-										#{table.id}
-									</td>
-									<td className="px-6 py-4 relative">
-										<div className="font-medium text-wp-text text-base">
-											<Link
-												to={`/edit/${table.id}`}
-												className="hover:text-blue-600"
-											>
-												{table.title}
-											</Link>
-											{table.status !== 'publish' && (
-												<span className="ml-2 text-xs text-gray-400 font-normal italic">
-													— {table.status}
-												</span>
-											)}
-										</div>
+							currentTables.map((table) => {
+								const isActing = !!actionLoading[table.id];
+								const actionType = actionLoading[table.id];
 
-										{ /* Hover Actions (Visible on group hover) */}
-										<div className="flex items-center gap-2 mt-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-											<Link
-												to={`/edit/${table.id}`}
-												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
-											>
-												{__('Edit', 'productbay')}
-											</Link>
-											<span className="text-gray-300">
-												|
-											</span>
+								return (
+									<tr
+										key={table.id}
+										className={`group hover:bg-gray-50 transition-colors ${isActing ? 'opacity-50' : ''}`}
+									>
+										<td className="px-4 py-4 text-center">
+											<input
+												type="checkbox"
+												className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
+												checked={selectedRows.includes(
+													table.id
+												)}
+												onChange={() =>
+													handleSelectRow(table.id)
+												}
+												disabled={isActing}
+											/>
+										</td>
+										<td className="px-6 py-4 text-sm text-gray-500">
+											#{table.id}
+										</td>
+										<td className="px-6 py-4 relative">
+											<div className="font-medium text-wp-text text-base">
+												<Link
+													to={`/table/${table.id}`}
+													className="hover:text-blue-600"
+												>
+													{table.title}
+													{isActing && (
+														<Loader2Icon className="w-4 h-4 inline-block ml-2 animate-spin" />
+													)}
+												</Link>
+												{table.status !== 'publish' && (
+													<span className="ml-2 text-xs text-gray-400 font-normal italic">
+														— {table.status}
+													</span>
+												)}
+											</div>
+
+											{ /* Hover Actions (Visible on group hover) */}
+											<div className="flex items-center gap-2 mt-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+												<Link
+													to={`/table/${table.id}`}
+													className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+												>
+													{__('Edit', 'productbay')}
+												</Link>
+												<span className="text-gray-300">
+													|
+												</span>
+												<button
+													onClick={() =>
+														openDuplicateModal(table.id, table.title)
+													}
+													className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+													disabled={isActing}
+												>
+													{__('Duplicate', 'productbay')}
+												</button>
+												<span className="text-gray-300">
+													|
+												</span>
+												<button
+													onClick={() =>
+														openToggleModal(
+															table.id,
+															table.title,
+															table.status
+														)
+													}
+													className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+													disabled={isActing}
+												>
+													{table.status === 'publish'
+														? __('Deactivate', 'productbay')
+														: __('Activate', 'productbay')}
+												</button>
+												<span className="text-gray-300">
+													|
+												</span>
+												<button
+													onClick={() =>
+														openDeleteModal(table.id, table.title)
+													}
+													className="text-red-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+													disabled={isActing}
+												>
+													{__('Delete', 'productbay')}
+												</button>
+											</div>
+										</td>
+										<td className="px-6 py-4">
 											<button
 												onClick={() =>
-													handleDuplicate(table.id)
+													copyShortcode(table.shortcode)
 												}
-												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+												className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors"
+												disabled={isActing}
 											>
-												{__('Duplicate', 'productbay')}
+												{table.shortcode}
+												<CopyIcon className="w-4 h-4 ml-1" />
 											</button>
-											<span className="text-gray-300">
-												|
-											</span>
-											<button
-												onClick={() =>
-													handlePreview(table.id)
-												}
-												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
-											>
-												{__('Preview', 'productbay')}
-											</button>
-											<span className="text-gray-300">
-												|
-											</span>
-											<button
-												onClick={() =>
-													handleToggleActive(
-														table.id,
-														table.status
-													)
-												}
-												className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
-											>
-												{table.status === 'publish'
-													? __('Deactivate', 'productbay')
-													: __('Activate', 'productbay')}
-											</button>
-											<span className="text-gray-300">
-												|
-											</span>
-											<button
-												onClick={() =>
-													handleDelete(table.id)
-												}
-												className="text-red-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
-											>
-												{__('Delete', 'productbay')}
-											</button>
-										</div>
-									</td>
-									<td className="px-6 py-4">
-										<button
-											onClick={() =>
-												copyShortcode(table.shortcode)
+										</td>
+										<td className="px-6 py-4 text-sm text-gray-600">
+											{typeof table.source === 'object' && table.source !== null
+												// @ts-ignore
+												? (table.source.type || 'Custom')
+												: (table.source || 'WooCommerce')
 											}
-											className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors"
-										>
-											{table.shortcode}
-											<CopyIcon className="w-4 h-4 ml-1" />
-										</button>
-									</td>
-									<td className="px-6 py-4 text-sm text-gray-600">
-										{table.source}
-									</td>
-								</tr>
-							))
+										</td>
+									</tr>
+								);
+							})
 						)}
 					</tbody>
 				</table>
@@ -421,7 +593,7 @@ const Tables = () => {
 						filteredTables.length
 					)}
 				</div>
-				{/* Pagination Controlls */}
+				{/* Pagination Controls */}
 				<div className="flex items-center gap-4 bg-white px-4 py-2 rounded-lg shadow-xs border border-gray-200">
 					{/* Rows Per Page */}
 					<div className="flex items-center justify-center gap-2 h-8 pr-4 border-r border-gray-200 ">
@@ -433,7 +605,7 @@ const Tables = () => {
 								<Input
 									type="number"
 									min={1}
-									className="h-8 pr-6 text-xs" // Match xs size
+									className="h-8 pr-6 text-xs"
 									value={itemsPerPage}
 									onChange={(e) => {
 										const val = parseInt(e.target.value);
@@ -441,8 +613,7 @@ const Tables = () => {
 											setItemsPerPage(val);
 											setCurrentPage(1);
 										} else if (e.target.value === '') {
-											// Allow empty while typing, but handle carefully
-											setItemsPerPage(0); // or handle as string intermediate
+											setItemsPerPage(0);
 										}
 									}}
 								/>
@@ -552,6 +723,89 @@ const Tables = () => {
 					</div>
 				</div>
 			</div>
+
+			{ /* Delete Confirmation Modal */}
+			<Modal
+				isOpen={modalState.type === 'delete'}
+				onClose={closeModal}
+				title={__('Delete Table?', 'productbay')}
+				maxWidth="md"
+				primaryButton={{
+					text: __('Delete', 'productbay'),
+					onClick: handleDelete,
+					variant: 'danger'
+				}}
+				secondaryButton={{
+					text: __('Cancel', 'productbay'),
+					onClick: closeModal,
+					variant: 'secondary'
+				}}
+			>
+				<p className="text-gray-700">
+					{sprintf(
+						__('Are you sure you want to delete "%s"? This action cannot be undone.', 'productbay'),
+						modalState.tableName
+					)}
+				</p>
+			</Modal>
+
+			{ /* Duplicate Confirmation Modal */}
+			<Modal
+				isOpen={modalState.type === 'duplicate'}
+				onClose={closeModal}
+				title={__('Duplicate Table?', 'productbay')}
+				maxWidth="md"
+				primaryButton={{
+					text: __('Duplicate', 'productbay'),
+					onClick: handleDuplicate,
+					variant: 'primary'
+				}}
+				secondaryButton={{
+					text: __('Cancel', 'productbay'),
+					onClick: closeModal,
+					variant: 'secondary'
+				}}
+			>
+				<p className="text-gray-700">
+					{sprintf(
+						__('Create a copy of "%s"?', 'productbay'),
+						modalState.tableName
+					)}
+				</p>
+			</Modal>
+
+			{ /* Toggle Status Confirmation Modal */}
+			<Modal
+				isOpen={modalState.type === 'toggle'}
+				onClose={closeModal}
+				title={__('Change Table Status?', 'productbay')}
+				maxWidth="md"
+				primaryButton={{
+					text: modalState.currentStatus === 'publish'
+						? __('Deactivate', 'productbay')
+						: __('Activate', 'productbay'),
+					onClick: handleToggleActive,
+					variant: 'primary'
+				}}
+				secondaryButton={{
+					text: __('Cancel', 'productbay'),
+					onClick: closeModal,
+					variant: 'secondary'
+				}}
+			>
+				<p className="text-gray-700">
+					{modalState.currentStatus === 'publish'
+						? sprintf(
+							__('Are you sure you want to deactivate "%s"?', 'productbay'),
+							modalState.tableName
+						)
+						: sprintf(
+							__('Are you sure you want to activate "%s"?', 'productbay'),
+							modalState.tableName
+						)
+					}
+				</p>
+			</Modal>
 		</div>
 	);
 };

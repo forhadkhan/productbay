@@ -22,7 +22,7 @@ class TableRepository
         $query = new \WP_Query([
             'post_type' => self::POST_TYPE,
             'posts_per_page' => -1,
-            'post_status' => 'publish'
+            'post_status' => 'any' // Return all tables (publish, draft, etc.)
         ]);
 
         $tables = [];
@@ -50,8 +50,10 @@ class TableRepository
     public function save_table($data)
     {
         $id = isset($data['id']) ? intval($data['id']) : 0;
-        // Use 'tableTitle' from store if present, otherwise 'title', otherwise default
-        $title = isset($data['tableTitle']) ? sanitize_text_field($data['tableTitle']) : (isset($data['title']) ? sanitize_text_field($data['title']) : 'Untitled Table');
+
+        // Frontend sends 'title' and 'status', not 'tableTitle' and 'tableStatus'
+        $title = isset($data['title']) ? sanitize_text_field($data['title']) : 'Untitled Table';
+        $status = isset($data['status']) ? $data['status'] : 'publish';
 
         // Extract components
         $source = isset($data['source']) ? $data['source'] : [];
@@ -59,10 +61,13 @@ class TableRepository
         $settings = isset($data['settings']) ? $data['settings'] : [];
         $style = isset($data['style']) ? $data['style'] : [];
 
+
+
+
         $post_data = [
             'post_title' => $title,
             'post_type' => self::POST_TYPE,
-            'post_status' => isset($data['tableStatus']) ? $data['tableStatus'] : 'publish',
+            'post_status' => $status,
             'meta_input' => [
                 '_productbay_source' => $source,
                 '_productbay_columns' => $columns,
@@ -102,6 +107,8 @@ class TableRepository
         $columns = get_post_meta($post->ID, '_productbay_columns', true) ?: [];
         $settings = get_post_meta($post->ID, '_productbay_settings', true) ?: [];
         $style = get_post_meta($post->ID, '_productbay_style', true) ?: [];
+
+
 
         // Fallback for legacy data if source is empty but legacy config exists
         if (empty($source)) {
