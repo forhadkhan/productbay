@@ -26,11 +26,12 @@ export interface RouteConfig {
 export const PATHS = {
 	DASHBOARD: '/dash',
 	NEW: '/new',
-	EDIT: '/edit/:id',
+	EDIT: '/table/:id',
 	SETTINGS: '/settings',
 	HELP: '/help',
 	TABLES: '/tables',
 	DESIGN: '/design',
+	TABLE_EDITOR: '/table/:id',
 } as const;
 
 /**
@@ -71,6 +72,11 @@ export const routes: RouteConfig[] = [
 	},
 	{
 		path: PATHS.NEW,
+		element: Table,
+		showInNav: false,
+	},
+	{
+		path: PATHS.TABLE_EDITOR,
 		element: Table,
 		showInNav: false,
 	},
