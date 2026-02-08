@@ -20,9 +20,9 @@ domReady(() => {
 			case 'productbay-settings':
 				window.location.hash = `#${PATHS.SETTINGS}`;
 				break;
-			case 'productbay-dash':
-			case 'productbay': // Fallback: parent menu also redirects to Dashboard
-				window.location.hash = `#${PATHS.DASHBOARD}`;
+			case 'productbay': // Main menu "ProductBay" now defaults to Tables
+			case 'productbay-dash': // Fallback for old bookmarks
+				window.location.hash = `#${PATHS.TABLES}`;
 				break;
 		}
 	}

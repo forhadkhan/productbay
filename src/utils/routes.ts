@@ -44,7 +44,7 @@ export const routes: RouteConfig[] = [
 		path: PATHS.DASHBOARD,
 		element: Dashboard,
 		label: __('Dashboard', 'productbay'),
-		showInNav: true,
+		showInNav: false,
 	},
 	{
 		path: PATHS.TABLES,
