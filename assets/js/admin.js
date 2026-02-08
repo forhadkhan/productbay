@@ -31059,9 +31059,9 @@ const Tables = () => {
         status: 'draft',
         // New duplicates start as draft
         source: tableToClone.source || {},
-        columns: [],
-        settings: {},
-        style: {}
+        columns: tableToClone.columns || [],
+        settings: tableToClone.settings || {},
+        style: tableToClone.style || {}
       };
       const newTable = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)('tables', {
         method: 'POST',
@@ -31111,9 +31111,9 @@ const Tables = () => {
         title: table.title,
         status: newStatus,
         source: table.source || {},
-        columns: [],
-        settings: {},
-        style: {}
+        columns: table.columns || [],
+        settings: table.settings || {},
+        style: table.style || {}
       };
       await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)('tables', {
         method: 'POST',
@@ -31173,15 +31173,73 @@ const Tables = () => {
   };
   const handleBulkAction = async () => {
     if (!selectedBulkAction || selectedRows.length === 0) return;
+    setIsLoading(true);
+    try {
+      // Process actions
+      if (selectedBulkAction === 'delete') {
+        // Delete all selected tables
+        await Promise.all(selectedRows.map(id => (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)(`tables/${id}`, {
+          method: 'DELETE'
+        })));
 
-    // TODO: Implement bulk actions
-    toast({
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Not Implemented', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Bulk action "%s" for %d tables', 'productbay'), selectedBulkAction, selectedRows.length),
-      type: 'info'
-    });
-    setSelectedRows([]);
-    setSelectedBulkAction('');
+        // Update local state
+        setTables(prev => prev.filter(t => !selectedRows.includes(t.id)));
+        toast({
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Success', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Deleted %d tables successfully', 'productbay'), selectedRows.length),
+          type: 'success'
+        });
+      } else if (selectedBulkAction === 'active' || selectedBulkAction === 'inactive') {
+        // Determine new status
+        const newStatus = selectedBulkAction === 'active' ? 'publish' : 'draft';
+
+        // Process updates for each selected table
+        await Promise.all(selectedRows.map(async id => {
+          const table = tables.find(t => t.id === id);
+          if (!table) return;
+
+          // Only update if status is different
+          if (table.status === newStatus) return;
+          const payload = {
+            id: table.id,
+            title: table.title,
+            status: newStatus,
+            source: table.source || {},
+            columns: table.columns || [],
+            settings: table.settings || {},
+            style: table.style || {}
+          };
+          await (0,_utils_api__WEBPACK_IMPORTED_MODULE_0__.apiFetch)('tables', {
+            method: 'POST',
+            body: JSON.stringify({
+              data: payload
+            })
+          });
+        }));
+
+        // Update local state
+        setTables(prev => prev.map(t => selectedRows.includes(t.id) ? {
+          ...t,
+          status: newStatus
+        } : t));
+        toast({
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Success', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Updated status for %d tables', 'productbay'), selectedRows.length),
+          type: 'success'
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Error', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Failed to apply bulk action', 'productbay'),
+        type: 'error'
+      });
+    } finally {
+      setIsLoading(false);
+      setSelectedRows([]);
+      setSelectedBulkAction('');
+    }
   };
 
   // Filtering & Pagination Logic

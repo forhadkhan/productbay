@@ -20,6 +20,9 @@ interface Table {
 	date: string;
 	status: string; // 'publish' | 'draft' etc.
 	source?: any;
+	columns?: any[];
+	settings?: any;
+	style?: any;
 }
 
 /**
@@ -190,9 +193,9 @@ const Tables = () => {
 				title: `${tableToClone.title} (Copy)`,
 				status: 'draft', // New duplicates start as draft
 				source: tableToClone.source || {},
-				columns: [],
-				settings: {},
-				style: {},
+				columns: tableToClone.columns || [],
+				settings: tableToClone.settings || {},
+				style: tableToClone.style || {},
 			};
 
 			const newTable = await apiFetch<Table>('tables', {
@@ -240,9 +243,9 @@ const Tables = () => {
 				title: table.title,
 				status: newStatus,
 				source: table.source || {},
-				columns: [],
-				settings: {},
-				style: {},
+				columns: table.columns || [],
+				settings: table.settings || {},
+				style: table.style || {},
 			};
 
 			await apiFetch('tables', {
@@ -306,19 +309,83 @@ const Tables = () => {
 	const handleBulkAction = async () => {
 		if (!selectedBulkAction || selectedRows.length === 0) return;
 
-		// TODO: Implement bulk actions
-		toast({
-			title: __('Not Implemented', 'productbay'),
-			description: sprintf(
-				__('Bulk action "%s" for %d tables', 'productbay'),
-				selectedBulkAction,
-				selectedRows.length
-			),
-			type: 'info'
-		});
+		setIsLoading(true);
 
-		setSelectedRows([]);
-		setSelectedBulkAction('');
+		try {
+			// Process actions
+			if (selectedBulkAction === 'delete') {
+				// Delete all selected tables
+				await Promise.all(selectedRows.map(id =>
+					apiFetch(`tables/${id}`, { method: 'DELETE' })
+				));
+
+				// Update local state
+				setTables(prev => prev.filter(t => !selectedRows.includes(t.id)));
+
+				toast({
+					title: __('Success', 'productbay'),
+					description: sprintf(
+						__('Deleted %d tables successfully', 'productbay'),
+						selectedRows.length
+					),
+					type: 'success'
+				});
+
+			} else if (selectedBulkAction === 'active' || selectedBulkAction === 'inactive') {
+				// Determine new status
+				const newStatus = selectedBulkAction === 'active' ? 'publish' : 'draft';
+
+				// Process updates for each selected table
+				await Promise.all(selectedRows.map(async (id) => {
+					const table = tables.find(t => t.id === id);
+					if (!table) return;
+
+					// Only update if status is different
+					if (table.status === newStatus) return;
+
+					const payload = {
+						id: table.id,
+						title: table.title,
+						status: newStatus,
+						source: table.source || {},
+						columns: table.columns || [],
+						settings: table.settings || {},
+						style: table.style || {},
+					};
+
+					await apiFetch('tables', {
+						method: 'POST',
+						body: JSON.stringify({ data: payload })
+					});
+				}));
+
+				// Update local state
+				setTables(prev =>
+					prev.map(t => selectedRows.includes(t.id) ? { ...t, status: newStatus } : t)
+				);
+
+				toast({
+					title: __('Success', 'productbay'),
+					description: sprintf(
+						__('Updated status for %d tables', 'productbay'),
+						selectedRows.length
+					),
+					type: 'success'
+				});
+			}
+
+		} catch (error) {
+			console.error(error);
+			toast({
+				title: __('Error', 'productbay'),
+				description: __('Failed to apply bulk action', 'productbay'),
+				type: 'error'
+			});
+		} finally {
+			setIsLoading(false);
+			setSelectedRows([]);
+			setSelectedBulkAction('');
+		}
 	};
 
 	// Filtering & Pagination Logic
