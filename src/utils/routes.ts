@@ -92,3 +92,7 @@ export const WC_PRODUCTS_PATH = '/wp-admin/edit.php?post_type=product';
 export const WC_ADD_PRODUCT_PATH = '/wp-admin/post-new.php?post_type=product';
 export const WC_ADMIN_PRODUCTS_PATH =
 	'/wp-admin/admin.php?page=wc-admin&task=products';
+
+export const PRODUCTBAY_VIDEO_GUIDE_URL = 'https://www.youtube.com/watch?v=VIDEO_ID';
+export const PRODUCTBAY_DOCUMENTATION_URL = 'https://productbay.wpanchorbay.com';
+export const PRODUCTBAY_SUPPORT_URL = 'https://productbay.wpanchorbay.com/support';
