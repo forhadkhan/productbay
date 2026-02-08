@@ -10,6 +10,7 @@ import { ProductSearch } from '@/components/Table/sections/ProductSearch';
 import { SourceStatistics } from '@/components/Table/sections/SourceStatistics';
 import { CategorySelector } from '@/components/Table/sections/CategorySelector';
 import { SourcePanel } from '@/components/Table/panels/SourcePanel';
+import { WC_PRODUCTS_PATH } from '@/utils/routes';
 
 /* =============================================================================
  * TabTable Component
@@ -131,7 +132,8 @@ const TabTable = ({ className }: TabTableProps) => {
                                     </p>
                                     <a
                                         target="_blank"
-                                        href={`${(window as any).ajaxurl?.split('admin-ajax.php')[0]}edit.php?post_type=product`}
+                                        // href={`${(window as any).ajaxurl?.split('admin-ajax.php')[0]}edit.php?post_type=product`}
+                                        href={WC_PRODUCTS_PATH}
                                         className="mt-2 inline-flex items-center text-sm text-amber-900 hover:text-blue-600 border border-amber-900 hover:border-blue-500 px-2 py-1 rounded-md"
                                     >
                                         {__('Manage products', 'productbay')}
