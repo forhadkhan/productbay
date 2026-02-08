@@ -2,46 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
+import { Button, ButtonProps } from './Button';
 
 /**
  * Modal Component
  *
  * A reusable, modern modal dialog with header, body, and footer sections.
  * The modal is rendered into `#productbay-root` using React Portal and uses
- * absolute positioning to stay scoped within the plugin container.
- *
- * @example
- * ```tsx
- * const [isOpen, setIsOpen] = useState(false);
- *
- * <Modal
- *   isOpen={isOpen}
- *   onClose={() => setIsOpen(false)}
- *   title="Confirm Action"
- * >
- *   <p>Are you sure you want to proceed?</p>
- * </Modal>
- * ```
- *
- * @example With custom buttons
- * ```tsx
- * <Modal
- *   isOpen={isOpen}
- *   onClose={() => setIsOpen(false)}
- *   title="Delete Item"
- *   primaryButton={{
- *     text: "Delete",
- *     onClick: handleDelete,
- *     variant: "danger"
- *   }}
- *   secondaryButton={{
- *     text: "Cancel",
- *     onClick: () => setIsOpen(false)
- *   }}
- * >
- *   <p>This action cannot be undone.</p>
- * </Modal>
- * ```
+ * fixed positioning to stay scoped within the plugin container.
  */
 
 export interface ModalButton {
@@ -124,8 +92,7 @@ export const Modal: React.FC<ModalProps> = ({
     // Early return if modal is closed or container doesn't exist
     if (!isOpen) return null;
 
-    const container = document.getElementById(MODAL_CONTAINER_ID);
-    if (!container) return null;
+    const container = document.getElementById(MODAL_CONTAINER_ID) || document.body;
 
     // Max width classes
     const maxWidthClasses = {
@@ -135,26 +102,19 @@ export const Modal: React.FC<ModalProps> = ({
         xl: 'max-w-xl',
     };
 
-    // Button variant styles
-    const getButtonStyles = (
-        variant: ModalButton['variant'] = 'primary'
-    ) => {
-        const base =
-            'px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 cursor-pointer';
-
-        const variants = {
-            primary: 'bg-blue-600 text-white hover:bg-blue-700/90',
-            secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200/90',
-            danger: 'bg-red-600 text-white hover:bg-red-700/90',
-            success: 'bg-green-600 text-white hover:bg-green-700/90',
-        };
-
-        return cn(base, variants[variant]);
+    // Helper to map ModalButton variant to Button variant
+    const getButtonVariant = (variant: ModalButton['variant'] = 'primary'): ButtonProps['variant'] => {
+        switch (variant) {
+            case 'danger': return 'destructive';
+            case 'success': return 'success';
+            case 'secondary': return 'outline'; // Mapping secondary to outline for better contrast in new design
+            default: return 'default';
+        }
     };
 
     // Default secondary button
     const defaultSecondaryButton: ModalButton = {
-        text: 'Cancel',
+        text: __('Cancel', 'productbay'),
         onClick: onClose,
         variant: 'secondary',
     };
@@ -162,63 +122,60 @@ export const Modal: React.FC<ModalProps> = ({
     const secondaryBtn = secondaryButton || defaultSecondaryButton;
 
     return createPortal(
-        // Modal Parent Container (uses absolute positioning within #productbay-root)
         <div
-            className="absolute inset-0 z-45 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs animate-fade-in"
+            className={cn(
+                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity animate-fade-in",
+                "p-4" // Add padding to prevent touching edges on small screens
+            )}
             onClick={handleBackdropClick}
         >
-            { /* Modal Content */}
             <div
                 ref={modalRef}
                 className={cn(
-                    'bg-white rounded-lg shadow-xl w-full animate-scale-in border border-gray-200',
-                    className,
-                    maxWidthClasses[maxWidth]
+                    "bg-white rounded-lg shadow-xl p-6 w-full mx-4 transform transition-all scale-100 animate-scale-in",
+                    maxWidthClasses[maxWidth],
+                    className
                 )}
             >
-                { /* Header */}
-                <div className="px-6 py-4">
-                    <h3 className="text-lg font-semibold text-gray-800 m-0">
-                        {title}
-                    </h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {title}
+                </h3>
+
+                <div className="text-gray-600 mb-6 text-sm leading-relaxed">
+                    {children}
                 </div>
 
-                { /* Body */}
-                <div className="px-6 py-4 text-gray-700">{children}</div>
-
-                { /* Footer */}
                 {(primaryButton || secondaryButton !== undefined) && (
-                    <div className="flex items-center justify-end gap-3 px-6 py-4 rounded-b-lg">
-                        { /* Secondary Button (Left) */}
-                        <button
+                    <div className="flex justify-end gap-3">
+                        {/* Secondary Button */}
+                        <Button
+                            variant={getButtonVariant(secondaryBtn.variant)}
                             onClick={secondaryBtn.onClick}
-                            className={getButtonStyles(secondaryBtn.variant)}
+                            className={cn(secondaryBtn.variant === 'secondary' && "cursor-pointer bg-white border-gray-200 text-gray-700 hover:bg-gray-50")}
                         >
-                            {secondaryBtn.icon}
+                            {secondaryBtn.icon && <span className="mr-2">{secondaryBtn.icon}</span>}
                             {secondaryBtn.text}
-                        </button>
+                        </Button>
 
-                        { /* Primary Button (Right) */}
+                        {/* Primary Button */}
                         {primaryButton && (
-                            <button
+                            <Button
+                                variant={getButtonVariant(primaryButton.variant)}
                                 onClick={primaryButton.onClick}
-                                className={getButtonStyles(
-                                    primaryButton.variant
-                                )}
+                                className="cursor-pointer"
                             >
-                                {primaryButton.icon}
+                                {primaryButton.icon && <span className="mr-2">{primaryButton.icon}</span>}
                                 {primaryButton.text}
-                            </button>
+                            </Button>
                         )}
                     </div>
                 )}
             </div>
 
-            { /* Keyboard hint (only shown if closeOnEsc is enabled) */}
+            {/* Keyboard hint (only shown if closeOnEsc is enabled) */}
             {closeOnEsc && (
-                <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-white/70">
-                    {__('To close this modal, press', 'productbay')}
-                    <kbd className="mx-1 px-1.5 py-0.5 bg-black/40 rounded text-xs font-mono">Esc</kbd>
+                <p className="fixed bottom-4 left-1/2 -translate-x-1/2 text-sm text-white/70 pointer-events-none">
+                    {__('To Close, Press', 'productbay')} <kbd className="mx-1 px-1.5 py-0.5 bg-black/40 rounded text-xs font-mono">Esc</kbd>
                 </p>
             )}
         </div>,
