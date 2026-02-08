@@ -156,9 +156,6 @@ export interface TableSettings {
         /** Enable pagination */
         pagination: boolean;
 
-        /** Enable lazy loading (infinite scroll) */
-        lazyLoad: boolean;
-
         /** Enable CSV/PDF export */
         export: boolean;
 
@@ -200,12 +197,6 @@ export interface TableSettings {
 
         /** Active taxonomy filters (product_cat, pa_color, etc.) */
         activeTaxonomies: string[];
-    };
-
-    /** Performance settings */
-    performance: {
-        /** Maximum products to query (hard cap) */
-        productLimit: number;
     };
 }
 
@@ -347,7 +338,6 @@ export const createDefaultSettings = (): TableSettings => ({
         search: true,
         sorting: true,
         pagination: true,
-        lazyLoad: false,
         export: false,
         priceRange: false,
     },
@@ -365,9 +355,6 @@ export const createDefaultSettings = (): TableSettings => ({
         enabled: true,
         position: 'top',
         activeTaxonomies: ['product_cat'],
-    },
-    performance: {
-        productLimit: 500,
     },
 });
 

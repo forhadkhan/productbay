@@ -22337,16 +22337,14 @@ const TabOptions = () => {
     setFeatures,
     setPagination,
     setCart,
-    setFilters,
-    setPerformance
+    setFilters
   } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_1__.useTableStore)();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Table_panels_OptionsPanel__WEBPACK_IMPORTED_MODULE_2__.OptionsPanel, {
     settings: settings,
     setFeatures: setFeatures,
     setPagination: setPagination,
     setCart: setCart,
-    setFilters: setFilters,
-    setPerformance: setPerformance
+    setFilters: setFilters
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TabOptions);
@@ -22964,7 +22962,6 @@ const OptionsPanel = ({
   setPagination,
   setCart,
   setFilters,
-  setPerformance,
   className
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -23152,32 +23149,6 @@ const OptionsPanel = ({
               }]
             })
           })
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(SettingsSection, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Performance', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Optimization settings', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_6__.SettingsOption, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Lazy Loading', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Load products as user scrolls (Infinite Scroll)', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
-          checked: settings.features.lazyLoad,
-          onChange: e => setFeatures({
-            lazyLoad: e.target.checked
-          })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_6__.SettingsOption, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Max Product Limit', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Hard limit on number of products to query', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-          type: "number",
-          min: "1",
-          max: "10000",
-          value: settings.performance.productLimit,
-          onChange: e => setPerformance({
-            productLimit: parseInt(e.target.value) || 500
-          }),
-          className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         })
       })]
     })]
@@ -30255,13 +30226,6 @@ const Settings = () => {
       ...v
     }
   });
-  const setPerformance = v => updateDefaults('settings', {
-    ...tableSettings,
-    performance: {
-      ...tableSettings.performance,
-      ...v
-    }
-  });
   const handleSave = async () => {
     adminBarValueBeforeSave.current = originalSettings.show_admin_bar;
     try {
@@ -30407,7 +30371,6 @@ const Settings = () => {
                 setPagination: setPagination,
                 setCart: setCart,
                 setFilters: setFilters,
-                setPerformance: setPerformance,
                 className: "border-none"
               })]
             })]
@@ -32096,16 +32059,6 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
     },
     isDirty: true
   })),
-  setPerformance: performance => set(state => ({
-    settings: {
-      ...state.settings,
-      performance: {
-        ...state.settings.performance,
-        ...performance
-      }
-    },
-    isDirty: true
-  })),
   // =========================================================================
   // Style Actions
   // =========================================================================
@@ -32635,7 +32588,6 @@ const createDefaultSettings = () => ({
     search: true,
     sorting: true,
     pagination: true,
-    lazyLoad: false,
     export: false,
     priceRange: false
   },
@@ -32653,9 +32605,6 @@ const createDefaultSettings = () => ({
     enabled: true,
     position: 'top',
     activeTaxonomies: ['product_cat']
-  },
-  performance: {
-    productLimit: 500
   }
 });
 

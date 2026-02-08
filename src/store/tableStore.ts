@@ -168,9 +168,6 @@ interface TableStore {
 	/** Update filter settings */
 	setFilters: (filters: Partial<TableSettings['filters']>) => void;
 
-	/** Update performance settings */
-	setPerformance: (performance: Partial<TableSettings['performance']>) => void;
-
 	// =========================================================================
 	// Style Actions
 	// =========================================================================
@@ -407,14 +404,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		settings: {
 			...state.settings,
 			filters: { ...state.settings.filters, ...filters }
-		},
-		isDirty: true,
-	})),
-
-	setPerformance: (performance) => set((state) => ({
-		settings: {
-			...state.settings,
-			performance: { ...state.settings.performance, ...performance }
 		},
 		isDirty: true,
 	})),

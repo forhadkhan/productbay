@@ -15,7 +15,6 @@ const TabOptions: React.FC = () => {
         setPagination,
         setCart,
         setFilters,
-        setPerformance,
     } = useTableStore();
 
     return (
@@ -25,7 +24,6 @@ const TabOptions: React.FC = () => {
             setPagination={setPagination}
             setCart={setCart}
             setFilters={setFilters}
-            setPerformance={setPerformance}
         />
     );
 };

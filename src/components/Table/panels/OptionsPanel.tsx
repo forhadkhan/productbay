@@ -44,7 +44,6 @@ export interface OptionsPanelProps {
     setPagination: (pagination: Partial<TableSettings['pagination']>) => void;
     setCart: (cart: Partial<TableSettings['cart']>) => void;
     setFilters: (filters: Partial<TableSettings['filters']>) => void;
-    setPerformance: (performance: Partial<TableSettings['performance']>) => void;
     className?: string;
 }
 
@@ -54,7 +53,6 @@ export const OptionsPanel = ({
     setPagination,
     setCart,
     setFilters,
-    setPerformance,
     className
 }: OptionsPanelProps) => {
 
@@ -257,36 +255,6 @@ export const OptionsPanel = ({
                         </div>
                     </SettingsOption>
                 </div>
-            </SettingsSection>
-
-            {/* Performance Settings */}
-            <SettingsSection
-                title={__('Performance', 'productbay')}
-                description={__('Optimization settings', 'productbay')}
-            >
-                <SettingsOption
-                    title={__('Lazy Loading', 'productbay')}
-                    description={__('Load products as user scrolls (Infinite Scroll)', 'productbay')}
-                >
-                    <Toggle
-                        checked={settings.features.lazyLoad}
-                        onChange={(e) => setFeatures({ lazyLoad: e.target.checked })}
-                    />
-                </SettingsOption>
-
-                <SettingsOption
-                    title={__('Max Product Limit', 'productbay')}
-                    description={__('Hard limit on number of products to query', 'productbay')}
-                >
-                    <input
-                        type="number"
-                        min="1"
-                        max="10000"
-                        value={settings.performance.productLimit}
-                        onChange={(e) => setPerformance({ productLimit: parseInt(e.target.value) || 500 })}
-                        className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    />
-                </SettingsOption>
             </SettingsSection>
         </div>
     );

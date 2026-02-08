@@ -112,7 +112,6 @@ class SettingsController
                         'search' => true,
                         'sorting' => true,
                         'pagination' => true,
-                        'lazyLoad' => false,
                         'export' => false,
                         'priceRange' => false,
                     ],
@@ -130,9 +129,6 @@ class SettingsController
                         'enabled' => true,
                         'position' => 'top',
                         'activeTaxonomies' => ['product_cat'],
-                    ],
-                    'performance' => [
-                        'productLimit' => 500,
                     ],
                 ]
             ]

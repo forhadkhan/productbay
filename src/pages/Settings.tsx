@@ -102,7 +102,6 @@ const Settings = () => {
 	const setPagination = (v: any) => updateDefaults('settings', { ...tableSettings, pagination: { ...tableSettings.pagination, ...v } });
 	const setCart = (v: any) => updateDefaults('settings', { ...tableSettings, cart: { ...tableSettings.cart, ...v } });
 	const setFilters = (v: any) => updateDefaults('settings', { ...tableSettings, filters: { ...tableSettings.filters, ...v } });
-	const setPerformance = (v: any) => updateDefaults('settings', { ...tableSettings, performance: { ...tableSettings.performance, ...v } });
 
 
 	const handleSave = async () => {
@@ -249,7 +248,6 @@ const Settings = () => {
 										setPagination={setPagination}
 										setCart={setCart}
 										setFilters={setFilters}
-										setPerformance={setPerformance}
 										className="border-none"
 									/>
 								</div>
