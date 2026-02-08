@@ -55,6 +55,86 @@ class SettingsController
             'design' => [
                 'header_bg' => '#f3f4f6',
                 'border_color' => '#e5e7eb'
+            ],
+            // Default configuration for new tables
+            'table_defaults' => [
+                'source' => [
+                    'type' => 'all',
+                    'queryArgs' => [
+                        'stockStatus' => 'any',
+                    ],
+                    'sort' => [
+                        'orderBy' => 'date',
+                        'order' => 'DESC',
+                    ],
+                ],
+                'style' => [
+                    'header' => [
+                        'bgColor' => '#f0f0f1',
+                        'textColor' => '#333333',
+                        'fontSize' => '16px',
+                    ],
+                    'body' => [
+                        'bgColor' => '#ffffff',
+                        'textColor' => '#444444',
+                        'rowAlternate' => false,
+                        'altBgColor' => '#f9f9f9',
+                        'altTextColor' => '#444444',
+                        'borderColor' => '#e5e5e5',
+                    ],
+                    'button' => [
+                        'bgColor' => '#2271b1',
+                        'textColor' => '#ffffff',
+                        'borderRadius' => '4px',
+                        'icon' => 'cart',
+                        'hoverBgColor' => '#135e96',
+                        'hoverTextColor' => '#ffffff',
+                    ],
+                    'layout' => [
+                        'borderStyle' => 'solid',
+                        'borderColor' => '#e5e5e5',
+                        'borderRadius' => '0px',
+                        'cellPadding' => 'normal',
+                    ],
+                    'typography' => [
+                        'headerFontWeight' => 'bold',
+                    ],
+                    'hover' => [
+                        'rowHoverEnabled' => true,
+                        'rowHoverBgColor' => '#f5f5f5',
+                    ],
+                    'responsive' => [
+                        'mode' => 'standard',
+                    ],
+                ],
+                'settings' => [
+                    'features' => [
+                        'search' => true,
+                        'sorting' => true,
+                        'pagination' => true,
+                        'lazyLoad' => false,
+                        'export' => false,
+                        'priceRange' => false,
+                    ],
+                    'pagination' => [
+                        'limit' => 10,
+                        'position' => 'bottom',
+                    ],
+                    'cart' => [
+                        'enable' => true,
+                        'method' => 'button',
+                        'showQuantity' => true,
+                        'ajaxAdd' => true,
+                    ],
+                    'filters' => [
+                        'enabled' => true,
+                        'position' => 'top',
+                        'activeTaxonomies' => ['product_cat'],
+                    ],
+                    'performance' => [
+                        'productLimit' => 500,
+                    ],
+                ]
             ]
         ];
     }

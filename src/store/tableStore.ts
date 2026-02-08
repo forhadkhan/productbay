@@ -483,31 +483,38 @@ export const useTableStore = create<TableStore>((set, get) => ({
 	// Persistence Actions
 	// =========================================================================
 
-	resetStore: () => set({
-		tableId: null,
-		tableTitle: '',
-		tableStatus: 'publish',
-		source: defaultSource(),
-		columns: defaultColumns(),
-		settings: defaultSettings(),
-		style: defaultStyle(),
-		isLoading: false,
-		isSaving: false,
-		error: null,
-		isDirty: false,
-		currentStep: 1,
-		tableData: {
-			title: '',
-			source_type: 'all',
-			columns: [
-				{ id: 'image', label: 'Image' },
-				{ id: 'name', label: 'Product Name' },
-				{ id: 'price', label: 'Price' },
-				{ id: 'add-to-cart', label: 'Add to Cart' },
-			],
-			config: {},
-		},
-	}),
+	resetStore: () => {
+		const { settings } = require('./settingsStore').useSettingsStore.getState();
+		const defaults = settings.table_defaults || {};
+
+		set({
+			tableId: null,
+			tableTitle: '',
+			tableStatus: 'publish',
+			// Use global defaults if available, otherwise factory defaults
+			source: defaults.source ? { ...defaultSource(), ...defaults.source } : defaultSource(),
+			columns: defaultColumns(), // Columns defaults are not yet in global settings
+			settings: defaults.settings ? { ...defaultSettings(), ...defaults.settings } : defaultSettings(),
+			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
+
+			isLoading: false,
+			isSaving: false,
+			error: null,
+			isDirty: false,
+			currentStep: 1,
+			tableData: {
+				title: '',
+				source_type: 'all',
+				columns: [
+					{ id: 'image', label: 'Image' },
+					{ id: 'name', label: 'Product Name' },
+					{ id: 'price', label: 'Price' },
+					{ id: 'add-to-cart', label: 'Add to Cart' },
+				],
+				config: {},
+			},
+		});
+	},
 
 	loadTable: async (id) => {
 		set({ isLoading: true, error: null });

@@ -1,23 +1,23 @@
 import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon, CopyIcon, InfoIcon, TrashIcon, AlertCircleIcon, PlusIcon, LoaderIcon } from 'lucide-react';
 import { EditableText } from '@/components/ui/EditableText';
+import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useParams, useNavigate } from 'react-router-dom';
 import LivePreview from '@/components/Table/LivePreview';
-import TabSettings from '@/components/Table/TabSettings';
+import TabOptions from '@/components/Table/TabOptions';
 import TabDisplay from '@/components/Table/TabDisplay';
 import { Tabs, TabOption } from '@/components/ui/Tabs';
 import { useTableStore } from '@/store/tableStore';
 import TabTable from '@/components/Table/TabTable';
+import { Tooltip } from '@/components/ui/Tooltip';
 import { useToast } from '@/context/ToastContext';
 import { Toggle } from '@/components/ui/Toggle';
 import { Button } from '@/components/ui/Button';
 import { useUrlTab } from '@/hooks/useUrlTab';
+import { useState, useEffect } from 'react';
 import { PATHS } from '@/utils/routes';
 import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from 'react';
 import { cn } from '@/utils/cn';
-import { Tooltip } from '@/components/ui/Tooltip';
-import ProductBayIcon from '@/components/ui/ProductBayIcon';
 
 /* =============================================================================
  * Table Page
@@ -25,20 +25,20 @@ import ProductBayIcon from '@/components/ui/ProductBayIcon';
  * Main page for configuring an individual table with three sections:
  * - Table: Configure table data and structure
  * - Display: Configure how the table is displayed
- * - Settings: Additional table settings
+ * - Options: Additional table options
  * 
  * Supports URL-based tab navigation via search params.
- * Example: #/new?tab=settings activates Settings tab.
+ * Example: #/new?tab=options activates Options tab.
  * ============================================================================= */
 
 /** Define the available tab values as a union type for type safety */
-type TableTabValue = 'table' | 'display' | 'settings';
+type TableTabValue = 'table' | 'display' | 'options';
 
 /**
  * Valid tab values for URL search param validation.
  * Used by useHashTab to validate the ?tab= parameter.
  */
-const VALID_TABLE_TABS = ['table', 'display', 'settings'] as const;
+const VALID_TABLE_TABS = ['table', 'display', 'options'] as const;
 
 /** Tab configuration with icons matching the design reference */
 const TABLE_TABS: TabOption<TableTabValue>[] = [
@@ -53,8 +53,8 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
         icon: <MonitorIcon />,
     },
     {
-        value: 'settings',
-        label: __('Settings', 'productbay'),
+        value: 'options',
+        label: __('Options', 'productbay'),
         icon: <SettingsIcon />,
     },
 ];
@@ -173,7 +173,7 @@ const Table = () => {
 
     /**
      * Sync tab state with URL search params.
-     * - Reading: #/new?tab=settings → activeTab = 'settings'
+     * - Reading: #/new?tab=options → activeTab = 'options'
      * - Writing: setActiveTab('display') → URL becomes #/new?tab=display
      */
     const [activeTab, setActiveTab] = useUrlTab<TableTabValue>('table', VALID_TABLE_TABS);
@@ -331,7 +331,7 @@ const Table = () => {
                     {/* Render content based on active tab */}
                     {activeTab === 'table' && <TabTable />}
                     {activeTab === 'display' && <TabDisplay />}
-                    {activeTab === 'settings' && <TabSettings />}
+                    {activeTab === 'options' && <TabOptions />}
                 </Tabs>
 
                 <LivePreview
