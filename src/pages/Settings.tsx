@@ -132,17 +132,27 @@ const Settings = () => {
 		window.location.reload();
 	};
 
+	const [showResetModal, setShowResetModal] = useState(false);
+
 	const handleResetDefaults = () => {
-		if (confirm(__('Are you sure you want to reset all default configurations to factory settings?', 'productbay'))) {
-			updateSettings({
-				...settings,
-				table_defaults: {
-					source: createDefaultSource(),
-					style: createDefaultStyle(),
-					settings: createDefaultSettings()
-				}
-			});
-		}
+		setShowResetModal(true);
+	};
+
+	const confirmResetDefaults = () => {
+		updateSettings({
+			...settings,
+			table_defaults: {
+				source: createDefaultSource(),
+				style: createDefaultStyle(),
+				settings: createDefaultSettings()
+			}
+		});
+		setShowResetModal(false);
+		toast({
+			title: __('Defaults Reset', 'productbay'),
+			description: __('Global default settings have been reset to factory values.', 'productbay'),
+			type: 'success',
+		});
 	};
 
 	const SettingsTabSkeleton = () => (
@@ -200,49 +210,48 @@ const Settings = () => {
 								<div>
 									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Source', 'productbay')}</h2>
 									<p className="text-gray-500 mb-6">{__('Configure the default data source settings for new tables.', 'productbay')}</p>
-									<div className="border border-gray-200 rounded-lg bg-white">
-										<SourcePanel
-											source={source}
-											setSourceType={setSourceType}
-											setSourceSort={setSourceSort}
-											setSourceQueryArgs={setSourceQueryArgs}
-											className="border-none"
-										/>
-									</div>
+
+									<SourcePanel
+										source={source}
+										setSourceType={setSourceType}
+										setSourceSort={setSourceSort}
+										setSourceQueryArgs={setSourceQueryArgs}
+										className="border-none"
+									/>
 								</div>
+
+								<hr className="border-b-2 border-gray-200" />
 
 								<div>
 									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Styling', 'productbay')}</h2>
 									<p className="text-gray-500 mb-6">{__('Set the default look and feel for your tables.', 'productbay')}</p>
-									<div className="border border-gray-200 rounded-lg bg-white">
-										<DisplayPanel
-											style={style}
-											setHeaderStyle={setHeaderStyle}
-											setBodyStyle={setBodyStyle}
-											setButtonStyle={setButtonStyle}
-											setLayoutStyle={setLayoutStyle}
-											setTypographyStyle={setTypographyStyle}
-											setHoverStyle={setHoverStyle}
-											setResponsiveStyle={setResponsiveStyle}
-											className="border-none"
-										/>
-									</div>
+									<DisplayPanel
+										style={style}
+										setHeaderStyle={setHeaderStyle}
+										setBodyStyle={setBodyStyle}
+										setButtonStyle={setButtonStyle}
+										setLayoutStyle={setLayoutStyle}
+										setTypographyStyle={setTypographyStyle}
+										setHoverStyle={setHoverStyle}
+										setResponsiveStyle={setResponsiveStyle}
+										className="border-none"
+									/>
 								</div>
+
+								<hr className="border-b-2 border-gray-200" />
 
 								<div>
 									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Functionality', 'productbay')}</h2>
 									<p className="text-gray-500 mb-6">{__('Configure default features like sorting, pagination, and filters.', 'productbay')}</p>
-									<div className="border border-gray-200 rounded-lg bg-white">
-										<OptionsPanel
-											settings={tableSettings}
-											setFeatures={setFeatures}
-											setPagination={setPagination}
-											setCart={setCart}
-											setFilters={setFilters}
-											setPerformance={setPerformance}
-											className="border-none"
-										/>
-									</div>
+									<OptionsPanel
+										settings={tableSettings}
+										setFeatures={setFeatures}
+										setPagination={setPagination}
+										setCart={setCart}
+										setFilters={setFilters}
+										setPerformance={setPerformance}
+										className="border-none"
+									/>
 								</div>
 							</div>
 						</div>
@@ -296,6 +305,29 @@ const Settings = () => {
 			>
 				<p className="text-gray-600 m-0">
 					{__('The admin bar setting requires a page reload to take effect. Would you like to reload now?', 'productbay')}
+				</p>
+			</Modal>
+
+			<Modal
+				isOpen={showResetModal}
+				onClose={() => setShowResetModal(false)}
+				title={__('Reset Global Defaults?', 'productbay')}
+				maxWidth="sm"
+				closeOnBackdropClick={true}
+				primaryButton={{
+					text: __('Yes, Reset Defaults', 'productbay'),
+					onClick: confirmResetDefaults,
+					variant: 'danger',
+					icon: <RotateCcwIcon className="w-4 h-4" />,
+				}}
+				secondaryButton={{
+					text: __('Cancel', 'productbay'),
+					onClick: () => setShowResetModal(false),
+					variant: 'secondary',
+				}}
+			>
+				<p className="text-gray-600 m-0">
+					{__('Are you sure you want to reset all global default configurations to their factory settings? This action cannot be undone.', 'productbay')}
 				</p>
 			</Modal>
 		</div>
