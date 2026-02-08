@@ -1,14 +1,17 @@
 import { apiFetch } from '@/utils/api';
+import { PATHS, WC_PRODUCTS_PATH } from '@/utils/routes';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { useToast } from '@/context/ToastContext';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon } from 'lucide-react';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { useSystemStore } from '@/store/systemStore';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, DownloadIcon, UploadIcon, PlusIcon, PackageIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -65,7 +68,7 @@ interface ModalState {
  */
 const Tables = () => {
 	const [tables, setTables] = useState<Table[]>([]);
-	const [loading, setLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 
 	// UI States
 	const [searchQuery, setSearchQuery] = useState('');
@@ -76,6 +79,14 @@ const Tables = () => {
 	const [jumpPage, setJumpPage] = useState('');
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [isCustomPerPage, setIsCustomPerPage] = useState(false);
+
+	// Use the system store instead of local state
+	const { status, loading, fetchStatus, error } = useSystemStore();
+
+	useEffect(() => {
+		// Fetch fresh data on mount (background update if data exists)
+		fetchStatus();
+	}, [fetchStatus]);
 
 	// Modal state
 	const [modalState, setModalState] = useState<ModalState>({
@@ -106,7 +117,7 @@ const Tables = () => {
 				type: 'error'
 			});
 		} finally {
-			setLoading(false);
+			setIsLoading(false);
 		}
 	};
 
@@ -328,9 +339,78 @@ const Tables = () => {
 
 	return (
 		<div className="space-y-6">
+
+			{ /* 
+				Empty State Products: No Published Products Found
+				Shown when the site has zero 'published' WooCommerce products.
+				ProductBay requires published products to build and display tables.
+			*/ }
+			{!isLoading && status?.product_count === 0 && (
+				<div className="bg-white p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 mb-6 shadow-sm border border-orange-500">
+					<div className="p-4 rounded-2xl text-orange-500 shrink-0">
+						<PackageIcon size={32} />
+					</div>
+					<div className="flex-1 text-center md:text-left">
+						<h3 className="text-lg font-bold text-red-950 m-0 pb-1">
+							{__('No Published Products Found', 'productbay')}
+						</h3>
+						<p className="text-gray-600 text-sm max-w-2xl">
+							{__('ProductBay requires published WooCommerce products to build your tables.', 'productbay')}
+							<br />
+							{__("We couldn't find any products in your WooCommerce store yet.", 'productbay')}
+							<br />
+							{__('Create your first product to start building high-converting tables.', 'productbay')}
+						</p>
+					</div>
+					<div className="shrink-0">
+						<Button
+							variant="secondary"
+							className="cursor-pointer border border-green-500"
+							onClick={() =>
+								window.open(WC_PRODUCTS_PATH, '_blank')
+							}
+						>
+							<PlusIcon size={18} className="mr-2" />
+							{__('Add Products', 'productbay')}
+						</Button>
+					</div>
+				</div>
+			)}
+
 			{ /* Header */}
 			<div className="flex justify-between items-center">
-				<h1 className="text-2xl font-bold text-gray-800 m-0">{__('All Tables', 'productbay')}</h1>
+				{/* Page Title */}
+				<h1 className="text-2xl font-bold text-gray-800 m-0">
+					<span className="mr-1">{__('All Tables', 'productbay')}</span>
+					{loading ? <span className="animate-pulse font-medium">(*)</span> : <span className="font-medium text-gray-600">({status?.table_count})</span>}
+				</h1>
+
+				{/* Import-Export */}
+				<div className="flex gap-2">
+					{/* <Button
+						variant="link"
+						size="sm"
+						className="cursor-pointer bg-transparent hover:bg-white"
+						onClick={() =>
+							window.open(WC_PRODUCTS_PATH, '_blank')
+						}
+					>
+						<PackageIcon size={18} className="mr-2" />
+						{__('Products', 'productbay')}
+						{loading ? <span className="ml-2 animate-pulse font-medium">(*)</span> : <span className="ml-2 text-gray-600">({status?.product_count})</span>}
+					</Button> */}
+					<Button variant="secondary" size="sm" className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors">
+						<UploadIcon size={14} /> {__('Import', 'productbay')}
+					</Button>
+					<Button
+						variant="secondary"
+						size="sm"
+						className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+						disabled={isLoading || tables.length === 0}
+					>
+						<DownloadIcon size={14} /> {__('Export', 'productbay')}
+					</Button>
+				</div>
 			</div>
 
 			{ /* Top Menu: Bulk Actions & Search/Filter */}
@@ -365,6 +445,32 @@ const Tables = () => {
 
 				{ /* Right: Search & Filter */}
 				<div className="flex items-center gap-2 w-full sm:w-auto">
+					{ /* Search */}
+					<div className="relative w-full sm:w-64">
+						<Input
+							type="text"
+							placeholder={__('Search tables...', 'productbay')}
+							className="pr-9"
+							value={searchQuery}
+							onChange={(e) =>
+								setSearchQuery(e.target.value)
+							}
+						/>
+						{searchQuery ? (
+							<button
+								onClick={() => setSearchQuery('')}
+								className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 bg-transparent rounded hover:bg-gray-200 cursor-pointer flex items-center justify-center"
+							>
+								<XIcon size={16} />
+							</button>
+						) : (
+							<SearchIcon
+								size={16}
+								className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+							/>
+						)}
+					</div>
+
 					{ /* Filter */}
 					<div className="w-40">
 						<Select
@@ -374,23 +480,6 @@ const Tables = () => {
 							allowDeselect={true}
 							icon={<FilterIcon className="w-4 h-4" />}
 							onChange={setFilterStatus}
-						/>
-					</div>
-
-					{ /* Search */}
-					<div className="relative w-full sm:w-64">
-						<SearchIcon
-							size={16}
-							className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-						/>
-						<Input
-							type="text"
-							placeholder={__('Search tables...', 'productbay')}
-							className="pl-9"
-							value={searchQuery}
-							onChange={(e) =>
-								setSearchQuery(e.target.value)
-							}
 						/>
 					</div>
 				</div>
@@ -428,7 +517,7 @@ const Tables = () => {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-200">
-						{loading ? (
+						{isLoading ? (
 							Array.from({ length: 5 }).map((_, i) => (
 								<tr key={i}>
 									<td className="px-4 py-4 text-center">
@@ -456,7 +545,7 @@ const Tables = () => {
 									colSpan={5}
 									className="px-6 py-12 text-center text-gray-400"
 								>
-									{__('No tables found.', 'productbay')}
+									<EmptyStateTables />
 								</td>
 							</tr>
 						) : (
@@ -806,6 +895,50 @@ const Tables = () => {
 					}
 				</p>
 			</Modal>
+		</div>
+	);
+};
+
+const EmptyStateTables = () => {
+	const navigate = useNavigate();
+
+	return (
+		<div className="w-full p-8 md:p-16">
+			<div className="flex flex-col items-center justify-center text-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-10">
+				{/* Image Section - Reduced size and added margin */}
+				<div className="mb-6 relative">
+					{/* Using a max-width to keep the illustration from dominating the screen */}
+					<img
+						src={`${productBaySettings.pluginUrl}assets/images/clip-boards.svg`}
+						alt={__("No tables found", "productbay")}
+						className="h-48 w-auto mx-auto opacity-90 no-select"
+					/>
+				</div>
+
+				{/* Text Content Section */}
+				<div className="max-w-md mx-auto">
+					<h3 className="text-lg font-semibold text-gray-900 mb-2">
+						{__('Welcome to ProductBay', 'productbay')}
+					</h3>
+
+					<p className="text-gray-500 mb-6 text-sm">
+						{__(
+							"You haven't created any tables yet. Create your first table to get started!",
+							"productbay",
+						)}
+					</p>
+
+					{/* Call to Action Button */}
+					<Button
+						type="button"
+						onClick={() => navigate(PATHS.NEW)}
+						className="cursor-pointer inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-sm"
+					>
+						<PlusIcon size={16} className="mr-2" />
+						{__("Create a New Table", "productbay")}
+					</Button>
+				</div>
+			</div>
 		</div>
 	);
 };
