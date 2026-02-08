@@ -192,9 +192,6 @@ export interface TableSettings {
         /** Enable filters */
         enabled: boolean;
 
-        /** Filter position */
-        position: 'top' | 'sidebar' | 'modal';
-
         /** Active taxonomy filters (product_cat, pa_color, etc.) */
         activeTaxonomies: string[];
     };
@@ -353,7 +350,6 @@ export const createDefaultSettings = (): TableSettings => ({
     },
     filters: {
         enabled: true,
-        position: 'top',
         activeTaxonomies: ['product_cat'],
     },
 });

@@ -232,29 +232,7 @@ export const OptionsPanel = ({
                     />
                 </SettingsOption>
 
-                {/* Filter Position - Only relevant when filters are enabled */}
-                <div className={cn(
-                    "transition-all duration-300",
-                    settings.filters.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
-                )}>
-                    <SettingsOption
-                        title={__('Filter Position', 'productbay')}
-                        description={__('Where should filters appear?', 'productbay')}
-                    >
-                        <div className="w-48">
-                            <Select
-                                size="sm"
-                                value={settings.filters.position}
-                                onChange={(val) => setFilters({ position: val as any })}
-                                options={[
-                                    { label: __('Above Table (Top)', 'productbay'), value: 'top' },
-                                    { label: __('Sidebar', 'productbay'), value: 'sidebar' },
-                                    { label: __('Modal / Popup', 'productbay'), value: 'modal' },
-                                ]}
-                            />
-                        </div>
-                    </SettingsOption>
-                </div>
+
             </SettingsSection>
         </div>
     );

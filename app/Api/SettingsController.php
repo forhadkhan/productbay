@@ -127,7 +127,6 @@ class SettingsController
                     ],
                     'filters' => [
                         'enabled' => true,
-                        'position' => 'top',
                         'activeTaxonomies' => ['product_cat'],
                     ],
                 ]
