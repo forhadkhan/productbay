@@ -612,7 +612,36 @@ const Tables = () => {
 									colSpan={5}
 									className="px-6 py-12 text-center text-gray-400"
 								>
-									<EmptyStateTables />
+									{/* Show welcome screen if no tables exist at all */}
+									{tables.length === 0 ? (
+										<EmptyStateTables />
+									) : (
+										/* Show not found message if tables exist but are filtered out */
+										<div className="flex flex-col items-center justify-center py-8">
+											<div className="bg-gray-50 rounded-full p-4 mb-4">
+												<SearchIcon size={32} className="text-gray-400" />
+											</div>
+											<h3 className="text-lg font-medium text-gray-900 mb-1">
+												{__('No tables found', 'productbay')}
+											</h3>
+											<p className="text-gray-500 text-sm max-w-sm text-center mb-6">
+												{__(
+													'Your search query or filters did not match any tables. Try adjusting your search term or filters.',
+													'productbay'
+												)}
+											</p>
+											<Button
+												variant="outline"
+												onClick={() => {
+													setSearchQuery('');
+													setFilterStatus('all');
+												}}
+												className="cursor-pointer"
+											>
+												{__('Clear Search & Filters', 'productbay')}
+											</Button>
+										</div>
+									)}
 								</td>
 							</tr>
 						) : (
