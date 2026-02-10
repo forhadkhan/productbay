@@ -306,17 +306,17 @@ const Table = () => {
                     </div>
                     {/* Save Table button */}
                     <Button
-                        size="sm"
+                        size="default"
                         onClick={handleSave}
                         disabled={isSaving || isLoading}
-                        className={`w-28 text-left ${isSaving ? 'opacity-75 cursor-wait' : ''}`}
+                        className={`w-32 flex items-center justify-between cursor-pointer ${isSaving ? 'opacity-75 cursor-wait' : ''}`}
                     >
-                        {isSaving ? (
-                            <LoaderIcon className="size-4 mr-2 animate-spin" />
-                        ) : (
-                            <SaveIcon className="size-4 mr-2" />
-                        )}
                         {isSaving ? __('Saving...', 'productbay') : __('Save Table', 'productbay')}
+                        {isSaving ? (
+                            <LoaderIcon className="size-4 ml-2 animate-spin" />
+                        ) : (
+                            <SaveIcon className="size-4 ml-2" />
+                        )}
                     </Button>
                 </div>
             </div>
