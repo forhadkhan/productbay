@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { Button, ButtonProps } from './Button';
 import { createPortal } from 'react-dom';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
-import { Button, ButtonProps } from './Button';
 
 /**
  * Modal Component
@@ -18,7 +18,7 @@ export interface ModalButton {
     /** Click handler */
     onClick: () => void;
     /** Button style variant */
-    variant?: 'primary' | 'secondary' | 'danger' | 'success';
+    variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'ghost';
     /** Optional icon to show before text */
     icon?: React.ReactNode;
 }
@@ -29,7 +29,7 @@ export interface ModalProps {
     /** Callback when modal should close */
     onClose: () => void;
     /** Modal title shown in header */
-    title: string;
+    title?: string;
     /** Modal container class */
     className?: string;
     /** Modal content (can be text, HTML, or React components) */
@@ -39,11 +39,17 @@ export interface ModalProps {
     /** Secondary action button (left side, defaults to Cancel) */
     secondaryButton?: ModalButton;
     /** Maximum width of modal */
-    maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
+    maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
     /** Whether clicking backdrop closes modal (default: true) */
     closeOnBackdropClick?: boolean;
     /** Whether pressing ESC closes modal and shows hint (default: true) */
     closeOnEsc?: boolean;
+    /** Whether to show the modal in full screen mode */
+    fullScreen?: boolean;
+    /** Optional custom header to replace the default one */
+    header?: React.ReactNode;
+    /** Whether to hide the default footer buttons (default: false) */
+    hideFooter?: boolean;
 }
 
 /** Default container ID for portal rendering */
@@ -60,6 +66,9 @@ export const Modal: React.FC<ModalProps> = ({
     maxWidth = 'md',
     closeOnEsc = true,
     closeOnBackdropClick = true,
+    fullScreen = false,
+    header,
+    hideFooter = false,
 }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -100,6 +109,7 @@ export const Modal: React.FC<ModalProps> = ({
         md: 'max-w-md',
         lg: 'max-w-lg',
         xl: 'max-w-xl',
+        full: 'max-w-full',
     };
 
     // Helper to map ModalButton variant to Button variant
@@ -116,7 +126,7 @@ export const Modal: React.FC<ModalProps> = ({
     const defaultSecondaryButton: ModalButton = {
         text: __('Cancel', 'productbay'),
         onClick: onClose,
-        variant: 'secondary',
+        variant: 'ghost',
     };
 
     const secondaryBtn = secondaryButton || defaultSecondaryButton;
@@ -124,29 +134,46 @@ export const Modal: React.FC<ModalProps> = ({
     return createPortal(
         <div
             className={cn(
-                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity animate-fade-in",
-                "p-4" // Add padding to prevent touching edges on small screens
+                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all duration-300 animate-in fade-in",
+                !fullScreen && "p-4" // Add padding to prevent touching edges on small screens if not full screen
             )}
             onClick={handleBackdropClick}
         >
             <div
                 ref={modalRef}
                 className={cn(
-                    "bg-white rounded-lg shadow-xl p-6 w-full mx-4 transform transition-all scale-100 animate-scale-in",
-                    maxWidthClasses[maxWidth],
+                    "bg-white shadow-xl flex flex-col transform transition-all animate-in scale-in duration-300",
+                    fullScreen ? "w-full h-full" : "rounded-lg w-full mx-4",
+                    !fullScreen && maxWidthClasses[maxWidth],
                     className
                 )}
             >
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {title}
-                </h3>
+                {/* Header Section */}
+                {header ? header : title && (
+                    <div className="flex items-center justify-between bg-white px-6 py-4 mt-8">
+                        <h3 className="text-lg font-bold text-gray-900 m-0">
+                            {title}
+                        </h3>
+                        {fullScreen && (
+                            <Button variant="ghost" size="icon" onClick={onClose} className="bg-transparent hover:bg-gray-100 cursor-pointer">
+                                <span className="sr-only">{__('Close', 'productbay')}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                            </Button>
+                        )}
+                    </div>
+                )}
 
-                <div className="text-gray-600 mb-6 text-sm leading-relaxed">
+                {/* Body Section */}
+                <div className={cn(
+                    "flex-1 overflow-auto m-0",
+                    !fullScreen && "p-6 text-gray-600 text-sm leading-relaxed"
+                )}>
                     {children}
                 </div>
 
-                {(primaryButton || secondaryButton !== undefined) && (
-                    <div className="flex justify-end gap-3">
+                {/* Footer Section */}
+                {!hideFooter && (primaryButton || secondaryButton !== undefined) && (
+                    <div className="flex justify-end gap-3 px-6 py-4">
                         {/* Secondary Button */}
                         <Button
                             variant={getButtonVariant(secondaryBtn.variant)}
@@ -172,8 +199,8 @@ export const Modal: React.FC<ModalProps> = ({
                 )}
             </div>
 
-            {/* Keyboard hint (only shown if closeOnEsc is enabled) */}
-            {closeOnEsc && (
+            {/* Keyboard hint (only shown if closeOnEsc is enabled and not in full screen usually, but keep it if requested) */}
+            {closeOnEsc && !fullScreen && (
                 <p className="fixed bottom-4 left-1/2 -translate-x-1/2 text-sm text-white/70 pointer-events-none">
                     {__('To Close, Press', 'productbay')} <kbd className="mx-1 px-1.5 py-0.5 bg-black/40 rounded text-xs font-mono">Esc</kbd>
                 </p>
@@ -182,3 +209,4 @@ export const Modal: React.FC<ModalProps> = ({
         container
     );
 };
+
