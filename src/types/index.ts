@@ -31,6 +31,7 @@ export type VisibilityMode =
  * Each type has specific rendering logic and settings.
  * ============================================================================= */
 export type ColumnType =
+    | 'checkbox' // Checkbox for row selection
     | 'image'    // Product image with customizable size and link behavior
     | 'name'     // Product name/title
     | 'price'    // Product price (regular and sale)
@@ -398,12 +399,23 @@ export const createDefaultStyle = (): TableStyle => ({
 /** Creates default columns for a new table */
 export const createDefaultColumns = (): Column[] => [
     {
+        id: 'col_checkbox_default',
+        type: 'checkbox',
+        heading: 'Select/Deselect Product(s)',
+        advanced: {
+            showHeading: true,
+            width: { value: 64, unit: 'px' },
+            visibility: 'all',
+            order: 0,
+        },
+    },
+    {
         id: 'col_image_default',
         type: 'image',
         heading: 'Image',
         advanced: {
             showHeading: true,
-            width: { value: 0, unit: 'auto' },
+            width: { value: 72, unit: 'px' },
             visibility: 'all',
             order: 1,
         },

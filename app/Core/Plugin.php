@@ -80,7 +80,10 @@ class Plugin
 
         // Frontend
         $table_renderer = new \WpabProductBay\Frontend\TableRenderer($this->table_repository);
-        $table_renderer->init();
+        // TableRenderer no longer handles shortcode directy
+
+        $shortcode = new \WpabProductBay\Frontend\Shortcode($this->table_repository);
+        $shortcode->init();
 
         $ajax_renderer = new \WpabProductBay\Frontend\AjaxRenderer($this->table_repository, $this->request);
         $ajax_renderer->init();
