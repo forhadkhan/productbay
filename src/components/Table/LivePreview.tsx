@@ -1,12 +1,13 @@
 import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon } from 'lucide-react';
-import { __ } from '@wordpress/i18n';
-import { cn } from '@/utils/cn';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useTableStore } from '@/store/tableStore';
 import { useDebounce } from '@/hooks/useDebounce';
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { createPortal } from 'react-dom';
+import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
 import { apiFetch } from '@/utils/api';
-import { Button } from '../ui/Button';
+import { __ } from '@wordpress/i18n';
+import { cn } from '@/utils/cn';
 
 export interface LivePreviewProps {
     className?: string;
@@ -142,18 +143,17 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 <div className="relative z-10 inline-flex items-center px-4 py-3 text-sm font-semibold bg-white rounded-t-lg border border-gray-200 border-b-white w-fit">
                     <RadioIcon className={cn("w-5 h-5 mr-2", loading ? "animate-pulse text-blue-500" : "")} />
                     {__('Live Preview', 'productbay')}
-                    {loading && <span className="ml-2 text-xs text-blue-500 font-normal">({__('Updating...', 'productbay')})</span>}
                 </div>
                 {/* Header Actions - Positioned to align with tab style or just floating */}
                 <div className="mb-px">
                     <Button
                         title={__('Full Screen', 'productbay')}
                         variant="ghost"
-                        size="icon"
                         onClick={() => setIsFullscreen(true)}
-                        className="hover:bg-gray-100"
+                        className="hover:bg-gray-100 cursor-pointer"
                     >
-                        <Maximize2Icon className="w-5 h-5 text-gray-500" />
+                        <Maximize2Icon className="w-5 h-5 mr-2 text-gray-500" />
+                        {__('Full Screen', 'productbay')}
                     </Button>
                 </div>
             </div>
@@ -195,13 +195,16 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             </div>
 
             {/* Full Screen Modal */}
-            {isFullscreen && createPortal(
-                <div className="fixed inset-0 z-[100000] bg-gray-100/95 backdrop-blur-sm flex flex-col animate-in fade-in duration-200" style={{ zIndex: 100000 }}>
-                    {/* Full Screen Header */}
-                    <div className="flex items-center justify-between bg-white px-6 py-4 shadow-sm border-b border-gray-200">
+            <Modal
+                isOpen={isFullscreen}
+                onClose={() => setIsFullscreen(false)}
+                fullScreen
+                hideFooter
+                header={(
+                    <div className="flex items-center justify-between bg-white px-6 py-4 mt-8 shadow-sm border-b border-gray-200">
                         <div className="flex items-center gap-3">
                             <RadioIcon className="w-6 h-6 text-blue-600" />
-                            <h2 className="text-lg font-bold text-gray-800">{__('Desktop Preview', 'productbay')}</h2>
+                            <h2 className="text-lg font-bold text-gray-800 m-0">{__('Table Preview', 'productbay')}</h2>
                             <span className="text-sm text-gray-500 px-3 py-1 bg-gray-100 rounded-full">
                                 {__('Standard View', 'productbay')}
                             </span>
@@ -209,27 +212,25 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                         <Button
                             variant="ghost"
                             onClick={() => setIsFullscreen(false)}
-                            className="hover:bg-red-50 hover:text-red-500"
+                            className="bg-transparent hover:bg-red-50 cursor-pointer p-2 rounded-full"
                         >
                             <XIcon className="w-6 h-6" />
                             <span className="sr-only">{__('Close', 'productbay')}</span>
                         </Button>
                     </div>
-
-                    {/* Full Screen Content */}
-                    <div className="flex-1 overflow-auto p-8">
-                        {/* Centered Container for the Table */}
-                        <div className="max-w-[1280px] mx-auto bg-white min-h-[200px] shadow-lg rounded-lg p-8">
-                            {html ? renderContent() : (
-                                <div className="flex items-center justify-center h-64 text-gray-400">
-                                    <LoaderIcon className="w-12 h-12 animate-spin" />
-                                </div>
-                            )}
-                        </div>
+                )}
+            >
+                <div className="bg-gray-100/95 backdrop-blur-sm min-h-full p-8 flex flex-col">
+                    {/* Centered Container for the Table */}
+                    <div className="max-w-[1280px] w-full mx-auto bg-white min-h-[200px] shadow-lg rounded-lg p-8">
+                        {html ? renderContent() : (
+                            <div className="flex items-center justify-center h-64 text-gray-400">
+                                <ProductBayIcon className="animate-pulse size-12" />
+                            </div>
+                        )}
                     </div>
-                </div>,
-                document.body
-            )}
+                </div>
+            </Modal>
         </div>
     );
 };
