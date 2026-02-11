@@ -1,12 +1,9 @@
 import { ComponentType } from '@wordpress/element';
 import Dashboard from '@/pages/Dashboard';
-import EditTable from '@/pages/EditTable';
 import Settings from '@/pages/Settings';
 import { __ } from '@wordpress/i18n';
 import Tables from '@/pages/Tables';
-import Design from '@/pages/Design';
 import Table from '@/pages/Table';
-import Help from '@/pages/Help';
 
 /**
  * Route configuration interface
@@ -26,11 +23,8 @@ export interface RouteConfig {
 export const PATHS = {
 	DASHBOARD: '/dash',
 	NEW: '/new',
-	EDIT: '/table/:id',
 	SETTINGS: '/settings',
-	HELP: '/help',
 	TABLES: '/tables',
-	DESIGN: '/design',
 	TABLE_EDITOR: '/table/:id',
 } as const;
 
@@ -53,22 +47,10 @@ export const routes: RouteConfig[] = [
 		showInNav: true,
 	},
 	{
-		path: PATHS.DESIGN,
-		element: Design,
-		label: __('Design', 'productbay'),
-		showInNav: false,
-	},
-	{
 		path: PATHS.SETTINGS,
 		element: Settings,
 		label: __('Settings', 'productbay'),
 		showInNav: true,
-	},
-	{
-		path: PATHS.HELP,
-		element: Help,
-		label: __('Help', 'productbay'),
-		showInNav: false,
 	},
 	{
 		path: PATHS.NEW,
@@ -78,11 +60,6 @@ export const routes: RouteConfig[] = [
 	{
 		path: PATHS.TABLE_EDITOR,
 		element: Table,
-		showInNav: false,
-	},
-	{
-		path: PATHS.EDIT,
-		element: EditTable,
 		showInNav: false,
 	},
 ];
