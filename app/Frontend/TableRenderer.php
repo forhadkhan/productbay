@@ -77,12 +77,15 @@ class TableRenderer
         // Toolbar: Bulk Actions + Search
         echo '<div class="productbay-toolbar">';
 
-        // Bulk Actions
-        echo '<div class="productbay-bulk-actions">';
-        echo '<button class="productbay-btn-bulk" disabled>';
-        echo '<span class="dashicons dashicons-cart"></span> ' . __('Add to Cart', 'productbay');
-        echo '</button>';
-        echo '</div>';
+        // Bulk Actions (Add to Cart Button)
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true];
+        if ($bulk_select['enabled']) {
+            echo '<div class="productbay-bulk-actions">';
+            echo '<button class="productbay-btn-bulk" disabled>';
+            echo '<span class="dashicons dashicons-cart"></span> ' . __('Add to Cart', 'productbay');
+            echo '</button>';
+            echo '</div>';
+        }
 
         // Search & Filter Bar (if enabled)
         if (!empty($settings['features']['search'])) {
@@ -99,6 +102,14 @@ class TableRenderer
 
 
 
+
+        // Select All Column (Bulk Select - First)
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+
+        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+            echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
+        }
+
         foreach ($columns as $col) {
             // Check visibility
             if ($this->should_hide_column($col)) continue;
@@ -107,13 +118,18 @@ class TableRenderer
             $th_style = $this->get_column_styles($col);
 
             echo '<th class="' . esc_attr(implode(' ', $th_classes)) . '" style="' . esc_attr($th_style) . '">';
-            if ($col['type'] === 'checkbox') {
-                echo '<input type="checkbox" class="productbay-select-all" />';
-            } elseif (!empty($col['advanced']['showHeading'])) {
+            if (!empty($col['advanced']['showHeading'])) {
                 echo esc_html($col['heading']);
             }
             echo '</th>';
         }
+
+        // Bulk Select - Last Position
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+            echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
+        }
+
         echo '</tr></thead>';
 
         // Table Body
@@ -132,6 +148,13 @@ class TableRenderer
                 echo '<tr>';
 
 
+                // Bulk Select - First Position
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+                    echo '<td class="productbay-col-select">';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '</td>';
+                }
+
                 foreach ($columns as $col) {
                     if ($this->should_hide_column($col)) continue;
 
@@ -141,13 +164,26 @@ class TableRenderer
                     $this->render_cell($col, $product);
                     echo '</td>';
                 }
+
+                // Bulk Select - Last Position
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+                    echo '<td class="productbay-col-select">';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '</td>';
+                }
+
                 echo '</tr>';
             }
             wp_reset_postdata();
         } else {
             $colspan = count(array_filter($columns, function ($c) {
                 return !$this->should_hide_column($c);
-            })); // Checkbox is now a normal column
+            }));
+
+            // Add +1 if bulk select enabled
+            if ($bulk_select['enabled'] ?? true) {
+                $colspan++;
+            }
             echo '<tr><td colspan="' . $colspan . '" class="productbay-empty">' . __('No products found.', 'productbay') . '</td></tr>';
         }
 
@@ -262,9 +298,6 @@ class TableRenderer
         $settings = $col['settings'] ?? [];
 
         switch ($type) {
-            case 'checkbox':
-                echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
-                break;
 
             case 'image':
                 $size = $settings['imageSize'] ?? 'thumbnail';
@@ -377,6 +410,15 @@ class TableRenderer
             }
         }
 
+        // Bulk Select Width
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+        if ($bulk_select['enabled']) {
+            $width = $bulk_select['width'];
+            if ($width['value'] > 0 && $width['unit'] !== 'auto') {
+                $css .= "#{$id} .productbay-col-select { width: {$width['value']}{$width['unit']}; }";
+            }
+        }
+
         return $css;
     }
 
@@ -391,11 +433,7 @@ class TableRenderer
 
     private function get_column_classes($col)
     {
-        $classes = ['productbay-col-' . $col['id']];
-        if ($col['type'] === 'checkbox') {
-            $classes[] = 'productbay-col-select';
-        }
-        return $classes;
+        return ['productbay-col-' . $col['id']];
     }
 
     private function get_column_styles($col)
@@ -465,11 +503,26 @@ class TableRenderer
                 echo '<tr>';
 
 
+                // Bulk Select - First
+                $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first'];
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+                    echo '<td class="productbay-col-select">';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '</td>';
+                }
+
                 foreach ($columns as $col) {
                     if ($this->should_hide_column($col)) continue;
                     $td_classes = $this->get_column_classes($col);
                     echo '<td class="' . esc_attr(implode(' ', $td_classes)) . '">';
                     $this->render_cell($col, $product);
+                    echo '</td>';
+                }
+
+                // Bulk Select - Last
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+                    echo '<td class="productbay-col-select">';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
                     echo '</td>';
                 }
                 echo '</tr>';
@@ -479,6 +532,10 @@ class TableRenderer
             $colspan = count(array_filter($columns, function ($c) {
                 return !$this->should_hide_column($c);
             }));
+            // Add +1 if bulk select enabled
+            if ($settings['features']['bulkSelect']['enabled'] ?? true) {
+                $colspan++;
+            }
             echo '<tr><td colspan="' . $colspan . '" class="productbay-empty">' . __('No products found.', 'productbay') . '</td></tr>';
         }
         $rows = ob_get_clean();

@@ -31,7 +31,6 @@ export type VisibilityMode =
  * Each type has specific rendering logic and settings.
  * ============================================================================= */
 export type ColumnType =
-    | 'checkbox' // Checkbox for row selection
     | 'image'    // Product image with customizable size and link behavior
     | 'name'     // Product name/title
     | 'price'    // Product price (regular and sale)
@@ -162,6 +161,17 @@ export interface TableSettings {
 
         /** Enable price range filter */
         priceRange: boolean;
+
+        /** Bulk Selection Settings */
+        bulkSelect: {
+            enabled: boolean;
+            position: 'first' | 'last';
+            width: {
+                value: number;
+                unit: 'px' | '%' | 'auto';
+            };
+            visibility: VisibilityMode;
+        };
     };
 
     /** Pagination configuration */
@@ -266,69 +276,10 @@ export interface TableStyle {
     };
 }
 
-/* =============================================================================
- * Product Table Interface
- * =============================================================================
- * Master interface representing a complete table configuration.
- * This is what the API GET/POST returns/receives.
- * ============================================================================= */
-export interface ProductTable {
-    /** Table ID (undefined for new tables) */
-    id?: number;
 
-    /** Table name/title */
-    title: string;
-
-    /** Publication status */
-    status: 'publish' | 'draft';
-
-    /** Author information */
-    author?: {
-        id: number;
-        name: string;
-    };
-
-    /** Timestamps */
-    date?: {
-        created: string;
-        modified: string;
-    };
-
-    /** Data source configuration (_pb_source) */
-    source: DataSource;
-
-    /** Column configuration (_pb_columns) */
-    columns: Column[];
-
-    /** Functional settings (_pb_settings) */
-    settings: TableSettings;
-
-    /** Visual styling (_pb_style) */
-    style: TableStyle;
-}
-
-/* =============================================================================
- * Default Values
- * =============================================================================
- * Factory functions for creating default configurations.
- * ============================================================================= */
-
-/** Creates a default DataSource configuration */
-export const createDefaultSource = (): DataSource => ({
-    type: 'all',
-    queryArgs: {
-        categoryIds: [],
-        tagIds: [],
-        postIds: [],
-        excludes: [],
-        stockStatus: 'any',
-        priceRange: { min: 0, max: null },
-    },
-    sort: {
-        orderBy: 'date',
-        order: 'DESC',
-    },
-});
+/** Generates a unique column ID */
+export const generateColumnId = (): string =>
+    `col_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
 /** Creates a default TableSettings configuration */
 export const createDefaultSettings = (): TableSettings => ({
@@ -338,6 +289,12 @@ export const createDefaultSettings = (): TableSettings => ({
         pagination: true,
         export: false,
         priceRange: false,
+        bulkSelect: {
+            enabled: true,
+            position: 'first',
+            width: { value: 64, unit: 'px' },
+            visibility: 'all',
+        },
     },
     pagination: {
         limit: 10,
@@ -355,20 +312,37 @@ export const createDefaultSettings = (): TableSettings => ({
     },
 });
 
-/** Creates a default TableStyle configuration */
+/** Creates default source configuration */
+export const createDefaultSource = (): DataSource => ({
+    type: 'all',
+    queryArgs: {
+        categoryIds: [],
+        tagIds: [],
+        postIds: [],
+        excludes: [],
+        stockStatus: 'any',
+        priceRange: { min: 0, max: null },
+    },
+    sort: {
+        orderBy: 'date',
+        order: 'DESC',
+    },
+});
+
+/** Creates default style configuration */
 export const createDefaultStyle = (): TableStyle => ({
     header: {
-        bgColor: '#f0f0f1',
+        bgColor: '#f8f9fa',
         textColor: '#333333',
-        fontSize: '16px',
+        fontSize: '14px',
     },
     body: {
         bgColor: '#ffffff',
-        textColor: '#444444',
+        textColor: '#555555',
         rowAlternate: false,
         altBgColor: '#f9f9f9',
-        altTextColor: '#444444',
-        borderColor: '#e5e5e5',
+        altTextColor: '#555555',
+        borderColor: '#eeeeee',
     },
     button: {
         bgColor: '#2271b1',
@@ -380,8 +354,8 @@ export const createDefaultStyle = (): TableStyle => ({
     },
     layout: {
         borderStyle: 'solid',
-        borderColor: '#e5e5e5',
-        borderRadius: '0px',
+        borderColor: '#e5e7eb',
+        borderRadius: '8px',
         cellPadding: 'normal',
     },
     typography: {
@@ -389,7 +363,7 @@ export const createDefaultStyle = (): TableStyle => ({
     },
     hover: {
         rowHoverEnabled: true,
-        rowHoverBgColor: '#f5f5f5',
+        rowHoverBgColor: '#f3f4f6',
     },
     responsive: {
         mode: 'standard',
@@ -398,17 +372,6 @@ export const createDefaultStyle = (): TableStyle => ({
 
 /** Creates default columns for a new table */
 export const createDefaultColumns = (): Column[] => [
-    {
-        id: 'col_checkbox_default',
-        type: 'checkbox',
-        heading: 'Select/Deselect Product(s)',
-        advanced: {
-            showHeading: true,
-            width: { value: 64, unit: 'px' },
-            visibility: 'all',
-            order: 0,
-        },
-    },
     {
         id: 'col_image_default',
         type: 'image',
@@ -458,8 +421,4 @@ export const createDefaultColumns = (): Column[] => [
         },
     },
 ];
-
-/** Generates a unique column ID */
-export const generateColumnId = (): string =>
-    `col_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 

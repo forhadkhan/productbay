@@ -10,6 +10,7 @@ import { ProductSearch } from '@/components/Table/sections/ProductSearch';
 import { SourceStatistics } from '@/components/Table/sections/SourceStatistics';
 import { CategorySelector } from '@/components/Table/sections/CategorySelector';
 import { SourcePanel } from '@/components/Table/panels/SourcePanel';
+import { BulkSelectConfig } from '@/components/Table/sections/BulkSelectConfig';
 import { WC_PRODUCTS_PATH } from '@/utils/routes';
 
 /* =============================================================================
@@ -41,6 +42,8 @@ const TabTable = ({ className }: TabTableProps) => {
         sourceStatsLoading,
         fetchSourceStats,
         preloadCategories,
+        settings,
+        setFeatures,
     } = useTableStore();
 
     /**
@@ -170,6 +173,16 @@ const TabTable = ({ className }: TabTableProps) => {
                     isRequired={true}
                 />
                 <ColumnEditor />
+            </section>
+
+            {/* =================================================================
+             * Section 2: Bulk Select Configuration
+             * ================================================================= */}
+            <section className="pt-8 px-4">
+                <BulkSelectConfig
+                    value={settings.features.bulkSelect}
+                    onChange={(config) => setFeatures({ bulkSelect: config })}
+                />
             </section>
         </div>
     );
