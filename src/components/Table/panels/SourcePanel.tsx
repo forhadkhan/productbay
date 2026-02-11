@@ -1,11 +1,11 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
+import { Select } from '@/components/ui/Select';
 import { DataSource, SourceType } from '@/types';
 import SectionHeading from '@/components/Table/SectionHeading';
-import { CardRadioGroup, CardRadioOption } from '@/components/ui/CardRadioGroup';
-import { Select } from '@/components/ui/Select';
 import { SettingsOption } from '@/components/Table/SettingsOption';
+import { CardRadioGroup, CardRadioOption } from '@/components/ui/CardRadioGroup';
 
 /* =============================================================================
  * SourcePanel Component
@@ -113,8 +113,8 @@ export const SourcePanel = ({
                                             value={source.sort.order}
                                             onChange={(val) => setSourceSort({ order: val as 'ASC' | 'DESC' })}
                                             options={[
-                                                { label: __('DESC', 'productbay'), value: 'DESC' },
-                                                { label: __('ASC', 'productbay'), value: 'ASC' },
+                                                { label: __('Descending', 'productbay'), value: 'DESC' },
+                                                { label: __('Ascending', 'productbay'), value: 'ASC' },
                                             ]}
                                         />
                                     </div>
