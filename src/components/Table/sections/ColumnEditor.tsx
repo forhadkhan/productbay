@@ -4,7 +4,6 @@ import { __ } from '@wordpress/i18n';
 import { generateColumnId } from '@/types';
 import { Button } from '@/components/ui/Button';
 import type { Column, ColumnType } from '@/types';
-import { useTableStore } from '@/store/tableStore';
 import ColumnItem from '@/components/Table/sections/ColumnItem';
 import {
     DndContext,
@@ -16,7 +15,6 @@ import {
     DragEndEvent,
 } from '@dnd-kit/core';
 import {
-    arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
@@ -71,6 +69,11 @@ const COLUMN_TYPES: { type: ColumnType; label: string; icon: React.ElementType }
 
 export interface ColumnEditorProps {
     className?: string;
+    columns: Column[];
+    onAddColumn: (column: Column) => void;
+    onReorderColumns: (oldIndex: number, newIndex: number) => void;
+    onRemoveColumn: (columnId: string) => void;
+    onUpdateColumn: (columnId: string, updates: Partial<Column>) => void;
 }
 
 /**
@@ -78,8 +81,14 @@ export interface ColumnEditorProps {
  * 
  * Renders the sortable column list with add/remove functionality.
  */
-const ColumnEditor: React.FC<ColumnEditorProps> = ({ className }) => {
-    const { columns, addColumn, reorderColumns, removeColumn } = useTableStore();
+const ColumnEditor: React.FC<ColumnEditorProps> = ({
+    className,
+    columns,
+    onAddColumn,
+    onReorderColumns,
+    onRemoveColumn,
+    onUpdateColumn
+}) => {
     const [showAddMenu, setShowAddMenu] = React.useState(false);
 
     /**
@@ -161,7 +170,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({ className }) => {
     );
 
     /**
-     * Handle drag end - reorder columns in store
+     * Handle drag end - reorder columns
      */
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
@@ -169,7 +178,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({ className }) => {
         if (over && active.id !== over.id) {
             const oldIndex = columns.findIndex((col) => col.id === active.id);
             const newIndex = columns.findIndex((col) => col.id === over.id);
-            reorderColumns(oldIndex, newIndex);
+            onReorderColumns(oldIndex, newIndex);
         }
     };
 
@@ -181,7 +190,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({ className }) => {
 
         if (existingColumn) {
             // Column exists - remove it
-            removeColumn(existingColumn.id);
+            onRemoveColumn(existingColumn.id);
         } else {
             // Column doesn't exist - add it
             const typeConfig = COLUMN_TYPES.find((t) => t.type === type);
@@ -200,15 +209,8 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({ className }) => {
                 settings: {},
             };
 
-            addColumn(newColumn);
+            onAddColumn(newColumn);
         }
-    };
-
-    /**
-     * Remove a column by ID
-     */
-    const handleRemoveColumn = (columnId: string) => {
-        removeColumn(columnId);
     };
 
     return (
@@ -252,7 +254,8 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({ className }) => {
                             <ColumnItem
                                 key={column.id}
                                 column={column}
-                                onRemove={() => handleRemoveColumn(column.id)}
+                                onRemove={() => onRemoveColumn(column.id)}
+                                onUpdate={(updates) => onUpdateColumn(column.id, updates)}
                             />
                         ))}
                     </div>

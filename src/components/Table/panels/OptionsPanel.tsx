@@ -6,7 +6,6 @@ import { Toggle } from '@/components/ui/Toggle';
 import { Select } from '@/components/ui/Select';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
-import { BulkSelectConfig } from '@/components/Table/sections/BulkSelectConfig';
 
 /* =============================================================================
  * OptionsPanel Component
@@ -234,13 +233,6 @@ export const OptionsPanel = ({
                 </SettingsOption>
             </SettingsSection>
 
-            {/* Bulk Select Configuration */}
-            <section className="space-y-6">
-                <BulkSelectConfig
-                    value={settings.features.bulkSelect}
-                    onChange={(config) => setFeatures({ bulkSelect: config })}
-                />
-            </section>
         </div>
     );
 };

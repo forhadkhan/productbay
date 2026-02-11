@@ -276,6 +276,21 @@ export interface TableStyle {
     };
 }
 
+/* =============================================================================
+ * Product Table Interface
+ * =============================================================================
+ * Represents the complete configuration of a product table.
+ * Matches backend structure.
+ * ============================================================================= */
+export interface ProductTable {
+    id?: number;
+    title: string;
+    status: 'publish' | 'draft';
+    source: DataSource;
+    columns: Column[];
+    settings: TableSettings;
+    style: TableStyle;
+}
 
 /** Generates a unique column ID */
 export const generateColumnId = (): string =>

@@ -1,17 +1,17 @@
 import { cn } from '@/utils/cn';
 import { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
+import { WC_PRODUCTS_PATH } from '@/utils/routes';
 import { useTableStore } from '@/store/tableStore';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { AlertCircleIcon, ExternalLinkIcon } from 'lucide-react';
 import ColumnEditor from '@/components/Table/sections/ColumnEditor';
+import { SourcePanel } from '@/components/Table/panels/SourcePanel';
 import { ProductSearch } from '@/components/Table/sections/ProductSearch';
 import { SourceStatistics } from '@/components/Table/sections/SourceStatistics';
 import { CategorySelector } from '@/components/Table/sections/CategorySelector';
-import { SourcePanel } from '@/components/Table/panels/SourcePanel';
 import { BulkSelectConfig } from '@/components/Table/sections/BulkSelectConfig';
-import { WC_PRODUCTS_PATH } from '@/utils/routes';
 
 /* =============================================================================
  * TabTable Component
@@ -44,6 +44,11 @@ const TabTable = ({ className }: TabTableProps) => {
         preloadCategories,
         settings,
         setFeatures,
+        columns,
+        addColumn,
+        reorderColumns,
+        removeColumn,
+        updateColumn
     } = useTableStore();
 
     /**
@@ -172,7 +177,13 @@ const TabTable = ({ className }: TabTableProps) => {
                     description={__('Configure which columns to display and their order', 'productbay')}
                     isRequired={true}
                 />
-                <ColumnEditor />
+                <ColumnEditor
+                    columns={columns}
+                    onAddColumn={addColumn}
+                    onReorderColumns={reorderColumns}
+                    onRemoveColumn={removeColumn}
+                    onUpdateColumn={updateColumn}
+                />
             </section>
 
             {/* =================================================================

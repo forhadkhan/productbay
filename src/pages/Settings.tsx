@@ -1,3 +1,5 @@
+import { DefaultColumnsConfig } from '@/components/Table/sections/DefaultColumnsConfig';
+import { BulkSelectConfig } from '@/components/Table/sections/BulkSelectConfig';
 import { DisplayPanel } from '@/components/Table/panels/DisplayPanel';
 import { OptionsPanel } from '@/components/Table/panels/OptionsPanel';
 import { SaveIcon, RefreshCwIcon, RotateCcwIcon } from 'lucide-react';
@@ -15,6 +17,7 @@ import {
 	createDefaultSource,
 	createDefaultStyle,
 	createDefaultSettings,
+	createDefaultColumns,
 	DataSource,
 	TableStyle,
 	TableSettings as TableSettingsType
@@ -70,15 +73,16 @@ const Settings = () => {
 	const source = tableDefaults.source || createDefaultSource();
 	const style = tableDefaults.style || createDefaultStyle();
 	const tableSettings = tableDefaults.settings || createDefaultSettings();
+	const columns = tableDefaults.columns || createDefaultColumns();
 
 	// -- Handlers for Panels --
 
-	const updateDefaults = (key: 'source' | 'style' | 'settings', data: any) => {
+	const updateDefaults = (key: 'source' | 'style' | 'settings' | 'columns', data: any) => {
 		updateSettings({
 			...settings,
 			table_defaults: {
 				...tableDefaults,
-				[key]: { ...tableDefaults[key], ...data }
+				[key]: key === 'columns' ? data : { ...tableDefaults[key], ...data }
 			}
 		});
 	};
@@ -87,6 +91,9 @@ const Settings = () => {
 	const setSourceType = (type: any) => updateDefaults('source', { ...source, type });
 	const setSourceSort = (sort: any) => updateDefaults('source', { ...source, sort: { ...source.sort, ...sort } });
 	const setSourceQueryArgs = (args: any) => updateDefaults('source', { ...source, queryArgs: { ...source.queryArgs, ...args } });
+
+	// Column Handler
+	const setColumns = (cols: any) => updateDefaults('columns', cols);
 
 	// Style Handlers
 	const setHeaderStyle = (v: any) => updateDefaults('style', { ...style, header: { ...style.header, ...v } });
@@ -143,7 +150,8 @@ const Settings = () => {
 			table_defaults: {
 				source: createDefaultSource(),
 				style: createDefaultStyle(),
-				settings: createDefaultSettings()
+				settings: createDefaultSettings(),
+				columns: createDefaultColumns()
 			}
 		});
 		setShowResetModal(false);
@@ -216,6 +224,25 @@ const Settings = () => {
 										setSourceSort={setSourceSort}
 										setSourceQueryArgs={setSourceQueryArgs}
 										className="border-none"
+									/>
+								</div>
+
+								<hr className="border-b-2 border-gray-200" />
+
+								<div className="flex flex-col gap-8">
+									<div>
+										<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Columns', 'productbay')}</h2>
+										<p className="text-gray-500 mb-6">{__('Configure the default columns for new tables.', 'productbay')}</p>
+										<DefaultColumnsConfig
+											columns={columns}
+											onChange={setColumns}
+										/>
+									</div>
+
+									{/* Bulk Select Configuration */}
+									<BulkSelectConfig
+										value={tableSettings.features.bulkSelect}
+										onChange={(config) => setFeatures({ bulkSelect: config })}
 									/>
 								</div>
 

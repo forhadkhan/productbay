@@ -7,10 +7,6 @@ import type {
 	TableStyle,
 	ProductTable,
 	SourceType,
-	createDefaultSource,
-	createDefaultSettings,
-	createDefaultStyle,
-	createDefaultColumns,
 } from '@/types';
 import {
 	createDefaultSource as defaultSource,
@@ -482,7 +478,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			tableStatus: 'publish',
 			// Use global defaults if available, otherwise factory defaults
 			source: defaults.source ? { ...defaultSource(), ...defaults.source } : defaultSource(),
-			columns: defaultColumns(), // Columns defaults are not yet in global settings
+			columns: (defaults.columns && defaults.columns.length > 0) ? defaults.columns : defaultColumns(),
 			settings: defaults.settings ? { ...defaultSettings(), ...defaults.settings } : defaultSettings(),
 			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
 

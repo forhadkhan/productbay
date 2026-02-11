@@ -1,5 +1,4 @@
 import type { Column, ColumnType, VisibilityMode } from '@/types';
-import { useTableStore } from '@/store/tableStore';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import React, { useState } from 'react';
@@ -109,6 +108,7 @@ const COMMON_META_FIELDS: { key: string; label: string }[] = [
 export interface ColumnItemProps {
     column: Column;
     onRemove: () => void;
+    onUpdate: (updates: Partial<Column>) => void;
 }
 
 /**
@@ -124,8 +124,7 @@ interface CombinedSettings {
  * 
  * Renders a single draggable column card with settings.
  */
-const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
-    const { updateColumn } = useTableStore();
+const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     /**
@@ -164,14 +163,14 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
      * Handle heading change
      */
     const handleHeadingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        updateColumn(column.id, { heading: e.target.value });
+        onUpdate({ heading: e.target.value });
     };
 
     /**
      * Handle visibility change
      */
     const handleVisibilityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        updateColumn(column.id, {
+        onUpdate({
             advanced: {
                 ...column.advanced,
                 visibility: e.target.value as VisibilityMode,
@@ -184,7 +183,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
      */
     const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value) || 0;
-        updateColumn(column.id, {
+        onUpdate({
             advanced: {
                 ...column.advanced,
                 width: { ...column.advanced.width, value },
@@ -196,7 +195,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
      * Handle width unit change
      */
     const handleWidthUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        updateColumn(column.id, {
+        onUpdate({
             advanced: {
                 ...column.advanced,
                 width: {
@@ -211,7 +210,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
      * Toggle show heading
      */
     const handleToggleHeading = () => {
-        updateColumn(column.id, {
+        onUpdate({
             advanced: {
                 ...column.advanced,
                 showHeading: !column.advanced.showHeading,
@@ -223,7 +222,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
      * Handle combined layout change
      */
     const handleLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        updateColumn(column.id, {
+        onUpdate({
             settings: {
                 ...column.settings,
                 layout: e.target.value as 'inline' | 'stacked',
@@ -242,7 +241,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
             ? currentElements.filter((el) => el !== elementType)
             : [...currentElements, elementType];
 
-        updateColumn(column.id, {
+        onUpdate({
             settings: {
                 ...column.settings,
                 elements: newElements,
@@ -472,7 +471,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
                                     type="text"
                                     value={(column.settings?.metaKey as string) || ''}
                                     onChange={(e) => {
-                                        updateColumn(column.id, {
+                                        onUpdate({
                                             settings: {
                                                 ...column.settings,
                                                 metaKey: e.target.value,
@@ -499,7 +498,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
                                             <button
                                                 key={key}
                                                 onClick={() => {
-                                                    updateColumn(column.id, {
+                                                    onUpdate({
                                                         settings: {
                                                             ...column.settings,
                                                             metaKey: key,
@@ -530,7 +529,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
                                         type="text"
                                         value={(column.settings?.prefix as string) || ''}
                                         onChange={(e) => {
-                                            updateColumn(column.id, {
+                                            onUpdate({
                                                 settings: {
                                                     ...column.settings,
                                                     prefix: e.target.value,
@@ -549,7 +548,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
                                         type="text"
                                         value={(column.settings?.suffix as string) || ''}
                                         onChange={(e) => {
-                                            updateColumn(column.id, {
+                                            onUpdate({
                                                 settings: {
                                                     ...column.settings,
                                                     suffix: e.target.value,
@@ -571,7 +570,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove }) => {
                                     type="text"
                                     value={(column.settings?.fallback as string) || ''}
                                     onChange={(e) => {
-                                        updateColumn(column.id, {
+                                        onUpdate({
                                             settings: {
                                                 ...column.settings,
                                                 fallback: e.target.value,
