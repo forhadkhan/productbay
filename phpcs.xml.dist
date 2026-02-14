@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset name="ProductBay">
+	<description>PHPCS ruleset for ProductBay.</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/assets/</exclude-pattern>
+
+	<!-- How to scan -->
+	<arg value="sp"/> <!-- Show progress and sniff names -->
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<!-- Rules: WordPress Coding Standards -->
+	<config name="minimum_supported_wp_version" value="6.0"/>
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+
+	<!-- Rules: PHP Compatibility -->
+	<config name="testVersion" value="7.4-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Customizations -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="productbay"/>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="productbay,ProductBay"/>
+		</properties>
+	</rule>
+</ruleset>
