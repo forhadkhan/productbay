@@ -174,24 +174,22 @@ const Settings = () => {
 					{activeTab === 'default' && (
 						<Button
 							variant="outline"
-							size="sm"
 							onClick={handleResetDefaults}
 							className="text-gray-500 hover:text-gray-700"
 							title={__('Reset to Factory Defaults', 'productbay')}
 						>
-							<RotateCcwIcon className="w-4 h-4 mr-2" />
 							{__('Reset Defaults', 'productbay')}
+							<RotateCcwIcon className="w-4 h-4 ml-2" />
 						</Button>
 					)}
 					<Button
 						onClick={handleSave}
 						disabled={saving || !isDirty}
 						variant="default"
-						size="sm"
 						className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'}`}
 					>
-						<SaveIcon className="w-4 h-4 mr-2" />
 						{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
+						<SaveIcon className="w-4 h-4 ml-2" />
 					</Button>
 				</div>
 			</div>
