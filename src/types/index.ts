@@ -393,7 +393,7 @@ export const createDefaultColumns = (): Column[] => [
         heading: 'Image',
         advanced: {
             showHeading: true,
-            width: { value: 72, unit: 'px' },
+            width: { value: 92, unit: 'px' },
             visibility: 'all',
             order: 1,
         },

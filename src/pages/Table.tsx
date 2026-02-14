@@ -230,13 +230,11 @@ const Table = () => {
         <>
             {/* Conditional: Shortcode for already saved table */}
             {tableId && (
-                <div className="bg-gray-50 border border-gray-200 rounded-md p-4 mb-6 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
-                        <code className="bg-white text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
-                            {`[productbay id="${tableId}"]`}
-                        </code>
-                    </div>
+                <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
+                    <code className="bg-gray-100 text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
+                        {`[productbay id="${tableId}"]`}
+                    </code>
                     <div className="flex items-center justify-between gap-2">
                         <Tooltip content={__('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay')}>
                             <InfoIcon className="size-6 text-gray-500 cursor-pointer" />
