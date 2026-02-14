@@ -262,14 +262,16 @@ const Table = () => {
             )}
 
             {/* Header: Table name on left, controls on right */}
-            <div className="flex items-center justify-between mb-6">
-                <EditableText
-                    value={tableTitle}
-                    onChange={handleNameChange}
-                    error={titleError}
-                    placeholder={__('Enter table name...', 'productbay')}
-                />
-                <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+                <div className="order-2 md:order-1">
+                    <EditableText
+                        value={tableTitle}
+                        onChange={handleNameChange}
+                        error={titleError}
+                        placeholder={__('Enter table name...', 'productbay')}
+                    />
+                </div>
+                <div className="flex items-center justify-between md:justify-left gap-4 order-1 md:order-2">
                     {/* Delete Button (Only for existing tables) */}
                     {!isNewTable && (
                         <Tooltip content={__('Delete this table', 'productbay')}>

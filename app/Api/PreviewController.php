@@ -51,10 +51,17 @@ class PreviewController
         // Initialize Renderer
         // We might want to inject this, but for now instantiating is fine as it has simple dependencies
         $renderer = new TableRenderer($this->repository);
-        
+
         // Render the HTML
         $html = $renderer->render($data);
 
-        return \rest_ensure_response(['html' => $html]);
+        // Include the frontend CSS URL so the React preview iframe
+        // can load the base stylesheet for proper style isolation
+        $css_url = PRODUCTBAY_URL . 'assets/css/frontend.css';
+
+        return \rest_ensure_response([
+            'html'   => $html,
+            'cssUrl' => $css_url,
+        ]);
     }
 }

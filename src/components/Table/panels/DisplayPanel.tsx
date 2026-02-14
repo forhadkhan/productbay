@@ -141,23 +141,19 @@ export const DisplayPanel = ({
 
                 {/* Alternate Rows (Zebra Striping) */}
                 <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h3 className="text-sm font-semibold text-gray-900 block m-0">
-                                {__('Alternate Rows (Zebra Striping)', 'productbay')}
-                            </h3>
-                            <p className="text-xs text-gray-500 m-0 mt-1">
-                                {__('Improve table readability with alternating row colors', 'productbay')}
-                            </p>
-                        </div>
+                    <SettingsOption
+                        className="px-0"
+                        title={__('Alternate Rows (Zebra Striping)', 'productbay')}
+                        description={__('Improve table readability with alternating row colors', 'productbay')}
+                    >
                         <Toggle
                             checked={style.body.rowAlternate}
                             onChange={(e) => setBodyStyle({ rowAlternate: e.target.checked })}
                         />
-                    </div>
+                    </SettingsOption>
 
                     <div className={cn(
-                        "transition-all duration-300 px-4 py-2 rounded-md",
+                        "transition-all duration-300 py-2 rounded-md",
                         style.body.rowAlternate ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
                     )}>
                         <ColorChoice
@@ -167,7 +163,7 @@ export const DisplayPanel = ({
                             textColor={style.body.altTextColor || '#444444'}
                             onBgChange={(val) => setBodyStyle({ altBgColor: val })}
                             onColorChange={(val) => setBodyStyle({ altTextColor: val })}
-                            className="border-none py-0 lg:gap-8"
+                            className="border-none py-0"
                         />
                     </div>
                 </div>
@@ -236,7 +232,7 @@ export const DisplayPanel = ({
 
                 {/* Border Color - dim when border style is none */}
                 <div className={cn(
-                    "transition-all duration-300",
+                    "transition-all duration-300 m-0",
                     style.layout.borderStyle !== 'none' ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
                 )}>
                     <SettingsOption
@@ -347,7 +343,7 @@ export const DisplayPanel = ({
                             helpText: __('Collapse extra columns into expanded row', 'productbay')
                         }
                     ]}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-3"
+                    className="grid grid-cols-1 xl:grid-cols-3 gap-3"
                 />
 
                 {/* Info note about per-column visibility */}

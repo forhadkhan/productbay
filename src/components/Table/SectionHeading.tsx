@@ -14,7 +14,7 @@ export const SectionHeading = ({
     isRequired = false,
 }: SectionHeadingProps) => {
     return (
-        <div className={cn("", className)}>
+        <div className={cn("mb-4", className)}>
             <h2 className="text-lg font-semibold text-gray-900 mt-0 mb-1">
                 {title}
                 {isRequired && <span className="text-red-500 ml-1">*</span>}

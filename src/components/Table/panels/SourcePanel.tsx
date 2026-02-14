@@ -78,7 +78,7 @@ export const SourcePanel = ({
                     value={source.type}
                     onChange={setSourceType}
                     aria-label={__('Select product source', 'productbay')}
-                    className="grid grid-cols-2 gap-3"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-3"
                     cardClassName="min-w-0"
                 />
 

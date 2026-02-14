@@ -2,16 +2,30 @@
 @import "tailwindcss/theme";
 @import "tailwindcss/utilities";
 
+#productbay-root h1,
+#productbay-root h2,
+#productbay-root h3,
+#productbay-root h4,
+#productbay-root h5,
+#productbay-root h6,
+#productbay-root p,
+#productbay-root table,
+#productbay-root thead,
+#productbay-root tbody,
+#productbay-root tr,
+#productbay-root th,
+#productbay-root td {
+    margin: 0;
+}
+
 /* Essential Scoped Preflight */
 #productbay-root,
 #productbay-root *,
 #productbay-root ::before,
 #productbay-root ::after {
     box-sizing: border-box;
-    border-style: solid;
     border-width: 0;
-    margin: 0;
-    padding: 0;
+    border-style: solid;
 }
 
 /* Container positioning for scoped modals */

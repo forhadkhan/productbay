@@ -272,7 +272,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                 </button>
 
                 {/* Column Type Icon */}
-                <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center">
+                <div className="hidden md:flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center">
                     <IconComponent className="w-4 h-4 text-gray-600" />
                 </div>
 
@@ -351,7 +351,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                             <label className="block text-xs font-medium text-gray-700 mb-1">
                                 {__('Width', 'productbay')}
                             </label>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col md:flex-row gap-2">
                                 {/* Only show value input when not 'auto' */}
                                 {column.advanced.width.unit !== 'auto' && (
                                     <input
