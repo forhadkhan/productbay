@@ -82,7 +82,8 @@ class TableRenderer
         if ($bulk_select['enabled']) {
             echo '<div class="productbay-bulk-actions">';
             echo '<button class="productbay-btn-bulk" disabled>';
-            echo '<span class="dashicons dashicons-cart"></span> ' . __('Add to Cart', 'productbay');
+            echo '<svg class="productbay-icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> ';
+            echo __('Add to Cart', 'productbay');
             echo '</button>';
             echo '</div>';
         }
@@ -314,7 +315,7 @@ class TableRenderer
                 break;
 
             case 'price':
-                echo $product->get_price_html();
+                echo '<span class="productbay-price">' . $product->get_price_html() . '</span>';
                 break;
 
             case 'sku':
@@ -447,7 +448,7 @@ class TableRenderer
         // Placeholder for search input
         echo '<div class="productbay-search ' . (!empty($value) ? 'has-value' : '') . '">';
         echo '<input type="text" value="' . esc_attr($value) . '" placeholder="' . __('Search products...', 'productbay') . '" />';
-        echo '<span class="dashicons dashicons-dismiss productbay-search-clear" title="' . __('Clear', 'productbay') . '"></span>';
+        echo '<span class="productbay-search-clear" title="' . __('Clear', 'productbay') . '"></span>';
         echo '</div>';
     }
 

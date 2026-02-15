@@ -1,10 +1,46 @@
 /**
  * ProductBay Frontend Styles
- * Premium, modern, and responsive.
+ * 
+ * Scoped to .productbay-wrapper for CSS isolation.
+ * Works identically in:
+ *   - Frontend shortcode (any theme)
+ *   - Admin Live Preview iframe
  */
 
-/* Toolbar (Search & Bulk Actions) */
-.productbay-toolbar {
+/* ========================================================================
+   1. SCOPED RESET
+   Prevents theme/admin CSS from leaking into the table.
+   ======================================================================== */
+
+.productbay-wrapper,
+.productbay-wrapper *,
+.productbay-wrapper *::before,
+.productbay-wrapper *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    text-decoration: none;
+    line-height: 1.5;
+}
+
+.productbay-wrapper {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================================
+   2. TOOLBAR (Search & Bulk Actions)
+   ======================================================================== */
+
+.productbay-wrapper .productbay-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,35 +49,61 @@
     flex-wrap: wrap;
 }
 
-.productbay-search {
+/* Toolbar layout follows select column position:
+   - select=first (default): [Search] --- [Bulk Button]  (button on right)
+   - select=last:            [Bulk Button] --- [Search]  (button on left)  */
+.productbay-wrapper[data-select-position="first"] .productbay-bulk-actions,
+.productbay-wrapper:not([data-select-position]) .productbay-bulk-actions {
+    order: 2;
+}
+
+.productbay-wrapper[data-select-position="first"] .productbay-search,
+.productbay-wrapper:not([data-select-position]) .productbay-search {
+    order: 1;
+}
+
+.productbay-wrapper[data-select-position="last"] .productbay-bulk-actions {
+    order: 1;
+}
+
+.productbay-wrapper[data-select-position="last"] .productbay-search {
+    order: 2;
+}
+
+/* --- Search --- */
+
+.productbay-wrapper .productbay-search {
     position: relative;
     flex: 1;
     max-width: 300px;
 }
 
-.productbay-search input[type="text"] {
+.productbay-wrapper .productbay-search input[type="text"] {
     width: 100%;
-    padding: 10px 15px 10px 35px;
-    /* Space for icon */
+    padding: 10px 36px 10px 15px;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
+    font-family: inherit;
     font-size: 14px;
+    color: #334155;
+    line-height: 1.5;
     transition: all 0.2s ease;
     background-color: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.productbay-search input[type="text"]:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     outline: none;
 }
 
-/* Search Icon (pseudo-element) */
-.productbay-search::before {
+.productbay-wrapper .productbay-search input[type="text"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Search Icon on the RIGHT side */
+.productbay-wrapper .productbay-search::before {
     content: '';
     position: absolute;
-    left: 12px;
+    right: 12px;
+    left: auto;
     top: 50%;
     transform: translateY(-50%);
     width: 14px;
@@ -50,108 +112,51 @@
     background-repeat: no-repeat;
     background-size: contain;
     pointer-events: none;
+    z-index: 1;
 }
 
-/* Clear Button */
-.productbay-search-clear {
+/* Hide search icon when input has value (clear button takes over) */
+.productbay-wrapper .productbay-search.has-value::before {
+    display: none;
+}
+
+/* Hide search icon when loading (spinner takes over) */
+.productbay-wrapper .productbay-search.loading::before {
+    display: none;
+}
+
+/* Clear Button — shown after loading completes when input has value */
+.productbay-wrapper .productbay-search-clear {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
     cursor: pointer;
-    color: #94a3b8;
     display: none;
-    /* Hidden by default */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-size: 0 !important;
 }
 
-.productbay-search-clear:hover {
-    color: #64748b;
+.productbay-wrapper .productbay-search-clear:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12' /%3E%3C/svg%3E");
 }
 
-.productbay-search.has-value .productbay-search-clear {
+/* Show clear when has value AND not loading */
+.productbay-wrapper .productbay-search.has-value .productbay-search-clear {
     display: block;
 }
 
-/* Bulk Actions */
-.productbay-bulk-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* Hide clear during loading (spinner takes priority) */
+.productbay-wrapper .productbay-search.has-value.loading .productbay-search-clear {
+    display: none !important;
 }
 
-.productbay-btn-bulk {
-    padding: 8px 16px;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.productbay-btn-bulk:hover {
-    background-color: #2563eb;
-}
-
-.productbay-btn-bulk:disabled {
-    background-color: #94a3b8;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-/* Table Container & Table */
-.productbay-table-container {
-    overflow-x: auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e2e8f0;
-}
-
-.productbay-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0;
-    font-size: 14px;
-    color: #334155;
-}
-
-.productbay-table th,
-.productbay-table td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-    vertical-align: middle;
-}
-
-.productbay-table th {
-    background-color: #f8fafc;
-    font-weight: 600;
-    color: #475569;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-}
-
-.productbay-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* Checkbox Column */
-.productbay-col-select {
-    width: 20px;
-    text-align: center;
-}
-
-/* ... existing styles ... */
-
-/* Search Loader */
-.productbay-search.loading::after {
+/* --- Search Loader --- */
+.productbay-wrapper .productbay-search.loading::after {
     content: '';
     position: absolute;
     right: 10px;
@@ -166,7 +171,7 @@
     display: block;
 }
 
-.productbay-search.loading .productbay-search-clear {
+.productbay-wrapper .productbay-search.loading .productbay-search-clear {
     display: none !important;
 }
 
@@ -176,57 +181,296 @@
     }
 }
 
-/* Product Image */
-.productbay-product-image img {
+/* --- Bulk Actions --- */
+
+.productbay-wrapper .productbay-bulk-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.productbay-wrapper .productbay-btn-bulk {
+    padding: 8px 16px;
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none !important;
+    box-shadow: none;
+    outline: none;
+    white-space: nowrap;
+}
+
+.productbay-wrapper .productbay-btn-bulk:hover {
+    background-color: #2563eb;
+}
+
+.productbay-wrapper .productbay-btn-bulk:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Cart icon inside bulk button (inline SVG) */
+.productbay-wrapper .productbay-btn-bulk .productbay-icon-cart {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* ========================================================================
+   3. TABLE
+   ======================================================================== */
+
+.productbay-wrapper .productbay-table-container {
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.productbay-wrapper .productbay-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 14px;
+    color: #334155;
+    table-layout: auto;
+}
+
+.productbay-wrapper .productbay-table th,
+.productbay-wrapper .productbay-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.productbay-wrapper .productbay-table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+
+.productbay-wrapper .productbay-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ========================================================================
+   4. CHECKBOX COLUMN
+   ======================================================================== */
+
+.productbay-wrapper .productbay-col-select {
+    width: 20px;
+    text-align: center;
+}
+
+.productbay-wrapper .productbay-col-select input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+    accent-color: #3b82f6;
+}
+
+/* ========================================================================
+   5. PRODUCT CELLS
+   ======================================================================== */
+
+/* --- Image --- */
+.productbay-wrapper img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    padding: 2px;
+    border-radius: 3px;
+    border: 0;
+    outline: 0;
+}
+
+.productbay-wrapper .productbay-product-image img {
     border-radius: 6px;
     object-fit: cover;
     border: 1px solid #e2e8f0;
 }
 
-/* Product Title */
-.productbay-product-title {
+/* --- Product Title --- */
+.productbay-wrapper .productbay-product-title {
     font-weight: 600;
     color: #1e293b;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: color 0.15s;
 }
 
-.productbay-product-title:hover {
+.productbay-wrapper .productbay-product-title:hover {
     color: #3b82f6;
+    text-decoration: none !important;
 }
 
-/* Pagination */
-.productbay-pagination {
+/* --- Price --- */
+.productbay-wrapper .productbay-price del {
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 0.9em;
+    margin-right: 4px;
+}
+
+.productbay-wrapper .productbay-price ins {
+    color: #16a34a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* WC price HTML overrides */
+.productbay-wrapper del .woocommerce-Price-amount {
+    color: #94a3b8;
+}
+
+.productbay-wrapper ins .woocommerce-Price-amount {
+    color: #16a34a;
+}
+
+/* Hide WC screen-reader text */
+.productbay-wrapper .screen-reader-text {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* ========================================================================
+   6. BUTTONS (WC Add to Cart, etc.)
+   ======================================================================== */
+
+.productbay-wrapper .button,
+.productbay-wrapper a.button,
+.productbay-wrapper a.added_to_cart,
+.productbay-wrapper .productbay-table .button,
+.productbay-wrapper .productbay-table a.button,
+.productbay-wrapper .productbay-table a.added_to_cart {
+    padding: 8px 18px;
+    background-color: #3b82f6;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    cursor: pointer;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    outline: none !important;
+}
+
+.productbay-wrapper .button:hover,
+.productbay-wrapper a.button:hover,
+.productbay-wrapper a.added_to_cart:hover,
+.productbay-wrapper .productbay-table .button:hover,
+.productbay-wrapper .productbay-table a.button:hover {
+    background-color: #2563eb;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+/* WC "View cart" link after adding */
+.productbay-wrapper .added_to_cart {
+    margin-left: 6px;
+    background-color: #16a34a;
+}
+
+.productbay-wrapper .added_to_cart:hover {
+    background-color: #15803d;
+}
+
+/* ========================================================================
+   7. LINKS (prevent theme overrides)
+   ======================================================================== */
+
+.productbay-wrapper a {
+    color: #1e293b;
+    text-decoration: none !important;
+    transition: color 0.15s;
+}
+
+.productbay-wrapper a:hover {
+    color: #3b82f6;
+    text-decoration: none !important;
+}
+
+/* ========================================================================
+   8. EMPTY STATE
+   ======================================================================== */
+
+.productbay-wrapper .productbay-empty {
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    padding: 24px 16px;
+}
+
+/* ========================================================================
+   9. PAGINATION
+   ======================================================================== */
+
+.productbay-wrapper .productbay-pagination {
     margin-top: 1rem;
     display: flex;
     justify-content: center;
     gap: 4px;
 }
 
-.productbay-pagination .page-numbers {
+.productbay-wrapper .productbay-pagination .page-numbers {
     padding: 6px 12px;
     border: 1px solid #e2e8f0;
     background: #fff;
     color: #64748b;
     border-radius: 6px;
-    text-decoration: none;
+    text-decoration: none !important;
     font-size: 14px;
+    line-height: 1.5;
     transition: all 0.2s;
 }
 
-.productbay-pagination .page-numbers.current,
-.productbay-pagination .page-numbers:hover {
+.productbay-wrapper .productbay-pagination .page-numbers.current,
+.productbay-wrapper .productbay-pagination .page-numbers:hover {
     background-color: #f1f5f9;
     color: #334155;
     border-color: #cbd5e1;
 }
 
-/* Loading Overlay */
-.productbay-loading {
+/* ========================================================================
+   10. LOADING OVERLAY
+   ======================================================================== */
+
+.productbay-wrapper.productbay-loading {
     position: relative;
 }
 
-.productbay-loading::after {
+.productbay-wrapper.productbay-loading::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -236,4 +480,21 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+}
+
+/* ========================================================================
+   11. WC STOCK STATUS
+   ======================================================================== */
+
+.productbay-wrapper .stock {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.productbay-wrapper .stock.in-stock {
+    color: #16a34a;
+}
+
+.productbay-wrapper .stock.out-of-stock {
+    color: #dc2626;
 }

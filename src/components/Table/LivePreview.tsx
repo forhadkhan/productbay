@@ -1,4 +1,4 @@
-import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon, Monitor, Tablet, Smartphone } from 'lucide-react';
+import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon, MonitorIcon, TabletIcon, SmartphoneIcon, RefreshCwIcon } from 'lucide-react';
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useTableStore } from '@/store/tableStore';
@@ -51,7 +51,7 @@ const IFRAME_SCRIPT = `
             btn.textContent = 'Add ' + count + ' item' + (count > 1 ? 's' : '') + ' for $' + total.toFixed(2);
             btn.disabled = false;
         } else {
-            btn.innerHTML = '<span class="dashicons dashicons-cart"></span> Add to Cart';
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart';
             btn.disabled = true;
         }
     }
@@ -149,17 +149,16 @@ const buildSrcdoc = (html: string, cssUrl: string): string => `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${cssUrl}" />
     <style>
-        /* Minimal reset so only our styles apply */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Iframe body setup — the scoped reset is in frontend.css */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             font-size: 14px;
             color: #334155;
             background: transparent;
             padding: 16px;
+            margin: 0;
             overflow-x: hidden;
         }
-        /* Ensure the wrapper fills the iframe width */
         .productbay-wrapper { width: 100%; }
         table { width: 100%; }
     </style>
@@ -229,51 +228,43 @@ const LivePreview = ({ className }: LivePreviewProps) => {
     // Iframe height tracking (auto-resize based on content)
     const [iframeHeight, setIframeHeight] = useState(400);
 
-    // Scaling State
-    const [scale, setScale] = useState(1);
+    // Scaling State — start at 0 so the iframe is hidden until properly measured
+    const [scale, setScale] = useState(0);
     const [activeDevice, setActiveDevice] = useState<keyof typeof DEVICE_WIDTHS>('desktop');
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Effect to fetch preview when debounced payload changes
-    useEffect(() => {
-        let isMounted = true;
+    // Retry counter — bumping this forces a refetch independent of payload
+    const [retryCount, setRetryCount] = useState(0);
 
-        const fetchPreview = async () => {
-            setLoading(true);
-            setError(null);
+    // Extracted fetch function so it can be called from the retry button
+    const fetchPreview = useCallback(async () => {
+        setLoading(true);
+        setError(null);
 
-            try {
-                const response = await apiFetch<PreviewResponse>('preview', {
-                    method: 'POST',
-                    body: JSON.stringify({ data: debouncedPayload })
-                });
+        try {
+            const response = await apiFetch<PreviewResponse>('preview', {
+                method: 'POST',
+                body: JSON.stringify({ data: debouncedPayload })
+            });
 
-                if (isMounted) {
-                    if (response && typeof response.html === 'string') {
-                        setHtml(response.html);
-                        if (response.cssUrl) setCssUrl(response.cssUrl);
-                    } else {
-                        throw new Error('Invalid response format');
-                    }
-                }
-            } catch (err) {
-                if (isMounted) {
-                    setError(err instanceof Error ? err.message : 'Failed to load preview');
-                    console.error('Preview Error:', err);
-                }
-            } finally {
-                if (isMounted) {
-                    setLoading(false);
-                }
+            if (response && typeof response.html === 'string') {
+                setHtml(response.html);
+                if (response.cssUrl) setCssUrl(response.cssUrl);
+            } else {
+                throw new Error('Invalid response format');
             }
-        };
-
-        fetchPreview();
-
-        return () => {
-            isMounted = false;
-        };
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to load preview');
+            console.error('Preview Error:', err);
+        } finally {
+            setLoading(false);
+        }
     }, [debouncedPayload]);
+
+    // Effect to fetch preview when debounced payload or retry count changes
+    useEffect(() => {
+        fetchPreview();
+    }, [fetchPreview, retryCount]);
 
     /**
      * Listen for postMessage events from the preview iframe.
@@ -305,6 +296,13 @@ const LivePreview = ({ className }: LivePreviewProps) => {
         return () => window.removeEventListener('message', handleMessage);
     }, [handleMessage]);
 
+
+    // Build the srcdoc string for the iframe (memoized to avoid re-renders)
+    const srcdoc = useMemo(() => {
+        if (!html || !cssUrl) return '';
+        return buildSrcdoc(html, cssUrl);
+    }, [html, cssUrl]);
+
     // Handle Scaling for the inline (non-fullscreen) preview
     useEffect(() => {
         const updateScale = () => {
@@ -316,7 +314,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             }
         };
 
-        updateScale();
+        // Use rAF to ensure the container is laid out before measuring
+        requestAnimationFrame(updateScale);
 
         const observer = new ResizeObserver(updateScale);
         if (containerRef.current) {
@@ -324,13 +323,9 @@ const LivePreview = ({ className }: LivePreviewProps) => {
         }
 
         return () => observer.disconnect();
-    }, [activeDevice]);
+    }, [activeDevice, srcdoc]);
 
-    // Build the srcdoc string for the iframe (memoized to avoid re-renders)
-    const srcdoc = useMemo(() => {
-        if (!html || !cssUrl) return '';
-        return buildSrcdoc(html, cssUrl);
-    }, [html, cssUrl]);
+
 
     /**
      * Render the isolated iframe preview.
@@ -370,34 +365,34 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             <button
                 onClick={() => setActiveDevice('desktop')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded transition-colors cursor-pointer",
-                    activeDevice === 'desktop' ? "bg-white text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
+                    activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
                 )}
                 title={__('Desktop View', 'productbay')}
             >
-                <Monitor className="w-3.5 h-3.5" />
+                <MonitorIcon className="w-3.5 h-3.5" />
                 {showLabels && <span className="text-[10px] font-bold uppercase tracking-wider">{__('Desktop', 'productbay')}</span>}
             </button>
             <button
                 onClick={() => setActiveDevice('tablet')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded transition-colors cursor-pointer",
-                    activeDevice === 'tablet' ? "bg-white text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
+                    activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
                 )}
                 title={__('Tablet View', 'productbay')}
             >
-                <Tablet className="w-3.5 h-3.5" />
+                <TabletIcon className="w-3.5 h-3.5" />
                 {showLabels && <span className="text-[10px] font-bold uppercase tracking-wider">{__('Tablet', 'productbay')}</span>}
             </button>
             <button
                 onClick={() => setActiveDevice('mobile')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded transition-colors cursor-pointer",
-                    activeDevice === 'mobile' ? "bg-white text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
+                    activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
                 )}
                 title={__('Mobile View', 'productbay')}
             >
-                <Smartphone className="w-3.5 h-3.5" />
+                <SmartphoneIcon className="w-3.5 h-3.5" />
                 {showLabels && <span className="text-[10px] font-bold uppercase tracking-wider">{__('Mobile', 'productbay')}</span>}
             </button>
         </div>
@@ -416,7 +411,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                     <DeviceSwitcher />
                     <Button
                         title={__('Full Screen', 'productbay')}
-                        variant="ghost"
+                        variant="outline"
+                        size="xs"
                         onClick={() => setIsFullscreen(true)}
                         className="hover:bg-gray-100 cursor-pointer p-2"
                     >
@@ -429,14 +425,31 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             <div className="relative -mt-px flex-1 min-h-[400px] bg-white rounded-b-lg rounded-tr-lg border border-gray-200 overflow-hidden">
                 <div className="w-full h-full p-4 bg-gray-50/50 relative overflow-hidden">
                     {error ? (
-                        <div className="flex flex-col items-center justify-center h-full text-red-500">
-                            <AlertCircleIcon className="w-8 h-8 mb-2" />
-                            <p>{error}</p>
+                        <div className="flex flex-col items-center justify-center h-full gap-3">
+                            <AlertCircleIcon className="w-10 h-10 text-red-400" />
+                            <p className="text-sm text-gray-600 font-medium">{error}</p>
+                            <button
+                                onClick={() => setRetryCount(c => c + 1)}
+                                disabled={loading}
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50"
+                            >
+                                <RefreshCwIcon className={cn("w-4 h-4", loading && "animate-spin")} />
+                                {loading ? __('Regenerating…', 'productbay') : __('Re-render Preview', 'productbay')}
+                            </button>
+                            <p className="text-xs text-gray-400 mt-1">
+                                {__('If the issue persists, try reloading the page.', 'productbay')}
+                            </p>
                         </div>
                     ) : srcdoc ? (
                         /* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */
-                        <div ref={containerRef} className="w-full h-full origin-top-left">
+                        <div ref={containerRef} className="w-full h-full origin-top-left relative">
                             {renderIframe()}
+                            {/* Pulse overlay while regenerating */}
+                            {loading && (
+                                <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity">
+                                    <LoaderIcon className="w-6 h-6 text-blue-500 animate-spin" />
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <div className="flex items-center justify-center h-full text-gray-400">

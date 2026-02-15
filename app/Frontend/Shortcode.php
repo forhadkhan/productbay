@@ -75,11 +75,14 @@ class Shortcode
      */
     private function enqueue_assets()
     {
+        $css_file = PRODUCTBAY_PATH . 'assets/css/frontend.css';
+        $css_ver  = file_exists($css_file) ? filemtime($css_file) : PRODUCTBAY_VERSION;
+
         \wp_enqueue_style(
             'productbay-frontend',
             PRODUCTBAY_URL . 'assets/css/frontend.css',
             [],
-            PRODUCTBAY_VERSION
+            $css_ver
         );
 
         \wp_enqueue_script(

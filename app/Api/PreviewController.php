@@ -57,7 +57,9 @@ class PreviewController
 
         // Include the frontend CSS URL so the React preview iframe
         // can load the base stylesheet for proper style isolation
-        $css_url = PRODUCTBAY_URL . 'assets/css/frontend.css';
+        $css_file = PRODUCTBAY_PATH . 'assets/css/frontend.css';
+        $css_ver  = file_exists($css_file) ? filemtime($css_file) : PRODUCTBAY_VERSION;
+        $css_url  = PRODUCTBAY_URL . 'assets/css/frontend.css?ver=' . $css_ver;
 
         return \rest_ensure_response([
             'html'   => $html,
