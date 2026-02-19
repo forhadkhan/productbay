@@ -361,12 +361,12 @@ const LivePreview = ({ className }: LivePreviewProps) => {
      * Renders the device selection toggle buttons.
      */
     const DeviceSwitcher = ({ showLabels = false }: { showLabels?: boolean }) => (
-        <div className="flex items-center gap-0.5 bg-gray-100 p-1 rounded-md border border-gray-200">
+        <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-md border border-gray-200">
             <button
                 onClick={() => setActiveDevice('desktop')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
-                    activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
+                    "flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer",
+                    activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"
                 )}
                 title={__('Desktop View', 'productbay')}
             >
@@ -376,8 +376,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             <button
                 onClick={() => setActiveDevice('tablet')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
-                    activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
+                    "flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer",
+                    activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"
                 )}
                 title={__('Tablet View', 'productbay')}
             >
@@ -387,8 +387,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             <button
                 onClick={() => setActiveDevice('mobile')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
-                    activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
+                    "flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer",
+                    activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"
                 )}
                 title={__('Mobile View', 'productbay')}
             >
@@ -414,7 +414,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                         variant="outline"
                         size="xs"
                         onClick={() => setIsFullscreen(true)}
-                        className="hover:bg-gray-100 cursor-pointer p-2"
+                        className="hover:bg-white hover:border-blue-600 cursor-pointer p-2"
                     >
                         <Maximize2Icon className="w-5 h-5 text-gray-500" />
                     </Button>
@@ -483,7 +483,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                             <Button
                                 variant="ghost"
                                 onClick={() => setIsFullscreen(false)}
-                                className="bg-transparent hover:bg-red-50 cursor-pointer p-2 rounded-full"
+                                className="bg-transparent hover:bg-red-50 border border-transparent hover:border-red-600 cursor-pointer p-2 rounded-full"
                             >
                                 <XIcon className="w-6 h-6" />
                                 <span className="sr-only">{__('Close', 'productbay')}</span>

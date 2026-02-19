@@ -53,7 +53,7 @@ const Navbar = () => {
 									`flex items-center px-4 h-9 rounded-lg text-sm font-semibold transition-colors
 									${isActive
 										? 'bg-productbay-secondary text-gray-900'
-										: 'text-gray-500 hover:text-gray-900'
+										: 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
 									}`
 								}
 							>
@@ -66,10 +66,10 @@ const Navbar = () => {
 					<Button
 						onClick={() => navigate(PATHS.NEW)}
 						variant="outline"
-						className="cursor-pointer w-[152px] h-10 px-2 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 flex items-center justify-between"
+						className="cursor-pointer px-4 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-100/70 hover:text-blue-700 hover:border-blue-700 flex items-center justify-between"
 					>
 						<span className="font-semibold">{__('Add New Table', 'productbay')}</span>
-						<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-1">
+						<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-2">
 							<PlusIcon
 								size={12}
 								className="text-white"
