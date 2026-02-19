@@ -5,7 +5,7 @@ import { Select } from '@/components/ui/Select';
 import { ColorPicker } from '@/components/ui/ColorPicker';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
-import { CardRadioGroup } from '@/components/ui/CardRadioGroup';
+
 import { TableStyle } from '@/types';
 
 /* =============================================================================
@@ -57,7 +57,7 @@ export interface DisplayPanelProps {
     setLayoutStyle: (layout: Partial<TableStyle['layout']>) => void;
     setTypographyStyle: (typography: Partial<TableStyle['typography']>) => void;
     setHoverStyle: (hover: Partial<TableStyle['hover']>) => void;
-    setResponsiveStyle: (responsive: Partial<TableStyle['responsive']>) => void;
+
     className?: string;
 }
 
@@ -69,7 +69,7 @@ export const DisplayPanel = ({
     setLayoutStyle,
     setTypographyStyle,
     setHoverStyle,
-    setResponsiveStyle,
+
     className
 }: DisplayPanelProps) => {
     return (
@@ -313,46 +313,6 @@ export const DisplayPanel = ({
                 </SettingsOption>
             </section>
 
-            {/* ================================================================
-             * Section 5: Responsive Display
-             * ================================================================ */}
-            <section className="space-y-6">
-                <SectionHeading
-                    title={__('Responsive Display', 'productbay')}
-                    description={__('Mobile and tablet display settings', 'productbay')}
-                />
-
-                <CardRadioGroup
-                    name="responsive-mode"
-                    value={style.responsive.mode}
-                    onChange={(val) => setResponsiveStyle({ mode: val as any })}
-                    options={[
-                        {
-                            value: 'standard',
-                            label: __('Standard Table', 'productbay'),
-                            helpText: __('Horizontal scrolling on small screens', 'productbay')
-                        },
-                        {
-                            value: 'stack',
-                            label: __('Stack Cards', 'productbay'),
-                            helpText: __('Stack columns vertically like cards', 'productbay')
-                        },
-                        {
-                            value: 'accordion',
-                            label: __('Accordion', 'productbay'),
-                            helpText: __('Collapse extra columns into expanded row', 'productbay')
-                        }
-                    ]}
-                    className="grid grid-cols-1 xl:grid-cols-3 gap-3"
-                />
-
-                {/* Info note about per-column visibility */}
-                <div className="bg-blue-50 border border-blue-200 rounded-md px-4 py-3 mt-4">
-                    <p className="text-sm text-blue-700 m-0">
-                        {__('Tip: You can hide specific columns on mobile using the visibility setting in each column\'s advanced options.', 'productbay')}
-                    </p>
-                </div>
-            </section>
         </div>
     );
 };

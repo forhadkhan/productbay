@@ -17,7 +17,6 @@ const TabDisplay: React.FC = () => {
         setLayoutStyle,
         setTypographyStyle,
         setHoverStyle,
-        setResponsiveStyle,
     } = useTableStore();
 
     return (
@@ -29,7 +28,6 @@ const TabDisplay: React.FC = () => {
             setLayoutStyle={setLayoutStyle}
             setTypographyStyle={setTypographyStyle}
             setHoverStyle={setHoverStyle}
-            setResponsiveStyle={setResponsiveStyle}
         />
     );
 };

@@ -36,8 +36,6 @@ const TabTable = ({ className }: TabTableProps) => {
     const {
         source,
         setSourceType,
-        setSourceSort,
-        setSourceQueryArgs,
         sourceStats,
         sourceStatsLoading,
         fetchSourceStats,
@@ -79,8 +77,6 @@ const TabTable = ({ className }: TabTableProps) => {
             <SourcePanel
                 source={source}
                 setSourceType={setSourceType}
-                setSourceSort={setSourceSort}
-                setSourceQueryArgs={setSourceQueryArgs}
             >
                 {/* All Products - Show statistics */}
                 {source.type === 'all' && (

@@ -11,7 +11,7 @@ import { Select } from '@/components/ui/Select';
 import { useToast } from '@/context/ToastContext';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, DownloadIcon, UploadIcon, PlusIcon, PackageIcon } from 'lucide-react';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -452,32 +452,6 @@ const Tables = () => {
 					{loading ? <span className="animate-pulse font-medium">(*)</span> : <span className="font-medium text-gray-600">({status?.table_count})</span>}
 				</h1>
 
-				{/* Import-Export */}
-				<div className="flex gap-2">
-					{/* <Button
-						variant="link"
-						size="sm"
-						className="cursor-pointer bg-transparent hover:bg-white"
-						onClick={() =>
-							window.open(WC_PRODUCTS_PATH, '_blank')
-						}
-					>
-						<PackageIcon size={18} className="mr-2" />
-						{__('Products', 'productbay')}
-						{loading ? <span className="ml-2 animate-pulse font-medium">(*)</span> : <span className="ml-2 text-gray-600">({status?.product_count})</span>}
-					</Button> */}
-					<Button variant="secondary" size="sm" className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors">
-						<UploadIcon size={14} /> {__('Import', 'productbay')}
-					</Button>
-					<Button
-						variant="secondary"
-						size="sm"
-						className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-						disabled={isLoading || tables.length === 0}
-					>
-						<DownloadIcon size={14} /> {__('Export', 'productbay')}
-					</Button>
-				</div>
 			</div>
 
 			{ /* Top Menu: Bulk Actions & Search/Filter */}
