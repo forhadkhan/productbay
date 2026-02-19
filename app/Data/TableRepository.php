@@ -22,7 +22,7 @@ class TableRepository
         $query = new \WP_Query([
             'post_type' => self::POST_TYPE,
             'posts_per_page' => -1,
-            'post_status' => 'publish'
+            'post_status' => 'any' // Return all tables (publish, draft, etc.)
         ]);
 
         $tables = [];
@@ -50,14 +50,31 @@ class TableRepository
     public function save_table($data)
     {
         $id = isset($data['id']) ? intval($data['id']) : 0;
+
+        // Frontend sends 'title' and 'status', not 'tableTitle' and 'tableStatus'
         $title = isset($data['title']) ? sanitize_text_field($data['title']) : 'Untitled Table';
+        $status = isset($data['status']) ? $data['status'] : 'publish';
+
+        // Extract components
+        $source = isset($data['source']) ? $data['source'] : [];
+        $columns = isset($data['columns']) ? $data['columns'] : [];
+        $settings = isset($data['settings']) ? $data['settings'] : [];
+        $style = isset($data['style']) ? $data['style'] : [];
+
+
+
 
         $post_data = [
             'post_title' => $title,
             'post_type' => self::POST_TYPE,
-            'post_status' => 'publish',
+            'post_status' => $status,
             'meta_input' => [
-                '_productbay_config' => $data
+                '_productbay_source' => $source,
+                '_productbay_columns' => $columns,
+                '_productbay_settings' => $settings,
+                '_productbay_style' => $style,
+                // Validating existence of legacy key removal
+                '_productbay_config' => '' // Clear legacy config to avoid confusion
             ]
         ];
 
@@ -85,14 +102,34 @@ class TableRepository
 
     private function format_table($post)
     {
-        $config = get_post_meta($post->ID, '_productbay_config', true) ?: [];
+        // Retrieve individual meta keys
+        $source = get_post_meta($post->ID, '_productbay_source', true) ?: [];
+        $columns = get_post_meta($post->ID, '_productbay_columns', true) ?: [];
+        $settings = get_post_meta($post->ID, '_productbay_settings', true) ?: [];
+        $style = get_post_meta($post->ID, '_productbay_style', true) ?: [];
+
+
+
+        // Fallback for legacy data if source is empty but legacy config exists
+        if (empty($source)) {
+            $legacy_config = get_post_meta($post->ID, '_productbay_config', true);
+            if (!empty($legacy_config)) {
+                // Attempt to map from legacy if possible, or just return basic structure
+                // For now, if migration is needed, it should be done separately. 
+                // We return empty defaults which front-end will handle.
+            }
+        }
+
         return [
             'id' => $post->ID,
             'title' => $post->post_title,
-            'date' => $post->post_date,
             'status' => $post->post_status,
+            'date' => $post->post_date,
             'shortcode' => '[productbay id="' . $post->ID . '"]',
-            'config' => $config
+            'source' => $source,
+            'columns' => $columns,
+            'settings' => $settings,
+            'style' => $style,
         ];
     }
 }

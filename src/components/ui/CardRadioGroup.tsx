@@ -196,7 +196,7 @@ function CardRadioGroup<T extends string = string>({
 
                         {/* Card content: label and help text */}
                         <div className="flex flex-col">
-                            <span className="font-medium text-sm leading-tight">
+                            <span className="font-semibold text-sm leading-tight">
                                 {option.label}
                             </span>
                             {option.helpText && (

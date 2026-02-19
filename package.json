@@ -6,20 +6,20 @@
 	"contributors": [
 		{
 			"name": "Forhad Khan",
-			"email": "dev@forhadakhan.com",
-			"url": "https://forhadakhan.com/"
+			"email": "dev@forhadkhan.com",
+			"url": "https://forhadkhan.com/"
 		}
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/forhadakhan/productbay.git"
+		"url": "https://github.com/forhadkhan/productbay.git"
 	},
 	"license": "GPL-2.0-or-later",
 	"main": "src/index.tsx",
 	"bugs": {
-		"url": "https://github.com/forhadakhan/productbay/issues"
+		"url": "https://github.com/forhadkhan/productbay/issues"
 	},
-	"homepage": "https://github.com/forhadakhan/productbay#readme",
+	"homepage": "https://github.com/forhadkhan/productbay#readme",
 	"scripts": {
 		"tailwindbuild": "tailwindcss -i ./src/styles/main.css -o ./assets/css/admin.css --minify",
 		"tailwindwatch": "tailwindcss -i ./src/styles/main.css -o ./assets/css/admin.css --watch --minify",
@@ -40,6 +40,9 @@
 		"lint:php": "vendor\\bin\\phpcs",
 		"packages-update": "wp-scripts packages-update",
 		"release": "bun scripts/package-plugin.js",
+		"dev": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
+		"dev:debug": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1 -Visible",
+		"stop": "powershell -ExecutionPolicy Bypass -File scripts/stop.ps1",
 		"i18n:make-pot": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot . languages/productbay.pot --domain=productbay --slug=productbay --exclude=node_modules,vendor,dist,notes,instructions",
 		"i18n:make-json": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-json languages --no-purge"
 	},

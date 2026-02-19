@@ -19,18 +19,18 @@ export const useWpMenuSync = () => {
 
 	useEffect(() => {
 		const path = location.pathname;
-		let slug = 'productbay-dash'; // Default to Dashboard
+		let slug = 'productbay'; // Default to "productbay" (Tables)
 
 		// Determine correct WP Admin page slug based on React Route
 		if (path === PATHS.DASHBOARD) {
-			slug = 'productbay-dash';
+			slug = 'productbay'; // Dashboard technically hidden/gone, map to main
 		} else if (path === PATHS.SETTINGS) {
 			slug = 'productbay-settings';
 		} else if (path === PATHS.NEW) {
 			slug = 'productbay-new';
 		} else if (path === PATHS.TABLES || path.startsWith('/edit')) {
-			// Map Tables and Edit pages to 'productbay-tables'
-			slug = 'productbay-tables';
+			// Map Tables to main 'productbay' slug as it is now the default
+			slug = 'productbay';
 		} else if (path === PATHS.HELP) {
 			slug = 'productbay-help';
 		}

@@ -139,6 +139,8 @@ Detailed documentation for specific components and features:
 ### UI Components
 
 - **[CategorySelector](./CategorySelectorArchitecture.md)** - Multi-select category picker with intelligent caching
+- **ColumnEditor** (`src/components/Table/sections/ColumnEditor.tsx`) - Drag-and-drop column list with @dnd-kit, includes width validation warnings
+- **ColumnItem** (`src/components/Table/sections/ColumnItem.tsx`) - Individual column settings with inline heading editing, combined column sub-element picker, and custom field meta key configuration
 
 ### Pages
 
@@ -286,5 +288,5 @@ Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
 
 ---
 
-**Last Updated**: 2026-02-02  
+**Last Updated**: 2026-02-04  
 **Maintainer**: ProductBay Development Team

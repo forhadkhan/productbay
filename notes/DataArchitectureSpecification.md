@@ -100,21 +100,41 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
 
     // Type-Specific Settings
     "settings": {
-      "image_size": "thumbnail",
-      "link_target": "lightbox" // "none", "product", "lightbox"
+      "imageSize": "thumbnail",
+      "linkTarget": "lightbox" // "none", "product", "lightbox"
     }
   },
   {
     "id": "col_abc789",
-    "type": "price",
-    "heading": "Price",
+    "type": "cf",
+    "heading": "Weight",
     "advanced": {
-      "show_heading": true,
-      "width": { "value": 20, "unit": "%" },
-      "visibility": "not-mobile",
+      "showHeading": true,
+      "width": { "value": 0, "unit": "auto" }, // "auto", "px", or "%"
+      "visibility": "all",
       "order": 2
     },
-    "settings": {} 
+    "settings": {
+      "metaKey": "_weight",
+      "prefix": "",
+      "suffix": " kg",
+      "fallback": "N/A"
+    }
+  },
+  {
+    "id": "col_xyz456",
+    "type": "combined",
+    "heading": "Product Info",
+    "advanced": {
+      "showHeading": true,
+      "width": { "value": 30, "unit": "%" },
+      "visibility": "desktop",
+      "order": 3
+    },
+    "settings": {
+      "layout": "stacked",       // "inline" or "stacked"
+      "elements": ["name", "price", "sku"]  // Min 2 column types
+    }
   }
 ]
 
@@ -132,7 +152,8 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
     "pagination": true,
     "lazy_load": false,
     "export": false,
-    "responsive_collapse": true // Row accordion on mobile
+    "price_range": true
+    // "responsive_collapse" removed in favor of style.responsive.mode
   },
   "pagination": {
     "limit": 10,
@@ -150,7 +171,7 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
     "active_taxonomies": ["product_cat", "pa_color"]
   },
   "performance": {
-    "product_limit": 200 // Hard cap for query speed
+    "product_limit": 500 // Hard cap for query speed (Updated default)
   }
 }
 
@@ -179,6 +200,9 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
     "text_color": "#ffffff",
     "border_radius": "4px",
     "icon": "cart"
+  },
+  "responsive": {
+    "mode": "standard" // "standard", "stack", "accordion"
   }
 }
 

@@ -104,6 +104,14 @@ class Router
             'callback' => [$products_controller, 'sourceStats'],
             'permission_callback' => [$this, 'permission_check']
         ]);
+
+        // Live Preview
+        $preview_controller = new \WpabProductBay\Api\PreviewController($this->repository, $this->request);
+        \register_rest_route('productbay/v1', '/preview', [
+            'methods'  => 'POST',
+            'callback' => [$preview_controller, 'preview'],
+            'permission_callback' => [$this, 'permission_check']
+        ]);
     }
 
 

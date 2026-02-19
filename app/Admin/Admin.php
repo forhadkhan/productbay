@@ -75,30 +75,20 @@ class Admin
             58
         );
 
-        // Register "Dashboard" submenu with unique slug for proper menu sync
-        // This replaces the auto-generated first submenu that duplicates the parent
+        // Register "Tables" as the default submenu (sharing the parent slug)
+        // This makes "Tables" the page that loads when clicking the top-level "ProductBay" menu
         \add_submenu_page(
-            // $parent_slug: The slug of the parent menu (must match add_menu_page's $menu_slug)
+            // $parent_slug: The slug of the parent menu
             Constants::MENU_SLUG,
-            // $page_title: Browser title bar text when this submenu page is active
-            \__('Dashboard', Constants::TEXT_DOMAIN),
+            // $page_title: Browser title bar text
+            \__('Tables', Constants::TEXT_DOMAIN),
             // $menu_title: Text displayed in the submenu list
-            \__('Dashboard', Constants::TEXT_DOMAIN),
-            // $capability: User capability required to see/access this submenu
+            \__('Tables', Constants::TEXT_DOMAIN),
+            // $capability: User capability required
             Constants::CAPABILITY,
-            // $menu_slug: Unique slug for this submenu, used in URL (?page=productbay-dash)
-            Constants::MENU_SLUG . '-dash',
-            // $callback: Function to render page content (same React container as parent)
-            [$this, 'render_app']
-        );
-
-        // Register "Tables" submenu
-        \add_submenu_page(
+            // $menu_slug: Same as parent to make it the default
             Constants::MENU_SLUG,
-            \__('Tables', Constants::TEXT_DOMAIN),
-            \__('Tables', Constants::TEXT_DOMAIN),
-            Constants::CAPABILITY,
-            Constants::MENU_SLUG . '-tables',
+            // $callback: Function to render page content
             [$this, 'render_app']
         );
 
@@ -123,8 +113,7 @@ class Admin
         );
 
         // Register submenu under WooCommerce's "Products" menu
-        // Uses a redirect callback to open the ProductBay dashboard in its proper admin URL
-        // This ensures the ProductBay menu is highlighted instead of the Products menu
+        // Uses a redirect callback to open the ProductBay tables in its proper admin URL
         \add_submenu_page(
             'edit.php?post_type=product',
             \__('Tables', Constants::TEXT_DOMAIN),
@@ -133,11 +122,6 @@ class Admin
             Constants::MENU_SLUG . '-woo-tables',
             [$this, 'redirect_to_productbay']
         );
-
-        // Remove the auto-generated duplicate parent menu entry
-        // WordPress automatically creates a submenu with the parent's slug
-        // We remove it since we have a dedicated Dashboard submenu
-        \remove_submenu_page(Constants::MENU_SLUG, Constants::MENU_SLUG);
     }
 
     /**
@@ -172,18 +156,11 @@ class Admin
             'title' => '<span style="display: flex; align-items: center;">'
                 . '<span>' . \__('ProductBay', Constants::TEXT_DOMAIN) . '</span>'
                 . '</span>',
-            'href'  => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash'),
+            // Link to the main productbay page (now Tables)
+            'href'  => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
             'meta'  => [
                 'title' => \__('ProductBay', Constants::TEXT_DOMAIN),
             ],
-        ]);
-
-        // Add Dashboard submenu
-        $wp_admin_bar->add_node([
-            'id'     => Constants::MENU_SLUG . '-dash',
-            'parent' => Constants::MENU_SLUG,
-            'title'  => \__('Dashboard', Constants::TEXT_DOMAIN),
-            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash'),
         ]);
 
         // Add Tables submenu
@@ -191,7 +168,7 @@ class Admin
             'id'     => Constants::MENU_SLUG . '-tables',
             'parent' => Constants::MENU_SLUG,
             'title'  => \__('Tables', Constants::TEXT_DOMAIN),
-            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-tables'),
+            'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
         ]);
 
         // Add Settings submenu
@@ -224,17 +201,19 @@ class Admin
     }
 
     /**
-     * Redirect from WooCommerce Products submenu to ProductBay dashboard.
+     * Redirect from WooCommerce Products submenu to ProductBay Tables.
      *
      * This callback is used for the "Tables" menu item under Products.
      * It redirects to the ProductBay admin page, ensuring proper menu highlighting
-     * and a clean URL structure: /wp-admin/admin.php?page=productbay-dash#/dash
+     * and a clean URL structure.
      *
      * @return void
      */
     public function redirect_to_productbay(): void
     {
-        $redirect_url = \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-dash#/dash');
+        // Redirect to the main plugin page which is now Tables (#/tables is default but optional if handled in React)
+        // We explicitly add #/tables for clarity and exact routing
+        $redirect_url = \admin_url('admin.php?page=' . Constants::MENU_SLUG . '#/tables');
         \wp_safe_redirect($redirect_url);
         exit;
     }
@@ -275,8 +254,9 @@ class Admin
 
         // Pass PHP data to React script via localization
         \wp_localize_script('productbay-admin', 'productBaySettings', [
-            'apiUrl' => \rest_url(Constants::PLUGIN_SLUG . '/v1/'),
-            'nonce'  => \wp_create_nonce('wp_rest'),
+            'apiUrl'    => \rest_url(Constants::PLUGIN_SLUG . '/v1/'),
+            'nonce'     => \wp_create_nonce('wp_rest'),
+            'pluginUrl' => PRODUCTBAY_URL,
         ]);
 
         // Enqueue global admin styles with smart cache busting

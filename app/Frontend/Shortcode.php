@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use WpabProductBay\Data\TableRepository;
+
 /**
  * Class Shortcode
  *
@@ -17,11 +19,24 @@ if (!defined('ABSPATH')) {
 class Shortcode
 {
     /**
+     * @var TableRepository
+     */
+    protected $repository;
+
+    /**
+     * @param TableRepository $repository
+     */
+    public function __construct(TableRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * Initialize the shortcode.
      */
     public function init()
     {
-        add_shortcode('product_table', [$this, 'render_product_table']);
+        add_shortcode('productbay', [$this, 'render_product_table']);
     }
 
     /**
@@ -32,6 +47,55 @@ class Shortcode
      */
     public function render_product_table($atts)
     {
-        return '<div class="productbay-table-placeholder">Product Table Placeholder</div>';
+        $this->enqueue_assets();
+
+        $atts = shortcode_atts([
+            'id' => 0,
+        ], $atts, 'productbay');
+
+        $table_id = intval($atts['id']);
+
+        if (!$table_id) {
+            return '';
+        }
+
+        $table = $this->repository->get_table($table_id);
+
+        if (!$table) {
+            return '';
+        }
+
+        // Instantiate renderer (or inject if we refactor Plugin.php)
+        $renderer = new TableRenderer($this->repository);
+        return $renderer->render($table);
+    }
+
+    /**
+     * Enqueue frontend assets.
+     */
+    private function enqueue_assets()
+    {
+        $css_file = PRODUCTBAY_PATH . 'assets/css/frontend.css';
+        $css_ver  = file_exists($css_file) ? filemtime($css_file) : PRODUCTBAY_VERSION;
+
+        \wp_enqueue_style(
+            'productbay-frontend',
+            PRODUCTBAY_URL . 'assets/css/frontend.css',
+            [],
+            $css_ver
+        );
+
+        \wp_enqueue_script(
+            'productbay-frontend',
+            PRODUCTBAY_URL . 'assets/js/frontend.js',
+            ['jquery'],
+            PRODUCTBAY_VERSION,
+            true
+        );
+
+        \wp_localize_script('productbay-frontend', 'productbay_frontend', [
+            'ajaxurl' => \admin_url('admin-ajax.php'),
+            'nonce' => \wp_create_nonce('productbay_frontend'),
+        ]);
     }
 }

@@ -1,10 +1,23 @@
 import { create } from 'zustand';
-import { apiFetch } from '../utils/api';
+import { apiFetch } from '@/utils/api';
+import type {
+	Column,
+	DataSource,
+	TableSettings,
+	TableStyle,
+	ProductTable,
+	SourceType,
+} from '@/types';
+import {
+	createDefaultSource as defaultSource,
+	createDefaultSettings as defaultSettings,
+	createDefaultStyle as defaultStyle,
+	createDefaultColumns as defaultColumns,
+} from '@/types';
 
-interface TableColumn {
-	id: string;
-	label: string;
-}
+/* =============================================================================
+ * Existing Types (Preserved for backward compatibility)
+ * ============================================================================= */
 
 export interface Category {
 	id: number;
@@ -26,381 +39,742 @@ export interface Product {
 	image: string;
 }
 
-export interface TableConfig {
-	categories?: number[];
-	products?: number[];
-	productObjects?: Record< number, Product >; // Store full product details
-	[ key: string ]: any;
-}
-
-export interface TableData {
-	title: string;
-	source_type: string;
-	columns: TableColumn[];
-	config: TableConfig;
-}
+/* =============================================================================
+ * Table Store State Interface
+ * =============================================================================
+ * Central state management for table configuration.
+ * Uses 4-key structure matching backend: source, columns, settings, style
+ * ============================================================================= */
 
 interface TableStore {
-	// State
-	currentStep: number;
-	tableData: TableData;
+	// =========================================================================
+	// Core Table State (4-key structure)
+	// =========================================================================
+
+	/** Table metadata */
+	tableId: number | null;
+	tableTitle: string;
+	tableStatus: 'publish' | 'draft';
+
+	/** Data source configuration (_pb_source) */
+	source: DataSource;
+
+	/** Column configuration (_pb_columns) */
+	columns: Column[];
+
+	/** Functional settings (_pb_settings) */
+	settings: TableSettings;
+
+	/** Visual styling (_pb_style) */
+	style: TableStyle;
+
+	// =========================================================================
+	// UI State
+	// =========================================================================
+
 	isLoading: boolean;
 	isSaving: boolean;
 	error: string | null;
+	isDirty: boolean; // Track unsaved changes
 
-	// Category cache state
+	// =========================================================================
+	// Category Cache State (preserved from original)
+	// =========================================================================
+
 	categories: Category[];
 	categoriesLoading: boolean;
 	categoriesLastFetched: number | null;
 
-	// Source statistics state
-	sourceStats: Record< string, SourceStats >; // Key: source type (all, sale, etc.)
-	sourceStatsLoading: Record< string, boolean >;
+	// =========================================================================
+	// Source Statistics State (preserved from original)
+	// =========================================================================
 
-	// Actions
-	setStep: ( step: number ) => void;
-	setTableData: ( data: Partial< TableData > ) => void;
+	sourceStats: Record<string, SourceStats>;
+	sourceStatsLoading: Record<string, boolean>;
+
+	// =========================================================================
+	// Legacy State (for backward compatibility during migration)
+	// =========================================================================
+
+	/** @deprecated Use source.queryArgs.categoryIds instead */
+	tableData: {
+		title: string;
+		source_type: string;
+		columns: { id: string; label: string }[];
+		config: {
+			categories?: number[];
+			products?: number[];
+			productObjects?: Record<number, Product>;
+			[key: string]: unknown;
+		};
+	};
+
+	// =========================================================================
+	// Core Actions
+	// =========================================================================
+
+	/** Set table title */
+	setTitle: (title: string) => void;
+
+	/** Set table status (publish/draft) */
+	setStatus: (status: 'publish' | 'draft') => void;
+
+	// =========================================================================
+	// Source Actions
+	// =========================================================================
+
+	/** Set source type (all, sale, category, specific) */
+	setSourceType: (type: SourceType) => void;
+
+	/** Update source query arguments */
+	setSourceQueryArgs: (args: Partial<DataSource['queryArgs']>) => void;
+
+	/** Update source sort configuration */
+	setSourceSort: (sort: Partial<DataSource['sort']>) => void;
+
+	// =========================================================================
+	// Column Actions
+	// =========================================================================
+
+	/** Add a new column */
+	addColumn: (column: Column) => void;
+
+	/** Update an existing column */
+	updateColumn: (columnId: string, updates: Partial<Column>) => void;
+
+	/** Remove a column */
+	removeColumn: (columnId: string) => void;
+
+	/** Reorder columns (for drag-and-drop) */
+	reorderColumns: (sourceIndex: number, destinationIndex: number) => void;
+
+	// =========================================================================
+	// Settings Actions
+	// =========================================================================
+
+	/** Update feature toggles */
+	setFeatures: (features: Partial<TableSettings['features']>) => void;
+
+	/** Update pagination settings */
+	setPagination: (pagination: Partial<TableSettings['pagination']>) => void;
+
+	/** Update cart settings */
+	setCart: (cart: Partial<TableSettings['cart']>) => void;
+
+	/** Update filter settings */
+	setFilters: (filters: Partial<TableSettings['filters']>) => void;
+
+	// =========================================================================
+	// Style Actions
+	// =========================================================================
+
+	/** Update header styles */
+	setHeaderStyle: (header: Partial<TableStyle['header']>) => void;
+
+	/** Update body styles */
+	setBodyStyle: (body: Partial<TableStyle['body']>) => void;
+
+	/** Update button styles */
+	setButtonStyle: (button: Partial<TableStyle['button']>) => void;
+
+	/** Update layout styles */
+	setLayoutStyle: (layout: Partial<TableStyle['layout']>) => void;
+
+	/** Update typography styles */
+	setTypographyStyle: (typography: Partial<TableStyle['typography']>) => void;
+
+	/** Update hover styles */
+	setHoverStyle: (hover: Partial<TableStyle['hover']>) => void;
+
+	/** Update responsive styles */
+	setResponsiveStyle: (responsive: Partial<TableStyle['responsive']>) => void;
+
+	// =========================================================================
+	// Persistence Actions
+	// =========================================================================
+
+	/** Reset store to defaults */
 	resetStore: () => void;
-	loadTable: ( id: number ) => Promise< void >;
-	saveTable: ( id?: string ) => Promise< boolean >;
 
-	// Category cache actions
-	preloadCategories: () => Promise< void >;
-	refreshCategoriesIfStale: () => Promise< void >;
-	forceReloadCategories: () => Promise< void >;
+	/** Load table from API */
+	loadTable: (id: number) => Promise<void>;
 
-	// Source statistics actions
-	fetchSourceStats: ( sourceType: string ) => Promise< void >;
+	/** Save table to API */
+	saveTable: () => Promise<boolean>;
+
+	// =========================================================================
+	// Category Cache Actions (preserved from original)
+	// =========================================================================
+
+	preloadCategories: () => Promise<void>;
+	refreshCategoriesIfStale: () => Promise<void>;
+	forceReloadCategories: () => Promise<void>;
+
+	// =========================================================================
+	// Source Statistics Actions (preserved from original)
+	// =========================================================================
+
+	fetchSourceStats: (sourceType: string) => Promise<void>;
+
+	// =========================================================================
+	// Legacy Actions (for backward compatibility)
+	// =========================================================================
+
+	/** @deprecated Use specific setters instead */
+	setTableData: (data: Partial<TableStore['tableData']>) => void;
+
+	/** @deprecated - not used in new architecture */
+	currentStep: number;
+	setStep: (step: number) => void;
 }
 
-const DEFAULT_DATA: TableData = {
-	title: '',
-	source_type: 'all',
-	columns: [
-		{ id: 'image', label: 'Image' },
-		{ id: 'name', label: 'Product Name' },
-		{ id: 'price', label: 'Price' },
-		{ id: 'add-to-cart', label: 'Add to Cart' },
-	],
-	config: {},
-};
+/* =============================================================================
+ * Constants
+ * ============================================================================= */
 
-// Constants for category caching
 const CACHE_KEY = 'productbay_categories_cache';
-const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes - full cache expiration
-const STALE_DURATION = 1000 * 60 * 5; // 5 minutes - triggers background refresh
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
+const STALE_DURATION = 1000 * 60 * 5;  // 5 minutes
 
 interface CacheData {
 	categories: Category[];
 	timestamp: number;
 }
 
-export const useTableStore = create< TableStore >( ( set, get ) => ( {
-	currentStep: 1,
-	tableData: DEFAULT_DATA,
+/* =============================================================================
+ * Store Implementation
+ * ============================================================================= */
+
+export const useTableStore = create<TableStore>((set, get) => ({
+	// =========================================================================
+	// Initial State
+	// =========================================================================
+
+	tableId: null,
+	tableTitle: '',
+	tableStatus: 'publish',
+	source: defaultSource(),
+	columns: defaultColumns(),
+	settings: defaultSettings(),
+	style: defaultStyle(),
+
 	isLoading: false,
 	isSaving: false,
 	error: null,
+	isDirty: false,
 
-	// Category cache state
 	categories: [],
 	categoriesLoading: false,
 	categoriesLastFetched: null,
 
-	// Source statistics state
 	sourceStats: {},
 	sourceStatsLoading: {},
 
-	setStep: ( step ) => set( { currentStep: step } ),
+	// Legacy state for backward compatibility
+	currentStep: 1,
+	tableData: {
+		title: '',
+		source_type: 'all',
+		columns: [
+			{ id: 'image', label: 'Image' },
+			{ id: 'name', label: 'Product Name' },
+			{ id: 'price', label: 'Price' },
+			{ id: 'add-to-cart', label: 'Add to Cart' },
+		],
+		config: {},
+	},
 
-	setTableData: ( data ) =>
-		set( ( state ) => ( {
-			tableData: { ...state.tableData, ...data },
-		} ) ),
+	// =========================================================================
+	// Core Actions
+	// =========================================================================
 
-	resetStore: () =>
-		set( {
-			currentStep: 1,
-			tableData: DEFAULT_DATA,
+	setTitle: (title) => set({
+		tableTitle: title,
+		isDirty: true,
+		// Also update legacy state for backward compatibility
+		tableData: { ...get().tableData, title }
+	}),
+
+	setStatus: (status) => set({ tableStatus: status, isDirty: true }),
+
+	// =========================================================================
+	// Source Actions
+	// =========================================================================
+
+	setSourceType: (type) => set((state) => ({
+		source: { ...state.source, type },
+		isDirty: true,
+		// Also update legacy state
+		tableData: { ...state.tableData, source_type: type }
+	})),
+
+	setSourceQueryArgs: (args) => set((state) => ({
+		source: {
+			...state.source,
+			queryArgs: { ...state.source.queryArgs, ...args }
+		},
+		isDirty: true,
+		// Also update legacy state for categories/products
+		tableData: {
+			...state.tableData,
+			config: {
+				...state.tableData.config,
+				...(args.categoryIds !== undefined && { categories: args.categoryIds }),
+				...(args.postIds !== undefined && { products: args.postIds }),
+			}
+		}
+	})),
+
+	setSourceSort: (sort) => set((state) => ({
+		source: {
+			...state.source,
+			sort: { ...state.source.sort, ...sort }
+		},
+		isDirty: true,
+	})),
+
+	// =========================================================================
+	// Column Actions
+	// =========================================================================
+
+	addColumn: (column) => set((state) => ({
+		columns: [...state.columns, column],
+		isDirty: true,
+	})),
+
+	updateColumn: (columnId, updates) => set((state) => ({
+		columns: state.columns.map((col) =>
+			col.id === columnId ? { ...col, ...updates } : col
+		),
+		isDirty: true,
+	})),
+
+	removeColumn: (columnId) => set((state) => ({
+		columns: state.columns.filter((col) => col.id !== columnId),
+		isDirty: true,
+	})),
+
+	reorderColumns: (sourceIndex, destinationIndex) => set((state) => {
+		const newColumns = [...state.columns];
+		const [removed] = newColumns.splice(sourceIndex, 1);
+		newColumns.splice(destinationIndex, 0, removed);
+
+		// Update order property for each column
+		const reorderedColumns = newColumns.map((col, index) => ({
+			...col,
+			advanced: { ...col.advanced, order: index + 1 }
+		}));
+
+		return { columns: reorderedColumns, isDirty: true };
+	}),
+
+	// =========================================================================
+	// Settings Actions
+	// =========================================================================
+
+	setFeatures: (features) => set((state) => ({
+		settings: {
+			...state.settings,
+			features: { ...state.settings.features, ...features }
+		},
+		isDirty: true,
+	})),
+
+	setPagination: (pagination) => set((state) => ({
+		settings: {
+			...state.settings,
+			pagination: { ...state.settings.pagination, ...pagination }
+		},
+		isDirty: true,
+	})),
+
+	setCart: (cart) => set((state) => ({
+		settings: {
+			...state.settings,
+			cart: { ...state.settings.cart, ...cart }
+		},
+		isDirty: true,
+	})),
+
+	setFilters: (filters) => set((state) => ({
+		settings: {
+			...state.settings,
+			filters: { ...state.settings.filters, ...filters }
+		},
+		isDirty: true,
+	})),
+
+	// =========================================================================
+	// Style Actions
+	// =========================================================================
+
+	setHeaderStyle: (header) => set((state) => ({
+		style: {
+			...state.style,
+			header: { ...state.style.header, ...header }
+		},
+		isDirty: true,
+	})),
+
+	setBodyStyle: (body) => set((state) => ({
+		style: {
+			...state.style,
+			body: { ...state.style.body, ...body }
+		},
+		isDirty: true,
+	})),
+
+	setButtonStyle: (button) => set((state) => ({
+		style: {
+			...state.style,
+			button: { ...state.style.button, ...button }
+		},
+		isDirty: true,
+	})),
+
+	setLayoutStyle: (layout) => set((state) => ({
+		style: {
+			...state.style,
+			layout: { ...state.style.layout, ...layout }
+		},
+		isDirty: true,
+	})),
+
+	setTypographyStyle: (typography) => set((state) => ({
+		style: {
+			...state.style,
+			typography: { ...state.style.typography, ...typography }
+		},
+		isDirty: true,
+	})),
+
+	setHoverStyle: (hover) => set((state) => ({
+		style: {
+			...state.style,
+			hover: { ...state.style.hover, ...hover }
+		},
+		isDirty: true,
+	})),
+
+	setResponsiveStyle: (responsive) => set((state) => ({
+		style: {
+			...state.style,
+			responsive: { ...state.style.responsive, ...responsive }
+		},
+		isDirty: true,
+	})),
+
+	// =========================================================================
+	// Persistence Actions
+	// =========================================================================
+
+	resetStore: () => {
+		const { settings } = require('./settingsStore').useSettingsStore.getState();
+		const defaults = settings.table_defaults || {};
+
+		set({
+			tableId: null,
+			tableTitle: '',
+			tableStatus: 'publish',
+			// Use global defaults if available, otherwise factory defaults
+			source: defaults.source ? { ...defaultSource(), ...defaults.source } : defaultSource(),
+			columns: (defaults.columns && defaults.columns.length > 0) ? defaults.columns : defaultColumns(),
+			settings: defaults.settings ? { ...defaultSettings(), ...defaults.settings } : defaultSettings(),
+			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
+
 			isLoading: false,
+			isSaving: false,
 			error: null,
-		} ),
+			isDirty: false,
+			currentStep: 1,
+			tableData: {
+				title: '',
+				source_type: 'all',
+				columns: [
+					{ id: 'image', label: 'Image' },
+					{ id: 'name', label: 'Product Name' },
+					{ id: 'price', label: 'Price' },
+					{ id: 'add-to-cart', label: 'Add to Cart' },
+				],
+				config: {},
+			},
+		});
+	},
 
-	loadTable: async ( id ) => {
-		set( { isLoading: true, error: null } );
+	loadTable: async (id) => {
+		set({ isLoading: true, error: null });
 		try {
-			const data = await apiFetch< any >( `tables/${ id }` );
-			set( {
+			const data = await apiFetch<any>(`tables/${id}`);
+
+			// Map API response to store state
+			// Helper to check if source is valid (not empty array)
+			const isSourceValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+			const isSettingsValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+			const isStyleValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+
+			set({
+				tableId: data.id,
+				tableTitle: data.title || '',
+				tableStatus: data.status || 'draft',
+				// Use default if source is empty array or invalid
+				source: isSourceValid(data.source) ? data.source : defaultSource(),
+				columns: (data.columns && data.columns.length > 0) ? data.columns : defaultColumns(),
+				// Use default if settings is empty array or invalid
+				settings: isSettingsValid(data.settings) ? data.settings : defaultSettings(),
+				// Use default if style is empty array or invalid
+				style: isStyleValid(data.style) ? data.style : defaultStyle(),
+				isDirty: false,
+				// Also set legacy state
 				tableData: {
-					title: data.title,
-					source_type: data.source_type || 'all',
-					columns: data.columns || DEFAULT_DATA.columns,
-					config: data.config || {},
+					title: data.title || '',
+					source_type: data.source?.type || 'all',
+					columns: data.columns?.map((c: Column) => ({ id: c.id, label: c.heading })) || [],
+					config: {
+						categories: data.source?.queryArgs?.categoryIds || [],
+						products: data.source?.queryArgs?.postIds || [],
+					},
 				},
-			} );
-		} catch ( error ) {
-			console.error( 'Failed to load table:', error );
-			set( { error: 'Failed to load table data' } );
+			});
+		} catch (error) {
+			set({ error: 'Failed to load table data' });
 		} finally {
-			set( { isLoading: false } );
+			set({ isLoading: false });
 		}
 	},
 
-	saveTable: async ( id ) => {
-		set( { isSaving: true, error: null } );
-		const { tableData } = get();
+	saveTable: async () => {
+		const state = get();
+		set({ isSaving: true, error: null });
 
 		try {
-			await apiFetch( 'tables', {
+			// Clean source queryArgs based on active source type for persistence
+			// This ensures we only save relevant data to the DB ("save the one finally remain selected")
+			// while keeping the active state in the store during the session ("remember any choices").
+			const activeType = state.source.type;
+			const cleanedQueryArgs = { ...state.source.queryArgs };
+
+			if (activeType !== 'category') {
+				cleanedQueryArgs.categoryIds = [];
+			}
+
+			if (activeType !== 'specific') {
+				cleanedQueryArgs.postIds = [];
+			}
+
+			// Build payload matching 4-key backend structure
+			const payload: ProductTable = {
+				id: state.tableId || undefined,
+				title: state.tableTitle,
+				status: state.tableStatus,
+				source: {
+					...state.source,
+					queryArgs: cleanedQueryArgs
+				},
+				columns: state.columns,
+				settings: state.settings,
+				style: state.style,
+			};
+
+			const response = await apiFetch<{ id: number }>('tables', {
 				method: 'POST',
-				body: JSON.stringify( {
-					id: id,
-					...tableData,
-				} ),
-			} );
+				body: JSON.stringify({ data: payload }),
+			});
+
+			// Update table ID if this was a new table
+			if (response.id && !state.tableId) {
+				set({ tableId: response.id });
+			}
+
+			set({ isDirty: false });
 			return true;
-		} catch ( error ) {
-			console.error( 'Failed to save table:', error );
-			set( { error: 'Failed to save table' } );
+		} catch (error) {
+			set({ error: 'Failed to save table' });
 			return false;
 		} finally {
-			set( { isSaving: false } );
+			set({ isSaving: false });
 		}
 	},
 
-	/**
-	 * Preload categories with intelligent caching
-	 *
-	 * Data Flow:
-	 * 1. Check localStorage cache first
-	 * 2. If cache exists and is valid (< 30 min old), use it
-	 * 3. If cache is expired or missing, fetch from WordPress API
-	 * 4. Update both localStorage and Zustand store state
-	 *
-	 * This is called by parent components (like StepSource) on mount
-	 * to ensure categories are ready before the user interacts with CategorySelector.
-	 */
-	preloadCategories: async () => {
-		// Avoid redundant fetches if already loading
-		if ( get().categoriesLoading ) return;
+	// =========================================================================
+	// Legacy Actions (preserved for backward compatibility)
+	// =========================================================================
 
-		set( { categoriesLoading: true } );
+	setStep: (step) => set({ currentStep: step }),
+
+	setTableData: (data) => set((state) => {
+		const newTableData = { ...state.tableData, ...data };
+
+		// Sync to new state structure
+		const updates: Partial<TableStore> = { tableData: newTableData };
+
+		if (data.title !== undefined) {
+			updates.tableTitle = data.title;
+		}
+
+		if (data.source_type !== undefined) {
+			updates.source = { ...state.source, type: data.source_type as SourceType };
+		}
+
+		if (data.config?.categories !== undefined) {
+			updates.source = {
+				...(updates.source || state.source),
+				queryArgs: {
+					...(updates.source?.queryArgs || state.source.queryArgs),
+					categoryIds: data.config.categories,
+				}
+			};
+		}
+
+		if (data.config?.products !== undefined) {
+			updates.source = {
+				...(updates.source || state.source),
+				queryArgs: {
+					...(updates.source?.queryArgs || state.source.queryArgs),
+					postIds: data.config.products,
+				}
+			};
+		}
+
+		updates.isDirty = true;
+
+		return updates as TableStore;
+	}),
+
+	// =========================================================================
+	// Category Cache Actions (preserved from original)
+	// =========================================================================
+
+	preloadCategories: async () => {
+		if (get().categoriesLoading) return;
+
+		set({ categoriesLoading: true });
 
 		try {
-			// Step 1: Check localStorage cache
-			const cachedData = localStorage.getItem( CACHE_KEY );
-			if ( cachedData ) {
-				const parsed: CacheData = JSON.parse( cachedData );
+			const cachedData = localStorage.getItem(CACHE_KEY);
+			if (cachedData) {
+				const parsed: CacheData = JSON.parse(cachedData);
 				const now = Date.now();
 
-				// Step 2: Use cache if not expired (< 30 minutes)
-				if ( now - parsed.timestamp < CACHE_DURATION ) {
-					console.log(
-						'[CategoryCache] Using cached categories from localStorage'
-					);
-					set( {
+				if (now - parsed.timestamp < CACHE_DURATION) {
+					set({
 						categories: parsed.categories,
 						categoriesLastFetched: parsed.timestamp,
 						categoriesLoading: false,
-					} );
+					});
 					return;
 				}
 			}
 
-			// Step 3: Fetch fresh data from API
-			console.log( '[CategoryCache] Fetching categories from API' );
-			const data = await apiFetch< Category[] >( 'categories' );
+			const data = await apiFetch<Category[]>('categories');
 			const timestamp = Date.now();
 
-			// Step 4: Update both caches
 			const cacheData: CacheData = { categories: data, timestamp };
-			localStorage.setItem( CACHE_KEY, JSON.stringify( cacheData ) );
+			localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
 
-			set( {
+			set({
 				categories: data,
 				categoriesLastFetched: timestamp,
 				categoriesLoading: false,
-			} );
-		} catch ( error ) {
-			console.error(
-				'[CategoryCache] Failed to load categories:',
-				error
-			);
-			set( { categoriesLoading: false } );
+			});
+		} catch (error) {
+			set({ categoriesLoading: false });
 		}
 	},
 
-	/**
-	 * Refresh categories if cache is stale (background refresh)
-	 *
-	 * This is called when CategorySelector mounts. If the cached data is older
-	 * than 5 minutes (but less than 30 minutes), it will fetch fresh data in the
-	 * background without blocking the UI. Users see cached data immediately and
-	 * get automatic updates when fresh data arrives.
-	 *
-	 * Data Flow:
-	 * 1. Check if cache is stale (> 5 min old)
-	 * 2. If stale, fetch from API in background (non-blocking)
-	 * 3. Update localStorage and store when fresh data arrives
-	 */
 	refreshCategoriesIfStale: async () => {
 		const { categoriesLastFetched, categoriesLoading } = get();
 
-		// Skip if already loading or no cache exists
-		if ( categoriesLoading || ! categoriesLastFetched ) return;
+		if (categoriesLoading || !categoriesLastFetched) return;
 
 		const now = Date.now();
 		const isStale = now - categoriesLastFetched > STALE_DURATION;
 
-		// Only refresh if stale
-		if ( ! isStale ) return;
-
-		console.log(
-			'[CategoryCache] Cache is stale, refreshing in background'
-		);
+		if (!isStale) return;
 
 		try {
-			const data = await apiFetch< Category[] >( 'categories' );
+			const data = await apiFetch<Category[]>('categories');
 			const timestamp = Date.now();
 
-			// Update both caches
 			const cacheData: CacheData = { categories: data, timestamp };
-			localStorage.setItem( CACHE_KEY, JSON.stringify( cacheData ) );
+			localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
 
-			set( {
+			set({
 				categories: data,
 				categoriesLastFetched: timestamp,
-			} );
+			});
 
-			console.log( '[CategoryCache] Background refresh complete' );
-		} catch ( error ) {
-			console.error(
-				'[CategoryCache] Background refresh failed:',
-				error
-			);
+		} catch (error) {
+			// Fail silently for background refresh
 		}
 	},
 
-	/**
-	 * Force reload categories (manual user-triggered refresh)
-	 *
-	 * Bypasses all caches and fetches fresh data from the API.
-	 * This is triggered when the user clicks the "Reload" button.
-	 *
-	 * Data Flow:
-	 * 1. Set loading state (shows spinner in UI)
-	 * 2. Fetch fresh data from WordPress API
-	 * 3. Clear old cache and update with new data
-	 * 4. Update store state and clear loading
-	 */
 	forceReloadCategories: async () => {
-		set( { categoriesLoading: true } );
+		set({ categoriesLoading: true });
 
 		try {
-			console.log(
-				'[CategoryCache] Force reloading categories from API'
-			);
-			const data = await apiFetch< Category[] >( 'categories' );
+			const data = await apiFetch<Category[]>('categories');
 			const timestamp = Date.now();
 
-			// Update both caches
 			const cacheData: CacheData = { categories: data, timestamp };
-			localStorage.setItem( CACHE_KEY, JSON.stringify( cacheData ) );
+			localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
 
-			set( {
+			set({
 				categories: data,
 				categoriesLastFetched: timestamp,
 				categoriesLoading: false,
-			} );
+			});
 
-			console.log( '[CategoryCache] Force reload complete' );
-		} catch ( error ) {
-			console.error( '[CategoryCache] Force reload failed:', error );
-			set( { categoriesLoading: false } );
+		} catch (error) {
+			set({ categoriesLoading: false });
 		}
 	},
 
-	/**
-	 * Fetch source statistics for a given source type
-	 *
-	 * Fetches product and category counts for 'all' and 'sale' source types.
-	 * For 'category' and 'specific', stats are calculated client-side.
-	 *
-	 * Data Flow:
-	 * 1. Set loading state for this source type
-	 * 2. Fetch from WordPress API (/source-stats?type=...)
-	 * 3. Update sourceStats cache
-	 * 4. Clear loading state
-	 *
-	 * Caching: In-memory only (Zustand store), no localStorage persistence.
-	 * Stats may change frequently as products are added/removed.
-	 */
-	fetchSourceStats: async ( sourceType: string ) => {
+	// =========================================================================
+	// Source Statistics Actions (preserved from original)
+	// =========================================================================
+
+	fetchSourceStats: async (sourceType: string) => {
 		const { sourceStatsLoading, sourceStats } = get();
 
-		// Skip if already loading
-		if ( sourceStatsLoading[ sourceType ] ) {
-			console.log(
-				`[SourceStats] Already loading ${ sourceType }, skipping...`
-			);
+		if (sourceStatsLoading[sourceType]) {
+			console.log(`[SourceStats] Already loading ${sourceType}, skipping...`);
 			return;
 		}
 
-		// Skip if data already exists (cache hit)
-		if ( sourceStats[ sourceType ] ) {
-			console.log(
-				`[SourceStats] Cache hit for ${ sourceType }, using cached data`
-			);
-			return;
-		}
+		if (sourceType === 'category' || sourceType === 'specific') return;
 
-		// Skip client-side calculated sources
-		if ( sourceType === 'category' || sourceType === 'specific' ) return;
-
-		// Set loading state for this source
-		set( ( state ) => ( {
+		set((state) => ({
 			sourceStatsLoading: {
 				...state.sourceStatsLoading,
-				[ sourceType ]: true,
+				[sourceType]: true,
 			},
-		} ) );
+		}));
 
 		try {
-			console.log(
-				`[SourceStats] Fetching stats for source type: ${ sourceType }`
-			);
-			const data = await apiFetch< SourceStats >(
-				`source-stats?type=${ sourceType }`
-			);
+			console.log(`[SourceStats] Fetching stats for source type: ${sourceType}`);
+			const data = await apiFetch<SourceStats>(`source-stats?type=${sourceType}`);
 
-			set( ( state ) => ( {
+			set((state) => ({
 				sourceStats: {
 					...state.sourceStats,
-					[ sourceType ]: data,
+					[sourceType]: data,
 				},
 				sourceStatsLoading: {
 					...state.sourceStatsLoading,
-					[ sourceType ]: false,
+					[sourceType]: false,
 				},
-			} ) );
+			}));
 
-			console.log(
-				`[SourceStats] Stats loaded for ${ sourceType }:`,
-				data
-			);
-		} catch ( error ) {
-			console.error(
-				`[SourceStats] Failed to fetch stats for ${ sourceType }:`,
-				error
-			);
+			console.log(`[SourceStats] Stats loaded for ${sourceType}:`, data);
+		} catch (error) {
+			console.error(`[SourceStats] Failed to fetch stats for ${sourceType}:`, error);
 
-			// Clear loading state on error
-			set( ( state ) => ( {
+			set((state) => ({
 				sourceStatsLoading: {
 					...state.sourceStatsLoading,
-					[ sourceType ]: false,
+					[sourceType]: false,
 				},
-			} ) );
+			}));
 		}
 	},
-} ) );
+}));

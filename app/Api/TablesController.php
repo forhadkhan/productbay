@@ -34,7 +34,14 @@ class TablesController
 
     public function store()
     {
+        // Get raw data from $_REQUEST to avoid sanitization destroying nested structures
+        // The Repository will handle field-specific sanitization (title, etc.)
         $data = $this->request->get('data');
+
+        if (!$data) {
+            return ['error' => 'No data provided'];
+        }
+
         return $this->repository->save_table($data);
     }
 
