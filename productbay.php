@@ -59,10 +59,10 @@ require_once __DIR__ . '/vendor/autoload.php';
  * The .env file should NOT be included in production releases.
  * If .env doesn't exist, the plugin uses production defaults.
  */
-$dotenv_path = __DIR__ . '/.env';
-if (\file_exists($dotenv_path) && \class_exists('Dotenv\\Dotenv')) {
-    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->safeLoad();
+$productbay_dotenv_path = __DIR__ . '/.env';
+if (\file_exists($productbay_dotenv_path) && \class_exists('Dotenv\\Dotenv')) {
+    $productbay_dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    $productbay_dotenv->safeLoad();
 }
 
 /**

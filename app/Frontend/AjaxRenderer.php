@@ -37,7 +37,7 @@ class AjaxRenderer
         }
 
         $table_id = intval($_POST['table_id'] ?? 0);
-        $s = sanitize_text_field($_POST['s'] ?? '');
+        $s = sanitize_text_field(wp_unslash($_POST['s'] ?? ''));
         $paged = intval($_POST['paged'] ?? 1);
 
         if (!$table_id) {
@@ -66,7 +66,7 @@ class AjaxRenderer
             \wp_send_json_error(['message' => 'Invalid nonce']);
         }
 
-        $product_ids = $_POST['product_ids'] ?? [];
+        $product_ids = array_map('intval', wp_unslash($_POST['product_ids'] ?? []));
         if (empty($product_ids) || !is_array($product_ids)) {
             \wp_send_json_error(['message' => 'No products selected']);
         }
@@ -88,6 +88,7 @@ class AjaxRenderer
         }
 
         if ($added_count > 0) {
+            /* translators: %d: number of products added to cart */
             \wp_send_json_success(['message' => sprintf(__('%d products added to cart', 'productbay'), $added_count)]);
         } else {
             \wp_send_json_error(['message' => __('Failed to add products to cart', 'productbay')]);

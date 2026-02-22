@@ -50,7 +50,7 @@ class TableRenderer
         $table_id = $table['id'] ?? 0;
 
         // Generate a unique ID for this render instance (handling multiple tables per page)
-        $unique_id = 'productbay-table-' . ($table_id ?: 'preview-' . mt_rand(1000, 9999));
+        $unique_id = 'productbay-table-' . ($table_id ?: 'preview-' . wp_rand(1000, 9999));
 
         $source = $table['source'] ?? [];
         $columns = $table['columns'] ?? [];
@@ -70,7 +70,8 @@ class TableRenderer
         ob_start();
 
         // Output Styles
-        echo "<style>{$css}</style>";
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally by generate_styles(), not user input
+        echo '<style>' . wp_strip_all_tags($css) . '</style>';
 
         echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '">';
 
@@ -83,7 +84,7 @@ class TableRenderer
             echo '<div class="productbay-bulk-actions">';
             echo '<button class="productbay-btn-bulk" disabled>';
             echo '<svg class="productbay-icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> ';
-            echo __('Add to Cart', 'productbay');
+            echo esc_html__('Add to Cart', 'productbay');
             echo '</button>';
             echo '</div>';
         }
@@ -139,12 +140,14 @@ class TableRenderer
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
+                // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce global
                 global $product;
 
                 // Ensure global product is set (for WC functions)
                 if (!is_object($product)) {
                     $product = wc_get_product(get_the_ID());
                 }
+                // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
                 echo '<tr>';
 
@@ -185,7 +188,7 @@ class TableRenderer
             if ($bulk_select['enabled'] ?? true) {
                 $colspan++;
             }
-            echo '<tr><td colspan="' . $colspan . '" class="productbay-empty">' . __('No products found.', 'productbay') . '</td></tr>';
+            echo '<tr><td colspan="' . intval($colspan) . '" class="productbay-empty">' . esc_html__('No products found.', 'productbay') . '</td></tr>';
         }
 
         echo '</tbody>';
@@ -241,7 +244,7 @@ class TableRenderer
 
             case 'category':
                 if (!empty($query_args['categoryIds'])) {
-                    $args['tax_query'] = [
+                    $args['tax_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Required for category filtering
                         [
                             'taxonomy' => 'product_cat',
                             'field'    => 'term_id',
@@ -260,7 +263,7 @@ class TableRenderer
 
         // Handle Excludes
         if (!empty($query_args['excludes'])) {
-            $args['post__not_in'] = $query_args['excludes'];
+            $args['post__not_in'] = $query_args['excludes']; // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- Required for product exclusion
         }
 
         // Handle Stock Status
@@ -304,9 +307,9 @@ class TableRenderer
                 $size = $settings['imageSize'] ?? 'thumbnail';
                 $img = $product->get_image($size);
                 if (($settings['linkTarget'] ?? '') === 'product') {
-                    echo '<a href="' . esc_url($product->get_permalink()) . '">' . $img . '</a>';
+                    echo '<a href="' . esc_url($product->get_permalink()) . '">' . wp_kses_post($img) . '</a>';
                 } else {
-                    echo $img;
+                    echo wp_kses_post($img);
                 }
                 break;
 
@@ -315,7 +318,7 @@ class TableRenderer
                 break;
 
             case 'price':
-                echo '<span class="productbay-price">' . $product->get_price_html() . '</span>';
+                echo '<span class="productbay-price">' . wp_kses_post($product->get_price_html()) . '</span>';
                 break;
 
             case 'sku':
@@ -324,7 +327,7 @@ class TableRenderer
 
             case 'stock':
                 // Custom stock HTML
-                echo wc_get_stock_html($product);
+                echo wp_kses_post(wc_get_stock_html($product));
                 break;
 
             case 'button':
@@ -333,7 +336,7 @@ class TableRenderer
                 break;
 
             case 'summary':
-                echo wp_trim_words($product->get_short_description(), 10);
+                echo wp_kses_post(wp_trim_words($product->get_short_description(), 10));
                 break;
 
             default:
@@ -447,8 +450,8 @@ class TableRenderer
         // Placeholder for search input
         // Placeholder for search input
         echo '<div class="productbay-search ' . (!empty($value) ? 'has-value' : '') . '">';
-        echo '<input type="text" value="' . esc_attr($value) . '" placeholder="' . __('Search products...', 'productbay') . '" />';
-        echo '<span class="productbay-search-clear" title="' . __('Clear', 'productbay') . '"></span>';
+        echo '<input type="text" value="' . esc_attr($value) . '" placeholder="' . esc_attr__('Search products...', 'productbay') . '" />';
+        echo '<span class="productbay-search-clear" title="' . esc_attr__('Clear', 'productbay') . '"></span>';
         echo '</div>';
     }
 
@@ -464,14 +467,14 @@ class TableRenderer
 
         if ($total > 1) {
             echo '<div class="productbay-pagination">';
-            echo paginate_links([
+            echo wp_kses_post(paginate_links([
                 'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
                 'format' => '?paged=%#%',
                 'current' => max(1, $paged),
                 'total' => $total,
                 'prev_text' => '&laquo;',
                 'next_text' => '&raquo;',
-            ]);
+            ]));
             echo '</div>';
         }
     }
@@ -496,10 +499,12 @@ class TableRenderer
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
+                // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce global
                 global $product;
                 if (!is_object($product)) {
                     $product = \wc_get_product(get_the_ID());
                 }
+                // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
                 echo '<tr>';
 
@@ -537,7 +542,7 @@ class TableRenderer
             if ($settings['features']['bulkSelect']['enabled'] ?? true) {
                 $colspan++;
             }
-            echo '<tr><td colspan="' . $colspan . '" class="productbay-empty">' . __('No products found.', 'productbay') . '</td></tr>';
+            echo '<tr><td colspan="' . intval($colspan) . '" class="productbay-empty">' . esc_html__('No products found.', 'productbay') . '</td></tr>';
         }
         $rows = ob_get_clean();
 

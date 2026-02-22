@@ -60,9 +60,9 @@ class Admin
         // Register top-level menu page in WordPress admin sidebar
         \add_menu_page(
             // $page_title: The text displayed in the browser title bar when the menu page is active
-            \__('ProductBay', Constants::TEXT_DOMAIN),
+            \__('ProductBay', 'productbay'),
             // $menu_title: The text shown in the admin sidebar menu
-            \__('ProductBay', Constants::TEXT_DOMAIN),
+            \__('ProductBay', 'productbay'),
             // $capability: The user capability required to access this menu (e.g., 'manage_options')
             Constants::CAPABILITY,
             // $menu_slug: Unique identifier for this menu, used in URLs (?page=productbay)
@@ -81,9 +81,9 @@ class Admin
             // $parent_slug: The slug of the parent menu
             Constants::MENU_SLUG,
             // $page_title: Browser title bar text
-            \__('Tables', Constants::TEXT_DOMAIN),
+            \__('Tables', 'productbay'),
             // $menu_title: Text displayed in the submenu list
-            \__('Tables', Constants::TEXT_DOMAIN),
+            \__('Tables', 'productbay'),
             // $capability: User capability required
             Constants::CAPABILITY,
             // $menu_slug: Same as parent to make it the default
@@ -95,8 +95,8 @@ class Admin
         // Register "Settings" submenu
         \add_submenu_page(
             Constants::MENU_SLUG,
-            \__('Settings', Constants::TEXT_DOMAIN),
-            \__('Settings', Constants::TEXT_DOMAIN),
+            \__('Settings', 'productbay'),
+            \__('Settings', 'productbay'),
             Constants::CAPABILITY,
             Constants::MENU_SLUG . '-settings',
             [$this, 'render_app']
@@ -105,8 +105,8 @@ class Admin
         // Register "Add New Table" submenu
         \add_submenu_page(
             Constants::MENU_SLUG,
-            \__('Add New Table', Constants::TEXT_DOMAIN),
-            \__('Add New Table', Constants::TEXT_DOMAIN),
+            \__('Add New Table', 'productbay'),
+            \__('Add New Table', 'productbay'),
             Constants::CAPABILITY,
             Constants::MENU_SLUG . '-new',
             [$this, 'render_app']
@@ -116,8 +116,8 @@ class Admin
         // Uses a redirect callback to open the ProductBay tables in its proper admin URL
         \add_submenu_page(
             'edit.php?post_type=product',
-            \__('Tables', Constants::TEXT_DOMAIN),
-            \__('Tables', Constants::TEXT_DOMAIN),
+            \__('Tables', 'productbay'),
+            \__('Tables', 'productbay'),
             Constants::CAPABILITY,
             Constants::MENU_SLUG . '-woo-tables',
             [$this, 'redirect_to_productbay']
@@ -154,12 +154,12 @@ class Admin
         $wp_admin_bar->add_node([
             'id'    => Constants::MENU_SLUG,
             'title' => '<span style="display: flex; align-items: center;">'
-                . '<span>' . \__('ProductBay', Constants::TEXT_DOMAIN) . '</span>'
+                . '<span>' . \__('ProductBay', 'productbay') . '</span>'
                 . '</span>',
             // Link to the main productbay page (now Tables)
             'href'  => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
             'meta'  => [
-                'title' => \__('ProductBay', Constants::TEXT_DOMAIN),
+                'title' => \__('ProductBay', 'productbay'),
             ],
         ]);
 
@@ -167,7 +167,7 @@ class Admin
         $wp_admin_bar->add_node([
             'id'     => Constants::MENU_SLUG . '-tables',
             'parent' => Constants::MENU_SLUG,
-            'title'  => \__('Tables', Constants::TEXT_DOMAIN),
+            'title'  => \__('Tables', 'productbay'),
             'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
         ]);
 
@@ -175,7 +175,7 @@ class Admin
         $wp_admin_bar->add_node([
             'id'     => Constants::MENU_SLUG . '-settings',
             'parent' => Constants::MENU_SLUG,
-            'title'  => \__('Settings', Constants::TEXT_DOMAIN),
+            'title'  => \__('Settings', 'productbay'),
             'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
         ]);
 
@@ -183,7 +183,7 @@ class Admin
         $wp_admin_bar->add_node([
             'id'     => Constants::MENU_SLUG . '-new',
             'parent' => Constants::MENU_SLUG,
-            'title'  => \__('Add New Table', Constants::TEXT_DOMAIN),
+            'title'  => \__('Add New Table', 'productbay'),
             'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
         ]);
     }
