@@ -468,15 +468,16 @@ const Tables = () => {
 							onChange={setSelectedBulkAction}
 						/>
 					</div>
-					<button
-						className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded text-sm border border-gray-300 disabled:opacity-50 transition-colors font-medium h-10"
+					<Button
+						variant="default"
+						className="px-3 py-2 text-sm disabled:opacity-50 font-medium h-10"
 						disabled={
 							selectedRows.length === 0 || !selectedBulkAction
 						}
 						onClick={handleBulkAction}
 					>
 						{__('Apply', 'productbay')}
-					</button>
+					</Button>
 					{selectedRows.length > 0 && (
 						<span className="text-sm text-gray-500 ml-2">
 							{sprintf(__('%d items selected', 'productbay'), selectedRows.length)}
@@ -624,10 +625,12 @@ const Tables = () => {
 								const actionType = actionLoading[table.id];
 
 								return (
+									// Table Row
 									<tr
 										key={table.id}
 										className={`group hover:bg-gray-50 transition-colors ${isActing ? 'opacity-50' : ''}`}
 									>
+										{/* Checkbox */}
 										<td className="px-4 py-4 text-center">
 											<input
 												type="checkbox"
@@ -641,9 +644,11 @@ const Tables = () => {
 												disabled={isActing}
 											/>
 										</td>
+										{/* ID */}
 										<td className="px-6 py-4 text-sm text-gray-500">
 											#{table.id}
 										</td>
+										{/* Title */}
 										<td className="px-6 py-4 relative">
 											<div className="font-medium text-wp-text text-base">
 												<Link
@@ -714,6 +719,7 @@ const Tables = () => {
 												</button>
 											</div>
 										</td>
+										{/* Shortcode */}
 										<td className="px-6 py-4">
 											<button
 												onClick={() =>
@@ -726,7 +732,8 @@ const Tables = () => {
 												<CopyIcon className="w-4 h-4 ml-1" />
 											</button>
 										</td>
-										<td className="px-6 py-4 text-sm text-gray-600">
+										{/* Product Source */}
+										<td className="px-6 py-4 text-sm text-gray-600 capitalize">
 											{typeof table.source === 'object' && table.source !== null
 												// @ts-ignore
 												? (table.source.type || 'Custom')
