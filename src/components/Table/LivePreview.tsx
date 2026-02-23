@@ -422,8 +422,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             </div>
 
             {/* Content Area */}
-            <div className="relative -mt-px flex-1 min-h-[400px] bg-white rounded-b-lg rounded-tr-lg border border-gray-200 overflow-hidden">
-                <div className="w-full h-full p-4 bg-gray-50/50 relative overflow-hidden">
+            <div className="relative -mt-px bg-white rounded-b-lg rounded-tr-lg border border-gray-200 overflow-hidden">
+                <div className="w-full p-4 bg-gray-50/50 relative overflow-hidden">
                     {error ? (
                         <div className="flex flex-col items-center justify-center h-full gap-3">
                             <AlertCircleIcon className="w-10 h-10 text-red-400" />
@@ -442,7 +442,14 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                         </div>
                     ) : srcdoc ? (
                         /* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */
-                        <div ref={containerRef} className="w-full h-full origin-top-left relative">
+                        <div
+                            ref={containerRef}
+                            className="w-full origin-top-left relative"
+                            style={{
+                                height: `${(iframeHeight + 32) * scale}px`,
+                                transition: 'height 0.2s ease-in-out'
+                            }}
+                        >
                             {renderIframe()}
                             {/* Pulse overlay while regenerating */}
                             {loading && (

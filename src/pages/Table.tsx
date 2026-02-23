@@ -260,67 +260,71 @@ const Table = () => {
             )}
 
             {/* Header: Table name on left, controls on right */}
-            <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
-                <div className="order-2 md:order-1">
-                    <EditableText
-                        value={tableTitle}
-                        onChange={handleNameChange}
-                        error={titleError}
-                        placeholder={__('Enter table name...', 'productbay')}
-                    />
-                </div>
-                <div className="flex items-center justify-between md:justify-left gap-4 order-1 md:order-2">
-                    {/* Delete Button (Only for existing tables) */}
-                    {!isNewTable && (
-                        <Tooltip content={__('Delete this table', 'productbay')}>
-                            <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={handleDelete}
-                                className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 cursor-pointer"
-                            >
-                                <TrashIcon className="size-4" />
-                            </Button>
-                        </Tooltip>
-                    )}
-
-                    {/* Active/Inactive toggle with status indicator - hover feedback on container */}
-                    <div className="flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors">
-                        {/* Status dot indicator */}
-                        <span
-                            className={cn("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')}
-                        />
-                        {/* Status label with dynamic color - fixed width to prevent layout shift */}
-                        <span
-                            className={cn("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500')}
-                        >
-                            {isActive ? __('Active', 'productbay') : __('Inactive', 'productbay')}
-                        </span>
-                        {/* Toggle switch - only way to toggle */}
-                        <Toggle
-                            size="sm"
-                            checked={isActive}
-                            onChange={(e) => setStatus(e.target.checked ? 'publish' : 'draft')}
-                            title={isActive ? __('Click toggle to deactivate', 'productbay') : __('Click toggle to activate', 'productbay')}
+            <div className="sticky top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="order-2 md:order-1">
+                        <EditableText
+                            value={tableTitle}
+                            onChange={handleNameChange}
+                            error={titleError}
+                            placeholder={__('Enter table name...', 'productbay')}
                         />
                     </div>
-                    {/* Save Table button */}
-                    <Button
-                        size="default"
-                        onClick={handleSave}
-                        disabled={isSaving || isLoading}
-                        className={`w-32 flex items-center justify-between cursor-pointer ${isSaving ? 'opacity-75 cursor-wait' : ''}`}
-                    >
-                        {isSaving ? __('Saving...', 'productbay') : __('Save Table', 'productbay')}
-                        {isSaving ? (
-                            <LoaderIcon className="size-4 ml-2 animate-spin" />
-                        ) : (
-                            <SaveIcon className="size-4 ml-2" />
+                    <div className="flex items-center justify-between md:justify-left gap-4 order-1 md:order-2">
+                        {/* Delete Button (Only for existing tables) */}
+                        {!isNewTable && (
+                            <Tooltip content={__('Delete this table', 'productbay')}>
+                                <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    onClick={handleDelete}
+                                    className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 cursor-pointer"
+                                >
+                                    <TrashIcon className="size-4" />
+                                </Button>
+                            </Tooltip>
                         )}
-                    </Button>
+
+                        {/* Active/Inactive toggle with status indicator - hover feedback on container */}
+                        <div className="flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors">
+                            {/* Status dot indicator */}
+                            <span
+                                className={cn("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')}
+                            />
+                            {/* Status label with dynamic color - fixed width to prevent layout shift */}
+                            <span
+                                className={cn("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500')}
+                            >
+                                {isActive ? __('Active', 'productbay') : __('Inactive', 'productbay')}
+                            </span>
+                            {/* Toggle switch - only way to toggle */}
+                            <Toggle
+                                size="sm"
+                                checked={isActive}
+                                onChange={(e) => setStatus(e.target.checked ? 'publish' : 'draft')}
+                                title={isActive ? __('Click toggle to deactivate', 'productbay') : __('Click toggle to activate', 'productbay')}
+                            />
+                        </div>
+                        {/* Save Table button */}
+                        <Button
+                            size="default"
+                            onClick={handleSave}
+                            disabled={isSaving || isLoading}
+                            className={`w-32 flex items-center justify-between cursor-pointer ${isSaving ? 'opacity-75 cursor-wait' : ''}`}
+                        >
+                            {isSaving ? __('Saving...', 'productbay') : __('Save Table', 'productbay')}
+                            {isSaving ? (
+                                <LoaderIcon className="size-4 ml-2 animate-spin" />
+                            ) : (
+                                <SaveIcon className="size-4 ml-2" />
+                            )}
+                        </Button>
+                    </div>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-6">
+            {/* Table configuration tabs */}
+            <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-6 rounded-lg">
+                {/* Table configuration tabs */}
                 <Tabs
                     tabs={TABLE_TABS}
                     value={activeTab}
@@ -334,9 +338,12 @@ const Table = () => {
                     {activeTab === 'options' && <TabOptions />}
                 </Tabs>
 
-                <LivePreview
-                    className="md:col-span-2"
-                />
+                {/* Live preview section */}
+                <div className="md:col-span-2">
+                    <LivePreview
+                        className="sticky top-[132px] z-10"
+                    />
+                </div>
             </div>
         </>
     );
