@@ -498,3 +498,260 @@
 .productbay-wrapper .stock.out-of-stock {
     color: #dc2626;
 }
+
+/* ========================================================================
+   12. QUANTITY INPUT
+   ======================================================================== */
+
+.productbay-wrapper .productbay-qty-wrap {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color 0.2s;
+    height: 32px;
+}
+
+.productbay-wrapper .productbay-qty-wrap:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.productbay-wrapper .productbay-qty {
+    width: 36px;
+    padding: 0 4px;
+    border: none;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: 13px;
+    color: #334155;
+    text-align: center;
+    line-height: 32px;
+    background: #fff;
+    outline: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.productbay-wrapper .productbay-qty::-webkit-inner-spin-button,
+.productbay-wrapper .productbay-qty::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.productbay-wrapper .productbay-qty-btns {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #e2e8f0;
+}
+
+.productbay-wrapper .productbay-qty-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    flex: 1;
+    border: none;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 7px;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+    line-height: 1;
+    padding: 0;
+    user-select: none;
+}
+
+.productbay-wrapper .productbay-qty-plus {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.productbay-wrapper .productbay-qty-btn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.productbay-wrapper .productbay-qty-btn:active {
+    background: #cbd5e1;
+}
+
+.productbay-wrapper .productbay-qty-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: #f8fafc;
+}
+
+/* ========================================================================
+   13. BUTTON CELL LAYOUT
+   ======================================================================== */
+
+.productbay-wrapper .productbay-btn-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ========================================================================
+   14. VARIATION DROPDOWNS
+   ======================================================================== */
+
+.productbay-wrapper .productbay-variation-selects {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.productbay-wrapper .productbay-variation-select {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.5;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: auto;
+}
+
+.productbay-wrapper .productbay-variation-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.productbay-wrapper .productbay-variable-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.productbay-wrapper .productbay-variable-wrap .productbay-btn-cell {
+    width: 100%;
+}
+
+.productbay-wrapper .productbay-variation-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.productbay-wrapper .productbay-variation-price del {
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 0.9em;
+    margin-right: 4px;
+    font-weight: 400;
+}
+
+.productbay-wrapper .productbay-variation-price ins {
+    color: #16a34a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ========================================================================
+   15. ADDED-TO-CART BADGE & VIEW CART
+   ======================================================================== */
+
+/* Checkmark badge on button after adding, e.g. "Add to Cart (✓ 3)" */
+.productbay-wrapper .productbay-added-badge {
+    font-size: 0.85em;
+    opacity: 0.85;
+    margin-left: 2px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.productbay-wrapper .productbay-check-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* View Cart link injected after add-to-cart */
+.productbay-wrapper .productbay-btn-cell .added_to_cart,
+.productbay-wrapper .productbay-variable-wrap>.added_to_cart {
+    display: block !important;
+    width: max-content !important;
+    background: transparent !important;
+    border: none;
+    color: inherit !important;
+    padding: 4px 0 !important;
+    margin-top: 4px;
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 13px;
+    transition: color 0.2s ease;
+}
+
+.productbay-wrapper .productbay-btn-cell .added_to_cart:hover,
+.productbay-wrapper .productbay-variable-wrap>.added_to_cart:hover {
+    text-decoration: underline !important;
+    text-underline-offset: 4px;
+}
+
+/* ========================================================================
+   16. PRODUCT TYPE BUTTON VARIANTS
+   ======================================================================== */
+
+/* Out of Stock & Disabled buttons */
+.productbay-wrapper .productbay-btn-outofstock,
+.productbay-wrapper .productbay-btn-addtocart:disabled {
+    background-color: #e2e8f0 !important;
+    color: #94a3b8 !important;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.productbay-wrapper .productbay-btn-outofstock:hover,
+.productbay-wrapper .productbay-btn-addtocart:disabled:hover {
+    background-color: #e2e8f0 !important;
+    color: #94a3b8 !important;
+}
+
+/* External link button */
+.productbay-wrapper .productbay-btn-external {
+    background-color: #8b5cf6;
+    color: #fff !important;
+}
+
+.productbay-wrapper .productbay-btn-external:hover {
+    background-color: #7c3aed;
+    color: #fff !important;
+}
+
+/* Grouped (View Options) button */
+.productbay-wrapper .productbay-btn-grouped {
+    background-color: #64748b;
+    color: #fff !important;
+}
+
+.productbay-wrapper .productbay-btn-grouped:hover {
+    background-color: #475569;
+    color: #fff !important;
+}
+
+/* ========================================================================
+   16. OUT-OF-STOCK ROW & DISABLED CHECKBOX
+   ======================================================================== */
+
+.productbay-wrapper .productbay-table tbody tr[data-in-stock="0"] {
+    opacity: 0.6;
+}
+
+.productbay-wrapper .productbay-col-select input[type="checkbox"]:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

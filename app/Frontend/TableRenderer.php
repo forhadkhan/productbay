@@ -150,13 +150,15 @@ class TableRenderer
                 }
                 // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
-                echo '<tr>';
-
+                $product_type = $product->get_type();
+                $in_stock = $product->is_in_stock() ? '1' : '0';
+                echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr($product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
                 // Bulk Select - First Position
                 if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
 
@@ -172,8 +174,9 @@ class TableRenderer
 
                 // Bulk Select - Last Position
                 if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
 
@@ -327,13 +330,11 @@ class TableRenderer
                 break;
 
             case 'stock':
-                // Custom stock HTML
                 echo wp_kses_post(wc_get_stock_html($product));
                 break;
 
             case 'button':
-                // Use WooCommerce template for add to cart button
-                woocommerce_template_loop_add_to_cart();
+                $this->render_button_cell($product);
                 break;
 
             case 'summary':
@@ -343,6 +344,148 @@ class TableRenderer
             default:
                 echo '';
         }
+    }
+
+    /**
+     * Render the button cell based on product type and stock status.
+     * Uses official WooCommerce product API methods exclusively.
+     *
+     * @param \WC_Product $product
+     */
+    private function render_button_cell($product)
+    {
+        $product_type = $product->get_type();
+
+        // External/Affiliate: link out to external URL
+        if ($product->is_type('external')) {
+            $url = $product->get_product_url();
+            $text = $product->get_button_text() ?: __('Buy product', 'productbay');
+            echo '<div class="productbay-btn-cell">';
+            echo '<a href="' . esc_url($url) . '" class="button productbay-btn-external" target="_blank" rel="noopener noreferrer">' . esc_html($text) . '</a>';
+            echo '</div>';
+            return;
+        }
+
+        // Grouped: redirect to product page
+        if ($product->is_type('grouped')) {
+            echo '<div class="productbay-btn-cell">';
+            echo '<a href="' . esc_url($product->get_permalink()) . '" class="button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
+            echo '</div>';
+            return;
+        }
+
+        // Out of stock: disabled button
+        if (!$product->is_in_stock()) {
+            echo '<div class="productbay-btn-cell">';
+            echo '<button class="button productbay-btn-outofstock" disabled>' . esc_html__('Out of Stock', 'productbay') . '</button>';
+            echo '</div>';
+            return;
+        }
+
+        // Variable: render attribute dropdowns + quantity + add to cart
+        if ($product->is_type('variable')) {
+            $this->render_variable_button_cell($product);
+            return;
+        }
+
+        // Simple (or any other purchasable type): quantity + add to cart
+        $is_purchasable = $product->is_purchasable();
+        echo '<div class="productbay-btn-cell">';
+        if ($is_purchasable) {
+            $this->render_quantity_input($product);
+        }
+        $disabled_attr = $is_purchasable ? '' : ' disabled';
+        echo '<button class="button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . $disabled_attr . '>';
+        echo esc_html($product->add_to_cart_text());
+        echo '</button>';
+        echo '</div>';
+    }
+
+    /**
+     * Render variation attribute dropdowns and add-to-cart button for variable products.
+     * Uses WC_Product_Variable::get_variation_attributes() and get_available_variations().
+     *
+     * @param \WC_Product_Variable $product
+     */
+    private function render_variable_button_cell($product)
+    {
+        $attributes = $product->get_variation_attributes();
+        $available_variations = $product->get_available_variations('array');
+
+        echo '<div class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr($product->get_id()) . '" data-product-variations="' . esc_attr(wp_json_encode($available_variations)) . '">';
+
+        // Attribute dropdowns
+        echo '<div class="productbay-variation-selects">';
+        foreach ($attributes as $attribute_name => $options) {
+            $attr_label = wc_attribute_label($attribute_name, $product);
+            $sanitized_name = sanitize_title($attribute_name);
+
+            echo '<select class="productbay-variation-select" data-attribute-name="attribute_' . esc_attr($sanitized_name) . '">';
+            echo '<option value="">' . esc_html($attr_label) . '&hellip;</option>';
+
+            foreach ($options as $option) {
+                $option_label = $option;
+                // For taxonomy-based attributes, get the term name
+                if (taxonomy_exists($attribute_name)) {
+                    $term = get_term_by('slug', $option, $attribute_name);
+                    if ($term && !is_wp_error($term)) {
+                        $option_label = $term->name;
+                    }
+                }
+                echo '<option value="' . esc_attr($option) . '">' . esc_html($option_label) . '</option>';
+            }
+            echo '</select>';
+        }
+        echo '</div>';
+
+        // Hidden variation ID input
+        echo '<input type="hidden" class="productbay-variation-id" value="" />';
+
+        // Variation price display
+        echo '<span class="productbay-variation-price"></span>';
+
+        // Quantity + Add to Cart (disabled until variation selected)
+        $is_purchasable = $product->is_purchasable();
+        echo '<div class="productbay-btn-cell">';
+        if ($is_purchasable) {
+            $this->render_quantity_input($product);
+        }
+        echo '<button class="button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
+        echo esc_html__('Add to cart', 'woocommerce');
+        echo '</button>';
+        echo '</div>';
+
+        echo '</div>';
+    }
+
+    /**
+     * Render a quantity number input with stock-aware constraints.
+     * Uses WC_Product::get_stock_quantity() and backorders_allowed().
+     *
+     * @param \WC_Product $product
+     */
+    private function render_quantity_input($product)
+    {
+        $min = 1;
+        $max = '';
+        $stock_qty = $product->get_stock_quantity();
+
+        // Only set max if stock is managed and backorders are not allowed
+        if ($product->managing_stock() && !$product->backorders_allowed() && $stock_qty !== null) {
+            $max = $stock_qty;
+        }
+
+        echo '<div class="productbay-qty-wrap">';
+        echo '<input type="number" class="productbay-qty" value="1" min="' . esc_attr($min) . '"';
+        if ($max !== '') {
+            echo ' max="' . esc_attr($max) . '"';
+        }
+        echo ' step="1" />';
+        echo '<div class="productbay-qty-btns">';
+        echo '<button type="button" class="productbay-qty-btn productbay-qty-plus" aria-label="' . esc_attr__('Increase quantity', 'productbay') . '">&#9650;</button>';
+        echo '<button type="button" class="productbay-qty-btn productbay-qty-minus" aria-label="' . esc_attr__('Decrease quantity', 'productbay') . '">&#9660;</button>';
+        echo '</div>';
+        echo '</div>';
     }
 
     /**
@@ -570,14 +713,16 @@ class TableRenderer
                 }
                 // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
-                echo '<tr>';
-
+                $product_type = $product->get_type();
+                $in_stock = $product->is_in_stock() ? '1' : '0';
+                echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr($product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
                 // Bulk Select - First
                 $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last'];
                 if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
 
@@ -591,8 +736,9 @@ class TableRenderer
 
                 // Bulk Select - Last
                 if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
                 echo '</tr>';

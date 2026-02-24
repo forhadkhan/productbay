@@ -96,6 +96,13 @@ class Shortcode
         \wp_localize_script('productbay-frontend', 'productbay_frontend', [
             'ajaxurl' => \admin_url('admin-ajax.php'),
             'nonce' => \wp_create_nonce('productbay_frontend'),
+            'cart_url' => wc_get_cart_url(),
+            'view_cart_text' => __('View cart', 'productbay'),
+            'currency_symbol' => get_woocommerce_currency_symbol(),
+            'currency_position' => get_option('woocommerce_currency_pos', 'left'),
+            'currency_decimals' => absint(get_option('woocommerce_price_num_decimals', 2)),
+            'currency_decimal_sep' => wc_get_price_decimal_separator(),
+            'currency_thousand_sep' => wc_get_price_thousand_separator(),
         ]);
     }
 }

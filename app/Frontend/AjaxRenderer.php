@@ -66,32 +66,123 @@ class AjaxRenderer
             \wp_send_json_error(['message' => 'Invalid nonce']);
         }
 
-        $product_ids = array_map('intval', wp_unslash($_POST['product_ids'] ?? []));
-        if (empty($product_ids) || !is_array($product_ids)) {
-            \wp_send_json_error(['message' => 'No products selected']);
+        // Accept items[] array: each item has product_id, quantity, variation_id (optional), attributes (optional)
+        $raw_items = wp_unslash($_POST['items'] ?? []); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized below per field
+        if (empty($raw_items) || !is_array($raw_items)) {
+            \wp_send_json_error(['message' => __('No products selected', 'productbay')]);
         }
 
         $added_count = 0;
-        foreach ($product_ids as $id) {
-            $id = intval($id);
-            if ($id && \wc_get_product($id)) {
-                // Add to cart with default processing
-                try {
-                    $added = \WC()->cart->add_to_cart($id);
-                    if ($added) {
-                        $added_count++;
-                    }
-                } catch (\Exception $e) {
-                    // Ignore errors for individual items, try to continue
+        $errors = [];
+
+        foreach ($raw_items as $item) {
+            $product_id = intval($item['product_id'] ?? 0);
+            $quantity = max(1, intval($item['quantity'] ?? 1));
+            $variation_id = intval($item['variation_id'] ?? 0);
+            $attributes = [];
+
+            if (!empty($item['attributes']) && is_array($item['attributes'])) {
+                foreach ($item['attributes'] as $key => $value) {
+                    $attributes[sanitize_text_field($key)] = sanitize_text_field($value);
                 }
+            }
+
+            if (!$product_id) {
+                continue;
+            }
+
+            $product = \wc_get_product($product_id);
+            if (!$product) {
+                $errors[] = sprintf(
+                    /* translators: %d: product ID */
+                    __('Product #%d not found.', 'productbay'),
+                    $product_id
+                );
+                continue;
+            }
+
+            // Skip non-purchasable types
+            if ($product->is_type('external') || $product->is_type('grouped')) {
+                continue;
+            }
+
+            // Check stock via official WC API
+            if (!$product->is_in_stock()) {
+                $errors[] = sprintf(
+                    /* translators: %s: product name */
+                    __('"%s" is out of stock.', 'productbay'),
+                    $product->get_name()
+                );
+                continue;
+            }
+
+            // Validate quantity against stock (if managed and no backorders)
+            if ($product->managing_stock() && !$product->backorders_allowed()) {
+                $stock_qty = $product->get_stock_quantity();
+                if ($stock_qty !== null && $quantity > $stock_qty) {
+                    $quantity = $stock_qty; // Cap to available stock
+                }
+            }
+
+            // For variable products, validate variation
+            if ($product->is_type('variable')) {
+                if (!$variation_id) {
+                    $errors[] = sprintf(
+                        /* translators: %s: product name */
+                        __('Please select options for "%s".', 'productbay'),
+                        $product->get_name()
+                    );
+                    continue;
+                }
+
+                $variation = \wc_get_product($variation_id);
+                if (!$variation || !$variation->is_in_stock()) {
+                    $errors[] = sprintf(
+                        /* translators: %s: product name */
+                        __('Selected variation for "%s" is unavailable.', 'productbay'),
+                        $product->get_name()
+                    );
+                    continue;
+                }
+
+                // Validate variation stock quantity
+                if ($variation->managing_stock() && !$variation->backorders_allowed()) {
+                    $var_stock = $variation->get_stock_quantity();
+                    if ($var_stock !== null && $quantity > $var_stock) {
+                        $quantity = $var_stock;
+                    }
+                }
+            }
+
+            try {
+                $added = \WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $attributes);
+                if ($added) {
+                    $added_count++;
+                }
+            } catch (\Exception $e) {
+                $errors[] = sprintf(
+                    /* translators: %s: product name */
+                    __('Could not add "%s" to cart.', 'productbay'),
+                    $product->get_name()
+                );
             }
         }
 
         if ($added_count > 0) {
-            /* translators: %d: number of products added to cart */
-            \wp_send_json_success(['message' => sprintf(__('%d products added to cart', 'productbay'), $added_count)]);
+            $response = [
+                /* translators: %d: number of products added to cart */
+                'message' => sprintf(__('%d product(s) added to cart.', 'productbay'), $added_count),
+                'added_count' => $added_count,
+            ];
+            if (!empty($errors)) {
+                $response['warnings'] = $errors;
+            }
+            \wp_send_json_success($response);
         } else {
-            \wp_send_json_error(['message' => __('Failed to add products to cart', 'productbay')]);
+            \wp_send_json_error([
+                'message' => __('Failed to add products to cart.', 'productbay'),
+                'errors' => $errors,
+            ]);
         }
     }
 }
