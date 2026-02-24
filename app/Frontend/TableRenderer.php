@@ -366,6 +366,7 @@ class TableRenderer
 
         // Body Styles
         $css .= "#{$id} .productbay-table tbody td {";
+        $css .= "vertical-align: top;";
         if (!empty($body['bgColor'])) $css .= "background-color: {$body['bgColor']};";
         if (!empty($body['textColor'])) $css .= "color: {$body['textColor']};";
         if (!empty($layout['borderColor'])) $css .= "border-color: {$layout['borderColor']};";
@@ -387,7 +388,12 @@ class TableRenderer
         }
 
         // Button Styles via class override
-        $css .= "#{$id} .productbay-table .button, #{$id} .productbay-table .added_to_cart {";
+        $css .= "#{$id} .productbay-table .button {";
+        $css .= "display: inline-flex;";
+        $css .= "align-items: center;";
+        $css .= "justify-content: center;";
+        $css .= "min-width: 160px;";
+        $css .= "transition: background-color 0.2s ease, color 0.2s ease;";
         if (!empty($button['bgColor'])) $css .= "background-color: {$button['bgColor']} !important;";
         if (!empty($button['textColor'])) $css .= "color: {$button['textColor']} !important;";
         if (!empty($button['borderRadius'])) $css .= "border-radius: {$button['borderRadius']};";
@@ -396,6 +402,63 @@ class TableRenderer
         $css .= "#{$id} .productbay-table .button:hover {";
         if (!empty($button['hoverBgColor'])) $css .= "background-color: {$button['hoverBgColor']} !important;";
         if (!empty($button['hoverTextColor'])) $css .= "color: {$button['hoverTextColor']} !important;";
+        $css .= "}";
+
+        // Added to cart checkmark (SVG)
+        $css .= "#{$id} .productbay-table .button.added {";
+        $css .= "gap: 6px;";
+        $css .= "}";
+        $css .= "#{$id} .productbay-table .button.added::after {";
+        $css .= "content: '';";
+        $css .= "display: inline-block;";
+        $css .= "width: 16px;";
+        $css .= "height: 16px;";
+        $css .= "-webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "-webkit-mask-size: contain;";
+        $css .= "mask-size: contain;";
+        $css .= "-webkit-mask-repeat: no-repeat;";
+        $css .= "mask-repeat: no-repeat;";
+        $css .= "-webkit-mask-position: center;";
+        $css .= "mask-position: center;";
+        $css .= "background-color: currentColor;";
+        $css .= "}";
+
+        // View Cart (.added_to_cart) Ghost Button Styles
+        $css .= "#{$id} .productbay-table .added_to_cart {";
+        $css .= "display: block !important;";
+        $css .= "width: max-content !important;";
+        $css .= "background: transparent !important;";
+        $css .= "border: none;";
+        $css .= "color: inherit !important;";
+        $css .= "padding: 4px 0 !important;";
+        $css .= "margin-top: 8px;";
+        $css .= "text-decoration: none !important;";
+        $css .= "font-weight: 500;";
+        $css .= "transition: background-color 0.2s ease, color 0.2s ease;";
+        $css .= "}";
+        $css .= "#{$id} .productbay-table .added_to_cart::after {";
+        $css .= "content: '';";
+        $css .= "display: inline-block;";
+        $css .= "vertical-align: middle;";
+        $css .= "margin-left: 8px;";
+        $css .= "margin-top: -2px;";
+        $css .= "width: 16px;";
+        $css .= "height: 16px;";
+        $css .= "-webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "-webkit-mask-size: contain;";
+        $css .= "mask-size: contain;";
+        $css .= "-webkit-mask-repeat: no-repeat;";
+        $css .= "mask-repeat: no-repeat;";
+        $css .= "-webkit-mask-position: center;";
+        $css .= "mask-position: center;";
+        $css .= "background-color: currentColor;";
+        $css .= "}";
+        $css .= "#{$id} .productbay-table .added_to_cart:hover {";
+        $css .= "text-decoration: underline !important;";
+        $css .= "text-underline-offset: 4px;";
+        $css .= "background: transparent !important;";
         $css .= "}";
 
         // Image Styles

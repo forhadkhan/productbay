@@ -23361,7 +23361,7 @@ const BulkSelectConfig = ({
   // Default config to ensure we always have values to work with
   const config = value || {
     enabled: true,
-    position: 'first',
+    position: 'last',
     width: {
       value: 64,
       unit: 'px'
@@ -23396,7 +23396,7 @@ const BulkSelectConfig = ({
           className: "block text-xs font-medium text-gray-700 mb-1.5",
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Column Position', 'productbay')
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_2__.Select, {
-          value: (_config$position = config.position) !== null && _config$position !== void 0 ? _config$position : 'first',
+          value: (_config$position = config.position) !== null && _config$position !== void 0 ? _config$position : 'last',
           onChange: val => handleChange({
             position: val
           }),
@@ -30627,18 +30627,11 @@ const Tables = () => {
 const EmptyStateTables = () => {
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
-    className: "w-full p-8 md:p-16",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+    className: "w-full px-4 md:px-8",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
       className: "flex flex-col items-center justify-center text-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-10",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
-        className: "mb-6 relative",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("img", {
-          src: `${productBaySettings.pluginUrl}assets/images/clip-boards.svg`,
-          alt: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("No tables found", "productbay"),
-          className: "h-48 w-auto mx-auto opacity-90 no-select"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
-        className: "max-w-md mx-auto",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+        className: "mx-auto",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("h3", {
           className: "text-lg font-semibold text-gray-900 mb-2",
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Welcome to ProductBay', 'productbay')
@@ -30654,7 +30647,7 @@ const EmptyStateTables = () => {
             className: "mr-2"
           }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Create a New Table", "productbay")]
         })]
-      })]
+      })
     })
   });
 };
@@ -31539,7 +31532,7 @@ const createDefaultSettings = () => ({
     priceRange: false,
     bulkSelect: {
       enabled: true,
-      position: 'first',
+      position: 'last',
       width: {
         value: 64,
         unit: 'px'
