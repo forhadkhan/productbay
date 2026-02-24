@@ -425,3 +425,27 @@ When bringing features back:
 - [ ] Import/Export: restore buttons + icon imports
 - [ ] Settings.tsx: reconnect all removed handler props (`setSourceSort`, `setSourceQueryArgs`, `setResponsiveStyle`, `setFilters`)
 - [ ] Implement actual backend logic for each feature
+
+
+-----
+
+Handle grouped product type:
+
+### The "Inline" Approach (Advanced / Pro Feature)
+
+If you want to allow users to purchase from the table without leaving the page (which is a huge selling point for a premium table plugin), you should mimic the WooCommerce single-product page behavior *inside* the table's "Action/Buy" column.
+
+**The UI:**
+In the "Add to Cart" column for that specific row, render a mini-list of the child products.
+
+1. **Child List:** Display the child product's name, price, and a quantity selector.
+2. **Single Button:** Place **one** "Add to Cart" button at the bottom of this mini-list.
+
+**How it works (The Rules):**
+
+* **Do NOT** show separate "Add to Cart" buttons for every single child. That creates UI clutter. Show quantity inputs for each child, and one "Add to Cart" button for the parent row that adds all non-zero quantities to the cart simultaneously.
+* **Stock Checks:** You must check `$child_product->is_in_stock()` for each item. If a child is out of stock, hide its quantity input and just show "Out of stock" next to its name.
+* **Bulk Selection (Header):** If the user checks the main row checkbox for a Grouped Product, your JavaScript should calculate the total quantity of all child inputs that are greater than `0`.
+
+------------------------
+
