@@ -50,24 +50,24 @@
 }
 
 /* Toolbar layout follows select column position:
-   - select=first (default): [Search] --- [Bulk Button]  (button on right)
-   - select=last:            [Bulk Button] --- [Search]  (button on left)  */
+   - select=first (default): [Bulk Button] --- [Search]  (button on left)
+   - select=last:            [Search] --- [Bulk Button]  (button on right)  */
 .productbay-wrapper[data-select-position="first"] .productbay-bulk-actions,
 .productbay-wrapper:not([data-select-position]) .productbay-bulk-actions {
-    order: 2;
+    order: 1;
 }
 
 .productbay-wrapper[data-select-position="first"] .productbay-search,
 .productbay-wrapper:not([data-select-position]) .productbay-search {
-    order: 1;
+    order: 2;
 }
 
 .productbay-wrapper[data-select-position="last"] .productbay-bulk-actions {
-    order: 1;
+    order: 2;
 }
 
 .productbay-wrapper[data-select-position="last"] .productbay-search {
-    order: 2;
+    order: 1;
 }
 
 /* --- Search --- */

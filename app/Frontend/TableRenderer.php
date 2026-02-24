@@ -73,7 +73,8 @@ class TableRenderer
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally by generate_styles(), not user input
         echo '<style>' . wp_strip_all_tags($css) . '</style>';
 
-        echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '">';
+        $bulk_position = $settings['features']['bulkSelect']['position'] ?? 'last';
+        echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '" data-select-position="' . esc_attr($bulk_position) . '">';
 
         // Toolbar: Bulk Actions + Search
         echo '<div class="productbay-toolbar">';
@@ -106,9 +107,9 @@ class TableRenderer
 
 
         // Select All Column (Bulk Select - First)
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
 
-        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
             echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
         }
 
@@ -127,8 +128,8 @@ class TableRenderer
         }
 
         // Bulk Select - Last Position
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
-        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
+        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
             echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
         }
 
@@ -153,7 +154,7 @@ class TableRenderer
 
 
                 // Bulk Select - First Position
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
                     echo '<td class="productbay-col-select">';
                     echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
                     echo '</td>';
@@ -170,7 +171,7 @@ class TableRenderer
                 }
 
                 // Bulk Select - Last Position
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
                     echo '<td class="productbay-col-select">';
                     echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
                     echo '</td>';
@@ -415,7 +416,7 @@ class TableRenderer
         }
 
         // Bulk Select Width
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
         if ($bulk_select['enabled']) {
             $width = $bulk_select['width'];
             if ($width['value'] > 0 && $width['unit'] !== 'auto') {
@@ -510,8 +511,8 @@ class TableRenderer
 
 
                 // Bulk Select - First
-                $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first'];
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+                $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last'];
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
                     echo '<td class="productbay-col-select">';
                     echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
                     echo '</td>';
@@ -526,7 +527,7 @@ class TableRenderer
                 }
 
                 // Bulk Select - Last
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
                     echo '<td class="productbay-col-select">';
                     echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
                     echo '</td>';

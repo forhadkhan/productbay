@@ -306,7 +306,7 @@ export const createDefaultSettings = (): TableSettings => ({
         priceRange: false,
         bulkSelect: {
             enabled: true,
-            position: 'first',
+            position: 'last',
             width: { value: 64, unit: 'px' },
             visibility: 'all',
         },
