@@ -980,20 +980,10 @@ const EmptyStateTables = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="w-full p-8 md:p-16">
+		<div className="w-full px-4 md:px-8">
 			<div className="flex flex-col items-center justify-center text-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-10">
-				{/* Image Section - Reduced size and added margin */}
-				<div className="mb-6 relative">
-					{/* Using a max-width to keep the illustration from dominating the screen */}
-					<img
-						src={`${productBaySettings.pluginUrl}assets/images/clip-boards.svg`}
-						alt={__("No tables found", "productbay")}
-						className="h-48 w-auto mx-auto opacity-90 no-select"
-					/>
-				</div>
-
 				{/* Text Content Section */}
-				<div className="max-w-md mx-auto">
+				<div className="mx-auto">
 					<h3 className="text-lg font-semibold text-gray-900 mb-2">
 						{__('Welcome to ProductBay', 'productbay')}
 					</h3>
@@ -1014,6 +1004,8 @@ const EmptyStateTables = () => {
 						<PlusIcon size={16} className="mr-2" />
 						{__("Create a New Table", "productbay")}
 					</Button>
+
+
 				</div>
 			</div>
 		</div>
