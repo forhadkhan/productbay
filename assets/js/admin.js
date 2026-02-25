@@ -21858,28 +21858,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-alert.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/maximize-2.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/monitor.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/radio.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/smartphone.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/tablet.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_ui_ProductBayIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/components/ui/ProductBayIcon */ "./src/components/ui/ProductBayIcon.tsx");
-/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
-/* harmony import */ var _hooks_useDebounce__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/hooks/useDebounce */ "./src/hooks/useDebounce.ts");
-/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
-/* harmony import */ var _context_ToastContext__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/context/ToastContext */ "./src/context/ToastContext.tsx");
-/* harmony import */ var _components_ui_Modal__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/components/ui/Modal */ "./src/components/ui/Modal.tsx");
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/utils/api */ "./src/utils/api.ts");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/info.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/maximize-2.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/monitor.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/radio.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/smartphone.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/tablet.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_ui_ProductBayIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/components/ui/ProductBayIcon */ "./src/components/ui/ProductBayIcon.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _hooks_useDebounce__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/hooks/useDebounce */ "./src/hooks/useDebounce.ts");
+/* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
+/* harmony import */ var _context_ToastContext__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/context/ToastContext */ "./src/context/ToastContext.tsx");
+/* harmony import */ var _components_ui_Modal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/components/ui/Modal */ "./src/components/ui/Modal.tsx");
+/* harmony import */ var _components_ui_Alert__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/components/ui/Alert */ "./src/components/ui/Alert.tsx");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__);
+
 
 
 
@@ -22075,13 +22078,13 @@ const LivePreview = ({
     columns,
     settings,
     style
-  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_11__.useTableStore)();
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_12__.useTableStore)();
   const {
     toast
-  } = (0,_context_ToastContext__WEBPACK_IMPORTED_MODULE_14__.useToast)();
+  } = (0,_context_ToastContext__WEBPACK_IMPORTED_MODULE_15__.useToast)();
 
   // Memoize the payload to avoid effect triggering on every render
-  const payload = (0,react__WEBPACK_IMPORTED_MODULE_9__.useMemo)(() => ({
+  const payload = (0,react__WEBPACK_IMPORTED_MODULE_10__.useMemo)(() => ({
     id: tableId,
     title: tableTitle,
     status: tableStatus,
@@ -22092,30 +22095,30 @@ const LivePreview = ({
   }), [tableId, tableTitle, tableStatus, source, columns, settings, style]);
 
   // Debounce the payload to avoid flooding the API
-  const debouncedPayload = (0,_hooks_useDebounce__WEBPACK_IMPORTED_MODULE_12__.useDebounce)(payload, 500);
-  const [html, setHtml] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)('');
-  const [cssUrl, setCssUrl] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)('');
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(false);
-  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(null);
-  const [isFullscreen, setIsFullscreen] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(false);
+  const debouncedPayload = (0,_hooks_useDebounce__WEBPACK_IMPORTED_MODULE_13__.useDebounce)(payload, 500);
+  const [html, setHtml] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)('');
+  const [cssUrl, setCssUrl] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)('');
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)(false);
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)(null);
+  const [isFullscreen, setIsFullscreen] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)(false);
 
   // Iframe height tracking (auto-resize based on content)
-  const [iframeHeight, setIframeHeight] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(400);
+  const [iframeHeight, setIframeHeight] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)(400);
 
   // Scaling State — start at 0 so the iframe is hidden until properly measured
-  const [scale, setScale] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(0);
-  const [activeDevice, setActiveDevice] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)('desktop');
-  const containerRef = (0,react__WEBPACK_IMPORTED_MODULE_9__.useRef)(null);
+  const [scale, setScale] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)(0);
+  const [activeDevice, setActiveDevice] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)('desktop');
+  const containerRef = (0,react__WEBPACK_IMPORTED_MODULE_10__.useRef)(null);
 
   // Retry counter — bumping this forces a refetch independent of payload
-  const [retryCount, setRetryCount] = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(0);
+  const [retryCount, setRetryCount] = (0,react__WEBPACK_IMPORTED_MODULE_10__.useState)(0);
 
   // Extracted fetch function so it can be called from the retry button
-  const fetchPreview = (0,react__WEBPACK_IMPORTED_MODULE_9__.useCallback)(async () => {
+  const fetchPreview = (0,react__WEBPACK_IMPORTED_MODULE_10__.useCallback)(async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_16__.apiFetch)('preview', {
+      const response = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_18__.apiFetch)('preview', {
         method: 'POST',
         body: JSON.stringify({
           data: debouncedPayload
@@ -22136,7 +22139,7 @@ const LivePreview = ({
   }, [debouncedPayload]);
 
   // Effect to fetch preview when debounced payload or retry count changes
-  (0,react__WEBPACK_IMPORTED_MODULE_9__.useEffect)(() => {
+  (0,react__WEBPACK_IMPORTED_MODULE_10__.useEffect)(() => {
     fetchPreview();
   }, [fetchPreview, retryCount]);
 
@@ -22146,7 +22149,7 @@ const LivePreview = ({
    * - 'resize': auto-resize iframe height to match content
    * - 'addToCart': show a toast notification (no redirect)
    */
-  const handleMessage = (0,react__WEBPACK_IMPORTED_MODULE_9__.useCallback)(event => {
+  const handleMessage = (0,react__WEBPACK_IMPORTED_MODULE_10__.useCallback)(event => {
     const data = event.data;
     if (!data || typeof data !== 'object') return;
     if (data.type === 'resize' && typeof data.height === 'number') {
@@ -22155,26 +22158,26 @@ const LivePreview = ({
     if (data.type === 'addToCart' && Array.isArray(data.productIds)) {
       const count = data.productIds.length;
       toast({
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Preview Only', 'productbay'),
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Preview Only', 'productbay'),
         description: `${count} product${count > 1 ? 's' : ''} would be added to cart. Save and use the shortcode to enable real Add to Cart.`,
         type: 'info',
         duration: 4000
       });
     }
   }, [toast]);
-  (0,react__WEBPACK_IMPORTED_MODULE_9__.useEffect)(() => {
+  (0,react__WEBPACK_IMPORTED_MODULE_10__.useEffect)(() => {
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, [handleMessage]);
 
   // Build the srcdoc string for the iframe (memoized to avoid re-renders)
-  const srcdoc = (0,react__WEBPACK_IMPORTED_MODULE_9__.useMemo)(() => {
+  const srcdoc = (0,react__WEBPACK_IMPORTED_MODULE_10__.useMemo)(() => {
     if (!html || !cssUrl) return '';
     return buildSrcdoc(html, cssUrl);
   }, [html, cssUrl]);
 
   // Handle Scaling for the inline (non-fullscreen) preview
-  (0,react__WEBPACK_IMPORTED_MODULE_9__.useEffect)(() => {
+  (0,react__WEBPACK_IMPORTED_MODULE_10__.useEffect)(() => {
     const updateScale = () => {
       if (containerRef.current) {
         const {
@@ -22204,9 +22207,9 @@ const LivePreview = ({
    */
   const renderIframe = (fullWidth = false) => {
     const targetWidth = DEVICE_WIDTHS[activeDevice];
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("iframe", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("iframe", {
       srcDoc: srcdoc,
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Table Preview', 'productbay'),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Table Preview', 'productbay'),
       style: {
         width: fullWidth ? activeDevice === 'desktop' ? '100%' : `${targetWidth}px` : `${targetWidth}px`,
         height: `${iframeHeight + 32}px`,
@@ -22228,154 +22231,174 @@ const LivePreview = ({
    */
   const DeviceSwitcher = ({
     showLabels = false
-  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
     className: "flex items-center gap-1 bg-gray-100 p-1 rounded-md border border-gray-200",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("button", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("button", {
       onClick: () => setActiveDevice('desktop'),
-      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_18__.cn)("flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer", activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Desktop View', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_20__.cn)("flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer", activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Desktop View', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
         className: "w-3.5 h-3.5"
-      }), showLabels && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+      }), showLabels && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
         className: "text-[10px] font-bold uppercase tracking-wider",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Desktop', 'productbay')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Desktop', 'productbay')
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("button", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("button", {
       onClick: () => setActiveDevice('tablet'),
-      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_18__.cn)("flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer", activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Tablet View', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_20__.cn)("flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer", activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Tablet View', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
         className: "w-3.5 h-3.5"
-      }), showLabels && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+      }), showLabels && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
         className: "text-[10px] font-bold uppercase tracking-wider",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Tablet', 'productbay')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Tablet', 'productbay')
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("button", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("button", {
       onClick: () => setActiveDevice('mobile'),
-      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_18__.cn)("flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer", activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Mobile View', 'productbay'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_20__.cn)("flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer", activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Mobile View', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
         className: "w-3.5 h-3.5"
-      }), showLabels && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+      }), showLabels && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
         className: "text-[10px] font-bold uppercase tracking-wider",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Mobile', 'productbay')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Mobile', 'productbay')
       })]
     })]
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
-    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_18__.cn)('w-full relative flex flex-col', className),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_20__.cn)('w-full relative flex flex-col', className),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
       className: "flex gap-2 items-center justify-between mb-0",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
         className: "relative z-10 inline-flex items-center px-4 py-3 text-sm font-semibold bg-white rounded-t-lg border border-gray-200 border-b-white w-fit",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_18__.cn)("w-5 h-5 mr-2", loading ? "animate-pulse text-blue-500" : "")
-        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Live Preview', 'productbay')]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_20__.cn)("w-5 h-5 mr-2", loading ? "animate-pulse text-blue-500" : "")
+        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Live Preview', 'productbay')]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
         className: "mb-px flex items-center gap-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(DeviceSwitcher, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_13__.Button, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Full Screen', 'productbay'),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(DeviceSwitcher, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_14__.Button, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Full Screen', 'productbay'),
           variant: "outline",
           size: "xs",
           onClick: () => setIsFullscreen(true),
           className: "hover:bg-white hover:border-blue-600 cursor-pointer p-2",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
             className: "w-5 h-5 text-gray-500"
           })
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
       className: "relative -mt-px bg-white rounded-b-lg rounded-tr-lg border border-gray-200 overflow-hidden",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
         className: "w-full p-4 bg-gray-50/50 relative overflow-hidden",
-        children: error ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+        children: error ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
           className: "flex flex-col items-center justify-center h-full gap-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
             className: "w-10 h-10 text-red-400"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("p", {
             className: "text-sm text-gray-600 font-medium",
             children: error
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("button", {
             onClick: () => setRetryCount(c => c + 1),
             disabled: loading,
             className: "inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
-              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_18__.cn)("w-4 h-4", loading && "animate-spin")
-            }), loading ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Regenerating…', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Re-render Preview', 'productbay')]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("p", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_20__.cn)("w-4 h-4", loading && "animate-spin")
+            }), loading ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Regenerating…', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Re-render Preview', 'productbay')]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("p", {
             className: "text-xs text-gray-400 mt-1",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('If the issue persists, try reloading the page.', 'productbay')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('If the issue persists, try reloading the page.', 'productbay')
           })]
-        }) : srcdoc ?
-        /*#__PURE__*/
-        /* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */
-        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
-          ref: containerRef,
-          className: "w-full origin-top-left relative",
-          style: {
-            height: `${(iframeHeight + 32) * scale}px`,
-            transition: 'height 0.2s ease-in-out'
-          },
-          children: [renderIframe(), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
-            className: "absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
-              className: "w-6 h-6 text-blue-500 animate-spin"
-            })
+        }) : srcdoc ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+          className: "flex flex-col gap-4 w-full",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+            ref: containerRef,
+            className: "w-full origin-top-left relative rounded-md overflow-hidden ring-1 ring-gray-200/50",
+            style: {
+              height: `${(iframeHeight + 32) * scale}px`,
+              transition: 'height 0.2s ease-in-out'
+            },
+            children: [renderIframe(), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+              className: "absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                className: "w-6 h-6 text-blue-500 animate-spin"
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_17__.Alert, {
+            variant: "default",
+            className: "w-full",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              className: "w-4 h-4 shrink-0 mt-0.5 text-blue-600"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_17__.AlertDescription, {
+              className: "text-xs",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')
+            })]
           })]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
           className: "flex items-center justify-center h-full text-gray-400",
-          children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
             className: "w-8 h-8 animate-spin"
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("p", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Loading preview...', 'productbay')
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("p", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Loading preview...', 'productbay')
           })
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_15__.Modal, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_16__.Modal, {
       isOpen: isFullscreen,
       onClose: () => setIsFullscreen(false),
       fullScreen: true,
       hideFooter: true,
-      header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+      header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
         className: "flex items-center justify-between bg-white px-6 py-4 mt-8 shadow-sm border-b border-gray-200",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
           className: "flex items-center gap-3 flex-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
             className: "w-6 h-6 text-blue-600"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("h2", {
             className: "text-lg font-bold text-gray-800 m-0",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Table Preview', 'productbay')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Table Preview', 'productbay')
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
           className: "flex-1 flex justify-center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(DeviceSwitcher, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(DeviceSwitcher, {
             showLabels: true
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
           className: "flex-1 flex justify-end",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_13__.Button, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_14__.Button, {
             variant: "ghost",
             onClick: () => setIsFullscreen(false),
             className: "bg-transparent hover:bg-red-50 border border-transparent hover:border-red-600 cursor-pointer p-2 rounded-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
               className: "w-6 h-6"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
               className: "sr-only",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Close', 'productbay')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Close', 'productbay')
             })]
           })
         })]
       }),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
         className: "bg-gray-100/95 backdrop-blur-sm min-h-full p-2 md:p-4 xl:p-6 flex flex-col",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
-          className: "max-w-[1280px] w-full mx-auto bg-white min-h-[200px] rounded-lg p-2 xl:p-4",
-          children: srcdoc ? renderIframe(true) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
-            className: "flex items-center justify-center h-64 text-gray-400",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_ui_ProductBayIcon__WEBPACK_IMPORTED_MODULE_10__["default"], {
-              className: "animate-pulse size-12"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+          className: "max-w-[1280px] w-full mx-auto flex flex-col gap-4",
+          children: [srcdoc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_17__.Alert, {
+            variant: "default",
+            className: "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              className: "w-4 h-4 shrink-0 mt-0.5 text-blue-600"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_17__.AlertDescription, {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+            className: "bg-white min-h-[200px] rounded-lg p-2 xl:p-4 border border-gray-200 shadow-sm",
+            children: srcdoc ? renderIframe(true) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+              className: "flex items-center justify-center h-64 text-gray-400",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_components_ui_ProductBayIcon__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                className: "animate-pulse size-12"
+              })
             })
-          })
+          })]
         })
       })
     })]
@@ -22840,6 +22863,7 @@ const DisplayPanel = ({
   setHoverStyle,
   className
 }) => {
+  var _style$layout$borderR;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("w-full p-4 space-y-8", className),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
@@ -23014,24 +23038,36 @@ const DisplayPanel = ({
             })
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_6__.SettingsOption, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Border Radius', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Corner roundness of the table', 'productbay'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex items-center gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-            type: "number",
-            min: "0",
-            max: "24",
-            value: parseInt(style.layout.borderRadius) || 0,
-            onChange: e => setLayoutStyle({
-              borderRadius: `${e.target.value}px`
-            }),
-            className: "w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            className: "text-sm text-gray-500",
-            children: "px"
-          })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_6__.SettingsOption, {
+          className: "px-0",
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Border Radius', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Corner roundness of the table', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "flex gap-2 items-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
+              checked: (_style$layout$borderR = style.layout.borderRadiusEnabled) !== null && _style$layout$borderR !== void 0 ? _style$layout$borderR : true,
+              onChange: e => setLayoutStyle({
+                borderRadiusEnabled: e.target.checked
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)("flex items-center gap-2", style.layout.borderRadiusEnabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                type: "number",
+                min: "0",
+                max: "24",
+                value: parseInt(style.layout.borderRadius) || 0,
+                onChange: e => setLayoutStyle({
+                  borderRadius: `${e.target.value}px`
+                }),
+                className: "w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                className: "text-sm text-gray-500",
+                children: "px"
+              })]
+            })]
+          })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_6__.SettingsOption, {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cell Padding', 'productbay'),
@@ -23082,6 +23118,32 @@ const DisplayPanel = ({
             }, {
               label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Extra Bold', 'productbay'),
               value: 'extrabold'
+            }]
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_6__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Header Text Transform', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Capitalization of text in table header row', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "w-36",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_ui_Select__WEBPACK_IMPORTED_MODULE_3__.Select, {
+            size: "sm",
+            value: style.typography.headerTextTransform || 'uppercase',
+            onChange: val => setTypographyStyle({
+              headerTextTransform: val
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Uppercase', 'productbay'),
+              value: 'uppercase'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lowercase', 'productbay'),
+              value: 'lowercase'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Capitalize', 'productbay'),
+              value: 'capitalize'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Normal', 'productbay'),
+              value: 'normal-case'
             }]
           })
         })
@@ -31602,11 +31664,13 @@ const createDefaultStyle = () => ({
   layout: {
     borderStyle: 'solid',
     borderColor: '#e5e7eb',
+    borderRadiusEnabled: true,
     borderRadius: '8px',
     cellPadding: 'normal'
   },
   typography: {
-    headerFontWeight: 'bold'
+    headerFontWeight: 'bold',
+    headerTextTransform: 'uppercase'
   },
   hover: {
     rowHoverEnabled: true,

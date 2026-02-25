@@ -500,11 +500,37 @@ class TableRenderer
         $layout = $style['layout'] ?? [];
         $hover = $style['hover'] ?? [];
 
+        $typography = $style['typography'] ?? [];
+
         // Header Styles
         $css .= "#{$id} .productbay-table thead th {";
         if (!empty($header['bgColor'])) $css .= "background-color: {$header['bgColor']};";
         if (!empty($header['textColor'])) $css .= "color: {$header['textColor']};";
         if (!empty($header['fontSize'])) $css .= "font-size: {$header['fontSize']};";
+        
+        if (!empty($typography['headerFontWeight'])) {
+            $weight_map = [
+                'normal' => '400',
+                'bold' => '600',
+                'extrabold' => '800',
+            ];
+            $weight = $weight_map[$typography['headerFontWeight']] ?? '600';
+            $css .= "font-weight: {$weight};";
+        }
+        
+        if (!empty($typography['headerTextTransform'])) {
+            $transform_map = [
+                'uppercase' => 'uppercase',
+                'lowercase' => 'lowercase',
+                'capitalize' => 'capitalize',
+                'normal-case' => 'none',
+            ];
+            $transform = $transform_map[$typography['headerTextTransform']] ?? 'uppercase';
+            $css .= "text-transform: {$transform};";
+            if ($transform === 'none') {
+                $css .= "letter-spacing: normal;";
+            }
+        }
         $css .= "}";
 
         // Body Styles
@@ -512,8 +538,41 @@ class TableRenderer
         $css .= "vertical-align: top;";
         if (!empty($body['bgColor'])) $css .= "background-color: {$body['bgColor']};";
         if (!empty($body['textColor'])) $css .= "color: {$body['textColor']};";
-        if (!empty($layout['borderColor'])) $css .= "border-color: {$layout['borderColor']};";
         $css .= "}";
+
+        // Layout & Spacing Styles
+        if (isset($layout['borderStyle']) && $layout['borderStyle'] === 'none') {
+            $css .= "#{$id} .productbay-table-container { border: none; }";
+            $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border: none; }";
+        } else {
+            if (!empty($layout['borderStyle']) && $layout['borderStyle'] !== 'none') {
+                $b_style = $layout['borderStyle'];
+                $b_color = $layout['borderColor'] ?? '#e2e8f0';
+                $css .= "#{$id} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
+                $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
+            } elseif (!empty($layout['borderColor'])) {
+                $css .= "#{$id} .productbay-table-container { border-color: {$layout['borderColor']}; }";
+                $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom-color: {$layout['borderColor']}; }";
+            }
+        }
+        
+        $radius_enabled = $layout['borderRadiusEnabled'] ?? true;
+        if ($radius_enabled && isset($layout['borderRadius'])) {
+            $radius = intval($layout['borderRadius']);
+            $css .= "#{$id} .productbay-table-container { border-radius: {$radius}px; }";
+        } elseif (!$radius_enabled) {
+            $css .= "#{$id} .productbay-table-container { border-radius: 0; }";
+        }
+        
+        if (!empty($layout['cellPadding'])) {
+            $cell_padding_map = [
+                'compact' => '8px 12px',
+                'normal'  => '12px 16px',
+                'spacious'=> '16px 24px',
+            ];
+            $padding = $cell_padding_map[$layout['cellPadding']] ?? '12px 16px';
+            $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { padding: {$padding}; }";
+        }
 
         // Alternate Rows
         if (!empty($body['rowAlternate'])) {

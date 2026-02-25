@@ -249,6 +249,8 @@ export interface TableStyle {
         borderStyle: 'none' | 'solid' | 'dashed';
         /** Table border color */
         borderColor: string;
+        /** Enable/Disable border radius entirely */
+        borderRadiusEnabled: boolean;
         /** Table border radius */
         borderRadius: string;
         /** Cell padding density */
@@ -259,6 +261,8 @@ export interface TableStyle {
     typography: {
         /** Header row font weight */
         headerFontWeight: 'normal' | 'bold' | 'extrabold';
+        /** Header row text transform */
+        headerTextTransform: 'capitalize' | 'uppercase' | 'lowercase' | 'normal-case';
     };
 
     /** Hover & Interaction effects */
@@ -370,11 +374,13 @@ export const createDefaultStyle = (): TableStyle => ({
     layout: {
         borderStyle: 'solid',
         borderColor: '#e5e7eb',
+        borderRadiusEnabled: true,
         borderRadius: '8px',
         cellPadding: 'normal',
     },
     typography: {
         headerFontWeight: 'bold',
+        headerTextTransform: 'uppercase',
     },
     hover: {
         rowHoverEnabled: true,

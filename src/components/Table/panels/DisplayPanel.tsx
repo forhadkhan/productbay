@@ -247,22 +247,31 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Border Radius */}
-                <SettingsOption
-                    title={__('Border Radius', 'productbay')}
-                    description={__('Corner roundness of the table', 'productbay')}
-                >
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="number"
-                            min="0"
-                            max="24"
-                            value={parseInt(style.layout.borderRadius) || 0}
-                            onChange={(e) => setLayoutStyle({ borderRadius: `${e.target.value}px` })}
-                            className="w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                        />
-                        <span className="text-sm text-gray-500">px</span>
-                    </div>
-                </SettingsOption>
+                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                    <SettingsOption
+                        className="px-0"
+                        title={__('Border Radius', 'productbay')}
+                        description={__('Corner roundness of the table', 'productbay')}
+                    >
+                        <div className="flex gap-2 items-center">
+                            <Toggle
+                                checked={style.layout.borderRadiusEnabled ?? true}
+                                onChange={(e) => setLayoutStyle({ borderRadiusEnabled: e.target.checked })}
+                            />
+                            <div className={cn("flex items-center gap-2", style.layout.borderRadiusEnabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale")}>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="24"
+                                    value={parseInt(style.layout.borderRadius) || 0}
+                                    onChange={(e) => setLayoutStyle({ borderRadius: `${e.target.value}px` })}
+                                    className="w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <span className="text-sm text-gray-500">px</span>
+                            </div>
+                        </div>
+                    </SettingsOption>
+                </div>
 
                 {/* Cell Padding */}
                 <SettingsOption
@@ -307,6 +316,26 @@ export const DisplayPanel = ({
                                 { label: __('Normal', 'productbay'), value: 'normal' },
                                 { label: __('Bold', 'productbay'), value: 'bold' },
                                 { label: __('Extra Bold', 'productbay'), value: 'extrabold' },
+                            ]}
+                        />
+                    </div>
+                </SettingsOption>
+
+                {/* Header Text Transform */}
+                <SettingsOption
+                    title={__('Header Text Transform', 'productbay')}
+                    description={__('Capitalization of text in table header row', 'productbay')}
+                >
+                    <div className="w-36">
+                        <Select
+                            size="sm"
+                            value={style.typography.headerTextTransform || 'uppercase'}
+                            onChange={(val) => setTypographyStyle({ headerTextTransform: val as any })}
+                            options={[
+                                { label: __('Uppercase', 'productbay'), value: 'uppercase' },
+                                { label: __('Lowercase', 'productbay'), value: 'lowercase' },
+                                { label: __('Capitalize', 'productbay'), value: 'capitalize' },
+                                { label: __('Normal', 'productbay'), value: 'normal-case' },
                             ]}
                         />
                     </div>
