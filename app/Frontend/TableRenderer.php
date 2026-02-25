@@ -732,9 +732,38 @@ class TableRenderer
         // For now, implementing 'none'.
     }
 
+    /**
+     * Get CSS classes for a column, including responsive visibility classes.
+     *
+     * Breakpoints:
+     *   Mobile:  <= 767px
+     *   Tablet:  768px – 1023px
+     *   Desktop: >= 1024px
+     *
+     * @param array $col Column configuration.
+     * @return string[]
+     */
     private function get_column_classes($col)
     {
-        return ['productbay-col-' . $col['id']];
+        $classes = ['productbay-col-' . $col['id']];
+
+        $visibility = $col['advanced']['visibility'] ?? 'default';
+
+        $visibility_class_map = [
+            'desktop'     => 'productbay-desktop-only',
+            'tablet'      => 'productbay-tablet-only',
+            'mobile'      => 'productbay-mobile-only',
+            'not-mobile'  => 'productbay-hide-mobile',
+            'not-desktop' => 'productbay-hide-desktop',
+            'not-tablet'  => 'productbay-hide-tablet',
+            'min-tablet'  => 'productbay-min-tablet',
+        ];
+
+        if (isset($visibility_class_map[$visibility])) {
+            $classes[] = $visibility_class_map[$visibility];
+        }
+
+        return $classes;
     }
 
     private function get_column_styles($col)

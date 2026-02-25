@@ -755,3 +755,63 @@
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+/* ========================================================================
+   17. RESPONSIVE COLUMN VISIBILITY
+   Breakpoints: Mobile ≤767px | Tablet 768–1023px | Desktop ≥1024px
+   ======================================================================== */
+
+/* Desktop only: hide on mobile & tablet */
+@media (max-width: 1023px) {
+    .productbay-wrapper .productbay-desktop-only {
+        display: none !important;
+    }
+}
+
+/* Tablet only: hide on mobile & desktop */
+@media (max-width: 767px) {
+    .productbay-wrapper .productbay-tablet-only {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .productbay-wrapper .productbay-tablet-only {
+        display: none !important;
+    }
+}
+
+/* Mobile only: hide on tablet & desktop */
+@media (min-width: 768px) {
+    .productbay-wrapper .productbay-mobile-only {
+        display: none !important;
+    }
+}
+
+/* Hide on mobile (visible on tablet & desktop) */
+@media (max-width: 767px) {
+    .productbay-wrapper .productbay-hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Hide on desktop (visible on mobile & tablet) */
+@media (min-width: 1024px) {
+    .productbay-wrapper .productbay-hide-desktop {
+        display: none !important;
+    }
+}
+
+/* Hide on tablet (visible on mobile & desktop) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .productbay-wrapper .productbay-hide-tablet {
+        display: none !important;
+    }
+}
+
+/* Min-tablet: visible on tablet & desktop, hidden on mobile */
+@media (max-width: 767px) {
+    .productbay-wrapper .productbay-min-tablet {
+        display: none !important;
+    }
+}
