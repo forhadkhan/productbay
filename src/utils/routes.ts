@@ -72,4 +72,5 @@ export const WC_ADMIN_PRODUCTS_PATH =
 
 export const PRODUCTBAY_VIDEO_GUIDE_URL = 'https://www.youtube.com/watch?v=VIDEO_ID';
 export const PRODUCTBAY_DOCUMENTATION_URL = 'https://productbay.wpanchorbay.com';
-export const PRODUCTBAY_SUPPORT_URL = 'https://productbay.wpanchorbay.com/support';
+export const PRODUCTBAY_SUPPORT_URL = 'https://wpanchorbay.com/support/';
+export const PRODUCTBAY_LANDING_PAGE_URL = 'https://wpanchorbay.com/productbay/';

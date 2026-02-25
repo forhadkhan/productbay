@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/Layout/Navbar';
-import Footer from '@/components/Layout/Footer';
 import { useWpMenuSync } from '@/hooks/useWpMenuSync';
+import { MinimalFooter } from '@/components/Layout/Footer';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	// Sync React Router location with WP Admin Menu
@@ -13,7 +13,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 			<main className="p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
 				{children}
 			</main>
-			<Footer />
+			<MinimalFooter />
 		</div>
 	);
 };

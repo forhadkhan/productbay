@@ -1,7 +1,40 @@
-import { PRODUCTBAY_DOCUMENTATION_URL, PRODUCTBAY_SUPPORT_URL, PRODUCTBAY_VIDEO_GUIDE_URL } from "@/utils/routes";
+import { PRODUCTBAY_DOCUMENTATION_URL, PRODUCTBAY_LANDING_PAGE_URL, PRODUCTBAY_SUPPORT_URL, PRODUCTBAY_VIDEO_GUIDE_URL } from "@/utils/routes";
 import { LifeBuoyIcon, PlayCircleIcon } from "lucide-react";
 import ProductBayIcon from "@/components/ui/ProductBayIcon";
 import { __ } from '@wordpress/i18n';
+
+export const MinimalFooter = () => {
+    return (
+        <footer className="my-6">
+            {/* Divider */}
+            <div className="relative py-4">
+                <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center">
+                    <span className="bg-wp-bg px-4">
+                        <ProductBayIcon className="size-10 grayscale" />
+                    </span>
+                </div>
+            </div>
+
+            {/* Links */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a className="hover:underline underline-offset-4" href={PRODUCTBAY_LANDING_PAGE_URL} target="_blank" rel="noopener noreferrer">
+                    {__('ProductBay', 'productbay')}
+                </a>
+                <span className="hidden sm:inline text-gray-700">&#9678;</span>
+                <a className="hover:underline underline-offset-4" href={PRODUCTBAY_DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer">
+                    {__('Documentation', 'productbay')}
+                </a>
+                <span className="hidden sm:inline text-gray-700">&#9678;</span>
+                <a className="hover:underline underline-offset-4" href={PRODUCTBAY_SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+                    {__('Support', 'productbay')}
+                </a>
+            </div>
+        </footer>
+    );
+}
 
 export const Footer = () => {
     return (
