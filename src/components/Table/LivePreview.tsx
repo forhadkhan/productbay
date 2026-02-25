@@ -359,7 +359,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
     };
 
     /**
-     * Renders the device selection toggle buttons.
+     * Device Switcher Component
      */
     const DeviceSwitcher = ({ showLabels = false }: { showLabels?: boolean }) => (
         <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-md border border-gray-200">
@@ -397,6 +397,18 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 {showLabels && <span className="text-[10px] font-bold uppercase tracking-wider">{__('Mobile', 'productbay')}</span>}
             </button>
         </div>
+    );
+
+    /**
+     * Limitation Alert
+     */
+    const LimitationAlert = (
+        <Alert variant="default" className="w-full bg-blue-50 text-gray-800">
+            <InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
+            <AlertDescription className={isFullscreen ? "text-sm" : "text-xs"}>
+                {__('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')}
+            </AlertDescription>
+        </Alert>
     );
 
     return (
@@ -461,12 +473,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                                 )}
                             </div>
 
-                            <Alert variant="default" className="w-full">
-                                <InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
-                                <AlertDescription className="text-xs">
-                                    {__('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')}
-                                </AlertDescription>
-                            </Alert>
+                            {/* Show Limitation Alert */}
+                            {LimitationAlert}
                         </div>
                     ) : (
                         <div className="flex items-center justify-center h-full text-gray-400">
@@ -512,14 +520,9 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 <div className="bg-gray-100/95 backdrop-blur-sm min-h-full p-2 md:p-4 xl:p-6 flex flex-col">
                     {/* Centered Container for the Table */}
                     <div className="max-w-[1280px] w-full mx-auto flex flex-col gap-4">
-                        {srcdoc && (
-                            <Alert variant="default" className="">
-                                <InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
-                                <AlertDescription>
-                                    {__('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')}
-                                </AlertDescription>
-                            </Alert>
-                        )}
+                        {/* Limitation Alert */}
+                        {srcdoc && LimitationAlert}
+                        {/* Table Preview */}
                         <div className="bg-white min-h-[200px] rounded-lg p-2 xl:p-4 border border-gray-200 shadow-sm">
                             {srcdoc ? renderIframe(true) : (
                                 <div className="flex items-center justify-center h-64 text-gray-400">
