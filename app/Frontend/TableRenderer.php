@@ -272,6 +272,9 @@ class TableRenderer
                             'operator' => 'IN',
                         ],
                     ];
+                } else {
+                    // No categories selected, return no products
+                    $args['post__in'] = [0];
                 }
                 break;
 
