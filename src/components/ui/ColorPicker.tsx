@@ -1040,6 +1040,14 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
 
     /**
+     * Internal hue state to track the hue value independently of the derived RGB color.
+     * This is crucial when the color is grayscale (saturation = 0). If we only derive
+     * hue from RGB, changing the hue slider on a grayscale color will snap back to 0
+     * because the RGB doesn't change.
+     */
+    const [internalHue, setInternalHue] = useState<number | null>(null);
+
+    /**
      * Safely parsed and validated color value.
      * Handles empty strings, null, undefined, and malformed input
      * by falling back to the default color.
@@ -1063,6 +1071,17 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
         return value.trim();
     }, [value]);
+
+    /**
+     * Reset internal hue when the external value changes substantially.
+     * We don't reset it on every single stroke, otherwise the fix wouldn't work.
+     * We depend on `isOpen` to reset when re-opened.
+     */
+    useEffect(() => {
+        if (!isOpen) {
+            setInternalHue(null);
+        }
+    }, [isOpen]);
 
     /* -------------------------------------------------------------------------
      * EFFECTS
@@ -1194,12 +1213,21 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
         const r = rgba.r ? parseInt(rgba.r, 10) : 0;
         const g = rgba.g ? parseInt(rgba.g, 10) : 0;
         const b = rgba.b ? parseInt(rgba.b, 10) : 0;
-        return rgbToHsv(
+
+        const derivedHsv = rgbToHsv(
             isNaN(r) ? 0 : r,
             isNaN(g) ? 0 : g,
             isNaN(b) ? 0 : b
         );
-    }, [rgba.r, rgba.g, rgba.b]);
+
+        // If we have an internal hue interaction, prefer it over the derived one
+        // (Derived hue is 0 for all grayscale colors)
+        if (internalHue !== null) {
+            derivedHsv.h = internalHue;
+        }
+
+        return derivedHsv;
+    }, [rgba.r, rgba.g, rgba.b, internalHue]);
 
     /**
      * Derive HSL components for display in HSL format mode.
@@ -1270,6 +1298,9 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
         const { r, g, b } = hsvToRgb(hsv.h, s, v);
         const alpha = parseFloat(rgba.a);
 
+        // Update internal hue to keep it stable during saturation/value drags
+        setInternalHue(hsv.h);
+
         // Output in the currently active format
         if (activeFormat === 'hex') {
             onChange(rgbaToHex(r, g, b, alpha));
@@ -1288,6 +1319,10 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
     const handleHueChange = (h: number) => {
         const { r, g, b } = hsvToRgb(h, hsv.s, hsv.v);
         const alpha = parseFloat(rgba.a);
+
+        // Critically, store the internal hue so it doesn't bounce back to 0
+        // on the next render if the color is grayscale (s=0).
+        setInternalHue(h);
 
         if (activeFormat === 'hex') {
             onChange(rgbaToHex(r, g, b, alpha));
