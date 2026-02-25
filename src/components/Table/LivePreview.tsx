@@ -1,4 +1,4 @@
-import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon, MonitorIcon, TabletIcon, SmartphoneIcon, RefreshCwIcon } from 'lucide-react';
+import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon, MonitorIcon, TabletIcon, SmartphoneIcon, RefreshCwIcon, InfoIcon } from 'lucide-react';
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useTableStore } from '@/store/tableStore';
@@ -6,6 +6,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { Button } from '@/components/ui/Button';
 import { useToast } from '@/context/ToastContext';
 import { Modal } from '@/components/ui/Modal';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
@@ -441,22 +442,31 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                             </p>
                         </div>
                     ) : srcdoc ? (
-                        /* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */
-                        <div
-                            ref={containerRef}
-                            className="w-full origin-top-left relative"
-                            style={{
-                                height: `${(iframeHeight + 32) * scale}px`,
-                                transition: 'height 0.2s ease-in-out'
-                            }}
-                        >
-                            {renderIframe()}
-                            {/* Pulse overlay while regenerating */}
-                            {loading && (
-                                <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity">
-                                    <LoaderIcon className="w-6 h-6 text-blue-500 animate-spin" />
-                                </div>
-                            )}
+                        <div className="flex flex-col gap-4 w-full">
+                            {/* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */}
+                            <div
+                                ref={containerRef}
+                                className="w-full origin-top-left relative rounded-md overflow-hidden ring-1 ring-gray-200/50"
+                                style={{
+                                    height: `${(iframeHeight + 32) * scale}px`,
+                                    transition: 'height 0.2s ease-in-out'
+                                }}
+                            >
+                                {renderIframe()}
+                                {/* Pulse overlay while regenerating */}
+                                {loading && (
+                                    <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity">
+                                        <LoaderIcon className="w-6 h-6 text-blue-500 animate-spin" />
+                                    </div>
+                                )}
+                            </div>
+
+                            <Alert variant="default" className="w-full">
+                                <InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
+                                <AlertDescription className="text-xs">
+                                    {__('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')}
+                                </AlertDescription>
+                            </Alert>
                         </div>
                     ) : (
                         <div className="flex items-center justify-center h-full text-gray-400">
@@ -501,12 +511,22 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             >
                 <div className="bg-gray-100/95 backdrop-blur-sm min-h-full p-2 md:p-4 xl:p-6 flex flex-col">
                     {/* Centered Container for the Table */}
-                    <div className="max-w-[1280px] w-full mx-auto bg-white min-h-[200px] rounded-lg p-2 xl:p-4">
-                        {srcdoc ? renderIframe(true) : (
-                            <div className="flex items-center justify-center h-64 text-gray-400">
-                                <ProductBayIcon className="animate-pulse size-12" />
-                            </div>
+                    <div className="max-w-[1280px] w-full mx-auto flex flex-col gap-4">
+                        {srcdoc && (
+                            <Alert variant="default" className="">
+                                <InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
+                                <AlertDescription>
+                                    {__('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')}
+                                </AlertDescription>
+                            </Alert>
                         )}
+                        <div className="bg-white min-h-[200px] rounded-lg p-2 xl:p-4 border border-gray-200 shadow-sm">
+                            {srcdoc ? renderIframe(true) : (
+                                <div className="flex items-center justify-center h-64 text-gray-400">
+                                    <ProductBayIcon className="animate-pulse size-12" />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </Modal>
