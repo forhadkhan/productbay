@@ -1,8 +1,8 @@
-=== ProductBay ===
-Contributors: wpanchorbay, forhadakhan
-Tags: woocommerce, product table, product list, search, filter
+=== ProductBay - Product Table for WooCommerce ===
+Contributors: wpanchorbay, forhadkhan
+Tags: woocommerce product table, product table, product list, bulk order form, woocommerce
 Requires at least: 6.0
-Tested up to: 6.9
+Tested up to: 6.9.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
