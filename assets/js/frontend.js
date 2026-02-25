@@ -464,11 +464,11 @@
 
                         // Inject "View Cart" link if not already present
                         const $parentCell = $wrap;
-                        if (!$parentCell.find('.added_to_cart').length) {
+                        if (!$parentCell.find('.productbay-added-to-cart').length) {
                             const cartUrl = productbay_frontend.cart_url || '#';
                             const cartText = productbay_frontend.view_cart_text || 'View cart';
                             $parentCell.append(
-                                '<a href="' + cartUrl + '" class="added_to_cart">' + cartText + '</a>'
+                                '<a href="' + cartUrl + '" class="productbay-added-to-cart">' + cartText + '</a>'
                             );
                         }
                     } else {

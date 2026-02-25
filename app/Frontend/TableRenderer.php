@@ -83,7 +83,7 @@ class TableRenderer
         $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true];
         if ($bulk_select['enabled']) {
             echo '<div class="productbay-bulk-actions">';
-            echo '<button class="productbay-btn-bulk" disabled>';
+            echo '<button class="productbay-button productbay-btn-bulk" disabled>';
             echo '<svg class="productbay-icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> ';
             echo esc_html__('Add to Cart', 'productbay');
             echo '</button>';
@@ -361,7 +361,7 @@ class TableRenderer
             $url = $product->get_product_url();
             $text = $product->get_button_text() ?: __('Buy product', 'productbay');
             echo '<div class="productbay-btn-cell">';
-            echo '<a href="' . esc_url($url) . '" class="button productbay-btn-external" target="_blank" rel="noopener noreferrer">' . esc_html($text) . '</a>';
+            echo '<a href="' . esc_url($url) . '" class="productbay-button productbay-btn-external" target="_blank" rel="noopener noreferrer">' . esc_html($text) . '</a>';
             echo '</div>';
             return;
         }
@@ -369,7 +369,7 @@ class TableRenderer
         // Grouped: redirect to product page
         if ($product->is_type('grouped')) {
             echo '<div class="productbay-btn-cell">';
-            echo '<a href="' . esc_url($product->get_permalink()) . '" class="button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
+            echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
             echo '</div>';
             return;
         }
@@ -377,7 +377,7 @@ class TableRenderer
         // Out of stock: disabled button
         if (!$product->is_in_stock()) {
             echo '<div class="productbay-btn-cell">';
-            echo '<button class="button productbay-btn-outofstock" disabled>' . esc_html__('Out of Stock', 'productbay') . '</button>';
+            echo '<button class="productbay-button productbay-btn-outofstock" disabled>' . esc_html__('Out of Stock', 'productbay') . '</button>';
             echo '</div>';
             return;
         }
@@ -395,7 +395,7 @@ class TableRenderer
             $this->render_quantity_input($product);
         }
         $disabled_attr = $is_purchasable ? '' : ' disabled';
-        echo '<button class="button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . $disabled_attr . '>';
+        echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . $disabled_attr . '>';
         echo esc_html($product->add_to_cart_text());
         echo '</button>';
         echo '</div>';
@@ -450,7 +450,7 @@ class TableRenderer
         if ($is_purchasable) {
             $this->render_quantity_input($product);
         }
-        echo '<button class="button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
+        echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
         echo esc_html__('Add to cart', 'woocommerce');
         echo '</button>';
         echo '</div>';
@@ -531,7 +531,7 @@ class TableRenderer
         }
 
         // Button Styles via class override
-        $css .= "#{$id} .productbay-table .button {";
+        $css .= "#{$id} .productbay-button {";
         $css .= "display: inline-flex;";
         $css .= "align-items: center;";
         $css .= "justify-content: center;";
@@ -542,13 +542,13 @@ class TableRenderer
         if (!empty($button['borderRadius'])) $css .= "border-radius: {$button['borderRadius']};";
         $css .= "}";
 
-        $css .= "#{$id} .productbay-table .button:hover {";
+        $css .= "#{$id} .productbay-button:hover {";
         if (!empty($button['hoverBgColor'])) $css .= "background-color: {$button['hoverBgColor']} !important;";
         if (!empty($button['hoverTextColor'])) $css .= "color: {$button['hoverTextColor']} !important;";
         $css .= "}";
 
         // Added to cart checkmark (SVG)
-        $css .= "#{$id} .productbay-table .button.added {";
+        $css .= "#{$id} .productbay-button.added {";
         $css .= "gap: 6px;";
         $css .= "}";
         $css .= "#{$id} .productbay-table .button.added::after {";
@@ -567,8 +567,8 @@ class TableRenderer
         $css .= "background-color: currentColor;";
         $css .= "}";
 
-        // View Cart (.added_to_cart) Ghost Button Styles
-        $css .= "#{$id} .productbay-table .added_to_cart {";
+        // View Cart (.productbay-added-to-cart) Ghost Button Styles
+        $css .= "#{$id} .productbay-table .productbay-added-to-cart {";
         $css .= "display: block !important;";
         $css .= "width: max-content !important;";
         $css .= "background: transparent !important;";
@@ -580,7 +580,7 @@ class TableRenderer
         $css .= "font-weight: 500;";
         $css .= "transition: background-color 0.2s ease, color 0.2s ease;";
         $css .= "}";
-        $css .= "#{$id} .productbay-table .added_to_cart::after {";
+        $css .= "#{$id} .productbay-table .productbay-added-to-cart::after {";
         $css .= "content: '';";
         $css .= "display: inline-block;";
         $css .= "vertical-align: middle;";
@@ -598,7 +598,7 @@ class TableRenderer
         $css .= "mask-position: center;";
         $css .= "background-color: currentColor;";
         $css .= "}";
-        $css .= "#{$id} .productbay-table .added_to_cart:hover {";
+        $css .= "#{$id} .productbay-table .productbay-added-to-cart:hover {";
         $css .= "text-decoration: underline !important;";
         $css .= "text-underline-offset: 4px;";
         $css .= "background: transparent !important;";

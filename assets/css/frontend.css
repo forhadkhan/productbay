@@ -363,12 +363,12 @@
    6. BUTTONS (WC Add to Cart, etc.)
    ======================================================================== */
 
-.productbay-wrapper .button,
-.productbay-wrapper a.button,
-.productbay-wrapper a.added_to_cart,
-.productbay-wrapper .productbay-table .button,
-.productbay-wrapper .productbay-table a.button,
-.productbay-wrapper .productbay-table a.added_to_cart {
+.productbay-wrapper .productbay-button,
+.productbay-wrapper a.productbay-button,
+.productbay-wrapper a.productbay-added-to-cart,
+.productbay-wrapper .productbay-table .productbay-button,
+.productbay-wrapper .productbay-table a.productbay-button,
+.productbay-wrapper .productbay-table a.productbay-added-to-cart {
     padding: 8px 18px;
     background-color: #3b82f6;
     color: #fff !important;
@@ -386,23 +386,23 @@
     outline: none !important;
 }
 
-.productbay-wrapper .button:hover,
-.productbay-wrapper a.button:hover,
-.productbay-wrapper a.added_to_cart:hover,
-.productbay-wrapper .productbay-table .button:hover,
-.productbay-wrapper .productbay-table a.button:hover {
+.productbay-wrapper .productbay-button:hover,
+.productbay-wrapper a.productbay-button:hover,
+.productbay-wrapper a.productbay-added-to-cart:hover,
+.productbay-wrapper .productbay-table .productbay-button:hover,
+.productbay-wrapper .productbay-table a.productbay-button:hover {
     background-color: #2563eb;
     color: #fff !important;
     text-decoration: none !important;
 }
 
 /* WC "View cart" link after adding */
-.productbay-wrapper .added_to_cart {
+.productbay-wrapper .productbay-added-to-cart {
     margin-left: 6px;
     background-color: #16a34a;
 }
 
-.productbay-wrapper .added_to_cart:hover {
+.productbay-wrapper .productbay-added-to-cart:hover {
     background-color: #15803d;
 }
 
@@ -681,8 +681,8 @@
 }
 
 /* View Cart link injected after add-to-cart */
-.productbay-wrapper .productbay-btn-cell .added_to_cart,
-.productbay-wrapper .productbay-variable-wrap>.added_to_cart {
+.productbay-wrapper .productbay-btn-cell .productbay-added-to-cart,
+.productbay-wrapper .productbay-variable-wrap>.productbay-added-to-cart {
     display: block !important;
     width: max-content !important;
     background: transparent !important;
@@ -696,8 +696,8 @@
     transition: color 0.2s ease;
 }
 
-.productbay-wrapper .productbay-btn-cell .added_to_cart:hover,
-.productbay-wrapper .productbay-variable-wrap>.added_to_cart:hover {
+.productbay-wrapper .productbay-btn-cell .productbay-added-to-cart:hover,
+.productbay-wrapper .productbay-variable-wrap>.productbay-added-to-cart:hover {
     text-decoration: underline !important;
     text-underline-offset: 4px;
 }
