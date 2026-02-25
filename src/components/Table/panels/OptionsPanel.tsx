@@ -99,38 +99,6 @@ export const OptionsPanel = ({
                 </SettingsOption>
             </SettingsSection>
 
-            {/* Cart Settings */}
-            <SettingsSection
-                title={__('Cart / functionality', 'productbay')}
-                description={__('Configure Add to Cart behavior', 'productbay')}
-            >
-                <SettingsOption
-                    title={__('Enable Add to Cart', 'productbay')}
-                    description={__('Allow users to add products to cart directly', 'productbay')}
-                >
-                    <Toggle
-                        checked={settings.cart.enable}
-                        onChange={(e) => setCart({ enable: e.target.checked })}
-                    />
-                </SettingsOption>
-
-                {/* Cart sub-options - Only relevant when Add to Cart is enabled */}
-                <div className={cn(
-                    "transition-all duration-300",
-                    settings.cart.enable ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
-                )}>
-                    <SettingsOption
-                        title={__('Show Quantity', 'productbay')}
-                        description={__('Display quantity selector next to button', 'productbay')}
-                    >
-                        <Toggle
-                            checked={settings.cart.showQuantity}
-                            onChange={(e) => setCart({ showQuantity: e.target.checked })}
-                        />
-                    </SettingsOption>
-                </div>
-            </SettingsSection>
-
         </div>
     );
 };
