@@ -271,6 +271,8 @@ export interface TableStyle {
         rowHoverEnabled: boolean;
         /** Row hover background color */
         rowHoverBgColor: string;
+        /** Row hover text color */
+        rowHoverTextColor: string;
     };
 
     /** Responsive display settings */
@@ -385,6 +387,7 @@ export const createDefaultStyle = (): TableStyle => ({
     hover: {
         rowHoverEnabled: true,
         rowHoverBgColor: '#f3f4f6',
+        rowHoverTextColor: '',
     },
     responsive: {
         mode: 'standard',

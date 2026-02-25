@@ -564,12 +564,25 @@ class TableRenderer
         }
         $css .= "}";
 
-        // Body Styles
+        // Body Styles — base td
         $css .= "#{$id} .productbay-table tbody td {";
         $css .= "vertical-align: top;";
         if (!empty($body['bgColor'])) $css .= "background-color: {$body['bgColor']};";
         if (!empty($body['textColor'])) $css .= "color: {$body['textColor']};";
         $css .= "}";
+
+        // Body text color: override specific child elements that have hardcoded colors
+        if (!empty($body['textColor'])) {
+            $css .= "#{$id} .productbay-table tbody td .productbay-product-title,";
+            $css .= "#{$id} .productbay-table tbody td a:not(.productbay-button),";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price ins,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price del,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
+            $css .= "color: {$body['textColor']} !important;";
+            $css .= "}";
+        }
 
         // Layout & Spacing Styles
         if (isset($layout['borderStyle']) && $layout['borderStyle'] === 'none') {
@@ -611,13 +624,40 @@ class TableRenderer
             if (!empty($body['altBgColor'])) $css .= "background-color: {$body['altBgColor']};";
             if (!empty($body['altTextColor'])) $css .= "color: {$body['altTextColor']};";
             $css .= "}";
+
+            // Alt row text color: override specific child elements
+            if (!empty($body['altTextColor'])) {
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
+                $css .= "color: {$body['altTextColor']} !important;";
+                $css .= "}";
+            }
         }
 
         // Hover Effect
         if (!empty($hover['rowHoverEnabled'])) {
             $css .= "#{$id} .productbay-table tbody tr:hover td {";
             if (!empty($hover['rowHoverBgColor'])) $css .= "background-color: {$hover['rowHoverBgColor']};";
+            if (!empty($hover['rowHoverTextColor'])) $css .= "color: {$hover['rowHoverTextColor']};";
             $css .= "}";
+
+            // Hover text color: override specific child elements
+            if (!empty($hover['rowHoverTextColor'])) {
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-product-title,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td a:not(.productbay-button),";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
+                $css .= "color: {$hover['rowHoverTextColor']} !important;";
+                $css .= "}";
+            }
         }
 
         // Button Styles via class override

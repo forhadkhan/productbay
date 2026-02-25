@@ -191,12 +191,12 @@ export const DisplayPanel = ({
                     )}>
                         <ColorChoice
                             labelBg={__('Hover Background', 'productbay')}
-                            labelColor="" // No text color for row hover currently
+                            labelColor={__('Hover Text', 'productbay')}
                             bgColor={style.hover.rowHoverBgColor || '#f5f5f5'}
-                            textColor="" // Hide text picker
+                            textColor={style.hover.rowHoverTextColor || ''}
                             onBgChange={(val) => setHoverStyle({ rowHoverBgColor: val })}
-                            onColorChange={() => { }} // No-op
-                            className="border-none py-0 lg:gap-8 [&>div:last-child]:hidden"
+                            onColorChange={(val) => setHoverStyle({ rowHoverTextColor: val })}
+                            className="border-none py-0"
                         />
                     </div>
                 </div>
