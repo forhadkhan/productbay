@@ -10,15 +10,14 @@ if (!defined('ABSPATH')) {
 use WpabProductBay\Http\Request;
 use WpabProductBay\Data\TableRepository;
 
-class SystemController
+class SystemController extends ApiController
 {
     protected $repository;
-    protected $request;
 
     public function __construct(TableRepository $repository, Request $request)
     {
+        parent::__construct($request);
         $this->repository = $repository;
-        $this->request = $request;
     }
 
     public function get_status()
