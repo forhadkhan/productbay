@@ -39,6 +39,7 @@ class AjaxRenderer
         $table_id = intval($_POST['table_id'] ?? 0);
         $s = sanitize_text_field(wp_unslash($_POST['s'] ?? ''));
         $paged = intval($_POST['paged'] ?? 1);
+        $page_url = esc_url_raw($_POST['page_url'] ?? '');
 
         if (!$table_id) {
             \wp_send_json_error(['message' => 'Invalid table ID']);
@@ -55,6 +56,7 @@ class AjaxRenderer
         $response = $renderer->render_ajax_response($table, [
             's' => $s,
             'paged' => $paged,
+            'page_url' => $page_url,
         ]);
 
         \wp_send_json_success($response);

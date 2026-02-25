@@ -115,8 +115,21 @@
 
         handlePagination(e) {
             e.preventDefault();
-            const url = new URL($(e.currentTarget).attr('href'), window.location.origin);
-            const paged = url.searchParams.get('paged') || 1;
+            const href = $(e.currentTarget).attr('href');
+
+            // 1. Try to get page number from query string (e.g. ?paged=2)
+            const url = new URL(href, window.location.origin);
+            let paged = url.searchParams.get('paged');
+
+            // 2. If not found, try to extract from path (e.g. /page/2/ or /page/2)
+            if (!paged) {
+                const match = href.match(/\/page\/(\d+)\/?/);
+                if (match) {
+                    paged = match[1];
+                }
+            }
+
+            paged = parseInt(paged, 10) || 1;
             const search = this.$searchInput.val() || '';
             this.fetchProducts({ s: search, paged: paged, _context: 'pagination' });
         }
@@ -137,6 +150,7 @@
                 action: 'productbay_filter',
                 nonce: productbay_frontend.nonce,
                 table_id: this.$wrapper.data('table-id'),
+                page_url: window.location.origin + window.location.pathname,
                 ...args
             };
 

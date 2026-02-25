@@ -201,7 +201,7 @@ class TableRenderer
 
         // Pagination (if enabled)
         if (!empty($settings['features']['pagination'])) {
-            $this->render_pagination($query, $settings);
+            $this->render_pagination($query, $settings, $runtime_args);
         }
 
         echo '</div>'; // .productbay-wrapper
@@ -662,7 +662,7 @@ class TableRenderer
         echo '</div>';
     }
 
-    private function render_pagination($query, $settings)
+    private function render_pagination($query, $settings, $runtime_args = [])
     {
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         // Override paged if passed in query args (for AJAX)
@@ -673,10 +673,21 @@ class TableRenderer
         $total = $query->max_num_pages;
 
         if ($total > 1) {
+            $base_url = !empty($runtime_args['page_url']) ? $runtime_args['page_url'] : get_pagenum_link(999999999);
+            
+            // If base_url was from get_pagenum_link(999999999), it has 999999999. 
+            // If from runtime_args, it's a clean URL. 
+            $base = str_replace(999999999, '%#%', $base_url);
+            
+            // If it's a clean URL without %#%, add it for the paged param
+            if (strpos($base, '%#%') === false) {
+                $base = add_query_arg('paged', '%#%', $base);
+            }
+
             echo '<div class="productbay-pagination">';
             echo wp_kses_post(paginate_links([
-                'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
-                'format' => '?paged=%#%',
+                'base' => $base,
+                'format' => '',
                 'current' => max(1, $paged),
                 'total' => $total,
                 'prev_text' => '&laquo;',
@@ -758,7 +769,7 @@ class TableRenderer
 
         ob_start();
         if (!empty($settings['features']['pagination'])) {
-            $this->render_pagination($query, $settings);
+            $this->render_pagination($query, $settings, $runtime_args);
         }
         $pagination = ob_get_clean();
 
