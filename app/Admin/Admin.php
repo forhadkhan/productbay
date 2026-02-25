@@ -102,11 +102,11 @@ class Admin
             [$this, 'render_app']
         );
 
-        // Register "Add New Table" submenu
+        // Register "Create New Table" submenu
         \add_submenu_page(
             Constants::MENU_SLUG,
-            \__('Add New Table', 'productbay'),
-            \__('Add New Table', 'productbay'),
+            \__('Create New Table', 'productbay'),
+            \__('Create New Table', 'productbay'),
             Constants::CAPABILITY,
             Constants::MENU_SLUG . '-new',
             [$this, 'render_app']
@@ -128,7 +128,7 @@ class Admin
      * Register ProductBay in the WordPress admin bar.
      *
      * Adds a top-level node with the plugin icon and dropdown submenu items
-     * for quick access to Dashboard, Tables, Settings, and Add New Table.
+     * for quick access to Dashboard, Tables, Settings, and Create New Table.
      * This feature can be enabled/disabled from Settings > Plugin tab.
      *
      * @param \WP_Admin_Bar $wp_admin_bar The WordPress admin bar instance.
@@ -179,11 +179,11 @@ class Admin
             'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
         ]);
 
-        // Add "Add New Table" submenu
+        // Add "Create New Table" submenu
         $wp_admin_bar->add_node([
             'id'     => Constants::MENU_SLUG . '-new',
             'parent' => Constants::MENU_SLUG,
-            'title'  => \__('Add New Table', 'productbay'),
+            'title'  => \__('Create New Table', 'productbay'),
             'href'   => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
         ]);
     }

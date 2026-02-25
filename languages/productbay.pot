@@ -508,7 +508,7 @@ msgid "Finish & Publish"
 msgstr ""
 
 #: assets/js/admin.js:1
-msgid "Add New Table"
+msgid "Create New Table"
 msgstr ""
 
 #: assets/js/admin.js:1

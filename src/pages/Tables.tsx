@@ -1,5 +1,5 @@
 import { apiFetch } from '@/utils/api';
-import { PATHS, WC_PRODUCTS_PATH } from '@/utils/routes';
+import { PATHS, WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
@@ -998,11 +998,11 @@ const EmptyStateTables = () => {
 					{/* Call to Action Button */}
 					<Button
 						type="button"
-						onClick={() => navigate(PATHS.NEW)}
+						onClick={() => navigate(NEW_TABLE_PATH.path)}
 						className="cursor-pointer inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-sm"
 					>
 						<PlusIcon size={16} className="mr-2" />
-						{__("Create a New Table", "productbay")}
+						{NEW_TABLE_PATH.label}
 					</Button>
 
 

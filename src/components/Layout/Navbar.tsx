@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { routes, PATHS } from '@/utils/routes';
+import { routes, PATHS, NEW_TABLE_PATH } from '@/utils/routes';
 import { Button } from '@/components/ui/Button';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { PlusIcon, MenuIcon, XIcon } from 'lucide-react';
@@ -11,7 +11,7 @@ import ProductBayLogo from '@/components/ui/ProductBayLogo';
  * Navbar Component
  * =============================================================================
  * Main navigation bar with responsive design.
- * - Desktop: Horizontal navigation links with "Add New Table" button
+ * - Desktop: Horizontal navigation links with "Create New Table" button
  * - Mobile: Hamburger menu that toggles a dropdown menu
  * ============================================================================= */
 
@@ -64,11 +64,11 @@ const Navbar = () => {
 
 					{/* Create New Table Button */}
 					<Button
-						onClick={() => navigate(PATHS.NEW)}
+						onClick={() => navigate(NEW_TABLE_PATH.path)}
 						variant="outline"
 						className="cursor-pointer px-4 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-100/70 hover:text-blue-700 hover:border-blue-700 flex items-center justify-between"
 					>
-						<span className="font-semibold">{__('Add New Table', 'productbay')}</span>
+						<span className="font-semibold">{NEW_TABLE_PATH.label}</span>
 						<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-2">
 							<PlusIcon
 								size={12}
@@ -120,13 +120,13 @@ const Navbar = () => {
 						{/* Mobile Create New Table Button */}
 						<Button
 							onClick={() => {
-								navigate(PATHS.NEW);
+								navigate(NEW_TABLE_PATH.path);
 								closeMobileMenu();
 							}}
 							variant="outline"
 							className="cursor-pointer w-full h-10 px-4 py-2 rounded-lg border-productbay-primary text-productbay-primary hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 flex items-center justify-center mt-2"
 						>
-							<span className="font-semibold">{__('Add New Table', 'productbay')}</span>
+							<span className="font-semibold">{NEW_TABLE_PATH.label}</span>
 							<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-2">
 								<PlusIcon
 									size={12}

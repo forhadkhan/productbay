@@ -64,6 +64,13 @@ export const routes: RouteConfig[] = [
 	},
 ];
 
+export const NEW_TABLE_PATH: RouteConfig = {
+	path: PATHS.NEW,
+	element: Table,
+	label: __('Create New Table', 'productbay'),
+	showInNav: false,
+};
+
 /** WooCommerce admin paths */
 export const WC_PRODUCTS_PATH = '/wp-admin/edit.php?post_type=product';
 export const WC_ADD_PRODUCT_PATH = '/wp-admin/post-new.php?post_type=product';

@@ -14,7 +14,7 @@ import { Toggle } from '@/components/ui/Toggle';
 import { Button } from '@/components/ui/Button';
 import { useUrlTab } from '@/hooks/useUrlTab';
 import { useState, useEffect } from 'react';
-import { PATHS } from '@/utils/routes';
+import { PATHS, NEW_TABLE_PATH } from '@/utils/routes';
 import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
@@ -214,12 +214,12 @@ const Table = () => {
                         onClick={() => {
                             // Reset store and go to new table
                             useTableStore.getState().resetStore();
-                            navigate(PATHS.NEW);
+                            navigate(NEW_TABLE_PATH.path);
                         }}
                         className="cursor-pointer"
                     >
                         <PlusIcon className="size-4 mr-2" />
-                        {__('Create New Table', 'productbay')}
+                        {NEW_TABLE_PATH.label}
                     </Button>
                 </div>
             </div>
