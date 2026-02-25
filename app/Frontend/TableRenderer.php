@@ -17,6 +17,16 @@ class TableRenderer
     protected $repository;
 
     /**
+     * Cart settings for the current render context.
+     *
+     * @var array
+     */
+    protected $cart_settings = [
+        'enable'       => true,
+        'showQuantity' => true,
+    ];
+
+    /**
      * Initialize the renderer
      * 
      * @param TableRepository $repository
@@ -56,6 +66,12 @@ class TableRenderer
         $columns = $table['columns'] ?? [];
         $settings = $table['settings'] ?? [];
         $style = $table['style'] ?? [];
+
+        // Store cart settings for use in render methods
+        $this->cart_settings = wp_parse_args(
+            $settings['cart'] ?? [],
+            ['enable' => true, 'showQuantity' => true]
+        );
 
         // 1. Prepare Query Arguments
         $args = $this->build_query_args($source, $settings, $runtime_args);
@@ -348,15 +364,18 @@ class TableRenderer
 
     /**
      * Render the button cell based on product type and stock status.
-     * Uses official WooCommerce product API methods exclusively.
+     * Respects cart settings:
+     *   - cart.enable (AJAX): When false, button links to product page.
+     *   - cart.showQuantity: When false, quantity input is hidden.
      *
      * @param \WC_Product $product
      */
     private function render_button_cell($product)
     {
-        $product_type = $product->get_type();
+        $ajax_enabled    = !empty($this->cart_settings['enable']);
+        $show_quantity   = !empty($this->cart_settings['showQuantity']);
 
-        // External/Affiliate: link out to external URL
+        // External/Affiliate: always link out to external URL
         if ($product->is_type('external')) {
             $url = $product->get_product_url();
             $text = $product->get_button_text() ?: __('Buy product', 'productbay');
@@ -366,7 +385,7 @@ class TableRenderer
             return;
         }
 
-        // Grouped: redirect to product page
+        // Grouped: always redirect to product page
         if ($product->is_type('grouped')) {
             echo '<div class="productbay-btn-cell">';
             echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
@@ -382,6 +401,17 @@ class TableRenderer
             return;
         }
 
+        // AJAX disabled: link to product page for simple & variable
+        if (!$ajax_enabled) {
+            $text = $product->is_type('variable')
+                ? __('Select Options', 'productbay')
+                : $product->add_to_cart_text();
+            echo '<div class="productbay-btn-cell">';
+            echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-addtocart">' . esc_html($text) . '</a>';
+            echo '</div>';
+            return;
+        }
+
         // Variable: render attribute dropdowns + quantity + add to cart
         if ($product->is_type('variable')) {
             $this->render_variable_button_cell($product);
@@ -391,7 +421,7 @@ class TableRenderer
         // Simple (or any other purchasable type): quantity + add to cart
         $is_purchasable = $product->is_purchasable();
         echo '<div class="productbay-btn-cell">';
-        if ($is_purchasable) {
+        if ($is_purchasable && $show_quantity) {
             $this->render_quantity_input($product);
         }
         $disabled_attr = $is_purchasable ? '' : ' disabled';
@@ -446,8 +476,9 @@ class TableRenderer
 
         // Quantity + Add to Cart (disabled until variation selected)
         $is_purchasable = $product->is_purchasable();
+        $show_quantity  = !empty($this->cart_settings['showQuantity']);
         echo '<div class="productbay-btn-cell">';
-        if ($is_purchasable) {
+        if ($is_purchasable && $show_quantity) {
             $this->render_quantity_input($product);
         }
         echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
@@ -768,6 +799,12 @@ class TableRenderer
         $source = $table['source'] ?? [];
         $columns = $table['columns'] ?? [];
         $settings = $table['settings'] ?? [];
+
+        // Store cart settings for use in render methods
+        $this->cart_settings = wp_parse_args(
+            $settings['cart'] ?? [],
+            ['enable' => true, 'showQuantity' => true]
+        );
 
         $args = $this->build_query_args($source, $settings, $runtime_args);
         $query = new \WP_Query($args);

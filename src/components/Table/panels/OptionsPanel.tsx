@@ -99,6 +99,38 @@ export const OptionsPanel = ({
                 </SettingsOption>
             </SettingsSection>
 
+            {/* Cart Settings */}
+            <SettingsSection
+                title={__('Cart / Functionality', 'productbay')}
+                description={__('Configure Add to Cart behavior', 'productbay')}
+            >
+                <SettingsOption
+                    title={__('AJAX Add to Cart', 'productbay')}
+                    description={__('Add products to cart inline without page reload. When disabled, button links to product page instead.', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.cart.enable}
+                        onChange={(e) => setCart({ enable: e.target.checked })}
+                    />
+                </SettingsOption>
+
+                {/* Cart sub-options - Only relevant when AJAX Add to Cart is enabled */}
+                <div className={cn(
+                    "transition-all duration-300",
+                    settings.cart.enable ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
+                )}>
+                    <SettingsOption
+                        title={__('Show Quantity Selector', 'productbay')}
+                        description={__('Display quantity input next to add-to-cart button', 'productbay')}
+                    >
+                        <Toggle
+                            checked={settings.cart.showQuantity}
+                            onChange={(e) => setCart({ showQuantity: e.target.checked })}
+                        />
+                    </SettingsOption>
+                </div>
+            </SettingsSection>
+
         </div>
     );
 };
