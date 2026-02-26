@@ -12,7 +12,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon } from 'lucide-react';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -284,9 +284,12 @@ const Tables = () => {
 	};
 
 	const { copy: copyToClipboard } = useCopyToClipboard();
+	const [copiedTableId, setCopiedTableId] = useState<number | null>(null);
 
-	const copyShortcode = (shortcode: string) => {
+	const copyShortcode = (shortcode: string, id: number) => {
 		copyToClipboard(shortcode);
+		setCopiedTableId(id);
+		setTimeout(() => setCopiedTableId((currentId) => currentId === id ? null : currentId), 2000);
 	};
 
 	// Bulk Actions
@@ -721,16 +724,30 @@ const Tables = () => {
 										</td>
 										{/* Shortcode */}
 										<td className="px-6 py-4">
-											<button
-												onClick={() =>
-													copyShortcode(table.shortcode)
-												}
-												className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors"
-												disabled={isActing}
-											>
-												{table.shortcode}
-												<CopyIcon className="w-4 h-4 ml-1" />
-											</button>
+											<div className="bg-gray-100 inline-block text-gray-600 text-sm px-3 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors">
+												<span className="select-all p-1 bg-transparent hover:bg-gray-200">
+													{table.shortcode}
+												</span>
+												<Button
+													variant="outline"
+													size="xs"
+													onClick={() =>
+														copyShortcode(table.shortcode, table.id)
+													}
+													title={copiedTableId === table.id ? __('Copied!', 'productbay') : __('Copy shortcode', 'productbay')}
+													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${copiedTableId === table.id
+														? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
+														: 'bg-transparent hover:bg-white text-gray-600'
+														}`}
+													disabled={isActing}
+												>
+													{copiedTableId === table.id ? (
+														<CopyCheckIcon className="w-4 h-4" />
+													) : (
+														<CopyIcon className="w-4 h-4" />
+													)}
+												</Button>
+											</div>
 										</td>
 										{/* Product Source */}
 										<td className="px-6 py-4 text-sm text-gray-600 capitalize">

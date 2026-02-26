@@ -1,4 +1,4 @@
-import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon, CopyIcon, InfoIcon, TrashIcon, AlertCircleIcon, PlusIcon, LoaderIcon } from 'lucide-react';
+import { TablePropertiesIcon, MonitorIcon, SettingsIcon, SaveIcon, CopyIcon, InfoIcon, TrashIcon, AlertCircleIcon, PlusIcon, LoaderIcon, CopyCheckIcon } from 'lucide-react';
 import { EditableText } from '@/components/ui/EditableText';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -69,7 +69,7 @@ const Table = () => {
     const { id } = useParams<{ id: string }>();
     const isNewTable = !id || id === 'new';
     const navigate = useNavigate();
-    const { copy: copyToClipboard } = useCopyToClipboard();
+    const { isCopied, copy: copyToClipboard } = useCopyToClipboard();
 
     // Store access
     const {
@@ -236,7 +236,7 @@ const Table = () => {
             {tableId && (
                 <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
                     <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
-                    <code className="bg-gray-100 text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
+                    <code className="bg-gray-100 select-all text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
                         {shortcode}
                     </code>
                     <div className="flex items-center justify-between gap-2">
@@ -249,10 +249,20 @@ const Table = () => {
                             onClick={() => {
                                 copyToClipboard(shortcode);
                             }}
-                            className="bg-white hover:bg-blue-100 text-blue-700 border-blue-200 cursor-pointer"
+                            className={`cursor-pointer transition-colors w-20 ${isCopied ? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200' : 'bg-white hover:bg-blue-100 text-blue-700 border-blue-200'
+                                }`}
                         >
-                            <CopyIcon className="size-3 mr-1.5" />
-                            {__('Copy', 'productbay')}
+                            {isCopied ? (
+                                <>
+                                    <CopyCheckIcon className="size-3 mr-1.5" />
+                                    {__('Copied!', 'productbay')}
+                                </>
+                            ) : (
+                                <>
+                                    <CopyIcon className="size-3 mr-1.5" />
+                                    {__('Copy', 'productbay')}
+                                </>
+                            )}
                         </Button>
                     </div>
                 </div>
@@ -261,6 +271,7 @@ const Table = () => {
             {/* Header: Table name on left, controls on right */}
             <div className="sticky top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    {/* Table Name */}
                     <div className="order-2 md:order-1">
                         <EditableText
                             value={tableTitle}
@@ -269,6 +280,7 @@ const Table = () => {
                             placeholder={__('Enter table name...', 'productbay')}
                         />
                     </div>
+                    {/* Controls */}
                     <div className="flex items-center justify-between md:justify-left gap-4 order-1 md:order-2">
                         {/* Delete Button (Only for existing tables) */}
                         {!isNewTable && (
