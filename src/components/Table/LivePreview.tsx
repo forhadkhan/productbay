@@ -311,7 +311,12 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 const { width } = containerRef.current.getBoundingClientRect();
                 const targetWidth = DEVICE_WIDTHS[activeDevice];
                 const newScale = width < targetWidth ? width / targetWidth : 1;
-                setScale(newScale);
+
+                // Prevent micro-vibrations from subpixel rendering differences
+                // or scrollbar toggling loops.
+                setScale((prev) => {
+                    return Math.abs(prev - newScale) > 0.005 ? newScale : prev;
+                });
             }
         };
 

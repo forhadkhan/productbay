@@ -37,7 +37,7 @@ const WizardStepDisplay: React.FC = () => {
             </div>
 
             {/* Right: Live Preview */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 min-w-0">
                 <LivePreview className="sticky top-4" />
             </div>
         </div>

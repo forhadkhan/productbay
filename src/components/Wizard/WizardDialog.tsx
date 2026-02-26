@@ -131,7 +131,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
 
     return createPortal(
         <div className="fixed inset-0 z-[60000] bg-black/65 flex items-center justify-center">
-            <div className="relative max-w-7xl w-full max-h-[90vh] h-full overflow-y-auto flex flex-col bg-white rounded-lg border border-gray-200 shadow-xl mx-4">
+            <div className="relative max-w-7xl w-full max-h-[90vh] h-full overflow-hidden flex flex-col bg-white rounded-lg border border-gray-200 shadow-xl mx-4">
 
                 {/* ================================================================
 			 * Header: Step Title + Close Button
@@ -175,7 +175,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
                 {/* ================================================================
 			 * Body: Step Content (scrollable)
 			 * ================================================================ */}
-                <div className="flex-1 overflow-y-auto p-6 bg-gray-50/50">
+                <div className="flex-1 overflow-y-scroll overflow-x-hidden p-6 bg-gray-50/50">
                     {currentStep === 1 && (
                         <WizardStepSetup
                             titleError={titleError}
