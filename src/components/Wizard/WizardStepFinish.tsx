@@ -49,7 +49,7 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
      */
     const handleBackToDashboard = () => {
         onClose();
-        navigate(PATHS.TABLES);
+        navigate(PATHS.TABLES, { state: { refresh: Date.now() } });
     };
 
     return (

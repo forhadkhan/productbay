@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
 import { useToast } from '@/context/ToastContext';
@@ -105,9 +105,11 @@ const Tables = () => {
 	// Toast hook
 	const { toast } = useToast();
 
+	const location = useLocation();
+
 	useEffect(() => {
 		loadTables();
-	}, []);
+	}, [location.state?.refresh]);
 
 	const loadTables = async () => {
 		try {
