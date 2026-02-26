@@ -6,6 +6,7 @@ import { useTableStore } from '@/store/tableStore';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { Button } from '@/components/ui/Button';
 import { PATHS } from '@/utils/routes';
+import { Confetti } from '@/components/ui/Confetti';
 
 /* =============================================================================
  * WizardStepFinish
@@ -24,6 +25,7 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
     const { tableId } = useTableStore();
     const { isCopied, copy: copyToClipboard } = useCopyToClipboard();
     const navigate = useNavigate();
+    const [confettiKey, setConfettiKey] = React.useState(0);
 
     const shortcode = `[productbay id="${tableId}"]`;
 
@@ -54,6 +56,7 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
 
     return (
         <div className="flex flex-col items-center justify-center text-center py-8 px-4 max-w-lg mx-auto">
+            <Confetti key={confettiKey} duration={5000} pieceCount={150} />
 
             {/* Success Checkmark */}
             <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
@@ -88,9 +91,9 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
                 </div>
 
                 {/* Shortcode Display + Copy Button */}
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col md:flex-row items-center gap-3">
                     <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
-                        <code className="text-sm font-mono text-gray-800 select-all">
+                        <code className="text-sm font-mono text-gray-800 bg-transparent select-all">
                             {shortcode}
                         </code>
                     </div>
@@ -116,11 +119,11 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row items-center gap-4">
                 <Button
                     size="lg"
                     onClick={handleViewTable}
-                    className="cursor-pointer bg-green-500 hover:bg-green-600 text-white border-0"
+                    className="cursor-pointer bg-green-500 hover:bg-green-600 font-medium text-white border-0 shiny-btn"
                 >
                     {__('View/Edit this table', 'productbay')}
                     <ExternalLinkIcon className="w-4 h-4 ml-2" />
@@ -129,12 +132,22 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
                     size="lg"
                     variant="default"
                     onClick={handleBackToDashboard}
-                    className="cursor-pointer border-0"
+                    className="cursor-pointer border-0 font-medium shiny-btn"
                 >
                     {__('Show all tables', 'productbay')}
                     <ArrowRightIcon className="w-4 h-4 ml-2" />
                 </Button>
             </div>
+
+            {/* Confetti */}
+            <Button
+                variant="outline"
+                size="lg"
+                onClick={() => setConfettiKey(prev => prev + 1)}
+                className="mt-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-pointer"
+            >
+                🎉
+            </Button>
         </div>
     );
 };
