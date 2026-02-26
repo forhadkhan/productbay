@@ -1,9 +1,9 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2Icon, CopyIcon, ExternalLinkIcon, ArrowLeftIcon } from 'lucide-react';
+import { CheckCircle2Icon, CopyIcon, ExternalLinkIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon } from 'lucide-react';
 import { useTableStore } from '@/store/tableStore';
-import { useToast } from '@/context/ToastContext';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { Button } from '@/components/ui/Button';
 import { PATHS } from '@/utils/routes';
 
@@ -22,7 +22,7 @@ interface WizardStepFinishProps {
 
 const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
     const { tableId } = useTableStore();
-    const { toast } = useToast();
+    const { isCopied, copy: copyToClipboard } = useCopyToClipboard();
     const navigate = useNavigate();
 
     const shortcode = `[productbay id="${tableId}"]`;
@@ -31,12 +31,7 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
      * Copy shortcode to clipboard
      */
     const handleCopy = () => {
-        navigator.clipboard.writeText(shortcode);
-        toast({
-            title: __('Copied', 'productbay'),
-            description: __('Shortcode copied to clipboard', 'productbay'),
-            type: 'success',
-        });
+        copyToClipboard(shortcode);
     };
 
     /**
@@ -95,17 +90,27 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
                 {/* Shortcode Display + Copy Button */}
                 <div className="flex items-center gap-3">
                     <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
-                        <code className="text-sm font-mono text-gray-800">
+                        <code className="text-sm font-mono text-gray-800 select-all">
                             {shortcode}
                         </code>
                     </div>
                     <Button
                         size="default"
                         onClick={handleCopy}
-                        className="cursor-pointer bg-green-500 hover:bg-green-600 text-white border-0 flex-shrink-0"
+                        className={`cursor-pointer text-white border-0 flex-shrink-0 transition-colors w-24 ${isCopied ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'
+                            }`}
                     >
-                        <CopyIcon className="w-4 h-4 mr-1.5" />
-                        {__('Copy', 'productbay')}
+                        {isCopied ? (
+                            <>
+                                <CheckIcon className="w-4 h-4 mr-1.5" />
+                                {__('Copied!', 'productbay')}
+                            </>
+                        ) : (
+                            <>
+                                <CopyIcon className="w-4 h-4 mr-1.5" />
+                                {__('Copy', 'productbay')}
+                            </>
+                        )}
                     </Button>
                 </div>
             </div>
@@ -117,8 +122,8 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
                     onClick={handleViewTable}
                     className="cursor-pointer bg-green-500 hover:bg-green-600 text-white border-0"
                 >
-                    <ExternalLinkIcon className="w-4 h-4 mr-2" />
                     {__('View/Edit this table', 'productbay')}
+                    <ExternalLinkIcon className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
                     size="lg"
@@ -126,8 +131,8 @@ const WizardStepFinish: React.FC<WizardStepFinishProps> = ({ onClose }) => {
                     onClick={handleBackToDashboard}
                     className="cursor-pointer border-0"
                 >
-                    <ArrowLeftIcon className="w-4 h-4 mr-2" />
                     {__('Show all tables', 'productbay')}
+                    <ArrowRightIcon className="w-4 h-4 ml-2" />
                 </Button>
             </div>
         </div>
