@@ -130,7 +130,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
     const container = document.getElementById('productbay-root') || document.body;
 
     return createPortal(
-        <div className="fixed inset-0 z-[60000] bg-black/50 backdrop-blur-sm flex items-center justify-center animate-in fade-in">
+        <div className="fixed inset-0 z-[60000] bg-black/60 flex items-center justify-center animate-in fade-in">
             <div className="relative max-w-7xl w-full max-h-[90vh] h-full overflow-y-auto flex flex-col bg-white rounded-lg border border-gray-200 shadow-xl mx-4">
 
                 {/* ================================================================
