@@ -1,5 +1,4 @@
 import { apiFetch } from '@/utils/api';
-import { PATHS, WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
@@ -11,6 +10,8 @@ import { Select } from '@/components/ui/Select';
 import { useToast } from '@/context/ToastContext';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
 import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon } from 'lucide-react';
 
 interface Table {
@@ -280,13 +281,10 @@ const Tables = () => {
 		}
 	};
 
+	const { copy: copyToClipboard } = useCopyToClipboard();
+
 	const copyShortcode = (shortcode: string) => {
-		navigator.clipboard.writeText(shortcode);
-		toast({
-			title: __('Success', 'productbay'),
-			description: __('Shortcode copied to clipboard', 'productbay'),
-			type: 'success'
-		});
+		copyToClipboard(shortcode);
 	};
 
 	// Bulk Actions

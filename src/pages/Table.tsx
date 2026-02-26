@@ -11,6 +11,7 @@ import TabTable from '@/components/Table/TabTable';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { useToast } from '@/context/ToastContext';
 import { Toggle } from '@/components/ui/Toggle';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { Button } from '@/components/ui/Button';
 import { useUrlTab } from '@/hooks/useUrlTab';
 import { useState, useEffect } from 'react';
@@ -68,6 +69,7 @@ const Table = () => {
     const { id } = useParams<{ id: string }>();
     const isNewTable = !id || id === 'new';
     const navigate = useNavigate();
+    const { copy: copyToClipboard } = useCopyToClipboard();
 
     // Store access
     const {
@@ -97,6 +99,8 @@ const Table = () => {
 
     // Validation state
     const [titleError, setTitleError] = useState<string | undefined>(undefined);
+
+    const shortcode = `[productbay id="${tableId}"]`;
 
     // Handle Delete
     const handleDelete = async () => {
@@ -233,7 +237,7 @@ const Table = () => {
                 <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
                     <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
                     <code className="bg-gray-100 text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
-                        {`[productbay id="${tableId}"]`}
+                        {shortcode}
                     </code>
                     <div className="flex items-center justify-between gap-2">
                         <Tooltip content={__('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay')}>
@@ -243,12 +247,7 @@ const Table = () => {
                             size="xs"
                             variant="outline"
                             onClick={() => {
-                                navigator.clipboard.writeText(`[productbay id="${tableId}"]`);
-                                toast({
-                                    title: __('Copied', 'productbay'),
-                                    description: __('Shortcode copied to clipboard', 'productbay'),
-                                    type: 'success'
-                                });
+                                copyToClipboard(shortcode);
                             }}
                             className="bg-white hover:bg-blue-100 text-blue-700 border-blue-200 cursor-pointer"
                         >
