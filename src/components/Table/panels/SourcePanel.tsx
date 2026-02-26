@@ -1,10 +1,8 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
-import { Select } from '@/components/ui/Select';
 import { DataSource, SourceType } from '@/types';
 import SectionHeading from '@/components/Table/SectionHeading';
-import { SettingsOption } from '@/components/Table/SettingsOption';
 import { CardRadioGroup, CardRadioOption } from '@/components/ui/CardRadioGroup';
 
 /* =============================================================================
@@ -44,8 +42,6 @@ const SOURCE_OPTIONS: CardRadioOption<SourceType>[] = [
 export interface SourcePanelProps {
     source: DataSource;
     setSourceType: (type: SourceType) => void;
-    setSourceSort?: (sort: Partial<DataSource['sort']>) => void;
-    setSourceQueryArgs?: (args: Partial<DataSource['queryArgs']>) => void;
     className?: string;
     children?: React.ReactNode;
 }
@@ -53,8 +49,6 @@ export interface SourcePanelProps {
 export const SourcePanel = ({
     source,
     setSourceType,
-    setSourceSort,
-    setSourceQueryArgs,
     className,
     children
 }: SourcePanelProps) => {
@@ -82,67 +76,6 @@ export const SourcePanel = ({
                     cardClassName="min-w-0"
                 />
 
-                {/* Additional Global Defaults (Sort/Stock) - Only show if handlers provided */}
-                {setSourceSort && setSourceQueryArgs && (
-                    <div className="mt-6 space-y-6 pt-6 border-t border-gray-100">
-                        <div className="grid grid-cols-1 gap-6">
-                            {/* Default Sort */}
-                            <SettingsOption
-                                title={__('Default Sort Order', 'productbay')}
-                                description={__('How products are ordered initially', 'productbay')}
-                                className="border-0 p-2 rounded-md"
-                            >
-                                <div className="flex gap-2">
-                                    <div className="w-32">
-                                        <Select
-                                            size="sm"
-                                            value={source.sort.orderBy}
-                                            onChange={(val) => setSourceSort({ orderBy: val })}
-                                            options={[
-                                                { label: __('Date', 'productbay'), value: 'date' },
-                                                { label: __('Title', 'productbay'), value: 'title' },
-                                                { label: __('Price', 'productbay'), value: 'price' },
-                                                { label: __('Popularity', 'productbay'), value: 'popularity' },
-                                                { label: __('Rating', 'productbay'), value: 'rating' },
-                                            ]}
-                                        />
-                                    </div>
-                                    <div className="w-24">
-                                        <Select
-                                            size="sm"
-                                            value={source.sort.order}
-                                            onChange={(val) => setSourceSort({ order: val as 'ASC' | 'DESC' })}
-                                            options={[
-                                                { label: __('Descending', 'productbay'), value: 'DESC' },
-                                                { label: __('Ascending', 'productbay'), value: 'ASC' },
-                                            ]}
-                                        />
-                                    </div>
-                                </div>
-                            </SettingsOption>
-
-                            {/* Stock Status */}
-                            <SettingsOption
-                                title={__('Stock Status', 'productbay')}
-                                description={__('Filter by stock availability', 'productbay')}
-                                className="border-0 p-2 rounded-md"
-                            >
-                                <div className="w-36">
-                                    <Select
-                                        size="sm"
-                                        value={source.queryArgs?.stockStatus || 'any'}
-                                        onChange={(val) => setSourceQueryArgs({ stockStatus: val as any })}
-                                        options={[
-                                            { label: __('Any Status', 'productbay'), value: 'any' },
-                                            { label: __('In Stock', 'productbay'), value: 'instock' },
-                                            { label: __('Out of Stock', 'productbay'), value: 'outofstock' },
-                                        ]}
-                                    />
-                                </div>
-                            </SettingsOption>
-                        </div>
-                    </div>
-                )}
 
                 {/* Context-specific children (Stats, Selectors, etc.) */}
                 {children && (

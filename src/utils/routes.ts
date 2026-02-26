@@ -64,6 +64,13 @@ export const routes: RouteConfig[] = [
 	},
 ];
 
+export const NEW_TABLE_PATH: RouteConfig = {
+	path: PATHS.NEW,
+	element: Table,
+	label: __('Create New Table', 'productbay'),
+	showInNav: false,
+};
+
 /** WooCommerce admin paths */
 export const WC_PRODUCTS_PATH = '/wp-admin/edit.php?post_type=product';
 export const WC_ADD_PRODUCT_PATH = '/wp-admin/post-new.php?post_type=product';
@@ -72,4 +79,5 @@ export const WC_ADMIN_PRODUCTS_PATH =
 
 export const PRODUCTBAY_VIDEO_GUIDE_URL = 'https://www.youtube.com/watch?v=VIDEO_ID';
 export const PRODUCTBAY_DOCUMENTATION_URL = 'https://productbay.wpanchorbay.com';
-export const PRODUCTBAY_SUPPORT_URL = 'https://productbay.wpanchorbay.com/support';
+export const PRODUCTBAY_SUPPORT_URL = 'https://wpanchorbay.com/support/';
+export const PRODUCTBAY_LANDING_PAGE_URL = 'https://wpanchorbay.com/productbay/';

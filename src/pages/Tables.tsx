@@ -1,17 +1,18 @@
 import { apiFetch } from '@/utils/api';
-import { PATHS, WC_PRODUCTS_PATH } from '@/utils/routes';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
 import { useToast } from '@/context/ToastContext';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, DownloadIcon, UploadIcon, PlusIcon, PackageIcon } from 'lucide-react';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -104,9 +105,11 @@ const Tables = () => {
 	// Toast hook
 	const { toast } = useToast();
 
+	const location = useLocation();
+
 	useEffect(() => {
 		loadTables();
-	}, []);
+	}, [location.state?.refresh]);
 
 	const loadTables = async () => {
 		try {
@@ -280,13 +283,13 @@ const Tables = () => {
 		}
 	};
 
-	const copyShortcode = (shortcode: string) => {
-		navigator.clipboard.writeText(shortcode);
-		toast({
-			title: __('Success', 'productbay'),
-			description: __('Shortcode copied to clipboard', 'productbay'),
-			type: 'success'
-		});
+	const { copy: copyToClipboard } = useCopyToClipboard();
+	const [copiedTableId, setCopiedTableId] = useState<number | null>(null);
+
+	const copyShortcode = (shortcode: string, id: number) => {
+		copyToClipboard(shortcode);
+		setCopiedTableId(id);
+		setTimeout(() => setCopiedTableId((currentId) => currentId === id ? null : currentId), 2000);
 	};
 
 	// Bulk Actions
@@ -452,32 +455,6 @@ const Tables = () => {
 					{loading ? <span className="animate-pulse font-medium">(*)</span> : <span className="font-medium text-gray-600">({status?.table_count})</span>}
 				</h1>
 
-				{/* Import-Export */}
-				<div className="flex gap-2">
-					{/* <Button
-						variant="link"
-						size="sm"
-						className="cursor-pointer bg-transparent hover:bg-white"
-						onClick={() =>
-							window.open(WC_PRODUCTS_PATH, '_blank')
-						}
-					>
-						<PackageIcon size={18} className="mr-2" />
-						{__('Products', 'productbay')}
-						{loading ? <span className="ml-2 animate-pulse font-medium">(*)</span> : <span className="ml-2 text-gray-600">({status?.product_count})</span>}
-					</Button> */}
-					<Button variant="secondary" size="sm" className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors">
-						<UploadIcon size={14} /> {__('Import', 'productbay')}
-					</Button>
-					<Button
-						variant="secondary"
-						size="sm"
-						className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-						disabled={isLoading || tables.length === 0}
-					>
-						<DownloadIcon size={14} /> {__('Export', 'productbay')}
-					</Button>
-				</div>
 			</div>
 
 			{ /* Top Menu: Bulk Actions & Search/Filter */}
@@ -494,15 +471,16 @@ const Tables = () => {
 							onChange={setSelectedBulkAction}
 						/>
 					</div>
-					<button
-						className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded text-sm border border-gray-300 disabled:opacity-50 transition-colors font-medium h-10"
+					<Button
+						variant="default"
+						className="px-3 py-2 text-sm disabled:opacity-50 font-medium h-10"
 						disabled={
 							selectedRows.length === 0 || !selectedBulkAction
 						}
 						onClick={handleBulkAction}
 					>
 						{__('Apply', 'productbay')}
-					</button>
+					</Button>
 					{selectedRows.length > 0 && (
 						<span className="text-sm text-gray-500 ml-2">
 							{sprintf(__('%d items selected', 'productbay'), selectedRows.length)}
@@ -650,10 +628,12 @@ const Tables = () => {
 								const actionType = actionLoading[table.id];
 
 								return (
+									// Table Row
 									<tr
 										key={table.id}
 										className={`group hover:bg-gray-50 transition-colors ${isActing ? 'opacity-50' : ''}`}
 									>
+										{/* Checkbox */}
 										<td className="px-4 py-4 text-center">
 											<input
 												type="checkbox"
@@ -667,9 +647,11 @@ const Tables = () => {
 												disabled={isActing}
 											/>
 										</td>
+										{/* ID */}
 										<td className="px-6 py-4 text-sm text-gray-500">
 											#{table.id}
 										</td>
+										{/* Title */}
 										<td className="px-6 py-4 relative">
 											<div className="font-medium text-wp-text text-base">
 												<Link
@@ -740,19 +722,35 @@ const Tables = () => {
 												</button>
 											</div>
 										</td>
+										{/* Shortcode */}
 										<td className="px-6 py-4">
-											<button
-												onClick={() =>
-													copyShortcode(table.shortcode)
-												}
-												className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-3 py-2 rounded border border-gray-300 flex items-center gap-1 cursor-pointer font-mono transition-colors"
-												disabled={isActing}
-											>
-												{table.shortcode}
-												<CopyIcon className="w-4 h-4 ml-1" />
-											</button>
+											<div className="bg-gray-100 inline-block text-gray-600 text-sm px-3 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors">
+												<span className="select-all p-1 bg-transparent hover:bg-gray-200">
+													{table.shortcode}
+												</span>
+												<Button
+													variant="outline"
+													size="xs"
+													onClick={() =>
+														copyShortcode(table.shortcode, table.id)
+													}
+													title={copiedTableId === table.id ? __('Copied!', 'productbay') : __('Copy shortcode', 'productbay')}
+													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${copiedTableId === table.id
+														? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
+														: 'bg-transparent hover:bg-white text-gray-600'
+														}`}
+													disabled={isActing}
+												>
+													{copiedTableId === table.id ? (
+														<CopyCheckIcon className="w-4 h-4" />
+													) : (
+														<CopyIcon className="w-4 h-4" />
+													)}
+												</Button>
+											</div>
 										</td>
-										<td className="px-6 py-4 text-sm text-gray-600">
+										{/* Product Source */}
+										<td className="px-6 py-4 text-sm text-gray-600 capitalize">
 											{typeof table.source === 'object' && table.source !== null
 												// @ts-ignore
 												? (table.source.type || 'Custom')
@@ -999,20 +997,10 @@ const EmptyStateTables = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="w-full p-8 md:p-16">
+		<div className="w-full px-4 md:px-8">
 			<div className="flex flex-col items-center justify-center text-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-10">
-				{/* Image Section - Reduced size and added margin */}
-				<div className="mb-6 relative">
-					{/* Using a max-width to keep the illustration from dominating the screen */}
-					<img
-						src={`${productBaySettings.pluginUrl}assets/images/clip-boards.svg`}
-						alt={__("No tables found", "productbay")}
-						className="h-48 w-auto mx-auto opacity-90 no-select"
-					/>
-				</div>
-
 				{/* Text Content Section */}
-				<div className="max-w-md mx-auto">
+				<div className="mx-auto">
 					<h3 className="text-lg font-semibold text-gray-900 mb-2">
 						{__('Welcome to ProductBay', 'productbay')}
 					</h3>
@@ -1027,12 +1015,14 @@ const EmptyStateTables = () => {
 					{/* Call to Action Button */}
 					<Button
 						type="button"
-						onClick={() => navigate(PATHS.NEW)}
+						onClick={() => navigate(NEW_TABLE_PATH.path)}
 						className="cursor-pointer inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-sm"
 					>
 						<PlusIcon size={16} className="mr-2" />
-						{__("Create a New Table", "productbay")}
+						{NEW_TABLE_PATH.label}
 					</Button>
+
+
 				</div>
 			</div>
 		</div>

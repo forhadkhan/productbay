@@ -26,12 +26,7 @@ import {
     DollarSignIcon,
     ShoppingCartIcon,
     HashIcon,
-    PackageIcon,
-    CalendarIcon,
     FileTextIcon,
-    TagIcon,
-    DatabaseIcon,
-    LayoutGridIcon,
     CheckIcon,
     AlertTriangleIcon,
     InfoIcon,
@@ -59,12 +54,7 @@ const COLUMN_TYPES: { type: ColumnType; label: string; icon: React.ElementType }
     { type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
     { type: 'button', label: __('Add to Cart', 'productbay'), icon: ShoppingCartIcon },
     { type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-    { type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
-    { type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
     { type: 'summary', label: __('Description', 'productbay'), icon: FileTextIcon },
-    { type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
-    { type: 'cf', label: __('Custom Field', 'productbay'), icon: DatabaseIcon },
-    { type: 'combined', label: __('Combined', 'productbay'), icon: LayoutGridIcon },
 ];
 
 export interface ColumnEditorProps {

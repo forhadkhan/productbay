@@ -9,12 +9,8 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBay\Http\Request;
 
-class ProductsController
+class ProductsController extends ApiController
 {
-    /**
-     * @var Request
-     */
-    protected $request;
 
     /**
      * Initialize the controller
@@ -23,7 +19,7 @@ class ProductsController
      */
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        parent::__construct($request);
     }
 
     /**

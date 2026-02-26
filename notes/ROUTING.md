@@ -56,12 +56,12 @@ graph LR
 
 Registers the top-level menu and submenus. Each submenu has a unique slug:
 
-| Menu Item     | WordPress Slug        | React Route |
-| ------------- | --------------------- | ----------- |
-| Dashboard     | `productbay-dash`     | `/dash`     |
-| Tables        | `productbay-tables`   | `/tables`   |
-| Settings      | `productbay-settings` | `/settings` |
-| Add New Table | `productbay-new`      | `/new`      |
+| Menu Item         | WordPress Slug        | React Route |
+| ----------------- | --------------------- | ----------- |
+| Dashboard         | `productbay-dash`     | `/dash`     |
+| Tables            | `productbay-tables`   | `/tables`   |
+| Settings          | `productbay-settings` | `/settings` |
+| Create New Table  | `productbay-new`      | `/new`      |
 
 ```php
 // Dashboard submenu with unique slug

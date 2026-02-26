@@ -11,26 +11,14 @@ use WpabProductBay\Http\Request;
 use WpabProductBay\Data\TableRepository;
 use WpabProductBay\Frontend\TableRenderer;
 
-class PreviewController
+class PreviewController extends ApiController
 {
-    /**
-     * @var TableRepository
-     */
     protected $repository;
 
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @param TableRepository $repository
-     * @param Request $request
-     */
     public function __construct(TableRepository $repository, Request $request)
     {
+        parent::__construct($request);
         $this->repository = $repository;
-        $this->request = $request;
     }
 
     /**

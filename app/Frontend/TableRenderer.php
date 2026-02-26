@@ -17,6 +17,16 @@ class TableRenderer
     protected $repository;
 
     /**
+     * Cart settings for the current render context.
+     *
+     * @var array
+     */
+    protected $cart_settings = [
+        'enable'       => true,
+        'showQuantity' => true,
+    ];
+
+    /**
      * Initialize the renderer
      * 
      * @param TableRepository $repository
@@ -50,12 +60,18 @@ class TableRenderer
         $table_id = $table['id'] ?? 0;
 
         // Generate a unique ID for this render instance (handling multiple tables per page)
-        $unique_id = 'productbay-table-' . ($table_id ?: 'preview-' . mt_rand(1000, 9999));
+        $unique_id = 'productbay-table-' . ($table_id ?: 'preview-' . wp_rand(1000, 9999));
 
         $source = $table['source'] ?? [];
         $columns = $table['columns'] ?? [];
         $settings = $table['settings'] ?? [];
         $style = $table['style'] ?? [];
+
+        // Store cart settings for use in render methods
+        $this->cart_settings = wp_parse_args(
+            $settings['cart'] ?? [],
+            ['enable' => true, 'showQuantity' => true]
+        );
 
         // 1. Prepare Query Arguments
         $args = $this->build_query_args($source, $settings, $runtime_args);
@@ -70,9 +86,11 @@ class TableRenderer
         ob_start();
 
         // Output Styles
-        echo "<style>{$css}</style>";
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally by generate_styles(), not user input
+        echo '<style>' . wp_strip_all_tags($css) . '</style>';
 
-        echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '">';
+        $bulk_position = $settings['features']['bulkSelect']['position'] ?? 'last';
+        echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '" data-select-position="' . esc_attr($bulk_position) . '">';
 
         // Toolbar: Bulk Actions + Search
         echo '<div class="productbay-toolbar">';
@@ -81,9 +99,9 @@ class TableRenderer
         $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true];
         if ($bulk_select['enabled']) {
             echo '<div class="productbay-bulk-actions">';
-            echo '<button class="productbay-btn-bulk" disabled>';
+            echo '<button class="productbay-button productbay-btn-bulk" disabled>';
             echo '<svg class="productbay-icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> ';
-            echo __('Add to Cart', 'productbay');
+            echo esc_html__('Add to Cart', 'productbay');
             echo '</button>';
             echo '</div>';
         }
@@ -105,9 +123,9 @@ class TableRenderer
 
 
         // Select All Column (Bulk Select - First)
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
 
-        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
             echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
         }
 
@@ -126,8 +144,8 @@ class TableRenderer
         }
 
         // Bulk Select - Last Position
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
-        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
+        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
             echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
         }
 
@@ -139,20 +157,24 @@ class TableRenderer
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
+                // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce global
                 global $product;
 
                 // Ensure global product is set (for WC functions)
                 if (!is_object($product)) {
                     $product = wc_get_product(get_the_ID());
                 }
+                // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
-                echo '<tr>';
-
+                $product_type = $product->get_type();
+                $in_stock = $product->is_in_stock() ? '1' : '0';
+                echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr($product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
                 // Bulk Select - First Position
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
 
@@ -167,9 +189,10 @@ class TableRenderer
                 }
 
                 // Bulk Select - Last Position
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
 
@@ -185,7 +208,7 @@ class TableRenderer
             if ($bulk_select['enabled'] ?? true) {
                 $colspan++;
             }
-            echo '<tr><td colspan="' . $colspan . '" class="productbay-empty">' . __('No products found.', 'productbay') . '</td></tr>';
+            echo '<tr><td colspan="' . intval($colspan) . '" class="productbay-empty">' . esc_html__('No products found.', 'productbay') . '</td></tr>';
         }
 
         echo '</tbody>';
@@ -194,7 +217,7 @@ class TableRenderer
 
         // Pagination (if enabled)
         if (!empty($settings['features']['pagination'])) {
-            $this->render_pagination($query, $settings);
+            $this->render_pagination($query, $settings, $runtime_args);
         }
 
         echo '</div>'; // .productbay-wrapper
@@ -241,7 +264,7 @@ class TableRenderer
 
             case 'category':
                 if (!empty($query_args['categoryIds'])) {
-                    $args['tax_query'] = [
+                    $args['tax_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Required for category filtering
                         [
                             'taxonomy' => 'product_cat',
                             'field'    => 'term_id',
@@ -249,6 +272,9 @@ class TableRenderer
                             'operator' => 'IN',
                         ],
                     ];
+                } else {
+                    // No categories selected, return no products
+                    $args['post__in'] = [0];
                 }
                 break;
 
@@ -260,7 +286,7 @@ class TableRenderer
 
         // Handle Excludes
         if (!empty($query_args['excludes'])) {
-            $args['post__not_in'] = $query_args['excludes'];
+            $args['post__not_in'] = $query_args['excludes']; // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- Required for product exclusion
         }
 
         // Handle Stock Status
@@ -304,9 +330,9 @@ class TableRenderer
                 $size = $settings['imageSize'] ?? 'thumbnail';
                 $img = $product->get_image($size);
                 if (($settings['linkTarget'] ?? '') === 'product') {
-                    echo '<a href="' . esc_url($product->get_permalink()) . '">' . $img . '</a>';
+                    echo '<a href="' . esc_url($product->get_permalink()) . '">' . wp_kses_post($img) . '</a>';
                 } else {
-                    echo $img;
+                    echo wp_kses_post($img);
                 }
                 break;
 
@@ -315,7 +341,7 @@ class TableRenderer
                 break;
 
             case 'price':
-                echo '<span class="productbay-price">' . $product->get_price_html() . '</span>';
+                echo '<span class="productbay-price">' . wp_kses_post($product->get_price_html()) . '</span>';
                 break;
 
             case 'sku':
@@ -323,22 +349,177 @@ class TableRenderer
                 break;
 
             case 'stock':
-                // Custom stock HTML
-                echo wc_get_stock_html($product);
+                echo wp_kses_post(wc_get_stock_html($product));
                 break;
 
             case 'button':
-                // Use WooCommerce template for add to cart button
-                woocommerce_template_loop_add_to_cart();
+                $this->render_button_cell($product);
                 break;
 
             case 'summary':
-                echo wp_trim_words($product->get_short_description(), 10);
+                echo wp_kses_post(wp_trim_words($product->get_short_description(), 10));
                 break;
 
             default:
                 echo '';
         }
+    }
+
+    /**
+     * Render the button cell based on product type and stock status.
+     * Respects cart settings:
+     *   - cart.enable (AJAX): When false, button links to product page.
+     *   - cart.showQuantity: When false, quantity input is hidden.
+     *
+     * @param \WC_Product $product
+     */
+    private function render_button_cell($product)
+    {
+        $ajax_enabled    = !empty($this->cart_settings['enable']);
+        $show_quantity   = !empty($this->cart_settings['showQuantity']);
+
+        // External/Affiliate: always link out to external URL
+        if ($product->is_type('external')) {
+            $url = $product->get_product_url();
+            $text = $product->get_button_text() ?: __('Buy product', 'productbay');
+            echo '<div class="productbay-btn-cell">';
+            echo '<a href="' . esc_url($url) . '" class="productbay-button productbay-btn-external" target="_blank" rel="noopener noreferrer">' . esc_html($text) . '</a>';
+            echo '</div>';
+            return;
+        }
+
+        // Grouped: always redirect to product page
+        if ($product->is_type('grouped')) {
+            echo '<div class="productbay-btn-cell">';
+            echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
+            echo '</div>';
+            return;
+        }
+
+        // Out of stock: disabled button
+        if (!$product->is_in_stock()) {
+            echo '<div class="productbay-btn-cell">';
+            echo '<button class="productbay-button productbay-btn-outofstock" disabled>' . esc_html__('Out of Stock', 'productbay') . '</button>';
+            echo '</div>';
+            return;
+        }
+
+        // AJAX disabled: link to product page for simple & variable
+        if (!$ajax_enabled) {
+            $text = $product->is_type('variable')
+                ? __('Select Options', 'productbay')
+                : $product->add_to_cart_text();
+            echo '<div class="productbay-btn-cell">';
+            echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-addtocart">' . esc_html($text) . '</a>';
+            echo '</div>';
+            return;
+        }
+
+        // Variable: render attribute dropdowns + quantity + add to cart
+        if ($product->is_type('variable')) {
+            $this->render_variable_button_cell($product);
+            return;
+        }
+
+        // Simple (or any other purchasable type): quantity + add to cart
+        $is_purchasable = $product->is_purchasable();
+        echo '<div class="productbay-btn-cell">';
+        if ($is_purchasable && $show_quantity) {
+            $this->render_quantity_input($product);
+        }
+        $disabled_attr = $is_purchasable ? '' : ' disabled';
+        echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . $disabled_attr . '>';
+        echo esc_html($product->add_to_cart_text());
+        echo '</button>';
+        echo '</div>';
+    }
+
+    /**
+     * Render variation attribute dropdowns and add-to-cart button for variable products.
+     * Uses WC_Product_Variable::get_variation_attributes() and get_available_variations().
+     *
+     * @param \WC_Product_Variable $product
+     */
+    private function render_variable_button_cell($product)
+    {
+        $attributes = $product->get_variation_attributes();
+        $available_variations = $product->get_available_variations('array');
+
+        echo '<div class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr($product->get_id()) . '" data-product-variations="' . esc_attr(wp_json_encode($available_variations)) . '">';
+
+        // Attribute dropdowns
+        echo '<div class="productbay-variation-selects">';
+        foreach ($attributes as $attribute_name => $options) {
+            $attr_label = wc_attribute_label($attribute_name, $product);
+            $sanitized_name = sanitize_title($attribute_name);
+
+            echo '<select class="productbay-variation-select" data-attribute-name="attribute_' . esc_attr($sanitized_name) . '">';
+            echo '<option value="">' . esc_html($attr_label) . '&hellip;</option>';
+
+            foreach ($options as $option) {
+                $option_label = $option;
+                // For taxonomy-based attributes, get the term name
+                if (taxonomy_exists($attribute_name)) {
+                    $term = get_term_by('slug', $option, $attribute_name);
+                    if ($term && !is_wp_error($term)) {
+                        $option_label = $term->name;
+                    }
+                }
+                echo '<option value="' . esc_attr($option) . '">' . esc_html($option_label) . '</option>';
+            }
+            echo '</select>';
+        }
+        echo '</div>';
+
+        // Hidden variation ID input
+        echo '<input type="hidden" class="productbay-variation-id" value="" />';
+
+        // Variation price display
+        echo '<span class="productbay-variation-price"></span>';
+
+        // Quantity + Add to Cart (disabled until variation selected)
+        $is_purchasable = $product->is_purchasable();
+        $show_quantity  = !empty($this->cart_settings['showQuantity']);
+        echo '<div class="productbay-btn-cell">';
+        if ($is_purchasable && $show_quantity) {
+            $this->render_quantity_input($product);
+        }
+        echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
+        echo esc_html__('Add to cart', 'woocommerce');
+        echo '</button>';
+        echo '</div>';
+
+        echo '</div>';
+    }
+
+    /**
+     * Render a quantity number input with stock-aware constraints.
+     * Uses WC_Product::get_stock_quantity() and backorders_allowed().
+     *
+     * @param \WC_Product $product
+     */
+    private function render_quantity_input($product)
+    {
+        $min = 1;
+        $max = '';
+        $stock_qty = $product->get_stock_quantity();
+
+        // Only set max if stock is managed and backorders are not allowed
+        if ($product->managing_stock() && !$product->backorders_allowed() && $stock_qty !== null) {
+            $max = $stock_qty;
+        }
+
+        echo '<div class="productbay-qty-wrap">';
+        echo '<input type="number" class="productbay-qty" value="1" min="' . esc_attr($min) . '"';
+        if ($max !== '') {
+            echo ' max="' . esc_attr($max) . '"';
+        }
+        echo ' step="1" />';
+        echo '<div class="productbay-qty-btns">';
+        echo '<button type="button" class="productbay-qty-btn productbay-qty-plus" aria-label="' . esc_attr__('Increase quantity', 'productbay') . '">&#9650;</button>';
+        echo '<button type="button" class="productbay-qty-btn productbay-qty-minus" aria-label="' . esc_attr__('Decrease quantity', 'productbay') . '">&#9660;</button>';
+        echo '</div>';
+        echo '</div>';
     }
 
     /**
@@ -353,19 +534,92 @@ class TableRenderer
         $layout = $style['layout'] ?? [];
         $hover = $style['hover'] ?? [];
 
+        $typography = $style['typography'] ?? [];
+
         // Header Styles
         $css .= "#{$id} .productbay-table thead th {";
         if (!empty($header['bgColor'])) $css .= "background-color: {$header['bgColor']};";
         if (!empty($header['textColor'])) $css .= "color: {$header['textColor']};";
         if (!empty($header['fontSize'])) $css .= "font-size: {$header['fontSize']};";
+        
+        if (!empty($typography['headerFontWeight'])) {
+            $weight_map = [
+                'normal' => '400',
+                'bold' => '600',
+                'extrabold' => '800',
+            ];
+            $weight = $weight_map[$typography['headerFontWeight']] ?? '600';
+            $css .= "font-weight: {$weight};";
+        }
+        
+        if (!empty($typography['headerTextTransform'])) {
+            $transform_map = [
+                'uppercase' => 'uppercase',
+                'lowercase' => 'lowercase',
+                'capitalize' => 'capitalize',
+                'normal-case' => 'none',
+            ];
+            $transform = $transform_map[$typography['headerTextTransform']] ?? 'uppercase';
+            $css .= "text-transform: {$transform};";
+            if ($transform === 'none') {
+                $css .= "letter-spacing: normal;";
+            }
+        }
         $css .= "}";
 
-        // Body Styles
+        // Body Styles — base td
         $css .= "#{$id} .productbay-table tbody td {";
+        $css .= "vertical-align: top;";
         if (!empty($body['bgColor'])) $css .= "background-color: {$body['bgColor']};";
         if (!empty($body['textColor'])) $css .= "color: {$body['textColor']};";
-        if (!empty($layout['borderColor'])) $css .= "border-color: {$layout['borderColor']};";
         $css .= "}";
+
+        // Body text color: override specific child elements that have hardcoded colors
+        if (!empty($body['textColor'])) {
+            $css .= "#{$id} .productbay-table tbody td .productbay-product-title,";
+            $css .= "#{$id} .productbay-table tbody td a:not(.productbay-button),";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price ins,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price del,";
+            $css .= "#{$id} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
+            $css .= "color: {$body['textColor']} !important;";
+            $css .= "}";
+        }
+
+        // Layout & Spacing Styles
+        if (isset($layout['borderStyle']) && $layout['borderStyle'] === 'none') {
+            $css .= "#{$id} .productbay-table-container { border: none; }";
+            $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border: none; }";
+        } else {
+            if (!empty($layout['borderStyle']) && $layout['borderStyle'] !== 'none') {
+                $b_style = $layout['borderStyle'];
+                $b_color = $layout['borderColor'] ?? '#e2e8f0';
+                $css .= "#{$id} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
+                $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
+            } elseif (!empty($layout['borderColor'])) {
+                $css .= "#{$id} .productbay-table-container { border-color: {$layout['borderColor']}; }";
+                $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom-color: {$layout['borderColor']}; }";
+            }
+        }
+        
+        $radius_enabled = $layout['borderRadiusEnabled'] ?? true;
+        if ($radius_enabled && isset($layout['borderRadius'])) {
+            $radius = intval($layout['borderRadius']);
+            $css .= "#{$id} .productbay-table-container { border-radius: {$radius}px; }";
+        } elseif (!$radius_enabled) {
+            $css .= "#{$id} .productbay-table-container { border-radius: 0; }";
+        }
+        
+        if (!empty($layout['cellPadding'])) {
+            $cell_padding_map = [
+                'compact' => '8px 12px',
+                'normal'  => '12px 16px',
+                'spacious'=> '16px 24px',
+            ];
+            $padding = $cell_padding_map[$layout['cellPadding']] ?? '12px 16px';
+            $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { padding: {$padding}; }";
+        }
 
         // Alternate Rows
         if (!empty($body['rowAlternate'])) {
@@ -373,25 +627,114 @@ class TableRenderer
             if (!empty($body['altBgColor'])) $css .= "background-color: {$body['altBgColor']};";
             if (!empty($body['altTextColor'])) $css .= "color: {$body['altTextColor']};";
             $css .= "}";
+
+            // Alt row text color: override specific child elements
+            if (!empty($body['altTextColor'])) {
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
+                $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
+                $css .= "color: {$body['altTextColor']} !important;";
+                $css .= "}";
+            }
         }
 
         // Hover Effect
         if (!empty($hover['rowHoverEnabled'])) {
             $css .= "#{$id} .productbay-table tbody tr:hover td {";
             if (!empty($hover['rowHoverBgColor'])) $css .= "background-color: {$hover['rowHoverBgColor']};";
+            if (!empty($hover['rowHoverTextColor'])) $css .= "color: {$hover['rowHoverTextColor']};";
             $css .= "}";
+
+            // Hover text color: override specific child elements
+            if (!empty($hover['rowHoverTextColor'])) {
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-product-title,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td a:not(.productbay-button),";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del,";
+                $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
+                $css .= "color: {$hover['rowHoverTextColor']} !important;";
+                $css .= "}";
+            }
         }
 
         // Button Styles via class override
-        $css .= "#{$id} .productbay-table .button, #{$id} .productbay-table .added_to_cart {";
+        $css .= "#{$id} .productbay-button {";
+        $css .= "display: inline-flex;";
+        $css .= "align-items: center;";
+        $css .= "justify-content: center;";
+        $css .= "min-width: 160px;";
+        $css .= "transition: background-color 0.2s ease, color 0.2s ease;";
         if (!empty($button['bgColor'])) $css .= "background-color: {$button['bgColor']} !important;";
         if (!empty($button['textColor'])) $css .= "color: {$button['textColor']} !important;";
         if (!empty($button['borderRadius'])) $css .= "border-radius: {$button['borderRadius']};";
         $css .= "}";
 
-        $css .= "#{$id} .productbay-table .button:hover {";
+        $css .= "#{$id} .productbay-button:hover {";
         if (!empty($button['hoverBgColor'])) $css .= "background-color: {$button['hoverBgColor']} !important;";
         if (!empty($button['hoverTextColor'])) $css .= "color: {$button['hoverTextColor']} !important;";
+        $css .= "}";
+
+        // Added to cart checkmark (SVG)
+        $css .= "#{$id} .productbay-button.added {";
+        $css .= "gap: 6px;";
+        $css .= "}";
+        $css .= "#{$id} .productbay-table .button.added::after {";
+        $css .= "content: '';";
+        $css .= "display: inline-block;";
+        $css .= "width: 16px;";
+        $css .= "height: 16px;";
+        $css .= "-webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "-webkit-mask-size: contain;";
+        $css .= "mask-size: contain;";
+        $css .= "-webkit-mask-repeat: no-repeat;";
+        $css .= "mask-repeat: no-repeat;";
+        $css .= "-webkit-mask-position: center;";
+        $css .= "mask-position: center;";
+        $css .= "background-color: currentColor;";
+        $css .= "}";
+
+        // View Cart (.productbay-added-to-cart) Ghost Button Styles
+        $css .= "#{$id} .productbay-table .productbay-added-to-cart {";
+        $css .= "display: block !important;";
+        $css .= "width: max-content !important;";
+        $css .= "background: transparent !important;";
+        $css .= "border: none;";
+        $css .= "color: inherit !important;";
+        $css .= "padding: 4px 0 !important;";
+        $css .= "margin-top: 8px;";
+        $css .= "text-decoration: none !important;";
+        $css .= "font-weight: 500;";
+        $css .= "transition: background-color 0.2s ease, color 0.2s ease;";
+        $css .= "}";
+        $css .= "#{$id} .productbay-table .productbay-added-to-cart::after {";
+        $css .= "content: '';";
+        $css .= "display: inline-block;";
+        $css .= "vertical-align: middle;";
+        $css .= "margin-left: 8px;";
+        $css .= "margin-top: -2px;";
+        $css .= "width: 16px;";
+        $css .= "height: 16px;";
+        $css .= "-webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E\");";
+        $css .= "-webkit-mask-size: contain;";
+        $css .= "mask-size: contain;";
+        $css .= "-webkit-mask-repeat: no-repeat;";
+        $css .= "mask-repeat: no-repeat;";
+        $css .= "-webkit-mask-position: center;";
+        $css .= "mask-position: center;";
+        $css .= "background-color: currentColor;";
+        $css .= "}";
+        $css .= "#{$id} .productbay-table .productbay-added-to-cart:hover {";
+        $css .= "text-decoration: underline !important;";
+        $css .= "text-underline-offset: 4px;";
+        $css .= "background: transparent !important;";
         $css .= "}";
 
         // Image Styles
@@ -412,7 +755,7 @@ class TableRenderer
         }
 
         // Bulk Select Width
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first', 'width' => ['value' => 64, 'unit' => 'px']];
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
         if ($bulk_select['enabled']) {
             $width = $bulk_select['width'];
             if ($width['value'] > 0 && $width['unit'] !== 'auto') {
@@ -432,9 +775,38 @@ class TableRenderer
         // For now, implementing 'none'.
     }
 
+    /**
+     * Get CSS classes for a column, including responsive visibility classes.
+     *
+     * Breakpoints:
+     *   Mobile:  <= 767px
+     *   Tablet:  768px – 1023px
+     *   Desktop: >= 1024px
+     *
+     * @param array $col Column configuration.
+     * @return string[]
+     */
     private function get_column_classes($col)
     {
-        return ['productbay-col-' . $col['id']];
+        $classes = ['productbay-col-' . $col['id']];
+
+        $visibility = $col['advanced']['visibility'] ?? 'default';
+
+        $visibility_class_map = [
+            'desktop'     => 'productbay-desktop-only',
+            'tablet'      => 'productbay-tablet-only',
+            'mobile'      => 'productbay-mobile-only',
+            'not-mobile'  => 'productbay-hide-mobile',
+            'not-desktop' => 'productbay-hide-desktop',
+            'not-tablet'  => 'productbay-hide-tablet',
+            'min-tablet'  => 'productbay-min-tablet',
+        ];
+
+        if (isset($visibility_class_map[$visibility])) {
+            $classes[] = $visibility_class_map[$visibility];
+        }
+
+        return $classes;
     }
 
     private function get_column_styles($col)
@@ -447,12 +819,12 @@ class TableRenderer
         // Placeholder for search input
         // Placeholder for search input
         echo '<div class="productbay-search ' . (!empty($value) ? 'has-value' : '') . '">';
-        echo '<input type="text" value="' . esc_attr($value) . '" placeholder="' . __('Search products...', 'productbay') . '" />';
-        echo '<span class="productbay-search-clear" title="' . __('Clear', 'productbay') . '"></span>';
+        echo '<input type="text" value="' . esc_attr($value) . '" placeholder="' . esc_attr__('Search products...', 'productbay') . '" />';
+        echo '<span class="productbay-search-clear" title="' . esc_attr__('Clear', 'productbay') . '"></span>';
         echo '</div>';
     }
 
-    private function render_pagination($query, $settings)
+    private function render_pagination($query, $settings, $runtime_args = [])
     {
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         // Override paged if passed in query args (for AJAX)
@@ -463,15 +835,26 @@ class TableRenderer
         $total = $query->max_num_pages;
 
         if ($total > 1) {
+            $base_url = !empty($runtime_args['page_url']) ? $runtime_args['page_url'] : get_pagenum_link(999999999);
+            
+            // If base_url was from get_pagenum_link(999999999), it has 999999999. 
+            // If from runtime_args, it's a clean URL. 
+            $base = str_replace(999999999, '%#%', $base_url);
+            
+            // If it's a clean URL without %#%, add it for the paged param
+            if (strpos($base, '%#%') === false) {
+                $base = add_query_arg('paged', '%#%', $base);
+            }
+
             echo '<div class="productbay-pagination">';
-            echo paginate_links([
-                'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
-                'format' => '?paged=%#%',
+            echo wp_kses_post(paginate_links([
+                'base' => $base,
+                'format' => '',
                 'current' => max(1, $paged),
                 'total' => $total,
                 'prev_text' => '&laquo;',
                 'next_text' => '&raquo;',
-            ]);
+            ]));
             echo '</div>';
         }
     }
@@ -489,6 +872,12 @@ class TableRenderer
         $columns = $table['columns'] ?? [];
         $settings = $table['settings'] ?? [];
 
+        // Store cart settings for use in render methods
+        $this->cart_settings = wp_parse_args(
+            $settings['cart'] ?? [],
+            ['enable' => true, 'showQuantity' => true]
+        );
+
         $args = $this->build_query_args($source, $settings, $runtime_args);
         $query = new \WP_Query($args);
 
@@ -496,19 +885,23 @@ class TableRenderer
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
+                // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce global
                 global $product;
                 if (!is_object($product)) {
                     $product = \wc_get_product(get_the_ID());
                 }
+                // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
-                echo '<tr>';
-
+                $product_type = $product->get_type();
+                $in_stock = $product->is_in_stock() ? '1' : '0';
+                echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr($product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
                 // Bulk Select - First
-                $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'first'];
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'first') {
+                $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last'];
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
 
@@ -521,9 +914,10 @@ class TableRenderer
                 }
 
                 // Bulk Select - Last
-                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'first') === 'last') {
+                if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
+                    $can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
                     echo '<td class="productbay-col-select">';
-                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '" />';
+                    echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
                     echo '</td>';
                 }
                 echo '</tr>';
@@ -537,13 +931,13 @@ class TableRenderer
             if ($settings['features']['bulkSelect']['enabled'] ?? true) {
                 $colspan++;
             }
-            echo '<tr><td colspan="' . $colspan . '" class="productbay-empty">' . __('No products found.', 'productbay') . '</td></tr>';
+            echo '<tr><td colspan="' . intval($colspan) . '" class="productbay-empty">' . esc_html__('No products found.', 'productbay') . '</td></tr>';
         }
         $rows = ob_get_clean();
 
         ob_start();
         if (!empty($settings['features']['pagination'])) {
-            $this->render_pagination($query, $settings);
+            $this->render_pagination($query, $settings, $runtime_args);
         }
         $pagination = ob_get_clean();
 

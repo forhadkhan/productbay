@@ -48,50 +48,50 @@ const alertVariants = cva(
  *     </div>
  * </Alert>
  */
-function Alert( {
+const Alert = ({
 	className,
 	variant,
 	...props
-}: React.ComponentProps< 'div' > & VariantProps< typeof alertVariants > ) {
+}: React.ComponentProps<'div'> & VariantProps<typeof alertVariants>) => {
 	return (
 		<div
 			data-slot="alert"
 			role="alert"
-			className={ cn( alertVariants( { variant } ), className ) }
-			{ ...props }
+			className={cn(alertVariants({ variant }), className)}
+			{...props}
 		/>
 	);
-}
+};
 
 /**
  * AlertTitle component for the alert heading.
  * Should be used as a direct child of Alert.
  */
-function AlertTitle( { className, ...props }: React.ComponentProps< 'div' > ) {
+const AlertTitle = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
 		<div
 			data-slot="alert-title"
-			className={ cn( 'font-medium leading-tight', className ) }
-			{ ...props }
+			className={cn('font-medium leading-tight', className)}
+			{...props}
 		/>
 	);
-}
+};
 
 /**
  * AlertDescription component for the alert body text.
  * Should be used as a direct child of Alert.
  */
-function AlertDescription( {
+const AlertDescription = ({
 	className,
 	...props
-}: React.ComponentProps< 'div' > ) {
+}: React.ComponentProps<'div'>) => {
 	return (
 		<div
 			data-slot="alert-description"
-			className={ cn( 'text-sm [&_p]:leading-relaxed', className ) }
-			{ ...props }
+			className={cn('text-sm [&_p]:leading-relaxed', className)}
+			{...props}
 		/>
 	);
-}
+};
 
 export { Alert, AlertTitle, AlertDescription };

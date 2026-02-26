@@ -29,34 +29,34 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
  * 4. Delete plugin options and settings
  */
 
-$settings = get_option('productbay_settings');
+$productbay_settings = get_option('productbay_settings');
 
 /**
  * Robust Boolean Check:
  * If the setting is not in the database, we default to 'true' 
  * (as defined in the plugin's default configuration).
  */
-$delete_on_uninstall = true;
-if (is_array($settings) && isset($settings['delete_on_uninstall'])) {
-    $delete_on_uninstall = (bool) $settings['delete_on_uninstall'];
+$productbay_delete_on_uninstall = true;
+if (is_array($productbay_settings) && isset($productbay_settings['delete_on_uninstall'])) {
+    $productbay_delete_on_uninstall = (bool) $productbay_settings['delete_on_uninstall'];
 }
 
 // Proceed only if delete_on_uninstall is true (enabled by default)
-if ($delete_on_uninstall) {
+if ($productbay_delete_on_uninstall) {
 
     // 1. Delete all Table posts
     // We fetch only IDs for better performance during batch deletion
-    $tables = get_posts([
+    $productbay_tables = get_posts([
         'post_type'   => 'productbay_table',
         'numberposts' => -1,
         'post_status' => 'any',
         'fields'      => 'ids',
     ]);
 
-    if (!empty($tables)) {
-        foreach ($tables as $table_id) {
+    if (!empty($productbay_tables)) {
+        foreach ($productbay_tables as $productbay_table_id) {
             // Force delete (true) bypasses the trash and removes all associated meta
-            wp_delete_post($table_id, true);
+            wp_delete_post($productbay_table_id, true);
         }
     }
 
@@ -68,6 +68,7 @@ if ($delete_on_uninstall) {
 
     // 4. Extra Safety Net: Clear all ProductBay metadata across the site
     global $wpdb;
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup during uninstall, caching not needed
     $wpdb->query(
         $wpdb->prepare(
             "DELETE FROM $wpdb->postmeta WHERE meta_key = %s",

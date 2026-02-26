@@ -9,14 +9,13 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBay\Http\Request;
 
-class SettingsController
+class SettingsController extends ApiController
 {
-    protected $request;
     const OPTION_NAME = 'productbay_settings';
 
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        parent::__construct($request);
     }
 
     public function get_settings()

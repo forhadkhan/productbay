@@ -5,7 +5,7 @@ import { Select } from '@/components/ui/Select';
 import { ColorPicker } from '@/components/ui/ColorPicker';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
-import { CardRadioGroup } from '@/components/ui/CardRadioGroup';
+
 import { TableStyle } from '@/types';
 
 /* =============================================================================
@@ -57,7 +57,7 @@ export interface DisplayPanelProps {
     setLayoutStyle: (layout: Partial<TableStyle['layout']>) => void;
     setTypographyStyle: (typography: Partial<TableStyle['typography']>) => void;
     setHoverStyle: (hover: Partial<TableStyle['hover']>) => void;
-    setResponsiveStyle: (responsive: Partial<TableStyle['responsive']>) => void;
+
     className?: string;
 }
 
@@ -69,7 +69,7 @@ export const DisplayPanel = ({
     setLayoutStyle,
     setTypographyStyle,
     setHoverStyle,
-    setResponsiveStyle,
+
     className
 }: DisplayPanelProps) => {
     return (
@@ -191,12 +191,12 @@ export const DisplayPanel = ({
                     )}>
                         <ColorChoice
                             labelBg={__('Hover Background', 'productbay')}
-                            labelColor="" // No text color for row hover currently
+                            labelColor={__('Hover Text', 'productbay')}
                             bgColor={style.hover.rowHoverBgColor || '#f5f5f5'}
-                            textColor="" // Hide text picker
+                            textColor={style.hover.rowHoverTextColor || ''}
                             onBgChange={(val) => setHoverStyle({ rowHoverBgColor: val })}
-                            onColorChange={() => { }} // No-op
-                            className="border-none py-0 lg:gap-8 [&>div:last-child]:hidden"
+                            onColorChange={(val) => setHoverStyle({ rowHoverTextColor: val })}
+                            className="border-none py-0"
                         />
                     </div>
                 </div>
@@ -247,22 +247,31 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Border Radius */}
-                <SettingsOption
-                    title={__('Border Radius', 'productbay')}
-                    description={__('Corner roundness of the table', 'productbay')}
-                >
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="number"
-                            min="0"
-                            max="24"
-                            value={parseInt(style.layout.borderRadius) || 0}
-                            onChange={(e) => setLayoutStyle({ borderRadius: `${e.target.value}px` })}
-                            className="w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                        />
-                        <span className="text-sm text-gray-500">px</span>
-                    </div>
-                </SettingsOption>
+                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                    <SettingsOption
+                        className="px-0"
+                        title={__('Border Radius', 'productbay')}
+                        description={__('Corner roundness of the table', 'productbay')}
+                    >
+                        <div className="flex gap-2 items-center">
+                            <Toggle
+                                checked={style.layout.borderRadiusEnabled ?? true}
+                                onChange={(e) => setLayoutStyle({ borderRadiusEnabled: e.target.checked })}
+                            />
+                            <div className={cn("flex items-center gap-2", style.layout.borderRadiusEnabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale")}>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="24"
+                                    value={parseInt(style.layout.borderRadius) || 0}
+                                    onChange={(e) => setLayoutStyle({ borderRadius: `${e.target.value}px` })}
+                                    className="w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <span className="text-sm text-gray-500">px</span>
+                            </div>
+                        </div>
+                    </SettingsOption>
+                </div>
 
                 {/* Cell Padding */}
                 <SettingsOption
@@ -311,48 +320,28 @@ export const DisplayPanel = ({
                         />
                     </div>
                 </SettingsOption>
+
+                {/* Header Text Transform */}
+                <SettingsOption
+                    title={__('Header Text Transform', 'productbay')}
+                    description={__('Capitalization of text in table header row', 'productbay')}
+                >
+                    <div className="w-36">
+                        <Select
+                            size="sm"
+                            value={style.typography.headerTextTransform || 'uppercase'}
+                            onChange={(val) => setTypographyStyle({ headerTextTransform: val as any })}
+                            options={[
+                                { label: __('Uppercase', 'productbay'), value: 'uppercase' },
+                                { label: __('Lowercase', 'productbay'), value: 'lowercase' },
+                                { label: __('Capitalize', 'productbay'), value: 'capitalize' },
+                                { label: __('Normal', 'productbay'), value: 'normal-case' },
+                            ]}
+                        />
+                    </div>
+                </SettingsOption>
             </section>
 
-            {/* ================================================================
-             * Section 5: Responsive Display
-             * ================================================================ */}
-            <section className="space-y-6">
-                <SectionHeading
-                    title={__('Responsive Display', 'productbay')}
-                    description={__('Mobile and tablet display settings', 'productbay')}
-                />
-
-                <CardRadioGroup
-                    name="responsive-mode"
-                    value={style.responsive.mode}
-                    onChange={(val) => setResponsiveStyle({ mode: val as any })}
-                    options={[
-                        {
-                            value: 'standard',
-                            label: __('Standard Table', 'productbay'),
-                            helpText: __('Horizontal scrolling on small screens', 'productbay')
-                        },
-                        {
-                            value: 'stack',
-                            label: __('Stack Cards', 'productbay'),
-                            helpText: __('Stack columns vertically like cards', 'productbay')
-                        },
-                        {
-                            value: 'accordion',
-                            label: __('Accordion', 'productbay'),
-                            helpText: __('Collapse extra columns into expanded row', 'productbay')
-                        }
-                    ]}
-                    className="grid grid-cols-1 xl:grid-cols-3 gap-3"
-                />
-
-                {/* Info note about per-column visibility */}
-                <div className="bg-blue-50 border border-blue-200 rounded-md px-4 py-3 mt-4">
-                    <p className="text-sm text-blue-700 m-0">
-                        {__('Tip: You can hide specific columns on mobile using the visibility setting in each column\'s advanced options.', 'productbay')}
-                    </p>
-                </div>
-            </section>
         </div>
     );
 };

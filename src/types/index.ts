@@ -249,6 +249,8 @@ export interface TableStyle {
         borderStyle: 'none' | 'solid' | 'dashed';
         /** Table border color */
         borderColor: string;
+        /** Enable/Disable border radius entirely */
+        borderRadiusEnabled: boolean;
         /** Table border radius */
         borderRadius: string;
         /** Cell padding density */
@@ -259,6 +261,8 @@ export interface TableStyle {
     typography: {
         /** Header row font weight */
         headerFontWeight: 'normal' | 'bold' | 'extrabold';
+        /** Header row text transform */
+        headerTextTransform: 'capitalize' | 'uppercase' | 'lowercase' | 'normal-case';
     };
 
     /** Hover & Interaction effects */
@@ -267,6 +271,8 @@ export interface TableStyle {
         rowHoverEnabled: boolean;
         /** Row hover background color */
         rowHoverBgColor: string;
+        /** Row hover text color */
+        rowHoverTextColor: string;
     };
 
     /** Responsive display settings */
@@ -306,7 +312,7 @@ export const createDefaultSettings = (): TableSettings => ({
         priceRange: false,
         bulkSelect: {
             enabled: true,
-            position: 'first',
+            position: 'last',
             width: { value: 64, unit: 'px' },
             visibility: 'all',
         },
@@ -370,15 +376,18 @@ export const createDefaultStyle = (): TableStyle => ({
     layout: {
         borderStyle: 'solid',
         borderColor: '#e5e7eb',
+        borderRadiusEnabled: true,
         borderRadius: '8px',
         cellPadding: 'normal',
     },
     typography: {
         headerFontWeight: 'bold',
+        headerTextTransform: 'uppercase',
     },
     hover: {
         rowHoverEnabled: true,
         rowHoverBgColor: '#f3f4f6',
+        rowHoverTextColor: '',
     },
     responsive: {
         mode: 'standard',

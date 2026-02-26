@@ -27,18 +27,14 @@ import {
 const AdminBarOptions = lazy(() => import('@/components/Settings/AdminBarOptions'));
 const UninstallOptions = lazy(() => import('@/components/Settings/UninstallOptions'));
 
-type SettingsTabValue = 'default' | 'advanced' | 'plugin';
+type SettingsTabValue = 'default' | 'plugin';
 
-const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin'] as const;
+const VALID_SETTINGS_TABS = ['default', 'plugin'] as const;
 
 const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 	{
 		value: 'default',
 		label: __('Default Configuration', 'productbay'),
-	},
-	{
-		value: 'advanced',
-		label: __('Advanced', 'productbay'),
 	},
 	{
 		value: 'plugin',
@@ -89,8 +85,6 @@ const Settings = () => {
 
 	// Source Handlers
 	const setSourceType = (type: any) => updateDefaults('source', { ...source, type });
-	const setSourceSort = (sort: any) => updateDefaults('source', { ...source, sort: { ...source.sort, ...sort } });
-	const setSourceQueryArgs = (args: any) => updateDefaults('source', { ...source, queryArgs: { ...source.queryArgs, ...args } });
 
 	// Column Handler
 	const setColumns = (cols: any) => updateDefaults('columns', cols);
@@ -102,13 +96,11 @@ const Settings = () => {
 	const setLayoutStyle = (v: any) => updateDefaults('style', { ...style, layout: { ...style.layout, ...v } });
 	const setTypographyStyle = (v: any) => updateDefaults('style', { ...style, typography: { ...style.typography, ...v } });
 	const setHoverStyle = (v: any) => updateDefaults('style', { ...style, hover: { ...style.hover, ...v } });
-	const setResponsiveStyle = (v: any) => updateDefaults('style', { ...style, responsive: { ...style.responsive, ...v } });
 
 	// Settings Handlers
 	const setFeatures = (v: any) => updateDefaults('settings', { ...tableSettings, features: { ...tableSettings.features, ...v } });
 	const setPagination = (v: any) => updateDefaults('settings', { ...tableSettings, pagination: { ...tableSettings.pagination, ...v } });
 	const setCart = (v: any) => updateDefaults('settings', { ...tableSettings, cart: { ...tableSettings.cart, ...v } });
-	const setFilters = (v: any) => updateDefaults('settings', { ...tableSettings, filters: { ...tableSettings.filters, ...v } });
 
 
 	const handleSave = async () => {
@@ -182,24 +174,22 @@ const Settings = () => {
 					{activeTab === 'default' && (
 						<Button
 							variant="outline"
-							size="sm"
 							onClick={handleResetDefaults}
-							className="text-gray-500 hover:text-gray-700"
+							className="text-gray-500 hover:bg-red-500 hover:text-white cursor-pointer"
 							title={__('Reset to Factory Defaults', 'productbay')}
 						>
-							<RotateCcwIcon className="w-4 h-4 mr-2" />
 							{__('Reset Defaults', 'productbay')}
+							<RotateCcwIcon className="w-4 h-4 ml-2" />
 						</Button>
 					)}
 					<Button
 						onClick={handleSave}
 						disabled={saving || !isDirty}
 						variant="default"
-						size="sm"
 						className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'}`}
 					>
-						<SaveIcon className="w-4 h-4 mr-2" />
 						{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
+						<SaveIcon className="w-4 h-4 ml-2" />
 					</Button>
 				</div>
 			</div>
@@ -221,8 +211,6 @@ const Settings = () => {
 									<SourcePanel
 										source={source}
 										setSourceType={setSourceType}
-										setSourceSort={setSourceSort}
-										setSourceQueryArgs={setSourceQueryArgs}
 										className="border-none"
 									/>
 								</div>
@@ -259,7 +247,6 @@ const Settings = () => {
 										setLayoutStyle={setLayoutStyle}
 										setTypographyStyle={setTypographyStyle}
 										setHoverStyle={setHoverStyle}
-										setResponsiveStyle={setResponsiveStyle}
 										className="border-none"
 									/>
 								</div>
@@ -274,7 +261,6 @@ const Settings = () => {
 										setFeatures={setFeatures}
 										setPagination={setPagination}
 										setCart={setCart}
-										setFilters={setFilters}
 										className="border-none"
 									/>
 								</div>
@@ -282,16 +268,7 @@ const Settings = () => {
 						</div>
 					)}
 
-					{activeTab === 'advanced' && (
-						<div className="space-y-6">
-							<div className="p-6">
-								<h3 className="text-lg font-medium text-gray-900 mt-0 mb-4">
-									{__('Advanced Settings', 'productbay')}
-								</h3>
-								<p className="text-gray-500">{__('Settings will be available soon', 'productbay')}</p>
-							</div>
-						</div>
-					)}
+
 
 					{activeTab === 'plugin' && (
 						<div className="space-y-6">

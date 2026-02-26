@@ -68,10 +68,11 @@ For a detailed breakdown of the project structure and development implementation
    ```
 
 3. **Start Development Server**
-   This command starts both the WordPress script watcher and the Bun-powered build process.
+   This command checks/starts local Web & DB services, then starts the Bun-powered build process.
    ```bash
-   bun start
+   bun run dev
    ```
+   *(Automatically uses `dev.ps1` for Windows and `dev.sh` for Linux/macOS)*
    *The React app will hot-reload, and CSS changes will compile instantly.*
 
 4. **Build for Production**

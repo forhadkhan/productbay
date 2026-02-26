@@ -267,6 +267,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                     {...listeners}
                     className="flex-shrink-0 bg-transparent text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
                     aria-label={__('Drag to reorder', 'productbay')}
+                    title={__('Drag to reorder', 'productbay')}
                 >
                     <GripVerticalIcon className="w-4 h-4" />
                 </button>
@@ -283,10 +284,11 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                     onChange={handleHeadingChange}
                     className="flex-1 min-w-0 text-sm font-medium text-gray-900 rounded-none bg-transparent border-0 border-b border-transparent hover:border-gray-400 focus:border-blue-500 focus:ring-0 px-1 py-0.5 transition-colors"
                     placeholder={__('Column heading', 'productbay')}
+                    title={__('Edit column heading', 'productbay')}
                 />
 
                 {/* Column Type Badge */}
-                <span className="flex-shrink-0 text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                <span className="flex-shrink-0 text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded" title={`Column type: ${column.type}`}>
                     {column.type}
                 </span>
 
@@ -324,6 +326,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                     onClick={onRemove}
                     className="flex-shrink-0 bg-transparent p-1 text-gray-400 hover:text-red-500 transition-colors rounded-md cursor-pointer flex items-center hover:bg-red-100"
                     aria-label={__('Remove column', 'productbay')}
+                    title={__('Remove column', 'productbay')}
                 >
                     <TrashIcon className="w-4 h-4" />
                 </button>
@@ -333,6 +336,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                     onClick={() => setIsExpanded(!isExpanded)}
                     className="flex-shrink-0 bg-transparent p-1 text-gray-400 hover:text-gray-600 transition-colors rounded-md cursor-pointer flex items-center hover:bg-gray-100"
                     aria-label={isExpanded ? __('Collapse settings', 'productbay') : __('Expand settings', 'productbay')}
+                    title={isExpanded ? __('Collapse settings', 'productbay') : __('Expand settings', 'productbay')}
                 >
                     {isExpanded ? (
                         <ChevronUpIcon className="w-4 h-4" />

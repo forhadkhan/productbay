@@ -71,7 +71,7 @@ export interface CardRadioGroupProps<T extends string = string> {
  * />
  * ```
  */
-function CardRadioGroup<T extends string = string>({
+const CardRadioGroup = <T extends string = string,>({
     options,
     value,
     onChange,
@@ -80,7 +80,7 @@ function CardRadioGroup<T extends string = string>({
     cardClassName,
     disabled = false,
     'aria-label': ariaLabel,
-}: CardRadioGroupProps<T>) {
+}: CardRadioGroupProps<T>) => {
     /**
      * Handles keyboard navigation within the radio group.
      * Arrow keys move focus and selection between options.
@@ -224,7 +224,7 @@ function CardRadioGroup<T extends string = string>({
             })}
         </div>
     );
-}
+};
 
 CardRadioGroup.displayName = 'CardRadioGroup';
 

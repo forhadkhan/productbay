@@ -23,7 +23,7 @@ class Request
     {
         if (
             isset($_SERVER['CONTENT_TYPE']) &&
-            strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false
+            strpos(sanitize_text_field(wp_unslash($_SERVER['CONTENT_TYPE'])), 'application/json') !== false
         ) {
             $input = file_get_contents('php://input');
             $data = json_decode($input, true);
@@ -34,7 +34,7 @@ class Request
             if (is_array($data)) {
                 // Store raw data in object property to prevent loss
                 $this->rawData = $data;
-
+                // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is handled at the endpoint level
                 $_REQUEST = array_merge($_REQUEST, $data);
             }
         }
@@ -50,10 +50,12 @@ class Request
             return $this->rawData['data'];
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is handled at the endpoint level
         if (! isset($_REQUEST[$key])) {
             return $default;
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Value is sanitized by $this->sanitize() which calls wp_unslash() and sanitize_text_field()
         return $this->sanitize($_REQUEST[$key]);
     }
 

@@ -1,4 +1,4 @@
-import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon, MonitorIcon, TabletIcon, SmartphoneIcon, RefreshCwIcon } from 'lucide-react';
+import { RadioIcon, LoaderIcon, AlertCircleIcon, Maximize2Icon, XIcon, MonitorIcon, TabletIcon, SmartphoneIcon, RefreshCwIcon, InfoIcon } from 'lucide-react';
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useTableStore } from '@/store/tableStore';
@@ -6,6 +6,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { Button } from '@/components/ui/Button';
 import { useToast } from '@/context/ToastContext';
 import { Modal } from '@/components/ui/Modal';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
@@ -310,7 +311,12 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 const { width } = containerRef.current.getBoundingClientRect();
                 const targetWidth = DEVICE_WIDTHS[activeDevice];
                 const newScale = width < targetWidth ? width / targetWidth : 1;
-                setScale(newScale);
+
+                // Prevent micro-vibrations from subpixel rendering differences
+                // or scrollbar toggling loops.
+                setScale((prev) => {
+                    return Math.abs(prev - newScale) > 0.005 ? newScale : prev;
+                });
             }
         };
 
@@ -358,15 +364,15 @@ const LivePreview = ({ className }: LivePreviewProps) => {
     };
 
     /**
-     * Renders the device selection toggle buttons.
+     * Device Switcher Component
      */
     const DeviceSwitcher = ({ showLabels = false }: { showLabels?: boolean }) => (
-        <div className="flex items-center gap-0.5 bg-gray-100 p-1 rounded-md border border-gray-200">
+        <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-md border border-gray-200">
             <button
                 onClick={() => setActiveDevice('desktop')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
-                    activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
+                    "flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer",
+                    activeDevice === 'desktop' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"
                 )}
                 title={__('Desktop View', 'productbay')}
             >
@@ -376,8 +382,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             <button
                 onClick={() => setActiveDevice('tablet')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
-                    activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
+                    "flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer",
+                    activeDevice === 'tablet' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"
                 )}
                 title={__('Tablet View', 'productbay')}
             >
@@ -387,8 +393,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             <button
                 onClick={() => setActiveDevice('mobile')}
                 className={cn(
-                    "flex items-center gap-2 p-1 px-2 rounded cursor-pointer",
-                    activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white"
+                    "flex items-center gap-2 p-1 px-2 border border-transparent rounded cursor-pointer",
+                    activeDevice === 'mobile' ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:border-blue-600"
                 )}
                 title={__('Mobile View', 'productbay')}
             >
@@ -396,6 +402,18 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 {showLabels && <span className="text-[10px] font-bold uppercase tracking-wider">{__('Mobile', 'productbay')}</span>}
             </button>
         </div>
+    );
+
+    /**
+     * Limitation Alert
+     */
+    const LimitationAlert = (
+        <Alert variant="default" className="w-full bg-blue-50 text-gray-800">
+            <InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
+            <AlertDescription className={isFullscreen ? "text-sm" : "text-xs"}>
+                {__('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')}
+            </AlertDescription>
+        </Alert>
     );
 
     return (
@@ -414,7 +432,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                         variant="outline"
                         size="xs"
                         onClick={() => setIsFullscreen(true)}
-                        className="hover:bg-gray-100 cursor-pointer p-2"
+                        className="hover:bg-white hover:border-blue-600 cursor-pointer p-2"
                     >
                         <Maximize2Icon className="w-5 h-5 text-gray-500" />
                     </Button>
@@ -422,8 +440,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             </div>
 
             {/* Content Area */}
-            <div className="relative -mt-px flex-1 min-h-[400px] bg-white rounded-b-lg rounded-tr-lg border border-gray-200 overflow-hidden">
-                <div className="w-full h-full p-4 bg-gray-50/50 relative overflow-hidden">
+            <div className="relative -mt-px bg-white rounded-b-lg rounded-tr-lg border border-gray-200 overflow-hidden">
+                <div className="w-full p-4 bg-gray-50/50 relative overflow-hidden">
                     {error ? (
                         <div className="flex flex-col items-center justify-center h-full gap-3">
                             <AlertCircleIcon className="w-10 h-10 text-red-400" />
@@ -441,15 +459,27 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                             </p>
                         </div>
                     ) : srcdoc ? (
-                        /* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */
-                        <div ref={containerRef} className="w-full h-full origin-top-left relative">
-                            {renderIframe()}
-                            {/* Pulse overlay while regenerating */}
-                            {loading && (
-                                <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity">
-                                    <LoaderIcon className="w-6 h-6 text-blue-500 animate-spin" />
-                                </div>
-                            )}
+                        <div className="flex flex-col gap-4 w-full">
+                            {/* Wrapper for scaling — iframe renders at DESKTOP_WIDTH then scales down */}
+                            <div
+                                ref={containerRef}
+                                className="w-full origin-top-left relative rounded-md overflow-hidden ring-1 ring-gray-200/50"
+                                style={{
+                                    height: `${(iframeHeight + 32) * scale}px`,
+                                    transition: 'height 0.2s ease-in-out'
+                                }}
+                            >
+                                {renderIframe()}
+                                {/* Pulse overlay while regenerating */}
+                                {loading && (
+                                    <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center rounded-lg animate-pulse transition-opacity">
+                                        <LoaderIcon className="w-6 h-6 text-blue-500 animate-spin" />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Show Limitation Alert */}
+                            {LimitationAlert}
                         </div>
                     ) : (
                         <div className="flex items-center justify-center h-full text-gray-400">
@@ -483,7 +513,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                             <Button
                                 variant="ghost"
                                 onClick={() => setIsFullscreen(false)}
-                                className="bg-transparent hover:bg-red-50 cursor-pointer p-2 rounded-full"
+                                className="bg-transparent hover:bg-red-50 border border-transparent hover:border-red-600 cursor-pointer p-2 rounded-full"
                             >
                                 <XIcon className="w-6 h-6" />
                                 <span className="sr-only">{__('Close', 'productbay')}</span>
@@ -494,12 +524,17 @@ const LivePreview = ({ className }: LivePreviewProps) => {
             >
                 <div className="bg-gray-100/95 backdrop-blur-sm min-h-full p-2 md:p-4 xl:p-6 flex flex-col">
                     {/* Centered Container for the Table */}
-                    <div className="max-w-[1280px] w-full mx-auto bg-white min-h-[200px] rounded-lg p-2 xl:p-4">
-                        {srcdoc ? renderIframe(true) : (
-                            <div className="flex items-center justify-center h-64 text-gray-400">
-                                <ProductBayIcon className="animate-pulse size-12" />
-                            </div>
-                        )}
+                    <div className="max-w-[1280px] w-full mx-auto flex flex-col gap-4">
+                        {/* Limitation Alert */}
+                        {srcdoc && LimitationAlert}
+                        {/* Table Preview */}
+                        <div className="bg-white min-h-[200px] rounded-lg p-2 xl:p-4 border border-gray-200 shadow-sm">
+                            {srcdoc ? renderIframe(true) : (
+                                <div className="flex items-center justify-center h-64 text-gray-400">
+                                    <ProductBayIcon className="animate-pulse size-12" />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </Modal>

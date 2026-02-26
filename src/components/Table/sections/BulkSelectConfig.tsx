@@ -28,7 +28,7 @@ export const BulkSelectConfig = ({ value, onChange }: BulkSelectConfigProps) => 
     // Default config to ensure we always have values to work with
     const config = value || {
         enabled: true,
-        position: 'first',
+        position: 'last',
         width: { value: 64, unit: 'px' },
         visibility: 'all'
     };
@@ -63,7 +63,7 @@ export const BulkSelectConfig = ({ value, onChange }: BulkSelectConfigProps) => 
                             {__('Column Position', 'productbay')}
                         </label>
                         <Select
-                            value={config.position ?? 'first'}
+                            value={config.position ?? 'last'}
                             onChange={(val) => handleChange({ position: val as 'first' | 'last' })}
                             options={[
                                 { value: 'first', label: __('First Column (Left)', 'productbay') },
