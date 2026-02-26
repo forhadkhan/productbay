@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import { __ } from '@wordpress/i18n';
 import { WandSparklesIcon } from 'lucide-react';
 import Navbar from '@/components/Layout/Navbar';
+import { useTableStore } from '@/store/tableStore';
+import React, { useState, useCallback } from 'react';
 import { useWpMenuSync } from '@/hooks/useWpMenuSync';
 import { MinimalFooter } from '@/components/Layout/Footer';
 import WizardDialog from '@/components/Wizard/WizardDialog';
-import { useTableStore } from '@/store/tableStore';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	// Sync React Router location with WP Admin Menu
@@ -43,6 +44,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 					className="fixed bottom-[20px] right-[20px] text-white rounded-full p-[12px] shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-[#EE00FF]/30 z-[100] cursor-pointer"
 					style={{ background: 'linear-gradient(to bottom, #EE00FF, #3300B3)' }}
 					onClick={handleOpenWizard}
+					title={__('Open Create Table Wizard', 'productbay')}
 				>
 					<WandSparklesIcon size={24} />
 				</button>

@@ -175,7 +175,7 @@ const Settings = () => {
 						<Button
 							variant="outline"
 							onClick={handleResetDefaults}
-							className="text-gray-500 hover:text-gray-700"
+							className="text-gray-500 hover:bg-red-500 hover:text-white cursor-pointer"
 							title={__('Reset to Factory Defaults', 'productbay')}
 						>
 							{__('Reset Defaults', 'productbay')}
