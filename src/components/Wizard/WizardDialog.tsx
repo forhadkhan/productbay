@@ -130,7 +130,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
     const container = document.getElementById('productbay-root') || document.body;
 
     return createPortal(
-        <div className="fixed inset-0 z-[60000] bg-black/60 flex items-center justify-center animate-in fade-in">
+        <div className="fixed inset-0 z-[60000] bg-black/65 flex items-center justify-center">
             <div className="relative max-w-7xl w-full max-h-[90vh] h-full overflow-y-auto flex flex-col bg-white rounded-lg border border-gray-200 shadow-xl mx-4">
 
                 {/* ================================================================
@@ -151,8 +151,9 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
                         {currentStep !== 5 && (
                             <button
                                 onClick={handleClose}
-                                className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                                title={__('Close wizard', 'productbay')}
                                 aria-label={__('Close wizard', 'productbay')}
+                                className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-red-100 transition-colors cursor-pointer"
                             >
                                 <XIcon className="w-5 h-5" />
                             </button>

@@ -65,6 +65,8 @@ const WizardStepSetup: React.FC<WizardStepSetupProps> = ({
     return (
         <div className="w-full max-w-2xl mx-auto space-y-8">
 
+            <h1 className="text-center text-2xl font-bold text-gray-800 my-4 pb-2">{__('Create a New Table', 'productbay')}</h1>
+
             {/* Table Name Input */}
             <div className="space-y-2">
                 <label
@@ -82,8 +84,8 @@ const WizardStepSetup: React.FC<WizardStepSetupProps> = ({
                     onChange={handleNameChange}
                     placeholder={__('e.g. Summer Sale Products', 'productbay')}
                     className={`w-full h-12 px-4 text-base border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 ${titleError
-                            ? 'border-red-400 focus:ring-red-300 bg-red-50'
-                            : 'border-gray-300 focus:ring-blue-300 focus:border-blue-400'
+                        ? 'border-red-400 focus:ring-red-300 bg-red-50'
+                        : 'border-gray-300 focus:ring-blue-300 focus:border-blue-400'
                         }`}
                 />
                 {titleError && (

@@ -134,7 +134,7 @@ export const Modal: React.FC<ModalProps> = ({
     return createPortal(
         <div
             className={cn(
-                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all duration-300 animate-in fade-in",
+                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/70",
                 !fullScreen && "p-4" // Add padding to prevent touching edges on small screens if not full screen
             )}
             onClick={handleBackdropClick}
@@ -178,7 +178,7 @@ export const Modal: React.FC<ModalProps> = ({
                         <Button
                             variant={getButtonVariant(secondaryBtn.variant)}
                             onClick={secondaryBtn.onClick}
-                            className={cn(secondaryBtn.variant === 'secondary' && "cursor-pointer bg-white border-gray-200 text-gray-700 hover:bg-gray-50")}
+                            className={cn(secondaryBtn.variant === 'secondary' && "cursor-pointer bg-white border-transparent hover:border-gray-200 text-gray-700 hover:bg-gray-50")}
                         >
                             {secondaryBtn.icon && <span className="mr-2">{secondaryBtn.icon}</span>}
                             {secondaryBtn.text}
