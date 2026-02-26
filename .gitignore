@@ -1,13 +1,13 @@
 # Dependencies
 node_modules/
 vendor/
+
 # Lock files
 package-lock.json
 composer.lock
 yarn.lock
 pnpm-lock.yaml
 bun.lockb
-
 
 # Environment & Private Data
 .env
@@ -42,8 +42,7 @@ temp.js
 temp.ts
 temp.tsx
 temp.md
-todo.txt
-todo.md
+
 instructions.md
 project.md
 features.md 
