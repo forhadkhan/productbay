@@ -35,13 +35,17 @@ class ProductsController extends ApiController
         $search = $this->request->get('search');
         $include = $this->request->get('include'); // For ID search
         $sku = $this->request->get('sku');         // For SKU search
-        $limit = $this->request->get('limit', 20);
+        $limit = $this->request->get('limit', 10);
+        $page = $this->request->get('page', 1);
+
+        $is_default_search = empty($search) && empty($include) && empty($sku);
 
         $args = [
             'limit' => $limit,
+            'page' => $page,
             'status' => 'publish',
-            'orderby' => 'title',
-            'order' => 'ASC',
+            'orderby' => $is_default_search ? 'date' : 'title',
+            'order' => $is_default_search ? 'DESC' : 'ASC',
         ];
 
         // Handle ID search (exact match)
@@ -70,13 +74,12 @@ class ProductsController extends ApiController
                         'price' => $product->get_price_html(),
                         'image' => \wp_get_attachment_image_url($product->get_image_id(), 'thumbnail'),
                     ];
-
-                    // Limit results
-                    if (count($data) >= $limit) {
-                        break;
-                    }
                 }
             }
+
+            // Implement simple array pagination for the SKU manual filter result
+            $offset = ($page - 1) * $limit;
+            $data = array_slice($data, $offset, $limit);
 
             return $data;
         }
