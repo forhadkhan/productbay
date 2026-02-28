@@ -1105,7 +1105,7 @@ const Tables = () => {
 						? __('Deactivate', 'productbay')
 						: __('Activate', 'productbay'),
 					onClick: handleToggleActive,
-					variant: 'primary'
+					variant: modalState.currentStatus === 'publish' ? 'danger' : 'primary'
 				}}
 				secondaryButton={{
 					text: __('Cancel', 'productbay'),

@@ -69,7 +69,7 @@ const ClearDataOptions = memo(({ loading }: ClearDataOptionsProps) => {
     // Render the clear data options
     return (
         <div className="p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mt-0 mb-4">
+            <h3 className="text-lg font-semibold text-red-600 mt-0 mb-4">
                 {__('Clear Data', 'productbay')}
             </h3>
             <div className="flex items-center justify-between p-4 border border-red-200 bg-red-50 rounded-lg">
