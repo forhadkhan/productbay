@@ -292,6 +292,9 @@ export interface ProductTable {
     id?: number;
     title: string;
     status: 'publish' | 'draft';
+    date?: string;
+    modifiedDate?: string;
+    productCount?: number;
     source: DataSource;
     columns: Column[];
     settings: TableSettings;

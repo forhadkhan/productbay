@@ -19,6 +19,8 @@ interface Table {
 	title: string;
 	shortcode: string;
 	date: string;
+	modifiedDate?: string;
+	productCount?: number;
 	status: string; // 'publish' | 'draft' etc.
 	source?: any;
 	columns?: any[];
@@ -547,17 +549,20 @@ const Tables = () => {
 									onChange={handleSelectAll}
 								/>
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-16">
-								{__('ID', 'productbay')}
-							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
 								{__('Title', 'productbay')}
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-24">
+								{__('Status', 'productbay')}
+							</th>
+							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
 								{__('Shortcode', 'productbay')}
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
 								{__('Product Source', 'productbay')}
+							</th>
+							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-32">
+								{__('Date', 'productbay')}
 							</th>
 						</tr>
 					</thead>
@@ -568,19 +573,25 @@ const Tables = () => {
 									<td className="px-4 py-4 text-center">
 										<Skeleton className="h-4 w-4 rounded mx-auto" />
 									</td>
-									<td className="px-6 py-4">
-										<Skeleton className="h-4 w-8" />
-									</td>
-									<td className="px-6 py-4">
+									<td className="p-4">
 										<div className="space-y-2">
 											<Skeleton className="h-5 w-48" />
 										</div>
 									</td>
-									<td className="px-6 py-4">
+									<td className="p-4">
+										<Skeleton className="h-6 w-20 rounded-full" />
+									</td>
+									<td className="p-4">
 										<Skeleton className="h-8 w-24 rounded" />
 									</td>
-									<td className="px-6 py-4">
-										<Skeleton className="h-4 w-24" />
+									<td className="p-4">
+										<Skeleton className="h-6 w-32 rounded-full" />
+									</td>
+									<td className="p-4">
+										<div className="space-y-1">
+											<Skeleton className="h-4 w-24" />
+											<Skeleton className="h-3 w-20" />
+										</div>
 									</td>
 								</tr>
 							))
@@ -647,27 +658,21 @@ const Tables = () => {
 												disabled={isActing}
 											/>
 										</td>
-										{/* ID */}
-										<td className="px-6 py-4 text-sm text-gray-500">
-											#{table.id}
-										</td>
-										{/* Title */}
-										<td className="px-6 py-4 relative">
-											<div className="font-medium text-wp-text text-base">
+										{/* Title (Columns used) */}
+										<td className="p-4 relative">
+											<div className="font-medium text-wp-text text-base flex items-center gap-2">
 												<Link
 													to={`/table/${table.id}`}
 													className="hover:text-blue-600"
 												>
 													{table.title}
+													<span className="ml-2 text-xs font-normal text-gray-400">
+														({table.columns?.length || 0} {__('cols', 'productbay')})
+													</span>
 													{isActing && (
 														<Loader2Icon className="w-4 h-4 inline-block ml-2 animate-spin" />
 													)}
 												</Link>
-												{table.status !== 'publish' && (
-													<span className="ml-2 text-xs text-gray-400 font-normal italic">
-														— {table.status}
-													</span>
-												)}
 											</div>
 
 											{ /* Hover Actions (Visible on group hover) */}
@@ -722,10 +727,22 @@ const Tables = () => {
 												</button>
 											</div>
 										</td>
+										{/* Status Badge */}
+										<td className="p-4">
+											{table.status === 'publish' ? (
+												<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+													{__('Published', 'productbay')}
+												</span>
+											) : (
+												<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+													{__('Draft', 'productbay')}
+												</span>
+											)}
+										</td>
 										{/* Shortcode */}
-										<td className="px-6 py-4">
-											<div className="bg-gray-100 inline-block text-gray-600 text-sm px-3 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors">
-												<span className="select-all p-1 bg-transparent hover:bg-gray-200">
+										<td className="p-4">
+											<div className="bg-gray-100 inline-flex text-gray-600 px-3 py-1 rounded border border-gray-300 items-center gap-1">
+												<span className="select-all font-mono text-sm bg-transparent p-1 hover:bg-gray-200">
 													{table.shortcode}
 												</span>
 												<Button
@@ -749,13 +766,46 @@ const Tables = () => {
 												</Button>
 											</div>
 										</td>
-										{/* Product Source */}
-										<td className="px-6 py-4 text-sm text-gray-600 capitalize">
-											{typeof table.source === 'object' && table.source !== null
-												// @ts-ignore
-												? (table.source.type || 'Custom')
-												: (table.source || 'WooCommerce')
-											}
+										{/* Product Source & Count Badge */}
+										<td className="p-4 text-sm text-gray-600 capitalize">
+											<div className="flex items-center gap-2">
+												<span>
+													{typeof table.source === 'object' && table.source !== null
+														// @ts-ignore
+														? (table.source.type || 'Custom')
+														: (table.source || 'WooCommerce')
+													}
+												</span>
+												{table.productCount !== undefined && (
+													<span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600 border border-gray-200" title={__('Matching Products', 'productbay')}>
+														{table.productCount}
+													</span>
+												)}
+											</div>
+										</td>
+										{/* Date (Created & Modified) */}
+										<td className="p-4 whitespace-nowrap text-sm text-gray-500">
+											{table.date && (
+												<div className="flex flex-col">
+													{table.status === 'publish' ? (
+														<span className="font-medium text-xs text-gray-700">
+															{__('Published', 'productbay')}: &nbsp;
+															{new Date(table.date.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+														</span>
+													) : (
+														<span className="font-medium text-xs text-gray-700">
+															{__('Created', 'productbay')}: &nbsp;
+															{new Date(table.date.replace(' ', 'T')).toLocaleDateString()}
+														</span>
+													)}
+													{table.modifiedDate && table.modifiedDate !== table.date && (
+														<span className="text-xs text-gray-400 mt-1" title={table.modifiedDate}>
+															{__('Modified', 'productbay')}: &nbsp;
+															{new Date(table.modifiedDate.replace(' ', 'T')).toLocaleDateString()}
+														</span>
+													)}
+												</div>
+											)}
 										</td>
 									</tr>
 								);
