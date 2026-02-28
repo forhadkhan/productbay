@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/DropdownMenu';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon } from 'lucide-react';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon, ArrowUpDownIcon, ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -93,6 +93,7 @@ const Tables = () => {
 	const [jumpPage, setJumpPage] = useState('');
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [isCustomPerPage, setIsCustomPerPage] = useState(false);
+	const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>({ key: 'date', direction: 'desc' });
 
 	// Use the system store instead of local state
 	const { status, loading, fetchStatus, error } = useSystemStore();
@@ -421,11 +422,58 @@ const Tables = () => {
 		});
 	}, [tables, searchQuery, filterStatuses, filterSources]);
 
-	const totalPages = Math.ceil(filteredTables.length / itemsPerPage);
-	const currentTables = filteredTables.slice(
+	const sortedTables = React.useMemo(() => {
+		const sortableTables = [...filteredTables];
+		if (sortConfig !== null) {
+			sortableTables.sort((a, b) => {
+				let aValue: any = a[sortConfig.key as keyof Table];
+				let bValue: any = b[sortConfig.key as keyof Table];
+
+				if (sortConfig.key === 'date') {
+					aValue = new Date(a.date.replace(' ', 'T')).getTime();
+					bValue = new Date(b.date.replace(' ', 'T')).getTime();
+				} else if (sortConfig.key === 'source') {
+					aValue = typeof a.source === 'object' && a.source !== null ? (a.source.type || 'all') : (a.source || 'all');
+					bValue = typeof b.source === 'object' && b.source !== null ? (b.source.type || 'all') : (b.source || 'all');
+				} else if (typeof aValue === 'string') {
+					aValue = aValue.toLowerCase();
+					bValue = bValue.toLowerCase();
+				}
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			});
+		}
+		return sortableTables;
+	}, [filteredTables, sortConfig]);
+
+	const totalPages = Math.ceil(sortedTables.length / itemsPerPage);
+	const currentTables = sortedTables.slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	);
+
+	const handleSort = (key: string) => {
+		let direction: 'asc' | 'desc' = 'asc';
+		if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
+	const SortIcon = ({ columnKey }: { columnKey: string }) => {
+		if (sortConfig?.key !== columnKey) {
+			return <ArrowUpDownIcon className="w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1" />;
+		}
+		return sortConfig.direction === 'asc'
+			? <ArrowUpIcon className="w-3 h-3 text-blue-600 ml-1" />
+			: <ArrowDownIcon className="w-3 h-3 text-blue-600 ml-1" />;
+	};
 
 	return (
 		<div className="space-y-6">
@@ -634,20 +682,44 @@ const Tables = () => {
 									onChange={handleSelectAll}
 								/>
 							</th>
-							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								{__('Title', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('title')}
+							>
+								<div className="flex items-center">
+									{__('Title', 'productbay')}
+									<SortIcon columnKey="title" />
+								</div>
 							</th>
-							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-24">
-								{__('Status', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-24 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('status')}
+							>
+								<div className="flex items-center">
+									{__('Status', 'productbay')}
+									<SortIcon columnKey="status" />
+								</div>
 							</th>
 							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
 								{__('Shortcode', 'productbay')}
 							</th>
-							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								{__('Product Source', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('source')}
+							>
+								<div className="flex items-center">
+									{__('Product Source', 'productbay')}
+									<SortIcon columnKey="source" />
+								</div>
 							</th>
-							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-32">
-								{__('Date', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-32 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('date')}
+							>
+								<div className="flex items-center">
+									{__('Date', 'productbay')}
+									<SortIcon columnKey="date" />
+								</div>
 							</th>
 						</tr>
 					</thead>
