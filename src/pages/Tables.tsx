@@ -1,17 +1,18 @@
 import { apiFetch } from '@/utils/api';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
 import { useToast } from '@/context/ToastContext';
+import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/DropdownMenu';
 import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon } from 'lucide-react';
 
 interface Table {
@@ -49,12 +50,18 @@ const ROWS_PER_PAGE_OPTIONS = [
 ];
 
 /**
- * Status filter options for table listing
+ * Filter options for table listing
  */
-const FILTER_OPTIONS = [
-	{ label: __('All Status', 'productbay'), value: 'all' },
+const STATUS_OPTIONS = [
 	{ label: __('Active', 'productbay'), value: 'publish' },
 	{ label: __('Inactive', 'productbay'), value: 'draft' },
+];
+
+const SOURCE_OPTIONS = [
+	{ label: __('All Products', 'productbay'), value: 'all' },
+	{ label: __('Specific Products', 'productbay'), value: 'specific' },
+	{ label: __('Specific Categories', 'productbay'), value: 'category' },
+	{ label: __('On Sale', 'productbay'), value: 'sale' },
 ];
 
 /**
@@ -78,7 +85,8 @@ const Tables = () => {
 
 	// UI States
 	const [searchQuery, setSearchQuery] = useState('');
-	const [filterStatus, setFilterStatus] = useState('all');
+	const [filterStatuses, setFilterStatuses] = useState<string[]>([]);
+	const [filterSources, setFilterSources] = useState<string[]>([]);
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 	const [selectedBulkAction, setSelectedBulkAction] = useState('');
 	const [currentPage, setCurrentPage] = useState(1);
@@ -393,15 +401,25 @@ const Tables = () => {
 		}
 	};
 
-	// Filtering & Pagination Logic
-	const filteredTables = tables.filter((table) => {
-		const matchesSearch =
-			table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			table.shortcode.toLowerCase().includes(searchQuery.toLowerCase());
-		const matchesFilter =
-			filterStatus === 'all' || table.status === filterStatus;
-		return matchesSearch && matchesFilter;
-	});
+	// Filtering & Pagination	// Derived state
+	const filteredTables = React.useMemo(() => {
+		return tables.filter(table => {
+			const matchesSearch = table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				table.id.toString() === searchQuery.replace('#', '') ||
+				table.shortcode.toLowerCase().includes(searchQuery.toLowerCase());
+
+			const matchesStatus = filterStatuses.length === 0 || filterStatuses.includes(table.status);
+
+			// Resolve the actual source type
+			const sourceType = typeof table.source === 'object' && table.source !== null
+				? (table.source.type || 'all')
+				: (table.source || 'all');
+
+			const matchesSource = filterSources.length === 0 || filterSources.includes(sourceType);
+
+			return matchesSearch && matchesStatus && matchesSource;
+		});
+	}, [tables, searchQuery, filterStatuses, filterSources]);
 
 	const totalPages = Math.ceil(filteredTables.length / itemsPerPage);
 	const currentTables = filteredTables.slice(
@@ -519,15 +537,82 @@ const Tables = () => {
 					</div>
 
 					{ /* Filter */}
-					<div className="w-40">
-						<Select
-							label={__('Filter by Status', 'productbay')}
-							options={FILTER_OPTIONS}
-							value={filterStatus}
-							allowDeselect={true}
-							icon={<FilterIcon className="w-4 h-4" />}
-							onChange={setFilterStatus}
-						/>
+					<div>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button variant="outline" className="gap-2 bg-white relative">
+									<FilterIcon className="w-4 h-4 text-gray-500" />
+									{__('Filter', 'productbay')}
+									{(filterStatuses.length > 0 || filterSources.length > 0) && (
+										<span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+											{filterStatuses.length + filterSources.length}
+										</span>
+									)}
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end" className="w-56 p-2">
+								<DropdownMenuLabel>{__('Status', 'productbay')}</DropdownMenuLabel>
+								{STATUS_OPTIONS.map((option) => (
+									<DropdownMenuItem
+										key={option.value}
+										closeOnSelect={false}
+										onClick={(e) => {
+											setFilterStatuses(prev =>
+												prev.includes(option.value)
+													? prev.filter(v => v !== option.value)
+													: [...prev, option.value]
+											);
+										}}
+									>
+										<div className="flex items-center w-full justify-between">
+											<span>{option.label}</span>
+											{filterStatuses.includes(option.value) && (
+												<CheckIcon className="w-4 h-4 text-blue-600" />
+											)}
+										</div>
+									</DropdownMenuItem>
+								))}
+
+								<DropdownMenuSeparator />
+
+								<DropdownMenuLabel>{__('Source', 'productbay')}</DropdownMenuLabel>
+								{SOURCE_OPTIONS.map((option) => (
+									<DropdownMenuItem
+										key={option.value}
+										closeOnSelect={false}
+										onClick={(e) => {
+											setFilterSources(prev =>
+												prev.includes(option.value)
+													? prev.filter(v => v !== option.value)
+													: [...prev, option.value]
+											);
+										}}
+									>
+										<div className="flex items-center w-full justify-between">
+											<span>{option.label}</span>
+											{filterSources.includes(option.value) && (
+												<CheckIcon className="w-4 h-4 text-blue-600" />
+											)}
+										</div>
+									</DropdownMenuItem>
+								))}
+
+								{(filterStatuses.length > 0 || filterSources.length > 0) && (
+									<>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem
+											className="text-red-600 focus:text-red-700 justify-center font-medium mt-1"
+											onClick={(e) => {
+												setFilterStatuses([]);
+												setFilterSources([]);
+											}}
+										>
+											{__('Clear Filters', 'productbay')}
+										</DropdownMenuItem>
+									</>
+								)}
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				</div>
 			</div>
@@ -623,7 +708,8 @@ const Tables = () => {
 												variant="outline"
 												onClick={() => {
 													setSearchQuery('');
-													setFilterStatus('all');
+													setFilterStatuses([]);
+													setFilterSources([]);
 												}}
 												className="cursor-pointer"
 											>
@@ -666,7 +752,7 @@ const Tables = () => {
 													className="hover:text-blue-600"
 												>
 													{table.title}
-													<span className="ml-2 text-xs font-normal text-gray-400">
+													<span className="ml-2 text-sm font-normal text-gray-400">
 														({table.columns?.length || 0} {__('cols', 'productbay')})
 													</span>
 													{isActing && (
@@ -866,11 +952,12 @@ const Tables = () => {
 								<Select
 									size="xs"
 									options={ROWS_PER_PAGE_OPTIONS}
-									value={itemsPerPage.toString()}
-									onChange={(val) => {
+									value={isCustomPerPage ? 'custom' : itemsPerPage.toString()}
+									onChange={(val: string) => {
 										if (val === 'custom') {
 											setIsCustomPerPage(true);
 										} else {
+											setIsCustomPerPage(false);
 											setItemsPerPage(Number(val));
 											setCurrentPage(1);
 										}
