@@ -339,6 +339,7 @@ const Tables = () => {
 				toast({
 					title: __('Success', 'productbay'),
 					description: sprintf(
+						/* translators: %d: number of tables deleted */
 						__('Deleted %d tables successfully', 'productbay'),
 						selectedRows.length
 					),
@@ -381,6 +382,7 @@ const Tables = () => {
 				toast({
 					title: __('Success', 'productbay'),
 					description: sprintf(
+						/* translators: %d: number of tables updated */
 						__('Updated status for %d tables', 'productbay'),
 						selectedRows.length
 					),
@@ -551,7 +553,10 @@ const Tables = () => {
 					</Button>
 					{selectedRows.length > 0 && (
 						<span className="text-sm text-gray-500 ml-2">
-							{sprintf(__('%d items selected', 'productbay'), selectedRows.length)}
+							{sprintf(
+								/* translators: %d: number of selected items */
+								__('%d items selected', 'productbay'), selectedRows.length
+							)}
 						</span>
 					)}
 				</div>
@@ -755,7 +760,7 @@ const Tables = () => {
 						) : currentTables.length === 0 ? (
 							<tr>
 								<td
-									colSpan={5}
+									colSpan={6}
 									className="px-6 py-12 text-center text-gray-400"
 								>
 									{/* Show welcome screen if no tables exist at all */}
@@ -978,6 +983,7 @@ const Tables = () => {
 				{/* Pagination Info */}
 				<div className="text-sm text-gray-500 px-1">
 					{sprintf(
+						/* translators: %1$d: start index, %2$d: end index, %3$d: total entries */
 						__('Showing %1$d to %2$d of %3$d entries', 'productbay'),
 						(currentPage - 1) * itemsPerPage + 1,
 						Math.min(currentPage * itemsPerPage, filteredTables.length),
@@ -1135,6 +1141,7 @@ const Tables = () => {
 			>
 				<p className="text-gray-700">
 					{sprintf(
+						/* translators: %s: table name */
 						__('Are you sure you want to delete "%s"? This action cannot be undone.', 'productbay'),
 						modalState.tableName
 					)}
@@ -1160,6 +1167,7 @@ const Tables = () => {
 			>
 				<p className="text-gray-700">
 					{sprintf(
+						/* translators: %s: table name */
 						__('Create a copy of "%s"?', 'productbay'),
 						modalState.tableName
 					)}
@@ -1188,10 +1196,12 @@ const Tables = () => {
 				<p className="text-gray-700">
 					{modalState.currentStatus === 'publish'
 						? sprintf(
+							/* translators: %s: table name */
 							__('Are you sure you want to deactivate "%s"?', 'productbay'),
 							modalState.tableName
 						)
 						: sprintf(
+							/* translators: %s: table name */
 							__('Are you sure you want to activate "%s"?', 'productbay'),
 							modalState.tableName
 						)
