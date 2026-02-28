@@ -21,6 +21,8 @@ import {
 	PackageIcon,
 } from 'lucide-react';
 
+const RESULTS_PER_PAGE = 20;
+
 export const ProductSearch: React.FC = () => {
 	const { tableData, setTableData } = useTableStore();
 	const [query, setQuery] = useState('');
@@ -83,13 +85,13 @@ export const ProductSearch: React.FC = () => {
 			console.log('[ProductSearch] Cache hit for:', cacheKey);
 			const cachedData = searchCache.current.get(cacheKey)!;
 			setResults(prev => append ? [...prev, ...cachedData] : cachedData);
-			setHasMore(cachedData.length >= 10);
+			setHasMore(cachedData.length >= RESULTS_PER_PAGE);
 			return;
 		}
 
 		setLoading(true);
 		try {
-			let apiQuery = `products?limit=10&page=${pageNum}`;
+			let apiQuery = `products?limit=${RESULTS_PER_PAGE}&page=${pageNum}`;
 
 			// Build API query based on search type
 			if (searchParams.type === 'id') {
@@ -106,7 +108,7 @@ export const ProductSearch: React.FC = () => {
 			searchCache.current.set(cacheKey, data);
 
 			setResults(prev => append ? [...prev, ...data] : data);
-			setHasMore(data.length >= 10);
+			setHasMore(data.length >= RESULTS_PER_PAGE);
 			setPage(pageNum);
 
 			console.log('[ProductSearch] Fetched and cached:', cacheKey);
