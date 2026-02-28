@@ -103,7 +103,7 @@ const ClearDataOptions = (0,react__WEBPACK_IMPORTED_MODULE_1__.memo)(({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     className: "p-6",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
-      className: "text-lg font-semibold text-gray-900 mt-0 mb-4",
+      className: "text-lg font-semibold text-red-600 mt-0 mb-4",
       children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Clear Data', 'productbay')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "flex items-center justify-between p-4 border border-red-200 bg-red-50 rounded-lg",
@@ -182,4 +182,4 @@ const ClearDataOptions = (0,react__WEBPACK_IMPORTED_MODULE_1__.memo)(({
 /***/ }
 
 }]);
-//# sourceMappingURL=src_components_Settings_ClearDataOptions_tsx.js.map?ver=ec37db2bf7715978dfaa
+//# sourceMappingURL=src_components_Settings_ClearDataOptions_tsx.js.map?ver=81e417e55896806c92cb
