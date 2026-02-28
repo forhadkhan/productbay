@@ -26,6 +26,7 @@ import {
 // Lazy load settings components
 const AdminBarOptions = lazy(() => import('@/components/Settings/AdminBarOptions'));
 const UninstallOptions = lazy(() => import('@/components/Settings/UninstallOptions'));
+const ClearDataOptions = lazy(() => import('@/components/Settings/ClearDataOptions'));
 
 type SettingsTabValue = 'default' | 'plugin';
 
@@ -201,6 +202,7 @@ const Settings = () => {
 				aria-label={__('Settings tabs', 'productbay')}
 			>
 				<Suspense fallback={<SettingsTabSkeleton />}>
+					{/* Default ConfigurationTab */}
 					{activeTab === 'default' && (
 						<div className="space-y-10 p-6">
 							<div className="max-w-4xl space-y-10">
@@ -268,8 +270,7 @@ const Settings = () => {
 						</div>
 					)}
 
-
-
+					{/* Plugin Configuration Tab */}
 					{activeTab === 'plugin' && (
 						<div className="space-y-6">
 							<AdminBarOptions
@@ -282,11 +283,15 @@ const Settings = () => {
 								setSettings={updateSettings}
 								loading={loading}
 							/>
+							<ClearDataOptions
+								loading={loading}
+							/>
 						</div>
 					)}
 				</Suspense>
 			</Tabs>
 
+			{/* Reload Modal */}
 			<Modal
 				isOpen={showReloadModal}
 				onClose={() => setShowReloadModal(false)}
@@ -310,6 +315,7 @@ const Settings = () => {
 				</p>
 			</Modal>
 
+			{/* Reset Default Configuration Modal */}
 			<Modal
 				isOpen={showResetModal}
 				onClose={() => setShowResetModal(false)}

@@ -252,11 +252,15 @@ class Admin
             true
         );
 
+        // Check if onboarding is completed
+        $is_first_time = !get_option('productbay_onboarding_completed', false);
+
         // Pass PHP data to React script via localization
         \wp_localize_script('productbay-admin', 'productBaySettings', [
             'apiUrl'    => \rest_url(Constants::PLUGIN_SLUG . '/v1/'),
             'nonce'     => \wp_create_nonce('wp_rest'),
             'pluginUrl' => PRODUCTBAY_URL,
+            'isFirstTime' => $is_first_time,
         ]);
 
         // Enqueue global admin styles with smart cache busting

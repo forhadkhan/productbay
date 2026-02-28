@@ -78,9 +78,21 @@ class Router
             'permission_callback' => [$this, 'permission_check']
         ]);
 
+        \register_rest_route('productbay/v1', '/settings/reset', [
+            'methods'  => 'POST',
+            'callback' => [$settings_controller, 'reset_settings'],
+            'permission_callback' => [$this, 'permission_check']
+        ]);
+
         \register_rest_route('productbay/v1', '/system/status', [
             'methods'  => 'GET',
             'callback' => [new \WpabProductBay\Api\SystemController($this->repository, $this->request), 'get_status'],
+            'permission_callback' => [$this, 'permission_check']
+        ]);
+
+        \register_rest_route('productbay/v1', '/system/onboard', [
+            'methods'  => 'POST',
+            'callback' => [new \WpabProductBay\Api\SystemController($this->repository, $this->request), 'mark_onboarded'],
             'permission_callback' => [$this, 'permission_check']
         ]);
 

@@ -20,6 +20,15 @@ class SystemController extends ApiController
         $this->repository = $repository;
     }
 
+    /**
+     * Get system status.
+     * 
+     * This method is called when the user loads the dashboard page.
+     * It returns the system status, including whether WooCommerce is active, 
+     * the number of products, the number of tables, and the plugin version.
+     * 
+     * @return array
+     */
     public function get_status()
     {
         $wc_active = class_exists('WooCommerce');
@@ -43,6 +52,22 @@ class SystemController extends ApiController
             'product_count' => $product_count,
             'table_count' => $table_count,
             'version' => PRODUCTBAY_VERSION
+        ];
+    }
+
+    /**
+     * Mark onboarding as completed.
+     * 
+     * This method is called when the user completes the onboarding process.
+     * It updates the `productbay_onboarding_completed` option to `true`.
+     * 
+     * @return array
+     */
+    public function mark_onboarded()
+    {
+        update_option('productbay_onboarding_completed', true);
+        return [
+            'success' => true
         ];
     }
 }

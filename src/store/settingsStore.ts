@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { apiFetch } from '../utils/api';
+import { apiFetch } from '@/utils/api';
 
 interface SettingsState {
     settings: any;
@@ -12,6 +12,7 @@ interface SettingsState {
     fetchSettings: (force?: boolean) => Promise<void>;
     updateSettings: (newSettings: any) => void;
     saveSettings: () => Promise<void>;
+    resetSettings: () => Promise<any>;
 }
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
@@ -74,6 +75,29 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
                 saving: false
             });
             throw error; // Re-throw to handle in component (e.g., show toast)
+        }
+    },
+
+    resetSettings: async () => {
+        set({ saving: true, error: null });
+        try {
+            const data = await apiFetch<{ success: boolean; deleted_tables: number; settings: any }>('settings/reset', {
+                method: 'POST',
+            });
+            set({
+                settings: data.settings,
+                originalSettings: JSON.parse(JSON.stringify(data.settings)),
+                saving: false,
+                isDirty: false
+            });
+            return data;
+        } catch (error) {
+            console.error('Failed to reset settings:', error);
+            set({
+                error: 'Failed to reset settings',
+                saving: false
+            });
+            throw error;
         }
     },
 }));

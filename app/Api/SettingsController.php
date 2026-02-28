@@ -44,6 +44,56 @@ class SettingsController extends ApiController
         return $settings;
     }
 
+    /**
+     * Reset all plugin data to factory defaults.
+     *
+     * Performs a full cleanup: deletes all saved tables (CPT posts),
+     * clears associated post meta, removes settings and onboarding state.
+     * This restores the plugin to its initial "just installed" state.
+     *
+     * @return array{success: bool, deleted_tables: int, settings: array} Reset result with defaults.
+     */
+    public function reset_settings()
+    {
+        // 1. Delete all ProductBay table posts
+        $tables = get_posts([
+            'post_type'   => 'productbay_table',
+            'numberposts' => -1,
+            'post_status' => 'any',
+            'fields'      => 'ids',
+        ]);
+
+        $deleted_count = 0;
+        if (!empty($tables)) {
+            foreach ($tables as $table_id) {
+                wp_delete_post($table_id, true);
+                $deleted_count++;
+            }
+        }
+
+        // 2. Clear all ProductBay post meta across the site
+        global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup, caching not needed
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM $wpdb->postmeta WHERE meta_key = %s",
+                '_productbay_config'
+            )
+        );
+
+        // 3. Delete plugin settings
+        delete_option(self::OPTION_NAME);
+
+        // 4. Reset onboarding state
+        delete_option('productbay_onboarding_completed');
+
+        return [
+            'success'        => true,
+            'deleted_tables' => $deleted_count,
+            'settings'       => $this->defaults(),
+        ];
+    }
+
     private function defaults()
     {
         return [
