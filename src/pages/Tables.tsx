@@ -953,13 +953,13 @@ const Tables = () => {
 													) : (
 														<span className="font-medium text-xs text-gray-700">
 															{__('Created', 'productbay')}: &nbsp;
-															{new Date(table.date.replace(' ', 'T')).toLocaleDateString()}
+															{new Date(table.date.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
 														</span>
 													)}
 													{table.modifiedDate && table.modifiedDate !== table.date && (
 														<span className="text-xs text-gray-400 mt-1" title={table.modifiedDate}>
 															{__('Modified', 'productbay')}: &nbsp;
-															{new Date(table.modifiedDate.replace(' ', 'T')).toLocaleDateString()}
+															{new Date(table.modifiedDate.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
 														</span>
 													)}
 												</div>
