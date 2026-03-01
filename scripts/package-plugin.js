@@ -29,6 +29,7 @@ const INCLUDES = [
 	'productbay.php',
 	'uninstall.php',
 	'readme.txt',
+	'LICENSE.txt',
 	'composer.json',
 ];
 
