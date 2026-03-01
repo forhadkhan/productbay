@@ -1,12 +1,17 @@
 <?php
+/**
+ * Plugin activation lifecycle handler.
+ *
+ * @package ProductBay
+ */
 
 declare(strict_types=1);
 
 namespace WpabProductBay\Core;
 
 // Exit if accessed directly.
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
@@ -17,15 +22,14 @@ if (!defined('ABSPATH')) {
  *
  * @package WpabProductBay\Core
  */
-class Activator
-{
-    /**
-     * Activate the plugin.
-     *
-     * @return void
-     */
-    public static function activate()
-    {
-        // Activation logic here
-    }
+class Activator {
+
+	/**
+	 * Activate the plugin.
+	 *
+	 * @return void
+	 */
+	public static function activate() {
+		// Activation logic here.
+	}
 }

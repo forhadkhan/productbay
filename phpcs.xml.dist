@@ -24,15 +24,82 @@
 	<config name="testVersion" value="7.4-"/>
 	<rule ref="PHPCompatibilityWP"/>
 
-	<!-- Customizations -->
+	<!-- PSR-4 autoloading: PascalCase filenames are intentional. -->
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<exclude-pattern>app/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>app/*</exclude-pattern>
+	</rule>
+
+	<!-- Namespaces ARE the prefix — WpabProductBay\. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedNamespaceFound">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Project does not enforce Yoda conditions. -->
+	<rule ref="WordPress.PHP.YodaConditions.NotYoda">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Short ternary (?:) used intentionally for defaults. -->
+	<rule ref="Universal.Operators.DisallowShortTernary.Found">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Pre-existing camelCase property ($rawData) — would require refactoring. -->
+	<rule ref="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase">
+		<exclude-pattern>app/Http/Request.php</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase">
+		<exclude-pattern>app/Http/Request.php</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+		<exclude-pattern>app/Http/Request.php</exclude-pattern>
+	</rule>
+
+	<!-- $default is a standard parameter name. -->
+	<rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound">
+		<severity>0</severity>
+	</rule>
+
+	<!-- DI constructors calling parent::__construct() are intentional for clarity. -->
+	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
+		<severity>0</severity>
+	</rule>
+
+	<!-- WP callback signatures require parameters even if unused. -->
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.Found">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Inline technical comments may contain code-like syntax. -->
+	<rule ref="Squiz.PHP.CommentedOutCode.Found">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Loop variables in uninstall.php are local, not global. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<exclude-pattern>uninstall.php</exclude-pattern>
+	</rule>
+
+	<!-- i18n text domain. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="productbay"/>
+			<property name="text_domain" type="array">
+				<element value="productbay"/>
+			</property>
 		</properties>
 	</rule>
+
+	<!-- Global prefixes. -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="productbay,ProductBay"/>
+			<property name="prefixes" type="array">
+				<element value="productbay"/>
+				<element value="ProductBay"/>
+				<element value="PRODUCTBAY"/>
+			</property>
 		</properties>
 	</rule>
 </ruleset>
