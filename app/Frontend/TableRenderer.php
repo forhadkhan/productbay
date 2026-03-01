@@ -428,7 +428,7 @@ class TableRenderer
             $this->render_quantity_input($product);
         }
         $disabled_attr = $is_purchasable ? '' : ' disabled';
-        echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . $disabled_attr . '>';
+        echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . esc_attr($disabled_attr) . '>';
         echo esc_html($product->add_to_cart_text());
         echo '</button>';
         echo '</div>';
@@ -485,7 +485,7 @@ class TableRenderer
             $this->render_quantity_input($product);
         }
         echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
-        echo esc_html__('Add to cart', 'woocommerce');
+        echo esc_html__('Add to cart', 'productbay');
         echo '</button>';
         echo '</div>';
 

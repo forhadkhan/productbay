@@ -12,7 +12,7 @@
  * @author     WPAnchorBay
  * @copyright  2026 WPAnchorBay
  * @license    GPL-2.0-or-later
- * @link       https://wpanchorbay.com/productbay
+ * @link       https://wpanchorbay.com/products/productbay
  */
 
 // If uninstall.php is not called by WordPress, die.

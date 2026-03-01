@@ -10,18 +10,19 @@
  *
  * @wordpress-plugin
  * Plugin Name:       ProductBay
- * Plugin URI:        https://wpanchorbay.com/productbay
- * Source URI:        https://github.com/forhadakhan/productbay
+ * Plugin URI:        https://wpanchorbay.com/products/productbay
+ * Source URI:        https://github.com/forhadkhan/productbay
  * Description:       WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.
  * Version:           1.0.0
  * Stable tag:        1.0.0
  * Requires at least: 6.0
+ * Tested up to:      6.9
  * Requires PHP:      7.4
  * Author:            WPAnchorBay
  * Author URI:        https://wpanchorbay.com/
  * Text Domain:       productbay
  * Domain Path:       /languages
- * License:           GPL v2 or later
+ * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Requires Plugins:  woocommerce
  * WC requires at least: 6.1
