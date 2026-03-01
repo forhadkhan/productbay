@@ -62,17 +62,28 @@ if ($productbay_delete_on_uninstall) {
 
     // 2. Delete Plugin Options
     delete_option('productbay_settings');
+    delete_option('productbay_onboarding_completed');
 
     // 3. Clear any potential transients or temporary data
     // (Add transient cleanup here if implemented in the future)
 
     // 4. Extra Safety Net: Clear all ProductBay metadata across the site
+    // Includes all current meta keys and the legacy _productbay_config key
     global $wpdb;
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup during uninstall, caching not needed
-    $wpdb->query(
-        $wpdb->prepare(
-            "DELETE FROM $wpdb->postmeta WHERE meta_key = %s",
-            '_productbay_config'
-        )
-    );
+    $meta_keys = [
+        '_productbay_source',
+        '_productbay_columns',
+        '_productbay_settings',
+        '_productbay_style',
+        '_productbay_config', // Legacy key
+    ];
+    foreach ( $meta_keys as $meta_key ) {
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup during uninstall, caching not needed
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM $wpdb->postmeta WHERE meta_key = %s",
+                $meta_key
+            )
+        );
+    }
 }

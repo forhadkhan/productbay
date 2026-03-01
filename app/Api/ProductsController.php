@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Api;
 
 // Exit if accessed directly.
@@ -9,6 +11,15 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBay\Http\Request;
 
+/**
+ * Class ProductsController
+ *
+ * Handles product and category data retrieval for the admin React interface.
+ * Provides search by name, ID, or SKU, category listing, and source statistics.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Api
+ */
 class ProductsController extends ApiController
 {
 
@@ -55,12 +66,15 @@ class ProductsController extends ApiController
         }
         // Handle SKU search (exact or prefix match)
         elseif (!empty($sku)) {
-            // Get all products and filter by SKU
-            $args['limit'] = -1; // Get all to filter
+            // Query a bounded set of products and filter by SKU in PHP.
+            // WC's `sku` param only supports exact match, so we fetch a capped set
+            // and do prefix matching manually. Cap at 200 to avoid unbounded queries.
+            unset($args['page']);
+            $args['limit'] = 200;
             $all_products = \wc_get_products($args);
             $data = [];
 
-            $sku_lower = strtolower($sku);
+            $sku_lower = strtolower(sanitize_text_field($sku));
 
             foreach ($all_products as $product) {
                 $product_sku = strtolower($product->get_sku());
@@ -68,18 +82,18 @@ class ProductsController extends ApiController
                 // Exact match or starts with
                 if ($product_sku === $sku_lower || strpos($product_sku, $sku_lower) === 0) {
                     $data[] = [
-                        'id' => $product->get_id(),
-                        'name' => $product->get_name(),
-                        'sku' => $product->get_sku(),
+                        'id'    => $product->get_id(),
+                        'name'  => $product->get_name(),
+                        'sku'   => $product->get_sku(),
                         'price' => $product->get_price_html(),
                         'image' => \wp_get_attachment_image_url($product->get_image_id(), 'thumbnail'),
                     ];
                 }
             }
 
-            // Implement simple array pagination for the SKU manual filter result
-            $offset = ($page - 1) * $limit;
-            $data = array_slice($data, $offset, $limit);
+            // Paginate the filtered results
+            $offset = ((int) $page - 1) * (int) $limit;
+            $data = array_slice($data, $offset, (int) $limit);
 
             return $data;
         }

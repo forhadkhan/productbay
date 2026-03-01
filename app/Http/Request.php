@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Http;
 
 // Exit if accessed directly.
@@ -7,8 +9,25 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Class Request
+ *
+ * HTTP request wrapper that handles JSON input parsing and provides
+ * sanitized access to request parameters. Transparently merges JSON
+ * body data into \$_REQUEST for unified access.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Http
+ */
 class Request
 {
+    /**
+     * Raw JSON data from the request body.
+     *
+     * Preserved unsanitized for complex nested structures (e.g. table config).
+     *
+     * @var array
+     */
     private $rawData = [];
 
     public function __construct()
@@ -25,9 +44,6 @@ class Request
             isset($_SERVER['CONTENT_TYPE']) &&
             strpos(sanitize_text_field(wp_unslash($_SERVER['CONTENT_TYPE'])), 'application/json') !== false
         ) {
-            $input = file_get_contents('php://input');
-            $data = json_decode($input, true);
-
             $input = file_get_contents('php://input');
             $data = json_decode($input, true);
 

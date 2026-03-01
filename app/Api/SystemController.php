@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Api;
 
 // Exit if accessed directly.
@@ -10,10 +12,33 @@ if (!defined('ABSPATH')) {
 use WpabProductBay\Http\Request;
 use WpabProductBay\Data\TableRepository;
 
+/**
+ * Class SystemController
+ *
+ * Provides system status and onboarding management endpoints.
+ * Returns environment info (WC status, product/table counts, plugin version)
+ * and handles first-time setup completion.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Api
+ */
 class SystemController extends ApiController
 {
+    /**
+     * The table repository instance.
+     *
+     * @var TableRepository
+     */
     protected $repository;
 
+    /**
+     * Initialize the controller.
+     *
+     * @since 1.0.0
+     *
+     * @param TableRepository $repository Table data repository.
+     * @param Request         $request    HTTP request handler.
+     */
     public function __construct(TableRepository $repository, Request $request)
     {
         parent::__construct($request);

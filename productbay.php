@@ -72,7 +72,7 @@ if (\file_exists($productbay_dotenv_path) && \class_exists('Dotenv\\Dotenv')) {
  * When true: enables file-based cache busting, debug features, etc.
  * When false: uses production-optimized settings.
  */
-define('PRODUCTBAY_DEV_MODE', \filter_var($_ENV['PRODUCTBAY_DEV_MODE'] ?? false, FILTER_VALIDATE_BOOLEAN));
+define('PRODUCTBAY_DEV_MODE', \filter_var(getenv('PRODUCTBAY_DEV_MODE') ?: false, FILTER_VALIDATE_BOOLEAN));
 
 /**
  * Initialization

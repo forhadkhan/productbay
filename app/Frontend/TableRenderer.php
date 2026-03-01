@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Frontend;
 
 // Exit if accessed directly.
@@ -80,7 +82,7 @@ class TableRenderer
         $query = new \WP_Query($args);
 
         // 3. Generate Styles
-        $css = $this->generate_styles($unique_id, $style, $columns);
+        $css = $this->generate_styles($unique_id, $style, $columns, $settings);
 
         // 4. Build HTML
         ob_start();
@@ -89,14 +91,15 @@ class TableRenderer
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally by generate_styles(), not user input
         echo '<style>' . wp_strip_all_tags($css) . '</style>';
 
-        $bulk_position = $settings['features']['bulkSelect']['position'] ?? 'last';
+        // Bulk select configuration (used throughout the render)
+        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
+        $bulk_position = $bulk_select['position'] ?? 'last';
         echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '" data-select-position="' . esc_attr($bulk_position) . '">';
 
         // Toolbar: Bulk Actions + Search
         echo '<div class="productbay-toolbar">';
 
         // Bulk Actions (Add to Cart Button)
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true];
         if ($bulk_select['enabled']) {
             echo '<div class="productbay-bulk-actions">';
             echo '<button class="productbay-button productbay-btn-bulk" disabled>';
@@ -119,13 +122,8 @@ class TableRenderer
         // Table Header
         echo '<thead><tr>';
 
-
-
-
         // Select All Column (Bulk Select - First)
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
-
-        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
+        if ($bulk_select['enabled'] && $bulk_position === 'first') {
             echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
         }
 
@@ -144,8 +142,7 @@ class TableRenderer
         }
 
         // Bulk Select - Last Position
-        $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
-        if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
+        if ($bulk_select['enabled'] && $bulk_position === 'last') {
             echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
         }
 
@@ -523,9 +520,90 @@ class TableRenderer
     }
 
     /**
-     * Generate CSS based on Style configuration
+     * Sanitize a CSS color value.
+     *
+     * Accepts hex colors (#rgb, #rrggbb, #rrggbbaa), rgb(), rgba(), hsl(), and hsla().
+     * Returns an empty string for any value that does not match safe patterns.
+     *
+     * @since 1.0.0
+     *
+     * @param string $color Raw color value from config.
+     * @return string Sanitized color or empty string.
      */
-    private function generate_styles($id, $style, $columns)
+    private function sanitize_css_color( $color ) {
+        if ( ! is_string( $color ) ) {
+            return '';
+        }
+
+        $color = trim( $color );
+
+        // Hex: #rgb, #rrggbb, #rrggbbaa
+        if ( preg_match( '/^#[0-9a-fA-F]{3,8}$/', $color ) ) {
+            return $color;
+        }
+
+        // rgb(), rgba(), hsl(), hsla() with only safe characters (digits, commas, spaces, dots, %)
+        if ( preg_match( '/^(rgb|rgba|hsl|hsla)\([0-9,.\s%\/]+\)$/', $color ) ) {
+            return $color;
+        }
+
+        return '';
+    }
+
+    /**
+     * Sanitize a CSS dimensional value (e.g. "16px", "1.5rem", "100%").
+     *
+     * Strips anything that isn't a number, dot, or an allowed unit.
+     * Returns an empty string if the value does not match safe patterns.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value Raw CSS value from config.
+     * @return string Sanitized CSS dimensional value or empty string.
+     */
+    private function sanitize_css_value( $value ) {
+        if ( ! is_string( $value ) ) {
+            return '';
+        }
+
+        $value = trim( $value );
+
+        // Match number + optional unit (px, %, em, rem, pt).
+        if ( preg_match( '/^[0-9]+(\.[0-9]+)?(px|%|em|rem|pt)?$/', $value ) ) {
+            return $value;
+        }
+
+        return '';
+    }
+
+    /**
+     * Sanitize a column width unit against an allow-list.
+     *
+     * @since 1.0.0
+     *
+     * @param string $unit Raw unit string.
+     * @return string Sanitized unit or 'auto'.
+     */
+    private function sanitize_css_unit( $unit ) {
+        $allowed = [ 'px', '%', 'em', 'rem', 'auto' ];
+        return in_array( $unit, $allowed, true ) ? $unit : 'auto';
+    }
+
+    /**
+     * Generate scoped CSS based on the table's style configuration.
+     *
+     * All user-controlled values (colors, sizes, border styles) are sanitized
+     * before interpolation to prevent CSS injection.
+     *
+     * @since 1.0.0
+     *
+     * @param string $id       Unique table wrapper ID (already escaped).
+     * @param array  $style    Style configuration from the table.
+     * @param array  $columns  Column definitions for width styles.
+     * @param array  $settings Table settings (features, pagination, cart, etc.).
+     * @return string Generated CSS string.
+     */
+    private function generate_styles($id, $style, $columns, $settings = [])
     {
         $css = "";
         $header = $style['header'] ?? [];
@@ -538,10 +616,13 @@ class TableRenderer
 
         // Header Styles
         $css .= "#{$id} .productbay-table thead th {";
-        if (!empty($header['bgColor'])) $css .= "background-color: {$header['bgColor']};";
-        if (!empty($header['textColor'])) $css .= "color: {$header['textColor']};";
-        if (!empty($header['fontSize'])) $css .= "font-size: {$header['fontSize']};";
-        
+        $h_bg = $this->sanitize_css_color( $header['bgColor'] ?? '' );
+        $h_text = $this->sanitize_css_color( $header['textColor'] ?? '' );
+        $h_font = $this->sanitize_css_value( $header['fontSize'] ?? '' );
+        if ( $h_bg ) $css .= "background-color: {$h_bg};";
+        if ( $h_text ) $css .= "color: {$h_text};";
+        if ( $h_font ) $css .= "font-size: {$h_font};";
+
         if (!empty($typography['headerFontWeight'])) {
             $weight_map = [
                 'normal' => '400',
@@ -551,7 +632,7 @@ class TableRenderer
             $weight = $weight_map[$typography['headerFontWeight']] ?? '600';
             $css .= "font-weight: {$weight};";
         }
-        
+
         if (!empty($typography['headerTextTransform'])) {
             $transform_map = [
                 'uppercase' => 'uppercase',
@@ -568,14 +649,16 @@ class TableRenderer
         $css .= "}";
 
         // Body Styles — base td
+        $b_bg = $this->sanitize_css_color( $body['bgColor'] ?? '' );
+        $b_text = $this->sanitize_css_color( $body['textColor'] ?? '' );
         $css .= "#{$id} .productbay-table tbody td {";
         $css .= "vertical-align: top;";
-        if (!empty($body['bgColor'])) $css .= "background-color: {$body['bgColor']};";
-        if (!empty($body['textColor'])) $css .= "color: {$body['textColor']};";
+        if ( $b_bg ) $css .= "background-color: {$b_bg};";
+        if ( $b_text ) $css .= "color: {$b_text};";
         $css .= "}";
 
         // Body text color: override specific child elements that have hardcoded colors
-        if (!empty($body['textColor'])) {
+        if ( $b_text ) {
             $css .= "#{$id} .productbay-table tbody td .productbay-product-title,";
             $css .= "#{$id} .productbay-table tbody td a:not(.productbay-button),";
             $css .= "#{$id} .productbay-table tbody td .productbay-price,";
@@ -583,26 +666,29 @@ class TableRenderer
             $css .= "#{$id} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
             $css .= "#{$id} .productbay-table tbody td .productbay-price del,";
             $css .= "#{$id} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
-            $css .= "color: {$body['textColor']} !important;";
+            $css .= "color: {$b_text} !important;";
             $css .= "}";
         }
 
         // Layout & Spacing Styles
-        if (isset($layout['borderStyle']) && $layout['borderStyle'] === 'none') {
+        $allowed_border_styles = [ 'none', 'solid', 'dashed', 'dotted', 'double' ];
+        $raw_border_style = $layout['borderStyle'] ?? '';
+        $b_style = in_array( $raw_border_style, $allowed_border_styles, true ) ? $raw_border_style : 'solid';
+        $b_color = $this->sanitize_css_color( $layout['borderColor'] ?? '#e2e8f0' );
+
+        if ( $b_style === 'none' ) {
             $css .= "#{$id} .productbay-table-container { border: none; }";
             $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border: none; }";
         } else {
-            if (!empty($layout['borderStyle']) && $layout['borderStyle'] !== 'none') {
-                $b_style = $layout['borderStyle'];
-                $b_color = $layout['borderColor'] ?? '#e2e8f0';
+            if ( $b_style && $b_color ) {
                 $css .= "#{$id} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
                 $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
-            } elseif (!empty($layout['borderColor'])) {
-                $css .= "#{$id} .productbay-table-container { border-color: {$layout['borderColor']}; }";
-                $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom-color: {$layout['borderColor']}; }";
+            } elseif ( $b_color ) {
+                $css .= "#{$id} .productbay-table-container { border-color: {$b_color}; }";
+                $css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom-color: {$b_color}; }";
             }
         }
-        
+
         $radius_enabled = $layout['borderRadiusEnabled'] ?? true;
         if ($radius_enabled && isset($layout['borderRadius'])) {
             $radius = intval($layout['borderRadius']);
@@ -610,7 +696,7 @@ class TableRenderer
         } elseif (!$radius_enabled) {
             $css .= "#{$id} .productbay-table-container { border-radius: 0; }";
         }
-        
+
         if (!empty($layout['cellPadding'])) {
             $cell_padding_map = [
                 'compact' => '8px 12px',
@@ -623,13 +709,15 @@ class TableRenderer
 
         // Alternate Rows
         if (!empty($body['rowAlternate'])) {
+            $alt_bg = $this->sanitize_css_color( $body['altBgColor'] ?? '' );
+            $alt_text = $this->sanitize_css_color( $body['altTextColor'] ?? '' );
             $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td {";
-            if (!empty($body['altBgColor'])) $css .= "background-color: {$body['altBgColor']};";
-            if (!empty($body['altTextColor'])) $css .= "color: {$body['altTextColor']};";
+            if ( $alt_bg ) $css .= "background-color: {$alt_bg};";
+            if ( $alt_text ) $css .= "color: {$alt_text};";
             $css .= "}";
 
             // Alt row text color: override specific child elements
-            if (!empty($body['altTextColor'])) {
+            if ( $alt_text ) {
                 $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
                 $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
                 $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
@@ -637,20 +725,22 @@ class TableRenderer
                 $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
                 $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
                 $css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
-                $css .= "color: {$body['altTextColor']} !important;";
+                $css .= "color: {$alt_text} !important;";
                 $css .= "}";
             }
         }
 
         // Hover Effect
         if (!empty($hover['rowHoverEnabled'])) {
+            $hov_bg = $this->sanitize_css_color( $hover['rowHoverBgColor'] ?? '' );
+            $hov_text = $this->sanitize_css_color( $hover['rowHoverTextColor'] ?? '' );
             $css .= "#{$id} .productbay-table tbody tr:hover td {";
-            if (!empty($hover['rowHoverBgColor'])) $css .= "background-color: {$hover['rowHoverBgColor']};";
-            if (!empty($hover['rowHoverTextColor'])) $css .= "color: {$hover['rowHoverTextColor']};";
+            if ( $hov_bg ) $css .= "background-color: {$hov_bg};";
+            if ( $hov_text ) $css .= "color: {$hov_text};";
             $css .= "}";
 
             // Hover text color: override specific child elements
-            if (!empty($hover['rowHoverTextColor'])) {
+            if ( $hov_text ) {
                 $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-product-title,";
                 $css .= "#{$id} .productbay-table tbody tr:hover td a:not(.productbay-button),";
                 $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price,";
@@ -658,26 +748,32 @@ class TableRenderer
                 $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
                 $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del,";
                 $css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
-                $css .= "color: {$hover['rowHoverTextColor']} !important;";
+                $css .= "color: {$hov_text} !important;";
                 $css .= "}";
             }
         }
 
         // Button Styles via class override
+        $btn_bg = $this->sanitize_css_color( $button['bgColor'] ?? '' );
+        $btn_text = $this->sanitize_css_color( $button['textColor'] ?? '' );
+        $btn_radius = $this->sanitize_css_value( $button['borderRadius'] ?? '' );
+        $btn_hov_bg = $this->sanitize_css_color( $button['hoverBgColor'] ?? '' );
+        $btn_hov_text = $this->sanitize_css_color( $button['hoverTextColor'] ?? '' );
+
         $css .= "#{$id} .productbay-button {";
         $css .= "display: inline-flex;";
         $css .= "align-items: center;";
         $css .= "justify-content: center;";
         $css .= "min-width: 160px;";
         $css .= "transition: background-color 0.2s ease, color 0.2s ease;";
-        if (!empty($button['bgColor'])) $css .= "background-color: {$button['bgColor']} !important;";
-        if (!empty($button['textColor'])) $css .= "color: {$button['textColor']} !important;";
-        if (!empty($button['borderRadius'])) $css .= "border-radius: {$button['borderRadius']};";
+        if ( $btn_bg ) $css .= "background-color: {$btn_bg} !important;";
+        if ( $btn_text ) $css .= "color: {$btn_text} !important;";
+        if ( $btn_radius ) $css .= "border-radius: {$btn_radius};";
         $css .= "}";
 
         $css .= "#{$id} .productbay-button:hover {";
-        if (!empty($button['hoverBgColor'])) $css .= "background-color: {$button['hoverBgColor']} !important;";
-        if (!empty($button['hoverTextColor'])) $css .= "color: {$button['hoverTextColor']} !important;";
+        if ( $btn_hov_bg ) $css .= "background-color: {$btn_hov_bg} !important;";
+        if ( $btn_hov_text ) $css .= "color: {$btn_hov_text} !important;";
         $css .= "}";
 
         // Added to cart checkmark (SVG)
@@ -749,8 +845,10 @@ class TableRenderer
         // Column Widths
         foreach ($columns as $col) {
             $width = $col['advanced']['width'] ?? ['value' => 0, 'unit' => 'auto'];
-            if ($width['value'] > 0 && $width['unit'] !== 'auto') {
-                $css .= "#{$id} .productbay-col-" . esc_attr($col['id']) . " { width: {$width['value']}{$width['unit']}; }";
+            $w_value = intval( $width['value'] );
+            $w_unit = $this->sanitize_css_unit( $width['unit'] ?? 'auto' );
+            if ( $w_value > 0 && $w_unit !== 'auto' ) {
+                $css .= "#{$id} .productbay-col-" . esc_attr($col['id']) . " { width: {$w_value}{$w_unit}; }";
             }
         }
 
@@ -758,8 +856,10 @@ class TableRenderer
         $bulk_select = $settings['features']['bulkSelect'] ?? ['enabled' => true, 'position' => 'last', 'width' => ['value' => 64, 'unit' => 'px']];
         if ($bulk_select['enabled']) {
             $width = $bulk_select['width'];
-            if ($width['value'] > 0 && $width['unit'] !== 'auto') {
-                $css .= "#{$id} .productbay-col-select { width: {$width['value']}{$width['unit']}; }";
+            $bs_value = intval( $width['value'] );
+            $bs_unit = $this->sanitize_css_unit( $width['unit'] ?? 'px' );
+            if ( $bs_value > 0 && $bs_unit !== 'auto' ) {
+                $css .= "#{$id} .productbay-col-select { width: {$bs_value}{$bs_unit}; }";
             }
         }
 
@@ -839,7 +939,7 @@ class TableRenderer
             
             // If base_url was from get_pagenum_link(999999999), it has 999999999. 
             // If from runtime_args, it's a clean URL. 
-            $base = str_replace(999999999, '%#%', $base_url);
+            $base = str_replace('999999999', '%#%', $base_url);
             
             // If it's a clean URL without %#%, add it for the paged param
             if (strpos($base, '%#%') === false) {

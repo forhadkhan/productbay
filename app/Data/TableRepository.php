@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Data;
 
 // Exit if accessed directly.
@@ -7,6 +9,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Class TableRepository
+ *
+ * Data access layer for ProductBay table posts (CPT: productbay_table).
+ * Handles CRUD operations, product count queries, and data formatting.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Data
+ */
 class TableRepository
 {
     /**
@@ -53,7 +64,9 @@ class TableRepository
 
         // Frontend sends 'title' and 'status', not 'tableTitle' and 'tableStatus'
         $title = isset($data['title']) ? sanitize_text_field($data['title']) : 'Untitled Table';
-        $status = isset($data['status']) ? $data['status'] : 'publish';
+        $allowed_statuses = [ 'publish', 'private', 'draft', 'pending' ];
+        $raw_status = isset($data['status']) ? sanitize_key($data['status']) : 'publish';
+        $status = in_array($raw_status, $allowed_statuses, true) ? $raw_status : 'publish';
 
         // Extract components
         $source = isset($data['source']) ? $data['source'] : [];

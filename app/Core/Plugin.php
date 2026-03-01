@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Core;
 
 // Exit if accessed directly.
@@ -19,13 +21,6 @@ use WpabProductBay\Admin\Admin;
 class Plugin
 {
     /**
-     * The loader that's responsible for maintaining and registering all hooks.
-     *
-     * @var \WpabProductBay\Core\Loader
-     */
-    protected $loader;
-
-    /**
      * @var \WpabProductBay\Data\TableRepository
      */
     protected $table_repository;
@@ -35,6 +30,15 @@ class Plugin
      */
     protected $request;
 
+    /**
+     * Run the plugin.
+     *
+     * Loads dependencies and initializes all plugin components.
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function run()
     {
         $this->load_dependencies();

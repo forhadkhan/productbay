@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Http;
 
 // Exit if accessed directly.
@@ -9,6 +11,16 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBay\Data\TableRepository;
 
+/**
+ * Class Router
+ *
+ * Registers all REST API routes for the ProductBay plugin.
+ * Maps HTTP methods and endpoints to their respective controller callbacks
+ * with capability-based permission checks.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Http
+ */
 class Router
 {
     /**
@@ -27,11 +39,25 @@ class Router
         $this->request = $request;
     }
 
+    /**
+     * Initialize the router by hooking into rest_api_init.
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function init()
     {
         \add_action('rest_api_init', [$this, 'register_routes']);
     }
 
+    /**
+     * Register all REST API routes.
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function register_routes()
     {
         $controller = new \WpabProductBay\Api\TablesController($this->repository, $this->request);
@@ -128,6 +154,13 @@ class Router
 
 
 
+    /**
+     * Check if the current user has permission to access the API.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if user has 'manage_options' capability.
+     */
     public function permission_check()
     {
         return \current_user_can('manage_options');

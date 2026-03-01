@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Api;
 
 // Exit if accessed directly.
@@ -11,10 +13,32 @@ use WpabProductBay\Http\Request;
 use WpabProductBay\Data\TableRepository;
 use WpabProductBay\Frontend\TableRenderer;
 
+/**
+ * Class PreviewController
+ *
+ * Handles live preview rendering for the table editor.
+ * Accepts table configuration via POST and returns rendered HTML.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Api
+ */
 class PreviewController extends ApiController
 {
+    /**
+     * The table repository instance.
+     *
+     * @var TableRepository
+     */
     protected $repository;
 
+    /**
+     * Initialize the controller.
+     *
+     * @since 1.0.0
+     *
+     * @param TableRepository $repository Table data repository.
+     * @param Request         $request    HTTP request handler.
+     */
     public function __construct(TableRepository $repository, Request $request)
     {
         parent::__construct($request);

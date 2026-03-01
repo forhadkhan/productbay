@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Frontend;
 
 // Exit if accessed directly.
@@ -10,17 +12,52 @@ if (!defined('ABSPATH')) {
 use WpabProductBay\Data\TableRepository;
 use WpabProductBay\Http\Request;
 
+/**
+ * Class AjaxRenderer
+ *
+ * Handles frontend AJAX requests for table filtering, search, pagination,
+ * and bulk add-to-cart operations. Registered via wp_ajax hooks.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Frontend
+ */
 class AjaxRenderer
 {
+    /**
+     * The table repository instance.
+     *
+     * @var TableRepository
+     */
     protected $repository;
+
+    /**
+     * The HTTP request handler.
+     *
+     * @var Request
+     */
     protected $request;
 
+    /**
+     * Initialize the AJAX renderer.
+     *
+     * @since 1.0.0
+     *
+     * @param TableRepository $repository Table data repository.
+     * @param Request         $request    HTTP request handler.
+     */
     public function __construct(TableRepository $repository, Request $request)
     {
         $this->repository = $repository;
         $this->request = $request;
     }
 
+    /**
+     * Register AJAX action hooks.
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function init()
     {
         \add_action('wp_ajax_productbay_filter', [$this, 'handle_filter']);
@@ -30,6 +67,15 @@ class AjaxRenderer
         \add_action('wp_ajax_nopriv_productbay_bulk_add_to_cart', [$this, 'handle_bulk_add_to_cart']);
     }
 
+    /**
+     * Handle table filter/search/pagination AJAX requests.
+     *
+     * Validates nonce, retrieves table config, and returns rendered rows + pagination.
+     *
+     * @since 1.0.0
+     *
+     * @return void Sends JSON response and exits.
+     */
     public function handle_filter()
     {
         if (!check_ajax_referer('productbay_frontend', 'nonce', false)) {
@@ -62,6 +108,16 @@ class AjaxRenderer
         \wp_send_json_success($response);
     }
 
+    /**
+     * Handle bulk add-to-cart AJAX requests.
+     *
+     * Validates nonce, processes each item (with stock and variation checks),
+     * and returns success/error counts.
+     *
+     * @since 1.0.0
+     *
+     * @return void Sends JSON response and exits.
+     */
     public function handle_bulk_add_to_cart()
     {
         if (!check_ajax_referer('productbay_frontend', 'nonce', false)) {

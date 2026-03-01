@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WpabProductBay\Api;
 
 // Exit if accessed directly.
@@ -9,15 +11,45 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBay\Http\Request;
 
+/**
+ * Class SettingsController
+ *
+ * Manages plugin settings via the REST API.
+ * Handles reading, updating, and resetting global plugin configuration.
+ *
+ * @since   1.0.0
+ * @package WpabProductBay\Api
+ */
 class SettingsController extends ApiController
 {
+    /**
+     * WordPress option name for plugin settings.
+     *
+     * @var string
+     */
     const OPTION_NAME = 'productbay_settings';
 
+    /**
+     * Initialize the controller.
+     *
+     * @since 1.0.0
+     *
+     * @param Request $request HTTP request handler.
+     */
     public function __construct(Request $request)
     {
         parent::__construct($request);
     }
 
+    /**
+     * Get current plugin settings.
+     *
+     * Returns stored settings merged with defaults.
+     *
+     * @since 1.0.0
+     *
+     * @return array Plugin settings.
+     */
     public function get_settings()
     {
         return get_option(self::OPTION_NAME, $this->defaults());
@@ -94,6 +126,16 @@ class SettingsController extends ApiController
         ];
     }
 
+    /**
+     * Get default plugin settings.
+     *
+     * Provides the full default configuration structure for new installations
+     * and as a fallback for missing settings.
+     *
+     * @since 1.0.0
+     *
+     * @return array Default settings array.
+     */
     private function defaults()
     {
         return [
