@@ -2,21 +2,25 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ProductBay - Product Table for WooCommerce 1.0.0\n"
+"Project-Id-Version: ProductBay 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/productbay\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-01T15:52:11+00:00\n"
+"POT-Creation-Date: 2026-03-01T21:34:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
 
 #. Plugin Name of the plugin
 #: productbay.php
-msgid "ProductBay - Product Table for WooCommerce"
+#: app/Admin/Admin.php:71
+#: app/Admin/Admin.php:73
+#: app/Admin/Admin.php:166
+#: app/Admin/Admin.php:171
+msgid "ProductBay"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -39,282 +43,127 @@ msgstr ""
 msgid "https://wpanchorbay.com/"
 msgstr ""
 
-#: app/Admin/Admin.php:63
-#: app/Admin/Admin.php:65
-#: app/Admin/Admin.php:157
-#: app/Admin/Admin.php:162
-msgid "ProductBay"
-msgstr ""
-
-#: app/Admin/Admin.php:84
-#: app/Admin/Admin.php:86
-#: app/Admin/Admin.php:119
-#: app/Admin/Admin.php:120
-#: app/Admin/Admin.php:170
+#: app/Admin/Admin.php:92
+#: app/Admin/Admin.php:94
+#: app/Admin/Admin.php:127
+#: app/Admin/Admin.php:128
+#: app/Admin/Admin.php:181
 #: assets/js/admin.js:9
 msgid "Tables"
 msgstr ""
 
-#: app/Admin/Admin.php:98
-#: app/Admin/Admin.php:99
-#: app/Admin/Admin.php:178
+#: app/Admin/Admin.php:106
+#: app/Admin/Admin.php:107
+#: app/Admin/Admin.php:191
 #: assets/js/admin.js:9
 msgid "Settings"
 msgstr ""
 
-#: app/Admin/Admin.php:108
-#: app/Admin/Admin.php:109
-#: app/Admin/Admin.php:186
+#: app/Admin/Admin.php:116
+#: app/Admin/Admin.php:117
+#: app/Admin/Admin.php:201
 #: assets/js/admin.js:9
 msgid "Create New Table"
 msgstr ""
 
-#: app/Frontend/AjaxRenderer.php:74
+#: app/Frontend/AjaxRenderer.php:136
 msgid "No products selected"
 msgstr ""
 
 #. translators: %d: product ID
-#: app/Frontend/AjaxRenderer.php:100
+#: app/Frontend/AjaxRenderer.php:162
 #, php-format
 msgid "Product #%d not found."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:115
+#: app/Frontend/AjaxRenderer.php:177
 #, php-format
 msgid "\"%s\" is out of stock."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:134
+#: app/Frontend/AjaxRenderer.php:196
 #, php-format
 msgid "Please select options for \"%s\"."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:144
+#: app/Frontend/AjaxRenderer.php:206
 #, php-format
 msgid "Selected variation for \"%s\" is unavailable."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:167
+#: app/Frontend/AjaxRenderer.php:229
 #, php-format
 msgid "Could not add \"%s\" to cart."
 msgstr ""
 
 #. translators: %d: number of products added to cart
-#: app/Frontend/AjaxRenderer.php:176
+#: app/Frontend/AjaxRenderer.php:238
 #, php-format
 msgid "%d product(s) added to cart."
 msgstr ""
 
-#: app/Frontend/AjaxRenderer.php:185
+#: app/Frontend/AjaxRenderer.php:248
 msgid "Failed to add products to cart."
 msgstr ""
 
 #. translators: %s: table title
-#: app/Frontend/Shortcode.php:75
+#: app/Frontend/Shortcode.php:93
 #, php-format
 msgid "ProductBay: Table \"%s\" is currently private. It will appear here once it is published."
 msgstr ""
 
-#: app/Frontend/Shortcode.php:115
+#: app/Frontend/Shortcode.php:137
 msgid "View cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:104
+#: app/Frontend/TableRenderer.php:136
 #: assets/js/admin.js:1
 msgid "Add to Cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:211
-#: app/Frontend/TableRenderer.php:934
+#: app/Frontend/TableRenderer.php:246
+#: app/Frontend/TableRenderer.php:1155
 msgid "No products found."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:384
+#: app/Frontend/TableRenderer.php:427
 msgid "Buy product"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:394
+#: app/Frontend/TableRenderer.php:437
 msgid "View Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:402
+#: app/Frontend/TableRenderer.php:445
 msgid "Out of Stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:410
+#: app/Frontend/TableRenderer.php:453
 msgid "Select Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:488
+#: app/Frontend/TableRenderer.php:531
 msgid "Add to cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:519
+#: app/Frontend/TableRenderer.php:562
 msgid "Increase quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:520
+#: app/Frontend/TableRenderer.php:563
 msgid "Decrease quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:822
+#: app/Frontend/TableRenderer.php:1018
 msgid "Search products..."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:823
+#: app/Frontend/TableRenderer.php:1019
 msgid "Clear"
-msgstr ""
-
-#: assets/js/207.js:1
-#: assets/js/402.js:1
-#: assets/js/src_components_Settings_UninstallOptions_tsx.js:63
-msgid "Uninstall Options"
-msgstr ""
-
-#: assets/js/207.js:1
-#: assets/js/402.js:1
-#: assets/js/src_components_Settings_UninstallOptions_tsx.js:69
-msgid "Delete Data on Uninstall"
-msgstr ""
-
-#: assets/js/207.js:1
-#: assets/js/402.js:1
-#: assets/js/src_components_Settings_UninstallOptions_tsx.js:72
-msgid "Enable this to wipe all tables and settings when deleting the plugin."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:107
-msgid "Clear Data"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/admin.js:9
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:113
-msgid "Reset to Factory Defaults"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:116
-msgid "This will permanently delete all saved tables, settings, styles, and configurations — restoring the plugin to its freshly installed state."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:122
-msgid "Reset all data of ProductBay"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:124
-msgid "Reset Data"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:134
-msgid "Reset All Plugin Data?"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:138
-msgid "Resetting..."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:138
-msgid "Yes, Reset Everything"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:60
-msgid "Factory Reset Complete"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:61
-msgid "table"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:61
-msgid "tables"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:61
-msgid "deleted. All data has been reset to factory defaults. Reloading..."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:61
-msgid "All data has been reset to factory defaults. Reloading..."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:73
-msgid "Reset Failed"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:74
-msgid "Failed to reset plugin data. Please try again."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/admin.js:1
-#: assets/js/admin.js:5
-#: assets/js/admin.js:6
-#: assets/js/admin.js:7
-#: assets/js/admin.js:9
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:147
-msgid "Cancel"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:159
-msgid "This action is irreversible."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:162
-msgid "This will delete all your saved tables and reset every setting to factory defaults. The plugin will return to its freshly installed state. This cannot be undone."
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:167
-msgid "Type \"RESET\" to confirm:"
-msgstr ""
-
-#: assets/js/308.js:1
-#: assets/js/src_components_Settings_ClearDataOptions_tsx.js:172
-msgid "RESET"
-msgstr ""
-
-#: assets/js/837.js:1
-#: assets/js/src_components_Settings_AdminBarOptions_tsx.js:64
-msgid "Admin Bar"
-msgstr ""
-
-#: assets/js/837.js:1
-#: assets/js/src_components_Settings_AdminBarOptions_tsx.js:70
-msgid "Show in Admin Bar"
-msgstr ""
-
-#: assets/js/837.js:1
-#: assets/js/src_components_Settings_AdminBarOptions_tsx.js:73
-msgid "Display ProductBay menu in the WordPress admin bar at the top of the page for quick access."
-msgstr ""
-
-#: assets/js/admin.js:1
-#: assets/js/admin.js:9
-msgid "Close"
-msgstr ""
-
-#: assets/js/admin.js:1
-msgid "To Close, Press"
 msgstr ""
 
 #: assets/js/admin.js:1
@@ -536,6 +385,11 @@ msgstr ""
 
 #: assets/js/admin.js:1
 msgid "Add Column"
+msgstr ""
+
+#: assets/js/admin.js:1
+#: assets/js/admin.js:9
+msgid "Close"
 msgstr ""
 
 #: assets/js/admin.js:1
@@ -845,6 +699,119 @@ msgstr ""
 
 #: assets/js/admin.js:1
 msgid "Select product source"
+msgstr ""
+
+#: assets/js/admin.js:1
+#: assets/js/admin.js:5
+#: assets/js/admin.js:6
+#: assets/js/admin.js:7
+#: assets/js/admin.js:9
+msgid "Cancel"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "To Close, Press"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Admin Bar"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Show in Admin Bar"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Display ProductBay menu in the WordPress admin bar at the top of the page for quick access."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Uninstall Options"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Delete Data on Uninstall"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Enable this to wipe all tables and settings when deleting the plugin."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Clear Data"
+msgstr ""
+
+#: assets/js/admin.js:1
+#: assets/js/admin.js:9
+msgid "Reset to Factory Defaults"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "This will permanently delete all saved tables, settings, styles, and configurations — restoring the plugin to its freshly installed state."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Reset all data of ProductBay"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Reset Data"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Reset All Plugin Data?"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Resetting..."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Yes, Reset Everything"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Factory Reset Complete"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "table"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "tables"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "deleted. All data has been reset to factory defaults. Reloading..."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "All data has been reset to factory defaults. Reloading..."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Reset Failed"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Failed to reset plugin data. Please try again."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "This action is irreversible."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "This will delete all your saved tables and reset every setting to factory defaults. The plugin will return to its freshly installed state. This cannot be undone."
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "Type \"RESET\" to confirm:"
+msgstr ""
+
+#: assets/js/admin.js:1
+msgid "RESET"
 msgstr ""
 
 #: assets/js/admin.js:1

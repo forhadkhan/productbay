@@ -3,7 +3,7 @@ import { BulkSelectConfig } from '@/components/Table/sections/BulkSelectConfig';
 import { DisplayPanel } from '@/components/Table/panels/DisplayPanel';
 import { OptionsPanel } from '@/components/Table/panels/OptionsPanel';
 import { SaveIcon, RefreshCwIcon, RotateCcwIcon } from 'lucide-react';
-import { useEffect, useState, Suspense, lazy, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { SourcePanel } from '@/components/Table/panels/SourcePanel';
 import { useSettingsStore } from '@/store/settingsStore';
 import { Tabs, TabOption } from '@/components/ui/Tabs';
@@ -23,10 +23,10 @@ import {
 	TableSettings as TableSettingsType
 } from '@/types';
 
-// Lazy load settings components
-const AdminBarOptions = lazy(() => import('@/components/Settings/AdminBarOptions'));
-const UninstallOptions = lazy(() => import('@/components/Settings/UninstallOptions'));
-const ClearDataOptions = lazy(() => import('@/components/Settings/ClearDataOptions'));
+// Static imports for settings components
+import AdminBarOptions from '@/components/Settings/AdminBarOptions';
+import UninstallOptions from '@/components/Settings/UninstallOptions';
+import ClearDataOptions from '@/components/Settings/ClearDataOptions';
 
 type SettingsTabValue = 'default' | 'plugin';
 
@@ -201,94 +201,93 @@ const Settings = () => {
 				onChange={setActiveTab}
 				aria-label={__('Settings tabs', 'productbay')}
 			>
-				<Suspense fallback={<SettingsTabSkeleton />}>
-					{/* Default ConfigurationTab */}
-					{activeTab === 'default' && (
-						<div className="space-y-10 p-6">
-							<div className="max-w-4xl space-y-10">
+				{/* Default ConfigurationTab */}
+				{/* Default ConfigurationTab */}
+				{activeTab === 'default' && (
+					<div className="space-y-10 p-6">
+						<div className="max-w-4xl space-y-10">
+							<div>
+								<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Source', 'productbay')}</h2>
+								<p className="text-gray-500 mb-6">{__('Configure the default data source settings for new tables.', 'productbay')}</p>
+
+								<SourcePanel
+									source={source}
+									setSourceType={setSourceType}
+									className="border-none"
+								/>
+							</div>
+
+							<hr className="border-b-2 border-gray-200" />
+
+							<div className="flex flex-col gap-8">
 								<div>
-									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Source', 'productbay')}</h2>
-									<p className="text-gray-500 mb-6">{__('Configure the default data source settings for new tables.', 'productbay')}</p>
-
-									<SourcePanel
-										source={source}
-										setSourceType={setSourceType}
-										className="border-none"
+									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Columns', 'productbay')}</h2>
+									<p className="text-gray-500 mb-6">{__('Configure the default columns for new tables.', 'productbay')}</p>
+									<DefaultColumnsConfig
+										columns={columns}
+										onChange={setColumns}
 									/>
 								</div>
 
-								<hr className="border-b-2 border-gray-200" />
+								{/* Bulk Select Configuration */}
+								<BulkSelectConfig
+									value={tableSettings.features.bulkSelect}
+									onChange={(config) => setFeatures({ bulkSelect: config })}
+								/>
+							</div>
 
-								<div className="flex flex-col gap-8">
-									<div>
-										<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Columns', 'productbay')}</h2>
-										<p className="text-gray-500 mb-6">{__('Configure the default columns for new tables.', 'productbay')}</p>
-										<DefaultColumnsConfig
-											columns={columns}
-											onChange={setColumns}
-										/>
-									</div>
+							<hr className="border-b-2 border-gray-200" />
 
-									{/* Bulk Select Configuration */}
-									<BulkSelectConfig
-										value={tableSettings.features.bulkSelect}
-										onChange={(config) => setFeatures({ bulkSelect: config })}
-									/>
-								</div>
+							<div>
+								<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Styling', 'productbay')}</h2>
+								<p className="text-gray-500 mb-6">{__('Set the default look and feel for your tables.', 'productbay')}</p>
+								<DisplayPanel
+									style={style}
+									setHeaderStyle={setHeaderStyle}
+									setBodyStyle={setBodyStyle}
+									setButtonStyle={setButtonStyle}
+									setLayoutStyle={setLayoutStyle}
+									setTypographyStyle={setTypographyStyle}
+									setHoverStyle={setHoverStyle}
+									className="border-none"
+								/>
+							</div>
 
-								<hr className="border-b-2 border-gray-200" />
+							<hr className="border-b-2 border-gray-200" />
 
-								<div>
-									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Styling', 'productbay')}</h2>
-									<p className="text-gray-500 mb-6">{__('Set the default look and feel for your tables.', 'productbay')}</p>
-									<DisplayPanel
-										style={style}
-										setHeaderStyle={setHeaderStyle}
-										setBodyStyle={setBodyStyle}
-										setButtonStyle={setButtonStyle}
-										setLayoutStyle={setLayoutStyle}
-										setTypographyStyle={setTypographyStyle}
-										setHoverStyle={setHoverStyle}
-										className="border-none"
-									/>
-								</div>
-
-								<hr className="border-b-2 border-gray-200" />
-
-								<div>
-									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Functionality', 'productbay')}</h2>
-									<p className="text-gray-500 mb-6">{__('Configure default features like sorting, pagination, and filters.', 'productbay')}</p>
-									<OptionsPanel
-										settings={tableSettings}
-										setFeatures={setFeatures}
-										setPagination={setPagination}
-										setCart={setCart}
-										className="border-none"
-									/>
-								</div>
+							<div>
+								<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Functionality', 'productbay')}</h2>
+								<p className="text-gray-500 mb-6">{__('Configure default features like sorting, pagination, and filters.', 'productbay')}</p>
+								<OptionsPanel
+									settings={tableSettings}
+									setFeatures={setFeatures}
+									setPagination={setPagination}
+									setCart={setCart}
+									className="border-none"
+								/>
 							</div>
 						</div>
-					)}
+					</div>
+				)}
 
-					{/* Plugin Configuration Tab */}
-					{activeTab === 'plugin' && (
-						<div className="space-y-6">
-							<AdminBarOptions
-								settings={settings}
-								setSettings={updateSettings}
-								loading={loading}
-							/>
-							<UninstallOptions
-								settings={settings}
-								setSettings={updateSettings}
-								loading={loading}
-							/>
-							<ClearDataOptions
-								loading={loading}
-							/>
-						</div>
-					)}
-				</Suspense>
+				{/* Plugin Configuration Tab */}
+				{activeTab === 'plugin' && (
+					<div className="space-y-6">
+						<AdminBarOptions
+							settings={settings}
+							setSettings={updateSettings}
+							loading={loading}
+						/>
+						<UninstallOptions
+							settings={settings}
+							setSettings={updateSettings}
+							loading={loading}
+						/>
+						<ClearDataOptions
+							loading={loading}
+						/>
+					</div>
+				)}
 			</Tabs>
 
 			{/* Reload Modal */}
