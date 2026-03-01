@@ -33,6 +33,7 @@ class PreviewController extends ApiController {
 	 * The table repository instance.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -54,6 +55,7 @@ class PreviewController extends ApiController {
 	 *
 	 * @param \WP_REST_Request $request REST API request object.
 	 * @return \WP_REST_Response
+	 * @since 1.0.0
 	 */
 	public function preview( $request ) {
 		$data = $request->get_json_params();

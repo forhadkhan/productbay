@@ -22,6 +22,7 @@ use WpabProductBay\Data\TableRepository;
  * Handles the registration and rendering of proper shortcodes.
  *
  * @package WpabProductBay\Frontend
+ * @since 1.0.0
  */
 class Shortcode {
 
@@ -29,6 +30,7 @@ class Shortcode {
 	 * Repository for table data access.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -36,6 +38,7 @@ class Shortcode {
 	 * Constructor.
 	 *
 	 * @param TableRepository $repository Table repository instance.
+	 * @since 1.0.0
 	 */
 	public function __construct( TableRepository $repository ) {
 		$this->repository = $repository;
@@ -43,6 +46,8 @@ class Shortcode {
 
 	/**
 	 * Initialize the shortcode.
+	 *
+	 * @since 1.0.0
 	 */
 	public function init() {
 		add_shortcode( 'productbay', array( $this, 'render_product_table' ) );
@@ -53,6 +58,7 @@ class Shortcode {
 	 *
 	 * @param array $atts Shortcode attributes.
 	 * @return string
+	 * @since 1.0.0
 	 */
 	public function render_product_table( $atts ) {
 		$this->enqueue_assets();
@@ -99,6 +105,8 @@ class Shortcode {
 
 	/**
 	 * Enqueue frontend assets.
+	 *
+	 * @since 1.0.0
 	 */
 	private function enqueue_assets() {
 		$css_file = PRODUCTBAY_PATH . 'assets/css/frontend.css';

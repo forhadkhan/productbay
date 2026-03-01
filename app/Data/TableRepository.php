@@ -32,6 +32,8 @@ class TableRepository {
 
 	/**
 	 * Get all tables.
+	 *
+	 * @since 1.0.0
 	 */
 	public function get_tables() {
 		$query = new \WP_Query(
@@ -54,6 +56,7 @@ class TableRepository {
 	 *
 	 * @param int $id Post ID.
 	 * @return array|null Table data or null if not found.
+	 * @since 1.0.0
 	 */
 	public function get_table( $id ) {
 		$post = get_post( $id );
@@ -68,6 +71,7 @@ class TableRepository {
 	 *
 	 * @param array $data Table data from the frontend.
 	 * @return array Saved table data or error array.
+	 * @since 1.0.0
 	 */
 	public function save_table( $data ) {
 		$id = isset( $data['id'] ) ? intval( $data['id'] ) : 0;
@@ -117,6 +121,7 @@ class TableRepository {
 	 *
 	 * @param int $id Post ID.
 	 * @return \WP_Post|false|null Deleted post object or false/null on failure.
+	 * @since 1.0.0
 	 */
 	public function delete_table( $id ) {
 		return wp_delete_post( $id, true );
@@ -127,6 +132,7 @@ class TableRepository {
 	 *
 	 * @param \WP_Post $post WordPress post object.
 	 * @return array Formatted table data.
+	 * @since 1.0.0
 	 */
 	private function format_table( $post ) {
 		// Retrieve individual meta keys.
@@ -156,6 +162,7 @@ class TableRepository {
 	 *
 	 * @param array $source The table's source configuration array.
 	 * @return int The number of matching products.
+	 * @since 1.0.0
 	 */
 	private function get_product_count( $source ) {
 		// Require WooCommerce.

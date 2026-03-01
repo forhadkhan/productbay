@@ -24,6 +24,7 @@ use WpabProductBay\Core\Constants;
  * and initializing the React application container.
  *
  * @package ProductBay\Admin
+ * @since 1.0.0
  */
 class Admin {
 
@@ -31,6 +32,7 @@ class Admin {
 	 * The repository instance (placeholder for future implementation).
 	 *
 	 * @var mixed
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -38,6 +40,7 @@ class Admin {
 	 * The request instance (placeholder for future implementation).
 	 *
 	 * @var mixed
+	 * @since 1.0.0
 	 */
 	protected $request;
 
@@ -46,6 +49,7 @@ class Admin {
 	 *
 	 * @param mixed $repository Repository instance.
 	 * @param mixed $request    Request instance.
+	 * @since 1.0.0
 	 */
 	public function __construct( $repository, $request ) {
 		$this->repository = $repository;
@@ -58,6 +62,7 @@ class Admin {
 	 * Registers a top-level menu page and several submenus to navigate the React application.
 	 *
 	 * @return void
+	 * @since 1.0.0
 	 */
 	public function register_menu(): void {
 		// Register top-level menu page in WordPress admin sidebar.
@@ -136,6 +141,7 @@ class Admin {
 	 *
 	 * @param \WP_Admin_Bar $wp_admin_bar The WordPress admin bar instance.
 	 * @return void
+	 * @since 1.0.0
 	 */
 	public function register_admin_bar( \WP_Admin_Bar $wp_admin_bar ): void {
 		// Only show for users with appropriate capabilities.
@@ -204,6 +210,7 @@ class Admin {
 	 * This function outputs the HTML div where the React application will mount.
 	 *
 	 * @return void
+	 * @since 1.0.0
 	 */
 	public function render_app(): void {
 		echo '<div id="productbay-root" class="productbay-wrapper"></div>';
@@ -217,6 +224,7 @@ class Admin {
 	 * and a clean URL structure.
 	 *
 	 * @return void
+	 * @since 1.0.0
 	 */
 	public function redirect_to_productbay(): void {
 		// Redirect to the main plugin page which is now Tables (#/tables is default but optional if handled in React)
@@ -234,6 +242,7 @@ class Admin {
 	 *
 	 * @param string $hook The current admin page hook.
 	 * @return void
+	 * @since 1.0.0
 	 */
 	public function enqueue_scripts( string $hook ): void {
 		// Allow loading on any productbay page.

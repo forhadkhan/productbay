@@ -32,11 +32,14 @@ class Request {
 	 * Preserved unsanitized for complex nested structures (e.g. table config).
 	 *
 	 * @var array
+	 * @since 1.0.0
 	 */
 	private $rawData = array();
 
 	/**
 	 * Constructor. Parses JSON input from the request body.
+	 *
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$this->handleJsonInput();
@@ -44,6 +47,8 @@ class Request {
 
 	/**
 	 * Handle JSON input for REST API requests.
+	 *
+	 * @since 1.0.0
 	 */
 	private function handleJsonInput() {
 		if (
@@ -68,6 +73,7 @@ class Request {
 	 * @param string $key     Parameter name.
 	 * @param mixed  $default Default value if key is not set.
 	 * @return mixed Sanitized value or default.
+	 * @since 1.0.0
 	 */
 	public function get( $key, $default = null ) {
 		// Special handling for 'data' key - return raw data without sanitization.
@@ -90,6 +96,7 @@ class Request {
 	 *
 	 * @param mixed $value Raw input value.
 	 * @return mixed Sanitized value.
+	 * @since 1.0.0
 	 */
 	public function sanitize( $value ) {
 		// Preserve arrays and objects - recursively sanitize array values.
@@ -127,6 +134,7 @@ class Request {
 	 * @param string $key     Parameter name.
 	 * @param int    $default Default value if key is not set.
 	 * @return int
+	 * @since 1.0.0
 	 */
 	public function int( $key, $default = 0 ) {
 		$value = $this->get( $key, $default );

@@ -57,6 +57,8 @@ require_once __DIR__ . '/vendor/autoload.php';
  * Load Environment Variables from .env file (development only)
  * The .env file should NOT be included in production releases.
  * If .env doesn't exist, the plugin uses production defaults.
+ *
+	 * @since 1.0.0
  */
 $productbay_dotenv_path = __DIR__ . '/.env';
 if ( \file_exists( $productbay_dotenv_path ) && \class_exists( 'Dotenv\\Dotenv' ) ) {
@@ -74,6 +76,8 @@ define( 'PRODUCTBAY_DEV_MODE', \filter_var( getenv( 'PRODUCTBAY_DEV_MODE' ) ?: f
 
 /**
  * Initialization
+ *
+ * @since 1.0.0
  */
 function productbay_init() {
 	$plugin = new Core\Plugin();

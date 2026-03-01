@@ -22,6 +22,7 @@ use WpabProductBay\Admin\Admin;
  * The main plugin class which handles the loading of all dependencies.
  *
  * @package WpabProductBay\Core
+ * @since 1.0.0
  */
 class Plugin {
 
@@ -29,6 +30,7 @@ class Plugin {
 	 * Repository for table data access.
 	 *
 	 * @var \WpabProductBay\Data\TableRepository
+	 * @since 1.0.0
 	 */
 	protected $table_repository;
 
@@ -36,6 +38,7 @@ class Plugin {
 	 * HTTP request wrapper instance.
 	 *
 	 * @var \WpabProductBay\Http\Request
+	 * @since 1.0.0
 	 */
 	protected $request;
 
@@ -59,6 +62,7 @@ class Plugin {
 	 * Initializes the TableRepository and Request classes.
 	 *
 	 * @return void
+	 * @since 1.0.0
 	 */
 	private function load_dependencies() {
 		$this->table_repository = new \WpabProductBay\Data\TableRepository();
@@ -71,6 +75,7 @@ class Plugin {
 	 * Sets up the Admin area, API Router, and Frontend renderers.
 	 *
 	 * @return void
+	 * @since 1.0.0
 	 */
 	private function init_components() {
 		// Admin Area.
