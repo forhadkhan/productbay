@@ -22,7 +22,7 @@ interface Table {
 	date: string;
 	modifiedDate?: string;
 	productCount?: number;
-	status: string; // 'publish' | 'draft' etc.
+	status: string; // 'publish' | 'private' etc.
 	source?: any;
 	columns?: any[];
 	settings?: any;
@@ -34,8 +34,8 @@ interface Table {
  */
 const BULK_OPTIONS = [
 	{ label: __('Delete', 'productbay'), value: 'delete' },
-	{ label: __('Set Active', 'productbay'), value: 'active' },
-	{ label: __('Set Inactive', 'productbay'), value: 'inactive' },
+	{ label: __('Set Published', 'productbay'), value: 'published' },
+	{ label: __('Set Private', 'productbay'), value: 'private' },
 ];
 
 /**
@@ -53,8 +53,8 @@ const ROWS_PER_PAGE_OPTIONS = [
  * Filter options for table listing
  */
 const STATUS_OPTIONS = [
-	{ label: __('Active', 'productbay'), value: 'publish' },
-	{ label: __('Inactive', 'productbay'), value: 'draft' },
+	{ label: __('Published', 'productbay'), value: 'publish' },
+	{ label: __('Private', 'productbay'), value: 'private' },
 ];
 
 const SOURCE_OPTIONS = [
@@ -205,7 +205,7 @@ const Tables = () => {
 			// Create payload with duplicated data
 			const payload = {
 				title: `${tableToClone.title} (Copy)`,
-				status: 'draft', // New duplicates start as draft
+				status: 'private', // New duplicates start as private
 				source: tableToClone.source || {},
 				columns: tableToClone.columns || [],
 				settings: tableToClone.settings || {},
@@ -239,7 +239,7 @@ const Tables = () => {
 		}
 	};
 
-	// Handle toggle active/inactive
+	// Handle toggle published/private
 	const handleToggleActive = async () => {
 		if (!modalState.tableId) return;
 
@@ -247,7 +247,7 @@ const Tables = () => {
 		const table = tables.find(t => t.id === id);
 		if (!table) return;
 
-		const newStatus = table.status === 'publish' ? 'draft' : 'publish';
+		const newStatus = table.status === 'publish' ? 'private' : 'publish';
 		setActionLoading(prev => ({ ...prev, [id]: 'toggle' }));
 		closeModal();
 
@@ -274,8 +274,8 @@ const Tables = () => {
 			toast({
 				title: __('Success', 'productbay'),
 				description: newStatus === 'publish'
-					? __('Table activated successfully', 'productbay')
-					: __('Table deactivated successfully', 'productbay'),
+					? __('Table published successfully', 'productbay')
+					: __('Table set to private successfully', 'productbay'),
 				type: 'success'
 			});
 		} catch (error) {
@@ -346,9 +346,9 @@ const Tables = () => {
 					type: 'success'
 				});
 
-			} else if (selectedBulkAction === 'active' || selectedBulkAction === 'inactive') {
+			} else if (selectedBulkAction === 'published' || selectedBulkAction === 'private') {
 				// Determine new status
-				const newStatus = selectedBulkAction === 'active' ? 'publish' : 'draft';
+				const newStatus = selectedBulkAction === 'published' ? 'publish' : 'private';
 
 				// Process updates for each selected table
 				await Promise.all(selectedRows.map(async (id) => {
@@ -873,8 +873,8 @@ const Tables = () => {
 													disabled={isActing}
 												>
 													{table.status === 'publish'
-														? __('Deactivate', 'productbay')
-														: __('Activate', 'productbay')}
+														? __('Set Private', 'productbay')
+														: __('Publish', 'productbay')}
 												</button>
 												<span className="text-gray-300">
 													|
@@ -898,7 +898,7 @@ const Tables = () => {
 												</span>
 											) : (
 												<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-													{__('Draft', 'productbay')}
+													{__('Private', 'productbay')}
 												</span>
 											)}
 										</td>
@@ -1182,8 +1182,8 @@ const Tables = () => {
 				maxWidth="md"
 				primaryButton={{
 					text: modalState.currentStatus === 'publish'
-						? __('Deactivate', 'productbay')
-						: __('Activate', 'productbay'),
+						? __('Set Private', 'productbay')
+						: __('Publish', 'productbay'),
 					onClick: handleToggleActive,
 					variant: modalState.currentStatus === 'publish' ? 'danger' : 'primary'
 				}}
@@ -1197,12 +1197,12 @@ const Tables = () => {
 					{modalState.currentStatus === 'publish'
 						? sprintf(
 							/* translators: %s: table name */
-							__('Are you sure you want to deactivate "%s"?', 'productbay'),
+							__('Are you sure you want to set "%s" to private?', 'productbay'),
 							modalState.tableName
 						)
 						: sprintf(
 							/* translators: %s: table name */
-							__('Are you sure you want to activate "%s"?', 'productbay'),
+							__('Are you sure you want to publish "%s"?', 'productbay'),
 							modalState.tableName
 						)
 					}

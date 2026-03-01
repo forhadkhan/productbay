@@ -22,7 +22,7 @@ class TableRepository
         $query = new \WP_Query([
             'post_type' => self::POST_TYPE,
             'posts_per_page' => -1,
-            'post_status' => 'any' // Return all tables (publish, draft, etc.)
+            'post_status' => 'any' // Return all tables (publish, private, etc.)
         ]);
 
         $tables = [];

@@ -65,6 +65,21 @@ class Shortcode
             return '';
         }
 
+        // Only render published tables on the frontend.
+        if ($table['status'] !== 'publish') {
+            // Show a helpful notice to admins so they know why the table isn't rendering.
+            if (current_user_can('manage_options')) {
+                return '<p style="padding:12px 16px;background:#fef3cd;border:1px solid #e9b006ff;border-radius:4px;color:#664d03;font-size:14px;">'
+                    . sprintf(
+                        /* translators: %s: table title */
+                        esc_html__('ProductBay: Table "%s" is currently private. It will appear here once it is published.', 'productbay'),
+                        esc_html($table['title'])
+                    )
+                    . '</p>';
+            }
+            return '';
+        }
+
         // Instantiate renderer (or inject if we refactor Plugin.php)
         $renderer = new TableRenderer($this->repository);
         return $renderer->render($table);
