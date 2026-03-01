@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import { __ } from '@wordpress/i18n';
 import { XIcon, ArrowRightIcon, ArrowLeftIcon, LoaderIcon } from 'lucide-react';
-import { createPortal } from 'react-dom';
+import React, { useState, useCallback } from 'react';
 import { useTableStore } from '@/store/tableStore';
-import { useToast } from '@/context/ToastContext';
 import { Stepper2 } from '@/components/ui/Stepper';
+import { useToast } from '@/context/ToastContext';
 import { Button } from '@/components/ui/Button';
+import { useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
+import { PATHS } from '@/utils/routes';
+import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
 
 import WizardStepSetup from './WizardStepSetup';
@@ -57,6 +59,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
 
     const { tableTitle, saveTable, error } = useTableStore();
     const { toast } = useToast();
+    const navigate = useNavigate();
 
     /**
      * Validate and move to the next step.
@@ -82,6 +85,10 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
                     type: 'success',
                 });
                 setCurrentStep(5);
+
+                // Trigger a background refresh of the Tables page so the new table
+                // appears immediately when the user navigates back to it
+                navigate(PATHS.TABLES, { state: { refresh: Date.now() }, replace: true });
             } else {
                 toast({
                     title: __('Error', 'productbay'),
@@ -93,7 +100,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
         }
 
         setCurrentStep((prev) => Math.min(prev + 1, 5));
-    }, [currentStep, tableTitle, saveTable, error, toast]);
+    }, [currentStep, tableTitle, saveTable, error, toast, navigate]);
 
     /**
      * Move to the previous step.
@@ -130,8 +137,14 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
     const container = document.getElementById('productbay-root') || document.body;
 
     return createPortal(
-        <div className="fixed inset-0 z-[60000] bg-black/65 flex items-center justify-center">
-            <div className="relative max-w-7xl w-full max-h-[90vh] h-full overflow-hidden flex flex-col bg-white rounded-lg border border-gray-200 shadow-xl mx-4">
+        <div
+            className="fixed inset-0 z-[60000] bg-black/65 flex items-center justify-center"
+            onClick={currentStep === 5 ? handleClose : undefined}
+        >
+            <div
+                className="relative max-w-7xl w-full max-h-[90vh] h-full overflow-hidden flex flex-col bg-white rounded-lg border border-gray-200 shadow-xl mx-4"
+                onClick={(e) => e.stopPropagation()}
+            >
 
                 {/* ================================================================
 			 * Header: Step Title + Close Button
@@ -148,12 +161,21 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
                                 {STEP_DESCRIPTIONS[currentStep]}
                             </p>
                         </div>
-                        {currentStep !== 5 && (
+                        {currentStep !== 5 ? (
                             <button
                                 onClick={handleClose}
                                 title={__('Close wizard', 'productbay')}
                                 aria-label={__('Close wizard', 'productbay')}
                                 className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-red-100 transition-colors cursor-pointer"
+                            >
+                                <XIcon className="w-5 h-5" />
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleClose}
+                                title={__('Close', 'productbay')}
+                                aria-label={__('Close', 'productbay')}
+                                className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
                             >
                                 <XIcon className="w-5 h-5" />
                             </button>
