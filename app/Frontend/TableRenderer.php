@@ -31,6 +31,7 @@ class TableRenderer {
 	 * Repository for table data access.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -38,6 +39,7 @@ class TableRenderer {
 	 * Cart settings for the current render context.
 	 *
 	 * @var array
+	 * @since 1.0.0
 	 */
 	protected $cart_settings = array(
 		'enable'       => true,
@@ -48,6 +50,7 @@ class TableRenderer {
 	 * Initialize the renderer.
 	 *
 	 * @param TableRepository $repository Table repository instance.
+	 * @since 1.0.0
 	 */
 	public function __construct( TableRepository $repository ) {
 		$this->repository = $repository;
@@ -55,6 +58,8 @@ class TableRenderer {
 
 	/**
 	 * Initialize hooks (Shortcode).
+	 *
+	 * @since 1.0.0
 	 */
 	public function init() {
 		// Registration is done in Plugin.php, but if we need hooks specific to renderer.
@@ -69,6 +74,7 @@ class TableRenderer {
 	 * @param array $table        Full table configuration matching ProductTable interface.
 	 * @param array $runtime_args Runtime arguments (search, sort, paged).
 	 * @return string HTML content
+	 * @since 1.0.0
 	 */
 	public function render( $table, $runtime_args = array() ) {
 		// Ensure we have a valid table structure.
@@ -261,6 +267,7 @@ class TableRenderer {
 	 * @param array $settings     Table settings (pagination, features).
 	 * @param array $runtime_args Runtime arguments (paged, search, sort).
 	 * @return array WP_Query arguments.
+	 * @since 1.0.0
 	 */
 	private function build_query_args( $source, $settings, $runtime_args = array() ) {
 		$args = array(
@@ -354,6 +361,7 @@ class TableRenderer {
 	 *
 	 * @param array       $col     Column configuration.
 	 * @param \WC_Product $product WooCommerce product object.
+	 * @since 1.0.0
 	 */
 	private function render_cell( $col, $product ) {
 		$type     = $col['type'];
@@ -407,6 +415,7 @@ class TableRenderer {
 	 *   - cart.showQuantity: When false, quantity input is hidden.
 	 *
 	 * @param \WC_Product $product WooCommerce product object.
+	 * @since 1.0.0
 	 */
 	private function render_button_cell( $product ) {
 		$ajax_enabled  = ! empty( $this->cart_settings['enable'] );
@@ -473,6 +482,7 @@ class TableRenderer {
 	 * Uses WC_Product_Variable::get_variation_attributes() and get_available_variations().
 	 *
 	 * @param \WC_Product_Variable $product WooCommerce variable product object.
+	 * @since 1.0.0
 	 */
 	private function render_variable_button_cell( $product ) {
 		$attributes           = $product->get_variation_attributes();
@@ -530,6 +540,7 @@ class TableRenderer {
 	 * Uses WC_Product::get_stock_quantity() and backorders_allowed().
 	 *
 	 * @param \WC_Product $product WooCommerce product object.
+	 * @since 1.0.0
 	 */
 	private function render_quantity_input( $product ) {
 		$min       = 1;
@@ -941,6 +952,7 @@ class TableRenderer {
 	 *
 	 * @param array $col Column configuration.
 	 * @return bool True if the column visibility is set to 'none'.
+	 * @since 1.0.0
 	 */
 	private function should_hide_column( $col ) {
 		return ( $col['advanced']['visibility'] ?? 'default' ) === 'none';
@@ -956,6 +968,7 @@ class TableRenderer {
 	 *
 	 * @param array $col Column configuration.
 	 * @return string[]
+	 * @since 1.0.0
 	 */
 	private function get_column_classes( $col ) {
 		$classes = array( 'productbay-col-' . $col['id'] );
@@ -984,6 +997,7 @@ class TableRenderer {
 	 *
 	 * @param array $col Column configuration.
 	 * @return string Inline CSS string (currently empty, reserved for future use).
+	 * @since 1.0.0
 	 */
 	private function get_column_styles( $col ) {
 		return '';
@@ -995,6 +1009,7 @@ class TableRenderer {
 	 * @param array  $settings Table settings.
 	 * @param string $value    Current search value.
 	 * @return void
+	 * @since 1.0.0
 	 */
 	private function render_search_bar( $settings, $value = '' ) {
 		// Placeholder for search input.
@@ -1012,6 +1027,7 @@ class TableRenderer {
 	 * @param array     $settings     Table settings.
 	 * @param array     $runtime_args Runtime arguments (page_url, etc.).
 	 * @return void
+	 * @since 1.0.0
 	 */
 	private function render_pagination( $query, $settings, $runtime_args = array() ) {
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
@@ -1057,6 +1073,7 @@ class TableRenderer {
 	 * @param array $table        Full table configuration.
 	 * @param array $runtime_args Runtime arguments (search, sort, paged).
 	 * @return array
+	 * @since 1.0.0
 	 */
 	public function render_ajax_response( $table, $runtime_args ) {
 		$source   = $table['source'] ?? array();

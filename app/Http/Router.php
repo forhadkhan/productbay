@@ -32,6 +32,7 @@ class Router {
 	 * Repository for table data access.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -39,6 +40,7 @@ class Router {
 	 * HTTP request wrapper instance.
 	 *
 	 * @var Request
+	 * @since 1.0.0
 	 */
 	protected $request;
 
@@ -47,6 +49,7 @@ class Router {
 	 *
 	 * @param TableRepository $repository Table repository instance.
 	 * @param Request         $request    HTTP request instance.
+	 * @since 1.0.0
 	 */
 	public function __construct( TableRepository $repository, Request $request ) {
 		$this->repository = $repository;

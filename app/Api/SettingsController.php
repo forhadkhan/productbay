@@ -63,6 +63,7 @@ class SettingsController extends ApiController {
 	 *
 	 * @param \WP_REST_Request $request The REST request object containing JSON body.
 	 * @return array The updated settings.
+	 * @since 1.0.0
 	 */
 	public function update_settings( \WP_REST_Request $request ) {
 		$settings = $request->get_param( 'settings' );
@@ -86,6 +87,7 @@ class SettingsController extends ApiController {
 	 * This restores the plugin to its initial "just installed" state.
 	 *
 	 * @return array{success: bool, deleted_tables: int, settings: array} Reset result with defaults.
+	 * @since 1.0.0
 	 */
 	public function reset_settings() {
 		// 1. Delete all ProductBay table posts.

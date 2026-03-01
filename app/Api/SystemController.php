@@ -33,6 +33,7 @@ class SystemController extends ApiController {
 	 * The table repository instance.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -57,6 +58,7 @@ class SystemController extends ApiController {
 	 * the number of products, the number of tables, and the plugin version.
 	 *
 	 * @return array
+	 * @since 1.0.0
 	 */
 	public function get_status() {
 		$wc_active     = class_exists( 'WooCommerce' );
@@ -92,6 +94,7 @@ class SystemController extends ApiController {
 	 * It updates the `productbay_onboarding_completed` option to `true`.
 	 *
 	 * @return array
+	 * @since 1.0.0
 	 */
 	public function mark_onboarded() {
 		update_option( 'productbay_onboarding_completed', true );

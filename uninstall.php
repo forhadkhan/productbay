@@ -26,6 +26,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
  * 2. Delete all 'productbay_table' posts (Custom Post Type)
  * 3. Delete all post meta associated with these posts
  * 4. Delete plugin options and settings
+ *
+	 * @since 1.0.0
  */
 
 $productbay_settings = get_option( 'productbay_settings' );
@@ -34,6 +36,8 @@ $productbay_settings = get_option( 'productbay_settings' );
  * Robust Boolean Check:
  * If the setting is not in the database, we default to 'true'
  * (as defined in the plugin's default configuration).
+ *
+	 * @since 1.0.0
  */
 $productbay_delete_on_uninstall = true;
 if ( is_array( $productbay_settings ) && isset( $productbay_settings['delete_on_uninstall'] ) ) {

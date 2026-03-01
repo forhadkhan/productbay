@@ -32,6 +32,7 @@ class ProductsController extends ApiController {
 	 * Initialize the controller.
 	 *
 	 * @param Request $request HTTP request instance.
+	 * @since 1.0.0
 	 */
 	public function __construct( Request $request ) {
 		parent::__construct( $request );
@@ -44,6 +45,8 @@ class ProductsController extends ApiController {
 	 * - search: Product name search (fuzzy match)
 	 * - include: Exact product ID
 	 * - sku: SKU exact match or prefix match
+	 *
+	 * @since 1.0.0
 	 */
 	public function index() {
 		$search  = $this->request->get( 'search' );
@@ -121,6 +124,8 @@ class ProductsController extends ApiController {
 
 	/**
 	 * Get all product categories.
+	 *
+	 * @since 1.0.0
 	 */
 	public function categories() {
 		$terms = \get_terms(
@@ -155,6 +160,7 @@ class ProductsController extends ApiController {
 	 * - sale: Products currently on sale (uses WC native logic)
 	 *
 	 * @return array Statistics data with 'categories' and 'products' counts
+	 * @since 1.0.0
 	 */
 	public function sourceStats() {
 		$type = $this->request->get( 'type', 'all' );

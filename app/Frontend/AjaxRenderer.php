@@ -32,6 +32,7 @@ class AjaxRenderer {
 	 * The table repository instance.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
@@ -39,6 +40,7 @@ class AjaxRenderer {
 	 * The HTTP request handler.
 	 *
 	 * @var Request
+	 * @since 1.0.0
 	 */
 	protected $request;
 

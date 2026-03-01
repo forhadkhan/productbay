@@ -31,6 +31,7 @@ class TablesController extends ApiController {
 	 * The table repository instance.
 	 *
 	 * @var TableRepository
+	 * @since 1.0.0
 	 */
 	protected $repository;
 
