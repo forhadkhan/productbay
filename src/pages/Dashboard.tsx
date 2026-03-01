@@ -5,16 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Skeleton } from '../components/ui/Skeleton';
 import { useSystemStore } from '../store/systemStore';
 import { PATHS, WC_PRODUCTS_PATH } from '../utils/routes';
-import {
-	DatabaseIcon,
-	PackageIcon,
-	PlusIcon,
-	PlayCircleIcon,
-	DownloadIcon,
-	UploadIcon,
-	LifeBuoyIcon,
-	SheetIcon,
-} from 'lucide-react';
+import { PackageIcon, PlusIcon, PlayCircleIcon, LifeBuoyIcon, SheetIcon } from 'lucide-react';
 
 /**
  * Dashboard Page Component
