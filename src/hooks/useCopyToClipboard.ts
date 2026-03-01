@@ -11,6 +11,8 @@ interface UseCopyToClipboardResult {
  * A reusable hook for copying text to the clipboard.
  * Includes a fallback for Safari/macOS or non-HTTPS environments
  * where navigator.clipboard might be undefined.
+ * 
+ * @since 1.0.0
  */
 export const useCopyToClipboard = (): UseCopyToClipboardResult => {
     const [isCopied, setIsCopied] = useState(false);

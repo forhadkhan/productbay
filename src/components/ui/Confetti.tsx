@@ -9,6 +9,12 @@ export interface ConfettiProps {
     pieceCount?: number;
 }
 
+/**
+ * Confetti component that renders a burst of falling colorful pieces.
+ * Useful for celebrating user achievements or successful actions.
+ *
+ * Automatically unmounts/clears after the specified duration.
+ */
 export const Confetti: React.FC<ConfettiProps> = ({ duration = 5000, pieceCount = 120 }) => {
     const [pieces, setPieces] = useState<any[]>([]);
 

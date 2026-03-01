@@ -1,9 +1,9 @@
-import { __ } from '@wordpress/i18n';
 import { memo, useState } from 'react';
 import { RotateCcwIcon } from 'lucide-react';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { useToast } from '@/context/ToastContext';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSettingsStore } from '@/store/settingsStore';
@@ -30,7 +30,16 @@ const ClearDataOptions = memo(({ loading }: ClearDataOptionsProps) => {
             toast({
                 title: __('Factory Reset Complete', 'productbay'),
                 description: deletedCount > 0
-                    ? `${deletedCount} ${deletedCount === 1 ? __('table', 'productbay') : __('tables', 'productbay')} ${__('deleted. All data has been reset to factory defaults. Reloading...', 'productbay')}`
+                    ? sprintf(
+                        // translators: %d is the number of tables deleted
+                        _n(
+                            '%d table deleted. All data has been reset to factory defaults. Reloading...',
+                            '%d tables deleted. All data has been reset to factory defaults. Reloading...',
+                            deletedCount,
+                            'productbay'
+                        ),
+                        deletedCount
+                    )
                     : __('All data has been reset to factory defaults. Reloading...', 'productbay'),
                 type: 'success',
             });

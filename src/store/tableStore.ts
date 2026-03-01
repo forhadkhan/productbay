@@ -1,3 +1,12 @@
+/**
+ * Table Store
+ * 
+ * The central engine for table configuration in ProductBay.
+ * Manages the state for Source, Columns, Settings, and Style.
+ * Includes persistence logic (load/save) and category caching.
+ * 
+ * @since 1.0.0
+ */
 import { create } from 'zustand';
 import { apiFetch } from '@/utils/api';
 import type {

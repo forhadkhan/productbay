@@ -1,3 +1,10 @@
+/**
+ * Settings Store
+ * 
+ * Manages global plugin settings, persistence, and factory reset functionality.
+ * 
+ * @since 1.0.0
+ */
 import { create } from 'zustand';
 import { apiFetch } from '@/utils/api';
 

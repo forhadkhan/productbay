@@ -3,6 +3,8 @@
  *
  * A multi-select dropdown component for selecting WooCommerce product categories.
  *
+ * @since 1.0.0
+ * 
  * === DATA FLOW ARCHITECTURE ===
  *
  * 1. PRELOADING (Parent Component - StepSource):
@@ -29,7 +31,7 @@
  *       - Updates UI automatically when fresh data arrives
  *
  *    b) Manual Force Reload:
- *       - Triggered by user clicking "🔄 Reload" button
+ *       - Triggered by user clicking "Reload" button
  *       - Calls `forceReloadCategories()` - bypasses all caches
  *       - Shows loading spinner while fetching
  *       - Useful when user knows categories have changed
@@ -49,6 +51,7 @@
 
 import { cn } from '../../../utils/cn';
 import { Button } from '../../ui/Button';
+import { __, _n } from '@wordpress/i18n';
 import { ConfirmButton } from '../../ui/ConfirmButton';
 import { SourceStatistics } from './SourceStatistics';
 import { useTableStore } from '../../../store/tableStore';
@@ -213,11 +216,11 @@ export const CategorySelector: React.FC = () => {
 							{categoriesLoading && categories.length === 0 ? (
 								<span className="text-gray-500 text-sm flex items-center gap-2">
 									<Loader2Icon className="h-4 w-4 animate-spin" />{' '}
-									Loading categories...
+									{__('Loading categories...', 'productbay')}
 								</span>
 							) : selectedCategories.length === 0 ? (
 								<span className="text-gray-400 text-sm">
-									Select categories...
+									{__('Select categories...', 'productbay')}
 								</span>
 							) : (
 								selectedCategories.map((cat) => (
@@ -254,7 +257,7 @@ export const CategorySelector: React.FC = () => {
 								<input
 									ref={searchInputRef}
 									type="text"
-									placeholder="Search categories..."
+									placeholder={__('Search categories...', 'productbay')}
 									className="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 									value={searchQuery}
 									onChange={(e) =>
@@ -270,8 +273,8 @@ export const CategorySelector: React.FC = () => {
 							{filteredCategories.length === 0 ? (
 								<div className="p-3 text-sm text-gray-500 text-center">
 									{searchQuery
-										? 'No categories found matching your search.'
-										: 'No categories available.'}
+										? __('No categories found matching your search.', 'productbay')
+										: __('No categories available.', 'productbay')}
 								</div>
 							) : (
 								filteredCategories.map((category) => {
@@ -314,11 +317,13 @@ export const CategorySelector: React.FC = () => {
 						<div className="p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md">
 							<span className="text-xs text-gray-600">
 								{selectedIds.length > 0
-									? `${selectedIds.length} ${selectedIds.length === 1
-										? 'category'
-										: 'categories'
-									} selected`
-									: 'No categories selected'}
+									? _n(
+										'%d category selected',
+										'%d categories selected',
+										selectedIds.length,
+										'productbay'
+									).replace('%d', selectedIds.length.toString())
+									: __('No categories selected', 'productbay')}
 							</span>
 
 							{ /* Action Buttons */}
@@ -328,7 +333,7 @@ export const CategorySelector: React.FC = () => {
 									onConfirm={handleClearSelection}
 									variant="ghost"
 									size="xs"
-									confirmMessage="Clear all?"
+									confirmMessage={__('Clear all?', 'productbay')}
 									disabled={selectedIds.length === 0}
 									className={cn(
 										'flex items-center gap-1.5 font-medium hover:bg-red-50 hover:text-red-700 border border-transparent hover:border-gray-200',
@@ -338,7 +343,7 @@ export const CategorySelector: React.FC = () => {
 									)}
 								>
 									<XIcon className="h-3 w-3" />
-									Clear
+									{__('Clear', 'productbay')}
 								</ConfirmButton>
 
 								{ /* Reload button: Manual refresh */}
@@ -353,7 +358,7 @@ export const CategorySelector: React.FC = () => {
 											? 'text-gray-400'
 											: 'text-blue-600 hover:bg-blue-50 hover:text-blue-700'
 									)}
-									title="Reload categories from server"
+									title={__('Reload categories from server', 'productbay')}
 								>
 									<RefreshCwIcon
 										className={cn(
@@ -361,7 +366,7 @@ export const CategorySelector: React.FC = () => {
 											categoriesLoading && 'animate-spin'
 										)}
 									/>
-									Reload
+									{__('Reload', 'productbay')}
 								</Button>
 							</div>
 						</div>

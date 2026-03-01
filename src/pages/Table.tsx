@@ -28,8 +28,10 @@ import { cn } from '@/utils/cn';
  * - Display: Configure how the table is displayed
  * - Options: Additional table options
  * 
- * Supports URL-based tab navigation via search params.
- * Example: #/new?tab=options activates Options tab.
+ * Supports URL - based tab navigation via search params.
+ * Example: # / new? tab = options activates Options tab.
+ * 
+ * @since 1.0.0
  * ============================================================================= */
 
 /** Define the available tab values as a union type for type safety */

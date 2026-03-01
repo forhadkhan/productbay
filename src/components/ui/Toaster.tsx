@@ -2,6 +2,11 @@ import React from 'react';
 import { Toast } from './Toast';
 import { useToast } from '../../context/ToastContext';
 
+/**
+ * Toaster component that renders a list of active toast notifications.
+ * Placed at the root of the application to ensure visibility.
+ */
+
 export const Toaster: React.FC = () => {
     const { toasts, dismiss } = useToast();
 
