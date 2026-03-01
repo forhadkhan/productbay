@@ -28,6 +28,8 @@ use WpabProductBay\Data\TableRepository;
 class TableRenderer {
 
 	/**
+	 * Repository for table data access.
+	 *
 	 * @var TableRepository
 	 */
 	protected $repository;
@@ -43,16 +45,16 @@ class TableRenderer {
 	);
 
 	/**
-	 * Initialize the renderer
+	 * Initialize the renderer.
 	 *
-	 * @param TableRepository $repository
+	 * @param TableRepository $repository Table repository instance.
 	 */
 	public function __construct( TableRepository $repository ) {
 		$this->repository = $repository;
 	}
 
 	/**
-	 * Initialize hooks (Shortcode)
+	 * Initialize hooks (Shortcode).
 	 */
 	public function init() {
 		// Registration is done in Plugin.php, but if we need hooks specific to renderer.
@@ -64,15 +66,15 @@ class TableRenderer {
 	 * Handles product querying, filtering, and HTML generation.
 	 * Use public access to allow calling from PreviewController and Shortcode.
 	 *
-	 * @param array $table Full table configuration matching ProductTable interface
-	 * @param array $runtime_args Runtime arguments (search, sort, paged)
+	 * @param array $table        Full table configuration matching ProductTable interface.
+	 * @param array $runtime_args Runtime arguments (search, sort, paged).
 	 * @return string HTML content
 	 */
 	public function render( $table, $runtime_args = array() ) {
 		// Ensure we have a valid table structure.
 		$table_id = $table['id'] ?? 0;
 
-		// Generate a unique ID for this render instance (handling multiple tables per page)
+		// Generate a unique ID for this render instance (handling multiple tables per page).
 		$unique_id = 'productbay-table-' . ( $table_id ?: 'preview-' . wp_rand( 1000, 9999 ) );
 
 		$source   = $table['source'] ?? array();
@@ -105,7 +107,7 @@ class TableRenderer {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally by generate_styles(), not user input
 		echo '<style>' . wp_strip_all_tags( $css ) . '</style>';
 
-		// Bulk select configuration (used throughout the render)
+		// Bulk select configuration (used throughout the render).
 		$bulk_select   = $settings['features']['bulkSelect'] ?? array(
 			'enabled'  => true,
 			'position' => 'last',
@@ -120,22 +122,22 @@ class TableRenderer {
 		// Toolbar: Bulk Actions + Search.
 		echo '<div class="productbay-toolbar">';
 
-		// Bulk Actions (Add to Cart Button)
+		// Bulk Actions (Add to Cart Button).
 		if ( $bulk_select['enabled'] ) {
 			echo '<div class="productbay-bulk-actions">';
 			echo '<button class="productbay-button productbay-btn-bulk" disabled>';
 			echo '<svg class="productbay-icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> ';
 			echo esc_html__( 'Add to Cart', 'productbay' );
 			echo '</button>';
-			echo '</div>';
+			echo '</div>'; // End .productbay-bulk-actions.
 		}
 
-		// Search & Filter Bar (if enabled)
+		// Search & Filter Bar (if enabled).
 		if ( ! empty( $settings['features']['search'] ) ) {
 			$this->render_search_bar( $settings, $runtime_args['s'] ?? '' );
 		}
 
-		echo '</div>'; // End Toolbar
+		echo '</div>'; // End Toolbar.
 
 		echo '<div class="productbay-table-container">';
 		echo '<table class="productbay-table">';
@@ -143,7 +145,7 @@ class TableRenderer {
 		// Table Header.
 		echo '<thead><tr>';
 
-		// Select All Column (Bulk Select - First)
+		// Select All Column (Bulk Select - First).
 		if ( $bulk_select['enabled'] && $bulk_position === 'first' ) {
 			echo '<th class="productbay-col-select"><input type="checkbox" class="productbay-select-all" /></th>';
 		}
@@ -180,7 +182,7 @@ class TableRenderer {
                 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce global
 				global $product;
 
-				// Ensure global product is set (for WC functions)
+				// Ensure global product is set (for WC functions).
 				if ( ! is_object( $product ) ) {
 					$product = wc_get_product( get_the_ID() );
 				}
@@ -240,20 +242,25 @@ class TableRenderer {
 
 		echo '</tbody>';
 		echo '</table>';
-		echo '</div>'; // .productbay-table-container
+		echo '</div>'; // End .productbay-table-container.
 
-		// Pagination (if enabled)
+		// Pagination (if enabled).
 		if ( ! empty( $settings['features']['pagination'] ) ) {
 			$this->render_pagination( $query, $settings, $runtime_args );
 		}
 
-		echo '</div>'; // .productbay-wrapper
+		echo '</div>'; // .productbay-wrapper.
 
 		return ob_get_clean();
 	}
 
 	/**
-	 * Build WP_Query arguments from source configuration
+	 * Build WP_Query arguments from source configuration.
+	 *
+	 * @param array $source       Source configuration (categories, products, etc.).
+	 * @param array $settings     Table settings (pagination, features).
+	 * @param array $runtime_args Runtime arguments (paged, search, sort).
+	 * @return array WP_Query arguments.
 	 */
 	private function build_query_args( $source, $settings, $runtime_args = array() ) {
 		$args = array(
@@ -264,8 +271,8 @@ class TableRenderer {
 			'order'          => $source['sort']['order'] ?? 'DESC',
 		);
 
-		// Ensure proper paging.
-		// TODO: Handle 'paged' query var for frontend pagination
+		// Ensure proper paging is set.
+		// TODO: Handle 'paged' query var for frontend pagination.
 		$paged         = $runtime_args['paged'] ?? ( ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1 );
 		$args['paged'] = $paged;
 
@@ -281,7 +288,7 @@ class TableRenderer {
 			case 'specific':
 				if ( ! empty( $query_args['postIds'] ) ) {
 					$args['post__in'] = $query_args['postIds'];
-					$args['orderby']  = 'post__in'; // Preserve specific order
+					$args['orderby']  = 'post__in'; // Preserve specific order.
 				} else {
 					// No products selected.
 					$args['post__in'] = array( 0 );
@@ -331,7 +338,7 @@ class TableRenderer {
 
 			$price_query = array(
 				'key'     => '_price',
-				'value'   => array( $min, $max ?: 999999999 ), // Handle null max
+				'value'   => array( $min, $max ?: 999999999 ), // Handle null max.
 				'compare' => 'BETWEEN',
 				'type'    => 'NUMERIC',
 			);
@@ -343,7 +350,10 @@ class TableRenderer {
 	}
 
 	/**
-	 * Render a single cell content
+	 * Render a single cell content.
+	 *
+	 * @param array       $col     Column configuration.
+	 * @param \WC_Product $product WooCommerce product object.
 	 */
 	private function render_cell( $col, $product ) {
 		$type     = $col['type'];
@@ -396,7 +406,7 @@ class TableRenderer {
 	 *   - cart.enable (AJAX): When false, button links to product page.
 	 *   - cart.showQuantity: When false, quantity input is hidden.
 	 *
-	 * @param \WC_Product $product
+	 * @param \WC_Product $product WooCommerce product object.
 	 */
 	private function render_button_cell( $product ) {
 		$ajax_enabled  = ! empty( $this->cart_settings['enable'] );
@@ -462,7 +472,7 @@ class TableRenderer {
 	 * Render variation attribute dropdowns and add-to-cart button for variable products.
 	 * Uses WC_Product_Variable::get_variation_attributes() and get_available_variations().
 	 *
-	 * @param \WC_Product_Variable $product
+	 * @param \WC_Product_Variable $product WooCommerce variable product object.
 	 */
 	private function render_variable_button_cell( $product ) {
 		$attributes           = $product->get_variation_attributes();
@@ -500,7 +510,7 @@ class TableRenderer {
 		// Variation price display.
 		echo '<span class="productbay-variation-price"></span>';
 
-		// Quantity + Add to Cart (disabled until variation selected)
+		// Quantity + Add to Cart (disabled until variation selected).
 		$is_purchasable = $product->is_purchasable();
 		$show_quantity  = ! empty( $this->cart_settings['showQuantity'] );
 		echo '<div class="productbay-btn-cell">';
@@ -519,7 +529,7 @@ class TableRenderer {
 	 * Render a quantity number input with stock-aware constraints.
 	 * Uses WC_Product::get_stock_quantity() and backorders_allowed().
 	 *
-	 * @param \WC_Product $product
+	 * @param \WC_Product $product WooCommerce product object.
 	 */
 	private function render_quantity_input( $product ) {
 		$min       = 1;
@@ -567,7 +577,7 @@ class TableRenderer {
 			return $color;
 		}
 
-		// rgb(), rgba(), hsl(), hsla() with only safe characters (digits, commas, spaces, dots, %)
+		// Match rgb(), rgba(), hsl(), hsla() with only safe characters (digits, commas, spaces, dots, %).
 		if ( preg_match( '/^(rgb|rgba|hsl|hsla)\([0-9,.\s%\/]+\)$/', $color ) ) {
 			return $color;
 		}
@@ -826,7 +836,7 @@ class TableRenderer {
 		}
 		$css .= '}';
 
-		// Added to cart checkmark (SVG)
+		// Added to cart checkmark (SVG).
 		$css .= "#{$id} .productbay-button.added {";
 		$css .= 'gap: 6px;';
 		$css .= '}';
@@ -883,7 +893,7 @@ class TableRenderer {
 		$css .= 'background: transparent !important;';
 		$css .= '}';
 
-		// Image Styles.
+		// Image styles.
 		$css .= "#{$id} img {";
 		$css .= 'max-width: 100%;';
 		$css .= 'height: auto;';
@@ -1005,7 +1015,7 @@ class TableRenderer {
 	 */
 	private function render_pagination( $query, $settings, $runtime_args = array() ) {
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-		// Override paged if passed in query args (for AJAX)
+		// Override paged if passed in query args (for AJAX).
 		if ( ! empty( $query->query['paged'] ) ) {
 			$paged = $query->query['paged'];
 		}
@@ -1044,8 +1054,8 @@ class TableRenderer {
 	/**
 	 * Render AJAX response (rows and pagination)
 	 *
-	 * @param array $table
-	 * @param array $runtime_args
+	 * @param array $table        Full table configuration.
+	 * @param array $runtime_args Runtime arguments (search, sort, paged).
 	 * @return array
 	 */
 	public function render_ajax_response( $table, $runtime_args ) {

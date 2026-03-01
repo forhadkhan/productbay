@@ -26,12 +26,16 @@ use WpabProductBay\Data\TableRepository;
 class Shortcode {
 
 	/**
+	 * Repository for table data access.
+	 *
 	 * @var TableRepository
 	 */
 	protected $repository;
 
 	/**
-	 * @param TableRepository $repository
+	 * Constructor.
+	 *
+	 * @param TableRepository $repository Table repository instance.
 	 */
 	public function __construct( TableRepository $repository ) {
 		$this->repository = $repository;
@@ -88,7 +92,7 @@ class Shortcode {
 			return '';
 		}
 
-		// Instantiate renderer (or inject if we refactor Plugin.php)
+		// Instantiate renderer (or inject if we refactor Plugin.php).
 		$renderer = new TableRenderer( $this->repository );
 		return $renderer->render( $table );
 	}

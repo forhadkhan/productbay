@@ -29,15 +29,25 @@ use WpabProductBay\Data\TableRepository;
 class Router {
 
 	/**
+	 * Repository for table data access.
+	 *
 	 * @var TableRepository
 	 */
 	protected $repository;
 
 	/**
+	 * HTTP request wrapper instance.
+	 *
 	 * @var Request
 	 */
 	protected $request;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param TableRepository $repository Table repository instance.
+	 * @param Request         $request    HTTP request instance.
+	 */
 	public function __construct( TableRepository $repository, Request $request ) {
 		$this->repository = $repository;
 		$this->request    = $request;

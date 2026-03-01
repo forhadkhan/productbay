@@ -50,9 +50,9 @@ class PreviewController extends ApiController {
 	}
 
 	/**
-	 * Render the table preview
+	 * Render the table preview.
 	 *
-	 * @param \WP_REST_Request $request
+	 * @param \WP_REST_Request $request REST API request object.
 	 * @return \WP_REST_Response
 	 */
 	public function preview( $request ) {

@@ -38,7 +38,7 @@ class TableRepository {
 			array(
 				'post_type'      => self::POST_TYPE,
 				'posts_per_page' => -1,
-				'post_status'    => 'any', // Return all tables (publish, private, etc.)
+				'post_status'    => 'any', // Return all tables (publish, private, etc.).
 			)
 		);
 
@@ -51,6 +51,9 @@ class TableRepository {
 
 	/**
 	 * Get single table.
+	 *
+	 * @param int $id Post ID.
+	 * @return array|null Table data or null if not found.
 	 */
 	public function get_table( $id ) {
 		$post = get_post( $id );
@@ -62,6 +65,9 @@ class TableRepository {
 
 	/**
 	 * Save table.
+	 *
+	 * @param array $data Table data from the frontend.
+	 * @return array Saved table data or error array.
 	 */
 	public function save_table( $data ) {
 		$id = isset( $data['id'] ) ? intval( $data['id'] ) : 0;
@@ -88,7 +94,7 @@ class TableRepository {
 				'_productbay_settings' => $settings,
 				'_productbay_style'    => $style,
 				// Validating existence of legacy key removal.
-				'_productbay_config'   => '', // Clear legacy config to avoid confusion
+				'_productbay_config'   => '', // Clear legacy config to avoid confusion.
 			),
 		);
 
@@ -108,11 +114,20 @@ class TableRepository {
 
 	/**
 	 * Delete table.
+	 *
+	 * @param int $id Post ID.
+	 * @return \WP_Post|false|null Deleted post object or false/null on failure.
 	 */
 	public function delete_table( $id ) {
 		return wp_delete_post( $id, true );
 	}
 
+	/**
+	 * Format a post into a table data array.
+	 *
+	 * @param \WP_Post $post WordPress post object.
+	 * @return array Formatted table data.
+	 */
 	private function format_table( $post ) {
 		// Retrieve individual meta keys.
 		$source   = get_post_meta( $post->ID, '_productbay_source', true ) ?: array();
@@ -139,8 +154,8 @@ class TableRepository {
 	 * Efficiently count the number of products matching a table's source rules.
 	 * Uses fields => 'ids' and limits query to 1 post, relying on found_posts for the count.
 	 *
-	 * @param array $source The table's source configuration array
-	 * @return int The number of matching products
+	 * @param array $source The table's source configuration array.
+	 * @return int The number of matching products.
 	 */
 	private function get_product_count( $source ) {
 		// Require WooCommerce.
@@ -165,7 +180,7 @@ class TableRepository {
 				if ( ! empty( $query_args['postIds'] ) ) {
 					$args['post__in'] = $query_args['postIds'];
 				} else {
-					return 0; // No products selected
+					return 0; // No products selected.
 				}
 				break;
 
@@ -180,7 +195,7 @@ class TableRepository {
 						),
 					);
 				} else {
-					return 0; // No categories selected
+					return 0; // No categories selected.
 				}
 				break;
 

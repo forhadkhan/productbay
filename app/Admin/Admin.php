@@ -159,7 +159,7 @@ class Admin {
 				'title' => '<span style="display: flex; align-items: center;">'
 					. '<span>' . \__( 'ProductBay', 'productbay' ) . '</span>'
 					. '</span>',
-				// Link to the main productbay page (now Tables)
+				// Link to the main productbay page (now Tables).
 				'href'  => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG ),
 				'meta'  => array(
 					'title' => \__( 'ProductBay', 'productbay' ),
@@ -275,7 +275,7 @@ class Admin {
 		);
 
 		// Enqueue global admin styles with smart cache busting.
-		// Uses file modification time in dev mode for instant refresh,
+		// Uses file modification time in dev mode for instant refresh,.
 		// or plugin version in production for proper cache control.
 		$css_path    = PRODUCTBAY_PATH . 'assets/css/admin.css';
 		$css_version = \defined( 'PRODUCTBAY_DEV_MODE' ) && PRODUCTBAY_DEV_MODE && \file_exists( $css_path )

@@ -29,9 +29,9 @@ class ProductsController extends ApiController {
 
 
 	/**
-	 * Initialize the controller
+	 * Initialize the controller.
 	 *
-	 * @param Request $request
+	 * @param Request $request HTTP request instance.
 	 */
 	public function __construct( Request $request ) {
 		parent::__construct( $request );
@@ -47,8 +47,8 @@ class ProductsController extends ApiController {
 	 */
 	public function index() {
 		$search  = $this->request->get( 'search' );
-		$include = $this->request->get( 'include' ); // For ID search
-		$sku     = $this->request->get( 'sku' );         // For SKU search
+		$include = $this->request->get( 'include' ); // For ID search.
+		$sku     = $this->request->get( 'sku' );         // For SKU search.
 		$limit   = $this->request->get( 'limit', 10 );
 		$page    = $this->request->get( 'page', 1 );
 
@@ -62,13 +62,12 @@ class ProductsController extends ApiController {
 			'order'   => $is_default_search ? 'DESC' : 'ASC',
 		);
 
-		// Handle ID search (exact match)
+		// Handle ID search (exact match).
 		if ( ! empty( $include ) ) {
 			$args['include'] = array( (int) $include );
-			$args['limit']   = 1; // Only one product by ID
-		}
-		// Handle SKU search (exact or prefix match)
-		elseif ( ! empty( $sku ) ) {
+			$args['limit']   = 1; // Only one product by ID.
+		} elseif ( ! empty( $sku ) ) {
+			// Handle SKU search (exact or prefix match).
 			// Query a bounded set of products and filter by SKU in PHP.
 			// WC's `sku` param only supports exact match, so we fetch a capped set.
 			// and do prefix matching manually. Cap at 200 to avoid unbounded queries.
@@ -99,9 +98,8 @@ class ProductsController extends ApiController {
 			$data   = array_slice( $data, $offset, (int) $limit );
 
 			return $data;
-		}
-		// Handle name search (partial match)
-		elseif ( ! empty( $search ) ) {
+		} elseif ( ! empty( $search ) ) {
+			// Handle name search (partial match).
 			$args['s'] = $search;
 		}
 
@@ -175,14 +173,14 @@ class ProductsController extends ApiController {
 				$terms               = \get_terms(
 					array(
 						'taxonomy'   => 'product_cat',
-						'hide_empty' => false, // Count all categories
+						'hide_empty' => false, // Count all categories.
 					)
 				);
 				$stats['categories'] = is_array( $terms ) ? count( $terms ) : 0;
 				break;
 
 			case 'sale':
-				// Get products on sale using WC native function (handles dates, variations, etc.)
+				// Get products on sale using WC native function (handles dates, variations, etc.).
 				$sale_ids          = \wc_get_product_ids_on_sale();
 				$stats['products'] = count( $sale_ids );
 

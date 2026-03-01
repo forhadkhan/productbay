@@ -1,6 +1,10 @@
 <?php
+/**
+ * Exit if accessed directly.
+ *
+ * @package ProductBay
+ */
 
-// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

@@ -27,12 +27,16 @@ use WpabProductBay\Http\Request;
 abstract class ApiController {
 
 	/**
+	 * HTTP request wrapper instance.
+	 *
 	 * @var Request
 	 */
 	protected $request;
 
 	/**
-	 * @param Request $request
+	 * Constructor.
+	 *
+	 * @param Request $request HTTP request instance.
 	 */
 	public function __construct( Request $request ) {
 		$this->request = $request;

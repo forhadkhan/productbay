@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ProductBay
  *
@@ -28,7 +27,6 @@
  * WC requires at least: 6.1
  */
 
-
 // Namespace - ProductBay.
 namespace WpabProductBay;
 
@@ -52,7 +50,7 @@ define( 'PRODUCTBAY_URL', \plugin_dir_url( __FILE__ ) );
 define( 'PRODUCTBAY_PATH', \plugin_dir_path( __FILE__ ) );
 define( 'PRODUCTBAY_PLUGIN_BASENAME', \plugin_basename( __FILE__ ) );
 
-// Autoloader (must be loaded before using any composer packages)
+// Autoloader (must be loaded before using any composer packages).
 require_once __DIR__ . '/vendor/autoload.php';
 
 /**

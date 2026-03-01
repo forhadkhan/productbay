@@ -128,7 +128,7 @@ class AjaxRenderer {
 			\wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 		}
 
-		// Accept items[] array: each item has product_id, quantity, variation_id (optional), attributes (optional)
+		// Accept items[] array: each item has product_id, quantity, variation_id (optional), attributes (optional).
 		$raw_items = wp_unslash( $_POST['items'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized below per field
 		if ( empty( $raw_items ) || ! is_array( $raw_items ) ) {
 			\wp_send_json_error( array( 'message' => __( 'No products selected', 'productbay' ) ) );
@@ -178,11 +178,11 @@ class AjaxRenderer {
 				continue;
 			}
 
-			// Validate quantity against stock (if managed and no backorders)
+			// Validate quantity against stock (if managed and no backorders).
 			if ( $product->managing_stock() && ! $product->backorders_allowed() ) {
 				$stock_qty = $product->get_stock_quantity();
 				if ( $stock_qty !== null && $quantity > $stock_qty ) {
-					$quantity = $stock_qty; // Cap to available stock
+					$quantity = $stock_qty; // Cap to available stock.
 				}
 			}
 

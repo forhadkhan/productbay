@@ -26,11 +26,15 @@ use WpabProductBay\Admin\Admin;
 class Plugin {
 
 	/**
+	 * Repository for table data access.
+	 *
 	 * @var \WpabProductBay\Data\TableRepository
 	 */
 	protected $table_repository;
 
 	/**
+	 * HTTP request wrapper instance.
+	 *
 	 * @var \WpabProductBay\Http\Request
 	 */
 	protected $request;

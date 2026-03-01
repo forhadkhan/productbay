@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Uninstall ProductBay
  *
@@ -41,7 +40,7 @@ if ( is_array( $productbay_settings ) && isset( $productbay_settings['delete_on_
 	$productbay_delete_on_uninstall = (bool) $productbay_settings['delete_on_uninstall'];
 }
 
-// Proceed only if delete_on_uninstall is true (enabled by default)
+// Proceed only if delete_on_uninstall is true (enabled by default).
 if ( $productbay_delete_on_uninstall ) {
 
 	// 1. Delete all Table posts.
@@ -77,7 +76,7 @@ if ( $productbay_delete_on_uninstall ) {
 		'_productbay_columns',
 		'_productbay_settings',
 		'_productbay_style',
-		'_productbay_config', // Legacy key
+		'_productbay_config', // Legacy key.
 	);
 	foreach ( $meta_keys as $meta_key ) {
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup during uninstall, caching not needed

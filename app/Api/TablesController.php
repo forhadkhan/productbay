@@ -80,7 +80,7 @@ class TablesController extends ApiController {
 	 */
 	public function store() {
 		// Get raw data from $_REQUEST to avoid sanitization destroying nested structures.
-		// The Repository will handle field-specific sanitization (title, etc.)
+		// The Repository will handle field-specific sanitization (title, etc.).
 		$data = $this->request->get( 'data' );
 
 		if ( ! $data ) {
