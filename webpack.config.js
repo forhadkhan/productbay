@@ -38,4 +38,12 @@ module.exports = {
 			'@': path.resolve(__dirname, 'src'),
 		},
 	},
+
+	// 4. Disable performance hints
+	// The admin SPA bundle exceeds webpack's default 244 KiB threshold,
+	// but this is expected for an admin-only React app and doesn't
+	// impact frontend visitor performance.
+	performance: {
+		hints: false,
+	},
 };
