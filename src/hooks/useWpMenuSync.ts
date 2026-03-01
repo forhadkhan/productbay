@@ -13,6 +13,9 @@ import { useLocation } from 'react-router-dom';
  * 2. Maps the current React route to the corresponding WP admin menu slug
  * 3. Updates the browser URL's ?page= query parameter (without reload)
  * 4. Manipulates the DOM to toggle WordPress's .current class on menu items
+ *
+ * 
+ * @since 1.0.0
  */
 export const useWpMenuSync = () => {
 	const location = useLocation();
@@ -31,8 +34,6 @@ export const useWpMenuSync = () => {
 		} else if (path === PATHS.TABLES || path.startsWith('/edit')) {
 			// Map Tables to main 'productbay' slug as it is now the default
 			slug = 'productbay';
-		} else if (path === PATHS.HELP) {
-			slug = 'productbay-help';
 		}
 
 		// 1. Update URL Query Parameter (?page=slug) without reload

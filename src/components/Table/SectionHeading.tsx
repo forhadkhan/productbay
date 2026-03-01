@@ -1,3 +1,8 @@
+/**
+ * SectionHeading Component
+ * 
+ * Renders a standard heading with an optional description and required star.
+ */
 import { cn } from '@/utils/cn';
 
 interface SectionHeadingProps {

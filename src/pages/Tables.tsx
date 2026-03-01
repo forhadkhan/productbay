@@ -1,10 +1,10 @@
 import { apiFetch } from '@/utils/api';
 import { Link } from 'react-router-dom';
-import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { useToast } from '@/context/ToastContext';
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -78,6 +78,8 @@ interface ModalState {
  * Tables Page Component
  *
  * Lists all ProductBay tables with search, filter, bulk actions, and pagination.
+ * 
+ * @since 1.0.0
  */
 const Tables = () => {
 	const [tables, setTables] = useState<Table[]>([]);
@@ -340,7 +342,7 @@ const Tables = () => {
 					title: __('Success', 'productbay'),
 					description: sprintf(
 						/* translators: %d: number of tables deleted */
-						__('Deleted %d tables successfully', 'productbay'),
+						_n('Deleted %d table successfully', 'Deleted %d tables successfully', selectedRows.length, 'productbay'),
 						selectedRows.length
 					),
 					type: 'success'
@@ -383,7 +385,7 @@ const Tables = () => {
 					title: __('Success', 'productbay'),
 					description: sprintf(
 						/* translators: %d: number of tables updated */
-						__('Updated status for %d tables', 'productbay'),
+						_n('Updated status for %d table', 'Updated status for %d tables', selectedRows.length, 'productbay'),
 						selectedRows.length
 					),
 					type: 'success'

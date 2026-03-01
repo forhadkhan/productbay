@@ -1,8 +1,8 @@
 import type { Column, ColumnType, VisibilityMode } from '@/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { __, _n } from '@wordpress/i18n';
 import React, { useState } from 'react';
-import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
 import {
     GripVerticalIcon,
@@ -295,7 +295,14 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                 {/* Combined Elements Count Badge */}
                 {column.type === 'combined' && combinedSettings.elements.length > 0 && (
                     <span className="flex-shrink-0 text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded">
-                        {combinedSettings.elements.length} {__('elements', 'productbay')}
+                        {combinedSettings.elements.length} {
+                            _n(
+                                'element',
+                                'elements',
+                                combinedSettings.elements.length,
+                                'productbay'
+                            )
+                        }
                     </span>
                 )}
 

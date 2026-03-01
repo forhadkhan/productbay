@@ -1,13 +1,18 @@
 import React from 'react';
 
-interface ProductBayIconProps extends React.SVGProps< SVGSVGElement > {
+/**
+ * ProductBayIcon component rendering the brand icon as an SVG.
+ * Supports standard SVG props and custom className.
+ */
+
+interface ProductBayIconProps extends React.SVGProps<SVGSVGElement> {
 	className?: string;
 }
 
-const ProductBayIcon: React.FC< ProductBayIconProps > = ( {
+const ProductBayIcon: React.FC<ProductBayIconProps> = ({
 	className,
 	...props
-} ) => {
+}) => {
 	return (
 		<svg
 			width="64"
@@ -15,8 +20,8 @@ const ProductBayIcon: React.FC< ProductBayIconProps > = ( {
 			viewBox="0 0 64 64"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			className={ className }
-			{ ...props }
+			className={className}
+			{...props}
 		>
 			<rect width="64" height="64" rx="16" fill="#F05C2A" />
 			<path

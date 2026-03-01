@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { __ } from '@wordpress/i18n';
 import { Button, ButtonProps } from './Button';
 import { CheckIcon, XIcon } from 'lucide-react';
 
@@ -55,48 +56,48 @@ export const ConfirmButton = React.forwardRef<
 		},
 		ref
 	) => {
-		const [ isConfirming, setIsConfirming ] = React.useState( false );
-		const containerRef = React.useRef< HTMLDivElement >( null );
+		const [isConfirming, setIsConfirming] = React.useState(false);
+		const containerRef = React.useRef<HTMLDivElement>(null);
 
 		const handleInitialClick = (
-			e: React.MouseEvent< HTMLButtonElement >
+			e: React.MouseEvent<HTMLButtonElement>
 		) => {
 			e.preventDefault();
 			e.stopPropagation();
-			setIsConfirming( true );
+			setIsConfirming(true);
 		};
 
-		const handleConfirm = ( e: React.MouseEvent< HTMLButtonElement > ) => {
+		const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
 			e.preventDefault();
 			e.stopPropagation();
 			onConfirm();
-			setIsConfirming( false );
+			setIsConfirming(false);
 		};
 
-		const handleCancel = ( e: React.MouseEvent< HTMLButtonElement > ) => {
+		const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
 			e.preventDefault();
 			e.stopPropagation();
-			if ( onCancel ) onCancel();
-			setIsConfirming( false );
+			if (onCancel) onCancel();
+			setIsConfirming(false);
 		};
 
 		// Close on outside click
-		React.useEffect( () => {
-			if ( ! isConfirming ) return;
+		React.useEffect(() => {
+			if (!isConfirming) return;
 
-			const handleOutsideClick = ( e: MouseEvent ) => {
+			const handleOutsideClick = (e: MouseEvent) => {
 				if (
 					containerRef.current &&
-					! containerRef.current.contains( e.target as Node )
+					!containerRef.current.contains(e.target as Node)
 				) {
-					setIsConfirming( false );
+					setIsConfirming(false);
 				}
 			};
 
-			document.addEventListener( 'mousedown', handleOutsideClick );
+			document.addEventListener('mousedown', handleOutsideClick);
 			return () =>
-				document.removeEventListener( 'mousedown', handleOutsideClick );
-		}, [ isConfirming ] );
+				document.removeEventListener('mousedown', handleOutsideClick);
+		}, [isConfirming]);
 
 		// Position classes for the popover
 		const positionClasses = {
@@ -115,97 +116,97 @@ export const ConfirmButton = React.forwardRef<
 		};
 
 		return (
-			<div className="relative inline-block" ref={ containerRef }>
+			<div className="relative inline-block" ref={containerRef}>
 				<Button
-					ref={ ref }
-					variant={ variant }
-					size={ size }
-					className={ cn( 'cursor-pointer', className ) }
-					onClick={ handleInitialClick }
-					{ ...props }
+					ref={ref}
+					variant={variant}
+					size={size}
+					className={cn('cursor-pointer', className)}
+					onClick={handleInitialClick}
+					{...props}
 				>
-					{ children }
+					{children}
 				</Button>
 
-				{ isConfirming && (
+				{isConfirming && (
 					<div
-						className={ cn(
+						className={cn(
 							'absolute z-[100] flex flex-col items-center animate-in fade-in zoom-in-95 duration-200',
-							positionClasses[ popoverPosition ]
-						) }
+							positionClasses[popoverPosition]
+						)}
 					>
 						<div className="bg-white border border-gray-200 rounded-lg shadow-xl p-1.5 flex items-center gap-1 min-w-max">
-							{ confirmMessage && (
+							{confirmMessage && (
 								<span className="text-xs font-medium px-2 text-gray-700">
-									{ confirmMessage }
+									{confirmMessage}
 								</span>
-							) }
+							)}
 
 							<div className="flex items-center border border-gray-200 rounded-md">
 								<button
 									type="button"
-									onClick={ handleConfirm }
-									className={ cn(
+									onClick={handleConfirm}
+									className={cn(
 										'flex items-center justify-center p-1.5 bg-transparent transition-colors cursor-pointer',
 										variant === 'destructive'
 											? 'text-red-600 hover:bg-red-50'
 											: 'text-green-600 hover:bg-green-50'
-									) }
-									title="Confirm"
+									)}
+									title={__('Confirm', 'productbay')}
 								>
-									{ confirmIcon || (
+									{confirmIcon || (
 										<CheckIcon
 											className="h-4 w-4 font-bold"
-											strokeWidth={ 2.5 }
+											strokeWidth={2.5}
 										/>
-									) }
+									)}
 								</button>
 
 								<div className="w-px h-4 bg-gray-200 mx-0.5" />
 
 								<button
 									type="button"
-									onClick={ handleCancel }
+									onClick={handleCancel}
 									className="flex items-center justify-center p-1.5 bg-transparent text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-pointer"
-									title="Cancel"
+									title={__('Cancel', 'productbay')}
 								>
-									{ cancelIcon || (
+									{cancelIcon || (
 										<XIcon
 											className="h-4 w-4 font-bold"
-											strokeWidth={ 2.5 }
+											strokeWidth={2.5}
 										/>
-									) }
+									)}
 								</button>
 							</div>
 						</div>
 
-						{ /* Tooltip Arrow shadow-ish border part */ }
+						{ /* Tooltip Arrow shadow-ish border part */}
 						<div
-							className={ cn(
+							className={cn(
 								'absolute w-0 h-0 border-[6px]',
-								arrowClasses[ popoverPosition ].replace(
+								arrowClasses[popoverPosition].replace(
 									/-white/g,
 									'-gray-100'
 								),
 								popoverPosition === 'top'
 									? 'mt-[1px]'
 									: popoverPosition === 'bottom'
-									? 'mb-[1px]'
-									: popoverPosition === 'left'
-									? 'ml-[1px]'
-									: 'mr-[1px]'
-							) }
+										? 'mb-[1px]'
+										: popoverPosition === 'left'
+											? 'ml-[1px]'
+											: 'mr-[1px]'
+							)}
 						/>
 
-						{ /* Tooltip Arrow white part */ }
+						{ /* Tooltip Arrow white part */}
 						<div
-							className={ cn(
+							className={cn(
 								'absolute w-0 h-0 border-[5px]',
-								arrowClasses[ popoverPosition ]
-							) }
+								arrowClasses[popoverPosition]
+							)}
 						/>
 					</div>
-				) }
+				)}
 			</div>
 		);
 	}

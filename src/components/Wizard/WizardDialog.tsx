@@ -3,11 +3,11 @@ import React, { useState, useCallback } from 'react';
 import { useTableStore } from '@/store/tableStore';
 import { Stepper2 } from '@/components/ui/Stepper';
 import { useToast } from '@/context/ToastContext';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { Button } from '@/components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { PATHS } from '@/utils/routes';
-import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
 
 import WizardStepSetup from './WizardStepSetup';
@@ -21,6 +21,8 @@ import WizardStepFinish from './WizardStepFinish';
  * =============================================================================
  * Full-screen wizard dialog for guided table creation.
  * Orchestrates 5 steps: Setup → Columns → Display → Options → Finish.
+ * 
+ * @since 1.0.0
  *
  * - Uses the existing Stepper component for progress indication
  * - Saves the table automatically when reaching the Finish step

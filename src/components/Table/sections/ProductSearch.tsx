@@ -1,10 +1,10 @@
-import { __ } from '@wordpress/i18n';
-import { cn } from '../../../utils/cn';
-import { Input } from '../../ui/Input';
-import { Tooltip } from '../../ui/Tooltip';
-import { apiFetch } from '../../../utils/api';
-import { ConfirmButton } from '../../ui/ConfirmButton';
-import { useTableStore, Product } from '../../../store/tableStore';
+import { cn } from '@/utils/cn';
+import { apiFetch } from '@/utils/api';
+import { Input } from '@/components/ui/Input';
+import { __, _n, sprintf } from '@wordpress/i18n';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { useTableStore, Product } from '@/store/tableStore';
+import { ConfirmButton } from '@/components/ui/ConfirmButton';
 import React, {
 	useState,
 	useEffect,
@@ -262,9 +262,9 @@ export const ProductSearch: React.FC = () => {
 			<div className="relative flex items-center">
 				<SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 				<Input
-					placeholder="Search products by name, or use id:123 or sku:ABC"
+					placeholder={__('Search products by name, or use id:123 or sku:ABC', 'productbay')}
 					value={query}
-					onChange={(e) => {
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 						setQuery(e.target.value);
 						setIsOpen(true);
 					}}
@@ -278,7 +278,7 @@ export const ProductSearch: React.FC = () => {
 						<button
 							onClick={handleClearSearch}
 							className="bg-transparent cursor-pointer text-gray-400 hover:text-gray-600 p-0 m-0 flex items-center justify-center"
-							title="Clear search"
+							title={__('Clear search', 'productbay')}
 						>
 							<XIcon className="h-4 w-4" />
 						</button>
@@ -316,8 +316,8 @@ export const ProductSearch: React.FC = () => {
 										{product.name}
 									</div>
 									<div className="text-xs text-gray-500">
-										ID: {product.id} • SKU:{' '}
-										{product.sku || 'N/A'}
+										{__('ID:', 'productbay')} {product.id} • {__('SKU:', 'productbay')}{' '}
+										{product.sku || __('N/A', 'productbay')}
 									</div>
 								</div>
 								<div
@@ -363,8 +363,15 @@ export const ProductSearch: React.FC = () => {
 									className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-sm border border-gray-200"
 								>
 									<Tooltip
-										content={`${product.name} (ID: ${product.id
-											}, SKU: ${product.sku || 'N/A'})`}
+										content={
+											// translators: 1: Product name, 2: Product ID, 3: Product SKU
+											sprintf(
+												__('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'),
+												product.name,
+												product.id.toString(),
+												product.sku || __('N/A', 'productbay')
+											)
+										}
 										className="bg-blue-800"
 									>
 										<span className="max-w-[150px] truncate block cursor-help">
@@ -375,7 +382,10 @@ export const ProductSearch: React.FC = () => {
 										onClick={() =>
 											toggleProduct(product)
 										}
-										title={`Remove "${product.name}"`}
+										title={
+											// translators: %s: Product name
+											sprintf(__('Remove "%s"', 'productbay'), product.name)
+										}
 										className="text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center"
 									>
 										<XIcon className="h-3 w-3" />
@@ -392,15 +402,18 @@ export const ProductSearch: React.FC = () => {
 							onConfirm={confirmRemoveAll}
 							variant="ghost"
 							size="sm"
-							confirmMessage={`Remove ${selectedProductsMap.size
-								} ${selectedProductsMap.size === 1
-									? 'product'
-									: 'products'
-								}?`}
+							confirmMessage={
+								_n(
+									'Remove %d product?',
+									'Remove %d products?',
+									selectedProductsMap.size,
+									'productbay'
+								).replace('%d', selectedProductsMap.size.toString())
+							}
 							className="font-normal text-red-600 hover:text-red-700 rounded-md hover:bg-red-100 px-2 py-0 flex items-center gap-1"
 						>
 							<Trash2Icon className="h-4 w-4 mr-1" />
-							Remove all
+							{__('Remove all', 'productbay')}
 						</ConfirmButton>
 
 						{ /* Divider */}
@@ -413,15 +426,18 @@ export const ProductSearch: React.FC = () => {
 								{selectedProductsMap.size}
 							</span>
 							<span className="text-indigo-600">
-								{selectedProductsMap.size === 1
-									? 'product'
-									: 'products'}{' '}
-								included
+								{_n(
+									'product included',
+									'products included',
+									selectedProductsMap.size,
+									'productbay'
+								)}
 							</span>
 						</div>
 					</div>
 				</div>
-			)}
-		</div>
+			)
+			}
+		</div >
 	);
 };

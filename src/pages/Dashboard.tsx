@@ -11,7 +11,9 @@ import { PackageIcon, PlusIcon, PlayCircleIcon, LifeBuoyIcon, SheetIcon } from '
  * Dashboard Page Component
  *
  * Main landing page showing system status, quick stats, and getting started guides.
- * Displays different states based on product/table counts.
+ * Displays different states based on product / table counts.
+ * 
+ * @since 1.0.0
  */
 const Dashboard = () => {
 	const navigate = useNavigate();

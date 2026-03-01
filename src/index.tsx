@@ -1,3 +1,7 @@
+/**
+ * Entry point for the ProductBay React application.
+ * Handles WP Admin Menu deep linking and stabilizes the React root.
+ */
 import App from './App';
 import { PATHS } from './utils/routes';
 

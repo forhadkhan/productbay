@@ -1,13 +1,18 @@
 import React from 'react';
 
-interface ProductBayLogoProps extends React.SVGProps< SVGSVGElement > {
+/**
+ * ProductBayLogo component rendering the full brand logo as an SVG.
+ * Supports standard SVG props and custom className.
+ */
+
+interface ProductBayLogoProps extends React.SVGProps<SVGSVGElement> {
 	className?: string;
 }
 
-const ProductBayLogo: React.FC< ProductBayLogoProps > = ( {
+const ProductBayLogo: React.FC<ProductBayLogoProps> = ({
 	className,
 	...props
-} ) => {
+}) => {
 	return (
 		<svg
 			width="291"
@@ -15,8 +20,8 @@ const ProductBayLogo: React.FC< ProductBayLogoProps > = ( {
 			viewBox="0 0 291 64"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			className={ className }
-			{ ...props }
+			className={className}
+			{...props}
 		>
 			<rect width="64" height="64" rx="16" fill="#f05c2a" />
 			<path

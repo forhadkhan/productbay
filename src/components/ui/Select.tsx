@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { cn } from '../../utils/cn';
+import { cn } from '@/utils/cn';
+import { __ } from '@wordpress/i18n';
 import { ChevronDown, Check } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
@@ -66,7 +67,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 			options,
 			value,
 			onChange,
-			placeholder = 'Select...',
+			placeholder = __('Select...', 'productbay'),
 			label,
 			disabled,
 			icon,
@@ -155,7 +156,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 								)}
 								title={
 									allowDeselect
-										? 'Click to clear selection'
+										? __('Click to clear selection', 'productbay')
 										: undefined
 								}
 							>

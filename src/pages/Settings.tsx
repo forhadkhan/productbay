@@ -43,6 +43,13 @@ const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 	},
 ];
 
+/**
+ * Settings Page Component
+ * 
+ * Main configuration hub for global defaults and plugin-wide behavior.
+ * 
+ * @since 1.0.0
+ */
 const Settings = () => {
 	const [activeTab, setActiveTab] = useUrlTab<SettingsTabValue>('default', VALID_SETTINGS_TABS);
 	const [showReloadModal, setShowReloadModal] = useState(false);

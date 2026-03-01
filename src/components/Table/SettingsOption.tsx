@@ -1,5 +1,10 @@
-import { ReactNode } from 'react';
+/**
+ * SettingsOption Component
+ * 
+ * A layout component for a single setting row with a label, description, and input/action.
+ */
 import { cn } from '@/utils/cn';
+import { ReactNode } from 'react';
 
 interface SettingsOptionProps {
     title: string;
