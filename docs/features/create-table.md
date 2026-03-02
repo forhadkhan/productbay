@@ -4,13 +4,13 @@ ProductBay provides two primary workflows for building your product tables, depe
 
 ## Creation Workflows
 
-### 🧙 [Guided Wizard](./creation-wizard)
+### [Guided Wizard](./creation-wizard)
 Perfect for first-time users or those who prefer a structured, step-by-step setup.
 - **Onboarding**: automatically launches when you first activate the plugin.
-- **Floating Button**: quickly launch the wizard from anywhere on the Table Dashboard.
+- **Floating Button**: available in the bottom-right corner. On click, it quickly launches the wizard from anywhere on the admin panel.
 - **5-Step Flow**: guides you through Source, Columns, Design, Options, and Publishing.
 
-### 🛠️ [Manual Methods](./create-page)
+### [Manual Methods](./create-page)
 For administrators who want to jump straight into the creation screen from any WordPress admin area.
 - Accessible via the **Plugin Navbar**, **WP Menu**, and **Topbar**.
 - Native experience integrated into the standard WordPress admin flow.
