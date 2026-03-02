@@ -20,6 +20,20 @@ export default defineConfig({
         siteTitle: false,
 
         nav: [
+            {
+                text: 'v1.0.0',
+                items: [
+                    {
+                        text: 'v1.0.0 (Latest)',
+                        link: '/guide/introduction',
+                        activeMatch: '^/(?!v\\d)'
+                    },
+                    {
+                        text: 'Changelog',
+                        link: '/changelog'
+                    }
+                ]
+            },
             { text: 'Guide', link: '/guide/introduction' },
             { text: 'Features', link: '/features/table-dashboard' },
             { text: 'Developer', link: '/developer/architecture' },
