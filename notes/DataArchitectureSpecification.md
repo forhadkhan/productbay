@@ -39,12 +39,12 @@ Standard WordPress fields are used for basic identity.
 
 We group data into 4 logical context buckets to avoid monolithic data blobs.
 
-| Meta Key       | Data Type   | Description                                             |
-| -------------- | ----------- | ------------------------------------------------------- |
-| `_pb_source`   | JSON Object | Rules for *which* products to fetch (Query args).       |
-| `_pb_columns`  | JSON Array  | The layout, order, and visibility of columns.           |
-| `_pb_settings` | JSON Object | Functional toggles (Pagination, Search, Cart behavior). |
-| `_pb_style`    | JSON Object | Visual design tokens (Colors, Borders, Fonts).          |
+| Meta Key               | Data Type   | Description                                             |
+| ---------------------- | ----------- | ------------------------------------------------------- |
+| `_productbay_source`   | JSON Object | Rules for *which* products to fetch (Query args).       |
+| `_productbay_columns`  | JSON Array  | The layout, order, and visibility of columns.           |
+| `_productbay_settings` | JSON Object | Functional toggles (Pagination, Search, Cart behavior). |
+| `_productbay_style`    | JSON Object | Visual design tokens (Colors, Borders, Fonts).          |
 
 ---
 
@@ -52,7 +52,7 @@ We group data into 4 logical context buckets to avoid monolithic data blobs.
 
 These schemas define exactly what is stored inside the `wp_post_meta` keys.
 
-### A. Data Source (`_pb_source`)
+### A. Data Source (`_productbay_source`)
 
 *Controls the `WP_Query` builder logic.*
 
@@ -76,7 +76,7 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
 
 ```
 
-### B. Columns Configuration (`_pb_columns`)
+### B. Columns Configuration (`_productbay_columns`)
 
 *Controls the visual grid. This is an ORDERED ARRAY.*
 
@@ -140,7 +140,7 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
 
 ```
 
-### C. Table Settings (`_pb_settings`)
+### C. Table Settings (`_productbay_settings`)
 
 *Functional behavior toggles.*
 
@@ -177,7 +177,7 @@ These schemas define exactly what is stored inside the `wp_post_meta` keys.
 
 ```
 
-### D. Styling (`_pb_style`)
+### D. Styling (`_productbay_style`)
 
 *Visual design override tokens.*
 
@@ -274,21 +274,13 @@ export interface DataSource {
  * This is what the API GET/POST returns/receives.
  */
 export interface ProductTable {
-    id?: number; // Optional because new tables don't have an ID yet
+    id: number | null;
     title: string;
-    status: 'publish' | 'draft';
-    author?: {
-        id: number;
-        name: string;
-    };
-    date?: {
-        created: string;
-        modified: string;
-    };
+    status: 'publish' | 'private';
     source: DataSource;
     columns: Column[];
-    settings: any; // Mapped from _pb_settings
-    style: any;    // Mapped from _pb_style
+    settings: TableSettings;
+    style: TableStyle;
 }
 
 ```

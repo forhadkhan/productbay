@@ -1,5 +1,13 @@
+/**
+ * ToastContext
+ * 
+ * Provides a global notification system for the application.
+ * Allows components to trigger success, error, or info toasts.
+ * 
+ * @since 1.0.0
+ */
+import { ToastType } from '@/components/ui/Toast';
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { ToastType } from '../components/ui/Toast';
 
 interface ToastData {
     id: string;

@@ -1,3 +1,11 @@
+/**
+ * apiFetch Utility
+ * 
+ * A wrapper around the native fetch API that automatically includes 
+ * the WordPress REST API nonce and base URL.
+ * 
+ * @since 1.0.0
+ */
 export const apiFetch = async <T>(
 	path: string,
 	options: RequestInit = {}

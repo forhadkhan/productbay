@@ -1,9 +1,10 @@
-import { cn } from '../../../utils/cn';
-import { Input } from '../../ui/Input';
-import { Tooltip } from '../../ui/Tooltip';
-import { apiFetch } from '../../../utils/api';
-import { ConfirmButton } from '../../ui/ConfirmButton';
-import { useTableStore, Product } from '../../../store/tableStore';
+import { cn } from '@/utils/cn';
+import { apiFetch } from '@/utils/api';
+import { Input } from '@/components/ui/Input';
+import { __, _n, sprintf } from '@wordpress/i18n';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { useTableStore, Product } from '@/store/tableStore';
+import { ConfirmButton } from '@/components/ui/ConfirmButton';
 import React, {
 	useState,
 	useEffect,
@@ -20,11 +21,17 @@ import {
 	PackageIcon,
 } from 'lucide-react';
 
+const RESULTS_PER_PAGE = 20;
+
 export const ProductSearch: React.FC = () => {
 	const { tableData, setTableData } = useTableStore();
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
+	const [page, setPage] = useState(1);
+	const [hasMore, setHasMore] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
+	const wrapperRef = useRef<HTMLDivElement>(null);
 
 	// Cache for search results to avoid redundant API calls
 	const searchCache = useRef<Map<string, Product[]>>(new Map());
@@ -63,71 +70,86 @@ export const ProductSearch: React.FC = () => {
 	};
 
 	/**
-	 * Search products with caching and optimized debounce
-	 *
-	 * Performance optimizations:
-	 * - Reduced debounce from 250ms to 150ms (ultra-fast response)
-	 * - Caches search results in memory to avoid redundant API calls
-	 * - Checks cache before making API request
-	 * - Supports ID and SKU search with special syntax
+	 * Search products with caching and pagination
 	 */
+	const fetchProducts = useCallback(async (searchQuery: string, pageNum: number, append: boolean = false) => {
+		if (searchQuery.length > 0 && searchQuery.length < 2) {
+			if (!append) setResults([]);
+			return;
+		}
+
+		const searchParams = parseSearchQuery(searchQuery);
+		const cacheKey = `${searchParams.type}:${searchParams.value.toLowerCase()}:page${pageNum}`;
+
+		if (searchCache.current.has(cacheKey)) {
+			console.log('[ProductSearch] Cache hit for:', cacheKey);
+			const cachedData = searchCache.current.get(cacheKey)!;
+			setResults(prev => append ? [...prev, ...cachedData] : cachedData);
+			setHasMore(cachedData.length >= RESULTS_PER_PAGE);
+			return;
+		}
+
+		setLoading(true);
+		try {
+			let apiQuery = `products?limit=${RESULTS_PER_PAGE}&page=${pageNum}`;
+
+			// Build API query based on search type
+			if (searchParams.type === 'id') {
+				apiQuery += `&include=${searchParams.value}`;
+			} else if (searchParams.type === 'sku') {
+				apiQuery += `&sku=${encodeURIComponent(searchParams.value)}`;
+			} else if (searchParams.value) {
+				apiQuery += `&search=${encodeURIComponent(searchParams.value)}`;
+			}
+
+			const data = await apiFetch<Product[]>(apiQuery);
+
+			// Store in cache
+			searchCache.current.set(cacheKey, data);
+
+			setResults(prev => append ? [...prev, ...data] : data);
+			setHasMore(data.length >= RESULTS_PER_PAGE);
+			setPage(pageNum);
+
+			console.log('[ProductSearch] Fetched and cached:', cacheKey);
+		} catch (error) {
+			console.error('Failed to search products', error);
+			if (!append) setResults([]);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
+
 	useEffect(() => {
-		const searchProducts = async () => {
-			if (query.length < 2) {
-				// Reduced from 3 to 2 for faster results
-				setResults([]);
-				return;
-			}
+		// Only run if the dropdown is open (focused) OR we have a query
+		if (!isOpen && query.length === 0) return;
 
-			const searchParams = parseSearchQuery(query);
+		const timeoutId = setTimeout(() => {
+			fetchProducts(query, 1, false);
+		}, 150);
+		return () => clearTimeout(timeoutId);
+	}, [query, isOpen, fetchProducts]);
 
-			// Build cache key based on search type
-			const cacheKey = `${searchParams.type
-				}:${searchParams.value.toLowerCase()}`;
-
-			// Check cache first
-			if (searchCache.current.has(cacheKey)) {
-				console.log('[ProductSearch] Cache hit for:', cacheKey);
-				setResults(searchCache.current.get(cacheKey)!);
-				return;
-			}
-
-			setLoading(true);
-			try {
-				let apiQuery = '';
-
-				// Build API query based on search type
-				if (searchParams.type === 'id') {
-					apiQuery = `products?include=${searchParams.value}`;
-				} else if (searchParams.type === 'sku') {
-					apiQuery = `products?sku=${encodeURIComponent(
-						searchParams.value
-					)}`;
-				} else {
-					apiQuery = `products?search=${encodeURIComponent(
-						searchParams.value
-					)}`;
-				}
-
-				const data = await apiFetch<Product[]>(apiQuery);
-
-				// Store in cache
-				searchCache.current.set(cacheKey, data);
-				setResults(data);
-
-				console.log('[ProductSearch] Fetched and cached:', cacheKey);
-			} catch (error) {
-				console.error('Failed to search products', error);
-				setResults([]);
-			} finally {
-				setLoading(false);
+	// Handle click outside to close results dropdown
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
 			}
 		};
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
 
-		// Reduced debounce from 250ms to 150ms for ultra-fast response
-		const timeoutId = setTimeout(searchProducts, 150);
-		return () => clearTimeout(timeoutId);
-	}, [query]);
+	// Infinite scroll handler
+	const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+		const target = e.currentTarget;
+		if (target.scrollHeight - target.scrollTop <= target.clientHeight + 20) {
+			if (!loading && hasMore) {
+				fetchProducts(query, page + 1, true);
+			}
+		}
+	};
 
 	/**
 	 * Sync selectedProductsMap from tableData on mount
@@ -221,7 +243,7 @@ export const ProductSearch: React.FC = () => {
 	 */
 	const handleClearSearch = useCallback(() => {
 		setQuery('');
-		setResults([]);
+		// It will automatically fetch default suggestions because `isOpen` is still true
 	}, []);
 
 	/**
@@ -235,14 +257,18 @@ export const ProductSearch: React.FC = () => {
 	);
 
 	return (
-		<div className="w-full space-y-4">
+		<div className="w-full space-y-4" ref={wrapperRef}>
 			{ /* Search Input */}
 			<div className="relative flex items-center">
 				<SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 				<Input
-					placeholder="Search products by name, or use id:123 or sku:ABC"
+					placeholder={__('Search products by name, or use id:123 or sku:ABC', 'productbay')}
 					value={query}
-					onChange={(e) => setQuery(e.target.value)}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+						setQuery(e.target.value);
+						setIsOpen(true);
+					}}
+					onFocus={() => setIsOpen(true)}
 					className="pl-9 pr-9"
 				/>
 				<div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
@@ -252,7 +278,7 @@ export const ProductSearch: React.FC = () => {
 						<button
 							onClick={handleClearSearch}
 							className="bg-transparent cursor-pointer text-gray-400 hover:text-gray-600 p-0 m-0 flex items-center justify-center"
-							title="Clear search"
+							title={__('Clear search', 'productbay')}
 						>
 							<XIcon className="h-4 w-4" />
 						</button>
@@ -260,48 +286,68 @@ export const ProductSearch: React.FC = () => {
 				</div>
 			</div>
 
-			{ /* Search Results */}
-			{results.length > 0 && (
-				<div className="border border-gray-200 rounded-md shadow-sm max-h-60 overflow-y-auto divide-y divide-gray-100 bg-white">
-					{results.map((product) => (
-						<div
-							key={product.id}
-							className={cn(
-								'flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 transition-colors',
-								isSelected(product.id) && 'bg-blue-50/50'
-							)}
-							onClick={() => toggleProduct(product)}
-						>
-							<div className="h-10 w-10 bg-gray-100 rounded flex-shrink-0 overflow-hidden">
-								{product.image && (
-									<img
-										src={product.image}
-										alt={product.name}
-										className="h-full w-full object-cover"
-									/>
-								)}
-							</div>
-							<div className="flex-1 min-w-0">
-								<div className="text-sm font-medium text-gray-900 truncate">
-									{product.name}
-								</div>
-								<div className="text-xs text-gray-500">
-									ID: {product.id} • SKU:{' '}
-									{product.sku || 'N/A'}
-								</div>
-							</div>
+			{ /* Search Results Inline Container */}
+			{isOpen && (
+				<div
+					className="border border-gray-200 rounded-md shadow-sm max-h-60 overflow-y-auto divide-y divide-gray-100 bg-white"
+					onScroll={handleScroll}
+				>
+					{results.length > 0 ? (
+						results.map((product) => (
 							<div
+								key={product.id}
 								className={cn(
-									'h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center',
-									isSelected(product.id)
-										? 'bg-primary border-primary text-white'
-										: 'text-transparent'
+									'flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 transition-colors',
+									isSelected(product.id) && 'bg-blue-50/50'
 								)}
+								onClick={() => toggleProduct(product)}
 							>
-								<CheckIcon className="h-3 w-3" />
+								<div className="h-10 w-10 bg-gray-100 rounded flex-shrink-0 overflow-hidden">
+									{product.image && (
+										<img
+											src={product.image}
+											alt={product.name}
+											className="h-full w-full object-cover"
+										/>
+									)}
+								</div>
+								<div className="flex-1 min-w-0">
+									<div className="text-sm font-medium text-gray-900 truncate">
+										{product.name}
+									</div>
+									<div className="text-xs text-gray-500">
+										{__('ID:', 'productbay')} {product.id} • {__('SKU:', 'productbay')}{' '}
+										{product.sku || __('N/A', 'productbay')}
+									</div>
+								</div>
+								<div
+									className={cn(
+										'h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center',
+										isSelected(product.id)
+											? 'bg-primary border-primary text-white'
+											: 'text-transparent'
+									)}
+								>
+									<CheckIcon className="h-3 w-3" />
+								</div>
 							</div>
+						))
+					) : !loading && query.length >= 2 ? (
+						<div className="p-4 text-center text-sm text-gray-500">
+							{__('No products found for', 'productbay')} "{query}"
 						</div>
-					))}
+					) : loading && results.length === 0 ? (
+						<div className="p-4 flex justify-center text-sm text-gray-500">
+							<Loader2Icon className="h-5 w-5 animate-spin text-gray-400 mr-2" />
+							{__('Loading products...', 'productbay')}
+						</div>
+					) : null}
+					{loading && results.length > 0 && (
+						<div className="p-3 bg-gray-50/50 flex justify-center text-sm text-gray-500">
+							<Loader2Icon className="h-4 w-4 animate-spin text-gray-400 mr-2" />
+							{__('Loading more...', 'productbay')}
+						</div>
+					)}
 				</div>
 			)}
 
@@ -317,8 +363,15 @@ export const ProductSearch: React.FC = () => {
 									className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-sm border border-gray-200"
 								>
 									<Tooltip
-										content={`${product.name} (ID: ${product.id
-											}, SKU: ${product.sku || 'N/A'})`}
+										content={
+											// translators: 1: Product name, 2: Product ID, 3: Product SKU
+											sprintf(
+												__('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'),
+												product.name,
+												product.id.toString(),
+												product.sku || __('N/A', 'productbay')
+											)
+										}
 										className="bg-blue-800"
 									>
 										<span className="max-w-[150px] truncate block cursor-help">
@@ -329,7 +382,10 @@ export const ProductSearch: React.FC = () => {
 										onClick={() =>
 											toggleProduct(product)
 										}
-										title={`Remove "${product.name}"`}
+										title={
+											// translators: %s: Product name
+											sprintf(__('Remove "%s"', 'productbay'), product.name)
+										}
 										className="text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center"
 									>
 										<XIcon className="h-3 w-3" />
@@ -346,15 +402,18 @@ export const ProductSearch: React.FC = () => {
 							onConfirm={confirmRemoveAll}
 							variant="ghost"
 							size="sm"
-							confirmMessage={`Remove ${selectedProductsMap.size
-								} ${selectedProductsMap.size === 1
-									? 'product'
-									: 'products'
-								}?`}
+							confirmMessage={
+								_n(
+									'Remove %d product?',
+									'Remove %d products?',
+									selectedProductsMap.size,
+									'productbay'
+								).replace('%d', selectedProductsMap.size.toString())
+							}
 							className="font-normal text-red-600 hover:text-red-700 rounded-md hover:bg-red-100 px-2 py-0 flex items-center gap-1"
 						>
 							<Trash2Icon className="h-4 w-4 mr-1" />
-							Remove all
+							{__('Remove all', 'productbay')}
 						</ConfirmButton>
 
 						{ /* Divider */}
@@ -367,15 +426,18 @@ export const ProductSearch: React.FC = () => {
 								{selectedProductsMap.size}
 							</span>
 							<span className="text-indigo-600">
-								{selectedProductsMap.size === 1
-									? 'product'
-									: 'products'}{' '}
-								included
+								{_n(
+									'product included',
+									'products included',
+									selectedProductsMap.size,
+									'productbay'
+								)}
 							</span>
 						</div>
 					</div>
 				</div>
-			)}
-		</div>
+			)
+			}
+		</div >
 	);
 };

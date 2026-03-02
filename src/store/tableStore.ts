@@ -1,3 +1,12 @@
+/**
+ * Table Store
+ * 
+ * The central engine for table configuration in ProductBay.
+ * Manages the state for Source, Columns, Settings, and Style.
+ * Includes persistence logic (load/save) and category caching.
+ * 
+ * @since 1.0.0
+ */
 import { create } from 'zustand';
 import { apiFetch } from '@/utils/api';
 import type {
@@ -54,7 +63,7 @@ interface TableStore {
 	/** Table metadata */
 	tableId: number | null;
 	tableTitle: string;
-	tableStatus: 'publish' | 'draft';
+	tableStatus: 'publish' | 'private';
 
 	/** Data source configuration (_pb_source) */
 	source: DataSource;
@@ -116,8 +125,8 @@ interface TableStore {
 	/** Set table title */
 	setTitle: (title: string) => void;
 
-	/** Set table status (publish/draft) */
-	setStatus: (status: 'publish' | 'draft') => void;
+	/** Set table status (publish/private) */
+	setStatus: (status: 'publish' | 'private') => void;
 
 	// =========================================================================
 	// Source Actions
@@ -515,7 +524,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			set({
 				tableId: data.id,
 				tableTitle: data.title || '',
-				tableStatus: data.status || 'draft',
+				tableStatus: data.status || 'private',
 				// Use default if source is empty array or invalid
 				source: isSourceValid(data.source) ? data.source : defaultSource(),
 				columns: (data.columns && data.columns.length > 0) ? data.columns : defaultColumns(),

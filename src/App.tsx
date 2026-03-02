@@ -1,3 +1,7 @@
+/**
+ * Root App component that sets up the routing and global providers.
+ * Handles HashRouter, ToastProvider, and the main AdminLayout.
+ */
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 import { Toaster } from './components/ui/Toaster';

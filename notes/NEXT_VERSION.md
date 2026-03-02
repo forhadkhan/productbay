@@ -447,5 +447,23 @@ In the "Add to Cart" column for that specific row, render a mini-list of the chi
 * **Stock Checks:** You must check `$child_product->is_in_stock()` for each item. If a child is out of stock, hide its quantity input and just show "Out of stock" next to its name.
 * **Bulk Selection (Header):** If the user checks the main row checkbox for a Grouped Product, your JavaScript should calculate the total quantity of all child inputs that are greater than `0`.
 
-------------------------
+---
 
+## 7. Future Column Ideas (`Tables.tsx` Dashboard)
+
+To make the table management dashboard more informative and professional, consider adding these columns to the `All Tables` view in the future:
+
+### 1. Date (Created or Last Modified)
+Since these tables are internally stored as WordPress custom post types (`productbay_table`), users expect to see a **Date** column just like they do on standard WordPress Pages/Posts screens. Knowing when a table was last tweaked is very helpful.
+
+### 2. Status Badge
+Right now, if a table is drafted, it just says `— draft` in small italic text next to the title. We could move this into its own dedicated **Status** column with colored badges (e.g., a green badge for **Published**, yellow for **Draft**).
+
+### 3. Number of Columns Used
+A quick metadata column showing how many columns are configured inside that specific table (e.g., "6 columns"). This helps the user remember how complex a table is without opening it.
+
+### 4. Products Count (Dynamic)
+Since tables can be filtered by specific categories or tags via the "Source", we could add a column indicating exactly how many products are currently matching that table's rules (e.g., "42 Products").
+
+### 5. Views / Performance
+If we ever track analytics on the backend (like how many times a table shortcode was rendered on the frontend), adding an **Impressions** or **Views** column here would be a massive selling point for a premium plugin. Tracking performance metrics natively inside the dashboard provides high value to users.

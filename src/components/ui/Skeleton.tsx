@@ -1,5 +1,10 @@
 import { cn } from '../../utils/cn';
 
+/**
+ * Skeleton component used for showing loading states.
+ * Renders a pulsing placeholder box.
+ */
+
 const Skeleton = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
 		<div

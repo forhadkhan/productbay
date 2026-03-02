@@ -1,6 +1,14 @@
+/**
+ * ColumnEditor Component
+ * 
+ * Manages the table column configuration including adding, removing, 
+ * renaming, and reordering columns via drag-and-drop.
+ * 
+ * @since 1.0.0
+ */
 import React from 'react';
 import { cn } from '@/utils/cn';
-import { __ } from '@wordpress/i18n';
+import { __, _n } from '@wordpress/i18n';
 import { generateColumnId } from '@/types';
 import { Button } from '@/components/ui/Button';
 import type { Column, ColumnType } from '@/types';

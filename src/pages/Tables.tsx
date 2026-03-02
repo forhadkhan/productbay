@@ -1,25 +1,28 @@
 import { apiFetch } from '@/utils/api';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { __, sprintf } from '@wordpress/i18n';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { useToast } from '@/context/ToastContext';
+import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon } from 'lucide-react';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/DropdownMenu';
+import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon, ArrowUpDownIcon, ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
 
 interface Table {
 	id: number;
 	title: string;
 	shortcode: string;
 	date: string;
-	status: string; // 'publish' | 'draft' etc.
+	modifiedDate?: string;
+	productCount?: number;
+	status: string; // 'publish' | 'private' etc.
 	source?: any;
 	columns?: any[];
 	settings?: any;
@@ -31,8 +34,8 @@ interface Table {
  */
 const BULK_OPTIONS = [
 	{ label: __('Delete', 'productbay'), value: 'delete' },
-	{ label: __('Set Active', 'productbay'), value: 'active' },
-	{ label: __('Set Inactive', 'productbay'), value: 'inactive' },
+	{ label: __('Set Published', 'productbay'), value: 'published' },
+	{ label: __('Set Private', 'productbay'), value: 'private' },
 ];
 
 /**
@@ -47,12 +50,18 @@ const ROWS_PER_PAGE_OPTIONS = [
 ];
 
 /**
- * Status filter options for table listing
+ * Filter options for table listing
  */
-const FILTER_OPTIONS = [
-	{ label: __('All Status', 'productbay'), value: 'all' },
-	{ label: __('Active', 'productbay'), value: 'publish' },
-	{ label: __('Inactive', 'productbay'), value: 'draft' },
+const STATUS_OPTIONS = [
+	{ label: __('Published', 'productbay'), value: 'publish' },
+	{ label: __('Private', 'productbay'), value: 'private' },
+];
+
+const SOURCE_OPTIONS = [
+	{ label: __('All Products', 'productbay'), value: 'all' },
+	{ label: __('Specific Products', 'productbay'), value: 'specific' },
+	{ label: __('Specific Categories', 'productbay'), value: 'category' },
+	{ label: __('On Sale', 'productbay'), value: 'sale' },
 ];
 
 /**
@@ -69,6 +78,8 @@ interface ModalState {
  * Tables Page Component
  *
  * Lists all ProductBay tables with search, filter, bulk actions, and pagination.
+ * 
+ * @since 1.0.0
  */
 const Tables = () => {
 	const [tables, setTables] = useState<Table[]>([]);
@@ -76,13 +87,15 @@ const Tables = () => {
 
 	// UI States
 	const [searchQuery, setSearchQuery] = useState('');
-	const [filterStatus, setFilterStatus] = useState('all');
+	const [filterStatuses, setFilterStatuses] = useState<string[]>([]);
+	const [filterSources, setFilterSources] = useState<string[]>([]);
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 	const [selectedBulkAction, setSelectedBulkAction] = useState('');
 	const [currentPage, setCurrentPage] = useState(1);
 	const [jumpPage, setJumpPage] = useState('');
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [isCustomPerPage, setIsCustomPerPage] = useState(false);
+	const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>({ key: 'date', direction: 'desc' });
 
 	// Use the system store instead of local state
 	const { status, loading, fetchStatus, error } = useSystemStore();
@@ -194,7 +207,7 @@ const Tables = () => {
 			// Create payload with duplicated data
 			const payload = {
 				title: `${tableToClone.title} (Copy)`,
-				status: 'draft', // New duplicates start as draft
+				status: 'private', // New duplicates start as private
 				source: tableToClone.source || {},
 				columns: tableToClone.columns || [],
 				settings: tableToClone.settings || {},
@@ -228,7 +241,7 @@ const Tables = () => {
 		}
 	};
 
-	// Handle toggle active/inactive
+	// Handle toggle published/private
 	const handleToggleActive = async () => {
 		if (!modalState.tableId) return;
 
@@ -236,7 +249,7 @@ const Tables = () => {
 		const table = tables.find(t => t.id === id);
 		if (!table) return;
 
-		const newStatus = table.status === 'publish' ? 'draft' : 'publish';
+		const newStatus = table.status === 'publish' ? 'private' : 'publish';
 		setActionLoading(prev => ({ ...prev, [id]: 'toggle' }));
 		closeModal();
 
@@ -263,8 +276,8 @@ const Tables = () => {
 			toast({
 				title: __('Success', 'productbay'),
 				description: newStatus === 'publish'
-					? __('Table activated successfully', 'productbay')
-					: __('Table deactivated successfully', 'productbay'),
+					? __('Table published successfully', 'productbay')
+					: __('Table set to private successfully', 'productbay'),
 				type: 'success'
 			});
 		} catch (error) {
@@ -328,15 +341,16 @@ const Tables = () => {
 				toast({
 					title: __('Success', 'productbay'),
 					description: sprintf(
-						__('Deleted %d tables successfully', 'productbay'),
+						/* translators: %d: number of tables deleted */
+						_n('Deleted %d table successfully', 'Deleted %d tables successfully', selectedRows.length, 'productbay'),
 						selectedRows.length
 					),
 					type: 'success'
 				});
 
-			} else if (selectedBulkAction === 'active' || selectedBulkAction === 'inactive') {
+			} else if (selectedBulkAction === 'published' || selectedBulkAction === 'private') {
 				// Determine new status
-				const newStatus = selectedBulkAction === 'active' ? 'publish' : 'draft';
+				const newStatus = selectedBulkAction === 'published' ? 'publish' : 'private';
 
 				// Process updates for each selected table
 				await Promise.all(selectedRows.map(async (id) => {
@@ -370,7 +384,8 @@ const Tables = () => {
 				toast({
 					title: __('Success', 'productbay'),
 					description: sprintf(
-						__('Updated status for %d tables', 'productbay'),
+						/* translators: %d: number of tables updated */
+						_n('Updated status for %d table', 'Updated status for %d tables', selectedRows.length, 'productbay'),
 						selectedRows.length
 					),
 					type: 'success'
@@ -391,21 +406,78 @@ const Tables = () => {
 		}
 	};
 
-	// Filtering & Pagination Logic
-	const filteredTables = tables.filter((table) => {
-		const matchesSearch =
-			table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			table.shortcode.toLowerCase().includes(searchQuery.toLowerCase());
-		const matchesFilter =
-			filterStatus === 'all' || table.status === filterStatus;
-		return matchesSearch && matchesFilter;
-	});
+	// Filtering & Pagination	// Derived state
+	const filteredTables = React.useMemo(() => {
+		return tables.filter(table => {
+			const matchesSearch = table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				table.id.toString() === searchQuery.replace('#', '') ||
+				table.shortcode.toLowerCase().includes(searchQuery.toLowerCase());
 
-	const totalPages = Math.ceil(filteredTables.length / itemsPerPage);
-	const currentTables = filteredTables.slice(
+			const matchesStatus = filterStatuses.length === 0 || filterStatuses.includes(table.status);
+
+			// Resolve the actual source type
+			const sourceType = typeof table.source === 'object' && table.source !== null
+				? (table.source.type || 'all')
+				: (table.source || 'all');
+
+			const matchesSource = filterSources.length === 0 || filterSources.includes(sourceType);
+
+			return matchesSearch && matchesStatus && matchesSource;
+		});
+	}, [tables, searchQuery, filterStatuses, filterSources]);
+
+	const sortedTables = React.useMemo(() => {
+		const sortableTables = [...filteredTables];
+		if (sortConfig !== null) {
+			sortableTables.sort((a, b) => {
+				let aValue: any = a[sortConfig.key as keyof Table];
+				let bValue: any = b[sortConfig.key as keyof Table];
+
+				if (sortConfig.key === 'date') {
+					aValue = new Date(a.date.replace(' ', 'T')).getTime();
+					bValue = new Date(b.date.replace(' ', 'T')).getTime();
+				} else if (sortConfig.key === 'source') {
+					aValue = typeof a.source === 'object' && a.source !== null ? (a.source.type || 'all') : (a.source || 'all');
+					bValue = typeof b.source === 'object' && b.source !== null ? (b.source.type || 'all') : (b.source || 'all');
+				} else if (typeof aValue === 'string') {
+					aValue = aValue.toLowerCase();
+					bValue = bValue.toLowerCase();
+				}
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			});
+		}
+		return sortableTables;
+	}, [filteredTables, sortConfig]);
+
+	const totalPages = Math.ceil(sortedTables.length / itemsPerPage);
+	const currentTables = sortedTables.slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	);
+
+	const handleSort = (key: string) => {
+		let direction: 'asc' | 'desc' = 'asc';
+		if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
+	const SortIcon = ({ columnKey }: { columnKey: string }) => {
+		if (sortConfig?.key !== columnKey) {
+			return <ArrowUpDownIcon className="w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1" />;
+		}
+		return sortConfig.direction === 'asc'
+			? <ArrowUpIcon className="w-3 h-3 text-blue-600 ml-1" />
+			: <ArrowDownIcon className="w-3 h-3 text-blue-600 ml-1" />;
+	};
 
 	return (
 		<div className="space-y-6">
@@ -483,7 +555,10 @@ const Tables = () => {
 					</Button>
 					{selectedRows.length > 0 && (
 						<span className="text-sm text-gray-500 ml-2">
-							{sprintf(__('%d items selected', 'productbay'), selectedRows.length)}
+							{sprintf(
+								/* translators: %d: number of selected items */
+								__('%d items selected', 'productbay'), selectedRows.length
+							)}
 						</span>
 					)}
 				</div>
@@ -517,15 +592,82 @@ const Tables = () => {
 					</div>
 
 					{ /* Filter */}
-					<div className="w-40">
-						<Select
-							label={__('Filter by Status', 'productbay')}
-							options={FILTER_OPTIONS}
-							value={filterStatus}
-							allowDeselect={true}
-							icon={<FilterIcon className="w-4 h-4" />}
-							onChange={setFilterStatus}
-						/>
+					<div>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button variant="outline" className="gap-2 bg-white relative">
+									<FilterIcon className="w-4 h-4 text-gray-500" />
+									{__('Filter', 'productbay')}
+									{(filterStatuses.length > 0 || filterSources.length > 0) && (
+										<span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+											{filterStatuses.length + filterSources.length}
+										</span>
+									)}
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end" className="w-56 p-2">
+								<DropdownMenuLabel>{__('Status', 'productbay')}</DropdownMenuLabel>
+								{STATUS_OPTIONS.map((option) => (
+									<DropdownMenuItem
+										key={option.value}
+										closeOnSelect={false}
+										onClick={(e) => {
+											setFilterStatuses(prev =>
+												prev.includes(option.value)
+													? prev.filter(v => v !== option.value)
+													: [...prev, option.value]
+											);
+										}}
+									>
+										<div className="flex items-center w-full justify-between">
+											<span>{option.label}</span>
+											{filterStatuses.includes(option.value) && (
+												<CheckIcon className="w-4 h-4 text-blue-600" />
+											)}
+										</div>
+									</DropdownMenuItem>
+								))}
+
+								<DropdownMenuSeparator />
+
+								<DropdownMenuLabel>{__('Source', 'productbay')}</DropdownMenuLabel>
+								{SOURCE_OPTIONS.map((option) => (
+									<DropdownMenuItem
+										key={option.value}
+										closeOnSelect={false}
+										onClick={(e) => {
+											setFilterSources(prev =>
+												prev.includes(option.value)
+													? prev.filter(v => v !== option.value)
+													: [...prev, option.value]
+											);
+										}}
+									>
+										<div className="flex items-center w-full justify-between">
+											<span>{option.label}</span>
+											{filterSources.includes(option.value) && (
+												<CheckIcon className="w-4 h-4 text-blue-600" />
+											)}
+										</div>
+									</DropdownMenuItem>
+								))}
+
+								{(filterStatuses.length > 0 || filterSources.length > 0) && (
+									<>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem
+											className="text-red-600 focus:text-red-700 justify-center font-medium mt-1"
+											onClick={(e) => {
+												setFilterStatuses([]);
+												setFilterSources([]);
+											}}
+										>
+											{__('Clear Filters', 'productbay')}
+										</DropdownMenuItem>
+									</>
+								)}
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				</div>
 			</div>
@@ -547,17 +689,44 @@ const Tables = () => {
 									onChange={handleSelectAll}
 								/>
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-16">
-								{__('ID', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('title')}
+							>
+								<div className="flex items-center">
+									{__('Title', 'productbay')}
+									<SortIcon columnKey="title" />
+								</div>
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								{__('Title', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-24 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('status')}
+							>
+								<div className="flex items-center">
+									{__('Status', 'productbay')}
+									<SortIcon columnKey="status" />
+								</div>
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
 								{__('Shortcode', 'productbay')}
 							</th>
-							<th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-								{__('Product Source', 'productbay')}
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('source')}
+							>
+								<div className="flex items-center">
+									{__('Product Source', 'productbay')}
+									<SortIcon columnKey="source" />
+								</div>
+							</th>
+							<th
+								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-32 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								onClick={() => handleSort('date')}
+							>
+								<div className="flex items-center">
+									{__('Date', 'productbay')}
+									<SortIcon columnKey="date" />
+								</div>
 							</th>
 						</tr>
 					</thead>
@@ -568,26 +737,32 @@ const Tables = () => {
 									<td className="px-4 py-4 text-center">
 										<Skeleton className="h-4 w-4 rounded mx-auto" />
 									</td>
-									<td className="px-6 py-4">
-										<Skeleton className="h-4 w-8" />
-									</td>
-									<td className="px-6 py-4">
+									<td className="p-4">
 										<div className="space-y-2">
 											<Skeleton className="h-5 w-48" />
 										</div>
 									</td>
-									<td className="px-6 py-4">
+									<td className="p-4">
+										<Skeleton className="h-6 w-20 rounded-full" />
+									</td>
+									<td className="p-4">
 										<Skeleton className="h-8 w-24 rounded" />
 									</td>
-									<td className="px-6 py-4">
-										<Skeleton className="h-4 w-24" />
+									<td className="p-4">
+										<Skeleton className="h-6 w-32 rounded-full" />
+									</td>
+									<td className="p-4">
+										<div className="space-y-1">
+											<Skeleton className="h-4 w-24" />
+											<Skeleton className="h-3 w-20" />
+										</div>
 									</td>
 								</tr>
 							))
 						) : currentTables.length === 0 ? (
 							<tr>
 								<td
-									colSpan={5}
+									colSpan={6}
 									className="px-6 py-12 text-center text-gray-400"
 								>
 									{/* Show welcome screen if no tables exist at all */}
@@ -612,7 +787,8 @@ const Tables = () => {
 												variant="outline"
 												onClick={() => {
 													setSearchQuery('');
-													setFilterStatus('all');
+													setFilterStatuses([]);
+													setFilterSources([]);
 												}}
 												className="cursor-pointer"
 											>
@@ -647,27 +823,21 @@ const Tables = () => {
 												disabled={isActing}
 											/>
 										</td>
-										{/* ID */}
-										<td className="px-6 py-4 text-sm text-gray-500">
-											#{table.id}
-										</td>
-										{/* Title */}
-										<td className="px-6 py-4 relative">
-											<div className="font-medium text-wp-text text-base">
+										{/* Title (Columns used) */}
+										<td className="p-4 relative">
+											<div className="font-medium text-wp-text text-base flex items-center gap-2">
 												<Link
 													to={`/table/${table.id}`}
 													className="hover:text-blue-600"
 												>
 													{table.title}
+													<span className="ml-2 text-sm font-normal text-gray-400">
+														({table.columns?.length || 0} {__('cols', 'productbay')})
+													</span>
 													{isActing && (
 														<Loader2Icon className="w-4 h-4 inline-block ml-2 animate-spin" />
 													)}
 												</Link>
-												{table.status !== 'publish' && (
-													<span className="ml-2 text-xs text-gray-400 font-normal italic">
-														— {table.status}
-													</span>
-												)}
 											</div>
 
 											{ /* Hover Actions (Visible on group hover) */}
@@ -705,8 +875,8 @@ const Tables = () => {
 													disabled={isActing}
 												>
 													{table.status === 'publish'
-														? __('Deactivate', 'productbay')
-														: __('Activate', 'productbay')}
+														? __('Set Private', 'productbay')
+														: __('Publish', 'productbay')}
 												</button>
 												<span className="text-gray-300">
 													|
@@ -722,10 +892,22 @@ const Tables = () => {
 												</button>
 											</div>
 										</td>
+										{/* Status Badge */}
+										<td className="p-4">
+											{table.status === 'publish' ? (
+												<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+													{__('Published', 'productbay')}
+												</span>
+											) : (
+												<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+													{__('Private', 'productbay')}
+												</span>
+											)}
+										</td>
 										{/* Shortcode */}
-										<td className="px-6 py-4">
-											<div className="bg-gray-100 inline-block text-gray-600 text-sm px-3 py-1 rounded border border-gray-300 flex items-center gap-1 font-mono transition-colors">
-												<span className="select-all p-1 bg-transparent hover:bg-gray-200">
+										<td className="p-4">
+											<div className="bg-gray-100 inline-flex text-gray-600 px-3 py-1 rounded border border-gray-300 items-center gap-1">
+												<span className="select-all font-mono text-sm bg-transparent p-1 hover:bg-gray-200">
 													{table.shortcode}
 												</span>
 												<Button
@@ -749,13 +931,46 @@ const Tables = () => {
 												</Button>
 											</div>
 										</td>
-										{/* Product Source */}
-										<td className="px-6 py-4 text-sm text-gray-600 capitalize">
-											{typeof table.source === 'object' && table.source !== null
-												// @ts-ignore
-												? (table.source.type || 'Custom')
-												: (table.source || 'WooCommerce')
-											}
+										{/* Product Source & Count Badge */}
+										<td className="p-4 text-sm text-gray-600 capitalize">
+											<div className="flex items-center gap-2">
+												<span>
+													{typeof table.source === 'object' && table.source !== null
+														// @ts-ignore
+														? (table.source.type || 'Custom')
+														: (table.source || 'WooCommerce')
+													}
+												</span>
+												{table.productCount !== undefined && (
+													<span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600 border border-gray-200" title={__('Matching Products', 'productbay')}>
+														{table.productCount}
+													</span>
+												)}
+											</div>
+										</td>
+										{/* Date (Created & Modified) */}
+										<td className="p-4 whitespace-nowrap text-sm text-gray-500">
+											{table.date && (
+												<div className="flex flex-col">
+													{table.status === 'publish' ? (
+														<span className="font-medium text-xs text-gray-700">
+															{__('Published', 'productbay')}: &nbsp;
+															{new Date(table.date.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+														</span>
+													) : (
+														<span className="font-medium text-xs text-gray-700">
+															{__('Created', 'productbay')}: &nbsp;
+															{new Date(table.date.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+														</span>
+													)}
+													{table.modifiedDate && table.modifiedDate !== table.date && (
+														<span className="text-xs text-gray-400 mt-1" title={table.modifiedDate}>
+															{__('Modified', 'productbay')}: &nbsp;
+															{new Date(table.modifiedDate.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+														</span>
+													)}
+												</div>
+											)}
 										</td>
 									</tr>
 								);
@@ -770,6 +985,7 @@ const Tables = () => {
 				{/* Pagination Info */}
 				<div className="text-sm text-gray-500 px-1">
 					{sprintf(
+						/* translators: %1$d: start index, %2$d: end index, %3$d: total entries */
 						__('Showing %1$d to %2$d of %3$d entries', 'productbay'),
 						(currentPage - 1) * itemsPerPage + 1,
 						Math.min(currentPage * itemsPerPage, filteredTables.length),
@@ -816,11 +1032,12 @@ const Tables = () => {
 								<Select
 									size="xs"
 									options={ROWS_PER_PAGE_OPTIONS}
-									value={itemsPerPage.toString()}
-									onChange={(val) => {
+									value={isCustomPerPage ? 'custom' : itemsPerPage.toString()}
+									onChange={(val: string) => {
 										if (val === 'custom') {
 											setIsCustomPerPage(true);
 										} else {
+											setIsCustomPerPage(false);
 											setItemsPerPage(Number(val));
 											setCurrentPage(1);
 										}
@@ -926,6 +1143,7 @@ const Tables = () => {
 			>
 				<p className="text-gray-700">
 					{sprintf(
+						/* translators: %s: table name */
 						__('Are you sure you want to delete "%s"? This action cannot be undone.', 'productbay'),
 						modalState.tableName
 					)}
@@ -951,6 +1169,7 @@ const Tables = () => {
 			>
 				<p className="text-gray-700">
 					{sprintf(
+						/* translators: %s: table name */
 						__('Create a copy of "%s"?', 'productbay'),
 						modalState.tableName
 					)}
@@ -965,10 +1184,10 @@ const Tables = () => {
 				maxWidth="md"
 				primaryButton={{
 					text: modalState.currentStatus === 'publish'
-						? __('Deactivate', 'productbay')
-						: __('Activate', 'productbay'),
+						? __('Set Private', 'productbay')
+						: __('Publish', 'productbay'),
 					onClick: handleToggleActive,
-					variant: 'primary'
+					variant: modalState.currentStatus === 'publish' ? 'danger' : 'primary'
 				}}
 				secondaryButton={{
 					text: __('Cancel', 'productbay'),
@@ -979,11 +1198,13 @@ const Tables = () => {
 				<p className="text-gray-700">
 					{modalState.currentStatus === 'publish'
 						? sprintf(
-							__('Are you sure you want to deactivate "%s"?', 'productbay'),
+							/* translators: %s: table name */
+							__('Are you sure you want to set "%s" to private?', 'productbay'),
 							modalState.tableName
 						)
 						: sprintf(
-							__('Are you sure you want to activate "%s"?', 'productbay'),
+							/* translators: %s: table name */
+							__('Are you sure you want to publish "%s"?', 'productbay'),
 							modalState.tableName
 						)
 					}

@@ -2,13 +2,6 @@
 node_modules/
 vendor/
 
-# Lock files
-package-lock.json
-composer.lock
-yarn.lock
-pnpm-lock.yaml
-bun.lockb
-
 # Environment & Private Data
 .env
 .env.local

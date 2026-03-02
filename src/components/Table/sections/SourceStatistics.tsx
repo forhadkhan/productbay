@@ -1,6 +1,7 @@
 import React from 'react';
+import { __, _n } from '@wordpress/i18n';
 import { FolderOpen, Package } from 'lucide-react';
-import { Skeleton } from '../../ui/Skeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 /**
  * SourceStatistics Component
@@ -76,7 +77,7 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
 						<FolderOpen className="h-4 w-4" />
 						<span className="font-semibold">{categoryCount}</span>
 						<span className="text-blue-600">
-							{categoryCount === 1 ? 'category' : 'categories'}
+							{_n('category', 'categories', categoryCount, 'productbay')}
 						</span>
 					</div>
 
@@ -88,8 +89,12 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
 						<Package className="h-4 w-4" />
 						<span className="font-semibold">{productCount}</span>
 						<span className="text-indigo-600">
-							{productCount === 1 ? 'product' : 'products'}{' '}
-							included
+							{_n(
+								'product included',
+								'products included',
+								productCount,
+								'productbay'
+							)}
 						</span>
 					</div>
 				</div>

@@ -28,8 +28,10 @@ import { cn } from '@/utils/cn';
  * - Display: Configure how the table is displayed
  * - Options: Additional table options
  * 
- * Supports URL-based tab navigation via search params.
- * Example: #/new?tab=options activates Options tab.
+ * Supports URL - based tab navigation via search params.
+ * Example: # / new? tab = options activates Options tab.
+ * 
+ * @since 1.0.0
  * ============================================================================= */
 
 /** Define the available tab values as a union type for type safety */
@@ -296,26 +298,29 @@ const Table = () => {
                             </Tooltip>
                         )}
 
-                        {/* Active/Inactive toggle with status indicator - hover feedback on container */}
-                        <div className="flex items-center gap-2 hover:bg-white px-4 py-2 rounded-md transition-colors">
-                            {/* Status dot indicator */}
-                            <span
-                                className={cn("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')}
-                            />
-                            {/* Status label with dynamic color - fixed width to prevent layout shift */}
-                            <span
-                                className={cn("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500')}
-                            >
-                                {isActive ? __('Active', 'productbay') : __('Inactive', 'productbay')}
-                            </span>
+                        {/* Published/Private toggle with status indicator - hover feedback on container */}
+                        <div className="flex items-center justify-between w-40 gap-2 bg-white px-4 py-2 rounded-md transition-colors">
+                            <div className="flex items-center gap-2">
+                                {/* Status dot indicator */}
+                                <span
+                                    className={cn("size-2 rounded-full", isActive ? 'bg-green-500' : 'bg-gray-400')}
+                                />
+                                {/* Status label with dynamic color - fixed width to prevent layout shift */}
+                                <span
+                                    className={cn("text-sm font-medium min-w-[52px]", isActive ? 'text-green-600' : 'text-gray-500')}
+                                >
+                                    {isActive ? __('Published', 'productbay') : __('Private', 'productbay')}
+                                </span>
+                            </div>
                             {/* Toggle switch - only way to toggle */}
                             <Toggle
                                 size="sm"
                                 checked={isActive}
-                                onChange={(e) => setStatus(e.target.checked ? 'publish' : 'draft')}
-                                title={isActive ? __('Click toggle to deactivate', 'productbay') : __('Click toggle to activate', 'productbay')}
+                                onChange={(e) => setStatus(e.target.checked ? 'publish' : 'private')}
+                                title={isActive ? __('Click toggle to set private', 'productbay') : __('Click toggle to publish', 'productbay')}
                             />
                         </div>
+
                         {/* Save Table button */}
                         <Button
                             size="default"

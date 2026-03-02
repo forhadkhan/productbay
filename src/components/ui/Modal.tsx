@@ -21,6 +21,8 @@ export interface ModalButton {
     variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'ghost';
     /** Optional icon to show before text */
     icon?: React.ReactNode;
+    /** Disabled state */
+    disabled?: boolean;
 }
 
 export interface ModalProps {
@@ -101,6 +103,7 @@ export const Modal: React.FC<ModalProps> = ({
     // Early return if modal is closed or container doesn't exist
     if (!isOpen) return null;
 
+    // Get the container for the modal
     const container = document.getElementById(MODAL_CONTAINER_ID) || document.body;
 
     // Max width classes
@@ -129,12 +132,13 @@ export const Modal: React.FC<ModalProps> = ({
         variant: 'ghost',
     };
 
+    // Get the secondary button
     const secondaryBtn = secondaryButton || defaultSecondaryButton;
 
     return createPortal(
         <div
             className={cn(
-                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/70",
+                "fixed inset-0 z-[60000] flex items-center justify-center bg-black/75",
                 !fullScreen && "p-4" // Add padding to prevent touching edges on small screens if not full screen
             )}
             onClick={handleBackdropClick}
@@ -154,6 +158,7 @@ export const Modal: React.FC<ModalProps> = ({
                         <h3 className="text-lg font-bold text-gray-900 m-0">
                             {title}
                         </h3>
+                        {/* Close button for full screen mode */}
                         {fullScreen && (
                             <Button variant="ghost" size="icon" onClick={onClose} className="bg-transparent hover:bg-gray-100 cursor-pointer">
                                 <span className="sr-only">{__('Close', 'productbay')}</span>
@@ -178,6 +183,7 @@ export const Modal: React.FC<ModalProps> = ({
                         <Button
                             variant={getButtonVariant(secondaryBtn.variant)}
                             onClick={secondaryBtn.onClick}
+                            disabled={secondaryBtn.disabled}
                             className={cn(secondaryBtn.variant === 'secondary' && "cursor-pointer bg-white border-transparent hover:border-gray-200 text-gray-700 hover:bg-gray-50")}
                         >
                             {secondaryBtn.icon && <span className="mr-2">{secondaryBtn.icon}</span>}
@@ -189,10 +195,11 @@ export const Modal: React.FC<ModalProps> = ({
                             <Button
                                 variant={getButtonVariant(primaryButton.variant)}
                                 onClick={primaryButton.onClick}
-                                className="cursor-pointer"
+                                disabled={primaryButton.disabled}
+                                className="cursor-pointer flex items-center"
                             >
-                                {primaryButton.icon && <span className="mr-2">{primaryButton.icon}</span>}
                                 {primaryButton.text}
+                                {primaryButton.icon && <span className="ml-2">{primaryButton.icon}</span>}
                             </Button>
                         )}
                     </div>
@@ -201,11 +208,13 @@ export const Modal: React.FC<ModalProps> = ({
 
             {/* Keyboard hint (only shown if closeOnEsc is enabled and not in full screen usually, but keep it if requested) */}
             {closeOnEsc && !fullScreen && (
-                <p className="fixed bottom-4 left-1/2 -translate-x-1/2 text-sm text-white/70 pointer-events-none">
-                    {__('To Close, Press', 'productbay')} <kbd className="mx-1 px-1.5 py-0.5 bg-black/40 rounded text-xs font-mono">Esc</kbd>
+                <p className="fixed bottom-4 left-1/2 -translate-x-1/2 text-sm text-white/70 bg-black px-4 py-1 rounded-full drop-shadow-lg flex items-center gap-2 pointer-events-none">
+                    {__('To Close, Press', 'productbay')} <kbd className="mx-1 px-1.5 rounded-full text-xs bg-white text-black font-mono">Esc</kbd>
                 </p>
             )}
         </div>,
+
+        // Append to the body
         container
     );
 };

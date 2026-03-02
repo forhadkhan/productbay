@@ -2,6 +2,14 @@ import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 
+/**
+ * Button variant styles using class-variance-authority (CVA).
+ *
+ * Provides a flexible styling system for buttons with support for:
+ * - variants: default, destructive, outline, secondary, ghost, link, success
+ * - sizes: default, sm, xs, lg, icon
+ */
+
 const buttonVariants = cva(
 	'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-transform duration-100',
 	{
@@ -31,21 +39,39 @@ const buttonVariants = cva(
 	}
 );
 
+/**
+ * Props for the Button component.
+ * Extends standard HTML button attributes and adds variant props from CVA.
+ */
 export interface ButtonProps
-	extends React.ButtonHTMLAttributes< HTMLButtonElement >,
-		VariantProps< typeof buttonVariants > {
+	extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+	VariantProps<typeof buttonVariants> {
+	/**
+	 * If true, the button will render as its child component while maintaining styles.
+	 * Useful for using the button styling on a Link or other component.
+	 */
 	asChild?: boolean;
 }
 
-const Button = React.forwardRef< HTMLButtonElement, ButtonProps >(
-	( { className, variant, size, asChild = false, ...props }, ref ) => {
+/**
+ * Reusable Button component with multiple variants and sizes.
+ * Built with Tailwind CSS and class-variance-authority for consistent styling.
+ *
+ * @example
+ * <Button variant="default" size="sm" onClick={handleClick}>
+ *   Click Me
+ * </Button>
+ */
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+	({ className, variant, size, asChild = false, ...props }, ref) => {
 		return (
 			<button
-				className={ cn(
-					buttonVariants( { variant, size, className } )
-				) }
-				ref={ ref }
-				{ ...props }
+				className={cn(
+					buttonVariants({ variant, size, className })
+				)}
+				ref={ref}
+				{...props}
 			/>
 		);
 	}

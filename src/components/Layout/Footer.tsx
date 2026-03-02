@@ -20,15 +20,15 @@ export const MinimalFooter = () => {
 
             {/* Links */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a className="hover:underline underline-offset-4" href={PRODUCTBAY_LANDING_PAGE_URL} target="_blank" rel="noopener noreferrer">
-                    {__('ProductBay', 'productbay')}
+                <a className="hover:underline underline-offset-4 w-20 text-center" href={PRODUCTBAY_LANDING_PAGE_URL} target="_blank" rel="noopener noreferrer">
+                    {__('Learn More', 'productbay')}
                 </a>
-                <span className="hidden sm:inline text-gray-700">&#9678;</span>
-                <a className="hover:underline underline-offset-4" href={PRODUCTBAY_DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer">
+                {/* <span className="hidden sm:inline text-gray-700">&#9678;</span>
+                <a className="hover:underline underline-offset-4 w-20 text-center" href={PRODUCTBAY_DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer">
                     {__('Documentation', 'productbay')}
-                </a>
+                </a> */}
                 <span className="hidden sm:inline text-gray-700">&#9678;</span>
-                <a className="hover:underline underline-offset-4" href={PRODUCTBAY_SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+                <a className="hover:underline underline-offset-4 w-20 text-center" href={PRODUCTBAY_SUPPORT_URL} target="_blank" rel="noopener noreferrer">
                     {__('Support', 'productbay')}
                 </a>
             </div>
