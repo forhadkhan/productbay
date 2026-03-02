@@ -75,19 +75,19 @@ if ( $productbay_delete_on_uninstall ) {
 	// 4. Extra Safety Net: Clear all ProductBay metadata across the site.
 	// Includes all current meta keys and the legacy _productbay_config key.
 	global $wpdb;
-	$meta_keys = array(
+	$productbay_meta_keys = array(
 		'_productbay_source',
 		'_productbay_columns',
 		'_productbay_settings',
 		'_productbay_style',
 		'_productbay_config', // Legacy key.
 	);
-	foreach ( $meta_keys as $meta_key ) {
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup during uninstall, caching not needed
+	foreach ( $productbay_meta_keys as $productbay_meta_key ) {
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup during uninstall, caching not needed
 		$wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM $wpdb->postmeta WHERE meta_key = %s",
-				$meta_key
+				$productbay_meta_key
 			)
 		);
 	}
