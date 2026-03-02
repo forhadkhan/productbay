@@ -141,14 +141,19 @@ Detailed documentation for specific components and features:
 - **[CategorySelector](./CategorySelectorArchitecture.md)** - Multi-select category picker with intelligent caching
 - **ColumnEditor** (`src/components/Table/sections/ColumnEditor.tsx`) - Drag-and-drop column list with @dnd-kit, includes width validation warnings
 - **ColumnItem** (`src/components/Table/sections/ColumnItem.tsx`) - Individual column settings with inline heading editing, combined column sub-element picker, and custom field meta key configuration
+- **ProductSearch** (`src/components/Table/sections/ProductSearch.tsx`) - Advanced product search with debounced input and selection management
 
 ### Pages
 
-- *Coming soon*
+- **Dashboard** (`src/pages/Dashboard.tsx`) - System overview and quick actions
+- **Tables** (`src/pages/Tables.tsx`) - List of all tables with bulk actions and filtering
+- **Table** (`src/pages/Table.tsx`) - Main editor with live preview integration
 
 ### Stores
 
-- *Coming soon*
+- **tableStore** (`src/store/tableStore.ts`) - Central engine managing the 4-key table configuration
+- **settingsStore** (`src/store/settingsStore.ts`) - Manages global plugin settings
+- **systemStore** (`src/store/systemStore.ts`) - Manages system information and stats
 
 ---
 
@@ -288,5 +293,5 @@ Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
 
 ---
 
-**Last Updated**: 2026-02-04  
+**Last Updated**: 2026-03-02  
 **Maintainer**: ProductBay Development Team

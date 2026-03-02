@@ -10,14 +10,44 @@ Unlike traditional table plugins, ProductBay utilizes a **Hybrid Architecture**:
 
 ---
 
-## 🌟 Key Features
+## Features
 
-- **🚀 Hybrid Architecture:** React-powered admin for fluid management, lightweight PHP/JS frontend for speed.
-- **⚡ Instant Search & Filtering:** AJAX-driven filtering allows users to find products without page reloads.
-- **🎨 Modern Design:** Built with Tailwind CSS v4 for a premium, consistent, and responsive look.
-- **🛡️ Secure & Scalable:** Implements Nonce verification, sanitized inputs, and a repository pattern for database interactions.
-- **📦 Developer Friendly:** Structured like a modern web app (Laravel x React), making it easy to extend and maintain.
-- **🔧 Zero-Config Build:** Uses `@wordpress/scripts` and Tailwind CLI for a hassle-free development experience.
+### 1. Table Management & Dashboard
+- **All Tables View**: A centralized dashboard to manage your product tables.
+- **Search & Filtering**: Quickly find tables by name, status, or product source.
+- **Bulk Actions**: Perform batch deletions to keep your workspace clean.
+- **Table Operations**: Edit, duplicate, or delete individual tables with instant feedback.
+- **Shortcode System**: Embed tables anywhere using the `[productbay id="XYZ"]` shortcode.
+
+### 2. Guided Creation Wizard
+- **5-Step Workflow**: A focused wizard guiding you through Setup, Columns, Display, Options, and Finish.
+- **Live Preview**: See your design changes instantly in a real-time preview iframe.
+- **Completion Effects**: Celebratory "Confetti" effect upon successful table creation.
+
+### 3. Smart Product Sources
+- **Flexible Selection**: Choose products by Category, Sale status, Specific IDs, or display All Products.
+- **Query Modifiers**: Refine lists by excluding IDs, filtering by stock status, or setting price ranges.
+- **Dynamic Sorting**: Set default sorting by name, price, date, or popularity.
+
+### 4. Advanced Column Editor
+- **Drag-and-Drop Reordering**: Intuitive interface to change column order visually.
+- **Diverse Column Types**: Standard fields (Image, Name, Price, SKU, Stock, Summary)
+
+### 5. Seamless WooCommerce Integration
+- **Multi-Product Support**: Specialized rendering for Simple, Variable, Grouped, and External products.
+- **Inline Variations**: Select attributes (size, color, etc.) directly within the table.
+- **AJAX Add-to-Cart**: Add products to the cart without page reloads.
+- **Bulk Add-to-Cart**: "Select All" feature to add multiple products in one click.
+
+### 6. Extensive Design System
+- **Instance-Scoped Styling**: Private CSS blocks prevent style leaks between multiple tables.
+- **Deep Customization**: Adjust colors, typography (font size/weight), borders, radius, and cell padding.
+- **Responsive Visibility**: Device-specific "Show/Hide" rules per column.
+
+### 7. Core Technical Features
+- **Intelligent Caching**: 30-minute category caching with "Stale-While-Revalidate" patterns.
+- **Modern Tech Stack**: React 18, TypeScript, Tailwind CSS v4, and Zustand.
+- **Localization (i18n)**: 100% translation-ready codebase.
 
 ---
 

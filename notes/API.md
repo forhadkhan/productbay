@@ -70,7 +70,7 @@ GET /wp-admin/admin-ajax.php?action=productbay_api&endpoint=tables
 **Response Fields**:
 - `id` (int): Table post ID
 - `title` (string): Table name
-- `status` (string): Publication status ('publish', 'draft')
+- `status` (string): Publication status ('publish', 'private')
 - `date` (string): Creation date
 - `shortcode` (string): WordPress shortcode for embedding
 - `source` (object): Data source configuration
@@ -162,7 +162,7 @@ Content-Type: application/json
   "data": {
     "id": 123,           // Optional: omit for new table
     "title": "My Table",
-    "status": "publish",  // or "draft"
+    "status": "publish",  // or "private"
     "source": {...},
     "columns": [...],
     "settings": {...},
