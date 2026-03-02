@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 vendor/
+docs/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
 
 # Environment & Private Data
 .env

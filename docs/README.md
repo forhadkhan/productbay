@@ -1,0 +1,66 @@
+# ProductBay Documentation
+
+This is the official documentation site for [ProductBay](https://wpanchorbay.com/products/productbay), built with [VitePress](https://vitepress.dev).
+
+## Requirements
+
+- **Node.js** 18+
+- **npm** 8+
+
+## Getting Started
+
+Install dependencies (first time only):
+
+```bash
+cd docs
+npm install
+```
+
+### Start Dev Server
+
+```bash
+npm run docs:dev
+```
+
+Then open **http://localhost:5173/productbay/** in your browser.
+
+> [!NOTE]
+> The `/productbay/` base path is required because the site deploys to GitHub Pages at `forhadkhan.github.io/productbay`. Visiting `http://localhost:5173/` will return a 404 — always use the full path.
+
+### Build for Production
+
+```bash
+npm run docs:build
+```
+
+Output is written to `.vitepress/dist/`.
+
+### Preview Production Build
+
+```bash
+npm run docs:preview
+```
+
+## Deployment
+
+The docs are automatically deployed to **GitHub Pages** whenever changes to the `docs/` directory are pushed to the `main` branch, via the workflow at [`.github/workflows/docs.yml`](../.github/workflows/docs.yml).
+
+To enable GitHub Pages on your repository:
+1. Go to **Settings → Pages**
+2. Set **Source** to **GitHub Actions**
+
+## Structure
+
+```
+docs/
+├── .vitepress/         # VitePress config and custom theme
+├── public/             # Static assets (logo, icon, screenshots)
+├── guide/              # Getting started guides
+├── features/           # Feature documentation
+├── settings/           # Plugin settings reference
+├── developer/          # Developer reference (architecture, REST API)
+├── index.md            # Home / landing page
+├── faq.md
+├── changelog.md
+└── feature-request.md
+```
