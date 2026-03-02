@@ -1,6 +1,6 @@
-# Create New Table
+# Manual Methods
 
-While the [Creation Wizard](/features/creation-wizard) provides a guided onboarding experience, you can also initiate table creation through several standard WordPress and plugin interfaces.
+While the [Guided Wizard](/features/creation-wizard) provides a guided onboarding experience, you can also initiate table creation through several standard WordPress and plugin interfaces.
 
 ## Manual Entry Points
 
@@ -24,4 +24,4 @@ If you haven't created any tables yet, a prominent **Create New Table** call-to-
 
 Regardless of which entry point you use, you will be taken to the **Creation Wizard**, where you can configure your table's source, columns, and design.
 
-See the [Creation Wizard](/features/creation-wizard) guide for a step-by-step walkthrough of the build process.
+See the [Guided Wizard](/features/creation-wizard) guide for a step-by-step walkthrough of the build process.

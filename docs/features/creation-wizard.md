@@ -1,4 +1,6 @@
-The Creation Wizard is designed to make building product tables effortless, whether you're a first-time user or an experienced administrator.
+# Guided Wizard
+
+The Guided Wizard is designed to make building product tables effortless, whether you're a first-time user or an experienced administrator.
 
 ## Entry Points
 
