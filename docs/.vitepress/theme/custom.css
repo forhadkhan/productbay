@@ -64,3 +64,22 @@
 .VPFooter a:hover {
   text-decoration: underline;
 }
+
+/* Custom Navbar Title */
+.productbay-site-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-left: 10px;
+  color: var(--vp-c-text-1);
+}
+
+.productbay-site-title .product-bold {
+  font-weight: 800;
+  color: var(--vp-c-brand-1);
+}
+
+/* Adjust logo alignment with custom title */
+.VPNavBarTitle.has-sidebar .title {
+  display: flex;
+  align-items: center;
+}
