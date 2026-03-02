@@ -2,7 +2,6 @@
 node_modules/
 vendor/
 
-
 # Environment & Private Data
 .env
 .env.local
@@ -36,8 +35,7 @@ temp.js
 temp.ts
 temp.tsx
 temp.md
-todo.txt
-todo.md
+
 instructions.md
 project.md
 features.md 
