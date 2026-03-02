@@ -1,10 +1,16 @@
-# Creation Wizard
+The Creation Wizard is designed to make building product tables effortless, whether you're a first-time user or an experienced administrator.
 
-The Creation Wizard is a focused, step-by-step interface for building product tables. It guides you through every aspect of table configuration with a live preview.
+## Entry Points
 
-## Overview
+### Welcome Wizard
+When you first install and activate ProductBay, the **Welcome Wizard** automatically launches to guide you through creating your very first table. This ensures you can get a table live on your site in under a minute.
 
-The wizard consists of **5 steps**:
+### Floating Action Button
+A **Floating Action Button (FAB)** is available at the bottom-right corner of the [Table Dashboard](/features/table-dashboard). Click this button at any time to quickly launch the wizard and start a new build.
+
+## Wizard Steps
+
+The wizard consists of **5 focused steps**:
 
 1. **Setup** — Name your table and choose a product source
 2. **Columns** — Select and arrange the columns to display

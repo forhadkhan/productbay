@@ -71,6 +71,7 @@ export default defineConfig({
                     items: [
                         { text: 'Table Dashboard', link: '/features/table-dashboard' },
                         { text: 'Creation Wizard', link: '/features/creation-wizard' },
+                        { text: 'Create New Table', link: '/features/create-page' },
                         { text: 'Shortcodes', link: '/features/shortcodes' },
                     ]
                 },
