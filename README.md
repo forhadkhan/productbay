@@ -7,7 +7,7 @@
 
 # ProductBay - Advanced WooCommerce Product Tables
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) 
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) [![Documentation](https://img.shields.io/badge/docs-live-brightgreen.svg)](https://forhadkhan.github.io/productbay/)
 
 **ProductBay** is a modern, high-performance plugin designed to transform how WooCommerce products are displayed. It bridges the gap between a robust PHP backend and a dynamic, reactive frontend, providing a seamless experience for both administrators and customers.
 
