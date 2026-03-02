@@ -95,13 +95,11 @@ export default defineConfig({
                         { text: 'WooCommerce Integration', link: '/features/woocommerce' },
                         { text: 'Search & Filters', link: '/features/search-and-filters' },
                     ]
-                }
-            ],
-            '/settings/': [
+                },
                 {
                     text: 'Settings',
                     items: [
-                        { text: 'Global Settings', link: '/settings/global-settings' },
+                        { text: 'Global Settings', link: '/features/global-settings' },
                     ]
                 }
             ],
