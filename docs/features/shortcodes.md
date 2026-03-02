@@ -4,7 +4,7 @@ ProductBay uses WordPress shortcodes to embed product tables on any page, post, 
 
 ## Basic Usage
 
-After creating a table in the [Creation Wizard](/features/creation-wizard), you'll receive a shortcode:
+After creating a table, you'll receive a shortcode:
 
 ```
 [productbay id="1"]
@@ -14,12 +14,12 @@ Paste this shortcode into any page or post to display the table.
 
 ## Parameters
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `id` | ✅ Yes | The table ID to display | `[productbay id="1"]` |
+| Parameter | Required | Description             | Example               |
+|-----------|----------|-------------------------|-----------------------|
+|    `id`   |    Yes   | The table ID to display | `[productbay id="1"]` |
 
 ::: info  
-Currently, the shortcode accepts a single `id` parameter. The table's product source, columns, design, and behavior are all configured through the [Creation Wizard](/features/creation-wizard).
+Currently, the shortcode accepts a single `id` parameter.
 :::
 
 ## How to Embed

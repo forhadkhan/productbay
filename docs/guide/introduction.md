@@ -19,18 +19,19 @@ Unlike traditional table plugins, ProductBay uses a modern hybrid approach:
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| **Admin Panel** | React SPA (TypeScript, Tailwind CSS) | Responsive, dynamic table builder |
+| **Admin Panel** | React SPA | Responsive, dynamic table builder |
 | **Frontend Display** | Lightweight PHP rendering | SEO-friendly, fast-loading tables |
 
 ### What You Can Do
 
-- ✅ Create unlimited product tables with a guided wizard
-- ✅ Choose products by category, sale status, specific IDs, or all products
-- ✅ Drag-and-drop column reordering with responsive visibility rules
-- ✅ Customize every visual detail — colors, fonts, borders, padding, hover effects
-- ✅ Enable AJAX add-to-cart (single and bulk) without page reloads
-- ✅ Embed tables anywhere using simple shortcodes
-- ✅ Support for Simple, Variable, Grouped, and External product types
+- ✓ Create unlimited product tables with a guided wizard
+- ✓ Choose products by category, sale status, specific IDs, or all products
+- ✓ Drag-and-drop column reordering with responsive visibility rules
+- ✓ Customize every visual detail — colors, fonts, borders, padding, hover effects
+- ✓ See **live preview** of table changes while building
+- ✓ Enable AJAX add-to-cart (single and bulk) without page reloads
+- ✓ Embed tables anywhere using simple shortcodes
+- ✓ Support for Simple, Variable, Grouped, and External product types
 
 ## Next Steps
 
