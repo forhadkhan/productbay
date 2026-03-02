@@ -83,30 +83,20 @@ class Admin {
 			58
 		);
 
-		// Register "Tables" as the default submenu (sharing the parent slug)
-		// This makes "Tables" the page that loads when clicking the top-level "ProductBay" menu.
+		// Register "All Tables" as the default submenu (sharing the parent slug)
+		// This makes "All Tables" the page that loads when clicking the top-level "ProductBay" menu.
 		\add_submenu_page(
 			// $parent_slug: The slug of the parent menu.
 			Constants::MENU_SLUG,
 			// $page_title: Browser title bar text.
-			\__( 'Tables', 'productbay' ),
+			\__( 'All Tables', 'productbay' ),
 			// $menu_title: Text displayed in the submenu list.
-			\__( 'Tables', 'productbay' ),
+			\__( 'All Tables', 'productbay' ),
 			// $capability: User capability required.
 			Constants::CAPABILITY,
 			// $menu_slug: Same as parent to make it the default.
 			Constants::MENU_SLUG,
 			// $callback: Function to render page content.
-			array( $this, 'render_app' )
-		);
-
-		// Register "Settings" submenu.
-		\add_submenu_page(
-			Constants::MENU_SLUG,
-			\__( 'Settings', 'productbay' ),
-			\__( 'Settings', 'productbay' ),
-			Constants::CAPABILITY,
-			Constants::MENU_SLUG . '-settings',
 			array( $this, 'render_app' )
 		);
 
@@ -120,12 +110,22 @@ class Admin {
 			array( $this, 'render_app' )
 		);
 
+		// Register "Settings" submenu.
+		\add_submenu_page(
+			Constants::MENU_SLUG,
+			\__( 'Settings', 'productbay' ),
+			\__( 'Settings', 'productbay' ),
+			Constants::CAPABILITY,
+			Constants::MENU_SLUG . '-settings',
+			array( $this, 'render_app' )
+		);
+
 		// Register submenu under WooCommerce's "Products" menu.
 		// Uses a redirect callback to open the ProductBay tables in its proper admin URL.
 		\add_submenu_page(
 			'edit.php?post_type=product',
-			\__( 'Tables', 'productbay' ),
-			\__( 'Tables', 'productbay' ),
+			\__( 'All Tables', 'productbay' ),
+			\__( 'All Tables', 'productbay' ),
 			Constants::CAPABILITY,
 			Constants::MENU_SLUG . '-woo-tables',
 			array( $this, 'redirect_to_productbay' )
@@ -173,12 +173,12 @@ class Admin {
 			)
 		);
 
-		// Add Tables submenu.
+		// Add All Tables submenu.
 		$wp_admin_bar->add_node(
 			array(
 				'id'     => Constants::MENU_SLUG . '-tables',
 				'parent' => Constants::MENU_SLUG,
-				'title'  => \__( 'Tables', 'productbay' ),
+				'title'  => \__( 'All Tables', 'productbay' ),
 				'href'   => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG ),
 			)
 		);
