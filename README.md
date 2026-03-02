@@ -1,14 +1,21 @@
+<div align="center">
+   <a href="https://wpanchorbay.com/products/productbay">
+      <img src="https://s6.imgcdn.dev/YSNRBn.png" alt="ProductBay Logo">
+   </a>
+</div>
+<br />
+
 # ProductBay - Advanced WooCommerce Product Tables
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) ![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-blue.svg) ![WooCommerce](https://img.shields.io/badge/WooCommerce-8.0%2B-purple.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) 
 
-**ProductBay** is a modern, high-performance plugin designed to revolutionize how WooCommerce products are displayed. It bridges the gap between a robust PHP backend and a dynamic, reactive frontend, providing a seamless experience for both administrators and customers.
+**ProductBay** is a modern, high-performance plugin designed to transform how WooCommerce products are displayed. It bridges the gap between a robust PHP backend and a dynamic, reactive frontend, providing a seamless experience for both administrators and customers.
 
 Unlike traditional table plugins, ProductBay utilizes a **Hybrid Architecture**:
 - **Admin Panel:** A fully responsive Single Page Application (SPA) built with React, TypeScript, and Tailwind CSS.
 - **Frontend Display:** A lightweight, SEO-friendly rendering engine optimized for Core Web Vitals, enhanced with instant AJAX filtering.
 
----
+
 
 ## Features
 
@@ -49,9 +56,9 @@ Unlike traditional table plugins, ProductBay utilizes a **Hybrid Architecture**:
 - **Modern Tech Stack**: React 18, TypeScript, Tailwind CSS v4, and Zustand.
 - **Localization (i18n)**: 100% translation-ready codebase.
 
----
 
-## 🏗 Technology Stack
+
+## Technology Stack
 
 ### Backend (PHP)
 - **Architecture:** MVP (Model-View-Presenter) / specialized MVC for WordPress.
@@ -68,19 +75,14 @@ Unlike traditional table plugins, ProductBay utilizes a **Hybrid Architecture**:
 - **Build Tooling:** Webpack (via `@wordpress/scripts`) & Tailwind CLI.
 - **Languages:** TypeScript (ES2020+), Modern JavaScript (Frontend), PHP (Templating).
 
----
 
-## 📂 Project Structure
-For a detailed breakdown of the project structure and development implementation notes, please refer to [DEVELOPMENT.md](notes/DEVELOPMENT.md).
-
----
 
 ## 🛠 Installation & Development
 
 ### Prerequisites
 - **Node.js** v18+
 - **Composer** v2+
-- **WordPress** Local Development Environment (XAMPP, LocalWP, etc.)
+- **WordPress** Local Development Environment (XAMPP, LAMP, LocalWP, etc.)
 
 ### Setup Instructions
 
@@ -92,9 +94,15 @@ For a detailed breakdown of the project structure and development implementation
    cd productbay
    ```
 
-2. **Install Dependencies**
+2. **Install Dependencies**    
+   for JS dependencies
    ```bash
    bun install
+   ```
+
+   for PHP dependencies
+   ```bash
+   composer install
    ```
 
 3. **Start Development Server**
@@ -111,9 +119,9 @@ For a detailed breakdown of the project structure and development implementation
    bun run build
    ```
 
----
 
-## 🐛 Bug Reports & Issues
+
+## Bug Reports & Issues
 
 If you encounter any bugs or have suggestions, please report them via the [GitHub Issue Tracker](https://github.com/forhadakhan/productbay/issues).
 
@@ -122,9 +130,9 @@ When reporting an issue, please provide:
 2. Steps to reproduce the issue.
 3. Screenshots or error logs (if applicable).
 
----
 
-## 📄 License
+
+## License
 
 ProductBay is licensed under the [GPL v2.0 or later](https://www.gnu.org/licenses/gpl-2.0.html).
 
