@@ -98,8 +98,10 @@ export default defineConfig({
                 },
                 {
                     text: 'Settings',
+                    collapsed: false,
                     items: [
-                        { text: 'Global Settings', link: '/features/global-settings' },
+                        { text: 'Default Configuration', link: '/features/default-configuration' },
+                        { text: 'Plugin Settings', link: '/features/plugin-settings' },
                     ]
                 }
             ],

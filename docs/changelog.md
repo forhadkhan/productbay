@@ -14,6 +14,7 @@ All notable changes to ProductBay are documented on this page.
 - Query modifiers: exclude IDs, filter by stock status, set price range
 - Drag-and-drop column editor with responsive show/hide rules per device
 - Column types: Image, Name, Price, SKU, Stock Status, Short Description
+- Live preview of table changes while building
 - Support for Simple, Variable, Grouped, and External WooCommerce product types
 - Inline variation attribute selection within the table
 - AJAX add-to-cart (single and bulk)
