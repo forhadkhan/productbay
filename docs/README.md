@@ -25,7 +25,7 @@ npm run docs:dev
 Then open **http://localhost:5173/productbay/** in your browser.
 
 > [!NOTE]
-> The `/productbay/` base path is required because the site deploys to GitHub Pages at `forhadkhan.github.io/productbay`. Visiting `http://localhost:5173/` will return a 404 — always use the full path.
+> The `/productbay/` base path is required because the site deploys to GitHub Pages at `forhadkhan.github.io/productbay`. Visiting the root URL without `/productbay/` will return a 404.
 
 ### Build for Production
 
