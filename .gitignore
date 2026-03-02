@@ -2,6 +2,10 @@
 node_modules/
 vendor/
 
+notes/
+.agents/
+.agent/
+.vscode/
 
 # Environment & Private Data
 .env
