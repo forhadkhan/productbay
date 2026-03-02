@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-02T04:38:27+00:00\n"
+"POT-Creation-Date: 2026-03-02T18:17:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -48,22 +48,22 @@ msgstr ""
 #: app/Admin/Admin.php:127
 #: app/Admin/Admin.php:128
 #: app/Admin/Admin.php:181
-#: assets/js/admin.js:30
-msgid "Tables"
+#: assets/js/admin.js:22
+msgid "All Tables"
 msgstr ""
 
 #: app/Admin/Admin.php:106
 #: app/Admin/Admin.php:107
-#: app/Admin/Admin.php:191
+#: app/Admin/Admin.php:201
 #: assets/js/admin.js:30
-msgid "Settings"
+msgid "Create New Table"
 msgstr ""
 
 #: app/Admin/Admin.php:116
 #: app/Admin/Admin.php:117
-#: app/Admin/Admin.php:201
+#: app/Admin/Admin.php:191
 #: assets/js/admin.js:30
-msgid "Create New Table"
+msgid "Settings"
 msgstr ""
 
 #: app/Frontend/AjaxRenderer.php:136
@@ -1312,10 +1312,6 @@ msgid "Failed to load tables"
 msgstr ""
 
 #: assets/js/admin.js:22
-msgid "All Tables"
-msgstr ""
-
-#: assets/js/admin.js:22
 msgid "Bulk Actions"
 msgstr ""
 
@@ -1503,6 +1499,10 @@ msgstr ""
 #: assets/js/admin.js:30
 #, js-format
 msgid "Are you sure you want to publish \"%s\"?"
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "Tables"
 msgstr ""
 
 #: assets/js/admin.js:30
