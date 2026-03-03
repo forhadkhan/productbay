@@ -20,14 +20,15 @@ The wizard consists of **5 focused steps**:
 4. **Options** — Configure behavior and features
 5. **Finish** — Review and publish
 
-You can navigate between steps freely — changes are preserved as you move back and forth.
+You can navigate between steps freely, changes are preserved as you move back and forth.
 
-![Creation Wizard](/images/creation-wizard.png)
 
 ## Step 1: Setup
 
 ### Table Name
 Give your table a descriptive name. This is for your reference only — it's not shown on the frontend.
+
+![Wizard - Set Table Name](/images/wizard--set-name.png)
 
 ### Product Source
 Choose where your products come from:
@@ -35,19 +36,34 @@ Choose where your products come from:
 | Source | Description |
 |--------|-------------|
 | **All Products** | Displays all published products in your WooCommerce store |
-| **By Category** | Select one or more product categories |
 | **On Sale** | Only products currently on sale |
+| **By Category** | Select one or more product categories |
 | **Specific Products** | Hand-pick products by searching name, ID, or SKU |
+
+#### Source: Category 
+![Source: Category ](/images/wizard--source-category.png)  
+
+1. Select 'By Category' as source  
+2. Open/Close category list 
+3. Select/deselect catrgories 
+4. Search category 
+5. If needed, reload categories 
+6. Clear all selected categories 
+
+#### Source: Specific Products 
+
+![Source: Specific Products ](/images/wizard--source-specific-products.png)  
+
+1. Select 'Specific Products' as source  
+2. Search products by name, id or sku 
+3. Select desired product(s) 
+4. See selected product(s), you can also remove any selected product from here. 
+5. Remove all selected product 
 
 ::: tip
 For each source type, you'll see live statistics showing how many products and categories match your selection.
 :::
 
-### Query Modifiers
-After choosing a source, you can further refine results:
-- **Exclude Product IDs** — Omit specific products
-- **Stock Status** — Filter by In Stock, Out of Stock, or On Backorder
-- **Price Range** — Set minimum and maximum price bounds
 
 ### Default Sort Order
 Configure how products are initially sorted:

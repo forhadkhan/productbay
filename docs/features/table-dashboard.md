@@ -26,10 +26,10 @@ Each table in the list displays:
 |--------|-------------|
 | **Checkbox** | Select tables for bulk actions |
 | **Title** | The name you gave your table |
-| **Shortcode** | The embed code (e.g., `[productbay id="1"]`) — click to copy |
+| **Shortcode** | The embed code (e.g., `[productbay id="1"]`) - click to copy |
 | **Source** | Where products come from (All, Category, Sale, Specific) |
 | **Status** | Published or Private |
-| **Date** | When the table was created |
+| **Date** | When the table was created/published and modified |
 
 ## Search & Filtering
 
@@ -55,7 +55,7 @@ To manage multiple tables at once:
 ### Individual Actions
 Hover over any table row to reveal the following management options:
 
-- **Edit** — Opens the table in the [Guided Wizard](./creation-wizard) for deep configuration.
+- **Edit** — Opens the table in the edit page for deep configuration.
 - **Duplicate** — Instantly creates a complete copy of the table and its settings.
 - **Set Private / Publish** — Quickly toggle the visibility status of the table.
 - **Delete** — Permanently removes the table (requires user confirmation).
@@ -78,8 +78,3 @@ You can toggle a table's visibility in three ways:
 1. **Bulk Actions**: Select one or more tables and use the "Set Published" or "Set Private" bulk options.
 2. **Quick Toggle**: Hover over a table row and click the status action (**Publish** or **Set Private**).
 3. **Table Editor**: Click the table title to enter the editor, change the status in the top-right sidebar, and **Save**.
-
-## Next Steps
-
-- [Create a new table](/features/creation-wizard) using the wizard
-- Learn about [Shortcodes](/features/shortcodes) to embed tables on your pages
