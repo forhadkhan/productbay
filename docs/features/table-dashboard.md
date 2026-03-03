@@ -8,12 +8,12 @@ When you navigate to **ProductBay** in the WordPress admin, you'll see the **All
 
 ### Dashboard States
 
-**Empty State**
-If you haven't created any tables yet, the dashboard displays a clean empty state with a direct link to launch the [Guided Wizard](./creation-wizard).
+**Empty State**   
+If you haven't created any tables yet, the dashboard displays a clean empty state. 
 
 ![Empty State Dashboard](/images/empty-tables-page.png)
 
-**Active Tables List**
+**Active Tables List**   
 Once tables are created, they appear in a structured list. Hovering over a table row reveals a contextual action menu directly below the title, allowing you to **Edit**, **Duplicate**, **Toggle Status**, or **Delete** the table instantly.
 
 ![All Tables Dashboard](/images/simple-tables-page.png)
