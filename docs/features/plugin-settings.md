@@ -6,7 +6,9 @@ Access these settings from **ProductBay → Settings → Plugin Settings** tab.
 
 ## Admin Bar Options
 
-Control the visibility of the ProductBay quick-access link in the WordPress admin topbar.
+Control the visibility of the ProductBay quick-access link in the WordPress admin topbar. 
+
+![Admin Bar Settings](/images/admin-bar-settings.png)
 
 - **Show Admin Bar**: When enabled, a "ProductBay" menu appears in the topbar, providing quick links to "All Tables" and "Create New Table".
 

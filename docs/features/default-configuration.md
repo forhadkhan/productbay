@@ -4,14 +4,13 @@ ProductBay allows you to define global defaults that serve as the starting point
 
 Access these settings from **ProductBay → Settings → Default Configuration** tab.
 
-![Default Configuration](/images/settings.png)
-
 ## Default Source
 
-Configure the default data source settings that will be pre-selected in Step 1 of the [Guided Wizard](./creation-wizard).
+Configure the default data source settings that will be pre-selected while creating a new table each time.
+
+![Default Configuration](/images/settings-default-config--default-source.png)
 
 - **Source Type**: Choose between All Products, Category, On Sale, or Specific Products.
-- **Query Modifiers**: Set default exclusions, stock status filters, and price ranges.
 
 ## Default Columns
 
@@ -43,3 +42,9 @@ Configure which features are enabled by default:
 - **Pagination**: Set the default products per page.
 - **Filters**: Enable category-based dropdown filters.
 - **Cart**: Configure AJAX add-to-cart and quantity selectors.
+
+---
+
+## Reset to Defaults 
+
+After making any chnages, if you decide to reset back default settings, you can do so by clicking **Reset Defaults** button at the top.
