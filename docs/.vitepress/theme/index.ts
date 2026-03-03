@@ -1,6 +1,8 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
-import { h } from 'vue'
+import { h, onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vitepress'
+import mediumZoom from 'medium-zoom'
 
 export default {
     extends: DefaultTheme,
@@ -11,5 +13,19 @@ export default {
                 'Bay'
             ])
         })
+    },
+    setup() {
+        const route = useRoute()
+        const initZoom = () => {
+            // Target images in the main content area
+            mediumZoom('.main img', { background: 'var(--vp-c-bg)', margin: 24 })
+        }
+        onMounted(() => {
+            initZoom()
+        })
+        watch(
+            () => route.path,
+            () => nextTick(() => initZoom())
+        )
     }
 }
