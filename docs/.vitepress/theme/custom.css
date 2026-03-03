@@ -115,3 +115,16 @@
   background-color: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
 }
+
+/* Image Zoom */
+.main img {
+  cursor: zoom-in;
+}
+
+.medium-zoom-overlay {
+  z-index: 200 !important;
+}
+
+.medium-zoom-image--opened {
+  z-index: 201 !important;
+}
