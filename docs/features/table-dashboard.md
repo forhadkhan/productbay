@@ -45,32 +45,39 @@ You can combine multiple filters and use the **Clear all filters** option to res
 
 ## Table Actions
 
-### Individual Actions
-Hover over any table to reveal action buttons:
-
-- **Edit** — Opens the table in the Creation Wizard for editing
-- **Duplicate** — Creates a copy of the table with all its settings
-- **Delete** — Removes the table (with confirmation)
-
 ### Bulk Actions
-1. Select multiple tables using checkboxes
-2. Click the **Bulk Actions** dropdown
-3. Choose **Delete** and confirm
+To manage multiple tables at once:
+1. **Select** tables using the checkboxes on the left.
+2. Click the **Bulk Actions** dropdown menu.
+3. Choose an action: **Delete**, **Set Published**, or **Set Private**.
+4. Click **Apply** to execute the changes.
+
+### Individual Actions
+Hover over any table row to reveal the following management options:
+
+- **Edit** — Opens the table in the [Guided Wizard](./creation-wizard) for deep configuration.
+- **Duplicate** — Instantly creates a complete copy of the table and its settings.
+- **Set Private / Publish** — Quickly toggle the visibility status of the table.
+- **Delete** — Permanently removes the table (requires user confirmation).
 
 ::: warning
-Deleted tables cannot be recovered. Make sure you no longer need a table before deleting it.
+Deleted tables cannot be recovered. Ensure you have backups or no longer need the data before confirming deletion.
 :::
 
 ## Table Statuses
 
-ProductBay tables have two statuses:
+Maintenance of table visibility is controlled by two primary statuses:
 
 | Status | Visibility |
 |--------|-----------|
-| **Published** | Visible on the frontend wherever the shortcode is placed |
-| **Private** | Hidden from frontend visitors. Admins will see a notice explaining the table is private. |
+| **Published** | Publicly visible on your site via shortcode. |
+| **Private** | Invisible to visitors. Admins will see a placeholder notice where the table would normally appear. |
 
-You can change a table's status at any time by editing it in the [Creation Wizard](/features/creation-wizard).
+### How to Change Status
+You can toggle a table's visibility in three ways:
+1. **Bulk Actions**: Select one or more tables and use the "Set Published" or "Set Private" bulk options.
+2. **Quick Toggle**: Hover over a table row and click the status action (**Publish** or **Set Private**).
+3. **Table Editor**: Click the table title to enter the editor, change the status in the top-right sidebar, and **Save**.
 
 ## Next Steps
 
