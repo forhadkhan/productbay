@@ -8,11 +8,15 @@ The Guided Wizard is designed to make building product tables effortless, whethe
 When you first install and activate ProductBay, the **Welcome Wizard** automatically launches to guide you through creating your very first table. This ensures you can get a table live on your site in under a minute.
 
 ### Floating Action Button
-A **Floating Action Button (FAB)** is available at the bottom-right corner of the admin panel. Click this button at any time to quickly launch the wizard and start a new build.
+A **Floating Action Button (FAB)** is available at the bottom-right corner of the admin panel. Click this button at any time to quickly launch the wizard and start a new build. 
+
+![ProductBay Floating Wizard Button](/images/wizard-icon-pointer.png)
 
 ## Wizard Steps
 
-The wizard consists of **5 focused steps**:
+The wizard consists of **5 focused steps**: 
+
+![ProductBay Wizard Steps](/images/create-wizard-steps.png) 
 
 1. **Setup** — Name your table and choose a product source
 2. **Columns** — Select and arrange the columns to display

@@ -34,31 +34,41 @@ Each table in the list displays:
 ## Search & Filtering
 
 ### Search
-Use the search bar at the top to quickly find tables by name.
+Use the search bar at the top to quickly find tables by name. 
+
+![Search Tables](/images/tables-search.png) 
 
 ### Filters
 Filter your tables by:
-- **Status** — Published, Private, or All
-- **Source** — All Products, Category, Sale, or Specific
+- **Status**: Published, Private, or All
+- **Source**: All Products, Category, Sale, or Specific 
+
+![Filter Tables](/images/filter-table.png) 
 
 You can combine multiple filters and use the **Clear all filters** option to reset.
 
 ## Table Actions
 
-### Bulk Actions
+### Bulk Actions 
+
+![Bulk Actions](/images/tables-bulk-action.png) 
+
 To manage multiple tables at once:
 1. **Select** tables using the checkboxes on the left.
 2. Click the **Bulk Actions** dropdown menu.
 3. Choose an action: **Delete**, **Set Published**, or **Set Private**.
 4. Click **Apply** to execute the changes.
 
-### Individual Actions
+### Individual Actions 
+
+![Individual Actions](/images/table-individual-actions.png) 
+
 Hover over any table row to reveal the following management options:
 
-- **Edit** — Opens the table in the edit page for deep configuration.
-- **Duplicate** — Instantly creates a complete copy of the table and its settings.
-- **Set Private / Publish** — Quickly toggle the visibility status of the table.
-- **Delete** — Permanently removes the table (requires user confirmation).
+- **Edit**: Opens the table in the edit page for deep configuration.
+- **Duplicate**: Instantly creates a complete copy of the table and its settings.
+- **Set Private / Publish**: Quickly toggle the visibility status of the table.
+- **Delete**: Permanently removes the table (requires user confirmation).
 
 ::: warning
 Deleted tables cannot be recovered. Ensure you have backups or no longer need the data before confirming deletion.

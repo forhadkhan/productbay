@@ -28,20 +28,38 @@ Configure the default state and behavior of the bulk selection feature, allowing
 
 ## Default Styling
 
-Set the factory-default look and feel. These styles will be applied to every new table unless overridden in the **Design** step of the wizard.
+Set the factory-default look and feel. These styles will be applied to every new table unless overridden in the **Display** step of the wizard.
 
-- **Colors**: Header background, text colors, and button styling.
-- **Layout**: Border radius, cell padding, and row hover effects.
-- **Typography**: Base font sizes and weights.
+#### **Colors** 
+Personalize the table's color scheme.
+ - **Add to Cart Button Color**: Change the background and text color of the primary action button.
+ - **Table Header Color**: Set the background color for the table's header row.
+ - **Table Rows Color**: Set the default background color for rows.
+ - **Alternating Rows Color**: Apply a different color to every other row for better readability.
+ - **Row Hover Color**: Define the color when a user hovers their cursor over a row.
+#### **Layout & Spacing** 
+Adjust the structural feel of the table.
+ - **Border Style**: Choose from solid, dashed, or no border.
+ - **Border Color**: Set the color of the table and cell borders.
+ - **Border Radius**: Round the corners of your table for a softer look.
+ - **Cell Padding**: Control the space between the content and the cell borders.
+#### **Typography**
+Fine-tune the text appearance for the header.
+ - **Header Font Weight**: Choose between Normal, Bold, or Extra Bold.
+ - **Header Text Transform**: Set text to Uppercase, Lowercase, Capitalize, or leave as Normal.
+
 
 ## Default Functionality
 
 Configure which features are enabled by default:
-- **Search**: Enable the instant AJAX search bar.
-- **Sorting**: Allow customers to sort columns.
-- **Pagination**: Set the default products per page.
-- **Filters**: Enable category-based dropdown filters.
-- **Cart**: Configure AJAX add-to-cart and quantity selectors.
+
+#### **Table Controls**
+ - **Enable Search Bar**: Allow users to filter products within the table via a search input.
+ - **Enable Pagination**: Break long lists into multiple pages for better performance and UX.
+ - **Products Per Page**: Define how many products are shown before pagination kicks in.
+#### **Cart / Functionality**
+ - **AJAX Add to Cart**: Enable seamless adding to cart without refreshing the page.
+ - **Show Quantity Selector**: Allow users to specify the number of items they want to add directly from the table. 
 
 ---
 
