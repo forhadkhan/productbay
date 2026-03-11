@@ -130,6 +130,13 @@ class Admin {
 			Constants::MENU_SLUG . '-woo-tables',
 			array( $this, 'redirect_to_productbay' )
 		);
+
+		/**
+		 * Fires after all admin menu items are registered.
+		 *
+		 * @since 1.0.1
+		 */
+		\do_action( 'productbay_after_register_menu' );
 	}
 
 	/**
@@ -272,15 +279,26 @@ class Admin {
 		$is_first_time = ! get_option( 'productbay_onboarding_completed', false );
 
 		// Pass PHP data to React script via localization.
+		$script_data = array(
+			'apiUrl'      => \rest_url( Constants::PLUGIN_SLUG . '/v1/' ),
+			'nonce'       => \wp_create_nonce( 'wp_rest' ),
+			'pluginUrl'   => PRODUCTBAY_URL,
+			'isFirstTime' => $is_first_time,
+		);
+
+		/**
+		 * Filters the data passed to the React admin app via wp_localize_script.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $script_data The localized script data.
+		 */
+		$script_data = \apply_filters( 'productbay_admin_script_data', $script_data );
+
 		\wp_localize_script(
 			'productbay-admin',
 			'productBaySettings',
-			array(
-				'apiUrl'      => \rest_url( Constants::PLUGIN_SLUG . '/v1/' ),
-				'nonce'       => \wp_create_nonce( 'wp_rest' ),
-				'pluginUrl'   => PRODUCTBAY_URL,
-				'isFirstTime' => $is_first_time,
-			)
+			$script_data
 		);
 
 		// Enqueue global admin styles with smart cache busting.
@@ -300,5 +318,14 @@ class Admin {
 
 		// Load translations for the React app.
 		\wp_set_script_translations( 'productbay-admin', Constants::TEXT_DOMAIN, PRODUCTBAY_PATH . 'languages' );
+
+		/**
+		 * Fires after admin assets are enqueued.
+		 *
+		 * Use this to enqueue additional admin scripts or styles on ProductBay pages.
+		 *
+		 * @since 1.0.1
+		 */
+		\do_action( 'productbay_enqueue_admin_assets' );
 	}
 }

@@ -112,6 +112,16 @@ class AjaxRenderer {
 			)
 		);
 
+		/**
+		 * Filters the AJAX filter response.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $response The response data (html, pagination).
+		 * @param array $table    The table configuration.
+		 */
+		$response = \apply_filters( 'productbay_ajax_filter_response', $response, $table );
+
 		\wp_send_json_success( $response );
 	}
 
@@ -233,6 +243,16 @@ class AjaxRenderer {
 		}
 
 		if ( $added_count > 0 ) {
+			/**
+			 * Fires after a successful bulk add-to-cart operation.
+			 *
+			 * @since 1.0.1
+			 *
+			 * @param int   $added_count Number of products added.
+			 * @param array $errors      Any errors encountered.
+			 */
+			\do_action( 'productbay_after_bulk_add_to_cart', $added_count, $errors );
+
 			$response = array(
 				/* translators: %d: number of products added to cart */
 				'message'     => sprintf( __( '%d product(s) added to cart.', 'productbay' ), $added_count ),

@@ -71,6 +71,15 @@ class Shortcode {
 			'productbay'
 		);
 
+		/**
+		 * Filters the parsed shortcode attributes.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $atts The shortcode attributes.
+		 */
+		$atts = \apply_filters( 'productbay_shortcode_atts', $atts );
+
 		$table_id = intval( $atts['id'] );
 
 		if ( ! $table_id ) {
@@ -142,5 +151,14 @@ class Shortcode {
 				'currency_thousand_sep' => wc_get_price_thousand_separator(),
 			)
 		);
+
+		/**
+		 * Fires after frontend assets are enqueued.
+		 *
+		 * Use this to enqueue additional frontend scripts or styles.
+		 *
+		 * @since 1.0.1
+		 */
+		\do_action( 'productbay_enqueue_frontend_assets' );
 	}
 }

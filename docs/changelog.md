@@ -2,6 +2,13 @@
 
 All notable changes to ProductBay are documented on this page.
 
+## 1.0.1
+
+### Added
+
+- **Extensibility API**: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin) enabling third-party and add-on integration.
+- New [Hooks & Filters](/developer/hooks) developer documentation page.
+
 ## 1.0.0
 
 *Initial Release*

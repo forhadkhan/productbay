@@ -21,10 +21,10 @@ export default defineConfig({
 
         nav: [
             {
-                text: 'v1.0.0',
+                text: 'v1.0.1',
                 items: [
                     {
-                        text: 'v1.0.0 (Latest)',
+                        text: 'v1.0.1 (Latest)',
                         link: '/guide/introduction',
                         activeMatch: '^/(?!v\\d)'
                     },
@@ -111,6 +111,7 @@ export default defineConfig({
                     items: [
                         { text: 'Architecture', link: '/developer/architecture' },
                         { text: 'REST API', link: '/developer/rest-api' },
+                        { text: 'Hooks & Filters', link: '/developer/hooks' },
                         { text: 'Contributing', link: '/developer/contributing' },
                     ]
                 }

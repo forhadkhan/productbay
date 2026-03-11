@@ -26,6 +26,13 @@ Thumbs.db
 *.map
 sftp.json
 
+# Meta-only (tracked on 'meta' branch exclusively)
+.agents
+.vscode
+notes
+instructions/
+.meta-worktree/
+
 # WordPress & Local Plugin Dev
 .ignores
 .phpdoc/
@@ -42,6 +49,5 @@ temp.md
 /instructions.md
 /project.md
 /features.md
-/instructions/
 /project/
 /features/

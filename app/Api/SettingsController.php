@@ -55,7 +55,16 @@ class SettingsController extends ApiController {
 	 * @return array Plugin settings.
 	 */
 	public function get_settings() {
-		return get_option( self::OPTION_NAME, $this->defaults() );
+		$settings = get_option( self::OPTION_NAME, $this->defaults() );
+
+		/**
+		 * Filters settings before returning to the frontend.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $settings The current settings.
+		 */
+		return \apply_filters( 'productbay_get_settings', $settings );
 	}
 
 	/**
@@ -76,6 +85,16 @@ class SettingsController extends ApiController {
 		$settings = array_merge( $this->defaults(), $settings );
 
 		update_option( self::OPTION_NAME, $settings );
+
+		/**
+		 * Fires after settings are saved.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $settings The saved settings.
+		 */
+		\do_action( 'productbay_settings_updated', $settings );
+
 		return $settings;
 	}
 
@@ -142,7 +161,7 @@ class SettingsController extends ApiController {
 	 * @return array Default settings array.
 	 */
 	private function defaults() {
-		return array(
+		$defaults = array(
 			'add_to_cart_text'    => 'Add to Cart',
 			'products_per_page'   => 10,
 			'show_admin_bar'      => true,
@@ -227,5 +246,14 @@ class SettingsController extends ApiController {
 				),
 			),
 		);
+
+		/**
+		 * Filters the default plugin settings.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $defaults The default settings array.
+		 */
+		return \apply_filters( 'productbay_default_settings', $defaults );
 	}
 }

@@ -88,6 +88,16 @@ class TableRenderer {
 		$settings = $table['settings'] ?? array();
 		$style    = $table['style'] ?? array();
 
+		/**
+		 * Filters the columns array before rendering.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $columns  The columns configuration.
+		 * @param int   $table_id The table post ID.
+		 */
+		$columns = \apply_filters( 'productbay_table_columns', $columns, $table_id );
+
 		// Store cart settings for use in render methods.
 		$this->cart_settings = wp_parse_args(
 			$settings['cart'] ?? array(),
@@ -100,11 +110,32 @@ class TableRenderer {
 		// 1. Prepare Query Arguments.
 		$args = $this->build_query_args( $source, $settings, $runtime_args );
 
+		/**
+		 * Filters WP_Query arguments before the product query executes.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $args     WP_Query arguments.
+		 * @param array $source   The table source configuration.
+		 * @param array $settings The table settings.
+		 */
+		$args = \apply_filters( 'productbay_query_args', $args, $source, $settings );
+
 		// 2. Execute Query.
 		$query = new \WP_Query( $args );
 
 		// 3. Generate Styles.
 		$css = $this->generate_styles( $unique_id, $style, $columns, $settings );
+
+		/**
+		 * Filters the generated scoped CSS for a table.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param string $css   The generated CSS.
+		 * @param array  $table The full table configuration.
+		 */
+		$css = \apply_filters( 'productbay_table_styles', $css, $table );
 
 		// 4. Build HTML.
 		ob_start();
@@ -125,8 +156,26 @@ class TableRenderer {
 		$bulk_position = $bulk_select['position'] ?? 'last';
 		echo '<div class="productbay-wrapper" id="' . esc_attr( $unique_id ) . '" data-table-id="' . esc_attr( $table_id ) . '" data-select-position="' . esc_attr( $bulk_position ) . '">';
 
+		/**
+		 * Fires before the table wrapper content.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $table The full table configuration.
+		 */
+		\do_action( 'productbay_before_table', $table );
+
 		// Toolbar: Bulk Actions + Search.
 		echo '<div class="productbay-toolbar">';
+
+		/**
+		 * Fires at the start of the toolbar area.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $table The full table configuration.
+		 */
+		\do_action( 'productbay_toolbar_start', $table );
 
 		// Bulk Actions (Add to Cart Button).
 		if ( $bulk_select['enabled'] ) {
@@ -142,6 +191,15 @@ class TableRenderer {
 		if ( ! empty( $settings['features']['search'] ) ) {
 			$this->render_search_bar( $settings, $runtime_args['s'] ?? '' );
 		}
+
+		/**
+		 * Fires at the end of the toolbar area.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $table The full table configuration.
+		 */
+		\do_action( 'productbay_toolbar_end', $table );
 
 		echo '</div>'; // End Toolbar.
 
@@ -196,6 +254,17 @@ class TableRenderer {
 
 				$product_type = $product->get_type();
 				$in_stock     = $product->is_in_stock() ? '1' : '0';
+
+				/**
+				 * Fires before each product row.
+				 *
+				 * @since 1.0.1
+				 *
+				 * @param \WC_Product $product The current product.
+				 * @param array       $table   The full table configuration.
+				 */
+				\do_action( 'productbay_before_row', $product, $table );
+
 				echo '<tr data-product-type="' . esc_attr( $product_type ) . '" data-product-id="' . esc_attr( $product->get_id() ) . '" data-in-stock="' . esc_attr( $in_stock ) . '">';
 
 				// Bulk Select - First Position.
@@ -227,6 +296,16 @@ class TableRenderer {
 				}
 
 				echo '</tr>';
+
+				/**
+				 * Fires after each product row.
+				 *
+				 * @since 1.0.1
+				 *
+				 * @param \WC_Product $product The current product.
+				 * @param array       $table   The full table configuration.
+				 */
+				\do_action( 'productbay_after_row', $product, $table );
 			}
 			wp_reset_postdata();
 		} else {
@@ -257,7 +336,26 @@ class TableRenderer {
 
 		echo '</div>'; // .productbay-wrapper.
 
-		return ob_get_clean();
+		/**
+		 * Fires after the table wrapper content.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $table The full table configuration.
+		 */
+		\do_action( 'productbay_after_table', $table );
+
+		$html = ob_get_clean();
+
+		/**
+		 * Filters the complete table HTML output.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param string $html  The rendered HTML.
+		 * @param array  $table The full table configuration.
+		 */
+		return \apply_filters( 'productbay_table_output', $html, $table );
 	}
 
 	/**
@@ -404,7 +502,19 @@ class TableRenderer {
 				break;
 
 			default:
-				echo '';
+				/**
+				 * Filters cell output for unknown/custom column types.
+				 *
+				 * Pro or third-party plugins can use this to render custom column types.
+				 *
+				 * @since 1.0.1
+				 *
+				 * @param string      $cell_html The default cell HTML (empty string).
+				 * @param array       $col       The column configuration.
+				 * @param \WC_Product $product   The WooCommerce product.
+				 */
+				$cell_html = \apply_filters( 'productbay_cell_output', '', $col, $product );
+				echo wp_kses_post( $cell_html );
 		}
 	}
 
