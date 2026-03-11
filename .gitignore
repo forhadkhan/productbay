@@ -42,6 +42,10 @@ temp.md
 /instructions.md
 /project.md
 /features.md
-/instructions/
-/project/
 /features/
+
+# Meta Branch Data
+.agents
+.vscode
+notes
+.meta-worktree
