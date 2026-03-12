@@ -682,16 +682,16 @@
                 const text = `Add ${totalItems} item${totalItems > 1 ? 's' : ''} for ${formatPrice(totalPrice)}`;
                 this.$bulkBtn.text(text).prop('disabled', false);
                 if (this.features.clearAllButton !== false && !this.$wrapper.find('.productbay-btn-clear-all').length) {
-                    this.$bulkBtn.after('<button class="productbay-btn-clear-all">Clear all</button>');
+                    this.$wrapper.find('.productbay-bulk-actions').append('<button class="productbay-btn-clear-all">Clear all</button>');
                 }
                 
                 if (this.features.selectedItemsPanel?.enabled !== false) {
-                    this.$wrapper.find('.productbay-btn-panel').show().find('.productbay-panel-count').text(count);
+                    this.$wrapper.find('.productbay-btn-panel').prop('disabled', false).find('.productbay-panel-count').text(count);
                 }
             } else {
                 this.$bulkBtn.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart').prop('disabled', true);
                 this.$wrapper.find('.productbay-btn-clear-all').remove();
-                this.$wrapper.find('.productbay-btn-panel').hide();
+                this.$wrapper.find('.productbay-btn-panel').prop('disabled', true).find('.productbay-panel-count').text(0);
             }
             
             this.renderSelectedItemsPopup();
@@ -869,18 +869,18 @@
 
         toggleSelectedItemsPopup(e) {
             e.preventDefault();
-            const $popup = this.$wrapper.find('.productbay-selected-popup');
+            const $popup = this.$wrapper.find('.productbay-bulk-actions .productbay-selected-popup');
             if ($popup.length && $popup.is(':visible')) {
                 this.closeSelectedItemsPopup(e);
             } else {
                 this.renderSelectedItemsPopup();
-                this.$wrapper.find('.productbay-selected-popup').addClass('is-open');
+                this.$wrapper.find('.productbay-bulk-actions .productbay-selected-popup').addClass('is-open');
             }
         }
 
         closeSelectedItemsPopup(e) {
             e?.preventDefault();
-            this.$wrapper.find('.productbay-selected-popup').removeClass('is-open');
+            this.$wrapper.find('.productbay-bulk-actions .productbay-selected-popup').removeClass('is-open');
         }
 
         handlePopupRemove(e) {
@@ -906,10 +906,13 @@
         renderSelectedItemsPopup() {
             if (this.features.selectedItemsPanel?.enabled === false) return;
 
-            let $popup = this.$wrapper.find('.productbay-selected-popup');
+            const $container = this.$wrapper.find('.productbay-bulk-actions');
+            if (!$container.length) return; // If toolbar missing
+
+            let $popup = $container.find('.productbay-selected-popup');
             if (!$popup.length) {
-                this.$wrapper.append('<div class="productbay-selected-popup"></div>');
-                $popup = this.$wrapper.find('.productbay-selected-popup');
+                $container.append('<div class="productbay-selected-popup"></div>');
+                $popup = $container.find('.productbay-selected-popup');
             }
 
             if (this.selectedProducts.size === 0) {

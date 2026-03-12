@@ -187,6 +187,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    position: relative;
 }
 
 .productbay-wrapper .productbay-btn-bulk {
@@ -215,6 +216,60 @@
 }
 
 .productbay-wrapper .productbay-btn-bulk:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* --- Button Group --- */
+
+.productbay-wrapper .productbay-btn-group {
+    display: inline-flex;
+    align-items: stretch;
+}
+
+.productbay-wrapper .productbay-btn-group .productbay-button {
+    margin: 0;
+}
+
+.productbay-wrapper .productbay-btn-group .productbay-button:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.productbay-wrapper .productbay-btn-group .productbay-button:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* --- Panel Button within Group --- */
+
+.productbay-wrapper .productbay-btn-panel {
+    padding: 8px 12px;
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none !important;
+    box-shadow: none;
+    outline: none;
+    white-space: nowrap;
+}
+
+.productbay-wrapper .productbay-btn-panel:hover {
+    background-color: #2563eb;
+}
+
+.productbay-wrapper .productbay-btn-panel:disabled {
     background-color: #94a3b8;
     cursor: not-allowed;
     opacity: 0.7;
