@@ -87,7 +87,6 @@
             // Selection
             this.$selectAll.on('change', this.toggleSelectAll.bind(this));
             this.$tbody.on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
-            this.$tbody.on('click', '.productbay-remove-item', this.handleRemoveItem.bind(this));
             this.$wrapper.on('click', '.productbay-btn-clear-all', this.handleClearAll.bind(this));
 
             // Quantity changes
@@ -266,7 +265,6 @@
                 const id = $cb.val();
                 if (this.selectedProducts.has(id)) {
                     $cb.prop('checked', true);
-                    this.addRemoveButton($cb.closest('tr'), id);
                 }
             });
             this.syncSelectAllCheckbox();
@@ -322,35 +320,6 @@
         }
 
         // ── Remove Items ────────────────────────────────────────────────
-
-        addRemoveButton($row, id) {
-            if (this.features.showRowRemove === false) return;
-            const $cell = $row.find('.productbay-col-select');
-            if ($cell.find('.productbay-remove-item').length) return;
-            $cell.append(
-                '<button class="productbay-remove-item" data-product-id="' + id + '" title="Remove from selection">&times;</button>'
-            );
-        }
-
-        removeRemoveButton($row) {
-            $row.find('.productbay-remove-item').remove();
-        }
-
-        handleRemoveItem(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const $btn = $(e.currentTarget);
-            const id = $btn.data('product-id');
-            const $row = $btn.closest('tr');
-            const $cb = $row.find('.productbay-select-product');
-
-            $cb.prop('checked', false);
-            this.selectedProducts.delete(String(id));
-            this.removeRemoveButton($row);
-            this.syncSelectAllCheckbox();
-            this.updateBulkButton();
-            this.saveSelectionsToStorage();
-        }
 
         handleClearAll(e) {
             e.preventDefault();
@@ -416,11 +385,9 @@
                     attributes,
                     productType: $row.data('product-type') || 'simple'
                 });
-                this.addRemoveButton($row, id);
             } else {
                 this.selectedProducts.delete(id);
                 this.$selectAll.prop('checked', false);
-                this.removeRemoveButton($row);
             }
 
             this.updateBulkButton();
@@ -708,7 +675,7 @@
             if (count > 0) {
                 const text = `Add ${totalItems} item${totalItems > 1 ? 's' : ''} for ${formatPrice(totalPrice)}`;
                 this.$bulkBtn.text(text).prop('disabled', false);
-                if (!this.$wrapper.find('.productbay-btn-clear-all').length) {
+                if (this.features.clearAllButton !== false && !this.$wrapper.find('.productbay-btn-clear-all').length) {
                     this.$bulkBtn.after('<button class="productbay-btn-clear-all">Clear all</button>');
                 }
             } else {

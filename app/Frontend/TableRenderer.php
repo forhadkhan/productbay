@@ -157,6 +157,7 @@ class TableRenderer {
 		
 		$features_config = wp_json_encode( array(
 			'variationBadges' => ! empty( $settings['features']['variationBadges'] ),
+			'clearAllButton'  => isset( $settings['features']['clearAllButton'] ) ? $settings['features']['clearAllButton'] : true,
 		) );
 		
 		echo '<div class="productbay-wrapper" id="' . esc_attr( $unique_id ) . '" data-table-id="' . esc_attr( $table_id ) . '" data-select-position="' . esc_attr( $bulk_position ) . '" data-features="' . esc_attr( $features_config ) . '">';

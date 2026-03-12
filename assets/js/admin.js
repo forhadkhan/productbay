@@ -23997,12 +23997,12 @@ const OptionsPanel = ({
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Remove Button', 'productbay'),
-          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display an × button on selected rows to easily deselect them', 'productbay'),
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Clear All Button', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display a button to instantly clear all selected products', 'productbay'),
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
-            checked: settings.features.showRowRemove,
+            checked: settings.features.clearAllButton,
             onChange: e => setFeatures({
-              showRowRemove: e.target.checked
+              clearAllButton: e.target.checked
             })
           })
         })]
@@ -34335,7 +34335,7 @@ const createDefaultSettings = () => ({
       visibility: 'all'
     },
     variationBadges: true,
-    showRowRemove: true
+    clearAllButton: true
   },
   pagination: {
     limit: 10,

@@ -176,8 +176,8 @@ export interface TableSettings {
         /** Show variation badges after adding variable products */
         variationBadges: boolean;
 
-        /** Show remove (×) button on selected rows */
-        showRowRemove: boolean;
+        /** Show clear all button when items are selected */
+        clearAllButton: boolean;
     };
 
     /** Pagination configuration */
@@ -326,7 +326,7 @@ export const createDefaultSettings = (): TableSettings => ({
             visibility: 'all',
         },
         variationBadges: true,
-        showRowRemove: true,
+        clearAllButton: true,
     },
     pagination: {
         limit: 10,

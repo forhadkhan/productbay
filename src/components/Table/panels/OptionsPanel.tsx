@@ -139,12 +139,12 @@ export const OptionsPanel = ({
                         />
                     </SettingsOption>
                     <SettingsOption
-                        title={__('Show Remove Button', 'productbay')}
-                        description={__('Display an × button on selected rows to easily deselect them', 'productbay')}
+                        title={__('Show Clear All Button', 'productbay')}
+                        description={__('Display a button to instantly clear all selected products', 'productbay')}
                     >
                         <Toggle
-                            checked={settings.features.showRowRemove}
-                            onChange={(e) => setFeatures({ showRowRemove: e.target.checked })}
+                            checked={settings.features.clearAllButton}
+                            onChange={(e) => setFeatures({ clearAllButton: e.target.checked })}
                         />
                     </SettingsOption>
                 </div>

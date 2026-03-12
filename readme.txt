@@ -124,7 +124,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Extensibility API: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin).
 * New developer documentation page for hooks and filters reference.
 * Variation badges: visual indicators showing which variations were added to cart with precise quantities natively synced with the WooCommerce Cart.
-* Remove Items from selection: Individual "×" buttons on selected rows and a global "Clear all" button.
+* Clear All Selections: A global "Clear all" button that allows users to instantly reset their bulk selections.
 
 **Fixed**
 
