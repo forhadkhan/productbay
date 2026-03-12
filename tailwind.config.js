@@ -37,6 +37,7 @@ module.exports = {
 					error: '#dc2626',
 					warning: '#fbbf24',
 					info: '#93c5fd',
+					brand: '#f05c2a'
 				},
 			},
 		},

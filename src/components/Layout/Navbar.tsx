@@ -39,7 +39,14 @@ const Navbar = () => {
 			<div className="py-3 px-6 h-16 flex justify-between items-center">
 				{/* Logo / Brand */}
 				<div className="flex items-center justify-content-center gap-2">
-					<ProductBayLogo className="h-9 w-auto" />
+					<div className="relative inline-flex">
+						<ProductBayLogo className="h-9 w-auto" />
+						{productBaySettings.proActive && (
+							<span className="absolute -top-2 -right-2.5 text-[9px] font-bold leading-none tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-productbay-brand text-white shadow-sm select-none">
+								{__('PRO', 'productbay')}
+							</span>
+						)}
+					</div>
 				</div>
 
 				{/* Desktop Navigation Links - hidden on mobile */}
