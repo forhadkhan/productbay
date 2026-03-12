@@ -53,6 +53,8 @@
             // Map: productId → total quantity added to cart in this session
             this.cartQuantities = new Map();
 
+            this.loadSelectionsFromStorage();
+
             this.init();
         }
 
@@ -164,10 +166,8 @@
                         if (response.data.pagination) {
                             this.$wrapper.find('.productbay-pagination').replaceWith(response.data.pagination);
                         }
-                        // Reset selection
-                        this.selectedProducts.clear();
-                        this.$selectAll.prop('checked', false);
-                        this.updateBulkButton();
+                        // Restore selections for products visible on the new page
+                        this.restoreSelections();
                     }
                 },
                 complete: () => {
@@ -175,6 +175,43 @@
                     this.$wrapper.find('.productbay-search').removeClass('loading');
                 }
             });
+        }
+        
+        loadSelectionsFromStorage() {
+            try {
+                const key = 'productbay_selections_' + this.$wrapper.data('table-id');
+                const stored = sessionStorage.getItem(key);
+                if (stored) {
+                    const entries = JSON.parse(stored);
+                    entries.forEach(([k, v]) => this.selectedProducts.set(k, v));
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        saveSelectionsToStorage() {
+            try {
+                const key = 'productbay_selections_' + this.$wrapper.data('table-id');
+                const entries = Array.from(this.selectedProducts.entries());
+                sessionStorage.setItem(key, JSON.stringify(entries));
+            } catch (e) { /* silent */ }
+        }
+
+        restoreSelections() {
+            this.$tbody.find('.productbay-select-product').each((_, el) => {
+                const $cb = $(el);
+                const id = $cb.val();
+                if (this.selectedProducts.has(id)) {
+                    $cb.prop('checked', true);
+                }
+            });
+            this.syncSelectAllCheckbox();
+            this.updateBulkButton();
+        }
+
+        syncSelectAllCheckbox() {
+            const $checkboxes = this.$tbody.find('.productbay-select-product:not(:disabled)');
+            const $checked = $checkboxes.filter(':checked');
+            this.$selectAll.prop('checked', $checkboxes.length > 0 && $checkboxes.length === $checked.length);
         }
 
         // ── Selection ───────────────────────────────────────────────────
@@ -191,6 +228,7 @@
                     $cb.trigger('change');
                 }
             });
+            this.saveSelectionsToStorage();
         }
 
         handleRowSelect(e) {
@@ -236,6 +274,7 @@
             }
 
             this.updateBulkButton();
+            this.saveSelectionsToStorage();
         }
 
         // ── Quantity ────────────────────────────────────────────────────
@@ -262,6 +301,7 @@
                 const item = this.selectedProducts.get(id);
                 item.quantity = val;
                 this.updateBulkButton();
+                this.saveSelectionsToStorage();
             }
         }
 
@@ -377,6 +417,7 @@
                     item.price = match.display_price;
                     item.attributes = selected;
                     this.updateBulkButton();
+                    this.saveSelectionsToStorage();
                 }
 
                 // Reset button text if user changes variation after adding
@@ -397,6 +438,7 @@
                     $checkbox.prop('checked', false);
                     this.selectedProducts.delete(id);
                     this.updateBulkButton();
+                    this.saveSelectionsToStorage();
                 }
             }
         }
@@ -561,6 +603,7 @@
                             this.$selectAll.prop('checked', false);
                             this.$tbody.find('.productbay-select-product').prop('checked', false);
                             this.updateBulkButton();
+                            this.saveSelectionsToStorage();
                         }, 2000);
                     } else {
                         const msg = response.data?.errors?.join('\n') || response.data?.message || 'Error adding products.';

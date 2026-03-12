@@ -124,6 +124,11 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Extensibility API: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin).
 * New developer documentation page for hooks and filters reference.
 
+**Fixed**
+
+* Bulk selection no longer resets when paginating or searching.
+* Selected products persist across page navigation and page reloads.
+
 = 1.0.0 =
 **Added**
 
