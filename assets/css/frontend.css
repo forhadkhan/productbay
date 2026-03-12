@@ -226,6 +226,7 @@
 .productbay-wrapper .productbay-btn-group {
     display: inline-flex;
     align-items: stretch;
+    gap: 1px;
 }
 
 .productbay-wrapper .productbay-btn-group .productbay-button {
@@ -235,7 +236,6 @@
 .productbay-wrapper .productbay-btn-group .productbay-button:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .productbay-wrapper .productbay-btn-group .productbay-button:not(:first-child) {
@@ -246,7 +246,7 @@
 /* --- Panel Button within Group --- */
 
 .productbay-wrapper .productbay-btn-panel {
-    padding: 8px 12px;
+    padding: 8px 8px;
     background-color: #3b82f6;
     color: #fff;
     border: none;
