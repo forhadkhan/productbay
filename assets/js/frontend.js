@@ -111,6 +111,12 @@
 
             // Sync with actual WooCommerce Cart on AJAX refreshes
             $(document.body).on('wc_fragments_refreshed wc_fragments_loaded', this.syncWithWCCart.bind(this));
+
+            // Selected Items Popup
+            this.$wrapper.on('click', '.productbay-btn-panel', this.toggleSelectedItemsPopup.bind(this));
+            this.$wrapper.on('click', '.productbay-popup-close', this.closeSelectedItemsPopup.bind(this));
+            this.$wrapper.on('click', '.productbay-popup-remove', this.handlePopupRemove.bind(this));
+            this.$wrapper.on('click', '.productbay-popup-add-all', this.handlePopupAddAll.bind(this));
         }
 
         /**
@@ -678,10 +684,17 @@
                 if (this.features.clearAllButton !== false && !this.$wrapper.find('.productbay-btn-clear-all').length) {
                     this.$bulkBtn.after('<button class="productbay-btn-clear-all">Clear all</button>');
                 }
+                
+                if (this.features.selectedItemsPanel?.enabled !== false) {
+                    this.$wrapper.find('.productbay-btn-panel').show().find('.productbay-panel-count').text(count);
+                }
             } else {
                 this.$bulkBtn.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart').prop('disabled', true);
                 this.$wrapper.find('.productbay-btn-clear-all').remove();
+                this.$wrapper.find('.productbay-btn-panel').hide();
             }
+            
+            this.renderSelectedItemsPopup();
         }
 
         handleBulkAddToCart(e) {
@@ -850,6 +863,101 @@
             html += '</div>';
 
             $wrap.find('.productbay-btn-cell').before(html);
+        }
+
+        // ── Selected Items Popup ────────────────────────────────────────
+
+        toggleSelectedItemsPopup(e) {
+            e.preventDefault();
+            const $popup = this.$wrapper.find('.productbay-selected-popup');
+            if ($popup.length && $popup.is(':visible')) {
+                this.closeSelectedItemsPopup(e);
+            } else {
+                this.renderSelectedItemsPopup();
+                this.$wrapper.find('.productbay-selected-popup').addClass('is-open');
+            }
+        }
+
+        closeSelectedItemsPopup(e) {
+            e?.preventDefault();
+            this.$wrapper.find('.productbay-selected-popup').removeClass('is-open');
+        }
+
+        handlePopupRemove(e) {
+            e.preventDefault();
+            const id = $(e.currentTarget).data('product-id');
+            const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+            if ($row.length) {
+                const $cb = $row.find('.productbay-select-product');
+                $cb.prop('checked', false).trigger('change');
+            } else {
+                this.selectedProducts.delete(String(id));
+                this.updateBulkButton();
+                this.saveSelectionsToStorage();
+            }
+        }
+
+        handlePopupAddAll(e) {
+            e.preventDefault();
+            // Trigger the main bulk add to cart
+            this.$bulkBtn.trigger('click');
+        }
+
+        renderSelectedItemsPopup() {
+            if (this.features.selectedItemsPanel?.enabled === false) return;
+
+            let $popup = this.$wrapper.find('.productbay-selected-popup');
+            if (!$popup.length) {
+                this.$wrapper.append('<div class="productbay-selected-popup"></div>');
+                $popup = this.$wrapper.find('.productbay-selected-popup');
+            }
+
+            if (this.selectedProducts.size === 0) {
+                $popup.removeClass('is-open');
+                return;
+            }
+
+            let totalPrice = 0;
+            let html = '<div class="productbay-popup-header">';
+            html += `<strong>Selected Items <span class="productbay-popup-count">(${this.selectedProducts.size})</span></strong>`;
+            html += '<button class="productbay-popup-close">&times;</button>';
+            html += '</div>';
+            html += '<div class="productbay-popup-items">';
+
+            this.selectedProducts.forEach((item, id) => {
+                const lineTotal = item.quantity * item.price;
+                totalPrice += lineTotal;
+                
+                // Get product info from the row
+                const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+                const name = $row.find('.productbay-product-title').text() || `Product #${id}`;
+                const img = $row.find('img').first().attr('src') || '';
+
+                html += `<div class="productbay-popup-item" data-id="${id}">`;
+                if (img) html += `<img src="${img}" class="productbay-popup-thumb" />`;
+                html += `<div class="productbay-popup-info">`;
+                html += `<div class="productbay-popup-name">${name}</div>`;
+                if (item.variationId) {
+                    const attrs = Object.values(item.attributes || {}).filter(Boolean).join(' / ');
+                    html += `<div class="productbay-popup-variation">${attrs}</div>`;
+                }
+                html += `<div class="productbay-popup-pricing">`;
+                html += `${item.quantity} &times; ${formatPrice(item.price)} = <strong>${formatPrice(lineTotal)}</strong>`;
+                html += `</div></div>`;
+                html += `<button class="productbay-popup-remove" data-product-id="${id}" title="Remove item">&times;</button>`;
+                html += `</div>`;
+            });
+
+            html += '</div>';
+            html += `<div class="productbay-popup-footer">`;
+            html += `<div class="productbay-popup-total">Total: <strong>${formatPrice(totalPrice)}</strong></div>`;
+            html += `<button class="productbay-popup-add-all productbay-button">Add All to Cart</button>`;
+            html += `</div>`;
+
+            // Preserve exactly 'is-open' state while updating HTML string
+            const isOpen = $popup.hasClass('is-open');
+            $popup.html(html);
+            if (isOpen) $popup.addClass('is-open');
         }
     }
 

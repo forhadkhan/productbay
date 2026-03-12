@@ -147,6 +147,21 @@ export const OptionsPanel = ({
                             onChange={(e) => setFeatures({ clearAllButton: e.target.checked })}
                         />
                     </SettingsOption>
+
+                    <SettingsOption
+                        title={__('Selected Items Panel', 'productbay')}
+                        description={__('Show a floating panel displaying all selected items with individual quantities', 'productbay')}
+                    >
+                        <Toggle
+                            checked={settings.features.selectedItemsPanel?.enabled ?? true}
+                            onChange={(e) => setFeatures({
+                                selectedItemsPanel: {
+                                    ...settings.features.selectedItemsPanel,
+                                    enabled: e.target.checked
+                                }
+                            })}
+                        />
+                    </SettingsOption>
                 </div>
             </SettingsSection>
 

@@ -178,6 +178,11 @@ export interface TableSettings {
 
         /** Show clear all button when items are selected */
         clearAllButton: boolean;
+
+        /** Selected items popup configuration */
+        selectedItemsPanel: {
+            enabled: boolean;
+        };
     };
 
     /** Pagination configuration */
@@ -327,6 +332,9 @@ export const createDefaultSettings = (): TableSettings => ({
         },
         variationBadges: true,
         clearAllButton: true,
+        selectedItemsPanel: {
+            enabled: true,
+        },
     },
     pagination: {
         limit: 10,

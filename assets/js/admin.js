@@ -23927,6 +23927,7 @@ const OptionsPanel = ({
   setCart,
   className
 }) => {
+  var _settings$features$se;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("w-full p-4 space-y-8", className),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
@@ -24003,6 +24004,18 @@ const OptionsPanel = ({
             checked: settings.features.clearAllButton,
             onChange: e => setFeatures({
               clearAllButton: e.target.checked
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Selected Items Panel', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show a floating panel displaying all selected items with individual quantities', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+            checked: (_settings$features$se = settings.features.selectedItemsPanel?.enabled) !== null && _settings$features$se !== void 0 ? _settings$features$se : true,
+            onChange: e => setFeatures({
+              selectedItemsPanel: {
+                ...settings.features.selectedItemsPanel,
+                enabled: e.target.checked
+              }
             })
           })
         })]
@@ -34335,7 +34348,10 @@ const createDefaultSettings = () => ({
       visibility: 'all'
     },
     variationBadges: true,
-    clearAllButton: true
+    clearAllButton: true,
+    selectedItemsPanel: {
+      enabled: true
+    }
   },
   pagination: {
     limit: 10,
