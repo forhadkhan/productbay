@@ -1,11 +1,9 @@
 # Dependencies
 node_modules/
 vendor/
-
-notes/
-.agents/
-.agent/
-.vscode/
+docs/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
 
 # Environment & Private Data
 .env
@@ -28,6 +26,13 @@ Thumbs.db
 *.map
 sftp.json
 
+# Meta-only (tracked on 'meta' branch exclusively)
+.agents
+.vscode
+notes
+instructions/
+.meta-worktree/
+
 # WordPress & Local Plugin Dev
 .ignores
 .phpdoc/
@@ -40,11 +45,10 @@ temp.js
 temp.ts
 temp.tsx
 temp.md
-todo.txt
-todo.md
-instructions.md
-project.md
-features.md 
-instructions/
-project/
-features/
+
+/instructions.md
+/project.md
+/features.md
+/project/
+/features/
+docs/
