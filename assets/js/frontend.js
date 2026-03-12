@@ -50,16 +50,33 @@
             this.searchTimeout = null;
             // Map: productId → { quantity, price, variationId, attributes }
             this.selectedProducts = new Map();
-            // Map: productId → total quantity added to cart in this session
+            // Map: cartKey → { quantity, variationId, attributes, productId }
             this.cartQuantities = new Map();
-
             this.loadSelectionsFromStorage();
+            this.loadCartQuantitiesFromStorage(); // New: load previous add-to-cart actions
 
             this.init();
         }
 
         init() {
+            this.features = JSON.parse(this.$wrapper.attr('data-features') || '{}');
             this.bindEvents();
+        }
+
+        /**
+         * Build a unique cart key from product ID and attributes.
+         * Uses attribute values (sorted) to ensure each unique combination
+         * gets its own entry, even when WooCommerce maps multiple combos
+         * to the same variation_id ("any" attribute case).
+         */
+        buildCartKey(productId, variationId, attributes) {
+            if (!variationId) return String(productId);
+            const attrValues = Object.entries(attributes || {})
+                .filter(([, v]) => v)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([, v]) => v)
+                .join('|');
+            return `${productId}:${attrValues || variationId}`;
         }
 
         bindEvents() {
@@ -90,6 +107,32 @@
 
             // Pagination (delegated, since pagination HTML gets replaced)
             this.$wrapper.on('click', '.productbay-pagination a', this.handlePagination.bind(this));
+
+            // Sync with actual WooCommerce Cart on AJAX refreshes
+            $(document.body).on('wc_fragments_refreshed wc_fragments_loaded', this.syncWithWCCart.bind(this));
+        }
+
+        /**
+         * Parses the injected JSON cart data from the AJAX fragments.
+         * Syncs this.cartQuantities with actual WooCommerce cart.
+         */
+        syncWithWCCart() {
+            const $cartData = $('.productbay-cart-data').last();
+            if ($cartData.length) {
+                try {
+                    const data = $cartData.data('cart');
+                    if (Array.isArray(data)) {
+                        this.cartQuantities.clear();
+                        data.forEach(([k, v]) => this.cartQuantities.set(k, v));
+                        this.saveCartQuantitiesToStorage();
+                        
+                        // Give DOM a frame to settle, then redraw badges & buttons
+                        setTimeout(() => this.restoreCartBadges(), 50);
+                    }
+                } catch (e) {
+                    console.error('ProductBay: Failed to sync with WooCommerce cart fragments.', e);
+                }
+            }
         }
 
         // ── Search ───────────────────────────────────────────────────────
@@ -196,6 +239,25 @@
             } catch (e) { /* silent */ }
         }
 
+        loadCartQuantitiesFromStorage() {
+            try {
+                const key = 'productbay_cart_' + this.$wrapper.data('table-id');
+                const stored = sessionStorage.getItem(key);
+                if (stored) {
+                    const entries = JSON.parse(stored);
+                    entries.forEach(([k, v]) => this.cartQuantities.set(k, v));
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        saveCartQuantitiesToStorage() {
+            try {
+                const key = 'productbay_cart_' + this.$wrapper.data('table-id');
+                const entries = Array.from(this.cartQuantities.entries());
+                sessionStorage.setItem(key, JSON.stringify(entries));
+            } catch (e) { /* silent */ }
+        }
+
         restoreSelections() {
             this.$tbody.find('.productbay-select-product').each((_, el) => {
                 const $cb = $(el);
@@ -206,6 +268,48 @@
             });
             this.syncSelectAllCheckbox();
             this.updateBulkButton();
+            this.restoreCartBadges(); // New: re-render badges & buttons
+        }
+
+        restoreCartBadges() {
+            // Re-render variation badges and button text based on persisted cart quantities
+            this.$tbody.find('tr').each((_, row) => {
+                const $row = $(row);
+                const productId = String($row.data('product-id'));
+                const isVariable = $row.find('.productbay-variable-wrap').length > 0;
+                
+                if (isVariable) {
+                    // It's a variable product. Only render if feature enabled.
+                    if (this.features.variationBadges !== false) {
+                        this.renderVariationBadges(productId);
+                    }
+                } else {
+                    // Simple product - restore checkmark on button
+                    const cartKey = String(productId);
+                    const existing = this.cartQuantities.get(cartKey);
+                    if (existing) {
+                        const $btn = $row.find('.productbay-btn-addtocart');
+                        if ($btn.length) {
+                            if (!$btn.data('original-text')) {
+                                $btn.data('original-text', $btn.text());
+                            }
+                            const originalLabel = $btn.data('original-text');
+                            const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                            $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                        }
+                        
+                        // Also restore Add to cart view-cart link
+                        const $parentCell = $btn.closest('.productbay-btn-cell');
+                        if (!$parentCell.find('.productbay-added-to-cart').length) {
+                            const cartUrl = productbay_frontend.cart_url || '#';
+                            const cartText = productbay_frontend.view_cart_text || 'View cart';
+                            $parentCell.append(
+                                '<a href="' + cartUrl + '" class="productbay-added-to-cart">' + cartText + '</a>'
+                            );
+                        }
+                    }
+                }
+            });
         }
 
         syncSelectAllCheckbox() {
@@ -420,11 +524,14 @@
                     this.saveSelectionsToStorage();
                 }
 
-                // Reset button text if user changes variation after adding
-                const originalLabel = $btn.data('original-text');
-                if (originalLabel && $btn.find('.productbay-added-badge').length) {
-                    // Clear the badge when variation changes — treat as fresh add
-                    $btn.html(originalLabel);
+                // Update button for the new variation — check if THIS variation was already added
+                const cartKey = this.buildCartKey($wrap.data('product-id'), match.variation_id, selected);
+                const existing = this.cartQuantities.get(cartKey);
+                if (existing) {
+                    const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                } else {
+                    $btn.html(originalLabel || $btn.text());
                 }
             } else {
                 // Variation invalid/out-of-stock: disable button + checkbox
@@ -451,7 +558,7 @@
             if ($btn.is(':disabled')) return;
 
             const $wrap = $btn.closest('.productbay-btn-cell');
-            const productId = $btn.data('product-id') || $wrap.data('product-id');
+            const productId = $btn.data('product-id') || $btn.closest('.productbay-variable-wrap').data('product-id') || $btn.closest('tr').data('product-id');
             const $qtyInput = $wrap.find('.productbay-qty');
             const quantity = $qtyInput.length ? parseInt($qtyInput.val(), 10) || 1 : 1;
 
@@ -495,14 +602,28 @@
                         $(document.body).trigger('wc_fragment_refresh');
 
                         // Track accumulated cart quantity
-                        const prevQty = this.cartQuantities.get(String(productId)) || 0;
+                        const cartKey = this.buildCartKey(productId, variationId, attributes);
+                        const prevEntry = this.cartQuantities.get(cartKey);
+                        const prevQty = prevEntry ? prevEntry.quantity : 0;
                         const newQty = prevQty + quantity;
-                        this.cartQuantities.set(String(productId), newQty);
+                        
+                        // We store an object for all cart quantities to support variation badge generation easily
+                        this.cartQuantities.set(cartKey, {
+                            quantity: newQty,
+                            variationId: variationId,
+                            attributes: Object.assign({}, attributes),
+                            productId: productId 
+                        });
+                        this.saveCartQuantitiesToStorage(); // <-- Persist
 
                         // Update button text with SVG checkmark and quantity
                         const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                         $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' ' + newQty + ')</span>');
                         $btn.prop('disabled', false);
+                        
+                        if (variationId && this.features.variationBadges !== false) {
+                            this.renderVariationBadges(productId);
+                        }
 
                         // Inject "View Cart" link if not already present
                         const $parentCell = $wrap;
@@ -597,6 +718,52 @@
                                 alert('Some items had issues:\n' + response.data.warnings.join('\n'));
                             }, 500);
                         }
+                        
+                        // Update variation badges for variable products we just added
+                        this.selectedProducts.forEach((item, id) => {
+                            if (item.productType === 'variable') {
+                                const cartKey = this.buildCartKey(id, item.variationId, item.attributes);
+                                const prevEntry = this.cartQuantities.get(cartKey);
+                                const prevQty = prevEntry ? prevEntry.quantity : 0;
+                                const newQty = prevQty + item.quantity;
+                                this.cartQuantities.set(cartKey, {
+                                    quantity: newQty,
+                                    variationId: item.variationId,
+                                    attributes: Object.assign({}, item.attributes),
+                                    productId: id 
+                                });
+                                
+                                if (item.variationId && this.features.variationBadges !== false) {
+                                    this.renderVariationBadges(id);
+                                }
+                            } else {
+                                const cartKey = String(id);
+                                const prevEntry = this.cartQuantities.get(cartKey);
+                                const prevQty = prevEntry ? prevEntry.quantity : 0;
+                                const newQty = prevQty + item.quantity;
+                                this.cartQuantities.set(cartKey, {
+                                    quantity: newQty,
+                                    productId: id 
+                                });
+                            }
+                            
+                            // Let's also refresh single add to cart buttons for items added in bulk
+                            const $btn = this.$tbody.find(`tr[data-product-id="${id}"] .productbay-btn-addtocart`);
+                            if ($btn.length) {
+                                if (!$btn.data('original-text')) {
+                                    $btn.data('original-text', $btn.text());
+                                }
+                                const originalLabel = $btn.data('original-text');
+                                
+                                const cartKey = this.buildCartKey(id, item.variationId, item.attributes);
+                                const existing = this.cartQuantities.get(cartKey);
+                                if (existing) {
+                                    const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                                    $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                                }
+                            }
+                        });
+                        this.saveCartQuantitiesToStorage(); // <-- Persist after bulk add
 
                         setTimeout(() => {
                             this.selectedProducts.clear();
@@ -616,6 +783,55 @@
                     $btn.text(originalText).prop('disabled', false);
                 }
             });
+        }
+        
+        getAddedVariationsForProduct(productId) {
+            const results = [];
+            this.cartQuantities.forEach((data, key) => {
+                if (String(data.productId) === String(productId) && data.variationId) {
+                    // Build human-readable label from attributes
+                    const attrParts = [];
+                    if (data.attributes) {
+                        Object.entries(data.attributes).forEach(([key, val]) => {
+                            if (val) {
+                                // Simple text processing for attribute keys
+                                const label = key.replace('attribute_pa_', '').replace('attribute_', '').replace(/-/g, ' ');
+                                attrParts.push(val); // Only pushing the selected value for brevity.
+                            }
+                        });
+                    }
+                    results.push({
+                        key: key,
+                        variationId: data.variationId,
+                        quantity: data.quantity,
+                        label: attrParts.join(' / ') || 'Default'
+                    });
+                }
+            });
+            return results;
+        }
+
+        renderVariationBadges(productId) {
+            const $row = this.$tbody.find(`tr[data-product-id="${productId}"]`);
+            const $wrap = $row.find('.productbay-variable-wrap');
+            if (!$wrap.length) return;
+
+            const badges = this.getAddedVariationsForProduct(productId);
+            if (badges.length === 0) return;
+
+            // Remove existing badges container
+            $wrap.find('.productbay-variation-badges').remove();
+
+            let html = '<div class="productbay-variation-badges">';
+            badges.forEach(b => {
+                html += `<span class="productbay-variation-badge">
+                    <svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="10" height="10" style="display:inline;vertical-align:middle;margin-right:2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    ${b.label} (×${b.quantity})
+                </span>`;
+            });
+            html += '</div>';
+
+            $wrap.find('.productbay-btn-cell').before(html);
         }
     }
 

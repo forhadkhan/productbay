@@ -172,6 +172,9 @@ export interface TableSettings {
             };
             visibility: VisibilityMode;
         };
+
+        /** Show variation badges after adding variable products */
+        variationBadges: boolean;
     };
 
     /** Pagination configuration */
@@ -319,6 +322,7 @@ export const createDefaultSettings = (): TableSettings => ({
             width: { value: 64, unit: 'px' },
             visibility: 'all',
         },
+        variationBadges: true,
     },
     pagination: {
         limit: 10,

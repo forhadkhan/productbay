@@ -154,7 +154,16 @@ class TableRenderer {
 			),
 		);
 		$bulk_position = $bulk_select['position'] ?? 'last';
-		echo '<div class="productbay-wrapper" id="' . esc_attr( $unique_id ) . '" data-table-id="' . esc_attr( $table_id ) . '" data-select-position="' . esc_attr( $bulk_position ) . '">';
+		
+		$features_config = wp_json_encode( array(
+			'variationBadges' => ! empty( $settings['features']['variationBadges'] ),
+		) );
+		
+		echo '<div class="productbay-wrapper" id="' . esc_attr( $unique_id ) . '" data-table-id="' . esc_attr( $table_id ) . '" data-select-position="' . esc_attr( $bulk_position ) . '" data-features="' . esc_attr( $features_config ) . '">';
+
+		// Seed initial WooCommerce cart data for variations tracking
+		$cart_data = self::get_cart_data();
+		echo '<div class="productbay-cart-data" style="display:none;" data-cart="' . esc_attr( wp_json_encode( $cart_data ) ) . '"></div>';
 
 		/**
 		 * Fires before the table wrapper content.
@@ -1175,6 +1184,63 @@ class TableRenderer {
 			);
 			echo '</div>';
 		}
+	}
+
+	/**
+	 * Extracts all current cart items grouped exactly like frontend.js expects.
+	 *
+	 * @return array Cart tracking data.
+	 * @since 1.0.2
+	 */
+	public static function get_cart_data() {
+		if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+			return array();
+		}
+
+		$cart_items = WC()->cart->get_cart();
+		$data       = array();
+
+		foreach ( $cart_items as $cart_item_key => $cart_item ) {
+			$product_id   = $cart_item['product_id'];
+			$variation_id = $cart_item['variation_id'];
+			$quantity     = $cart_item['quantity'];
+			$attributes   = array();
+
+			if ( $variation_id ) {
+				$attributes = $cart_item['variation'] ?? array();
+			}
+
+			// Replicate JS buildCartKey logic
+			$attr_values = array();
+			foreach ( $attributes as $key => $val ) {
+				if ( ! empty( $val ) ) {
+					$attr_values[] = $val;
+				}
+			}
+			sort( $attr_values );
+			$attr_str = implode( '|', $attr_values );
+
+			$cart_key = $variation_id ? "{$product_id}:" . ( $attr_str ? $attr_str : $variation_id ) : (string) $product_id;
+
+			if ( isset( $data[ $cart_key ] ) ) {
+				$data[ $cart_key ]['quantity'] += $quantity;
+			} else {
+				$data[ $cart_key ] = array(
+					'productId'   => $product_id,
+					'variationId' => $variation_id,
+					'quantity'    => $quantity,
+					'attributes'  => $attributes,
+				);
+			}
+		}
+
+		// Convert to list of pairs for JS Map instantiation
+		$entries = array();
+		foreach ( $data as $key => $val ) {
+			$entries[] = array( $key, $val );
+		}
+
+		return $entries;
 	}
 
 	/**

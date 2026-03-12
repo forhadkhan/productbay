@@ -128,6 +128,16 @@ export const OptionsPanel = ({
                             onChange={(e) => setCart({ showQuantity: e.target.checked })}
                         />
                     </SettingsOption>
+
+                    <SettingsOption
+                        title={__('Variation Badges', 'productbay')}
+                        description={__('Show badges indicating which variations were added to cart', 'productbay')}
+                    >
+                        <Toggle
+                            checked={settings.features.variationBadges}
+                            onChange={(e) => setFeatures({ variationBadges: e.target.checked })}
+                        />
+                    </SettingsOption>
                 </div>
             </SettingsSection>
 

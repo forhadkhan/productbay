@@ -51,6 +51,20 @@ class Shortcode {
 	 */
 	public function init() {
 		add_shortcode( 'productbay', array( $this, 'render_product_table' ) );
+		add_filter( 'woocommerce_add_to_cart_fragments', array( $this, 'add_cart_fragments' ) );
+	}
+
+	/**
+	 * Add custom cart fragments to sync productbay tracked quantities.
+	 *
+	 * @param array $fragments Existing fragments.
+	 * @return array
+	 * @since 1.0.2
+	 */
+	public function add_cart_fragments( $fragments ) {
+		$cart_data = \WpabProductBay\Frontend\TableRenderer::get_cart_data();
+		$fragments['div.productbay-cart-data'] = '<div class="productbay-cart-data" style="display:none;" data-cart="' . esc_attr( wp_json_encode( $cart_data ) ) . '"></div>';
+		return $fragments;
 	}
 
 	/**
