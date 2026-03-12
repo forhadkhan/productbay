@@ -138,6 +138,15 @@ export const OptionsPanel = ({
                             onChange={(e) => setFeatures({ variationBadges: e.target.checked })}
                         />
                     </SettingsOption>
+                    <SettingsOption
+                        title={__('Show Remove Button', 'productbay')}
+                        description={__('Display an × button on selected rows to easily deselect them', 'productbay')}
+                    >
+                        <Toggle
+                            checked={settings.features.showRowRemove}
+                            onChange={(e) => setFeatures({ showRowRemove: e.target.checked })}
+                        />
+                    </SettingsOption>
                 </div>
             </SettingsSection>
 

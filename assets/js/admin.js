@@ -23996,6 +23996,15 @@ const OptionsPanel = ({
               variationBadges: e.target.checked
             })
           })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Remove Button', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display an × button on selected rows to easily deselect them', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+            checked: settings.features.showRowRemove,
+            onChange: e => setFeatures({
+              showRowRemove: e.target.checked
+            })
+          })
         })]
       })]
     })]
@@ -34325,7 +34334,8 @@ const createDefaultSettings = () => ({
       },
       visibility: 'all'
     },
-    variationBadges: true
+    variationBadges: true,
+    showRowRemove: true
   },
   pagination: {
     limit: 10,

@@ -87,6 +87,8 @@
             // Selection
             this.$selectAll.on('change', this.toggleSelectAll.bind(this));
             this.$tbody.on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
+            this.$tbody.on('click', '.productbay-remove-item', this.handleRemoveItem.bind(this));
+            this.$wrapper.on('click', '.productbay-btn-clear-all', this.handleClearAll.bind(this));
 
             // Quantity changes
             this.$tbody.on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
@@ -264,6 +266,7 @@
                 const id = $cb.val();
                 if (this.selectedProducts.has(id)) {
                     $cb.prop('checked', true);
+                    this.addRemoveButton($cb.closest('tr'), id);
                 }
             });
             this.syncSelectAllCheckbox();
@@ -316,6 +319,47 @@
             const $checkboxes = this.$tbody.find('.productbay-select-product:not(:disabled)');
             const $checked = $checkboxes.filter(':checked');
             this.$selectAll.prop('checked', $checkboxes.length > 0 && $checkboxes.length === $checked.length);
+        }
+
+        // ── Remove Items ────────────────────────────────────────────────
+
+        addRemoveButton($row, id) {
+            if (this.features.showRowRemove === false) return;
+            const $cell = $row.find('.productbay-col-select');
+            if ($cell.find('.productbay-remove-item').length) return;
+            $cell.append(
+                '<button class="productbay-remove-item" data-product-id="' + id + '" title="Remove from selection">&times;</button>'
+            );
+        }
+
+        removeRemoveButton($row) {
+            $row.find('.productbay-remove-item').remove();
+        }
+
+        handleRemoveItem(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const $btn = $(e.currentTarget);
+            const id = $btn.data('product-id');
+            const $row = $btn.closest('tr');
+            const $cb = $row.find('.productbay-select-product');
+
+            $cb.prop('checked', false);
+            this.selectedProducts.delete(String(id));
+            this.removeRemoveButton($row);
+            this.syncSelectAllCheckbox();
+            this.updateBulkButton();
+            this.saveSelectionsToStorage();
+        }
+
+        handleClearAll(e) {
+            e.preventDefault();
+            this.selectedProducts.clear();
+            this.$tbody.find('.productbay-select-product').prop('checked', false);
+            this.$tbody.find('.productbay-remove-item').remove();
+            this.$selectAll.prop('checked', false);
+            this.updateBulkButton();
+            this.saveSelectionsToStorage();
         }
 
         // ── Selection ───────────────────────────────────────────────────
@@ -372,9 +416,11 @@
                     attributes,
                     productType: $row.data('product-type') || 'simple'
                 });
+                this.addRemoveButton($row, id);
             } else {
                 this.selectedProducts.delete(id);
                 this.$selectAll.prop('checked', false);
+                this.removeRemoveButton($row);
             }
 
             this.updateBulkButton();
@@ -662,8 +708,12 @@
             if (count > 0) {
                 const text = `Add ${totalItems} item${totalItems > 1 ? 's' : ''} for ${formatPrice(totalPrice)}`;
                 this.$bulkBtn.text(text).prop('disabled', false);
+                if (!this.$wrapper.find('.productbay-btn-clear-all').length) {
+                    this.$bulkBtn.after('<button class="productbay-btn-clear-all">Clear all</button>');
+                }
             } else {
                 this.$bulkBtn.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart').prop('disabled', true);
+                this.$wrapper.find('.productbay-btn-clear-all').remove();
             }
         }
 
@@ -767,8 +817,9 @@
 
                         setTimeout(() => {
                             this.selectedProducts.clear();
-                            this.$selectAll.prop('checked', false);
                             this.$tbody.find('.productbay-select-product').prop('checked', false);
+                            this.$tbody.find('.productbay-remove-item').remove();
+                            this.$selectAll.prop('checked', false);
                             this.updateBulkButton();
                             this.saveSelectionsToStorage();
                         }, 2000);
