@@ -284,6 +284,8 @@ class Admin {
 			'nonce'       => \wp_create_nonce( 'wp_rest' ),
 			'pluginUrl'   => PRODUCTBAY_URL,
 			'isFirstTime' => $is_first_time,
+			'version'     => Constants::VERSION,
+			'proVersion'  => \defined( 'PRODUCTBAY_PRO_VERSION' ) ? \PRODUCTBAY_PRO_VERSION : false,
 		);
 
 		/**
