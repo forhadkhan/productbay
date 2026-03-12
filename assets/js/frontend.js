@@ -132,7 +132,7 @@
                         this.cartQuantities.clear();
                         data.forEach(([k, v]) => this.cartQuantities.set(k, v));
                         this.saveCartQuantitiesToStorage();
-                        
+
                         // Give DOM a frame to settle, then redraw badges & buttons
                         setTimeout(() => this.restoreCartBadges(), 50);
                     }
@@ -226,7 +226,7 @@
                 }
             });
         }
-        
+
         loadSelectionsFromStorage() {
             try {
                 const key = 'productbay_selections_' + this.$wrapper.data('table-id');
@@ -284,7 +284,7 @@
                 const $row = $(row);
                 const productId = String($row.data('product-id'));
                 const isVariable = $row.find('.productbay-variable-wrap').length > 0;
-                
+
                 if (isVariable) {
                     // It's a variable product. Only render if feature enabled.
                     if (this.features.variationBadges !== false) {
@@ -304,7 +304,7 @@
                             const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                             $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
                         }
-                        
+
                         // Also restore Add to cart view-cart link
                         const $parentCell = $btn.closest('.productbay-btn-cell');
                         if (!$parentCell.find('.productbay-added-to-cart').length) {
@@ -625,13 +625,13 @@
                         const prevEntry = this.cartQuantities.get(cartKey);
                         const prevQty = prevEntry ? prevEntry.quantity : 0;
                         const newQty = prevQty + quantity;
-                        
+
                         // We store an object for all cart quantities to support variation badge generation easily
                         this.cartQuantities.set(cartKey, {
                             quantity: newQty,
                             variationId: variationId,
                             attributes: Object.assign({}, attributes),
-                            productId: productId 
+                            productId: productId
                         });
                         this.saveCartQuantitiesToStorage(); // <-- Persist
 
@@ -639,7 +639,7 @@
                         const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                         $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' ' + newQty + ')</span>');
                         $btn.prop('disabled', false);
-                        
+
                         if (variationId && this.features.variationBadges !== false) {
                             this.renderVariationBadges(productId);
                         }
@@ -682,9 +682,9 @@
                 const text = `Add ${totalItems} item${totalItems > 1 ? 's' : ''} for ${formatPrice(totalPrice)}`;
                 this.$bulkBtn.text(text).prop('disabled', false);
                 if (this.features.clearAllButton !== false && !this.$wrapper.find('.productbay-btn-clear-all').length) {
-                    this.$wrapper.find('.productbay-bulk-actions').append('<button class="productbay-btn-clear-all">Clear all</button>');
+                    this.$wrapper.find('.productbay-btn-group').append('<button class="productbay-button productbay-btn-clear-all" title="Warning: This will clear all your active selections">Clear</button>');
                 }
-                
+
                 if (this.features.selectedItemsPanel?.enabled !== false) {
                     this.$wrapper.find('.productbay-btn-panel').prop('disabled', false).find('.productbay-panel-count').text(count);
                 }
@@ -693,7 +693,7 @@
                 this.$wrapper.find('.productbay-btn-clear-all').remove();
                 this.$wrapper.find('.productbay-btn-panel').prop('disabled', true).find('.productbay-panel-count').text(0);
             }
-            
+
             this.renderSelectedItemsPopup();
         }
 
@@ -748,7 +748,7 @@
                                 alert('Some items had issues:\n' + response.data.warnings.join('\n'));
                             }, 500);
                         }
-                        
+
                         // Update variation badges for variable products we just added
                         this.selectedProducts.forEach((item, id) => {
                             if (item.productType === 'variable') {
@@ -760,9 +760,9 @@
                                     quantity: newQty,
                                     variationId: item.variationId,
                                     attributes: Object.assign({}, item.attributes),
-                                    productId: id 
+                                    productId: id
                                 });
-                                
+
                                 if (item.variationId && this.features.variationBadges !== false) {
                                     this.renderVariationBadges(id);
                                 }
@@ -773,10 +773,10 @@
                                 const newQty = prevQty + item.quantity;
                                 this.cartQuantities.set(cartKey, {
                                     quantity: newQty,
-                                    productId: id 
+                                    productId: id
                                 });
                             }
-                            
+
                             // Let's also refresh single add to cart buttons for items added in bulk
                             const $btn = this.$tbody.find(`tr[data-product-id="${id}"] .productbay-btn-addtocart`);
                             if ($btn.length) {
@@ -784,7 +784,7 @@
                                     $btn.data('original-text', $btn.text());
                                 }
                                 const originalLabel = $btn.data('original-text');
-                                
+
                                 const cartKey = this.buildCartKey(id, item.variationId, item.attributes);
                                 const existing = this.cartQuantities.get(cartKey);
                                 if (existing) {
@@ -815,7 +815,7 @@
                 }
             });
         }
-        
+
         getAddedVariationsForProduct(productId) {
             const results = [];
             this.cartQuantities.forEach((data, key) => {
@@ -923,14 +923,14 @@
             let totalPrice = 0;
             let html = '<div class="productbay-popup-header">';
             html += `<strong>Selected Items <span class="productbay-popup-count">(${this.selectedProducts.size})</span></strong>`;
-            html += '<button class="productbay-popup-close">&times;</button>';
+            html += '<button class="productbay-popup-close" title="Close popup">&times;</button>';
             html += '</div>';
             html += '<div class="productbay-popup-items">';
 
             this.selectedProducts.forEach((item, id) => {
                 const lineTotal = item.quantity * item.price;
                 totalPrice += lineTotal;
-                
+
                 // Get product info from the row
                 const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
                 const name = $row.find('.productbay-product-title').text() || `Product #${id}`;

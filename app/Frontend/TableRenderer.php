@@ -956,7 +956,6 @@ class TableRenderer {
 		$css .= 'display: inline-flex;';
 		$css .= 'align-items: center;';
 		$css .= 'justify-content: center;';
-		$css .= 'min-width: 160px;';
 		$css .= 'transition: background-color 0.2s ease, color 0.2s ease;';
 		if ( $btn_bg ) {
 			$css .= "background-color: {$btn_bg} !important;";

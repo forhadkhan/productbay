@@ -24007,7 +24007,7 @@ const OptionsPanel = ({
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Selected Items Panel', 'productbay'),
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Selected Items View Panel', 'productbay'),
           description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show a floating panel displaying all selected items with individual quantities', 'productbay'),
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
             checked: (_settings$features$se = settings.features.selectedItemsPanel?.enabled) !== null && _settings$features$se !== void 0 ? _settings$features$se : true,

@@ -234,13 +234,13 @@
 }
 
 .productbay-wrapper .productbay-btn-group .productbay-button:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .productbay-wrapper .productbay-btn-group .productbay-button:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 /* --- Panel Button within Group --- */
@@ -840,20 +840,28 @@
    ======================================================================== */
 
 .productbay-wrapper .productbay-btn-clear-all {
-    background: none;
+    padding: 8px 12px;
+    background-color: #f1f5f9;
+    color: #475569;
     border: none;
-    color: #ef4444;
-    cursor: pointer;
-    font-size: 13px;
+    font-family: inherit;
     font-weight: 500;
-    margin-left: 12px;
-    padding: 0;
-    text-decoration: underline;
-    opacity: 0.8;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none !important;
+    box-shadow: none;
+    outline: none;
+    white-space: nowrap;
 }
 
 .productbay-wrapper .productbay-btn-clear-all:hover {
-    opacity: 1;
+    background-color: #ef4444 !important;
+    color: #fff !important;
 }
 
 /* ========================================================================
@@ -970,13 +978,18 @@
 }
 
 .productbay-popup-close {
-    background: none;
+    background: #f1f5f9;
     border: none;
-    font-size: 20px;
+    border-radius: 10%;
+    width: 32px;
+    height: 32px;
+    font-size: 28px;
     line-height: 1;
     color: #94a3b8;
     cursor: pointer;
-    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .productbay-popup-close:hover {
@@ -992,9 +1005,11 @@
 .productbay-popup-items::-webkit-scrollbar {
     width: 6px;
 }
+
 .productbay-popup-items::-webkit-scrollbar-track {
     background: transparent;
 }
+
 .productbay-popup-items::-webkit-scrollbar-thumb {
     background-color: #cbd5e1;
     border-radius: 4px;
@@ -1048,15 +1063,21 @@
 .productbay-popup-remove {
     background: none;
     border: none;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
     color: #cbd5e1;
-    font-size: 18px;
+    font-size: 24px;
     cursor: pointer;
-    padding: 4px;
     transition: color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .productbay-popup-remove:hover {
-    color: #ef4444;
+    background: #ef4444;
+    color: #fff;
 }
 
 .productbay-popup-footer {

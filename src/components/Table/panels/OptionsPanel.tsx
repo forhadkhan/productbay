@@ -149,7 +149,7 @@ export const OptionsPanel = ({
                     </SettingsOption>
 
                     <SettingsOption
-                        title={__('Selected Items Panel', 'productbay')}
+                        title={__('Selected Items View Panel', 'productbay')}
                         description={__('Show a floating panel displaying all selected items with individual quantities', 'productbay')}
                     >
                         <Toggle
