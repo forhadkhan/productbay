@@ -34,7 +34,7 @@ class Request {
 	 * @var array
 	 * @since 1.0.0
 	 */
-	private $rawData = array();
+	private $raw_data = array();
 
 	/**
 	 * Constructor. Parses JSON input from the request body.
@@ -42,7 +42,7 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->handleJsonInput();
+		$this->handle_json_input();
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Request {
 	 *
 	 * @since 1.0.0
 	 */
-	private function handleJsonInput() {
+	private function handle_json_input() {
 		if (
 			isset( $_SERVER['CONTENT_TYPE'] ) &&
 			strpos( sanitize_text_field( wp_unslash( $_SERVER['CONTENT_TYPE'] ) ), 'application/json' ) !== false
@@ -59,10 +59,11 @@ class Request {
 			$data  = json_decode( $input, true );
 
 			if ( is_array( $data ) ) {
-				// Store raw data in object property to prevent loss.
-				$this->rawData = $data;
-                // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is handled at the endpoint level
-				$_REQUEST = array_merge( $_REQUEST, $data );
+				// Store raw data in object property to preserve complex structures.
+				$this->raw_data = $data;
+				// Sanitize all scalar values before merging into the superglobal.
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is handled at the endpoint level
+				$_REQUEST = array_merge( $_REQUEST, $this->sanitize_recursive( $data ) );
 			}
 		}
 	}
@@ -77,8 +78,8 @@ class Request {
 	 */
 	public function get( $key, $default = null ) {
 		// Special handling for 'data' key - return raw data without sanitization.
-		if ( $key === 'data' && isset( $this->rawData['data'] ) ) {
-			return $this->rawData['data'];
+		if ( 'data' === $key && isset( $this->raw_data['data'] ) ) {
+			return $this->raw_data['data'];
 		}
 
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is handled at the endpoint level
@@ -126,6 +127,32 @@ class Request {
 
 		// For any other type, return as-is.
 		return $value;
+	}
+
+	/**
+	 * Recursively sanitize all scalar values in an array.
+	 *
+	 * Used specifically for sanitizing decoded JSON before merging
+	 * into \$_REQUEST. Preserves array structure, booleans, numbers,
+	 * and nulls while sanitizing all string values.
+	 *
+	 * @param array $data Raw data array.
+	 * @return array Sanitized data array.
+	 * @since 1.0.0
+	 */
+	private function sanitize_recursive( $data ) {
+		if ( ! is_array( $data ) ) {
+			return $this->sanitize( $data );
+		}
+
+		$sanitized = array();
+		foreach ( $data as $key => $value ) {
+			$clean_key               = sanitize_text_field( $key );
+			$sanitized[ $clean_key ] = is_array( $value )
+				? $this->sanitize_recursive( $value )
+				: $this->sanitize( $value );
+		}
+		return $sanitized;
 	}
 
 	/**

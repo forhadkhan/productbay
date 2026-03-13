@@ -183,7 +183,7 @@ class AjaxRenderer {
 			// Validate quantity against stock (if managed and no backorders).
 			if ( $product->managing_stock() && ! $product->backorders_allowed() ) {
 				$stock_qty = $product->get_stock_quantity();
-				if ( $stock_qty !== null && $quantity > $stock_qty ) {
+				if ( null !== $stock_qty && $quantity > $stock_qty ) {
 					$quantity = $stock_qty; // Cap to available stock.
 				}
 			}
@@ -212,7 +212,7 @@ class AjaxRenderer {
 				// Validate variation stock quantity.
 				if ( $variation->managing_stock() && ! $variation->backorders_allowed() ) {
 					$var_stock = $variation->get_stock_quantity();
-					if ( $var_stock !== null && $quantity > $var_stock ) {
+					if ( null !== $var_stock && $quantity > $var_stock ) {
 						$quantity = $var_stock;
 					}
 				}

@@ -84,7 +84,7 @@ class Shortcode {
 		}
 
 		// Only render published tables on the frontend.
-		if ( $table['status'] !== 'publish' ) {
+		if ( 'publish' !== $table['status'] ) {
 			// Show a helpful notice to admins so they know why the table isn't rendering.
 			if ( current_user_can( 'manage_options' ) ) {
 				return '<p style="padding:12px 16px;background:#fef3cd;border:1px solid #e9b006ff;border-radius:4px;color:#664d03;font-size:14px;">'

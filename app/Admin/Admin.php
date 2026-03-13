@@ -163,7 +163,7 @@ class Admin {
 			array(
 				'id'    => Constants::MENU_SLUG,
 				'title' => '<span style="display: flex; align-items: center;">'
-					. '<span>' . \__( 'ProductBay', 'productbay' ) . '</span>'
+					. '<span>' . esc_html( \__( 'ProductBay', 'productbay' ) ) . '</span>'
 					. '</span>',
 				// Link to the main productbay page (now Tables).
 				'href'  => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG ),
@@ -246,7 +246,7 @@ class Admin {
 	 */
 	public function enqueue_scripts( string $hook ): void {
 		// Allow loading on any productbay page.
-		if ( strpos( $hook, 'page_productbay' ) === false && $hook !== 'toplevel_page_' . Constants::MENU_SLUG ) {
+		if ( false === strpos( $hook, 'page_productbay' ) && 'toplevel_page_' . Constants::MENU_SLUG !== $hook ) {
 			return;
 		}
 

@@ -60,7 +60,7 @@ class TableRepository {
 	 */
 	public function get_table( $id ) {
 		$post = get_post( $id );
-		if ( ! $post || $post->post_type !== self::POST_TYPE ) {
+		if ( ! $post || self::POST_TYPE !== $post->post_type ) {
 			return null;
 		}
 		return $this->format_table( $post );
@@ -136,10 +136,14 @@ class TableRepository {
 	 */
 	private function format_table( $post ) {
 		// Retrieve individual meta keys.
-		$source   = get_post_meta( $post->ID, '_productbay_source', true ) ?: array();
-		$columns  = get_post_meta( $post->ID, '_productbay_columns', true ) ?: array();
-		$settings = get_post_meta( $post->ID, '_productbay_settings', true ) ?: array();
-		$style    = get_post_meta( $post->ID, '_productbay_style', true ) ?: array();
+		$source   = get_post_meta( $post->ID, '_productbay_source', true );
+		$source   = $source ? $source : array();
+		$columns  = get_post_meta( $post->ID, '_productbay_columns', true );
+		$columns  = $columns ? $columns : array();
+		$settings = get_post_meta( $post->ID, '_productbay_settings', true );
+		$settings = $settings ? $settings : array();
+		$style    = get_post_meta( $post->ID, '_productbay_style', true );
+		$style    = $style ? $style : array();
 
 		return array(
 			'id'           => $post->ID,
@@ -222,7 +226,7 @@ class TableRepository {
 
 		// Handle Stock Status.
 		$stock_status = $query_args['stockStatus'] ?? 'any';
-		if ( $stock_status !== 'any' ) {
+		if ( 'any' !== $stock_status ) {
 			$args['meta_query'][] = array(
 				'key'   => '_stock_status',
 				'value' => $stock_status,
@@ -236,7 +240,7 @@ class TableRepository {
 
 			$args['meta_query'][] = array(
 				'key'     => '_price',
-				'value'   => array( $min, $max ?: 999999999 ),
+				'value'   => array( $min, $max ? $max : 999999999 ),
 				'compare' => 'BETWEEN',
 				'type'    => 'NUMERIC',
 			);
