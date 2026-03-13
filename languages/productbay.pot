@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ProductBay 1.0.0\n"
+"Project-Id-Version: ProductBay 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/productbay\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-02T04:38:27+00:00\n"
+"POT-Creation-Date: 2026-03-13T21:39:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -18,8 +18,8 @@ msgstr ""
 #: productbay.php
 #: app/Admin/Admin.php:71
 #: app/Admin/Admin.php:73
-#: app/Admin/Admin.php:166
-#: app/Admin/Admin.php:171
+#: app/Admin/Admin.php:173
+#: app/Admin/Admin.php:178
 msgid "ProductBay"
 msgstr ""
 
@@ -47,124 +47,179 @@ msgstr ""
 #: app/Admin/Admin.php:94
 #: app/Admin/Admin.php:127
 #: app/Admin/Admin.php:128
-#: app/Admin/Admin.php:181
-#: assets/js/admin.js:30
-msgid "Tables"
+#: app/Admin/Admin.php:188
+#: assets/js/admin.js:22
+msgid "All Tables"
 msgstr ""
 
 #: app/Admin/Admin.php:106
 #: app/Admin/Admin.php:107
-#: app/Admin/Admin.php:191
-#: assets/js/admin.js:30
-msgid "Settings"
-msgstr ""
-
-#: app/Admin/Admin.php:116
-#: app/Admin/Admin.php:117
-#: app/Admin/Admin.php:201
+#: app/Admin/Admin.php:208
 #: assets/js/admin.js:30
 msgid "Create New Table"
 msgstr ""
 
-#: app/Frontend/AjaxRenderer.php:136
+#: app/Admin/Admin.php:116
+#: app/Admin/Admin.php:117
+#: app/Admin/Admin.php:198
+#: assets/js/admin.js:30
+msgid "Settings"
+msgstr ""
+
+#: app/Frontend/AjaxRenderer.php:167
 msgid "No products selected"
 msgstr ""
 
 #. translators: %d: product ID
-#: app/Frontend/AjaxRenderer.php:162
+#: app/Frontend/AjaxRenderer.php:193
 #, php-format
 msgid "Product #%d not found."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:177
+#: app/Frontend/AjaxRenderer.php:208
 #, php-format
 msgid "\"%s\" is out of stock."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:196
+#: app/Frontend/AjaxRenderer.php:227
 #, php-format
 msgid "Please select options for \"%s\"."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:206
+#: app/Frontend/AjaxRenderer.php:237
 #, php-format
 msgid "Selected variation for \"%s\" is unavailable."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:229
+#: app/Frontend/AjaxRenderer.php:260
 #, php-format
 msgid "Could not add \"%s\" to cart."
 msgstr ""
 
 #. translators: %d: number of products added to cart
-#: app/Frontend/AjaxRenderer.php:238
+#: app/Frontend/AjaxRenderer.php:279
 #, php-format
 msgid "%d product(s) added to cart."
 msgstr ""
 
-#: app/Frontend/AjaxRenderer.php:248
+#: app/Frontend/AjaxRenderer.php:289
 msgid "Failed to add products to cart."
 msgstr ""
 
 #. translators: %s: table title
-#: app/Frontend/Shortcode.php:93
+#: app/Frontend/Shortcode.php:116
 #, php-format
 msgid "ProductBay: Table \"%s\" is currently private. It will appear here once it is published."
 msgstr ""
 
-#: app/Frontend/Shortcode.php:137
+#: app/Frontend/Shortcode.php:160
 msgid "View cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:136
+#: app/Frontend/TableRenderer.php:211
 #: assets/js/admin.js:13
 msgid "Add to Cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:246
-#: app/Frontend/TableRenderer.php:1155
+#: app/Frontend/TableRenderer.php:216
+msgid "View selected items"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:217
+msgid "View"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:251
+#: assets/js/admin.js:25
+msgid "Filter"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:278
+msgid "Reset all filters to default"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:278
+#: app/Frontend/TableRenderer.php:1479
+#: assets/js/admin.js:22
+msgid "Clear"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:409
+#: app/Frontend/TableRenderer.php:1677
 msgid "No products found."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:427
+#: app/Frontend/TableRenderer.php:428
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:432
+#: assets/js/admin.js:13
+#: assets/js/admin.js:16
+#: assets/js/admin.js:30
+msgid "Close"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:686
 msgid "Buy product"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:437
+#: app/Frontend/TableRenderer.php:696
 msgid "View Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:445
+#: app/Frontend/TableRenderer.php:704
 msgid "Out of Stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:453
+#: app/Frontend/TableRenderer.php:712
 msgid "Select Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:531
+#: app/Frontend/TableRenderer.php:791
 msgid "Add to cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:562
+#: app/Frontend/TableRenderer.php:823
 msgid "Increase quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:563
+#: app/Frontend/TableRenderer.php:824
 msgid "Decrease quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1018
-msgid "Search products..."
+#: app/Frontend/TableRenderer.php:1345
+msgid "Price:"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1019
-#: assets/js/admin.js:22
-msgid "Clear"
+#. translators: %d: number of selected categories
+#: app/Frontend/TableRenderer.php:1413
+#, php-format
+msgid "%s selected"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:1414
+msgid "All Categories"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:1416
+msgid "Category:"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:1449
+msgid "Type:"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:1451
+msgid "All Types"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:1478
+msgid "Search products..."
 msgstr ""
 
 #: assets/js/admin.js:13
@@ -388,12 +443,6 @@ msgstr ""
 
 #: assets/js/admin.js:13
 msgid "Add Column"
-msgstr ""
-
-#: assets/js/admin.js:13
-#: assets/js/admin.js:16
-#: assets/js/admin.js:30
-msgid "Close"
 msgstr ""
 
 #: assets/js/admin.js:13
@@ -645,6 +694,94 @@ msgid "Number of products to display per page"
 msgstr ""
 
 #: assets/js/admin.js:13
+msgid "Enable Image Lightbox"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Show full-size product images in a popup when clicked"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Price Range Filter"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Configure frontend price filtering options"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Enable Price Filter"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Allow users to filter products by price"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Filter Mode"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Display slider, numeric inputs, or both"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Both"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Slider Only"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Inputs Only"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Slider Step Amount"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "The increment step value for the price slider"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Custom Minimum Price"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Leave empty to auto-detect from table products"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Custom Maximum Price"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Taxonomy & Type Filters"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Configure frontend dropdown filters"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Enable Categories Filter"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Allow users to filter products by category"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Enable Product Type Filter"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Allow users to filter by product type (Simple, Variable, etc.)"
+msgstr ""
+
+#: assets/js/admin.js:13
 msgid "Cart / Functionality"
 msgstr ""
 
@@ -666,6 +803,30 @@ msgstr ""
 
 #: assets/js/admin.js:13
 msgid "Display quantity input next to add-to-cart button"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Variation Badges"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Show badges indicating which variations were added to cart"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Show Clear All Button"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Display a button to instantly clear all selected products"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Selected Items View Panel"
+msgstr ""
+
+#: assets/js/admin.js:13
+msgid "Show a floating panel displaying all selected items with individual quantities"
 msgstr ""
 
 #: assets/js/admin.js:13
@@ -1312,10 +1473,6 @@ msgid "Failed to load tables"
 msgstr ""
 
 #: assets/js/admin.js:22
-msgid "All Tables"
-msgstr ""
-
-#: assets/js/admin.js:22
 msgid "Bulk Actions"
 msgstr ""
 
@@ -1355,10 +1512,6 @@ msgstr ""
 
 #: assets/js/admin.js:25
 msgid "Search tables..."
-msgstr ""
-
-#: assets/js/admin.js:25
-msgid "Filter"
 msgstr ""
 
 #: assets/js/admin.js:25
@@ -1506,6 +1659,10 @@ msgid "Are you sure you want to publish \"%s\"?"
 msgstr ""
 
 #: assets/js/admin.js:30
+msgid "Tables"
+msgstr ""
+
+#: assets/js/admin.js:30
 msgid "Reset Defaults"
 msgstr ""
 
@@ -1602,6 +1759,10 @@ msgid "Are you sure you want to reset all global default configurations to their
 msgstr ""
 
 #: assets/js/admin.js:30
+msgid "PRO"
+msgstr ""
+
+#: assets/js/admin.js:30
 msgid "Close menu"
 msgstr ""
 
@@ -1615,6 +1776,14 @@ msgstr ""
 
 #: assets/js/admin.js:30
 msgid "Support"
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "ProductBay v"
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "Pro v"
 msgstr ""
 
 #: assets/js/admin.js:30

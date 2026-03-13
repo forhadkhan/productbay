@@ -174,11 +174,11 @@ class TableRenderer
 			'clearAllButton' => isset($settings['features']['clearAllButton']) ? $settings['features']['clearAllButton'] : true,
 		));
 
-		echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr($table_id) . '" data-select-position="' . esc_attr($bulk_position) . '" data-features="' . esc_attr($features_config) . '">';
+		echo '<div class="productbay-wrapper" id="' . esc_attr($unique_id) . '" data-table-id="' . esc_attr((string) $table_id) . '" data-select-position="' . esc_attr($bulk_position) . '" data-features="' . esc_attr($features_config) . '">';
 
 		// Seed initial WooCommerce cart data for variations tracking
 		$cart_data = self::get_cart_data();
-		echo '<div class="productbay-cart-data" style="display:none;" data-cart="' . esc_attr(wp_json_encode($cart_data)) . '"></div>';
+		echo '<div class="productbay-cart-data" style="display:none;" data-cart="' . esc_attr((string) wp_json_encode($cart_data)) . '"></div>';
 
 		/**
 		 * Fires before the table wrapper content.
@@ -348,13 +348,13 @@ class TableRenderer
 				 */
 				\do_action('productbay_before_row', $product, $table);
 
-				echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr($product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
+				echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
 				// Bulk Select - First Position.
 				if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
 					$can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
 					echo '<td class="productbay-col-select">';
-					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
+					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $product->get_id()) . '" data-price="' . esc_attr((string) $product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
 					echo '</td>';
 				}
 
@@ -374,7 +374,7 @@ class TableRenderer
 				if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
 					$can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
 					echo '<td class="productbay-col-select">';
-					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
+					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $product->get_id()) . '" data-price="' . esc_attr((string) $product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
 					echo '</td>';
 				}
 
@@ -730,7 +730,7 @@ class TableRenderer
 			$this->render_quantity_input($product);
 		}
 		$disabled_attr = $is_purchasable ? '' : ' disabled';
-		echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '"' . esc_attr($disabled_attr) . '>';
+		echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '"' . esc_attr($disabled_attr) . '>';
 		echo esc_html($product->add_to_cart_text());
 		echo '</button>';
 		echo '</div>';
@@ -748,7 +748,7 @@ class TableRenderer
 		$attributes = $product->get_variation_attributes();
 		$available_variations = $product->get_available_variations('array');
 
-		echo '<div class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr($product->get_id()) . '" data-product-variations="' . esc_attr(wp_json_encode($available_variations)) . '">';
+		echo '<div class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-product-variations="' . esc_attr((string) wp_json_encode($available_variations)) . '">';
 
 		// Attribute dropdowns.
 		echo '<div class="productbay-variation-selects">';
@@ -787,7 +787,7 @@ class TableRenderer
 		if ($is_purchasable && $show_quantity) {
 			$this->render_quantity_input($product);
 		}
-		echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr($product->get_id()) . '" disabled>';
+		echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '" disabled>';
 		echo esc_html__('Add to cart', 'productbay');
 		echo '</button>';
 		echo '</div>';
@@ -814,9 +814,9 @@ class TableRenderer
 		}
 
 		echo '<div class="productbay-qty-wrap">';
-		echo '<input type="number" class="productbay-qty" value="1" min="' . esc_attr($min) . '"';
+		echo '<input type="number" class="productbay-qty" value="1" min="' . esc_attr((string) $min) . '"';
 		if ($max !== '') {
-			echo ' max="' . esc_attr($max) . '"';
+			echo ' max="' . esc_attr((string) $max) . '"';
 		}
 		echo ' step="1" />';
 		echo '<div class="productbay-qty-btns">';
@@ -1012,7 +1012,7 @@ class TableRenderer
 		$radius_enabled = $layout['borderRadiusEnabled'] ?? true;
 		if ($radius_enabled && isset($layout['borderRadius'])) {
 			$radius = intval($layout['borderRadius']);
-			$css .= "#{$id} .productbay-table-container { border-radius: {$radius}px; }";
+			$css .= "#{$id} .productbay-table-container { border-radius: " . (string) $radius . "px; }";
 		}
 		elseif (!$radius_enabled) {
 			$css .= "#{$id} .productbay-table-container { border-radius: 0; }";
@@ -1189,7 +1189,7 @@ class TableRenderer
 			$w_value = intval($width['value']);
 			$w_unit = $this->sanitize_css_unit($width['unit'] ?? 'auto');
 			if ($w_value > 0 && $w_unit !== 'auto') {
-				$css .= "#{$id} .productbay-col-" . esc_attr($col['id']) . " { width: {$w_value}{$w_unit}; }";
+				$css .= "#{$id} .productbay-col-" . esc_attr((string) $col['id']) . " { width: " . (string) $w_value . "{$w_unit}; }";
 			}
 		}
 
@@ -1207,7 +1207,7 @@ class TableRenderer
 			$bs_value = intval($width['value']);
 			$bs_unit = $this->sanitize_css_unit($width['unit'] ?? 'px');
 			if ($bs_value > 0 && $bs_unit !== 'auto') {
-				$css .= "#{$id} .productbay-col-select { width: {$bs_value}{$bs_unit}; }";
+				$css .= "#{$id} .productbay-col-select { width: " . (string) $bs_value . "{$bs_unit}; }";
 			}
 		}
 
@@ -1240,7 +1240,7 @@ class TableRenderer
 	 */
 	private function get_column_classes($col)
 	{
-		$classes = array('productbay-col-' . $col['id']);
+		$classes = array('productbay-col-' . (string) $col['id']);
 
 		$visibility = $col['advanced']['visibility'] ?? 'default';
 
@@ -1341,7 +1341,7 @@ class TableRenderer
 		$mode = $config['mode'] ?? 'both';
 		$step = $config['step'] ?? 1;
 
-		echo '<div class="productbay-price-filter" data-min="' . esc_attr($range['min']) . '" data-max="' . esc_attr($range['max']) . '" data-step="' . esc_attr($step) . '" data-mode="' . esc_attr($mode) . '">';
+		echo '<div class="productbay-price-filter" data-min="' . esc_attr((string) $range['min']) . '" data-max="' . esc_attr((string) $range['max']) . '" data-step="' . esc_attr((string) $step) . '" data-mode="' . esc_attr($mode) . '">';
 		echo '<span class="productbay-filter-label">' . esc_html__('Price:', 'productbay') . '</span>';
 
 		if ($mode === 'slider' || $mode === 'both') {
@@ -1349,16 +1349,16 @@ class TableRenderer
 			echo '<div class="productbay-price-tooltip productbay-price-tooltip-min"></div>';
 			echo '<div class="productbay-price-tooltip productbay-price-tooltip-max"></div>';
 			echo '<div class="productbay-price-slider-track-fill"></div>';
-			echo '<input type="range" class="productbay-price-range-min" min="' . esc_attr($range['min']) . '" max="' . esc_attr($range['max']) . '" value="' . esc_attr($range['min']) . '" step="' . esc_attr($step) . '" />';
-			echo '<input type="range" class="productbay-price-range-max" min="' . esc_attr($range['min']) . '" max="' . esc_attr($range['max']) . '" value="' . esc_attr($range['max']) . '" step="' . esc_attr($step) . '" />';
+			echo '<input type="range" class="productbay-price-range-min" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" value="' . esc_attr((string) $range['min']) . '" step="' . esc_attr((string) $step) . '" />';
+			echo '<input type="range" class="productbay-price-range-max" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" value="' . esc_attr((string) $range['max']) . '" step="' . esc_attr((string) $step) . '" />';
 			echo '</div>';
 		}
 
 		if ($mode === 'input' || $mode === 'both') {
 			echo '<div class="productbay-price-inputs">';
-			echo '<input type="number" class="productbay-price-input-min" value="' . esc_attr($range['min']) . '" min="' . esc_attr($range['min']) . '" max="' . esc_attr($range['max']) . '" step="' . esc_attr($step) . '" />';
+			echo '<input type="number" class="productbay-price-input-min" value="' . esc_attr((string) $range['min']) . '" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" step="' . esc_attr((string) $step) . '" />';
 			echo '<span class="productbay-price-sep">&ndash;</span>';
-			echo '<input type="number" class="productbay-price-input-max" value="' . esc_attr($range['max']) . '" min="' . esc_attr($range['min']) . '" max="' . esc_attr($range['max']) . '" step="' . esc_attr($step) . '" />';
+			echo '<input type="number" class="productbay-price-input-max" value="' . esc_attr((string) $range['max']) . '" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" step="' . esc_attr((string) $step) . '" />';
 			echo '</div>';
 		}
 
@@ -1410,7 +1410,7 @@ class TableRenderer
 				$selected_count = count($current_cats);
 				$trigger_text = $selected_count > 0
 					/* translators: %d: number of selected categories */
-					? sprintf(esc_html__('%d selected', 'productbay'), $selected_count)
+					? sprintf(esc_html__('%s selected', 'productbay'), (string) $selected_count)
 					: esc_html__('All Categories', 'productbay');
 
 				echo '<span class="productbay-filter-label">' . esc_html__('Category:', 'productbay') . '</span>';
@@ -1626,7 +1626,7 @@ class TableRenderer
 
 				$product_type = $product->get_type();
 				$in_stock = $product->is_in_stock() ? '1' : '0';
-				echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr($product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
+				echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
 				// Bulk Select - First.
 				$bulk_select = $settings['features']['bulkSelect'] ?? array(
@@ -1636,7 +1636,7 @@ class TableRenderer
 				if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'first') {
 					$can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
 					echo '<td class="productbay-col-select">';
-					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
+					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $product->get_id()) . '" data-price="' . esc_attr((string) $product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
 					echo '</td>';
 				}
 
@@ -1654,7 +1654,7 @@ class TableRenderer
 				if ($bulk_select['enabled'] && ($bulk_select['position'] ?? 'last') === 'last') {
 					$can_select = $product->is_in_stock() && !$product->is_type('external') && !$product->is_type('grouped') && !$product->is_type('variable') && $product->is_purchasable();
 					echo '<td class="productbay-col-select">';
-					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr($product->get_id()) . '" data-price="' . esc_attr($product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
+					echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $product->get_id()) . '" data-price="' . esc_attr((string) $product->get_price()) . '"' . ($can_select ? '' : ' disabled') . ' />';
 					echo '</td>';
 				}
 				echo '</tr>';
@@ -1674,7 +1674,7 @@ class TableRenderer
 			if ($settings['features']['bulkSelect']['enabled'] ?? true) {
 				++$colspan;
 			}
-			echo '<tr><td colspan="' . intval($colspan) . '" class="productbay-empty">' . esc_html__('No products found.', 'productbay') . '</td></tr>';
+			echo '<tr><td colspan="' . esc_attr((string) $colspan) . '" class="productbay-empty">' . esc_html__('No products found.', 'productbay') . '</td></tr>';
 		}
 		$rows = ob_get_clean();
 
