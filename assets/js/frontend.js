@@ -50,14 +50,37 @@
             this.searchTimeout = null;
             // Map: productId → { quantity, price, variationId, attributes }
             this.selectedProducts = new Map();
-            // Map: productId → total quantity added to cart in this session
+            // Map: cartKey → { quantity, variationId, attributes, productId }
             this.cartQuantities = new Map();
+            this.loadSelectionsFromStorage();
+            this.loadCartQuantitiesFromStorage(); // New: load previous add-to-cart actions
 
             this.init();
         }
 
         init() {
+            this.features = JSON.parse(this.$wrapper.attr('data-features') || '{}');
             this.bindEvents();
+            this.initPriceFilter();
+            this.initTaxonomyFilters();
+            this.initFiltersClear();
+            this.initLightbox();
+        }
+
+        /**
+         * Build a unique cart key from product ID and attributes.
+         * Uses attribute values (sorted) to ensure each unique combination
+         * gets its own entry, even when WooCommerce maps multiple combos
+         * to the same variation_id ("any" attribute case).
+         */
+        buildCartKey(productId, variationId, attributes) {
+            if (!variationId) return String(productId);
+            const attrValues = Object.entries(attributes || {})
+                .filter(([, v]) => v)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([, v]) => v)
+                .join('|');
+            return `${productId}:${attrValues || variationId}`;
         }
 
         bindEvents() {
@@ -68,6 +91,7 @@
             // Selection
             this.$selectAll.on('change', this.toggleSelectAll.bind(this));
             this.$tbody.on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
+            this.$wrapper.on('click', '.productbay-btn-clear-all', this.handleClearAll.bind(this));
 
             // Quantity changes
             this.$tbody.on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
@@ -88,6 +112,38 @@
 
             // Pagination (delegated, since pagination HTML gets replaced)
             this.$wrapper.on('click', '.productbay-pagination a', this.handlePagination.bind(this));
+
+            // Sync with actual WooCommerce Cart on AJAX refreshes
+            $(document.body).on('wc_fragments_refreshed wc_fragments_loaded', this.syncWithWCCart.bind(this));
+
+            // Selected Items Popup
+            this.$wrapper.on('click', '.productbay-btn-panel', this.toggleSelectedItemsPopup.bind(this));
+            this.$wrapper.on('click', '.productbay-popup-close', this.closeSelectedItemsPopup.bind(this));
+            this.$wrapper.on('click', '.productbay-popup-remove', this.handlePopupRemove.bind(this));
+            this.$wrapper.on('click', '.productbay-popup-add-all', this.handlePopupAddAll.bind(this));
+        }
+
+        /**
+         * Parses the injected JSON cart data from the AJAX fragments.
+         * Syncs this.cartQuantities with actual WooCommerce cart.
+         */
+        syncWithWCCart() {
+            const $cartData = $('.productbay-cart-data').last();
+            if ($cartData.length) {
+                try {
+                    const data = $cartData.data('cart');
+                    if (Array.isArray(data)) {
+                        this.cartQuantities.clear();
+                        data.forEach(([k, v]) => this.cartQuantities.set(k, v));
+                        this.saveCartQuantitiesToStorage();
+
+                        // Give DOM a frame to settle, then redraw badges & buttons
+                        setTimeout(() => this.restoreCartBadges(), 50);
+                    }
+                } catch (e) {
+                    console.error('ProductBay: Failed to sync with WooCommerce cart fragments.', e);
+                }
+            }
         }
 
         // ── Search ───────────────────────────────────────────────────────
@@ -103,12 +159,311 @@
 
             if (this.searchTimeout) clearTimeout(this.searchTimeout);
             this.searchTimeout = setTimeout(() => {
-                this.fetchProducts({ s: query, paged: 1, _context: 'search' });
+                const state = this.gatherFilterState();
+                state.s = query;
+                this.fetchProducts({ ...state, paged: 1, _context: 'search' });
             }, 400);
         }
 
         clearSearch() {
             this.$searchInput.val('').trigger('input');
+        }
+
+        // ── Price Filter ────────────────────────────────────────────────
+
+        initPriceFilter() {
+            const $filter = this.$wrapper.find('.productbay-price-filter');
+            if (!$filter.length) return;
+
+            this.$priceFilter = $filter;
+            const mode = $filter.data('mode');
+
+            if (mode === 'slider' || mode === 'both') {
+                $filter.on('input', '.productbay-price-range-min, .productbay-price-range-max', this.handlePriceSlider.bind(this));
+            }
+            if (mode === 'input' || mode === 'both') {
+                $filter.on('change', '.productbay-price-input-min, .productbay-price-input-max', this.handlePriceInput.bind(this));
+            }
+
+            this.updateSliderVisuals($filter);
+        }
+
+        initTaxonomyFilters() {
+            const $filters = this.$wrapper.find('.productbay-taxonomy-filters');
+            if (!$filters.length) return;
+
+            // Single-select dropdowns (e.g. product_type)
+            $filters.on('change', '.productbay-filter-select', this.handleTaxonomyFilter.bind(this));
+
+            // Custom multi-select dropdown toggle
+            this.$wrapper.on('click', '.productbay-multiselect-trigger', function(e) {
+                e.stopPropagation();
+                const $dropdown = $(this).siblings('.productbay-multiselect-dropdown');
+                const $parent = $(this).closest('.productbay-multiselect');
+
+                // Close any other open dropdowns first
+                $('.productbay-multiselect.productbay-multiselect-open').not($parent).removeClass('productbay-multiselect-open');
+
+                $parent.toggleClass('productbay-multiselect-open');
+            });
+
+            // Checkbox change inside multi-select
+            const self = this;
+            this.$wrapper.on('change', '.productbay-multiselect-option input[type="checkbox"]', function() {
+                const $multi = $(this).closest('.productbay-multiselect');
+                const checked = $multi.find('input[type="checkbox"]:checked');
+                const count = checked.length;
+                const text = count > 0
+                    ? count + ' selected'
+                    : productbay_frontend.all_categories_text || 'All Categories';
+                $multi.find('.productbay-multiselect-text').text(text);
+
+                self.handleTaxonomyFilter();
+            });
+
+            // Close dropdown on outside click
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.productbay-multiselect').length) {
+                    $('.productbay-multiselect.productbay-multiselect-open').removeClass('productbay-multiselect-open');
+                }
+            });
+        }
+
+        initFiltersClear() {
+            this.$wrapper.on('click', '.productbay-filters-clear', this.handleFiltersClear.bind(this));
+        }
+
+        // ── Centralized Filter State ────────────────────────────────────
+
+        /**
+         * Collect the current state of ALL active filters into a single object.
+         * Every AJAX call should use this to avoid losing active filters.
+         */
+        gatherFilterState() {
+            const state = {
+                s: this.$searchInput.val() || '',
+                price_min: null,
+                price_max: null,
+                'product_cat[]': [],
+                product_type: '',
+                paged: 1,
+            };
+
+            // Price
+            if (this.$priceFilter && this.$priceFilter.length) {
+                const mode = this.$priceFilter.data('mode');
+                if (mode === 'slider' || mode === 'both') {
+                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
+                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
+                } else {
+                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
+                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
+                }
+            }
+
+            // Categories (custom checkbox dropdown)
+            const $multiselect = this.$wrapper.find('.productbay-multiselect[data-filter="product_cat"]');
+            if ($multiselect.length) {
+                const selected = [];
+                $multiselect.find('input[type="checkbox"]:checked').each(function() {
+                    selected.push($(this).val());
+                });
+                state['product_cat[]'] = selected;
+            }
+
+            // Product Type
+            const $typeSelect = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]');
+            if ($typeSelect.length) {
+                state.product_type = $typeSelect.val() || '';
+            }
+
+            return state;
+        }
+
+        // ── Taxonomy Filter Handler ─────────────────────────────────────
+
+        handleTaxonomyFilter() {
+            const state = this.gatherFilterState();
+            this.fetchProducts({ ...state, paged: 1, _context: 'filter' });
+        }
+
+        // ── Clear All Filters ───────────────────────────────────────────
+
+        handleFiltersClear() {
+            // Reset search
+            this.$searchInput.val('');
+            this.$searchClear.hide();
+
+            // Reset price filter
+            if (this.$priceFilter && this.$priceFilter.length) {
+                const min = parseFloat(this.$priceFilter.data('min'));
+                const max = parseFloat(this.$priceFilter.data('max'));
+
+                this.$priceFilter.find('.productbay-price-range-min').val(min);
+                this.$priceFilter.find('.productbay-price-range-max').val(max);
+                this.$priceFilter.find('.productbay-price-input-min').val(min);
+                this.$priceFilter.find('.productbay-price-input-max').val(max);
+                this.updateSliderVisuals(this.$priceFilter);
+            }
+
+            // Reset single-select taxonomy dropdowns
+            this.$wrapper.find('.productbay-filter-select').val('');
+
+            // Reset custom multi-select checkboxes
+            this.$wrapper.find('.productbay-multiselect input[type="checkbox"]').prop('checked', false);
+            this.$wrapper.find('.productbay-multiselect-text').text(
+                productbay_frontend.all_categories_text || 'All Categories'
+            );
+            this.$wrapper.find('.productbay-multiselect-open').removeClass('productbay-multiselect-open');
+
+            // Fetch with empty state
+            this.fetchProducts({ s: '', paged: 1, _context: 'filter' });
+        }
+
+        // ── Lightbox ────────────────────────────────────────────────────
+
+        initLightbox() {
+            const $dialog = this.$wrapper.find('.productbay-lightbox');
+            if (!$dialog.length) return;
+
+            this.$lightbox = $dialog;
+            
+            // Open Lightbox
+            this.$wrapper.on('click', '.productbay-lightbox-trigger', (e) => {
+                e.preventDefault();
+                const src = $(e.currentTarget).data('full-url');
+                if (src) {
+                    $dialog.find('.productbay-lightbox-img').attr('src', src);
+                    $dialog[0].showModal();
+                }
+            });
+
+            // Close Lightbox
+            this.$wrapper.on('click', '.productbay-lightbox-close, .productbay-lightbox-backdrop', () => {
+                if ($dialog[0].open) {
+                    $dialog.removeClass('productbay-lightbox-is-fullscreen');
+                    $dialog.find('.productbay-icon-maximize').show();
+                    $dialog.find('.productbay-icon-minimize').hide();
+
+                    $dialog[0].close();
+                    $dialog.find('.productbay-lightbox-img').attr('src', '');
+                }
+            });
+
+            // Toggle Fullscreen
+            this.$wrapper.on('click', '.productbay-lightbox-fullscreen', () => {
+                const isFullscreen = $dialog.hasClass('productbay-lightbox-is-fullscreen');
+                if (isFullscreen) {
+                    $dialog.removeClass('productbay-lightbox-is-fullscreen');
+                    $dialog.find('.productbay-icon-maximize').show();
+                    $dialog.find('.productbay-icon-minimize').hide();
+                } else {
+                    $dialog.addClass('productbay-lightbox-is-fullscreen');
+                    $dialog.find('.productbay-icon-maximize').hide();
+                    $dialog.find('.productbay-icon-minimize').show();
+                }
+            });
+            
+            // Make escape key work naturally
+            $dialog.on('cancel', (e) => {
+                $dialog.removeClass('productbay-lightbox-is-fullscreen');
+                $dialog.find('.productbay-icon-maximize').show();
+                $dialog.find('.productbay-icon-minimize').hide();
+                $dialog.find('.productbay-lightbox-img').attr('src', '');
+            });
+        }
+
+        updateSliderVisuals($filter) {
+            const $minSlider = $filter.find('.productbay-price-range-min');
+            if (!$minSlider.length) return;
+
+            const minAbs = parseFloat($filter.data('min'));
+            const maxAbs = parseFloat($filter.data('max'));
+            let rangeSpan = maxAbs - minAbs;
+            if (rangeSpan <= 0) rangeSpan = 1; // Prevent division by zero
+
+            let minVal = parseFloat($minSlider.val());
+            let maxVal = parseFloat($filter.find('.productbay-price-range-max').val());
+
+            let minPct = ((minVal - minAbs) / rangeSpan) * 100;
+            let maxPct = ((maxVal - minAbs) / rangeSpan) * 100;
+            
+            minPct = Math.max(0, Math.min(100, minPct));
+            maxPct = Math.max(0, Math.min(100, maxPct));
+
+            $filter.find('.productbay-price-slider-track-fill').css({
+                left: minPct + '%',
+                width: (maxPct - minPct) + '%'
+            });
+
+            // Update Tooltips text
+            $filter.find('.productbay-price-tooltip-min').text(formatPrice(minVal)).css('left', minPct + '%');
+            $filter.find('.productbay-price-tooltip-max').text(formatPrice(maxVal)).css('left', maxPct + '%');
+        }
+
+        handlePriceSlider(e) {
+            const $filter = this.$priceFilter;
+            let min = parseFloat($filter.find('.productbay-price-range-min').val());
+            let max = parseFloat($filter.find('.productbay-price-range-max').val());
+
+            // Prevent min slider crossing max slider
+            if (min > max) {
+                if ($(e.currentTarget).hasClass('productbay-price-range-min')) {
+                    min = max;
+                    $filter.find('.productbay-price-range-min').val(min);
+                } else {
+                    max = min;
+                    $filter.find('.productbay-price-range-max').val(max);
+                }
+            }
+
+            // Sync to inputs
+            $filter.find('.productbay-price-input-min').val(min);
+            $filter.find('.productbay-price-input-max').val(max);
+
+            this.updateSliderVisuals($filter);
+            this.debouncedPriceFilter(min, max);
+        }
+
+        handlePriceInput(e) {
+            const $filter = this.$priceFilter;
+            let min = parseFloat($filter.find('.productbay-price-input-min').val());
+            let max = parseFloat($filter.find('.productbay-price-input-max').val());
+            
+            const absoluteMin = parseFloat($filter.data('min'));
+            const absoluteMax = parseFloat($filter.data('max'));
+            
+            if (isNaN(min) || min < absoluteMin) min = absoluteMin;
+            if (isNaN(max) || max > absoluteMax) max = absoluteMax;
+            
+            // Prevent min input crossing max input
+            if (min > max) {
+                if ($(e.currentTarget).hasClass('productbay-price-input-min')) {
+                    min = max;
+                } else {
+                    max = min;
+                }
+            }
+
+            $filter.find('.productbay-price-input-min').val(min);
+            $filter.find('.productbay-price-input-max').val(max);
+            
+            // Sync to sliders
+            $filter.find('.productbay-price-range-min').val(min);
+            $filter.find('.productbay-price-range-max').val(max);
+
+            this.updateSliderVisuals($filter);
+            this.debouncedPriceFilter(min, max);
+        }
+
+        debouncedPriceFilter(min, max) {
+            if (this.priceFilterTimeout) clearTimeout(this.priceFilterTimeout);
+            this.priceFilterTimeout = setTimeout(() => {
+                const state = this.gatherFilterState();
+                state.price_min = min;
+                state.price_max = max;
+                this.fetchProducts({ ...state, paged: 1, _context: 'filter' });
+            }, 500);
         }
 
         // ── Pagination ──────────────────────────────────────────────────
@@ -130,8 +485,8 @@
             }
 
             paged = parseInt(paged, 10) || 1;
-            const search = this.$searchInput.val() || '';
-            this.fetchProducts({ s: search, paged: paged, _context: 'pagination' });
+            const state = this.gatherFilterState();
+            this.fetchProducts({ ...state, paged: paged, _context: 'pagination' });
         }
 
         // ── AJAX Fetch ──────────────────────────────────────────────────
@@ -164,10 +519,8 @@
                         if (response.data.pagination) {
                             this.$wrapper.find('.productbay-pagination').replaceWith(response.data.pagination);
                         }
-                        // Reset selection
-                        this.selectedProducts.clear();
-                        this.$selectAll.prop('checked', false);
-                        this.updateBulkButton();
+                        // Restore selections for products visible on the new page
+                        this.restoreSelections();
                     }
                 },
                 complete: () => {
@@ -175,6 +528,116 @@
                     this.$wrapper.find('.productbay-search').removeClass('loading');
                 }
             });
+        }
+
+        loadSelectionsFromStorage() {
+            try {
+                const key = 'productbay_selections_' + this.$wrapper.data('table-id');
+                const stored = sessionStorage.getItem(key);
+                if (stored) {
+                    const entries = JSON.parse(stored);
+                    entries.forEach(([k, v]) => this.selectedProducts.set(k, v));
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        saveSelectionsToStorage() {
+            try {
+                const key = 'productbay_selections_' + this.$wrapper.data('table-id');
+                const entries = Array.from(this.selectedProducts.entries());
+                sessionStorage.setItem(key, JSON.stringify(entries));
+            } catch (e) { /* silent */ }
+        }
+
+        loadCartQuantitiesFromStorage() {
+            try {
+                const key = 'productbay_cart_' + this.$wrapper.data('table-id');
+                const stored = sessionStorage.getItem(key);
+                if (stored) {
+                    const entries = JSON.parse(stored);
+                    entries.forEach(([k, v]) => this.cartQuantities.set(k, v));
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        saveCartQuantitiesToStorage() {
+            try {
+                const key = 'productbay_cart_' + this.$wrapper.data('table-id');
+                const entries = Array.from(this.cartQuantities.entries());
+                sessionStorage.setItem(key, JSON.stringify(entries));
+            } catch (e) { /* silent */ }
+        }
+
+        restoreSelections() {
+            this.$tbody.find('.productbay-select-product').each((_, el) => {
+                const $cb = $(el);
+                const id = $cb.val();
+                if (this.selectedProducts.has(id)) {
+                    $cb.prop('checked', true);
+                }
+            });
+            this.syncSelectAllCheckbox();
+            this.updateBulkButton();
+            this.restoreCartBadges(); // New: re-render badges & buttons
+        }
+
+        restoreCartBadges() {
+            // Re-render variation badges and button text based on persisted cart quantities
+            this.$tbody.find('tr').each((_, row) => {
+                const $row = $(row);
+                const productId = String($row.data('product-id'));
+                const isVariable = $row.find('.productbay-variable-wrap').length > 0;
+
+                if (isVariable) {
+                    // It's a variable product. Only render if feature enabled.
+                    if (this.features.variationBadges !== false) {
+                        this.renderVariationBadges(productId);
+                    }
+                } else {
+                    // Simple product - restore checkmark on button
+                    const cartKey = String(productId);
+                    const existing = this.cartQuantities.get(cartKey);
+                    if (existing) {
+                        const $btn = $row.find('.productbay-btn-addtocart');
+                        if ($btn.length) {
+                            if (!$btn.data('original-text')) {
+                                $btn.data('original-text', $btn.text());
+                            }
+                            const originalLabel = $btn.data('original-text');
+                            const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                            $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                        }
+
+                        // Also restore Add to cart view-cart link
+                        const $parentCell = $btn.closest('.productbay-btn-cell');
+                        if (!$parentCell.find('.productbay-added-to-cart').length) {
+                            const cartUrl = productbay_frontend.cart_url || '#';
+                            const cartText = productbay_frontend.view_cart_text || 'View cart';
+                            $parentCell.append(
+                                '<a href="' + cartUrl + '" class="productbay-added-to-cart">' + cartText + '</a>'
+                            );
+                        }
+                    }
+                }
+            });
+        }
+
+        syncSelectAllCheckbox() {
+            const $checkboxes = this.$tbody.find('.productbay-select-product:not(:disabled)');
+            const $checked = $checkboxes.filter(':checked');
+            this.$selectAll.prop('checked', $checkboxes.length > 0 && $checkboxes.length === $checked.length);
+        }
+
+        // ── Remove Items ────────────────────────────────────────────────
+
+        handleClearAll(e) {
+            e.preventDefault();
+            this.selectedProducts.clear();
+            this.$tbody.find('.productbay-select-product').prop('checked', false);
+            this.$tbody.find('.productbay-remove-item').remove();
+            this.$selectAll.prop('checked', false);
+            this.updateBulkButton();
+            this.saveSelectionsToStorage();
         }
 
         // ── Selection ───────────────────────────────────────────────────
@@ -191,6 +654,7 @@
                     $cb.trigger('change');
                 }
             });
+            this.saveSelectionsToStorage();
         }
 
         handleRowSelect(e) {
@@ -236,6 +700,7 @@
             }
 
             this.updateBulkButton();
+            this.saveSelectionsToStorage();
         }
 
         // ── Quantity ────────────────────────────────────────────────────
@@ -262,6 +727,7 @@
                 const item = this.selectedProducts.get(id);
                 item.quantity = val;
                 this.updateBulkButton();
+                this.saveSelectionsToStorage();
             }
         }
 
@@ -377,13 +843,17 @@
                     item.price = match.display_price;
                     item.attributes = selected;
                     this.updateBulkButton();
+                    this.saveSelectionsToStorage();
                 }
 
-                // Reset button text if user changes variation after adding
-                const originalLabel = $btn.data('original-text');
-                if (originalLabel && $btn.find('.productbay-added-badge').length) {
-                    // Clear the badge when variation changes — treat as fresh add
-                    $btn.html(originalLabel);
+                // Update button for the new variation — check if THIS variation was already added
+                const cartKey = this.buildCartKey($wrap.data('product-id'), match.variation_id, selected);
+                const existing = this.cartQuantities.get(cartKey);
+                if (existing) {
+                    const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                } else {
+                    $btn.html(originalLabel || $btn.text());
                 }
             } else {
                 // Variation invalid/out-of-stock: disable button + checkbox
@@ -397,6 +867,7 @@
                     $checkbox.prop('checked', false);
                     this.selectedProducts.delete(id);
                     this.updateBulkButton();
+                    this.saveSelectionsToStorage();
                 }
             }
         }
@@ -409,7 +880,7 @@
             if ($btn.is(':disabled')) return;
 
             const $wrap = $btn.closest('.productbay-btn-cell');
-            const productId = $btn.data('product-id') || $wrap.data('product-id');
+            const productId = $btn.data('product-id') || $btn.closest('.productbay-variable-wrap').data('product-id') || $btn.closest('tr').data('product-id');
             const $qtyInput = $wrap.find('.productbay-qty');
             const quantity = $qtyInput.length ? parseInt($qtyInput.val(), 10) || 1 : 1;
 
@@ -453,14 +924,28 @@
                         $(document.body).trigger('wc_fragment_refresh');
 
                         // Track accumulated cart quantity
-                        const prevQty = this.cartQuantities.get(String(productId)) || 0;
+                        const cartKey = this.buildCartKey(productId, variationId, attributes);
+                        const prevEntry = this.cartQuantities.get(cartKey);
+                        const prevQty = prevEntry ? prevEntry.quantity : 0;
                         const newQty = prevQty + quantity;
-                        this.cartQuantities.set(String(productId), newQty);
+
+                        // We store an object for all cart quantities to support variation badge generation easily
+                        this.cartQuantities.set(cartKey, {
+                            quantity: newQty,
+                            variationId: variationId,
+                            attributes: Object.assign({}, attributes),
+                            productId: productId
+                        });
+                        this.saveCartQuantitiesToStorage(); // <-- Persist
 
                         // Update button text with SVG checkmark and quantity
                         const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                         $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' ' + newQty + ')</span>');
                         $btn.prop('disabled', false);
+
+                        if (variationId && this.features.variationBadges !== false) {
+                            this.renderVariationBadges(productId);
+                        }
 
                         // Inject "View Cart" link if not already present
                         const $parentCell = $wrap;
@@ -499,9 +984,20 @@
             if (count > 0) {
                 const text = `Add ${totalItems} item${totalItems > 1 ? 's' : ''} for ${formatPrice(totalPrice)}`;
                 this.$bulkBtn.text(text).prop('disabled', false);
+                if (this.features.clearAllButton !== false && !this.$wrapper.find('.productbay-btn-clear-all').length) {
+                    this.$wrapper.find('.productbay-btn-group').append('<button class="productbay-button productbay-btn-clear-all" title="Warning: This will clear all your active selections">Clear</button>');
+                }
+
+                if (this.features.selectedItemsPanel?.enabled !== false) {
+                    this.$wrapper.find('.productbay-btn-panel').prop('disabled', false).find('.productbay-panel-count').text(count);
+                }
             } else {
                 this.$bulkBtn.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart').prop('disabled', true);
+                this.$wrapper.find('.productbay-btn-clear-all').remove();
+                this.$wrapper.find('.productbay-btn-panel').prop('disabled', true).find('.productbay-panel-count').text(0);
             }
+
+            this.renderSelectedItemsPopup();
         }
 
         handleBulkAddToCart(e) {
@@ -556,11 +1052,59 @@
                             }, 500);
                         }
 
+                        // Update variation badges for variable products we just added
+                        this.selectedProducts.forEach((item, id) => {
+                            if (item.productType === 'variable') {
+                                const cartKey = this.buildCartKey(id, item.variationId, item.attributes);
+                                const prevEntry = this.cartQuantities.get(cartKey);
+                                const prevQty = prevEntry ? prevEntry.quantity : 0;
+                                const newQty = prevQty + item.quantity;
+                                this.cartQuantities.set(cartKey, {
+                                    quantity: newQty,
+                                    variationId: item.variationId,
+                                    attributes: Object.assign({}, item.attributes),
+                                    productId: id
+                                });
+
+                                if (item.variationId && this.features.variationBadges !== false) {
+                                    this.renderVariationBadges(id);
+                                }
+                            } else {
+                                const cartKey = String(id);
+                                const prevEntry = this.cartQuantities.get(cartKey);
+                                const prevQty = prevEntry ? prevEntry.quantity : 0;
+                                const newQty = prevQty + item.quantity;
+                                this.cartQuantities.set(cartKey, {
+                                    quantity: newQty,
+                                    productId: id
+                                });
+                            }
+
+                            // Let's also refresh single add to cart buttons for items added in bulk
+                            const $btn = this.$tbody.find(`tr[data-product-id="${id}"] .productbay-btn-addtocart`);
+                            if ($btn.length) {
+                                if (!$btn.data('original-text')) {
+                                    $btn.data('original-text', $btn.text());
+                                }
+                                const originalLabel = $btn.data('original-text');
+
+                                const cartKey = this.buildCartKey(id, item.variationId, item.attributes);
+                                const existing = this.cartQuantities.get(cartKey);
+                                if (existing) {
+                                    const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                                    $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                                }
+                            }
+                        });
+                        this.saveCartQuantitiesToStorage(); // <-- Persist after bulk add
+
                         setTimeout(() => {
                             this.selectedProducts.clear();
-                            this.$selectAll.prop('checked', false);
                             this.$tbody.find('.productbay-select-product').prop('checked', false);
+                            this.$tbody.find('.productbay-remove-item').remove();
+                            this.$selectAll.prop('checked', false);
                             this.updateBulkButton();
+                            this.saveSelectionsToStorage();
                         }, 2000);
                     } else {
                         const msg = response.data?.errors?.join('\n') || response.data?.message || 'Error adding products.';
@@ -573,6 +1117,153 @@
                     $btn.text(originalText).prop('disabled', false);
                 }
             });
+        }
+
+        getAddedVariationsForProduct(productId) {
+            const results = [];
+            this.cartQuantities.forEach((data, key) => {
+                if (String(data.productId) === String(productId) && data.variationId) {
+                    // Build human-readable label from attributes
+                    const attrParts = [];
+                    if (data.attributes) {
+                        Object.entries(data.attributes).forEach(([key, val]) => {
+                            if (val) {
+                                // Simple text processing for attribute keys
+                                const label = key.replace('attribute_pa_', '').replace('attribute_', '').replace(/-/g, ' ');
+                                attrParts.push(val); // Only pushing the selected value for brevity.
+                            }
+                        });
+                    }
+                    results.push({
+                        key: key,
+                        variationId: data.variationId,
+                        quantity: data.quantity,
+                        label: attrParts.join(' / ') || 'Default'
+                    });
+                }
+            });
+            return results;
+        }
+
+        renderVariationBadges(productId) {
+            const $row = this.$tbody.find(`tr[data-product-id="${productId}"]`);
+            const $wrap = $row.find('.productbay-variable-wrap');
+            if (!$wrap.length) return;
+
+            const badges = this.getAddedVariationsForProduct(productId);
+            if (badges.length === 0) return;
+
+            // Remove existing badges container
+            $wrap.find('.productbay-variation-badges').remove();
+
+            let html = '<div class="productbay-variation-badges">';
+            badges.forEach(b => {
+                html += `<span class="productbay-variation-badge">
+                    <svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="10" height="10" style="display:inline;vertical-align:middle;margin-right:2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    ${b.label} (×${b.quantity})
+                </span>`;
+            });
+            html += '</div>';
+
+            $wrap.find('.productbay-btn-cell').before(html);
+        }
+
+        // ── Selected Items Popup ────────────────────────────────────────
+
+        toggleSelectedItemsPopup(e) {
+            e.preventDefault();
+            const $popup = this.$wrapper.find('.productbay-bulk-actions .productbay-selected-popup');
+            if ($popup.length && $popup.is(':visible')) {
+                this.closeSelectedItemsPopup(e);
+            } else {
+                this.renderSelectedItemsPopup();
+                this.$wrapper.find('.productbay-bulk-actions .productbay-selected-popup').addClass('is-open');
+            }
+        }
+
+        closeSelectedItemsPopup(e) {
+            e?.preventDefault();
+            this.$wrapper.find('.productbay-bulk-actions .productbay-selected-popup').removeClass('is-open');
+        }
+
+        handlePopupRemove(e) {
+            e.preventDefault();
+            const id = $(e.currentTarget).data('product-id');
+            const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+            if ($row.length) {
+                const $cb = $row.find('.productbay-select-product');
+                $cb.prop('checked', false).trigger('change');
+            } else {
+                this.selectedProducts.delete(String(id));
+                this.updateBulkButton();
+                this.saveSelectionsToStorage();
+            }
+        }
+
+        handlePopupAddAll(e) {
+            e.preventDefault();
+            // Trigger the main bulk add to cart
+            this.$bulkBtn.trigger('click');
+        }
+
+        renderSelectedItemsPopup() {
+            if (this.features.selectedItemsPanel?.enabled === false) return;
+
+            const $container = this.$wrapper.find('.productbay-bulk-actions');
+            if (!$container.length) return; // If toolbar missing
+
+            let $popup = $container.find('.productbay-selected-popup');
+            if (!$popup.length) {
+                $container.append('<div class="productbay-selected-popup"></div>');
+                $popup = $container.find('.productbay-selected-popup');
+            }
+
+            if (this.selectedProducts.size === 0) {
+                $popup.removeClass('is-open');
+                return;
+            }
+
+            let totalPrice = 0;
+            let html = '<div class="productbay-popup-header">';
+            html += `<strong>Selected Items <span class="productbay-popup-count">(${this.selectedProducts.size})</span></strong>`;
+            html += '<button class="productbay-popup-close" title="Close popup">&times;</button>';
+            html += '</div>';
+            html += '<div class="productbay-popup-items">';
+
+            this.selectedProducts.forEach((item, id) => {
+                const lineTotal = item.quantity * item.price;
+                totalPrice += lineTotal;
+
+                // Get product info from the row
+                const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+                const name = $row.find('.productbay-product-title').text() || `Product #${id}`;
+                const img = $row.find('img').first().attr('src') || '';
+
+                html += `<div class="productbay-popup-item" data-id="${id}">`;
+                if (img) html += `<img src="${img}" class="productbay-popup-thumb" />`;
+                html += `<div class="productbay-popup-info">`;
+                html += `<div class="productbay-popup-name">${name}</div>`;
+                if (item.variationId) {
+                    const attrs = Object.values(item.attributes || {}).filter(Boolean).join(' / ');
+                    html += `<div class="productbay-popup-variation">${attrs}</div>`;
+                }
+                html += `<div class="productbay-popup-pricing">`;
+                html += `${item.quantity} &times; ${formatPrice(item.price)} = <strong>${formatPrice(lineTotal)}</strong>`;
+                html += `</div></div>`;
+                html += `<button class="productbay-popup-remove" data-product-id="${id}" title="Remove item">&times;</button>`;
+                html += `</div>`;
+            });
+
+            html += '</div>';
+            html += `<div class="productbay-popup-footer">`;
+            html += `<div class="productbay-popup-total">Total: <strong>${formatPrice(totalPrice)}</strong></div>`;
+            html += `<button class="productbay-popup-add-all productbay-button">Add All to Cart</button>`;
+            html += `</div>`;
+
+            // Preserve exactly 'is-open' state while updating HTML string
+            const isOpen = $popup.hasClass('is-open');
+            $popup.html(html);
+            if (isOpen) $popup.addClass('is-open');
         }
     }
 

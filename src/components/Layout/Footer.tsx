@@ -32,6 +32,12 @@ export const MinimalFooter = () => {
                     {__('Support', 'productbay')}
                 </a>
             </div>
+
+            {/* Version Info */}
+            <div className="text-center text-xs text-gray-400 mt-4">
+                {__('ProductBay v', 'productbay')}{productBaySettings.version}
+                {productBaySettings.proVersion && ` ◎ ${__('Pro v', 'productbay')}${productBaySettings.proVersion}`}
+            </div>
         </footer>
     );
 }
@@ -101,6 +107,12 @@ export const Footer = () => {
                         {__('Contact Support', 'productbay')}
                     </a>
                 </section>
+            </div>
+
+            {/* Version Info */}
+            <div className="text-center text-xs text-gray-400 mt-4 pb-6">
+                {__('ProductBay v', 'productbay')}{productBaySettings.version}
+                {productBaySettings.proVersion && ` ◎ ${__('Pro v', 'productbay')}${productBaySettings.proVersion}`}
             </div>
         </footer>
     );

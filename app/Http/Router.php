@@ -217,6 +217,17 @@ class Router {
 				'permission_callback' => array( $this, 'permission_check' ),
 			)
 		);
+
+		/**
+		 * Fires after all core REST routes are registered.
+		 *
+		 * Use this to register additional endpoints under the productbay/v1 namespace.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param Router $router The Router instance.
+		 */
+		\do_action( 'productbay_register_routes', $this );
 	}
 
 

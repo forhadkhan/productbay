@@ -160,7 +160,13 @@ export interface TableSettings {
         export: boolean;
 
         /** Enable price range filter */
-        priceRange: boolean;
+        priceFilter: {
+            enabled: boolean;
+            mode: 'slider' | 'input' | 'both';
+            step: number;
+            customMin: number | null;
+            customMax: number | null;
+        };
 
         /** Bulk Selection Settings */
         bulkSelect: {
@@ -172,6 +178,20 @@ export interface TableSettings {
             };
             visibility: VisibilityMode;
         };
+
+        /** Show variation badges after adding variable products */
+        variationBadges: boolean;
+
+        /** Show clear all button when items are selected */
+        clearAllButton: boolean;
+
+        /** Selected items popup configuration */
+        selectedItemsPanel: {
+            enabled: boolean;
+        };
+
+        /** Enable native image lightbox */
+        lightbox: boolean;
     };
 
     /** Pagination configuration */
@@ -202,6 +222,12 @@ export interface TableSettings {
     filters: {
         /** Enable filters */
         enabled: boolean;
+
+        /** Show category filter dropdown */
+        showCategory: boolean;
+
+        /** Show product type filter dropdown */
+        showType: boolean;
 
         /** Active taxonomy filters (product_cat, pa_color, etc.) */
         activeTaxonomies: string[];
@@ -312,13 +338,25 @@ export const createDefaultSettings = (): TableSettings => ({
         sorting: true,
         pagination: true,
         export: false,
-        priceRange: false,
+        priceFilter: {
+            enabled: false,
+            mode: 'both',
+            step: 1,
+            customMin: null,
+            customMax: null,
+        },
         bulkSelect: {
             enabled: true,
             position: 'last',
             width: { value: 64, unit: 'px' },
             visibility: 'all',
         },
+        variationBadges: true,
+        clearAllButton: true,
+        selectedItemsPanel: {
+            enabled: true,
+        },
+        lightbox: true,
     },
     pagination: {
         limit: 10,
@@ -332,6 +370,8 @@ export const createDefaultSettings = (): TableSettings => ({
     },
     filters: {
         enabled: true,
+        showCategory: true,
+        showType: true,
         activeTaxonomies: ['product_cat'],
     },
 });

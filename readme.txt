@@ -4,7 +4,7 @@ Tags: woocommerce product table, product table, product list, woocommerce, bulk 
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,23 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 == Changelog ==
 
+= 1.0.1 =
+**Added**
+
+* Extensibility API: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin).
+* New developer documentation page for hooks and filters reference.
+* Variation badges: visual indicators showing which variations were added to cart with precise quantities natively synced with the WooCommerce Cart.
+* Clear All Selections: A global "Clear all" button that allows users to instantly reset their bulk selections.
+* Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
+* Price Range Filter: Dual slider and/or numeric min-max inputs to filter products by price on the frontend. Mode is fully configurable (Slider, Input, Both) with auto-detection of price extremes or custom bounds.
+* Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
+* Image Lightbox: Native modal/popup display for product images with fullscreen toggling and close controls, utilizing native browser resources for maximum performance.
+
+**Fixed**
+
+* Bulk selection no longer resets when paginating or searching.
+* Selected products persist across page navigation and page reloads.
+
 = 1.0.0 =
 **Added**
 
@@ -138,6 +155,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * 100% translation-ready codebase.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Adds extensibility hooks for third-party and add-on integration. No breaking changes.
 
 = 1.0.0 =
 Initial release — no upgrade steps required.

@@ -87,6 +87,15 @@ class Plugin {
 			// Admin bar - registered inside is_admin() since Admin class is instantiated here.
 			// Priority 100 ensures it appears after core items.
 			\add_action( 'admin_bar_menu', array( $admin, 'register_admin_bar' ), 100 );
+
+			/**
+			 * Fires after the admin component is initialized.
+			 *
+			 * @since 1.0.1
+			 *
+			 * @param Admin $admin The Admin instance.
+			 */
+			\do_action( 'productbay_admin_init', $admin );
 		}
 
 		// API Router.
@@ -102,5 +111,16 @@ class Plugin {
 
 		$ajax_renderer = new \WpabProductBay\Frontend\AjaxRenderer( $this->table_repository, $this->request );
 		$ajax_renderer->init();
+
+		/**
+		 * Fires after all plugin components are loaded and initialized.
+		 *
+		 * This is the primary hook for add-on plugins to bootstrap themselves.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param Plugin $plugin The main Plugin instance.
+		 */
+		\do_action( 'productbay_loaded', $this );
 	}
 }

@@ -90,6 +90,23 @@ class AjaxRenderer {
 		$s        = sanitize_text_field( wp_unslash( $_POST['s'] ?? '' ) );
 		$paged    = intval( $_POST['paged'] ?? 1 );
 		$page_url = esc_url_raw( wp_unslash( $_POST['page_url'] ?? '' ) );
+		$price_min = isset( $_POST['price_min'] ) && $_POST['price_min'] !== '' ? floatval( $_POST['price_min'] ) : null;
+		$price_max = isset( $_POST['price_max'] ) && $_POST['price_max'] !== '' ? floatval( $_POST['price_max'] ) : null;
+		$type      = isset( $_POST['product_type'] ) ? sanitize_text_field( wp_unslash( $_POST['product_type'] ) ) : '';
+
+		// Categories can arrive as an array (multi-select) or comma-separated string.
+		// jQuery sends arrays as product_cat[] but PHP may also receive product_cat.
+		$category = array();
+		$raw_cat_key = isset( $_POST['product_cat'] ) ? 'product_cat' : ( isset( $_POST['product_cat[]'] ) ? 'product_cat[]' : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce checked above
+		if ( $raw_cat_key ) {
+			$raw_cats = wp_unslash( $_POST[ $raw_cat_key ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized below per element
+			if ( is_array( $raw_cats ) ) {
+				$category = array_map( 'sanitize_text_field', $raw_cats );
+			} else {
+				$category = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $raw_cats ) ) );
+			}
+			$category = array_filter( $category );
+		}
 
 		if ( ! $table_id ) {
 			\wp_send_json_error( array( 'message' => 'Invalid table ID' ) );
@@ -106,11 +123,25 @@ class AjaxRenderer {
 		$response = $renderer->render_ajax_response(
 			$table,
 			array(
-				's'        => $s,
-				'paged'    => $paged,
-				'page_url' => $page_url,
+				's'         => $s,
+				'paged'     => $paged,
+				'page_url'     => $page_url,
+				'price_min'    => $price_min,
+				'price_max'    => $price_max,
+				'product_cat'  => $category,
+				'product_type' => $type,
 			)
 		);
+
+		/**
+		 * Filters the AJAX filter response.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $response The response data (html, pagination).
+		 * @param array $table    The table configuration.
+		 */
+		$response = \apply_filters( 'productbay_ajax_filter_response', $response, $table );
 
 		\wp_send_json_success( $response );
 	}
@@ -233,6 +264,16 @@ class AjaxRenderer {
 		}
 
 		if ( $added_count > 0 ) {
+			/**
+			 * Fires after a successful bulk add-to-cart operation.
+			 *
+			 * @since 1.0.1
+			 *
+			 * @param int   $added_count Number of products added.
+			 * @param array $errors      Any errors encountered.
+			 */
+			\do_action( 'productbay_after_bulk_add_to_cart', $added_count, $errors );
+
 			$response = array(
 				/* translators: %d: number of products added to cart */
 				'message'     => sprintf( __( '%d product(s) added to cart.', 'productbay' ), $added_count ),

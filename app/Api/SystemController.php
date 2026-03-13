@@ -79,12 +79,21 @@ class SystemController extends ApiController {
 		$tables      = $this->repository->get_tables();
 		$table_count = count( $tables );
 
-		return array(
+		$status = array(
 			'wc_active'     => $wc_active,
 			'product_count' => $product_count,
 			'table_count'   => $table_count,
 			'version'       => PRODUCTBAY_VERSION,
 		);
+
+		/**
+		 * Filters the system status data.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $status The system status data.
+		 */
+		return \apply_filters( 'productbay_system_status', $status );
 	}
 
 	/**

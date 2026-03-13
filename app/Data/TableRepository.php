@@ -76,6 +76,16 @@ class TableRepository {
 	public function save_table( $data ) {
 		$id = isset( $data['id'] ) ? intval( $data['id'] ) : 0;
 
+		/**
+		 * Filters table data before it is persisted.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $data The table data from the frontend.
+		 * @param int   $id   The table post ID (0 for new tables).
+		 */
+		$data = \apply_filters( 'productbay_before_save_table', $data, $id );
+
 		// Frontend sends 'title' and 'status', not 'tableTitle' and 'tableStatus'.
 		$title            = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : 'Untitled Table';
 		$allowed_statuses = array( 'publish', 'private', 'draft', 'pending' );
@@ -113,6 +123,16 @@ class TableRepository {
 			return array( 'error' => $post_id->get_error_message() );
 		}
 
+		/**
+		 * Fires after a table is successfully saved.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param int   $post_id The saved post ID.
+		 * @param array $data    The table data that was saved.
+		 */
+		\do_action( 'productbay_after_save_table', $post_id, $data );
+
 		return $this->get_table( $post_id );
 	}
 
@@ -124,7 +144,18 @@ class TableRepository {
 	 * @since 1.0.0
 	 */
 	public function delete_table( $id ) {
-		return wp_delete_post( $id, true );
+		$result = wp_delete_post( $id, true );
+
+		/**
+		 * Fires after a table is deleted.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param int $id The deleted post ID.
+		 */
+		\do_action( 'productbay_after_delete_table', $id );
+
+		return $result;
 	}
 
 	/**
@@ -141,7 +172,7 @@ class TableRepository {
 		$settings = get_post_meta( $post->ID, '_productbay_settings', true ) ?: array();
 		$style    = get_post_meta( $post->ID, '_productbay_style', true ) ?: array();
 
-		return array(
+		$table_data = array(
 			'id'           => $post->ID,
 			'title'        => $post->post_title,
 			'status'       => $post->post_status,
@@ -154,6 +185,16 @@ class TableRepository {
 			'settings'     => $settings,
 			'style'        => $style,
 		);
+
+		/**
+		 * Filters the formatted table data returned by the repository.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array    $table_data The formatted table data.
+		 * @param \WP_Post $post       The original post object.
+		 */
+		return \apply_filters( 'productbay_table_data', $table_data, $post );
 	}
 
 	/**
