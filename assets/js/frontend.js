@@ -179,6 +179,36 @@
             if (mode === 'input' || mode === 'both') {
                 $filter.on('change', '.productbay-price-input-min, .productbay-price-input-max', this.handlePriceInput.bind(this));
             }
+
+            this.updateSliderVisuals($filter);
+        }
+
+        updateSliderVisuals($filter) {
+            const $minSlider = $filter.find('.productbay-price-range-min');
+            if (!$minSlider.length) return;
+
+            const minAbs = parseFloat($filter.data('min'));
+            const maxAbs = parseFloat($filter.data('max'));
+            let rangeSpan = maxAbs - minAbs;
+            if (rangeSpan <= 0) rangeSpan = 1; // Prevent division by zero
+
+            let minVal = parseFloat($minSlider.val());
+            let maxVal = parseFloat($filter.find('.productbay-price-range-max').val());
+
+            let minPct = ((minVal - minAbs) / rangeSpan) * 100;
+            let maxPct = ((maxVal - minAbs) / rangeSpan) * 100;
+            
+            minPct = Math.max(0, Math.min(100, minPct));
+            maxPct = Math.max(0, Math.min(100, maxPct));
+
+            $filter.find('.productbay-price-slider-track-fill').css({
+                left: minPct + '%',
+                width: (maxPct - minPct) + '%'
+            });
+
+            // Update Tooltips text
+            $filter.find('.productbay-price-tooltip-min').text(formatPrice(minVal)).css('left', minPct + '%');
+            $filter.find('.productbay-price-tooltip-max').text(formatPrice(maxVal)).css('left', maxPct + '%');
         }
 
         handlePriceSlider(e) {
@@ -201,6 +231,7 @@
             $filter.find('.productbay-price-input-min').val(min);
             $filter.find('.productbay-price-input-max').val(max);
 
+            this.updateSliderVisuals($filter);
             this.debouncedPriceFilter(min, max);
         }
 
@@ -231,6 +262,7 @@
             $filter.find('.productbay-price-range-min').val(min);
             $filter.find('.productbay-price-range-max').val(max);
 
+            this.updateSliderVisuals($filter);
             this.debouncedPriceFilter(min, max);
         }
 

@@ -23927,7 +23927,7 @@ const OptionsPanel = ({
   setCart,
   className
 }) => {
-  var _settings$features$se;
+  var _settings$features$pr, _settings$features$pr3, _settings$features$pr5, _settings$features$pr7, _settings$features$pr9, _settings$features$se;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("w-full p-4 space-y-8", className),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
@@ -23964,6 +23964,136 @@ const OptionsPanel = ({
           }),
           className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Price Range Filter', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure frontend price filtering options', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Price Filter', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to filter products by price', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: (_settings$features$pr = settings.features.priceFilter?.enabled) !== null && _settings$features$pr !== void 0 ? _settings$features$pr : false,
+          onChange: e => {
+            var _settings$features$pr2;
+            return setFeatures({
+              priceFilter: {
+                ...((_settings$features$pr2 = settings.features.priceFilter) !== null && _settings$features$pr2 !== void 0 ? _settings$features$pr2 : {
+                  mode: 'both',
+                  step: 1,
+                  customMin: null,
+                  customMax: null
+                }),
+                enabled: e.target.checked
+              }
+            });
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("transition-all duration-300", settings.features.priceFilter?.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Mode', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display slider, numeric inputs, or both', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+            value: (_settings$features$pr3 = settings.features.priceFilter?.mode) !== null && _settings$features$pr3 !== void 0 ? _settings$features$pr3 : 'both',
+            onChange: e => {
+              var _settings$features$pr4;
+              return setFeatures({
+                priceFilter: {
+                  ...((_settings$features$pr4 = settings.features.priceFilter) !== null && _settings$features$pr4 !== void 0 ? _settings$features$pr4 : {
+                    enabled: false,
+                    step: 1,
+                    customMin: null,
+                    customMax: null
+                  }),
+                  mode: e.target.value
+                }
+              });
+            },
+            className: "w-32 h-9 px-3 py-1 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "both",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Both', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "slider",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Only', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "input",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Inputs Only', 'productbay')
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Step Amount', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('The increment step value for the price slider', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+            type: "number",
+            min: "0.01",
+            step: "0.01",
+            value: (_settings$features$pr5 = settings.features.priceFilter?.step) !== null && _settings$features$pr5 !== void 0 ? _settings$features$pr5 : 1,
+            onChange: e => {
+              var _settings$features$pr6;
+              return setFeatures({
+                priceFilter: {
+                  ...((_settings$features$pr6 = settings.features.priceFilter) !== null && _settings$features$pr6 !== void 0 ? _settings$features$pr6 : {
+                    enabled: false,
+                    mode: 'both',
+                    customMin: null,
+                    customMax: null
+                  }),
+                  step: parseFloat(e.target.value) || 1
+                }
+              });
+            },
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Minimum Price', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Leave empty to auto-detect from table products', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+            type: "number",
+            min: "0",
+            placeholder: "Auto",
+            value: (_settings$features$pr7 = settings.features.priceFilter?.customMin) !== null && _settings$features$pr7 !== void 0 ? _settings$features$pr7 : '',
+            onChange: e => {
+              var _settings$features$pr8;
+              return setFeatures({
+                priceFilter: {
+                  ...((_settings$features$pr8 = settings.features.priceFilter) !== null && _settings$features$pr8 !== void 0 ? _settings$features$pr8 : {
+                    enabled: false,
+                    mode: 'both',
+                    step: 1,
+                    customMax: null
+                  }),
+                  customMin: e.target.value === '' ? null : parseFloat(e.target.value)
+                }
+              });
+            },
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Maximum Price', 'productbay'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Leave empty to auto-detect from table products', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+            type: "number",
+            min: "0",
+            placeholder: "Auto",
+            value: (_settings$features$pr9 = settings.features.priceFilter?.customMax) !== null && _settings$features$pr9 !== void 0 ? _settings$features$pr9 : '',
+            onChange: e => {
+              var _settings$features$pr0;
+              return setFeatures({
+                priceFilter: {
+                  ...((_settings$features$pr0 = settings.features.priceFilter) !== null && _settings$features$pr0 !== void 0 ? _settings$features$pr0 : {
+                    enabled: false,
+                    mode: 'both',
+                    step: 1,
+                    customMin: null
+                  }),
+                  customMax: e.target.value === '' ? null : parseFloat(e.target.value)
+                }
+              });
+            },
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          })
+        })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
       title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cart / Functionality', 'productbay'),
@@ -34337,7 +34467,13 @@ const createDefaultSettings = () => ({
     sorting: true,
     pagination: true,
     export: false,
-    priceRange: false,
+    priceFilter: {
+      enabled: false,
+      mode: 'both',
+      step: 1,
+      customMin: null,
+      customMax: null
+    },
     bulkSelect: {
       enabled: true,
       position: 'last',

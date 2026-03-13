@@ -213,10 +213,7 @@ class TableRenderer {
 			$this->render_search_bar( $settings, $runtime_args['s'] ?? '' );
 		}
 
-		// Price Range Filter.
-		if ( ! empty( $settings['features']['priceFilter']['enabled'] ) ) {
-			$this->render_price_filter( $settings, $source );
-		}
+		// Price Range Filter was here, moved outside toolbar.
 
 		/**
 		 * Fires at the end of the toolbar area.
@@ -228,6 +225,13 @@ class TableRenderer {
 		\do_action( 'productbay_toolbar_end', $table );
 
 		echo '</div>'; // End Toolbar.
+
+		// Filters Bar.
+		if ( ! empty( $settings['features']['priceFilter']['enabled'] ) ) {
+			echo '<div class="productbay-filters-bar">';
+			$this->render_price_filter( $settings, $source );
+			echo '</div>';
+		}
 
 		echo '<div class="productbay-table-container">';
 		echo '<table class="productbay-table">';
@@ -1208,9 +1212,13 @@ class TableRenderer {
 		$step  = $config['step'] ?? 1;
 
 		echo '<div class="productbay-price-filter" data-min="' . esc_attr( $range['min'] ) . '" data-max="' . esc_attr( $range['max'] ) . '" data-step="' . esc_attr( $step ) . '" data-mode="' . esc_attr( $mode ) . '">';
+		echo '<span class="productbay-filter-label">' . esc_html__( 'Filter by Price:', 'productbay' ) . '</span>';
 
 		if ( $mode === 'slider' || $mode === 'both' ) {
 			echo '<div class="productbay-price-slider-wrap">';
+			echo '<div class="productbay-price-tooltip productbay-price-tooltip-min"></div>';
+			echo '<div class="productbay-price-tooltip productbay-price-tooltip-max"></div>';
+			echo '<div class="productbay-price-slider-track-fill"></div>';
 			echo '<input type="range" class="productbay-price-range-min" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" value="' . esc_attr( $range['min'] ) . '" step="' . esc_attr( $step ) . '" />';
 			echo '<input type="range" class="productbay-price-range-max" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" value="' . esc_attr( $range['max'] ) . '" step="' . esc_attr( $step ) . '" />';
 			echo '</div>';
