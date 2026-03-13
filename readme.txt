@@ -127,6 +127,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Clear All Selections: A global "Clear all" button that allows users to instantly reset their bulk selections.
 * Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
 * Price Range Filter: Dual slider and/or numeric min-max inputs to filter products by price on the frontend. Mode is fully configurable (Slider, Input, Both) with auto-detection of price extremes or custom bounds.
+* Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
 
 **Fixed**
 

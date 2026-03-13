@@ -42,6 +42,7 @@ export interface OptionsPanelProps {
     setFeatures: (features: Partial<TableSettings['features']>) => void;
     setPagination: (pagination: Partial<TableSettings['pagination']>) => void;
     setCart: (cart: Partial<TableSettings['cart']>) => void;
+    setFilters: (filters: Partial<TableSettings['filters']>) => void;
     className?: string;
 }
 
@@ -50,6 +51,7 @@ export const OptionsPanel = ({
     setFeatures,
     setPagination,
     setCart,
+    setFilters,
     className
 }: OptionsPanelProps) => {
 
@@ -200,6 +202,31 @@ export const OptionsPanel = ({
                         />
                     </SettingsOption>
                 </div>
+            </SettingsSection>
+
+            {/* Taxonomy & Type Filters */}
+            <SettingsSection
+                title={__('Taxonomy & Type Filters', 'productbay')}
+                description={__('Configure frontend dropdown filters', 'productbay')}
+            >
+                <SettingsOption
+                    title={__('Enable Categories Filter', 'productbay')}
+                    description={__('Allow users to filter products by category', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.filters?.showCategory ?? true}
+                        onChange={(e) => setFilters({ showCategory: e.target.checked })}
+                    />
+                </SettingsOption>
+                <SettingsOption
+                    title={__('Enable Product Type Filter', 'productbay')}
+                    description={__('Allow users to filter by product type (Simple, Variable, etc.)', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.filters?.showType ?? true}
+                        onChange={(e) => setFilters({ showType: e.target.checked })}
+                    />
+                </SettingsOption>
             </SettingsSection>
 
             {/* Cart Settings */}

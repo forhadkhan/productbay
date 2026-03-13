@@ -23925,9 +23925,10 @@ const OptionsPanel = ({
   setFeatures,
   setPagination,
   setCart,
+  setFilters,
   className
 }) => {
-  var _settings$features$pr, _settings$features$pr3, _settings$features$pr5, _settings$features$pr7, _settings$features$pr9, _settings$features$se;
+  var _settings$features$pr, _settings$features$pr3, _settings$features$pr5, _settings$features$pr7, _settings$features$pr9, _settings$filters$sho, _settings$filters$sho2, _settings$features$se;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("w-full p-4 space-y-8", className),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
@@ -24094,6 +24095,28 @@ const OptionsPanel = ({
             className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
           })
         })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Taxonomy & Type Filters', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure frontend dropdown filters', 'productbay'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Categories Filter', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to filter products by category', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: (_settings$filters$sho = settings.filters?.showCategory) !== null && _settings$filters$sho !== void 0 ? _settings$filters$sho : true,
+          onChange: e => setFilters({
+            showCategory: e.target.checked
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_5__.SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Product Type Filter', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to filter by product type (Simple, Variable, etc.)', 'productbay'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: (_settings$filters$sho2 = settings.filters?.showType) !== null && _settings$filters$sho2 !== void 0 ? _settings$filters$sho2 : true,
+          onChange: e => setFilters({
+            showType: e.target.checked
+          })
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(SettingsSection, {
       title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cart / Functionality', 'productbay'),
@@ -34501,6 +34524,8 @@ const createDefaultSettings = () => ({
   },
   filters: {
     enabled: true,
+    showCategory: true,
+    showType: true,
     activeTaxonomies: ['product_cat']
   }
 });

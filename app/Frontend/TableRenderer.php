@@ -237,7 +237,7 @@ class TableRenderer {
 		}
 
 		if ( $has_tax_filters ) {
-			// (Taxonomy filters will be rendered here in the future)
+			$this->render_taxonomy_filters( $settings, $runtime_args );
 		}
 
 		/**
@@ -478,6 +478,31 @@ class TableRenderer {
 				break;
 		}
 
+		// Initialize tax_query if not already set.
+		if ( ! isset( $args['tax_query'] ) ) {
+			$args['tax_query'] = array();
+		}
+
+		// Handle Runtime Override Filters (from frontend dropdowns or URL parameters)
+		if ( ! empty( $runtime_args['product_cat'] ) ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'product_cat',
+				'field'    => 'slug',
+				'terms'    => sanitize_text_field( $runtime_args['product_cat'] ),
+				'operator' => 'IN',
+			);
+		}
+
+		if ( ! empty( $runtime_args['product_type'] ) ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'product_type',
+				'field'    => 'slug',
+				'terms'    => sanitize_text_field( $runtime_args['product_type'] ),
+				'operator' => 'IN',
+			);
+		}
+
+		// Query type logic for features.
 		// Handle Excludes.
 		if ( ! empty( $query_args['excludes'] ) ) {
 			$args['post__not_in'] = $query_args['excludes']; // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- Required for product exclusion
@@ -1256,6 +1281,70 @@ class TableRenderer {
 			echo '<span class="productbay-price-sep">&ndash;</span>';
 			echo '<input type="number" class="productbay-price-input-max" value="' . esc_attr( $range['max'] ) . '" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" step="' . esc_attr( $step ) . '" />';
 			echo '</div>';
+		}
+
+		echo '</div>';
+	}
+
+	/**
+	 * Render taxonomy and product type filters.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @param array $settings     Table settings.
+	 * @param array $runtime_args Runtime arguments.
+	 * @return void
+	 */
+	private function render_taxonomy_filters( $settings, $runtime_args ) {
+		$filters = $settings['filters'] ?? array();
+		if ( empty( $filters['enabled'] ) ) {
+			return;
+		}
+
+		echo '<div class="productbay-taxonomy-filters">';
+
+		// Product Category Filter
+		if ( ! empty( $filters['showCategory'] ) ) {
+			$categories = get_terms(
+				array(
+					'taxonomy'   => 'product_cat',
+					'hide_empty' => true,
+					'parent'     => 0, // Only top-level for cleaner UI by default
+				)
+			);
+
+			if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
+				$current_cat = $runtime_args['product_cat'] ?? '';
+
+				echo '<select class="productbay-filter-select" data-filter="product_cat">';
+				echo '<option value="">' . esc_html__( 'All Categories', 'productbay' ) . '</option>';
+
+				foreach ( $categories as $category ) {
+					$selected = selected( $current_cat, $category->slug, false );
+					echo '<option value="' . esc_attr( $category->slug ) . '" ' . $selected . '>' . esc_html( $category->name ) . ' (' . esc_html( $category->count ) . ')</option>';
+				}
+
+				echo '</select>';
+			}
+		}
+
+		// Product Type Filter
+		if ( ! empty( $filters['showType'] ) ) {
+			$types = wc_get_product_types();
+
+			if ( ! empty( $types ) ) {
+				$current_type = $runtime_args['product_type'] ?? '';
+
+				echo '<select class="productbay-filter-select" data-filter="product_type">';
+				echo '<option value="">' . esc_html__( 'All Types', 'productbay' ) . '</option>';
+
+				foreach ( $types as $type_key => $type_label ) {
+					$selected = selected( $current_type, $type_key, false );
+					echo '<option value="' . esc_attr( $type_key ) . '" ' . $selected . '>' . esc_html( $type_label ) . '</option>';
+				}
+
+				echo '</select>';
+			}
 		}
 
 		echo '</div>';

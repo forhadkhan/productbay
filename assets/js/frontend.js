@@ -183,6 +183,43 @@
             this.updateSliderVisuals($filter);
         }
 
+        initTaxonomyFilters() {
+            const $filters = this.$wrapper.find('.productbay-taxonomy-filters');
+            if (!$filters.length) return;
+
+            $filters.on('change', '.productbay-filter-select', this.handleTaxonomyFilter.bind(this));
+        }
+
+        handleTaxonomyFilter() {
+            const search  = this.$searchInput.val() || '';
+            const product_cat = this.$wrapper.find('.productbay-filter-select[data-filter="product_cat"]').val() || '';
+            const product_type = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]').val() || '';
+
+            let min = null;
+            let max = null;
+            
+            if (this.$priceFilter) {
+                const mode = this.$priceFilter.data('mode');
+                if (mode === 'slider' || mode === 'both') {
+                    min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
+                    max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
+                } else {
+                    min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
+                    max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
+                }
+            }
+
+            this.fetchProducts({ 
+                s: search, 
+                price_min: min, 
+                price_max: max, 
+                product_cat: product_cat, 
+                product_type: product_type, 
+                paged: 1, 
+                _context: 'filter' 
+            });
+        }
+
         updateSliderVisuals($filter) {
             const $minSlider = $filter.find('.productbay-price-range-min');
             if (!$minSlider.length) return;
@@ -270,7 +307,18 @@
             if (this.priceFilterTimeout) clearTimeout(this.priceFilterTimeout);
             this.priceFilterTimeout = setTimeout(() => {
                 const search = this.$searchInput.val() || '';
-                this.fetchProducts({ s: search, price_min: min, price_max: max, paged: 1, _context: 'filter' });
+                const product_cat = this.$wrapper.find('.productbay-filter-select[data-filter="product_cat"]').val() || '';
+                const product_type = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]').val() || '';
+
+                this.fetchProducts({ 
+                    s: search, 
+                    price_min: min, 
+                    price_max: max, 
+                    product_cat: product_cat, 
+                    product_type: product_type,
+                    paged: 1, 
+                    _context: 'filter' 
+                });
             }, 500);
         }
 
@@ -294,7 +342,32 @@
 
             paged = parseInt(paged, 10) || 1;
             const search = this.$searchInput.val() || '';
-            this.fetchProducts({ s: search, paged: paged, _context: 'pagination' });
+            
+            let min = null;
+            let max = null;
+            if (this.$priceFilter) {
+                const mode = this.$priceFilter.data('mode');
+                if (mode === 'slider' || mode === 'both') {
+                    min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
+                    max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
+                } else {
+                    min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
+                    max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
+                }
+            }
+
+            const product_cat = this.$wrapper.find('.productbay-filter-select[data-filter="product_cat"]').val() || '';
+            const product_type = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]').val() || '';
+
+            this.fetchProducts({ 
+                s: search, 
+                paged: paged, 
+                price_min: min, 
+                price_max: max, 
+                product_cat: product_cat, 
+                product_type: product_type,
+                _context: 'pagination' 
+            });
         }
 
         // ── AJAX Fetch ──────────────────────────────────────────────────

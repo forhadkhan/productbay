@@ -220,6 +220,12 @@ export interface TableSettings {
         /** Enable filters */
         enabled: boolean;
 
+        /** Show category filter dropdown */
+        showCategory: boolean;
+
+        /** Show product type filter dropdown */
+        showType: boolean;
+
         /** Active taxonomy filters (product_cat, pa_color, etc.) */
         activeTaxonomies: string[];
     };
@@ -360,6 +366,8 @@ export const createDefaultSettings = (): TableSettings => ({
     },
     filters: {
         enabled: true,
+        showCategory: true,
+        showType: true,
         activeTaxonomies: ['product_cat'],
     },
 });
