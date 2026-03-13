@@ -227,9 +227,18 @@ class TableRenderer {
 		echo '</div>'; // End Toolbar.
 
 		// Filters Bar.
-		if ( ! empty( $settings['features']['priceFilter']['enabled'] ) ) {
+		$has_price_filter = ! empty( $settings['features']['priceFilter']['enabled'] );
+		$has_tax_filters  = ! empty( $settings['filters']['enabled'] );
+
+		if ( $has_price_filter || $has_tax_filters ) {
 			echo '<div class="productbay-filters-bar">';
-			$this->render_price_filter( $settings, $source );
+
+			if ( $has_price_filter ) {
+				$this->render_price_filter( $settings, $source );
+			}
+
+			// (Taxonomy filters will be rendered here in the future)
+
 			echo '</div>';
 		}
 
