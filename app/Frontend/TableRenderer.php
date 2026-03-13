@@ -227,18 +227,35 @@ class TableRenderer {
 		echo '</div>'; // End Toolbar.
 
 		// Filters Bar.
+		ob_start();
+
 		$has_price_filter = ! empty( $settings['features']['priceFilter']['enabled'] );
 		$has_tax_filters  = ! empty( $settings['filters']['enabled'] );
 
-		if ( $has_price_filter || $has_tax_filters ) {
-			echo '<div class="productbay-filters-bar">';
+		if ( $has_price_filter ) {
+			$this->render_price_filter( $settings, $source );
+		}
 
-			if ( $has_price_filter ) {
-				$this->render_price_filter( $settings, $source );
-			}
-
+		if ( $has_tax_filters ) {
 			// (Taxonomy filters will be rendered here in the future)
+		}
 
+		/**
+		 * Fires inside the filters bar, after built-in filters.
+		 * Allows rendering custom filters.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $settings The table settings.
+		 * @param array $source   The table source configuration.
+		 */
+		\do_action( 'productbay_render_filters', $settings, $source );
+
+		$filters_html = ob_get_clean();
+
+		if ( trim( $filters_html ) !== '' ) {
+			echo '<div class="productbay-filters-bar">';
+			echo $filters_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML is built by trusted render methods
 			echo '</div>';
 		}
 
