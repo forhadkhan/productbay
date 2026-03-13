@@ -160,7 +160,13 @@ export interface TableSettings {
         export: boolean;
 
         /** Enable price range filter */
-        priceRange: boolean;
+        priceFilter: {
+            enabled: boolean;
+            mode: 'slider' | 'input' | 'both';
+            step: number;
+            customMin: number | null;
+            customMax: number | null;
+        };
 
         /** Bulk Selection Settings */
         bulkSelect: {
@@ -323,7 +329,13 @@ export const createDefaultSettings = (): TableSettings => ({
         sorting: true,
         pagination: true,
         export: false,
-        priceRange: false,
+        priceFilter: {
+            enabled: false,
+            mode: 'both',
+            step: 1,
+            customMin: null,
+            customMax: null,
+        },
         bulkSelect: {
             enabled: true,
             position: 'last',

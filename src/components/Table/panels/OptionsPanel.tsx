@@ -99,6 +99,109 @@ export const OptionsPanel = ({
                 </SettingsOption>
             </SettingsSection>
 
+            {/* Price Range Filter Settings */}
+            <SettingsSection
+                title={__('Price Range Filter', 'productbay')}
+                description={__('Configure frontend price filtering options', 'productbay')}
+            >
+                <SettingsOption
+                    title={__('Enable Price Filter', 'productbay')}
+                    description={__('Allow users to filter products by price', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.features.priceFilter?.enabled ?? false}
+                        onChange={(e) => setFeatures({
+                            priceFilter: {
+                                ...(settings.features.priceFilter ?? { mode: 'both', step: 1, customMin: null, customMax: null }),
+                                enabled: e.target.checked
+                            }
+                        })}
+                    />
+                </SettingsOption>
+
+                <div className={cn(
+                    "transition-all duration-300",
+                    settings.features.priceFilter?.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"
+                )}>
+                    <SettingsOption
+                        title={__('Filter Mode', 'productbay')}
+                        description={__('Display slider, numeric inputs, or both', 'productbay')}
+                    >
+                        <select
+                            value={settings.features.priceFilter?.mode ?? 'both'}
+                            onChange={(e) => setFeatures({
+                                priceFilter: {
+                                    ...(settings.features.priceFilter ?? { enabled: false, step: 1, customMin: null, customMax: null }),
+                                    mode: e.target.value as 'slider' | 'input' | 'both'
+                                }
+                            })}
+                            className="w-32 h-9 px-3 py-1 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        >
+                            <option value="both">{__('Both', 'productbay')}</option>
+                            <option value="slider">{__('Slider Only', 'productbay')}</option>
+                            <option value="input">{__('Inputs Only', 'productbay')}</option>
+                        </select>
+                    </SettingsOption>
+
+                    <SettingsOption
+                        title={__('Slider Step Amount', 'productbay')}
+                        description={__('The increment step value for the price slider', 'productbay')}
+                    >
+                        <input
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            value={settings.features.priceFilter?.step ?? 1}
+                            onChange={(e) => setFeatures({
+                                priceFilter: {
+                                    ...(settings.features.priceFilter ?? { enabled: false, mode: 'both', customMin: null, customMax: null }),
+                                    step: parseFloat(e.target.value) || 1
+                                }
+                            })}
+                            className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </SettingsOption>
+
+                    <SettingsOption
+                        title={__('Custom Minimum Price', 'productbay')}
+                        description={__('Leave empty to auto-detect from table products', 'productbay')}
+                    >
+                        <input
+                            type="number"
+                            min="0"
+                            placeholder="Auto"
+                            value={settings.features.priceFilter?.customMin ?? ''}
+                            onChange={(e) => setFeatures({
+                                priceFilter: {
+                                    ...(settings.features.priceFilter ?? { enabled: false, mode: 'both', step: 1, customMax: null }),
+                                    customMin: e.target.value === '' ? null : parseFloat(e.target.value)
+                                }
+                            })}
+                            className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </SettingsOption>
+
+                    <SettingsOption
+                        title={__('Custom Maximum Price', 'productbay')}
+                        description={__('Leave empty to auto-detect from table products', 'productbay')}
+                    >
+                        <input
+                            type="number"
+                            min="0"
+                            placeholder="Auto"
+                            value={settings.features.priceFilter?.customMax ?? ''}
+                            onChange={(e) => setFeatures({
+                                priceFilter: {
+                                    ...(settings.features.priceFilter ?? { enabled: false, mode: 'both', step: 1, customMin: null }),
+                                    customMax: e.target.value === '' ? null : parseFloat(e.target.value)
+                                }
+                            })}
+                            className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </SettingsOption>
+                </div>
+            </SettingsSection>
+
             {/* Cart Settings */}
             <SettingsSection
                 title={__('Cart / Functionality', 'productbay')}

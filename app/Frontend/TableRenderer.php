@@ -213,6 +213,11 @@ class TableRenderer {
 			$this->render_search_bar( $settings, $runtime_args['s'] ?? '' );
 		}
 
+		// Price Range Filter.
+		if ( ! empty( $settings['features']['priceFilter']['enabled'] ) ) {
+			$this->render_price_filter( $settings, $source );
+		}
+
 		/**
 		 * Fires at the end of the toolbar area.
 		 *
@@ -458,9 +463,12 @@ class TableRenderer {
 		}
 
 		// Handle Price Range.
-		if ( isset( $query_args['priceRange']['min'] ) || isset( $query_args['priceRange']['max'] ) ) {
-			$min = $query_args['priceRange']['min'] ?? 0;
-			$max = $query_args['priceRange']['max'];
+		$has_runtime_min = isset( $runtime_args['price_min'] );
+		$has_runtime_max = isset( $runtime_args['price_max'] );
+
+		if ( $has_runtime_min || $has_runtime_max || isset( $query_args['priceRange']['min'] ) || isset( $query_args['priceRange']['max'] ) ) {
+			$min = $has_runtime_min ? $runtime_args['price_min'] : ( $query_args['priceRange']['min'] ?? 0 );
+			$max = $has_runtime_max ? $runtime_args['price_max'] : ( $query_args['priceRange']['max'] ?? null );
 
 			$price_query = array(
 				'key'     => '_price',
@@ -1131,6 +1139,92 @@ class TableRenderer {
 	 */
 	private function get_column_styles( $col ) {
 		return '';
+	}
+
+	/**
+	 * Get the min and max price for the current query or custom settings.
+	 *
+	 * @param array $source   Database source configuration.
+	 * @param array $settings Table settings.
+	 * @return array
+	 */
+	private function get_price_range( $source, $settings ) {
+		$custom_min = $settings['features']['priceFilter']['customMin'] ?? null;
+		$custom_max = $settings['features']['priceFilter']['customMax'] ?? null;
+
+		if ( $custom_min !== null && $custom_max !== null ) {
+			return array(
+				'min' => floatval( $custom_min ),
+				'max' => floatval( $custom_max ),
+			);
+		}
+
+		// Auto-detect from this table's products. We do a lightweight query.
+		$args = $this->build_query_args( $source, $settings );
+		$args['posts_per_page'] = -1;
+		$args['fields']         = 'ids';
+		unset( $args['paged'] );
+
+		$query = new \WP_Query( $args );
+		$min   = PHP_FLOAT_MAX;
+		$max   = 0;
+
+		foreach ( $query->posts as $pid ) {
+			$product = wc_get_product( $pid );
+			if ( ! $product ) {
+				continue;
+			}
+			$price = floatval( $product->get_price() );
+			if ( $price < $min ) {
+				$min = $price;
+			}
+			if ( $price > $max ) {
+				$max = $price;
+			}
+		}
+		wp_reset_postdata();
+
+		return array(
+			'min' => $custom_min !== null ? floatval( $custom_min ) : ( $min === PHP_FLOAT_MAX ? 0 : floor( $min ) ),
+			'max' => $custom_max !== null ? floatval( $custom_max ) : ceil( $max ),
+		);
+	}
+
+	/**
+	 * Render price filter HTML.
+	 *
+	 * @param array $settings Table settings.
+	 * @param array $source   Database source configuration.
+	 * @return void
+	 */
+	private function render_price_filter( $settings, $source ) {
+		$config = $settings['features']['priceFilter'] ?? array();
+		if ( empty( $config['enabled'] ) ) {
+			return;
+		}
+
+		$range = $this->get_price_range( $source, $settings );
+		$mode  = $config['mode'] ?? 'both';
+		$step  = $config['step'] ?? 1;
+
+		echo '<div class="productbay-price-filter" data-min="' . esc_attr( $range['min'] ) . '" data-max="' . esc_attr( $range['max'] ) . '" data-step="' . esc_attr( $step ) . '" data-mode="' . esc_attr( $mode ) . '">';
+
+		if ( $mode === 'slider' || $mode === 'both' ) {
+			echo '<div class="productbay-price-slider-wrap">';
+			echo '<input type="range" class="productbay-price-range-min" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" value="' . esc_attr( $range['min'] ) . '" step="' . esc_attr( $step ) . '" />';
+			echo '<input type="range" class="productbay-price-range-max" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" value="' . esc_attr( $range['max'] ) . '" step="' . esc_attr( $step ) . '" />';
+			echo '</div>';
+		}
+
+		if ( $mode === 'input' || $mode === 'both' ) {
+			echo '<div class="productbay-price-inputs">';
+			echo '<input type="number" class="productbay-price-input-min" value="' . esc_attr( $range['min'] ) . '" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" step="' . esc_attr( $step ) . '" />';
+			echo '<span class="productbay-price-sep">&ndash;</span>';
+			echo '<input type="number" class="productbay-price-input-max" value="' . esc_attr( $range['max'] ) . '" min="' . esc_attr( $range['min'] ) . '" max="' . esc_attr( $range['max'] ) . '" step="' . esc_attr( $step ) . '" />';
+			echo '</div>';
+		}
+
+		echo '</div>';
 	}
 
 	/**

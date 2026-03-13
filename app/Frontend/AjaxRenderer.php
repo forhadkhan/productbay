@@ -90,6 +90,8 @@ class AjaxRenderer {
 		$s        = sanitize_text_field( wp_unslash( $_POST['s'] ?? '' ) );
 		$paged    = intval( $_POST['paged'] ?? 1 );
 		$page_url = esc_url_raw( wp_unslash( $_POST['page_url'] ?? '' ) );
+		$price_min = isset( $_POST['price_min'] ) && $_POST['price_min'] !== '' ? floatval( $_POST['price_min'] ) : null;
+		$price_max = isset( $_POST['price_max'] ) && $_POST['price_max'] !== '' ? floatval( $_POST['price_max'] ) : null;
 
 		if ( ! $table_id ) {
 			\wp_send_json_error( array( 'message' => 'Invalid table ID' ) );
@@ -106,9 +108,11 @@ class AjaxRenderer {
 		$response = $renderer->render_ajax_response(
 			$table,
 			array(
-				's'        => $s,
-				'paged'    => $paged,
-				'page_url' => $page_url,
+				's'         => $s,
+				'paged'     => $paged,
+				'page_url'  => $page_url,
+				'price_min' => $price_min,
+				'price_max' => $price_max,
 			)
 		);
 
