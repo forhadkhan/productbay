@@ -1106,12 +1106,15 @@
 }
 
 /* ========================================================================
-   20. PRICE FILTER
+   20. FILTERS BAR
    ======================================================================== */
 
 .productbay-wrapper .productbay-filters-bar {
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     width: 100%;
+    gap: 12px;
     margin-bottom: 16px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
@@ -1120,21 +1123,48 @@
     margin-top: -8px; 
 }
 
+/* Filter heading "Filter" */
+.productbay-wrapper .productbay-filters-heading {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    padding-right: 4px;
+}
+
+/* Separator between filter groups */
+.productbay-wrapper .productbay-filter-separator {
+    display: block;
+    width: 1px;
+    height: 24px;
+    background: #cbd5e1;
+    flex-shrink: 0;
+}
+
 .productbay-wrapper .productbay-price-filter {
     display: flex;
     align-items: center;
     gap: 16px;
-    width: auto; /* Let flex control width based on actual content */
+    width: auto;
     margin: 0;
     padding: 0;
-    flex-wrap: wrap; /* Safety for very small screens */
+    flex-wrap: wrap;
 }
 
 /* Taxonomy & Type Filters */
 .productbay-wrapper .productbay-taxonomy-filters {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+}
+
+.productbay-wrapper .productbay-filter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
 }
 
 .productbay-wrapper .productbay-filter-select {
@@ -1158,6 +1188,91 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
+/* Custom multi-select checkbox dropdown */
+.productbay-wrapper .productbay-multiselect {
+    position: relative;
+    display: inline-block;
+}
+
+.productbay-wrapper .productbay-multiselect-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #475569;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.productbay-wrapper .productbay-multiselect-trigger:hover {
+    border-color: #94a3b8;
+}
+
+.productbay-wrapper .productbay-multiselect-open .productbay-multiselect-trigger {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.productbay-wrapper .productbay-multiselect-arrow {
+    font-size: 10px;
+    color: #94a3b8;
+    transition: transform 0.2s ease;
+}
+
+.productbay-wrapper .productbay-multiselect-open .productbay-multiselect-arrow {
+    transform: rotate(180deg);
+}
+
+.productbay-wrapper .productbay-multiselect-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 200px;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    padding: 4px 0;
+}
+
+.productbay-wrapper .productbay-multiselect-open .productbay-multiselect-dropdown {
+    display: block;
+}
+
+.productbay-wrapper .productbay-multiselect-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: #334155;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+}
+
+.productbay-wrapper .productbay-multiselect-option:hover {
+    background: #f1f5f9;
+}
+
+.productbay-wrapper .productbay-multiselect-option input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: #3b82f6;
+}
+
 .productbay-wrapper .productbay-filter-select:focus {
     outline: none;
     border-color: #3b82f6;
@@ -1168,10 +1283,26 @@
     border-color: #94a3b8;
 }
 
-.productbay-wrapper .productbay-filter-label {
-    font-size: 14px;
+/* Clear All Filters button */
+.productbay-wrapper .productbay-filters-clear {
+    margin-left: auto;
+    padding: 5px 14px;
+    font-size: 13px;
     font-weight: 500;
-    color: #475569;
+    color: #64748b;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.productbay-wrapper .productbay-filters-clear:hover {
+    color: #dc2626;
+    background: #fef2f2;
+    border-color: #fca5a5;
 }
 
 .productbay-wrapper .productbay-price-slider-wrap {

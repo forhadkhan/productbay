@@ -62,6 +62,8 @@
             this.features = JSON.parse(this.$wrapper.attr('data-features') || '{}');
             this.bindEvents();
             this.initPriceFilter();
+            this.initTaxonomyFilters();
+            this.initFiltersClear();
         }
 
         /**
@@ -156,7 +158,9 @@
 
             if (this.searchTimeout) clearTimeout(this.searchTimeout);
             this.searchTimeout = setTimeout(() => {
-                this.fetchProducts({ s: query, paged: 1, _context: 'search' });
+                const state = this.gatherFilterState();
+                state.s = query;
+                this.fetchProducts({ ...state, paged: 1, _context: 'search' });
             }, 400);
         }
 
@@ -187,37 +191,132 @@
             const $filters = this.$wrapper.find('.productbay-taxonomy-filters');
             if (!$filters.length) return;
 
+            // Single-select dropdowns (e.g. product_type)
             $filters.on('change', '.productbay-filter-select', this.handleTaxonomyFilter.bind(this));
+
+            // Custom multi-select dropdown toggle
+            this.$wrapper.on('click', '.productbay-multiselect-trigger', function(e) {
+                e.stopPropagation();
+                const $dropdown = $(this).siblings('.productbay-multiselect-dropdown');
+                const $parent = $(this).closest('.productbay-multiselect');
+
+                // Close any other open dropdowns first
+                $('.productbay-multiselect.productbay-multiselect-open').not($parent).removeClass('productbay-multiselect-open');
+
+                $parent.toggleClass('productbay-multiselect-open');
+            });
+
+            // Checkbox change inside multi-select
+            const self = this;
+            this.$wrapper.on('change', '.productbay-multiselect-option input[type="checkbox"]', function() {
+                const $multi = $(this).closest('.productbay-multiselect');
+                const checked = $multi.find('input[type="checkbox"]:checked');
+                const count = checked.length;
+                const text = count > 0
+                    ? count + ' selected'
+                    : productbay_frontend.all_categories_text || 'All Categories';
+                $multi.find('.productbay-multiselect-text').text(text);
+
+                self.handleTaxonomyFilter();
+            });
+
+            // Close dropdown on outside click
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.productbay-multiselect').length) {
+                    $('.productbay-multiselect.productbay-multiselect-open').removeClass('productbay-multiselect-open');
+                }
+            });
         }
 
-        handleTaxonomyFilter() {
-            const search  = this.$searchInput.val() || '';
-            const product_cat = this.$wrapper.find('.productbay-filter-select[data-filter="product_cat"]').val() || '';
-            const product_type = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]').val() || '';
+        initFiltersClear() {
+            this.$wrapper.on('click', '.productbay-filters-clear', this.handleFiltersClear.bind(this));
+        }
 
-            let min = null;
-            let max = null;
-            
-            if (this.$priceFilter) {
+        // ── Centralized Filter State ────────────────────────────────────
+
+        /**
+         * Collect the current state of ALL active filters into a single object.
+         * Every AJAX call should use this to avoid losing active filters.
+         */
+        gatherFilterState() {
+            const state = {
+                s: this.$searchInput.val() || '',
+                price_min: null,
+                price_max: null,
+                'product_cat[]': [],
+                product_type: '',
+                paged: 1,
+            };
+
+            // Price
+            if (this.$priceFilter && this.$priceFilter.length) {
                 const mode = this.$priceFilter.data('mode');
                 if (mode === 'slider' || mode === 'both') {
-                    min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
-                    max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
+                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
+                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
                 } else {
-                    min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
-                    max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
+                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
+                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
                 }
             }
 
-            this.fetchProducts({ 
-                s: search, 
-                price_min: min, 
-                price_max: max, 
-                product_cat: product_cat, 
-                product_type: product_type, 
-                paged: 1, 
-                _context: 'filter' 
-            });
+            // Categories (custom checkbox dropdown)
+            const $multiselect = this.$wrapper.find('.productbay-multiselect[data-filter="product_cat"]');
+            if ($multiselect.length) {
+                const selected = [];
+                $multiselect.find('input[type="checkbox"]:checked').each(function() {
+                    selected.push($(this).val());
+                });
+                state['product_cat[]'] = selected;
+            }
+
+            // Product Type
+            const $typeSelect = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]');
+            if ($typeSelect.length) {
+                state.product_type = $typeSelect.val() || '';
+            }
+
+            return state;
+        }
+
+        // ── Taxonomy Filter Handler ─────────────────────────────────────
+
+        handleTaxonomyFilter() {
+            const state = this.gatherFilterState();
+            this.fetchProducts({ ...state, paged: 1, _context: 'filter' });
+        }
+
+        // ── Clear All Filters ───────────────────────────────────────────
+
+        handleFiltersClear() {
+            // Reset search
+            this.$searchInput.val('');
+            this.$searchClear.hide();
+
+            // Reset price filter
+            if (this.$priceFilter && this.$priceFilter.length) {
+                const min = parseFloat(this.$priceFilter.data('min'));
+                const max = parseFloat(this.$priceFilter.data('max'));
+
+                this.$priceFilter.find('.productbay-price-range-min').val(min);
+                this.$priceFilter.find('.productbay-price-range-max').val(max);
+                this.$priceFilter.find('.productbay-price-input-min').val(min);
+                this.$priceFilter.find('.productbay-price-input-max').val(max);
+                this.updateSliderVisuals(this.$priceFilter);
+            }
+
+            // Reset single-select taxonomy dropdowns
+            this.$wrapper.find('.productbay-filter-select').val('');
+
+            // Reset custom multi-select checkboxes
+            this.$wrapper.find('.productbay-multiselect input[type="checkbox"]').prop('checked', false);
+            this.$wrapper.find('.productbay-multiselect-text').text(
+                productbay_frontend.all_categories_text || 'All Categories'
+            );
+            this.$wrapper.find('.productbay-multiselect-open').removeClass('productbay-multiselect-open');
+
+            // Fetch with empty state
+            this.fetchProducts({ s: '', paged: 1, _context: 'filter' });
         }
 
         updateSliderVisuals($filter) {
@@ -306,19 +405,10 @@
         debouncedPriceFilter(min, max) {
             if (this.priceFilterTimeout) clearTimeout(this.priceFilterTimeout);
             this.priceFilterTimeout = setTimeout(() => {
-                const search = this.$searchInput.val() || '';
-                const product_cat = this.$wrapper.find('.productbay-filter-select[data-filter="product_cat"]').val() || '';
-                const product_type = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]').val() || '';
-
-                this.fetchProducts({ 
-                    s: search, 
-                    price_min: min, 
-                    price_max: max, 
-                    product_cat: product_cat, 
-                    product_type: product_type,
-                    paged: 1, 
-                    _context: 'filter' 
-                });
+                const state = this.gatherFilterState();
+                state.price_min = min;
+                state.price_max = max;
+                this.fetchProducts({ ...state, paged: 1, _context: 'filter' });
             }, 500);
         }
 
@@ -341,33 +431,8 @@
             }
 
             paged = parseInt(paged, 10) || 1;
-            const search = this.$searchInput.val() || '';
-            
-            let min = null;
-            let max = null;
-            if (this.$priceFilter) {
-                const mode = this.$priceFilter.data('mode');
-                if (mode === 'slider' || mode === 'both') {
-                    min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
-                    max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
-                } else {
-                    min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
-                    max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
-                }
-            }
-
-            const product_cat = this.$wrapper.find('.productbay-filter-select[data-filter="product_cat"]').val() || '';
-            const product_type = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]').val() || '';
-
-            this.fetchProducts({ 
-                s: search, 
-                paged: paged, 
-                price_min: min, 
-                price_max: max, 
-                product_cat: product_cat, 
-                product_type: product_type,
-                _context: 'pagination' 
-            });
+            const state = this.gatherFilterState();
+            this.fetchProducts({ ...state, paged: paged, _context: 'pagination' });
         }
 
         // ── AJAX Fetch ──────────────────────────────────────────────────

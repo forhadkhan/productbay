@@ -92,8 +92,21 @@ class AjaxRenderer {
 		$page_url = esc_url_raw( wp_unslash( $_POST['page_url'] ?? '' ) );
 		$price_min = isset( $_POST['price_min'] ) && $_POST['price_min'] !== '' ? floatval( $_POST['price_min'] ) : null;
 		$price_max = isset( $_POST['price_max'] ) && $_POST['price_max'] !== '' ? floatval( $_POST['price_max'] ) : null;
-		$category  = isset( $_POST['product_cat'] ) ? sanitize_text_field( wp_unslash( $_POST['product_cat'] ) ) : '';
 		$type      = isset( $_POST['product_type'] ) ? sanitize_text_field( wp_unslash( $_POST['product_type'] ) ) : '';
+
+		// Categories can arrive as an array (multi-select) or comma-separated string.
+		// jQuery sends arrays as product_cat[] but PHP may also receive product_cat.
+		$category = array();
+		$raw_cat_key = isset( $_POST['product_cat'] ) ? 'product_cat' : ( isset( $_POST['product_cat[]'] ) ? 'product_cat[]' : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce checked above
+		if ( $raw_cat_key ) {
+			$raw_cats = wp_unslash( $_POST[ $raw_cat_key ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized below per element
+			if ( is_array( $raw_cats ) ) {
+				$category = array_map( 'sanitize_text_field', $raw_cats );
+			} else {
+				$category = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $raw_cats ) ) );
+			}
+			$category = array_filter( $category );
+		}
 
 		if ( ! $table_id ) {
 			\wp_send_json_error( array( 'message' => 'Invalid table ID' ) );
