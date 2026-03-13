@@ -48,6 +48,14 @@ class TableRenderer
 	);
 
 	/**
+	 * Lightbox feature enabled flag for the current render context.
+	 *
+	 * @var bool
+	 * @since 1.0.2
+	 */
+	protected $lightbox_enabled = true;
+
+	/**
 	 * Initialize the renderer.
 	 *
 	 * @param TableRepository $repository Table repository instance.
@@ -108,8 +116,10 @@ class TableRenderer
 			array(
 			'enable' => true,
 			'showQuantity' => true,
-		)
-		);
+		));
+
+		// Store lightbox settings for use in render methods.
+		$this->lightbox_enabled = isset($settings['features']['lightbox']) ? $settings['features']['lightbox'] : true;
 
 		// 1. Prepare Query Arguments.
 		$args = $this->build_query_args($source, $settings, $runtime_args);
@@ -408,6 +418,25 @@ class TableRenderer
 			$this->render_pagination($query, $settings, $runtime_args);
 		}
 
+		// Lightbox markup
+		if ($this->lightbox_enabled) {
+			echo '<dialog class="productbay-lightbox">';
+			echo '<div class="productbay-lightbox-backdrop"></div>';
+			echo '<div class="productbay-lightbox-content">';
+			echo '<img src="" alt="" class="productbay-lightbox-img" />';
+			echo '<div class="productbay-lightbox-actions">';
+			echo '<button class="productbay-lightbox-fullscreen" aria-label="' . esc_attr__('Toggle Fullscreen', 'productbay') . '">';
+			echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="productbay-icon-maximize"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>';
+			echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="productbay-icon-minimize" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>';
+			echo '</button>';
+			echo '<button class="productbay-lightbox-close" aria-label="' . esc_attr__('Close', 'productbay') . '">';
+			echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+			echo '</button>';
+			echo '</div>'; // close .productbay-lightbox-actions
+			echo '</div>'; // close .productbay-lightbox-content
+			echo '</dialog>';
+		}
+
 		echo '</div>'; // .productbay-wrapper.
 
 		/**
@@ -585,10 +614,13 @@ class TableRenderer
 			case 'image':
 				$size = $settings['imageSize'] ?? 'thumbnail';
 				$img = $product->get_image($size);
-				if (($settings['linkTarget'] ?? '') === 'product') {
+				$full_url = wp_get_attachment_image_url((int) $product->get_image_id(), 'large');
+
+				if ($this->lightbox_enabled && $full_url) {
+					echo '<div class="productbay-lightbox-trigger" data-full-url="' . esc_url($full_url) . '">' . wp_kses_post($img) . '</div>';
+				} elseif (($settings['linkTarget'] ?? '') === 'product') {
 					echo '<a href="' . esc_url($product->get_permalink()) . '">' . wp_kses_post($img) . '</a>';
-				}
-				else {
+				} else {
 					echo wp_kses_post($img);
 				}
 				break;

@@ -1426,3 +1426,121 @@
     color: #64748b;
     font-size: 14px;
 }
+/* ==========================================================================
+   Lightbox
+   ========================================================================== */
+
+dialog.productbay-lightbox {
+    border: none;
+    background: transparent;
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 0;
+    margin: auto;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+/* Remove display block override as it can break native dialog behavior */
+
+dialog.productbay-lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.productbay-lightbox-backdrop {
+    display: none; /* Native backdrop ::backdrop is used, but keeping this for potential polyfills */
+}
+
+.productbay-lightbox-content {
+    position: relative;
+    background: #fff;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.productbay-lightbox-img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(90vh - 16px);
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.productbay-lightbox-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.productbay-lightbox-close,
+.productbay-lightbox-fullscreen {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.productbay-lightbox-close:hover,
+.productbay-lightbox-fullscreen:hover {
+    background: #fff;
+    transform: scale(1.05);
+}
+
+/* Fullscreen Modifier */
+.productbay-lightbox-is-fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #000 !important;
+    z-index: 2147483647 !important; /* Maximum possible z-index */
+    overflow: hidden !important;
+}
+
+.productbay-lightbox-is-fullscreen .productbay-lightbox-content {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.productbay-lightbox-is-fullscreen .productbay-lightbox-img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.productbay-lightbox-trigger {
+    cursor: zoom-in;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.productbay-lightbox-trigger:hover {
+    transform: scale(1.02);
+}

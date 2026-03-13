@@ -99,6 +99,17 @@ export const OptionsPanel = ({
                         className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     />
                 </SettingsOption>
+
+                {/* Enable Image Lightbox */}
+                <SettingsOption
+                    title={__('Enable Image Lightbox', 'productbay')}
+                    description={__('Show full-size product images in a popup when clicked', 'productbay')}
+                >
+                    <Toggle
+                        checked={settings.features.lightbox ?? true}
+                        onChange={(e) => setFeatures({ lightbox: e.target.checked })}
+                    />
+                </SettingsOption>
             </SettingsSection>
 
             {/* Price Range Filter Settings */}

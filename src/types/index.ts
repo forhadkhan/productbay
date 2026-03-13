@@ -189,6 +189,9 @@ export interface TableSettings {
         selectedItemsPanel: {
             enabled: boolean;
         };
+
+        /** Enable native image lightbox */
+        lightbox: boolean;
     };
 
     /** Pagination configuration */
@@ -353,6 +356,7 @@ export const createDefaultSettings = (): TableSettings => ({
         selectedItemsPanel: {
             enabled: true,
         },
+        lightbox: true,
     },
     pagination: {
         limit: 10,

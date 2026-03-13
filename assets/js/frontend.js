@@ -64,6 +64,7 @@
             this.initPriceFilter();
             this.initTaxonomyFilters();
             this.initFiltersClear();
+            this.initLightbox();
         }
 
         /**
@@ -317,6 +318,59 @@
 
             // Fetch with empty state
             this.fetchProducts({ s: '', paged: 1, _context: 'filter' });
+        }
+
+        // ── Lightbox ────────────────────────────────────────────────────
+
+        initLightbox() {
+            const $dialog = this.$wrapper.find('.productbay-lightbox');
+            if (!$dialog.length) return;
+
+            this.$lightbox = $dialog;
+            
+            // Open Lightbox
+            this.$wrapper.on('click', '.productbay-lightbox-trigger', (e) => {
+                e.preventDefault();
+                const src = $(e.currentTarget).data('full-url');
+                if (src) {
+                    $dialog.find('.productbay-lightbox-img').attr('src', src);
+                    $dialog[0].showModal();
+                }
+            });
+
+            // Close Lightbox
+            this.$wrapper.on('click', '.productbay-lightbox-close, .productbay-lightbox-backdrop', () => {
+                if ($dialog[0].open) {
+                    $dialog.removeClass('productbay-lightbox-is-fullscreen');
+                    $dialog.find('.productbay-icon-maximize').show();
+                    $dialog.find('.productbay-icon-minimize').hide();
+
+                    $dialog[0].close();
+                    $dialog.find('.productbay-lightbox-img').attr('src', '');
+                }
+            });
+
+            // Toggle Fullscreen
+            this.$wrapper.on('click', '.productbay-lightbox-fullscreen', () => {
+                const isFullscreen = $dialog.hasClass('productbay-lightbox-is-fullscreen');
+                if (isFullscreen) {
+                    $dialog.removeClass('productbay-lightbox-is-fullscreen');
+                    $dialog.find('.productbay-icon-maximize').show();
+                    $dialog.find('.productbay-icon-minimize').hide();
+                } else {
+                    $dialog.addClass('productbay-lightbox-is-fullscreen');
+                    $dialog.find('.productbay-icon-maximize').hide();
+                    $dialog.find('.productbay-icon-minimize').show();
+                }
+            });
+            
+            // Make escape key work naturally
+            $dialog.on('cancel', (e) => {
+                $dialog.removeClass('productbay-lightbox-is-fullscreen');
+                $dialog.find('.productbay-icon-maximize').show();
+                $dialog.find('.productbay-icon-minimize').hide();
+                $dialog.find('.productbay-lightbox-img').attr('src', '');
+            });
         }
 
         updateSliderVisuals($filter) {
