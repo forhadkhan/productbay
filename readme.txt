@@ -160,6 +160,7 @@ For the free version, please use the support forum on this plugin's WordPress.or
 
 * Bulk selection no longer resets when paginating or searching.
 * Selected products persist across page navigation and page reloads.
+* Live Preview: Fixed a rare infinite height growth bug during config changes and device scaling.
 
 = 1.0.0 =
 **Added**

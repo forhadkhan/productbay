@@ -76,12 +76,20 @@ class PreviewController extends ApiController {
 		// can load the base stylesheet for proper style isolation.
 		$css_file = PRODUCTBAY_PATH . 'assets/css/frontend.css';
 		$css_ver  = file_exists( $css_file ) ? filemtime( $css_file ) : PRODUCTBAY_VERSION;
-		$css_url  = PRODUCTBAY_URL . 'assets/css/frontend.css?ver=' . $css_ver;
+		$base_css = PRODUCTBAY_URL . 'assets/css/frontend.css?ver=' . $css_ver;
+
+		/**
+		 * Filters the array of CSS URLs to load in the live preview iframe.
+		 *
+		 * @since 1.0.1
+		 * @param array $css_urls Array of CSS URLs.
+		 */
+		$css_urls = apply_filters( 'productbay_preview_css_urls', array( $base_css ) );
 
 		return \rest_ensure_response(
 			array(
-				'html'   => $html,
-				'cssUrl' => $css_url,
+				'html'    => $html,
+				'cssUrls' => $css_urls,
 			)
 		);
 	}
