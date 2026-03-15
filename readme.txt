@@ -153,7 +153,6 @@ For the free version, please use the support forum on this plugin's WordPress.or
 * Variation badges: visual indicators showing which variations were added to cart with precise quantities natively synced with the WooCommerce Cart.
 * Clear All Selections: A global "Clear all" button that allows users to instantly reset their bulk selections.
 * Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
-* Price Range Filter: Dual slider and/or numeric min-max inputs to filter products by price on the frontend. Mode is fully configurable (Slider, Input, Both) with auto-detection of price extremes or custom bounds.
 * Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
 * Image Lightbox: Native modal/popup display for product images with fullscreen toggling and close controls, utilizing native browser resources for maximum performance.
 
