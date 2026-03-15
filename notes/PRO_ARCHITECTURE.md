@@ -287,6 +287,43 @@ The pro plugin ships **its own React bundle and frontend assets** separately fro
 | Frontend CSS | `assets/css/productbay-pro-frontend.css` | Pro column styles, responsive modes |
 | Build pipeline | `webpack.config.js` + `@wordpress/scripts` | Compiles pro's own bundles |
 
+### Shared UI Components (Global UI)
+
+To maintain design consistency and reduce the Pro bundle size, the Free plugin strictly avoids duplicating common UI components (e.g., `<Button>`, `<Toggle>`, `<Select>`). Instead, the Free plugin exposes its entire UI component library globally.
+
+**1. Exposure (Free)**
+The Free plugin exports all of its reusable React components onto the global window object during initialization in its main entrypoint (`src/index.tsx`):
+```tsx
+window.productbay = window.productbay || {};
+window.productbay.ui = { Button, Toggle, Select /* ... */ };
+```
+
+**2. Type Safety (Pro)**
+To retain strict TypeScript support, the Pro plugin defines this global object in a declaration file (`src/types/productbay.d.ts`):
+```tsx
+declare global {
+    interface Window {
+        productbay: {
+            ui: {
+                Button: React.FC<ButtonProps>;
+                // ...
+            };
+        };
+    }
+}
+```
+
+**3. Consumption Proxy (Pro)**
+Finally, the Pro plugin creates a proxy export file (`src/components/ui/index.ts`) that pulls from the global object. This allows Pro developers to write clean, standard imports without knowing they are bridging plugins:
+```tsx
+// Pro plugin implementation
+const { Button } = window.productbay.ui;
+export { Button };
+
+// Pro usage example
+import { Button } from '@/components/ui';
+```
+
 > **See Also**: [Pro_Plan.md](../instructions/Pro_Plan.md) for the full prioritized feature list and implementation details per module.
 
 ---
