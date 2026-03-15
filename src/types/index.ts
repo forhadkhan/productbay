@@ -159,15 +159,6 @@ export interface TableSettings {
         /** Enable CSV/PDF export */
         export: boolean;
 
-        /** Enable price range filter */
-        priceFilter: {
-            enabled: boolean;
-            mode: 'slider' | 'input' | 'both';
-            step: number;
-            customMin: number | null;
-            customMax: number | null;
-        };
-
         /** Bulk Selection Settings */
         bulkSelect: {
             enabled: boolean;
@@ -338,13 +329,6 @@ export const createDefaultSettings = (): TableSettings => ({
         sorting: true,
         pagination: true,
         export: false,
-        priceFilter: {
-            enabled: false,
-            mode: 'both',
-            step: 1,
-            customMin: null,
-            customMax: null,
-        },
         bulkSelect: {
             enabled: true,
             position: 'last',

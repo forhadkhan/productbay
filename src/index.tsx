@@ -7,6 +7,15 @@ import { PATHS } from './utils/routes';
 
 import domReady from '@wordpress/dom-ready';
 import { createRoot } from '@wordpress/element';
+import { useTableStore } from './store/tableStore';
+import { useExtensionStore } from './store/extensionStore';
+
+// Expose core hooks to window for Pro plugins
+(window as any).productbay = {
+	...((window as any).productbay || {}),
+	useTableStore,
+	useExtensionStore,
+};
 
 domReady(() => {
 	// Handle deep linking from WP Admin Menu

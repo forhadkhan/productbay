@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-13T21:39:38+00:00\n"
+"POT-Creation-Date: 2026-03-14T17:53:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -133,92 +133,88 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:251
+#: app/Frontend/TableRenderer.php:249
 #: assets/js/admin.js:25
 msgid "Filter"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:278
+#: app/Frontend/TableRenderer.php:268
 msgid "Reset all filters to default"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:278
-#: app/Frontend/TableRenderer.php:1479
+#: app/Frontend/TableRenderer.php:268
+#: app/Frontend/TableRenderer.php:1361
 #: assets/js/admin.js:22
 msgid "Clear"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:409
-#: app/Frontend/TableRenderer.php:1677
+#: app/Frontend/TableRenderer.php:399
+#: app/Frontend/TableRenderer.php:1559
 msgid "No products found."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:428
+#: app/Frontend/TableRenderer.php:418
 msgid "Toggle Fullscreen"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:432
+#: app/Frontend/TableRenderer.php:422
 #: assets/js/admin.js:13
 #: assets/js/admin.js:16
 #: assets/js/admin.js:30
 msgid "Close"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:686
+#: app/Frontend/TableRenderer.php:658
 msgid "Buy product"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:696
+#: app/Frontend/TableRenderer.php:668
 msgid "View Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:704
+#: app/Frontend/TableRenderer.php:676
 msgid "Out of Stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:712
+#: app/Frontend/TableRenderer.php:684
 msgid "Select Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:791
+#: app/Frontend/TableRenderer.php:763
 msgid "Add to cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:823
+#: app/Frontend/TableRenderer.php:795
 msgid "Increase quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:824
+#: app/Frontend/TableRenderer.php:796
 msgid "Decrease quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1345
-msgid "Price:"
-msgstr ""
-
 #. translators: %d: number of selected categories
-#: app/Frontend/TableRenderer.php:1413
+#: app/Frontend/TableRenderer.php:1295
 #, php-format
 msgid "%s selected"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1414
+#: app/Frontend/TableRenderer.php:1296
 msgid "All Categories"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1416
+#: app/Frontend/TableRenderer.php:1298
 msgid "Category:"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1449
+#: app/Frontend/TableRenderer.php:1331
 msgid "Type:"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1451
+#: app/Frontend/TableRenderer.php:1333
 msgid "All Types"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1478
+#: app/Frontend/TableRenderer.php:1360
 msgid "Search products..."
 msgstr ""
 
@@ -699,62 +695,6 @@ msgstr ""
 
 #: assets/js/admin.js:13
 msgid "Show full-size product images in a popup when clicked"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Price Range Filter"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Configure frontend price filtering options"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Enable Price Filter"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Allow users to filter products by price"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Filter Mode"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Display slider, numeric inputs, or both"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Both"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Slider Only"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Inputs Only"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Slider Step Amount"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "The increment step value for the price slider"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Custom Minimum Price"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Leave empty to auto-detect from table products"
-msgstr ""
-
-#: assets/js/admin.js:13
-msgid "Custom Maximum Price"
 msgstr ""
 
 #: assets/js/admin.js:13

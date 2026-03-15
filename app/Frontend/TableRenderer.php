@@ -129,11 +129,11 @@ class TableRenderer
 		 *
 		 * @since 1.0.1
 		 *
-		 * @param array $args     WP_Query arguments.
-		 * @param array $source   The table source configuration.
-		 * @param array $settings The table settings.
+		 * @param array $args         WP_Query arguments.
+		 * @param array $settings     The table settings.
+		 * @param array $runtime_args The runtime arguments (search, AJAX filters).
 		 */
-		$args = \apply_filters('productbay_query_args', $args, $source, $settings);
+		$args = \apply_filters('productbay_query_args', $args, $settings, $runtime_args);
 
 		// 2. Execute Query.
 		$query = new \WP_Query($args);
@@ -243,29 +243,17 @@ class TableRenderer
 		// Filters Bar.
 		ob_start();
 
-		$has_price_filter = !empty($settings['features']['priceFilter']['enabled']);
 		$has_tax_filters = !empty($settings['filters']['enabled']);
-		$has_any_filter = $has_price_filter || $has_tax_filters;
 
-		if ($has_any_filter) {
+		if ($has_tax_filters) {
 			echo '<span class="productbay-filters-heading">' . esc_html__('Filter', 'productbay') . '</span>';
 		}
 
-		if ($has_price_filter) {
-			$this->render_price_filter($settings, $source);
-		}
-
-		if ($has_price_filter && $has_tax_filters) {
-			echo '<span class="productbay-filter-separator"></span>';
-		}
-
-		if ($has_tax_filters) {
-			$this->render_taxonomy_filters($settings, $runtime_args);
-		}
+		// Taxonomy Filters (from free plugin).
+		$this->render_taxonomy_filters($settings, $runtime_args);
 
 		/**
-		 * Fires inside the filters bar, after built-in filters.
-		 * Allows rendering custom filters.
+		 * Action to render additional filters (e.g. from Pro extensions).
 		 *
 		 * @since 1.0.1
 		 *
@@ -274,7 +262,7 @@ class TableRenderer
 		 */
 		\do_action('productbay_render_filters', $settings, $source);
 
-		if ($has_any_filter) {
+		if ($has_tax_filters || !empty($settings['features']['priceFilter']['enabled'])) {
 			echo '<button type="button" class="productbay-filters-clear" title="' . esc_attr__('Reset all filters to default', 'productbay') . '">' . esc_html__('Clear', 'productbay') . '</button>';
 		}
 
@@ -574,24 +562,6 @@ class TableRenderer
 				'key' => '_stock_status',
 				'value' => $stock_status,
 			);
-		}
-
-		// Handle Price Range.
-		$has_runtime_min = isset($runtime_args['price_min']);
-		$has_runtime_max = isset($runtime_args['price_max']);
-
-		if ($has_runtime_min || $has_runtime_max || isset($query_args['priceRange']['min']) || isset($query_args['priceRange']['max'])) {
-			$min = $has_runtime_min ? $runtime_args['price_min'] : ($query_args['priceRange']['min'] ?? 0);
-			$max = $has_runtime_max ? $runtime_args['price_max'] : ($query_args['priceRange']['max'] ?? null);
-
-			$price_query = array(
-				'key' => '_price',
-				'value' => array($min, $max ?: 999999999), // Handle null max.
-				'compare' => 'BETWEEN',
-				'type' => 'NUMERIC',
-			);
-
-			$args['meta_query'][] = $price_query;
 		}
 
 		return $args;
@@ -1273,97 +1243,7 @@ class TableRenderer
 		return '';
 	}
 
-	/**
-	 * Get the min and max price for the current query or custom settings.
-	 *
-	 * @param array $source   Database source configuration.
-	 * @param array $settings Table settings.
-	 * @return array
-	 */
-	private function get_price_range($source, $settings)
-	{
-		$custom_min = $settings['features']['priceFilter']['customMin'] ?? null;
-		$custom_max = $settings['features']['priceFilter']['customMax'] ?? null;
 
-		if ($custom_min !== null && $custom_max !== null) {
-			return array(
-				'min' => floatval($custom_min),
-				'max' => floatval($custom_max),
-			);
-		}
-
-		// Auto-detect from this table's products. We do a lightweight query.
-		$args = $this->build_query_args($source, $settings);
-		$args['posts_per_page'] = -1;
-		$args['fields'] = 'ids';
-		unset($args['paged']);
-
-		$query = new \WP_Query($args);
-		$min = PHP_FLOAT_MAX;
-		$max = 0;
-
-		foreach ($query->posts as $pid) {
-			$product = wc_get_product($pid);
-			if (!$product) {
-				continue;
-			}
-			$price = floatval($product->get_price());
-			if ($price < $min) {
-				$min = $price;
-			}
-			if ($price > $max) {
-				$max = $price;
-			}
-		}
-		wp_reset_postdata();
-
-		return array(
-			'min' => $custom_min !== null ? floatval($custom_min) : ($min === PHP_FLOAT_MAX ? 0 : floor($min)),
-			'max' => $custom_max !== null ? floatval($custom_max) : ceil($max),
-		);
-	}
-
-	/**
-	 * Render price filter HTML.
-	 *
-	 * @param array $settings Table settings.
-	 * @param array $source   Database source configuration.
-	 * @return void
-	 */
-	private function render_price_filter($settings, $source)
-	{
-		$config = $settings['features']['priceFilter'] ?? array();
-		if (empty($config['enabled'])) {
-			return;
-		}
-
-		$range = $this->get_price_range($source, $settings);
-		$mode = $config['mode'] ?? 'both';
-		$step = $config['step'] ?? 1;
-
-		echo '<div class="productbay-price-filter" data-min="' . esc_attr((string) $range['min']) . '" data-max="' . esc_attr((string) $range['max']) . '" data-step="' . esc_attr((string) $step) . '" data-mode="' . esc_attr($mode) . '">';
-		echo '<span class="productbay-filter-label">' . esc_html__('Price:', 'productbay') . '</span>';
-
-		if ($mode === 'slider' || $mode === 'both') {
-			echo '<div class="productbay-price-slider-wrap">';
-			echo '<div class="productbay-price-tooltip productbay-price-tooltip-min"></div>';
-			echo '<div class="productbay-price-tooltip productbay-price-tooltip-max"></div>';
-			echo '<div class="productbay-price-slider-track-fill"></div>';
-			echo '<input type="range" class="productbay-price-range-min" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" value="' . esc_attr((string) $range['min']) . '" step="' . esc_attr((string) $step) . '" />';
-			echo '<input type="range" class="productbay-price-range-max" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" value="' . esc_attr((string) $range['max']) . '" step="' . esc_attr((string) $step) . '" />';
-			echo '</div>';
-		}
-
-		if ($mode === 'input' || $mode === 'both') {
-			echo '<div class="productbay-price-inputs">';
-			echo '<input type="number" class="productbay-price-input-min" value="' . esc_attr((string) $range['min']) . '" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" step="' . esc_attr((string) $step) . '" />';
-			echo '<span class="productbay-price-sep">&ndash;</span>';
-			echo '<input type="number" class="productbay-price-input-max" value="' . esc_attr((string) $range['max']) . '" min="' . esc_attr((string) $range['min']) . '" max="' . esc_attr((string) $range['max']) . '" step="' . esc_attr((string) $step) . '" />';
-			echo '</div>';
-		}
-
-		echo '</div>';
-	}
 
 	/**
 	 * Render taxonomy and product type filters.
@@ -1611,6 +1491,18 @@ class TableRenderer
 		);
 
 		$args = $this->build_query_args($source, $settings, $runtime_args);
+
+		/**
+		 * Filters the table query arguments.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param array $args         WP_Query arguments.
+		 * @param array $settings     Table settings.
+		 * @param array $runtime_args Runtime arguments from AJAX.
+		 */
+		$args = \apply_filters('productbay_query_args', $args, $settings, $runtime_args);
+
 		$query = new \WP_Query($args);
 
 		ob_start();

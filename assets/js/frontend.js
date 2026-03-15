@@ -61,7 +61,6 @@
         init() {
             this.features = JSON.parse(this.$wrapper.attr('data-features') || '{}');
             this.bindEvents();
-            this.initPriceFilter();
             this.initTaxonomyFilters();
             this.initFiltersClear();
             this.initLightbox();
@@ -121,6 +120,12 @@
             this.$wrapper.on('click', '.productbay-popup-close', this.closeSelectedItemsPopup.bind(this));
             this.$wrapper.on('click', '.productbay-popup-remove', this.handlePopupRemove.bind(this));
             this.$wrapper.on('click', '.productbay-popup-add-all', this.handlePopupAddAll.bind(this));
+
+            // Custom Filter Trigger (for Pro Price Filter)
+            this.$wrapper.on('productbay_filter_trigger', (e, data) => {
+                const state = this.gatherFilterState();
+                this.fetchProducts({ ...state, ...data, paged: 1, _context: 'filter' });
+            });
         }
 
         /**
@@ -169,28 +174,11 @@
             this.$searchInput.val('').trigger('input');
         }
 
-        // ── Price Filter ────────────────────────────────────────────────
 
-        initPriceFilter() {
-            const $filter = this.$wrapper.find('.productbay-price-filter');
-            if (!$filter.length) return;
-
-            this.$priceFilter = $filter;
-            const mode = $filter.data('mode');
-
-            if (mode === 'slider' || mode === 'both') {
-                $filter.on('input', '.productbay-price-range-min, .productbay-price-range-max', this.handlePriceSlider.bind(this));
-            }
-            if (mode === 'input' || mode === 'both') {
-                $filter.on('change', '.productbay-price-input-min, .productbay-price-input-max', this.handlePriceInput.bind(this));
-            }
-
-            this.updateSliderVisuals($filter);
-        }
 
         initTaxonomyFilters() {
             const $filters = this.$wrapper.find('.productbay-taxonomy-filters');
-            if (!$filters.length) return;
+            if (!$filters.length && !this.$wrapper.find('.productbay-price-filter').length) return;
 
             // Single-select dropdowns (e.g. product_type)
             $filters.on('change', '.productbay-filter-select', this.handleTaxonomyFilter.bind(this));
@@ -249,18 +237,6 @@
                 paged: 1,
             };
 
-            // Price
-            if (this.$priceFilter && this.$priceFilter.length) {
-                const mode = this.$priceFilter.data('mode');
-                if (mode === 'slider' || mode === 'both') {
-                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
-                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
-                } else {
-                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
-                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
-                }
-            }
-
             // Categories (custom checkbox dropdown)
             const $multiselect = this.$wrapper.find('.productbay-multiselect[data-filter="product_cat"]');
             if ($multiselect.length) {
@@ -275,6 +251,18 @@
             const $typeSelect = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]');
             if ($typeSelect.length) {
                 state.product_type = $typeSelect.val() || '';
+            }
+
+            // Price Filter (Pro)
+            const $priceFilter = this.$wrapper.find('.productbay-price-filter');
+            if ($priceFilter.length) {
+                const $minRange = $priceFilter.find('.productbay-price-range-min');
+                const $maxRange = $priceFilter.find('.productbay-price-range-max');
+                const $minInput = $priceFilter.find('.productbay-price-input-min');
+                const $maxInput = $priceFilter.find('.productbay-price-input-max');
+
+                state.price_min = $minRange.length ? $minRange.val() : ($minInput.length ? $minInput.val() : null);
+                state.price_max = $maxRange.length ? $maxRange.val() : ($maxInput.length ? $maxInput.val() : null);
             }
 
             return state;
@@ -293,18 +281,6 @@
             // Reset search
             this.$searchInput.val('');
             this.$searchClear.hide();
-
-            // Reset price filter
-            if (this.$priceFilter && this.$priceFilter.length) {
-                const min = parseFloat(this.$priceFilter.data('min'));
-                const max = parseFloat(this.$priceFilter.data('max'));
-
-                this.$priceFilter.find('.productbay-price-range-min').val(min);
-                this.$priceFilter.find('.productbay-price-range-max').val(max);
-                this.$priceFilter.find('.productbay-price-input-min').val(min);
-                this.$priceFilter.find('.productbay-price-input-max').val(max);
-                this.updateSliderVisuals(this.$priceFilter);
-            }
 
             // Reset single-select taxonomy dropdowns
             this.$wrapper.find('.productbay-filter-select').val('');
@@ -373,98 +349,7 @@
             });
         }
 
-        updateSliderVisuals($filter) {
-            const $minSlider = $filter.find('.productbay-price-range-min');
-            if (!$minSlider.length) return;
 
-            const minAbs = parseFloat($filter.data('min'));
-            const maxAbs = parseFloat($filter.data('max'));
-            let rangeSpan = maxAbs - minAbs;
-            if (rangeSpan <= 0) rangeSpan = 1; // Prevent division by zero
-
-            let minVal = parseFloat($minSlider.val());
-            let maxVal = parseFloat($filter.find('.productbay-price-range-max').val());
-
-            let minPct = ((minVal - minAbs) / rangeSpan) * 100;
-            let maxPct = ((maxVal - minAbs) / rangeSpan) * 100;
-            
-            minPct = Math.max(0, Math.min(100, minPct));
-            maxPct = Math.max(0, Math.min(100, maxPct));
-
-            $filter.find('.productbay-price-slider-track-fill').css({
-                left: minPct + '%',
-                width: (maxPct - minPct) + '%'
-            });
-
-            // Update Tooltips text
-            $filter.find('.productbay-price-tooltip-min').text(formatPrice(minVal)).css('left', minPct + '%');
-            $filter.find('.productbay-price-tooltip-max').text(formatPrice(maxVal)).css('left', maxPct + '%');
-        }
-
-        handlePriceSlider(e) {
-            const $filter = this.$priceFilter;
-            let min = parseFloat($filter.find('.productbay-price-range-min').val());
-            let max = parseFloat($filter.find('.productbay-price-range-max').val());
-
-            // Prevent min slider crossing max slider
-            if (min > max) {
-                if ($(e.currentTarget).hasClass('productbay-price-range-min')) {
-                    min = max;
-                    $filter.find('.productbay-price-range-min').val(min);
-                } else {
-                    max = min;
-                    $filter.find('.productbay-price-range-max').val(max);
-                }
-            }
-
-            // Sync to inputs
-            $filter.find('.productbay-price-input-min').val(min);
-            $filter.find('.productbay-price-input-max').val(max);
-
-            this.updateSliderVisuals($filter);
-            this.debouncedPriceFilter(min, max);
-        }
-
-        handlePriceInput(e) {
-            const $filter = this.$priceFilter;
-            let min = parseFloat($filter.find('.productbay-price-input-min').val());
-            let max = parseFloat($filter.find('.productbay-price-input-max').val());
-            
-            const absoluteMin = parseFloat($filter.data('min'));
-            const absoluteMax = parseFloat($filter.data('max'));
-            
-            if (isNaN(min) || min < absoluteMin) min = absoluteMin;
-            if (isNaN(max) || max > absoluteMax) max = absoluteMax;
-            
-            // Prevent min input crossing max input
-            if (min > max) {
-                if ($(e.currentTarget).hasClass('productbay-price-input-min')) {
-                    min = max;
-                } else {
-                    max = min;
-                }
-            }
-
-            $filter.find('.productbay-price-input-min').val(min);
-            $filter.find('.productbay-price-input-max').val(max);
-            
-            // Sync to sliders
-            $filter.find('.productbay-price-range-min').val(min);
-            $filter.find('.productbay-price-range-max').val(max);
-
-            this.updateSliderVisuals($filter);
-            this.debouncedPriceFilter(min, max);
-        }
-
-        debouncedPriceFilter(min, max) {
-            if (this.priceFilterTimeout) clearTimeout(this.priceFilterTimeout);
-            this.priceFilterTimeout = setTimeout(() => {
-                const state = this.gatherFilterState();
-                state.price_min = min;
-                state.price_max = max;
-                this.fetchProducts({ ...state, paged: 1, _context: 'filter' });
-            }, 500);
-        }
 
         // ── Pagination ──────────────────────────────────────────────────
 
