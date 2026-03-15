@@ -12,14 +12,14 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/forhadkhan/productbay.git"
+		"url": "https://github.com/wpanchorbay/productbay.git"
 	},
 	"license": "GPL-2.0-or-later",
 	"main": "src/index.tsx",
 	"bugs": {
-		"url": "https://github.com/forhadkhan/productbay/issues"
+		"url": "https://github.com/wpanchorbay/productbay/issues"
 	},
-	"homepage": "https://github.com/forhadkhan/productbay#readme",
+	"homepage": "https://wpanchorbay.com/plugins/productbay",
 	"scripts": {
 		"tailwindbuild": "tailwindcss -i ./src/styles/main.css -o ./assets/css/admin.css --minify",
 		"tailwindwatch": "tailwindcss -i ./src/styles/main.css -o ./assets/css/admin.css --watch --minify",
