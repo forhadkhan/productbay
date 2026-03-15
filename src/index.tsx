@@ -10,11 +10,14 @@ import { createRoot } from '@wordpress/element';
 import { useTableStore } from './store/tableStore';
 import { useExtensionStore } from './store/extensionStore';
 
+import * as ui from './components/ui';
+
 // Expose core hooks to window for Pro plugins
 (window as any).productbay = {
 	...((window as any).productbay || {}),
 	useTableStore,
 	useExtensionStore,
+	ui,
 };
 
 domReady(() => {
