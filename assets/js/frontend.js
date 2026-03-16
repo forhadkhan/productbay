@@ -61,10 +61,10 @@
         init() {
             this.features = JSON.parse(this.$wrapper.attr('data-features') || '{}');
             this.bindEvents();
-            this.initPriceFilter();
             this.initTaxonomyFilters();
             this.initFiltersClear();
             this.initLightbox();
+            this.restoreSelections();
         }
 
         /**
@@ -90,22 +90,22 @@
 
             // Selection
             this.$selectAll.on('change', this.toggleSelectAll.bind(this));
-            this.$tbody.on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
+            $(document.body).on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
             this.$wrapper.on('click', '.productbay-btn-clear-all', this.handleClearAll.bind(this));
 
             // Quantity changes
-            this.$tbody.on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
-            this.$tbody.on('blur', '.productbay-qty', this.handleQuantityBlur.bind(this));
+            $(document.body).on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
+            $(document.body).on('blur', '.productbay-qty', this.handleQuantityBlur.bind(this));
 
             // Variation selection
-            this.$tbody.on('change', '.productbay-variation-select', this.handleVariationChange.bind(this));
+            $(document.body).on('change', '.productbay-variation-select', this.handleVariationChange.bind(this));
 
             // Quantity +/- buttons
-            this.$tbody.on('click', '.productbay-qty-minus', this.handleQtyMinus.bind(this));
-            this.$tbody.on('click', '.productbay-qty-plus', this.handleQtyPlus.bind(this));
+            $(document.body).on('click', '.productbay-qty-minus', this.handleQtyMinus.bind(this));
+            $(document.body).on('click', '.productbay-qty-plus', this.handleQtyPlus.bind(this));
 
             // Single add-to-cart buttons
-            this.$tbody.on('click', '.productbay-btn-addtocart', this.handleSingleAddToCart.bind(this));
+            $(document.body).on('click', '.productbay-btn-addtocart', this.handleSingleAddToCart.bind(this));
 
             // Bulk Action
             this.$bulkBtn.on('click', this.handleBulkAddToCart.bind(this));
@@ -121,6 +121,15 @@
             this.$wrapper.on('click', '.productbay-popup-close', this.closeSelectedItemsPopup.bind(this));
             this.$wrapper.on('click', '.productbay-popup-remove', this.handlePopupRemove.bind(this));
             this.$wrapper.on('click', '.productbay-popup-add-all', this.handlePopupAddAll.bind(this));
+
+            // Custom Filter Trigger (for Pro Price Filter)
+            this.$wrapper.on('productbay_filter_trigger', (e, data) => {
+                const state = this.gatherFilterState();
+                this.fetchProducts({ ...state, ...data, paged: 1, _context: 'filter' });
+            });
+
+            // Pro Plugin Modal Persistence
+            $(document.body).on('productbay_pro_modal_loaded', this.restoreModalSelections.bind(this));
         }
 
         /**
@@ -134,16 +143,44 @@
                     const data = $cartData.data('cart');
                     if (Array.isArray(data)) {
                         this.cartQuantities.clear();
-                        data.forEach(([k, v]) => this.cartQuantities.set(k, v));
-                        this.saveCartQuantitiesToStorage();
-
-                        // Give DOM a frame to settle, then redraw badges & buttons
-                        setTimeout(() => this.restoreCartBadges(), 50);
                     }
                 } catch (e) {
                     console.error('ProductBay: Failed to sync with WooCommerce cart fragments.', e);
                 }
             }
+        }
+
+        /**
+         * Restore previously checked items and quantities inside the newly injected HTML popup.
+         */
+        restoreModalSelections(e, modalContent) {
+            const $modal = $(modalContent);
+            
+            $modal.find('.productbay-select-product').each((i, checkbox) => {
+                const $checkbox = $(checkbox);
+                const $row = $checkbox.closest('tr');
+                const rawId = $checkbox.val();
+                
+                const storageKey = this.getStorageKey($row, rawId);
+                
+                if (this.selectedProducts.has(storageKey)) {
+                    const savedItem = this.selectedProducts.get(storageKey);
+                    
+                    // Restore checkbox state
+                    $checkbox.prop('checked', true);
+                    
+                    // Restore quantity input value
+                    const $qtyInput = $row.find('.productbay-qty');
+                    if ($qtyInput.length) {
+                        $qtyInput.val(savedItem.quantity);
+                        
+                        // Disable/enable arrows according to the restored value
+                        const min = parseInt($qtyInput.attr('min'), 10) || 1;
+                        const max = parseInt($qtyInput.attr('max'), 10) || Infinity;
+                        this.updateQtyButtons($qtyInput, savedItem.quantity, min, max);
+                    }
+                }
+            });
         }
 
         // ── Search ───────────────────────────────────────────────────────
@@ -169,28 +206,11 @@
             this.$searchInput.val('').trigger('input');
         }
 
-        // ── Price Filter ────────────────────────────────────────────────
 
-        initPriceFilter() {
-            const $filter = this.$wrapper.find('.productbay-price-filter');
-            if (!$filter.length) return;
-
-            this.$priceFilter = $filter;
-            const mode = $filter.data('mode');
-
-            if (mode === 'slider' || mode === 'both') {
-                $filter.on('input', '.productbay-price-range-min, .productbay-price-range-max', this.handlePriceSlider.bind(this));
-            }
-            if (mode === 'input' || mode === 'both') {
-                $filter.on('change', '.productbay-price-input-min, .productbay-price-input-max', this.handlePriceInput.bind(this));
-            }
-
-            this.updateSliderVisuals($filter);
-        }
 
         initTaxonomyFilters() {
             const $filters = this.$wrapper.find('.productbay-taxonomy-filters');
-            if (!$filters.length) return;
+            if (!$filters.length && !this.$wrapper.find('.productbay-price-filter').length) return;
 
             // Single-select dropdowns (e.g. product_type)
             $filters.on('change', '.productbay-filter-select', this.handleTaxonomyFilter.bind(this));
@@ -249,18 +269,6 @@
                 paged: 1,
             };
 
-            // Price
-            if (this.$priceFilter && this.$priceFilter.length) {
-                const mode = this.$priceFilter.data('mode');
-                if (mode === 'slider' || mode === 'both') {
-                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-range-min').val());
-                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-range-max').val());
-                } else {
-                    state.price_min = parseFloat(this.$priceFilter.find('.productbay-price-input-min').val());
-                    state.price_max = parseFloat(this.$priceFilter.find('.productbay-price-input-max').val());
-                }
-            }
-
             // Categories (custom checkbox dropdown)
             const $multiselect = this.$wrapper.find('.productbay-multiselect[data-filter="product_cat"]');
             if ($multiselect.length) {
@@ -275,6 +283,18 @@
             const $typeSelect = this.$wrapper.find('.productbay-filter-select[data-filter="product_type"]');
             if ($typeSelect.length) {
                 state.product_type = $typeSelect.val() || '';
+            }
+
+            // Price Filter (Pro)
+            const $priceFilter = this.$wrapper.find('.productbay-price-filter');
+            if ($priceFilter.length) {
+                const $minRange = $priceFilter.find('.productbay-price-range-min');
+                const $maxRange = $priceFilter.find('.productbay-price-range-max');
+                const $minInput = $priceFilter.find('.productbay-price-input-min');
+                const $maxInput = $priceFilter.find('.productbay-price-input-max');
+
+                state.price_min = $minRange.length ? $minRange.val() : ($minInput.length ? $minInput.val() : null);
+                state.price_max = $maxRange.length ? $maxRange.val() : ($maxInput.length ? $maxInput.val() : null);
             }
 
             return state;
@@ -293,18 +313,6 @@
             // Reset search
             this.$searchInput.val('');
             this.$searchClear.hide();
-
-            // Reset price filter
-            if (this.$priceFilter && this.$priceFilter.length) {
-                const min = parseFloat(this.$priceFilter.data('min'));
-                const max = parseFloat(this.$priceFilter.data('max'));
-
-                this.$priceFilter.find('.productbay-price-range-min').val(min);
-                this.$priceFilter.find('.productbay-price-range-max').val(max);
-                this.$priceFilter.find('.productbay-price-input-min').val(min);
-                this.$priceFilter.find('.productbay-price-input-max').val(max);
-                this.updateSliderVisuals(this.$priceFilter);
-            }
 
             // Reset single-select taxonomy dropdowns
             this.$wrapper.find('.productbay-filter-select').val('');
@@ -373,98 +381,7 @@
             });
         }
 
-        updateSliderVisuals($filter) {
-            const $minSlider = $filter.find('.productbay-price-range-min');
-            if (!$minSlider.length) return;
 
-            const minAbs = parseFloat($filter.data('min'));
-            const maxAbs = parseFloat($filter.data('max'));
-            let rangeSpan = maxAbs - minAbs;
-            if (rangeSpan <= 0) rangeSpan = 1; // Prevent division by zero
-
-            let minVal = parseFloat($minSlider.val());
-            let maxVal = parseFloat($filter.find('.productbay-price-range-max').val());
-
-            let minPct = ((minVal - minAbs) / rangeSpan) * 100;
-            let maxPct = ((maxVal - minAbs) / rangeSpan) * 100;
-            
-            minPct = Math.max(0, Math.min(100, minPct));
-            maxPct = Math.max(0, Math.min(100, maxPct));
-
-            $filter.find('.productbay-price-slider-track-fill').css({
-                left: minPct + '%',
-                width: (maxPct - minPct) + '%'
-            });
-
-            // Update Tooltips text
-            $filter.find('.productbay-price-tooltip-min').text(formatPrice(minVal)).css('left', minPct + '%');
-            $filter.find('.productbay-price-tooltip-max').text(formatPrice(maxVal)).css('left', maxPct + '%');
-        }
-
-        handlePriceSlider(e) {
-            const $filter = this.$priceFilter;
-            let min = parseFloat($filter.find('.productbay-price-range-min').val());
-            let max = parseFloat($filter.find('.productbay-price-range-max').val());
-
-            // Prevent min slider crossing max slider
-            if (min > max) {
-                if ($(e.currentTarget).hasClass('productbay-price-range-min')) {
-                    min = max;
-                    $filter.find('.productbay-price-range-min').val(min);
-                } else {
-                    max = min;
-                    $filter.find('.productbay-price-range-max').val(max);
-                }
-            }
-
-            // Sync to inputs
-            $filter.find('.productbay-price-input-min').val(min);
-            $filter.find('.productbay-price-input-max').val(max);
-
-            this.updateSliderVisuals($filter);
-            this.debouncedPriceFilter(min, max);
-        }
-
-        handlePriceInput(e) {
-            const $filter = this.$priceFilter;
-            let min = parseFloat($filter.find('.productbay-price-input-min').val());
-            let max = parseFloat($filter.find('.productbay-price-input-max').val());
-            
-            const absoluteMin = parseFloat($filter.data('min'));
-            const absoluteMax = parseFloat($filter.data('max'));
-            
-            if (isNaN(min) || min < absoluteMin) min = absoluteMin;
-            if (isNaN(max) || max > absoluteMax) max = absoluteMax;
-            
-            // Prevent min input crossing max input
-            if (min > max) {
-                if ($(e.currentTarget).hasClass('productbay-price-input-min')) {
-                    min = max;
-                } else {
-                    max = min;
-                }
-            }
-
-            $filter.find('.productbay-price-input-min').val(min);
-            $filter.find('.productbay-price-input-max').val(max);
-            
-            // Sync to sliders
-            $filter.find('.productbay-price-range-min').val(min);
-            $filter.find('.productbay-price-range-max').val(max);
-
-            this.updateSliderVisuals($filter);
-            this.debouncedPriceFilter(min, max);
-        }
-
-        debouncedPriceFilter(min, max) {
-            if (this.priceFilterTimeout) clearTimeout(this.priceFilterTimeout);
-            this.priceFilterTimeout = setTimeout(() => {
-                const state = this.gatherFilterState();
-                state.price_min = min;
-                state.price_max = max;
-                this.fetchProducts({ ...state, paged: 1, _context: 'filter' });
-            }, 500);
-        }
 
         // ── Pagination ──────────────────────────────────────────────────
 
@@ -571,9 +488,23 @@
         restoreSelections() {
             this.$tbody.find('.productbay-select-product').each((_, el) => {
                 const $cb = $(el);
-                const id = $cb.val();
-                if (this.selectedProducts.has(id)) {
+                const $row = $cb.closest('tr');
+                const rawId = $cb.val();
+                
+                const storageKey = this.getStorageKey($row, rawId);
+
+                if (this.selectedProducts.has(storageKey)) {
                     $cb.prop('checked', true);
+                    const savedItem = this.selectedProducts.get(storageKey);
+                    
+                    const $qtyInput = $row.find('.productbay-qty');
+                    if ($qtyInput.length) {
+                        $qtyInput.val(savedItem.quantity);
+                        
+                        const min = parseInt($qtyInput.attr('min'), 10) || 1;
+                        const max = parseInt($qtyInput.attr('max'), 10) || Infinity;
+                        this.updateQtyButtons($qtyInput, savedItem.quantity, min, max);
+                    }
                 }
             });
             this.syncSelectAllCheckbox();
@@ -662,7 +593,8 @@
             if ($checkbox.is(':disabled')) return;
 
             const $row = $checkbox.closest('tr');
-            const id = $checkbox.val();
+            const rawId = $checkbox.val(); // Original input value
+            let id = rawId; // Product ID (or variation ID if nested/popup)
             const price = parseFloat($checkbox.data('price') || 0);
 
             if ($checkbox.is(':checked')) {
@@ -676,6 +608,7 @@
                 let attributes = {};
                 let currentPrice = price;
 
+                // 1. Standard Inline Dropdown Method
                 if ($variableWrap.length) {
                     variationId = parseInt($variableWrap.find('.productbay-variation-id').val(), 10) || 0;
                     $variableWrap.find('.productbay-variation-select').each(function () {
@@ -685,17 +618,63 @@
                     // Use variation price if available
                     const varPrice = $variableWrap.data('current-variation-price');
                     if (varPrice) currentPrice = parseFloat(varPrice);
+                } 
+                // 2. Pro Plugin Nested/Popup Method
+                else if ($row.attr('data-parent-id')) {
+                    const parentId = $row.attr('data-parent-id');
+                    // For simple grouped children, they don't have variations, but they are their *own* products.
+                    // For variations, the row's ID is the variation_id, and the parent is the product_id.
+                    // The backend sets `data-product-type="simple"` for grouped children, so let's check it.
+                    const pType = $row.attr('data-product-type') || 'variation';
+                    
+                    if (pType !== 'simple') {
+                        variationId = parseInt(id, 10);
+                        id = parentId; // The actual WC cart product_id must be the parent
+                    }
+                    
+                    const attrData = $row.attr('data-attributes');
+                    if (attrData) {
+                        try {
+                            attributes = JSON.parse(attrData);
+                        } catch (e) {}
+                    }
                 }
 
-                this.selectedProducts.set(id, {
+                let storageKey = this.getStorageKey($row, rawId);
+
+                let name = $row.find('.productbay-product-title').text().trim();
+                let img = $row.find('img').first().attr('src');
+                
+                // Fallback for Pro Variation/Grouped Popup rows
+                if (!name) {
+                    name = $row.find('.productbay-pro-popup-col-name').text().trim();
+                }
+                
+                // Fallback for missing image (use parent image from main table)
+                if (!img && $row.attr('data-parent-id')) {
+                    const parentId = $row.attr('data-parent-id');
+                    img = this.$tbody.find(`tr[data-product-id="${parentId}"]`).find('img').first().attr('src');
+                    if (!name) {
+                        name = this.$tbody.find(`tr[data-product-id="${parentId}"]`).find('.productbay-product-title').text().trim() + ' - Variation';
+                    }
+                }
+
+                this.selectedProducts.set(storageKey, {
+                    productId: id, // Explicitly store productId since key might be compound
+                    parentId: $row.attr('data-parent-id') || null,
                     quantity,
                     price: currentPrice,
                     variationId,
                     attributes,
-                    productType: $row.data('product-type') || 'simple'
+                    productType: $row.data('product-type') || 'simple',
+                    name: name || '',
+                    img: img || ''
                 });
             } else {
-                this.selectedProducts.delete(id);
+                // Determine the correct key to delete
+                const storageKey = this.getStorageKey($row, rawId);
+
+                this.selectedProducts.delete(storageKey);
                 this.$selectAll.prop('checked', false);
             }
 
@@ -722,13 +701,42 @@
             $input.val(val);
             this.updateQtyButtons($input, val, min, max);
 
+            if (!$checkbox.is(':checked')) {
+                return; // Do not sync quantity to bulk cart if this row is unchecked
+            }
+
+            // Get the accurate storage key (handles variables/grouped dynamically)
+            const storageKey = this.getStorageKey($row, id);
+
             // Update selected product if checked
-            if (this.selectedProducts.has(id)) {
-                const item = this.selectedProducts.get(id);
+            if (this.selectedProducts.has(storageKey)) {
+                const item = this.selectedProducts.get(storageKey);
                 item.quantity = val;
                 this.updateBulkButton();
                 this.saveSelectionsToStorage();
             }
+        }
+
+        getStorageKey($row, rawId) {
+            let id = rawId;
+            let variationId = 0;
+            const $variableWrap = $row.find('.productbay-variable-wrap');
+
+            if ($variableWrap.length) {
+                variationId = parseInt($variableWrap.find('.productbay-variation-id').val(), 10) || 0;
+            } else if ($row.attr('data-parent-id')) {
+                const parentId = $row.attr('data-parent-id');
+                const pType = $row.attr('data-product-type') || 'variation';
+                if (pType !== 'simple') {
+                    variationId = parseInt(id, 10);
+                    id = parentId;
+                }
+            }
+
+            if (variationId) {
+                return id + '_' + variationId;
+            }
+            return id;
         }
 
         /**
@@ -976,9 +984,16 @@
             let totalItems = 0;
             let totalPrice = 0;
 
+            const parentCounts = new Map();
+
             this.selectedProducts.forEach(item => {
                 totalItems += item.quantity;
                 totalPrice += item.quantity * item.price;
+                
+                const pId = item.parentId || item.productId;
+                if (pId) {
+                    parentCounts.set(String(pId), (parentCounts.get(String(pId)) || 0) + 1);
+                }
             });
 
             if (count > 0) {
@@ -998,6 +1013,22 @@
             }
 
             this.renderSelectedItemsPopup();
+            this.updateParentRowBadges(parentCounts);
+        }
+
+        updateParentRowBadges(parentCounts) {
+            this.$tbody.find('.productbay-pro-btn-popup, .productbay-pro-btn-nested').each((i, btn) => {
+                const $btn = $(btn);
+                const pId = String($btn.data('product-id'));
+                const count = parentCounts.get(pId) || 0;
+                
+                $btn.find('.productbay-pro-btn-badge').remove();
+                
+                if (count > 0) {
+                    const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="display:inline-block;vertical-align:-1px;margin-right:2px"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    $btn.append(`<span class="productbay-pro-btn-badge" style="margin-left: 6px; font-weight: 600; color: #15803d; background: #dcfce7; padding: 2px 6px; border-radius: 12px; font-size: 12px; display: inline-flex; align-items: center;">${checkSvg}${count}</span>`);
+                }
+            });
         }
 
         handleBulkAddToCart(e) {
@@ -1025,7 +1056,7 @@
             const items = [];
             this.selectedProducts.forEach((item, id) => {
                 items.push({
-                    product_id: id,
+                    product_id: item.productId || id,
                     quantity: item.quantity,
                     variation_id: item.variationId || 0,
                     attributes: item.attributes || {}
@@ -1234,10 +1265,10 @@
                 const lineTotal = item.quantity * item.price;
                 totalPrice += lineTotal;
 
-                // Get product info from the row
+                // Get product info from the row (fallback)
                 const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
-                const name = $row.find('.productbay-product-title').text() || `Product #${id}`;
-                const img = $row.find('img').first().attr('src') || '';
+                const name = item.name || $row.find('.productbay-product-title').text().trim() || `Product #${id}`;
+                const img = item.img || $row.find('img').first().attr('src') || '';
 
                 html += `<div class="productbay-popup-item" data-id="${id}">`;
                 if (img) html += `<img src="${img}" class="productbay-popup-thumb" />`;

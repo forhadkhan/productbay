@@ -271,7 +271,7 @@ class Admin {
 			'productbay-admin',
 			PRODUCTBAY_URL . 'assets/js/admin.js',
 			$asset['dependencies'],
-			$asset['version'],
+			(string) time(),
 			true
 		);
 
@@ -307,9 +307,7 @@ class Admin {
 		// Uses file modification time in dev mode for instant refresh,.
 		// or plugin version in production for proper cache control.
 		$css_path    = PRODUCTBAY_PATH . 'assets/css/admin.css';
-		$css_version = \defined( 'PRODUCTBAY_DEV_MODE' ) && PRODUCTBAY_DEV_MODE && \file_exists( $css_path )
-			? (string) \filemtime( $css_path )
-			: Constants::VERSION;
+		$css_version = (string) time();
 
 		\wp_enqueue_style(
 			'productbay-admin-css',

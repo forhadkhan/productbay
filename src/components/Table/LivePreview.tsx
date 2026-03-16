@@ -17,7 +17,7 @@ export interface LivePreviewProps {
 
 interface PreviewResponse {
     html: string;
-    cssUrl: string;
+    cssUrls: string[];
 }
 
 /**
@@ -61,8 +61,13 @@ const IFRAME_SCRIPT = `
      * Post the current document height to the parent so it can resize the iframe.
      */
     function postHeight() {
-        var h = document.documentElement.scrollHeight;
-        window.parent.postMessage({ type: 'resize', height: h }, '*');
+        var wrapper = document.querySelector('.productbay-wrapper');
+        // Calculate true height of the content wrapper, plus the 32px of body padding configured in the style tag below.
+        // If wrapper doesn't exist, fallback to body scrollHeight.
+        var h = wrapper ? (wrapper.getBoundingClientRect().height + 32) : document.body.scrollHeight;
+        
+        // Ceil the height to avoid subpixel fractions causing endless resize triggers
+        window.parent.postMessage({ type: 'resize', height: Math.ceil(h) }, '*');
     }
 
     // --- Event Delegation ---
@@ -121,11 +126,27 @@ const IFRAME_SCRIPT = `
 
     // Auto-resize on load and on any DOM mutation
     window.addEventListener('load', postHeight);
-    var observer = new MutationObserver(postHeight);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Initial height post after a short delay to ensure rendering is complete
-    setTimeout(postHeight, 100);
+    
+    // To prevent infinite resize loops, we use a debounce and only observe 
+    // the content wrapper instead of the entire body if possible.
+    var resizeTimeout;
+    var observer = new MutationObserver(function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(postHeight, 50);
+    });
+    
+    // Wait a tick for the React output to render
+    setTimeout(function() {
+        var wrapper = document.querySelector('.productbay-wrapper') || document.body;
+        observer.observe(wrapper, { 
+            childList: true, 
+            subtree: true,
+            attributes: true, 
+            // Ignore style changes to prevent loop when parent resizes iframe height
+            attributeFilter: ['class', 'id', 'data-status'] 
+        });
+        postHeight();
+    }, 100);
 })();
 </script>
 `;
@@ -140,15 +161,15 @@ const IFRAME_SCRIPT = `
  * - The interactivity script for bulk select & postMessage communication
  *
  * @param html  - The rendered HTML from TableRenderer.php
- * @param cssUrl - The URL to the frontend.css stylesheet
+ * @param cssUrls - Array of URLs to frontend stylesheets
  */
-const buildSrcdoc = (html: string, cssUrl: string): string => `
+const buildSrcdoc = (html: string, cssUrls: string[]): string => `
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${cssUrl}" />
+    ${cssUrls.map(url => `<link rel="stylesheet" href="${url}" />`).join('\n    ')}
     <style>
         /* Iframe body setup — the scoped reset is in frontend.css */
         body {
@@ -221,7 +242,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
     const debouncedPayload = useDebounce(payload, 500);
 
     const [html, setHtml] = useState<string>('');
-    const [cssUrl, setCssUrl] = useState<string>('');
+    const [cssUrls, setCssUrls] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -250,7 +271,9 @@ const LivePreview = ({ className }: LivePreviewProps) => {
 
             if (response && typeof response.html === 'string') {
                 setHtml(response.html);
-                if (response.cssUrl) setCssUrl(response.cssUrl);
+                if (Array.isArray(response.cssUrls)) {
+                    setCssUrls(response.cssUrls);
+                }
             } else {
                 throw new Error('Invalid response format');
             }
@@ -300,9 +323,9 @@ const LivePreview = ({ className }: LivePreviewProps) => {
 
     // Build the srcdoc string for the iframe (memoized to avoid re-renders)
     const srcdoc = useMemo(() => {
-        if (!html || !cssUrl) return '';
-        return buildSrcdoc(html, cssUrl);
-    }, [html, cssUrl]);
+        if (!html || cssUrls.length === 0) return '';
+        return buildSrcdoc(html, cssUrls);
+    }, [html, cssUrls]);
 
     // Handle Scaling for the inline (non-fullscreen) preview
     useEffect(() => {
@@ -349,7 +372,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                 title={__('Table Preview', 'productbay')}
                 style={{
                     width: fullWidth ? (activeDevice === 'desktop' ? '100%' : `${targetWidth}px`) : `${targetWidth}px`,
-                    height: `${iframeHeight + 32}px`, // +32px for body padding
+                    height: `${iframeHeight}px`,
                     border: 'none',
                     display: 'block',
                     margin: fullWidth ? '0 auto' : '0',
@@ -465,7 +488,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
                                 ref={containerRef}
                                 className="w-full origin-top-left relative rounded-md overflow-hidden ring-1 ring-gray-200/50"
                                 style={{
-                                    height: `${(iframeHeight + 32) * scale}px`,
+                                    height: `${iframeHeight * scale}px`,
                                     transition: 'height 0.2s ease-in-out'
                                 }}
                             >

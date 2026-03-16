@@ -60,11 +60,14 @@ All JavaScript and CSS assets are bundled locally within the plugin. No external
 * **Instance-Scoped Styling:** Isolated CSS blocks prevent style conflicts between multiple tables on the same page.
 * **Deep Customization:** Adjust colors, typography (size/weight), borders, border radius, and cell padding per table.
 
-= Technical =
+= Upgrade to ProductBay Pro =
 
-* **Intelligent Caching:** 30-minute category caching with stale-while-revalidate patterns.
-* **Modern Tech Stack:** React 18, TypeScript, Tailwind CSS v4, and Zustand — all bundled locally.
-* **Translation Ready:** 100% of user-facing strings are wrapped in localization functions.
+Looking for even more power? **[ProductBay Pro](https://wpanchorbay.com/plugins/productbay)** adds:
+
+* **Advanced Filtering:** Price range sliders. 
+* **Pro Columns:** SKU, Stock Status, and Product Attributes.
+* **Smart Variations:** Enhanced selection interface for variable and grouped products.
+* **Priority Support:** Direct access to our expert support team.
 
 == Installation ==
 
@@ -82,7 +85,23 @@ Yes. ProductBay is a WooCommerce extension and will not function without WooComm
 
 = Which product types are supported? =
 
-ProductBay supports WooCommerce Simple, Variable, Grouped, and External/Affiliate product types.
+ProductBay supports WooCommerce Simple, Variable (limited), Grouped (limited), and External/Affiliate (view only) product types.
+
+= Can I filter products in the table? =
+
+Yes. The free version of ProductBay includes native dropdown filters for **Product Type** (Simple, Variable, Grouped, External) and **Taxonomies/Attributes**. Advanced filtering options are available in the Pro version.
+
+= Can users select multiple products and add them to the cart? =
+
+Yes. Users can select multiple products and add them to the cart in a single click.
+
+= Can users search products in the table? =
+
+Yes. Users can search products in the table.
+
+= Does the search function require a page reload? =
+
+No. ProductBay features an instant AJAX-powered search that updates the product list in real-time as you type, providing a seamless experience without any page reloads.
 
 = How do I display a table on a page? =
 
@@ -104,9 +123,17 @@ ProductBay is built with performance in mind. Assets are loaded only on pages wh
 
 Yes. All user-facing strings use WordPress localization functions and the plugin is 100% translation ready.
 
+= Is there a Pro version available? =
+
+Yes! **[ProductBay Pro](https://wpanchorbay.com/plugins/productbay)** is a premium add-on that unlocks advanced features like price range sliders, additional column types (SKU, Stock Status, Attributes), enhanced variable product support, and priority support.
+
+= Does ProductBay Pro require this free version? =
+
+Yes. ProductBay Pro is built as an extension and requires the free ProductBay plugin to be installed and active to function.
+
 = Where can I get support? =
 
-Use the support forum on this plugin's WordPress.org page. We aim to respond within 2 business days.
+For the free version, please use the support forum on this plugin's WordPress.org page. We aim to respond within 2 business days. Pro users have access to priority support through our **[Support Center](https://wpanchorbay.com/support)**.
 
 == Screenshots ==
 
@@ -126,7 +153,6 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Variation badges: visual indicators showing which variations were added to cart with precise quantities natively synced with the WooCommerce Cart.
 * Clear All Selections: A global "Clear all" button that allows users to instantly reset their bulk selections.
 * Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
-* Price Range Filter: Dual slider and/or numeric min-max inputs to filter products by price on the frontend. Mode is fully configurable (Slider, Input, Both) with auto-detection of price extremes or custom bounds.
 * Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
 * Image Lightbox: Native modal/popup display for product images with fullscreen toggling and close controls, utilizing native browser resources for maximum performance.
 
@@ -134,6 +160,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 * Bulk selection no longer resets when paginating or searching.
 * Selected products persist across page navigation and page reloads.
+* Live Preview: Fixed a rare infinite height growth bug during config changes and device scaling.
 
 = 1.0.0 =
 **Added**
