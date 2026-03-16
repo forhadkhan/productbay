@@ -126,6 +126,9 @@
                 const state = this.gatherFilterState();
                 this.fetchProducts({ ...state, ...data, paged: 1, _context: 'filter' });
             });
+
+            // Pro Plugin Modal Persistence
+            $(document.body).on('productbay_pro_modal_loaded', this.restoreModalSelections.bind(this));
         }
 
         /**
@@ -139,11 +142,6 @@
                     const data = $cartData.data('cart');
                     if (Array.isArray(data)) {
                         this.cartQuantities.clear();
-                        data.forEach(([k, v]) => this.cartQuantities.set(k, v));
-                        this.saveCartQuantitiesToStorage();
-
-                        // Give DOM a frame to settle, then redraw badges & buttons
-                        setTimeout(() => this.restoreCartBadges(), 50);
                     }
                 } catch (e) {
                     console.error('ProductBay: Failed to sync with WooCommerce cart fragments.', e);
