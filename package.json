@@ -12,14 +12,14 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/forhadkhan/productbay.git"
+		"url": "https://github.com/wpanchorbay/productbay.git"
 	},
 	"license": "GPL-2.0-or-later",
 	"main": "src/index.tsx",
 	"bugs": {
-		"url": "https://github.com/forhadkhan/productbay/issues"
+		"url": "https://github.com/wpanchorbay/productbay/issues"
 	},
-	"homepage": "https://github.com/forhadkhan/productbay#readme",
+	"homepage": "https://wpanchorbay.com/plugins/productbay",
 	"scripts": {
 		"tailwindbuild": "tailwindcss -i ./src/styles/main.css -o ./assets/css/admin.css --minify",
 		"tailwindwatch": "tailwindcss -i ./src/styles/main.css -o ./assets/css/admin.css --watch --minify",
@@ -67,6 +67,7 @@
 		"@dnd-kit/core": "^6.3.1",
 		"@dnd-kit/sortable": "^10.0.0",
 		"@dnd-kit/utilities": "^3.2.2",
+		"@wordpress/components": "^32.3.0",
 		"@wordpress/react-i18n": "^4.38.0",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",

@@ -7,24 +7,38 @@ import { ToastProvider } from './context/ToastContext';
 import { Toaster } from './components/ui/Toaster';
 import AdminLayout from './layouts/AdminLayout';
 import { routes } from './utils/routes';
+import { SlotFillProvider } from '@wordpress/components';
+import { useExtensionStore } from './store/extensionStore';
+
+const ExtensionFills = () => {
+    const fills = useExtensionStore((state) => state.fills);
+    return (
+        <>
+            {fills.map((Fill, i) => <Fill key={i} />)}
+        </>
+    );
+};
 
 const App = () => {
 	return (
 		<HashRouter>
-			<ToastProvider>
-				<AdminLayout>
-					<Routes>
-						{routes.map((route) => (
-							<Route
-								key={route.path}
-								path={route.path}
-								element={<route.element />}
-							/>
-						))}
-					</Routes>
-					<Toaster />
-				</AdminLayout>
-			</ToastProvider>
+			<SlotFillProvider>
+				<ExtensionFills />
+				<ToastProvider>
+					<AdminLayout>
+						<Routes>
+							{routes.map((route, index) => (
+								<Route
+									key={index}
+									path={route.path}
+									element={<route.element />}
+								/>
+							))}
+						</Routes>
+						<Toaster />
+					</AdminLayout>
+				</ToastProvider>
+			</SlotFillProvider>
 		</HashRouter>
 	);
 };

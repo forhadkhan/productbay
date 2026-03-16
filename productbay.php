@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       ProductBay
  * Plugin URI:        https://wpanchorbay.com/products/productbay
- * Source URI:        https://github.com/forhadkhan/productbay
+ * Source URI:        https://github.com/wpanchorbay/productbay
  * Description:       WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.
  * Version:           1.0.0
  * Stable tag:        1.0.0
