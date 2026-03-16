@@ -5,7 +5,7 @@
 </div>
 <br />
 
-# ProductBay - Advanced WooCommerce Product Tables
+# ProductBay – High-Performance Product Table for WooCommerce
 
 ![Version](https://img.shields.io/badge/version-1.0.1-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) [![Documentation](https://img.shields.io/badge/docs-live-brightgreen.svg)](https://forhadkhan.github.io/productbay/)
 
