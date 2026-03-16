@@ -545,7 +545,8 @@
             if ($checkbox.is(':disabled')) return;
 
             const $row = $checkbox.closest('tr');
-            let id = $checkbox.val(); // Product ID (or variation ID if nested/popup)
+            const rawId = $checkbox.val(); // Original input value
+            let id = rawId; // Product ID (or variation ID if nested/popup)
             const price = parseFloat($checkbox.data('price') || 0);
 
             if ($checkbox.is(':checked')) {
@@ -591,7 +592,7 @@
                     }
                 }
 
-                let storageKey = this.getStorageKey($row, id);
+                let storageKey = this.getStorageKey($row, rawId);
 
                 let name = $row.find('.productbay-product-title').text().trim();
                 let img = $row.find('img').first().attr('src');
@@ -622,7 +623,7 @@
                 });
             } else {
                 // Determine the correct key to delete
-                const storageKey = this.getStorageKey($row, id);
+                const storageKey = this.getStorageKey($row, rawId);
 
                 this.selectedProducts.delete(storageKey);
                 this.$selectAll.prop('checked', false);
