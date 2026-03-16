@@ -646,6 +646,7 @@
 
                 this.selectedProducts.set(storageKey, {
                     productId: id, // Explicitly store productId since key might be compound
+                    parentId: $row.attr('data-parent-id') || null,
                     quantity,
                     price: currentPrice,
                     variationId,
@@ -968,9 +969,16 @@
             let totalItems = 0;
             let totalPrice = 0;
 
+            const parentCounts = new Map();
+
             this.selectedProducts.forEach(item => {
                 totalItems += item.quantity;
                 totalPrice += item.quantity * item.price;
+                
+                const pId = item.parentId || item.productId;
+                if (pId) {
+                    parentCounts.set(String(pId), (parentCounts.get(String(pId)) || 0) + item.quantity);
+                }
             });
 
             if (count > 0) {
@@ -990,6 +998,22 @@
             }
 
             this.renderSelectedItemsPopup();
+            this.updateParentRowBadges(parentCounts);
+        }
+
+        updateParentRowBadges(parentCounts) {
+            this.$tbody.find('.productbay-pro-btn-popup, .productbay-pro-btn-nested').each((i, btn) => {
+                const $btn = $(btn);
+                const pId = String($btn.data('product-id'));
+                const count = parentCounts.get(pId) || 0;
+                
+                $btn.find('.productbay-pro-btn-badge').remove();
+                
+                if (count > 0) {
+                    const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="display:inline-block;vertical-align:-1px;margin-right:2px"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    $btn.append(`<span class="productbay-pro-btn-badge" style="margin-left: 6px; font-weight: 600; color: #15803d; background: #dcfce7; padding: 2px 6px; border-radius: 12px; font-size: 12px; display: inline-flex; align-items: center;">${checkSvg}${count}</span>`);
+                }
+            });
         }
 
         handleBulkAddToCart(e) {
