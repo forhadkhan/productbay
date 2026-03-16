@@ -662,8 +662,19 @@
             this.updateQtyButtons($input, val, min, max);
 
             // Update selected product if checked
-            if (this.selectedProducts.has(id)) {
-                const item = this.selectedProducts.get(id);
+            const parentId = $row.attr('data-parent-id');
+            const pType = $row.attr('data-product-type') || 'variation';
+            let storageKey = id;
+            if (parentId && pType !== 'simple') {
+                storageKey = parentId + '_' + id;
+            } else if ($row.find('.productbay-variation-id').length) {
+                // Inline variation dropdown fallback
+                const varId = parseInt($row.find('.productbay-variation-id').val(), 10) || 0;
+                if (varId) storageKey = id + '_' + varId;
+            }
+
+            if (this.selectedProducts.has(storageKey)) {
+                const item = this.selectedProducts.get(storageKey);
                 item.quantity = val;
                 this.updateBulkButton();
                 this.saveSelectionsToStorage();
