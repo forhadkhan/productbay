@@ -85,7 +85,7 @@ export const DisplayPanel = ({
                 />
 
                 {/* Add to Cart Button - with hover colors */}
-                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
                     <h3 className="text-sm font-semibold text-gray-900 m-0 pb-4">
                         {__('Add to Cart Button', 'productbay')}
                     </h3>
@@ -110,7 +110,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Table Header */}
-                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
                     <h3 className="text-sm font-semibold text-gray-900 m-0 pb-4">
                         {__('Table Header', 'productbay')}
                     </h3>
@@ -125,7 +125,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Table Rows */}
-                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
                     <h3 className="text-sm font-semibold text-gray-900 m-0 pb-4">
                         {__('Table Rows', 'productbay')}
                     </h3>
@@ -140,7 +140,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Alternate Rows (Zebra Striping) */}
-                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
                     <SettingsOption
                         className="px-0"
                         title={__('Alternate Rows (Zebra Striping)', 'productbay')}
@@ -169,7 +169,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Row Hover (Interaction) */}
-                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
                     <div className="flex items-center justify-between">
                         <div>
                             <h3 className="text-sm font-semibold text-gray-900 block m-0">
@@ -247,31 +247,29 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Border Radius */}
-                <div className="space-y-4 hover:bg-gray-50 px-4 py-2 rounded-md m-0 mb-2">
-                    <SettingsOption
-                        className="px-0"
-                        title={__('Border Radius', 'productbay')}
-                        description={__('Corner roundness of the table', 'productbay')}
-                    >
-                        <div className="flex gap-2 items-center">
-                            <Toggle
-                                checked={style.layout.borderRadiusEnabled ?? true}
-                                onChange={(e) => setLayoutStyle({ borderRadiusEnabled: e.target.checked })}
+                <SettingsOption
+                    className="px-4 py-2"
+                    title={__('Border Radius', 'productbay')}
+                    description={__('Corner roundness of the table', 'productbay')}
+                >
+                    <div className="flex gap-2 items-center">
+                        <Toggle
+                            checked={style.layout.borderRadiusEnabled ?? true}
+                            onChange={(e) => setLayoutStyle({ borderRadiusEnabled: e.target.checked })}
+                        />
+                        <div className={cn("flex items-center gap-2", style.layout.borderRadiusEnabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale")}>
+                            <input
+                                type="number"
+                                min="0"
+                                max="24"
+                                value={parseInt(style.layout.borderRadius) || 0}
+                                onChange={(e) => setLayoutStyle({ borderRadius: `${e.target.value}px` })}
+                                className="w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             />
-                            <div className={cn("flex items-center gap-2", style.layout.borderRadiusEnabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale")}>
-                                <input
-                                    type="number"
-                                    min="0"
-                                    max="24"
-                                    value={parseInt(style.layout.borderRadius) || 0}
-                                    onChange={(e) => setLayoutStyle({ borderRadius: `${e.target.value}px` })}
-                                    className="w-20 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                                />
-                                <span className="text-sm text-gray-500">px</span>
-                            </div>
+                            <span className="text-sm text-gray-500">px</span>
                         </div>
-                    </SettingsOption>
-                </div>
+                    </div>
+                </SettingsOption>
 
                 {/* Cell Padding */}
                 <SettingsOption
