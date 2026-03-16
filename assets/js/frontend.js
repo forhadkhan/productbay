@@ -89,22 +89,22 @@
 
             // Selection
             this.$selectAll.on('change', this.toggleSelectAll.bind(this));
-            this.$tbody.on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
+            $(document.body).on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
             this.$wrapper.on('click', '.productbay-btn-clear-all', this.handleClearAll.bind(this));
 
             // Quantity changes
-            this.$tbody.on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
-            this.$tbody.on('blur', '.productbay-qty', this.handleQuantityBlur.bind(this));
+            $(document.body).on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
+            $(document.body).on('blur', '.productbay-qty', this.handleQuantityBlur.bind(this));
 
             // Variation selection
-            this.$tbody.on('change', '.productbay-variation-select', this.handleVariationChange.bind(this));
+            $(document.body).on('change', '.productbay-variation-select', this.handleVariationChange.bind(this));
 
             // Quantity +/- buttons
-            this.$tbody.on('click', '.productbay-qty-minus', this.handleQtyMinus.bind(this));
-            this.$tbody.on('click', '.productbay-qty-plus', this.handleQtyPlus.bind(this));
+            $(document.body).on('click', '.productbay-qty-minus', this.handleQtyMinus.bind(this));
+            $(document.body).on('click', '.productbay-qty-plus', this.handleQtyPlus.bind(this));
 
             // Single add-to-cart buttons
-            this.$tbody.on('click', '.productbay-btn-addtocart', this.handleSingleAddToCart.bind(this));
+            $(document.body).on('click', '.productbay-btn-addtocart', this.handleSingleAddToCart.bind(this));
 
             // Bulk Action
             this.$bulkBtn.on('click', this.handleBulkAddToCart.bind(this));
@@ -547,7 +547,7 @@
             if ($checkbox.is(':disabled')) return;
 
             const $row = $checkbox.closest('tr');
-            const id = $checkbox.val();
+            let id = $checkbox.val(); // Product ID (or variation ID if nested/popup)
             const price = parseFloat($checkbox.data('price') || 0);
 
             if ($checkbox.is(':checked')) {
@@ -561,6 +561,7 @@
                 let attributes = {};
                 let currentPrice = price;
 
+                // 1. Standard Inline Dropdown Method
                 if ($variableWrap.length) {
                     variationId = parseInt($variableWrap.find('.productbay-variation-id').val(), 10) || 0;
                     $variableWrap.find('.productbay-variation-select').each(function () {
@@ -570,17 +571,70 @@
                     // Use variation price if available
                     const varPrice = $variableWrap.data('current-variation-price');
                     if (varPrice) currentPrice = parseFloat(varPrice);
+                } 
+                // 2. Pro Plugin Nested/Popup Method
+                else if ($row.attr('data-parent-id')) {
+                    const parentId = $row.attr('data-parent-id');
+                    // For simple grouped children, they don't have variations, but they are their *own* products.
+                    // For variations, the row's ID is the variation_id, and the parent is the product_id.
+                    // The backend sets `data-product-type="simple"` for grouped children, so let's check it.
+                    const pType = $row.attr('data-product-type') || 'variation';
+                    
+                    if (pType !== 'simple') {
+                        variationId = parseInt(id, 10);
+                        id = parentId; // The actual WC cart product_id must be the parent
+                    }
+                    
+                    const attrData = $row.attr('data-attributes');
+                    if (attrData) {
+                        try {
+                            attributes = JSON.parse(attrData);
+                        } catch (e) {}
+                    }
                 }
 
-                this.selectedProducts.set(id, {
+                // Since multiple variations of the SAME parent can be selected, we must store them distinctly.
+                // We'll use a compound key for the `selectedProducts` map if it's a variation.
+                let storageKey = id;
+                if (variationId) storageKey = id + '_' + variationId;
+
+                let name = $row.find('.productbay-product-title').text().trim();
+                let img = $row.find('img').first().attr('src');
+                
+                // Fallback for Pro Variation/Grouped Popup rows
+                if (!name) {
+                    name = $row.find('.productbay-pro-popup-col-name').text().trim();
+                }
+                
+                // Fallback for missing image (use parent image from main table)
+                if (!img && $row.attr('data-parent-id')) {
+                    const parentId = $row.attr('data-parent-id');
+                    img = this.$tbody.find(`tr[data-product-id="${parentId}"]`).find('img').first().attr('src');
+                    if (!name) {
+                        name = this.$tbody.find(`tr[data-product-id="${parentId}"]`).find('.productbay-product-title').text().trim() + ' - Variation';
+                    }
+                }
+
+                this.selectedProducts.set(storageKey, {
+                    productId: id, // Explicitly store productId since key might be compound
                     quantity,
                     price: currentPrice,
                     variationId,
                     attributes,
-                    productType: $row.data('product-type') || 'simple'
+                    productType: $row.data('product-type') || 'simple',
+                    name: name || '',
+                    img: img || ''
                 });
             } else {
-                this.selectedProducts.delete(id);
+                // Determine the correct key to delete
+                const parentId = $row.attr('data-parent-id');
+                const pType = $row.attr('data-product-type') || 'variation';
+                let storageKey = id;
+                if (parentId && pType !== 'simple') {
+                    storageKey = parentId + '_' + id;
+                }
+
+                this.selectedProducts.delete(storageKey);
                 this.$selectAll.prop('checked', false);
             }
 
@@ -910,7 +964,7 @@
             const items = [];
             this.selectedProducts.forEach((item, id) => {
                 items.push({
-                    product_id: id,
+                    product_id: item.productId || id,
                     quantity: item.quantity,
                     variation_id: item.variationId || 0,
                     attributes: item.attributes || {}
@@ -1119,10 +1173,10 @@
                 const lineTotal = item.quantity * item.price;
                 totalPrice += lineTotal;
 
-                // Get product info from the row
+                // Get product info from the row (fallback)
                 const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
-                const name = $row.find('.productbay-product-title').text() || `Product #${id}`;
-                const img = $row.find('img').first().attr('src') || '';
+                const name = item.name || $row.find('.productbay-product-title').text().trim() || `Product #${id}`;
+                const img = item.img || $row.find('img').first().attr('src') || '';
 
                 html += `<div class="productbay-popup-item" data-id="${id}">`;
                 if (img) html += `<img src="${img}" class="productbay-popup-thumb" />`;

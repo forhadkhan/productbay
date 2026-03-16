@@ -161,7 +161,6 @@ class AjaxRenderer {
 			\wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 		}
 
-		// Accept items[] array: each item has product_id, quantity, variation_id (optional), attributes (optional).
 		$raw_items = wp_unslash( $_POST['items'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized below per field
 		if ( empty( $raw_items ) || ! is_array( $raw_items ) ) {
 			\wp_send_json_error( array( 'message' => __( 'No products selected', 'productbay' ) ) );
@@ -250,16 +249,31 @@ class AjaxRenderer {
 			}
 
 			try {
-				$added = \WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes );
-				if ( $added ) {
-					++$added_count;
-				}
+				$passed_validation = \apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id, $attributes );
+
+				if ( $passed_validation ) {
+					$cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes );
+					if ( ! $cart_item_key ) {
+						$errors[] = sprintf(
+							/* translators: %s: product name */
+							__( 'Could not add "%s" to cart.', 'productbay' ),
+							$product->get_name()
+						);
+					} else {
+						$added_count++;
+					}
+				} else {
+					// Usually WC adds notices if validation fails, let's grab them.
+                    $wc_errors = wc_get_notices('error');
+                    if (!empty($wc_errors)) {
+                        foreach ($wc_errors as $notice) {
+                            $errors[] = strip_tags($notice['notice']);
+                        }
+                        wc_clear_notices();
+                    }
+                }
 			} catch ( \Exception $e ) {
-				$errors[] = sprintf(
-					/* translators: %s: product name */
-					__( 'Could not add "%s" to cart.', 'productbay' ),
-					$product->get_name()
-				);
+				$errors[] = $e->getMessage();
 			}
 		}
 
