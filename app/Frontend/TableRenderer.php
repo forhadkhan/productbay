@@ -1115,43 +1115,6 @@ class TableRenderer
 		$css .= 'background-color: currentColor;';
 		$css .= '}';
 
-		// View Cart (.productbay-added-to-cart) Ghost Button Styles.
-		$css .= "#{$id} .productbay-table .productbay-added-to-cart {";
-		$css .= 'display: block !important;';
-		$css .= 'width: max-content !important;';
-		$css .= 'background: transparent !important;';
-		$css .= 'border: none;';
-		$css .= 'color: inherit !important;';
-		$css .= 'padding: 4px 0 !important;';
-		$css .= 'margin-top: 8px;';
-		$css .= 'text-decoration: none !important;';
-		$css .= 'font-weight: 500;';
-		$css .= 'transition: background-color 0.2s ease, color 0.2s ease;';
-		$css .= '}';
-		$css .= "#{$id} .productbay-table .productbay-added-to-cart::after {";
-		$css .= "content: '';";
-		$css .= 'display: inline-block;';
-		$css .= 'vertical-align: middle;';
-		$css .= 'margin-left: 8px;';
-		$css .= 'margin-top: -2px;';
-		$css .= 'width: 16px;';
-		$css .= 'height: 16px;';
-		$css .= "-webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E\");";
-		$css .= "mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E\");";
-		$css .= '-webkit-mask-size: contain;';
-		$css .= 'mask-size: contain;';
-		$css .= '-webkit-mask-repeat: no-repeat;';
-		$css .= 'mask-repeat: no-repeat;';
-		$css .= '-webkit-mask-position: center;';
-		$css .= 'mask-position: center;';
-		$css .= 'background-color: currentColor;';
-		$css .= '}';
-		$css .= "#{$id} .productbay-table .productbay-added-to-cart:hover {";
-		$css .= 'text-decoration: underline !important;';
-		$css .= 'text-underline-offset: 4px;';
-		$css .= 'background: transparent !important;';
-		$css .= '}';
-
 		// Image styles.
 		$css .= "#{$id} img {";
 		$css .= 'max-width: 100%;';

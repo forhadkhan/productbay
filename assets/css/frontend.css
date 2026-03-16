@@ -421,10 +421,8 @@
 
 .productbay-wrapper .productbay-button,
 .productbay-wrapper a.productbay-button,
-.productbay-wrapper a.productbay-added-to-cart,
 .productbay-wrapper .productbay-table .productbay-button,
-.productbay-wrapper .productbay-table a.productbay-button,
-.productbay-wrapper .productbay-table a.productbay-added-to-cart {
+.productbay-wrapper .productbay-table a.productbay-button {
     padding: 8px 18px;
     background-color: #3b82f6;
     color: #fff !important;
@@ -444,7 +442,6 @@
 
 .productbay-wrapper .productbay-button:hover,
 .productbay-wrapper a.productbay-button:hover,
-.productbay-wrapper a.productbay-added-to-cart:hover,
 .productbay-wrapper .productbay-table .productbay-button:hover,
 .productbay-wrapper .productbay-table a.productbay-button:hover {
     background-color: #2563eb;
@@ -452,15 +449,6 @@
     text-decoration: none !important;
 }
 
-/* WC "View cart" link after adding */
-.productbay-wrapper .productbay-added-to-cart {
-    margin-left: 6px;
-    background-color: #16a34a;
-}
-
-.productbay-wrapper .productbay-added-to-cart:hover {
-    background-color: #15803d;
-}
 
 /* ========================================================================
    7. LINKS (prevent theme overrides)
@@ -743,27 +731,6 @@
     vertical-align: middle;
 }
 
-/* View Cart link injected after add-to-cart */
-.productbay-wrapper .productbay-btn-cell .productbay-added-to-cart,
-.productbay-wrapper .productbay-variable-wrap>.productbay-added-to-cart {
-    display: block !important;
-    width: max-content !important;
-    background: transparent !important;
-    border: none;
-    color: inherit !important;
-    padding: 4px 0 !important;
-    margin-top: 4px;
-    text-decoration: none !important;
-    font-weight: 500;
-    font-size: 13px;
-    transition: color 0.2s ease;
-}
-
-.productbay-wrapper .productbay-btn-cell .productbay-added-to-cart:hover,
-.productbay-wrapper .productbay-variable-wrap>.productbay-added-to-cart:hover {
-    text-decoration: underline !important;
-    text-underline-offset: 4px;
-}
 
 /* ========================================================================
    16. VARIATION BADGES

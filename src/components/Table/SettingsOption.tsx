@@ -20,7 +20,7 @@ export const SettingsOption = ({
     className
 }: SettingsOptionProps) => {
     return (
-        <div className={cn("flex flex-col md:flex-row md:items-center justify-between hover:bg-orange-100 px-4 py-2 rounded-md m-0", className)}>
+        <div className={cn("flex flex-col md:flex-row md:items-center justify-between hover:bg-orange-50 border border-transparent hover:border-orange-200 px-4 py-2 rounded-md m-0", className)}>
             <div>
                 <label className="text-sm font-medium text-gray-900 block">
                     {title}

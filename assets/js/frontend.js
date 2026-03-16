@@ -538,16 +538,6 @@
                             const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                             $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
                         }
-
-                        // Also restore Add to cart view-cart link
-                        const $parentCell = $btn.closest('.productbay-btn-cell');
-                        if (!$parentCell.find('.productbay-added-to-cart').length) {
-                            const cartUrl = productbay_frontend.cart_url || '#';
-                            const cartText = productbay_frontend.view_cart_text || 'View cart';
-                            $parentCell.append(
-                                '<a href="' + cartUrl + '" class="productbay-added-to-cart">' + cartText + '</a>'
-                            );
-                        }
                     }
                 }
             });
@@ -955,15 +945,6 @@
                             this.renderVariationBadges(productId);
                         }
 
-                        // Inject "View Cart" link if not already present
-                        const $parentCell = $wrap;
-                        if (!$parentCell.find('.productbay-added-to-cart').length) {
-                            const cartUrl = productbay_frontend.cart_url || '#';
-                            const cartText = productbay_frontend.view_cart_text || 'View cart';
-                            $parentCell.append(
-                                '<a href="' + cartUrl + '" class="productbay-added-to-cart">' + cartText + '</a>'
-                            );
-                        }
                     } else {
                         const msg = response.data?.errors?.join('\n') || response.data?.message || 'Error adding product.';
                         alert(msg);
