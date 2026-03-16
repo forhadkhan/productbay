@@ -21,10 +21,10 @@ export default defineConfig({
 
         nav: [
             {
-                text: 'v1.0.1',
+                text: 'v1.0.0',
                 items: [
                     {
-                        text: 'v1.0.1 (Latest)',
+                        text: 'v1.0.0 (Latest)',
                         link: '/guide/introduction',
                         activeMatch: '^/(?!v\\d)'
                     },
@@ -119,7 +119,7 @@ export default defineConfig({
         },
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/forhadkhan/productbay' }
+            { icon: 'github', link: 'https://github.com/wpanchorbay/productbay' }
         ],
 
         footer: {
@@ -135,7 +135,7 @@ export default defineConfig({
         },
 
         editLink: {
-            pattern: 'https://github.com/forhadkhan/productbay/edit/main/docs/:path',
+            pattern: 'https://github.com/wpanchorbay/productbay/edit/main/docs/:path',
             text: 'Edit this page on GitHub'
         },
 
