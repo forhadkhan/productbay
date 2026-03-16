@@ -64,6 +64,7 @@
             this.initTaxonomyFilters();
             this.initFiltersClear();
             this.initLightbox();
+            this.restoreSelections();
         }
 
         /**
@@ -487,9 +488,23 @@
         restoreSelections() {
             this.$tbody.find('.productbay-select-product').each((_, el) => {
                 const $cb = $(el);
-                const id = $cb.val();
-                if (this.selectedProducts.has(id)) {
+                const $row = $cb.closest('tr');
+                const rawId = $cb.val();
+                
+                const storageKey = this.getStorageKey($row, rawId);
+
+                if (this.selectedProducts.has(storageKey)) {
                     $cb.prop('checked', true);
+                    const savedItem = this.selectedProducts.get(storageKey);
+                    
+                    const $qtyInput = $row.find('.productbay-qty');
+                    if ($qtyInput.length) {
+                        $qtyInput.val(savedItem.quantity);
+                        
+                        const min = parseInt($qtyInput.attr('min'), 10) || 1;
+                        const max = parseInt($qtyInput.attr('max'), 10) || Infinity;
+                        this.updateQtyButtons($qtyInput, savedItem.quantity, min, max);
+                    }
                 }
             });
             this.syncSelectAllCheckbox();
@@ -977,7 +992,7 @@
                 
                 const pId = item.parentId || item.productId;
                 if (pId) {
-                    parentCounts.set(String(pId), (parentCounts.get(String(pId)) || 0) + item.quantity);
+                    parentCounts.set(String(pId), (parentCounts.get(String(pId)) || 0) + 1);
                 }
             });
 
