@@ -593,10 +593,7 @@
                     }
                 }
 
-                // Since multiple variations of the SAME parent can be selected, we must store them distinctly.
-                // We'll use a compound key for the `selectedProducts` map if it's a variation.
-                let storageKey = id;
-                if (variationId) storageKey = id + '_' + variationId;
+                let storageKey = this.getStorageKey($row, id);
 
                 let name = $row.find('.productbay-product-title').text().trim();
                 let img = $row.find('img').first().attr('src');
@@ -627,12 +624,7 @@
                 });
             } else {
                 // Determine the correct key to delete
-                const parentId = $row.attr('data-parent-id');
-                const pType = $row.attr('data-product-type') || 'variation';
-                let storageKey = id;
-                if (parentId && pType !== 'simple') {
-                    storageKey = parentId + '_' + id;
-                }
+                const storageKey = this.getStorageKey($row, id);
 
                 this.selectedProducts.delete(storageKey);
                 this.$selectAll.prop('checked', false);
@@ -661,24 +653,42 @@
             $input.val(val);
             this.updateQtyButtons($input, val, min, max);
 
-            // Update selected product if checked
-            const parentId = $row.attr('data-parent-id');
-            const pType = $row.attr('data-product-type') || 'variation';
-            let storageKey = id;
-            if (parentId && pType !== 'simple') {
-                storageKey = parentId + '_' + id;
-            } else if ($row.find('.productbay-variation-id').length) {
-                // Inline variation dropdown fallback
-                const varId = parseInt($row.find('.productbay-variation-id').val(), 10) || 0;
-                if (varId) storageKey = id + '_' + varId;
+            if (!$checkbox.is(':checked')) {
+                return; // Do not sync quantity to bulk cart if this row is unchecked
             }
 
+            // Get the accurate storage key (handles variables/grouped dynamically)
+            const storageKey = this.getStorageKey($row, id);
+
+            // Update selected product if checked
             if (this.selectedProducts.has(storageKey)) {
                 const item = this.selectedProducts.get(storageKey);
                 item.quantity = val;
                 this.updateBulkButton();
                 this.saveSelectionsToStorage();
             }
+        }
+
+        getStorageKey($row, rawId) {
+            let id = rawId;
+            let variationId = 0;
+            const $variableWrap = $row.find('.productbay-variable-wrap');
+
+            if ($variableWrap.length) {
+                variationId = parseInt($variableWrap.find('.productbay-variation-id').val(), 10) || 0;
+            } else if ($row.attr('data-parent-id')) {
+                const parentId = $row.attr('data-parent-id');
+                const pType = $row.attr('data-product-type') || 'variation';
+                if (pType !== 'simple') {
+                    variationId = parseInt(id, 10);
+                    id = parentId;
+                }
+            }
+
+            if (variationId) {
+                return id + '_' + variationId;
+            }
+            return id;
         }
 
         /**
