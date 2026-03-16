@@ -149,6 +149,39 @@
             }
         }
 
+        /**
+         * Restore previously checked items and quantities inside the newly injected HTML popup.
+         */
+        restoreModalSelections(e, modalContent) {
+            const $modal = $(modalContent);
+            
+            $modal.find('.productbay-select-product').each((i, checkbox) => {
+                const $checkbox = $(checkbox);
+                const $row = $checkbox.closest('tr');
+                const rawId = $checkbox.val();
+                
+                const storageKey = this.getStorageKey($row, rawId);
+                
+                if (this.selectedProducts.has(storageKey)) {
+                    const savedItem = this.selectedProducts.get(storageKey);
+                    
+                    // Restore checkbox state
+                    $checkbox.prop('checked', true);
+                    
+                    // Restore quantity input value
+                    const $qtyInput = $row.find('.productbay-qty');
+                    if ($qtyInput.length) {
+                        $qtyInput.val(savedItem.quantity);
+                        
+                        // Disable/enable arrows according to the restored value
+                        const min = parseInt($qtyInput.attr('min'), 10) || 1;
+                        const max = parseInt($qtyInput.attr('max'), 10) || Infinity;
+                        this.updateQtyButtons($qtyInput, savedItem.quantity, min, max);
+                    }
+                }
+            });
+        }
+
         // ── Search ───────────────────────────────────────────────────────
 
         handleSearch(e) {
