@@ -13,8 +13,8 @@ hero:
       text: Get Started
       link: /guide/introduction
     - theme: alt
-      text: View on GitHub
-      link: https://github.com/forhadkhan/productbay
+      text: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:inline;margin-right:6px;vertical-align:-2px"><path d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51l-2.828-7.695zM4.096 12c0-1.06.23-2.06.638-2.962l2.36 6.643-2.84 8.01c-1.35-1.543-2.158-3.535-2.158-5.69zm14.11-2.083c0-.685-.246-1.12-.51-1.638-.382-.693-.765-.967-.765-1.463 0-.612.446-1.164 1.105-1.164.06 0 .114.005.17.012a7.896 7.896 0 00-3.155-.838c-.378 0-.82.023-1.16.038l-.66-.02c-.376.002-.693.006-.693.006s.08.156.24.43c.277.464.675 1.144.675 1.144l2.483 6.942 1.442-4.148c.414-1.312.828-2.583.828-3.3zm-5.066 3.09l-1.956-5.556a.042.042 0 01-.005-.015.02.02 0 00-.008-.01c-.13-.34-.41-.442-.64-.47l-.27-.03v-.25c.307-.024.79-.04 1.127-.04.425 0 .96.024 1.25.04v.25l-.26.027c-.206.02-.284.156-.205.372l1.693 4.887 1.026-2.905-.98-2.733c-.07-.196-.16-.3-.346-.32l-.24-.03v-.25c.29-.024.743-.04 1.055-.04.438 0 .99.024 1.296.04v.25l-.24.03c-.244.03-.324.155-.224.438l2.67 7.502-2.724 7.56-3.02-8.2z"/><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 23.36C18.273 23.36 23.36 18.274 23.36 12S18.274.64 12 .64.64 5.726.64 12 5.726 23.36 12 23.36z"/></svg>Free Download'
+      link: https://wordpress.org/plugins/productbay/
 
 features:
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M14.5 7.5 8 14"/><path d="M8 7.5h0"/><path d="M14.5 14h0"/></svg>'
@@ -49,6 +49,7 @@ ProductBay is a modern, high-performance WordPress plugin that completely transf
 ### Who Should Use ProductBay?
 
 ProductBay is explicitly engineered to serve a variety of WooCommerce businesses, making it the perfect solution if your store fits into any of these categories:
+- **General E-commerce & Retail:** Any store looking to modernize their product listings with a clean, high-converting list view that drastically reduces checkout friction.
 - **Wholesale and B2B Stores:** Buyers need to order bulk quantities of products rapidly without navigating back and forth across multiple pages. ProductBay's bulk add-to-cart system makes this trivial.
 - **Restaurant Menus & Takeouts:** Customers ordering food need a readable list where they can select variations (e.g., sizes, extras) quickly from a single view.
 - **Audio, Digital, and Software Stores:** When visual imagery isn’t the primary selling point, a clean table listing product titles, descriptions, and prices converts significantly better.
@@ -59,7 +60,7 @@ ProductBay is explicitly engineered to serve a variety of WooCommerce businesses
 Most WooCommerce product table plugins are built using outdated frameworks like DataTables.js, making them slow, bloated, and unresponsive on modern mobile devices. We built ProductBay from the ground up to solve these exact frustrations.
 
 - **Instant, Frictionless Architecture:** We completely decoupled the heavy lifting. The admin panel is a blazing fast React SPA, while the frontend output relies on vanilla JavaScript, raw HTML, and aggressive caching.
-- **Fully Responsive & Adaptive:** Tables naturally look terrible on mobile. ProductBay features intelligent breakpoint controls, allowing you to hide specific columns on phones and tablets so your layout never breaks.
+- **Maximized Conversion Rates:** By bringing variations, quantities, and bulk adding directly to the catalog view, you remove the need for customers to visit individual product pages—speeding up the purchasing funnel.
 - **No Coding Skills Required:** You don't need to know shortcode attributes or custom CSS. ProductBay offers the market's only fully visual, 5-step guided creation wizard with a real-time live preview. What you see in the admin is precisely what your customers see.
 
 </div>
