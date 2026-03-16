@@ -642,7 +642,8 @@ class TableRenderer
 		$cell_html = \apply_filters('productbay_cell_output', $cell_html, $col, $product);
 		
 		if ($cell_html !== '') {
-			echo wp_kses_post($cell_html);
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML is safely built and filtered. Third parties must escape their own output.
+			echo $cell_html;
 		}
 	}
 

@@ -562,17 +562,18 @@
 .productbay-wrapper .productbay-qty-wrap {
     display: inline-flex;
     align-items: stretch;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
+    border: 1px solid var(--pb-color-border);
+    border-radius: var(--pb-radius-md);
     overflow: hidden;
-    background: #fff;
-    transition: border-color 0.2s;
+    background: var(--pb-color-bg);
+    transition: border-color var(--pb-transition),
+        box-shadow var(--pb-transition);
     height: 32px;
 }
 
 .productbay-wrapper .productbay-qty-wrap:focus-within {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--pb-color-accent);
+    box-shadow: 0 0 0 3px var(--pb-color-accent-light);
 }
 
 .productbay-wrapper .productbay-qty {
@@ -1120,7 +1121,7 @@
     border: 1px solid #e2e8f0;
     border-radius: 6px;
     padding: 12px 16px;
-    margin-top: -8px; 
+    margin-top: -8px;
 }
 
 /* Filter heading "Filter" */
@@ -1176,7 +1177,7 @@
     background-size: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Custom multi-select checkbox dropdown */
@@ -1198,7 +1199,7 @@
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     white-space: nowrap;
     font-family: inherit;
 }
@@ -1233,7 +1234,7 @@
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 100;
     padding: 4px 0;
 }
@@ -1287,7 +1288,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .productbay-wrapper .productbay-filters-clear:hover {
@@ -1318,7 +1319,8 @@ dialog.productbay-lightbox::backdrop {
 }
 
 .productbay-lightbox-backdrop {
-    display: none; /* Native backdrop ::backdrop is used, but keeping this for potential polyfills */
+    display: none;
+    /* Native backdrop ::backdrop is used, but keeping this for potential polyfills */
 }
 
 .productbay-lightbox-content {
@@ -1383,7 +1385,8 @@ dialog.productbay-lightbox::backdrop {
     border: none !important;
     border-radius: 0 !important;
     background: #000 !important;
-    z-index: 2147483647 !important; /* Maximum possible z-index */
+    z-index: 2147483647 !important;
+    /* Maximum possible z-index */
     overflow: hidden !important;
 }
 
