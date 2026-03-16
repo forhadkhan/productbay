@@ -1,4 +1,4 @@
-import { PRODUCTBAY_DOCUMENTATION_URL, PRODUCTBAY_LANDING_PAGE_URL, PRODUCTBAY_SUPPORT_URL, PRODUCTBAY_VIDEO_GUIDE_URL } from "@/utils/routes";
+import { PRODUCTBAY_DOCUMENTATION_URL, PRODUCTBAY_LANDING_PAGE_URL, PRODUCTBAY_PRO_SUPPORT_URL, PRODUCTBAY_SUPPORT_EMAIL, PRODUCTBAY_SUPPORT_URL } from "@/utils/routes";
 import { LifeBuoyIcon, PlayCircleIcon } from "lucide-react";
 import ProductBayIcon from "@/components/ui/ProductBayIcon";
 import { __ } from '@wordpress/i18n';
@@ -63,19 +63,19 @@ export const Footer = () => {
                 <section className="bg-gray-50 p-6 rounded-lg border border-gray-100">
                     <div className="flex items-center gap-3 mb-4 text-gray-800">
                         <PlayCircleIcon className="text-blue-500" />
-                        <h3 className="font-bold">{__('Guides', 'productbay')}</h3>
+                        <h3 className="font-bold">{__('Learn More', 'productbay')}</h3>
                     </div>
                     <p className="text-sm text-gray-500 mb-4">
-                        {__('Watch our quick video guide or read the documentation to master ProductBay in minutes.', 'productbay')}
+                        {__('Explore ProductBay details or read the documentation to master it in minutes.', 'productbay')}
                     </p>
                     <div className="flex gap-3 text-sm">
                         <a
-                            href={PRODUCTBAY_VIDEO_GUIDE_URL}
+                            href={PRODUCTBAY_LANDING_PAGE_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:underline underline-offset-4"
                         >
-                            {__('Watch Video', 'productbay')}
+                            {__('Find Details', 'productbay')}
                         </a>
                         <span className="text-gray-300">|</span>
                         <a
@@ -98,14 +98,34 @@ export const Footer = () => {
                     <p className="text-sm text-gray-500 mb-4">
                         {__("Need help? Have a feature request? We'd love to hear from you.", 'productbay')}
                     </p>
-                    <a
-                        href={PRODUCTBAY_SUPPORT_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline underline-offset-4 text-sm font-medium"
-                    >
-                        {__('Contact Support', 'productbay')}
-                    </a>
+                    <div className="flex gap-3 text-sm">
+                        <a
+                            href={PRODUCTBAY_SUPPORT_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline underline-offset-4"
+                        >
+                            {__('Community Support', 'productbay')}
+                        </a>
+                        <span className="text-gray-300">|</span>
+                        <a
+                            href={PRODUCTBAY_PRO_SUPPORT_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline underline-offset-4"
+                        >
+                            {__('Registered User Help', 'productbay')}
+                        </a>
+                        <span className="text-gray-300">|</span>
+                        <a
+                            href={`mailto:${PRODUCTBAY_SUPPORT_EMAIL}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline underline-offset-4"
+                        >
+                            {__('Email Us', 'productbay')}
+                        </a>
+                    </div>
                 </section>
             </div>
 

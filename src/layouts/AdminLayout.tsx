@@ -1,14 +1,14 @@
 import { __ } from '@wordpress/i18n';
+import { apiFetch } from '@/utils/api';
+import { useLocation } from 'react-router-dom';
 import { WandSparklesIcon } from 'lucide-react';
 import Navbar from '@/components/Layout/Navbar';
 import { useTableStore } from '@/store/tableStore';
-import React, { useState, useCallback, useEffect } from 'react';
+import { Footer } from '@/components/Layout/Footer';
 import { useWpMenuSync } from '@/hooks/useWpMenuSync';
-import { MinimalFooter } from '@/components/Layout/Footer';
 import WizardDialog from '@/components/Wizard/WizardDialog';
-import { useLocation } from 'react-router-dom';
-import { apiFetch } from '@/utils/api';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
+import React, { useState, useCallback, useEffect } from 'react';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	// Sync React Router location with WP Admin Menu
@@ -66,7 +66,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 			<main className="p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
 				{children}
 			</main>
-			<MinimalFooter />
+			<Footer />
 
 			{/* Floating Action Button — opens the wizard (hidden when wizard is open) */}
 			{!showWizard && (
