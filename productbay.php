@@ -8,7 +8,7 @@
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       ProductBay
+ * Plugin Name:       ProductBay – High-Performance Product Table for WooCommerce
  * Plugin URI:        https://wpanchorbay.com/products/productbay
  * Source URI:        https://github.com/wpanchorbay/productbay
  * Description:       WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.
@@ -72,7 +72,7 @@ if (\file_exists($productbay_dotenv_path) && \class_exists('Dotenv\\Dotenv')) {
  * When true: enables file-based cache busting, debug features, etc.
  * When false: uses production-optimized settings.
  */
-define('PRODUCTBAY_DEV_MODE', \filter_var(getenv('PRODUCTBAY_DEV_MODE') ?: false, FILTER_VALIDATE_BOOLEAN));
+define('PRODUCTBAY_DEV_MODE', \filter_var(getenv('PRODUCTBAY_DEV_MODE') ? getenv('PRODUCTBAY_DEV_MODE') : false, FILTER_VALIDATE_BOOLEAN));
 
 /**
  * Initialization

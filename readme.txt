@@ -156,17 +156,6 @@ For the free version, please use the support forum on this plugin's WordPress.or
 * Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
 * Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
 * Image Lightbox: Native modal/popup display for product images with fullscreen toggling and close controls, utilizing native browser resources for maximum performance.
-
-**Fixed**
-
-* Bulk selection no longer resets when paginating or searching.
-* Selected products persist across page navigation and page reloads.
-* Live Preview: Fixed a rare infinite height growth bug during config changes and device scaling.
-
-= 1.0.0 =
-**Added**
-
-* Initial release of ProductBay.
 * Centralized table management dashboard with search, status filtering, and bulk delete.
 * 5-step guided creation wizard with live preview.
 * Product source selection: by category, sale status, specific IDs, or all products.
@@ -182,10 +171,6 @@ For the free version, please use the support forum on this plugin's WordPress.or
 * Shortcode system: `[productbay id="XYZ"]`.
 * 100% translation-ready codebase.
 
-**Fixed**
-
-* Bulk selection no longer resets when paginating or searching.
-* Selected products persist across page navigation and page reloads.
 
 == Upgrade Notice ==
 

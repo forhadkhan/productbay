@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace WpabProductBay\Api;
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -25,7 +25,8 @@ use WpabProductBay\Http\Request;
  * @since   1.0.0
  * @package WpabProductBay\Api
  */
-class SettingsController extends ApiController {
+class SettingsController extends ApiController
+{
 
 	/**
 	 * WordPress option name for plugin settings.
@@ -41,8 +42,9 @@ class SettingsController extends ApiController {
 	 *
 	 * @param Request $request HTTP request handler.
 	 */
-	public function __construct( Request $request ) {
-		parent::__construct( $request );
+	public function __construct(Request $request)
+	{
+		parent::__construct($request);
 	}
 
 	/**
@@ -54,8 +56,9 @@ class SettingsController extends ApiController {
 	 *
 	 * @return array Plugin settings.
 	 */
-	public function get_settings() {
-		$settings = get_option( self::OPTION_NAME, $this->defaults() );
+	public function get_settings()
+	{
+		$settings = get_option(self::OPTION_NAME, $this->defaults());
 
 		/**
 		 * Filters settings before returning to the frontend.
@@ -64,7 +67,7 @@ class SettingsController extends ApiController {
 		 *
 		 * @param array $settings The current settings.
 		 */
-		return \apply_filters( 'productbay_get_settings', $settings );
+		return \apply_filters('productbay_get_settings', $settings);
 	}
 
 	/**
@@ -74,17 +77,18 @@ class SettingsController extends ApiController {
 	 * @return array The updated settings.
 	 * @since 1.0.0
 	 */
-	public function update_settings( \WP_REST_Request $request ) {
-		$settings = $request->get_param( 'settings' );
+	public function update_settings(\WP_REST_Request $request)
+	{
+		$settings = $request->get_param('settings');
 
-		if ( ! is_array( $settings ) ) {
+		if (!is_array($settings)) {
 			$settings = array();
 		}
 
 		// Merge with defaults to ensure structure.
-		$settings = array_merge( $this->defaults(), $settings );
+		$settings = array_merge($this->defaults(), $settings);
 
-		update_option( self::OPTION_NAME, $settings );
+		update_option(self::OPTION_NAME, $settings);
 
 		/**
 		 * Fires after settings are saved.
@@ -93,7 +97,7 @@ class SettingsController extends ApiController {
 		 *
 		 * @param array $settings The saved settings.
 		 */
-		\do_action( 'productbay_settings_updated', $settings );
+		\do_action('productbay_settings_updated', $settings);
 
 		return $settings;
 	}
@@ -108,45 +112,46 @@ class SettingsController extends ApiController {
 	 * @return array{success: bool, deleted_tables: int, settings: array} Reset result with defaults.
 	 * @since 1.0.0
 	 */
-	public function reset_settings() {
+	public function reset_settings()
+	{
 		// 1. Delete all ProductBay table posts.
 		$tables = get_posts(
 			array(
-				'post_type'   => 'productbay_table',
-				'numberposts' => -1,
-				'post_status' => 'any',
-				'fields'      => 'ids',
-			)
+			'post_type' => 'productbay_table',
+			'numberposts' => -1,
+			'post_status' => 'any',
+			'fields' => 'ids',
+		)
 		);
 
 		$deleted_count = 0;
-		if ( ! empty( $tables ) ) {
-			foreach ( $tables as $table_id ) {
-				wp_delete_post( $table_id, true );
+		if (!empty($tables)) {
+			foreach ($tables as $table_id) {
+				wp_delete_post($table_id, true);
 				++$deleted_count;
 			}
 		}
 
 		// 2. Clear all ProductBay post meta across the site.
 		global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup, caching not needed
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time cleanup, caching not needed
 		$wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM $wpdb->postmeta WHERE meta_key = %s",
-				'_productbay_config'
-			)
+			"DELETE FROM $wpdb->postmeta WHERE meta_key = %s",
+			'_productbay_config'
+		)
 		);
 
 		// 3. Delete plugin settings.
-		delete_option( self::OPTION_NAME );
+		delete_option(self::OPTION_NAME);
 
 		// 4. Reset onboarding state.
-		delete_option( 'productbay_onboarding_completed' );
+		delete_option('productbay_onboarding_completed');
 
 		return array(
-			'success'        => true,
+			'success' => true,
 			'deleted_tables' => $deleted_count,
-			'settings'       => $this->defaults(),
+			'settings' => $this->defaults(),
 		);
 	}
 
@@ -160,60 +165,61 @@ class SettingsController extends ApiController {
 	 *
 	 * @return array Default settings array.
 	 */
-	private function defaults() {
+	private function defaults()
+	{
 		$defaults = array(
-			'add_to_cart_text'    => 'Add to Cart',
-			'products_per_page'   => 10,
-			'show_admin_bar'      => true,
+			'add_to_cart_text' => 'Add to Cart',
+			'products_per_page' => 10,
+			'show_admin_bar' => true,
 			'delete_on_uninstall' => true,
-			'design'              => array(
-				'header_bg'    => '#f3f4f6',
+			'design' => array(
+				'header_bg' => '#f3f4f6',
 				'border_color' => '#e5e7eb',
 			),
 			// Default configuration for new tables.
-			'table_defaults'      => array(
-				'source'   => array(
-					'type'      => 'all',
+			'table_defaults' => array(
+				'source' => array(
+					'type' => 'all',
 					'queryArgs' => array(
 						'stockStatus' => 'any',
 					),
-					'sort'      => array(
+					'sort' => array(
 						'orderBy' => 'date',
-						'order'   => 'DESC',
+						'order' => 'DESC',
 					),
 				),
-				'style'    => array(
-					'header'     => array(
-						'bgColor'   => '#f0f0f1',
+				'style' => array(
+					'header' => array(
+						'bgColor' => '#f0f0f1',
 						'textColor' => '#333333',
-						'fontSize'  => '16px',
+						'fontSize' => '16px',
 					),
-					'body'       => array(
-						'bgColor'      => '#ffffff',
-						'textColor'    => '#444444',
+					'body' => array(
+						'bgColor' => '#ffffff',
+						'textColor' => '#444444',
 						'rowAlternate' => false,
-						'altBgColor'   => '#f9f9f9',
+						'altBgColor' => '#f9f9f9',
 						'altTextColor' => '#444444',
-						'borderColor'  => '#e5e5e5',
+						'borderColor' => '#e5e5e5',
 					),
-					'button'     => array(
-						'bgColor'        => '#2271b1',
-						'textColor'      => '#ffffff',
-						'borderRadius'   => '4px',
-						'icon'           => 'cart',
-						'hoverBgColor'   => '#135e96',
+					'button' => array(
+						'bgColor' => '#2271b1',
+						'textColor' => '#ffffff',
+						'borderRadius' => '4px',
+						'icon' => 'cart',
+						'hoverBgColor' => '#135e96',
 						'hoverTextColor' => '#ffffff',
 					),
-					'layout'     => array(
-						'borderStyle'  => 'solid',
-						'borderColor'  => '#e5e5e5',
+					'layout' => array(
+						'borderStyle' => 'solid',
+						'borderColor' => '#e5e5e5',
 						'borderRadius' => '0px',
-						'cellPadding'  => 'normal',
+						'cellPadding' => 'normal',
 					),
 					'typography' => array(
 						'headerFontWeight' => 'bold',
 					),
-					'hover'      => array(
+					'hover' => array(
 						'rowHoverEnabled' => true,
 						'rowHoverBgColor' => '#f5f5f5',
 					),
@@ -222,26 +228,26 @@ class SettingsController extends ApiController {
 					),
 				),
 				'settings' => array(
-					'features'   => array(
-						'search'     => true,
-						'sorting'    => true,
+					'features' => array(
+						'search' => true,
+						'sorting' => true,
 						'pagination' => true,
-						'export'     => false,
+						'export' => false,
 						'priceRange' => false,
 					),
 					'pagination' => array(
-						'limit'    => 10,
+						'limit' => 10,
 						'position' => 'bottom',
 					),
-					'cart'       => array(
-						'enable'       => true,
-						'method'       => 'button',
+					'cart' => array(
+						'enable' => true,
+						'method' => 'button',
 						'showQuantity' => true,
-						'ajaxAdd'      => true,
+						'ajaxAdd' => true,
 					),
-					'filters'    => array(
-						'enabled'          => true,
-						'activeTaxonomies' => array( 'product_cat' ),
+					'filters' => array(
+						'enabled' => true,
+						'activeTaxonomies' => array('product_cat'),
 					),
 				),
 			),
@@ -254,6 +260,6 @@ class SettingsController extends ApiController {
 		 *
 		 * @param array $defaults The default settings array.
 		 */
-		return \apply_filters( 'productbay_default_settings', $defaults );
+		return \apply_filters('productbay_default_settings', $defaults);
 	}
 }

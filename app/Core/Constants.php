@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace WpabProductBay\Core;
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -22,7 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package WpabProductBay\Core
  * @since 1.0.0
  */
-class Constants {
+class Constants
+{
 
 	/**
 	 * Plugin Version

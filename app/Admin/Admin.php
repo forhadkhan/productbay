@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace WpabProductBay\Admin;
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -26,7 +26,8 @@ use WpabProductBay\Core\Constants;
  * @package ProductBay\Admin
  * @since 1.0.0
  */
-class Admin {
+class Admin
+{
 
 	/**
 	 * The repository instance (placeholder for future implementation).
@@ -51,9 +52,10 @@ class Admin {
 	 * @param mixed $request    Request instance.
 	 * @since 1.0.0
 	 */
-	public function __construct( $repository, $request ) {
+	public function __construct($repository, $request)
+	{
 		$this->repository = $repository;
-		$this->request    = $request;
+		$this->request = $request;
 	}
 
 	/**
@@ -64,19 +66,20 @@ class Admin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function register_menu(): void {
+	public function register_menu(): void
+	{
 		// Register top-level menu page in WordPress admin sidebar.
 		\add_menu_page(
 			// $page_title: The text displayed in the browser title bar when the menu page is active.
-			\__( 'ProductBay', 'productbay' ),
+			\__('ProductBay', 'productbay'),
 			// $menu_title: The text shown in the admin sidebar menu.
-			\__( 'ProductBay', 'productbay' ),
+			\__('ProductBay', 'productbay'),
 			// $capability: The user capability required to access this menu (e.g., 'manage_options')
 			Constants::CAPABILITY,
 			// $menu_slug: Unique identifier for this menu, used in URLs (?page=productbay)
 			Constants::MENU_SLUG,
-			// $callback: Function to render the page content (outputs React app container)
-			array( $this, 'render_app' ),
+		// $callback: Function to render the page content (outputs React app container)
+			array($this, 'render_app'),
 			// $icon_url: Dashicon class or base64-encoded SVG for the menu icon.
 			Constants::MENU_ICON,
 			// $position: Menu position in sidebar (58 places it after WooCommerce's Products at 56)
@@ -89,46 +92,46 @@ class Admin {
 			// $parent_slug: The slug of the parent menu.
 			Constants::MENU_SLUG,
 			// $page_title: Browser title bar text.
-			\__( 'All Tables', 'productbay' ),
+			\__('All Tables', 'productbay'),
 			// $menu_title: Text displayed in the submenu list.
-			\__( 'All Tables', 'productbay' ),
+			\__('All Tables', 'productbay'),
 			// $capability: User capability required.
 			Constants::CAPABILITY,
 			// $menu_slug: Same as parent to make it the default.
 			Constants::MENU_SLUG,
-			// $callback: Function to render page content.
-			array( $this, 'render_app' )
+		// $callback: Function to render page content.
+			array($this, 'render_app')
 		);
 
 		// Register "Create New Table" submenu.
 		\add_submenu_page(
 			Constants::MENU_SLUG,
-			\__( 'Create New Table', 'productbay' ),
-			\__( 'Create New Table', 'productbay' ),
+			\__('Create New Table', 'productbay'),
+			\__('Create New Table', 'productbay'),
 			Constants::CAPABILITY,
 			Constants::MENU_SLUG . '-new',
-			array( $this, 'render_app' )
+			array($this, 'render_app')
 		);
 
 		// Register "Settings" submenu.
 		\add_submenu_page(
 			Constants::MENU_SLUG,
-			\__( 'Settings', 'productbay' ),
-			\__( 'Settings', 'productbay' ),
+			\__('Settings', 'productbay'),
+			\__('Settings', 'productbay'),
 			Constants::CAPABILITY,
 			Constants::MENU_SLUG . '-settings',
-			array( $this, 'render_app' )
+			array($this, 'render_app')
 		);
 
 		// Register submenu under WooCommerce's "Products" menu.
 		// Uses a redirect callback to open the ProductBay tables in its proper admin URL.
 		\add_submenu_page(
 			'edit.php?post_type=product',
-			\__( 'All Tables', 'productbay' ),
-			\__( 'All Tables', 'productbay' ),
+			\__('All Tables', 'productbay'),
+			\__('All Tables', 'productbay'),
 			Constants::CAPABILITY,
 			Constants::MENU_SLUG . '-woo-tables',
-			array( $this, 'redirect_to_productbay' )
+			array($this, 'redirect_to_productbay')
 		);
 
 		/**
@@ -136,7 +139,7 @@ class Admin {
 		 *
 		 * @since 1.0.1
 		 */
-		\do_action( 'productbay_after_register_menu' );
+		\do_action('productbay_after_register_menu');
 	}
 
 	/**
@@ -150,64 +153,65 @@ class Admin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function register_admin_bar( \WP_Admin_Bar $wp_admin_bar ): void {
+	public function register_admin_bar(\WP_Admin_Bar $wp_admin_bar): void
+	{
 		// Only show for users with appropriate capabilities.
-		if ( ! \current_user_can( Constants::CAPABILITY ) ) {
+		if (!\current_user_can(Constants::CAPABILITY)) {
 			return;
 		}
 
 		// Check if admin bar is enabled in plugin settings.
 		// Retrieve the setting from database, default to true if not set.
-		$settings       = \get_option( 'productbay_settings', array() );
+		$settings = \get_option('productbay_settings', array());
 		$show_admin_bar = $settings['show_admin_bar'] ?? true;
 
-		if ( ! $show_admin_bar ) {
+		if (!$show_admin_bar) {
 			return;
 		}
 
 		// Add parent node with icon using flexbox for perfect alignment.
 		$wp_admin_bar->add_node(
 			array(
-				'id'    => Constants::MENU_SLUG,
-				'title' => '<span style="display: flex; align-items: center;">'
-					. '<span>' . \__( 'ProductBay', 'productbay' ) . '</span>'
-					. '</span>',
-				// Link to the main productbay page (now Tables).
-				'href'  => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG ),
-				'meta'  => array(
-					'title' => \__( 'ProductBay', 'productbay' ),
-				),
-			)
+			'id' => Constants::MENU_SLUG,
+			'title' => '<span style="display: flex; align-items: center;">'
+			. '<span>' . esc_html(\__('ProductBay', 'productbay')) . '</span>'
+			. '</span>',
+			// Link to the main productbay page (now Tables).
+			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
+			'meta' => array(
+				'title' => \__('ProductBay', 'productbay'),
+			),
+		)
 		);
 
 		// Add All Tables submenu.
 		$wp_admin_bar->add_node(
 			array(
-				'id'     => Constants::MENU_SLUG . '-tables',
-				'parent' => Constants::MENU_SLUG,
-				'title'  => \__( 'All Tables', 'productbay' ),
-				'href'   => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG ),
-			)
+			'id' => Constants::MENU_SLUG . '-tables',
+			'parent' => Constants::MENU_SLUG,
+			'title' => \__('All Tables', 'productbay'),
+			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
+		)
 		);
 
 		// Add Settings submenu.
 		$wp_admin_bar->add_node(
 			array(
-				'id'     => Constants::MENU_SLUG . '-settings',
-				'parent' => Constants::MENU_SLUG,
-				'title'  => \__( 'Settings', 'productbay' ),
-				'href'   => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG . '-settings' ),
-			)
+			'id' => Constants::MENU_SLUG . '-settings',
+			'parent' => Constants::MENU_SLUG,
+			'title' => \__('Settings', 'productbay'),
+			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
+		)
 		);
 
 		// Add "Create New Table" submenu.
 		$wp_admin_bar->add_node(
 			array(
-				'id'     => Constants::MENU_SLUG . '-new',
-				'parent' => Constants::MENU_SLUG,
-				'title'  => \__( 'Create New Table', 'productbay' ),
-				'href'   => \admin_url( 'admin.php?page=' . Constants::MENU_SLUG . '-new' ),
-			)
+			'id' => Constants::MENU_SLUG . '-new',
+			'parent' => Constants::MENU_SLUG,
+			'title' => \__('Create New Table', 'productbay'),
+			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
+		)
 		);
 	}
 
@@ -219,7 +223,8 @@ class Admin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function render_app(): void {
+	public function render_app(): void
+	{
 		echo '<div id="productbay-root" class="productbay-wrapper"></div>';
 	}
 
@@ -233,11 +238,12 @@ class Admin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function redirect_to_productbay(): void {
+	public function redirect_to_productbay(): void
+	{
 		// Redirect to the main plugin page which is now Tables (#/tables is default but optional if handled in React)
 		// We explicitly add #/tables for clarity and exact routing.
-		$redirect_url = \admin_url( 'admin.php?page=' . Constants::MENU_SLUG . '#/tables' );
-		\wp_safe_redirect( $redirect_url );
+		$redirect_url = \admin_url('admin.php?page=' . Constants::MENU_SLUG . '#/tables');
+		\wp_safe_redirect($redirect_url);
 		exit;
 	}
 
@@ -251,16 +257,17 @@ class Admin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function enqueue_scripts( string $hook ): void {
+	public function enqueue_scripts(string $hook): void
+	{
 		// Allow loading on any productbay page.
-		if ( strpos( $hook, 'page_productbay' ) === false && $hook !== 'toplevel_page_' . Constants::MENU_SLUG ) {
+		if (false === strpos($hook, 'page_productbay') && 'toplevel_page_' . Constants::MENU_SLUG !== $hook) {
 			return;
 		}
 
 		// Auto-generated asset file from webpack build.
 		$asset_path = PRODUCTBAY_PATH . 'assets/js/admin.asset.php';
 
-		if ( ! file_exists( $asset_path ) ) {
+		if (!file_exists($asset_path)) {
 			return;
 		}
 
@@ -271,21 +278,21 @@ class Admin {
 			'productbay-admin',
 			PRODUCTBAY_URL . 'assets/js/admin.js',
 			$asset['dependencies'],
-			(string) time(),
+			(string)time(),
 			true
 		);
 
 		// Check if onboarding is completed.
-		$is_first_time = ! get_option( 'productbay_onboarding_completed', false );
+		$is_first_time = !get_option('productbay_onboarding_completed', false);
 
 		// Pass PHP data to React script via localization.
 		$script_data = array(
-			'apiUrl'      => \rest_url( Constants::PLUGIN_SLUG . '/v1/' ),
-			'nonce'       => \wp_create_nonce( 'wp_rest' ),
-			'pluginUrl'   => PRODUCTBAY_URL,
+			'apiUrl' => \rest_url(Constants::PLUGIN_SLUG . '/v1/'),
+			'nonce' => \wp_create_nonce('wp_rest'),
+			'pluginUrl' => PRODUCTBAY_URL,
 			'isFirstTime' => $is_first_time,
-			'version'     => Constants::VERSION,
-			'proVersion'  => \defined( 'PRODUCTBAY_PRO_VERSION' ) ? \PRODUCTBAY_PRO_VERSION : false,
+			'version' => Constants::VERSION,
+			'proVersion' => \defined('PRODUCTBAY_PRO_VERSION') ? \PRODUCTBAY_PRO_VERSION : false,
 		);
 
 		/**
@@ -295,7 +302,7 @@ class Admin {
 		 *
 		 * @param array $script_data The localized script data.
 		 */
-		$script_data = \apply_filters( 'productbay_admin_script_data', $script_data );
+		$script_data = \apply_filters('productbay_admin_script_data', $script_data);
 
 		\wp_localize_script(
 			'productbay-admin',
@@ -306,8 +313,8 @@ class Admin {
 		// Enqueue global admin styles with smart cache busting.
 		// Uses file modification time in dev mode for instant refresh,.
 		// or plugin version in production for proper cache control.
-		$css_path    = PRODUCTBAY_PATH . 'assets/css/admin.css';
-		$css_version = (string) time();
+		$css_path = PRODUCTBAY_PATH . 'assets/css/admin.css';
+		$css_version = (string)time();
 
 		\wp_enqueue_style(
 			'productbay-admin-css',
@@ -317,7 +324,7 @@ class Admin {
 		);
 
 		// Load translations for the React app.
-		\wp_set_script_translations( 'productbay-admin', Constants::TEXT_DOMAIN, PRODUCTBAY_PATH . 'languages' );
+		\wp_set_script_translations('productbay-admin', Constants::TEXT_DOMAIN, PRODUCTBAY_PATH . 'languages');
 
 		/**
 		 * Fires after admin assets are enqueued.
@@ -326,6 +333,6 @@ class Admin {
 		 *
 		 * @since 1.0.1
 		 */
-		\do_action( 'productbay_enqueue_admin_assets' );
+		\do_action('productbay_enqueue_admin_assets');
 	}
 }

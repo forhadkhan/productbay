@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace WpabProductBay\Core;
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -24,7 +24,8 @@ use WpabProductBay\Admin\Admin;
  * @package WpabProductBay\Core
  * @since 1.0.0
  */
-class Plugin {
+class Plugin
+{
 
 	/**
 	 * Repository for table data access.
@@ -51,7 +52,8 @@ class Plugin {
 	 *
 	 * @return void
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->load_dependencies();
 		$this->init_components();
 	}
@@ -64,9 +66,10 @@ class Plugin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 		$this->table_repository = new \WpabProductBay\Data\TableRepository();
-		$this->request          = new \WpabProductBay\Http\Request();
+		$this->request = new \WpabProductBay\Http\Request();
 	}
 
 	/**
@@ -77,16 +80,17 @@ class Plugin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	private function init_components() {
+	private function init_components()
+	{
 		// Admin Area.
-		if ( is_admin() ) {
-			$admin = new Admin( $this->table_repository, $this->request );
-			\add_action( 'admin_menu', array( $admin, 'register_menu' ) );
-			\add_action( 'admin_enqueue_scripts', array( $admin, 'enqueue_scripts' ) );
+		if (is_admin()) {
+			$admin = new Admin($this->table_repository, $this->request);
+			\add_action('admin_menu', array($admin, 'register_menu'));
+			\add_action('admin_enqueue_scripts', array($admin, 'enqueue_scripts'));
 
 			// Admin bar - registered inside is_admin() since Admin class is instantiated here.
 			// Priority 100 ensures it appears after core items.
-			\add_action( 'admin_bar_menu', array( $admin, 'register_admin_bar' ), 100 );
+			\add_action('admin_bar_menu', array($admin, 'register_admin_bar'), 100);
 
 			/**
 			 * Fires after the admin component is initialized.
@@ -95,21 +99,21 @@ class Plugin {
 			 *
 			 * @param Admin $admin The Admin instance.
 			 */
-			\do_action( 'productbay_admin_init', $admin );
+			\do_action('productbay_admin_init', $admin);
 		}
 
 		// API Router.
-		$router = new \WpabProductBay\Http\Router( $this->table_repository, $this->request );
+		$router = new \WpabProductBay\Http\Router($this->table_repository, $this->request);
 		$router->init();
 
 		// Frontend.
-		$table_renderer = new \WpabProductBay\Frontend\TableRenderer( $this->table_repository );
+		$table_renderer = new \WpabProductBay\Frontend\TableRenderer($this->table_repository);
 		// TableRenderer no longer handles shortcode directy.
 
-		$shortcode = new \WpabProductBay\Frontend\Shortcode( $this->table_repository );
+		$shortcode = new \WpabProductBay\Frontend\Shortcode($this->table_repository);
 		$shortcode->init();
 
-		$ajax_renderer = new \WpabProductBay\Frontend\AjaxRenderer( $this->table_repository, $this->request );
+		$ajax_renderer = new \WpabProductBay\Frontend\AjaxRenderer($this->table_repository, $this->request);
 		$ajax_renderer->init();
 
 		/**
@@ -121,6 +125,6 @@ class Plugin {
 		 *
 		 * @param Plugin $plugin The main Plugin instance.
 		 */
-		\do_action( 'productbay_loaded', $this );
+		\do_action('productbay_loaded', $this);
 	}
 }
