@@ -151,7 +151,7 @@ const CardRadioGroup = <T extends string = string,>({
                             /* Unselected state: light background, dark text */
                             !isSelected && [
                                 'border-gray-200 bg-gray-50 text-gray-900',
-                                'hover:border-gray-300 hover:bg-gray-100',
+                                'hover:bg-orange-50 border border-transparent hover:border-orange-200',
                             ],
                             /* Disabled state */
                             isDisabled && [

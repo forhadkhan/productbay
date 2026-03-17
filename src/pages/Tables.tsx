@@ -807,7 +807,7 @@ const Tables = () => {
 									// Table Row
 									<tr
 										key={table.id}
-										className={`group hover:bg-gray-50 transition-colors ${isActing ? 'opacity-50' : ''}`}
+										className={`group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''}`}
 									>
 										{/* Checkbox */}
 										<td className="px-4 py-4 text-center">

@@ -256,7 +256,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
             className={cn(
                 'bg-white border border-gray-200 rounded-lg overflow-hidden transition-shadow',
                 isDragging && 'shadow-lg ring-2 ring-blue-400 opacity-90',
-                !isDragging && 'hover:border-gray-300'
+                !isDragging && 'hover:bg-orange-50 hover:border-orange-200'
             )}
         >
             {/* Main Row */}
@@ -288,7 +288,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                 />
 
                 {/* Column Type Badge */}
-                <span className="flex-shrink-0 text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded" title={`Column type: ${column.type}`}>
+                <span className="flex-shrink-0 text-xs text-gray-500 bg-gray-100 border border-gray-300 px-2 py-0.5 rounded" title={`Column type: ${column.type}`}>
                     {column.type}
                 </span>
 
@@ -341,7 +341,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
                 {/* Expand/Collapse Button */}
                 <button
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="flex-shrink-0 bg-transparent p-1 text-gray-400 hover:text-gray-600 transition-colors rounded-md cursor-pointer flex items-center hover:bg-gray-100"
+                    className="flex-shrink-0 border border-gray-300 bg-transparent p-1 text-gray-400 hover:text-gray-600 transition-colors rounded-md cursor-pointer flex items-center hover:bg-gray-100"
                     aria-label={isExpanded ? __('Collapse settings', 'productbay') : __('Expand settings', 'productbay')}
                     title={isExpanded ? __('Collapse settings', 'productbay') : __('Expand settings', 'productbay')}
                 >
