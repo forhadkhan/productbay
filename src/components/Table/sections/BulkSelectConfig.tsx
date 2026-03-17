@@ -45,7 +45,7 @@ export const BulkSelectConfig = ({ value, onChange }: BulkSelectConfigProps) => 
             <SettingsOption
                 title={__('Enable Bulk Selection', 'productbay')}
                 description={__('Adds a checkbox column and an "Add to Cart" button for bulk actions.', 'productbay')}
-                className="px-0 hover:bg-transparent"
+                className="px-0 hover:bg-transparent hover:border-transparent"
             >
                 <Toggle
                     checked={config.enabled ?? true}
