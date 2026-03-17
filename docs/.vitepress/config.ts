@@ -61,6 +61,8 @@ export default defineConfig({
                 {
                     text: 'Advanced',
                     items: [
+                        { text: 'Admin Bar', link: '/guide/admin-bar' },
+                        { text: 'Clear All Data', link: '/guide/clear-all-data' },
                         { text: 'Uninstallation', link: '/guide/uninstallation' },
                     ]
                 }
@@ -119,7 +121,14 @@ export default defineConfig({
         },
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/wpanchorbay/productbay' }
+            { icon: 'github', link: 'https://github.com/wpanchorbay/productbay' },
+            {
+                icon: {
+                    svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><image href="/productbay/wpanchorbay.png" width="24" height="24" /></svg>'
+                },
+                link: 'https://wpanchorbay.com/',
+                ariaLabel: 'WPAnchorBay'
+            }
         ],
 
         footer: {

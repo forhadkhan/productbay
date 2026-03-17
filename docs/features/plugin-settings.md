@@ -12,6 +12,8 @@ Control the visibility of the ProductBay quick-access link in the WordPress admi
 
 - **Show Admin Bar**: When enabled, a "ProductBay" menu appears in the topbar, providing quick links to "All Tables" and "Create New Table".
 
+[Learn more about admin bar](/guide/admin-bar.html)
+
 ## Uninstall Options
 
 Determine what happens to your data when the ProductBay plugin is deleted from your WordPress site.
@@ -23,6 +25,8 @@ Determine what happens to your data when the ProductBay plugin is deleted from y
 ::: warning Data Permanence
 We recommend keeping this **Disabled** unless you are certain you want to perform a completely clean removal of all ProductBay data.
 :::
+
+[Learn more about uninstall](/guide/uninstallation.html)
 
 ## Clear Data (Reset)
 
@@ -37,3 +41,5 @@ ProductBay includes a master reset tool to restore the plugin to its factory sta
 ::: danger Irreversible Action
 Resetting data is **permanent** and cannot be undone. Always ensure you have a database backup before performing a full reset.
 :::
+
+[Learn more about clear data](/guide/clear-all-data.html)

@@ -1,6 +1,6 @@
 # Quick Start
 
-This guide walks you through creating your first product table and embedding it on a page — in under a few seconds.
+This guide walks you through creating your first product table and embedding it on a page, in under a few seconds.
 
 ## Step 1: Open ProductBay
 
@@ -109,11 +109,11 @@ You can also copy the shortcode from the **"Show all tables"** page.
 Visit the page on the frontend. You should see your product table with all the columns, styling, and features you configured!
 
 ::: tip
-You can embed the same table on multiple pages, or place multiple different tables on a single page — each with its own independent styling.
+You can embed the same table on multiple pages, or place multiple different tables on a single page, each with its own independent styling.
 :::
 
 ## What's Next?
 
-- Learn about [Product Sources](/features/product-sources) to fine-tune which products appear
-- Explore [Design Customization](/features/design-customization) for pixel-perfect styling
-- Set up [Search & Filters](/features/search-and-filters) for an interactive browsing experience
+- Explore [Table Dashboard](/features/table-dashboard.html) to manage your tables
+- Learn how to [Create Tables](/features/create-table.html) for best conversion rates 
+- See how to use [Shortcodes](/features/shortcodes.html) to embed tables anywhere

@@ -4,7 +4,7 @@ Have an idea for a new feature or improvement? We'd love to hear from you!
 
 ## How to Submit a Feature Request
 
-1. Visit the [GitHub Issues page](https://github.com/forhadkhan/productbay/issues)
+1. Visit the [GitHub Issues page](https://github.com/wpanchorbay/productbay/issues)
 2. Click **"New Issue"**
 3. Choose the **"Feature Request"** template (if available) or create a blank issue
 4. Fill in the details:

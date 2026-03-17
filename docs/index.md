@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: ProductBay
-  text: Advanced WooCommerce Product Tables
+  text: High-Performance Product Table for WooCommerce
   tagline: Transform how your WooCommerce products are displayed with powerful, beautiful, and customizable table layouts.
   image:
     src: /icon.svg
@@ -12,6 +12,9 @@ hero:
     - theme: brand
       text: Get Started
       link: /guide/introduction
+    - theme: alt
+      text: Pro Version
+      link: https://wpanchorbay.com/plugins/productbay/
     - theme: alt
       text: Free Download
       link: https://wordpress.org/plugins/productbay/
@@ -53,7 +56,7 @@ ProductBay is explicitly engineered to serve a variety of WooCommerce businesses
 - **Restaurant Menus & Takeouts:** Customers ordering food need a readable list where they can select variations (e.g., sizes, extras) quickly from a single view.
 - **Audio, Digital, and Software Stores:** When visual imagery isn’t the primary selling point, a clean table listing product titles, descriptions, and prices converts significantly better.
 - **Hardware, Spare Parts, and Technical Equipment:** Customers shopping for specific technical products often search by SKU, part numbers, or exact product names, where a dense data display is essential.
-- **General E-commerce & Retail:** Any store looking to modernize their product listings with a clean, high-converting list view that drastically reduces checkout friction.
+- **General E-commerce & Retail:** Any WooCommerce store looking to modernize their product listings with a clean, high-converting list view that drastically reduces checkout friction.
 
 ### Why Choose ProductBay?
 

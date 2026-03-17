@@ -91,5 +91,5 @@ This means the table is set to **Private**. Only administrators see this notice 
 ### Where can I get help?
 
 - Use the support forum on the [WordPress.org plugin page](https://wordpress.org/support/plugin/productbay/)
-- Report bugs via the [GitHub Issue Tracker](https://github.com/forhadkhan/productbay/issues)
+- Report bugs via the [GitHub Issue Tracker](https://github.com/wpanchorbay/productbay/issues)
 - We aim to respond within 2 business days
