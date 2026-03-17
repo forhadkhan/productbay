@@ -84,7 +84,7 @@ class PreviewController extends ApiController
 		/**
 		 * Filters the array of CSS URLs to load in the live preview iframe.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 * @param array $css_urls Array of CSS URLs.
 		 */
 		$css_urls = apply_filters('productbay_preview_css_urls', array($base_css));

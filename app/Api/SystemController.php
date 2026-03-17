@@ -92,7 +92,7 @@ class SystemController extends ApiController
 		/**
 		 * Filters the system status data.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $status The system status data.
 		 */

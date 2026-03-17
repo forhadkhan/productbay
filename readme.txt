@@ -1,7 +1,7 @@
 === ProductBay – High-Performance Product Table for WooCommerce ===
 Contributors: wpanchorbay, forhadkhan, sankarsan, arifac
-Tags: woocommerce product table, product table, bulk add to cart, woocommerce, product list
-Requires at least: 6.0
+Tags: product table for woocommerce, woocommerce product table, woocommerce product list, product table, product list
+Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0

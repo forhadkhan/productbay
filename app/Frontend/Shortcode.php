@@ -93,7 +93,7 @@ class Shortcode
 		/**
 		 * Filters the parsed shortcode attributes.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $atts The shortcode attributes.
 		 */
@@ -176,7 +176,7 @@ class Shortcode
 		 *
 		 * Use this to enqueue additional frontend scripts or styles.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 */
 		\do_action('productbay_enqueue_frontend_assets');
 	}
