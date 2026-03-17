@@ -550,10 +550,10 @@
 .productbay-wrapper .productbay-qty-wrap {
     display: inline-flex;
     align-items: stretch;
-    border: 1px solid var(--pb-color-border);
-    border-radius: var(--pb-radius-md);
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     overflow: hidden;
-    background: var(--pb-color-bg);
+    background: #fff;
     transition: border-color var(--pb-transition),
         box-shadow var(--pb-transition);
     height: 32px;

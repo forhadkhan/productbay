@@ -1,81 +1,200 @@
 === ProductBay – High-Performance Product Table for WooCommerce ===
-Contributors: wpanchorbay, forhadkhan
-Tags: woocommerce product table, product table, product list, woocommerce, bulk add to cart
-Requires at least: 6.0
+Contributors: wpanchorbay, forhadkhan, sankarsan, arifac
+Tags: product table for woocommerce, woocommerce product table, woocommerce product list, product table, product list
+Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-High-performance WooCommerce product tables with instant AJAX search, flexible filters, and a guided React-powered creation wizard.
+Build fast and efficient product tables for WooCommerce with AJAX search, bulk add-to-cart, and a  creation wizard with live-preview.
 
 == Description ==
 
-**ProductBay requires WooCommerce to be installed and active.**
+WooCommerce's default grid layout is great for browsing, but it isn't always the right fit for every store. Wholesale shops, large catalogs, B2B order forms, price lists, quick-order tables, and restaurant menus all need something different, a clean, fast, scannable table where customers can compare products, select options, and add to cart in seconds.
 
-ProductBay is a modern, high-performance plugin that transforms how WooCommerce products are displayed in a table layout. It bridges a robust PHP backend with a dynamic, reactive frontend — delivering a seamless experience for both store administrators and customers.
+**ProductBay** transforms how your WooCommerce products are displayed. Build beautiful, responsive product tables using a guided wizard, no coding required, and embed them anywhere on your site with a simple shortcode.
 
-Unlike traditional table plugins, ProductBay uses a hybrid architecture:
+-------
+[Home](https://wpanchorbay.com/plugins/productbay/) | [Documentation](https://docs.wpanchorbay.com/productbay/)
+-------
 
-* **Admin Panel:** A fully responsive Single Page Application (SPA) built with React and Tailwind CSS.
-* **Frontend Display:** A lightweight, SEO-friendly rendering engine optimized for Core Web Vitals, enhanced with instant AJAX filtering.
+[youtube https://www.youtube.com/watch?v=gFp_4gpe-lY]
 
-All JavaScript and CSS assets are bundled locally within the plugin. No external CDN or remote scripts are loaded.
+> **ProductBay requires WooCommerce to be installed and active.**
 
-= Table Management & Dashboard =
+= Perfect For =
 
-* **All Tables View:** A centralized dashboard to create, manage, and organize all your product tables.
-* **Search & Filtering:** Quickly find tables by name, status (Published/Private), or product source.
-* **Bulk Actions:** Batch-delete tables to keep your workspace clean.
-* **Shortcode System:** Embed any table anywhere using `[productbay id="XYZ"]`.
+* Wholesale & B2B stores
+* Large product catalogs
+* Quick-order & bulk-order forms
+* Price lists & product directories
+* Restaurant & food menus
+* Digital product libraries 
+* Any WooCommerce store who wants easy and efficient product listing
 
-= Guided Creation Wizard =
+---
 
-* **5-Step Workflow:** A focused wizard guiding you through Setup, Columns, Display, Options, and Finish.
-* **Live Preview:** See design changes instantly in a real-time preview.
-* **Completion Effect:** A celebratory confetti animation on successful table creation.
+= Why ProductBay? =
+
+Unlike traditional table plugins, ProductBay is built on a **modern hybrid architecture**:
+
+* **Admin Panel:** A fully responsive Single Page Application (SPA) built with React 18, TypeScript, and Tailwind CSS, so the table builder feels fast, fluid, and intuitive.
+* **Frontend Display:** A lightweight, SEO-friendly rendering engine optimized for Core Web Vitals, so your customers get speed without bloat.
+
+**No external CDN. No remote scripts. No data ever leaves your server.** All assets are bundled locally inside the plugin.
+
+---
+
+= Guided Table Creation Wizard =
+
+Creating a product table has never been easier. ProductBay walks you through a focused **5-step wizard**:
+
+1. **Setup**: Name your table and choose a product source
+2. **Columns**: Pick and arrange which data columns to display
+3. **Display**: Customize colors, typography, borders, and spacing
+4. **Options**: Configure filters, pagination, and sorting defaults
+5. **Finish**: Copy your `shortcode` and publish 
+
+= Live Preview =
+A **real-time live preview** updates as you make changes. What you see in the wizard is exactly what your customers will see on the front end.
+
+---
 
 = Smart Product Sources =
 
-* **Flexible Selection:** Choose products by Category, Sale status, Specific IDs, or display All Products.
-* **Query Modifiers:** Refine results by excluding IDs, filtering by stock status, or setting price ranges.
-* **Dynamic Sorting:** Set a default sort order by name, price, date, or popularity.
+Control exactly which products appear in each table:
+
+* **By Category**: Show all products from one or more categories
+* **By Sale Status** : Display currently on-sale products
+* **By Specific IDs**: Handpick individual products
+* **All Products**: Pull your entire catalog into the table
+
+**Query Modifiers:** Exclude product IDs, filter by stock status, set a minimum/maximum price range, and choose a default sort order (name, price, date, or popularity).
+
+---
 
 = Advanced Column Editor =
 
-* **Drag-and-Drop Reordering:** Change column order visually with an intuitive interface.
-* **Diverse Column Types:** Image, Name, Price, SKU, Stock, Summary, and more.
-* **Responsive Visibility:** Configure per-column "Show/Hide" rules for different device sizes.
+Full control over what data appears in your table and how it's arranged:
+
+* **Drag-and-Drop Reordering**: Change column order visually with an intuitive interface
+* **Column Types**: Product Image, Name, Price, SKU, Description, Add to Cart, Bulk Selection and more
+* **Responsive Visibility**: Set custom width for each column in pixel (px), percentage (%) or auto. Configure per-column show/hide rules for desktop/laptop, tablet, and mobile independently
+* **Tablet & Phone Columns are optional**: if left empty, the plugin falls back to your desktop column configuration automatically
+
+---
 
 = Seamless WooCommerce Integration =
 
-* **Multi-Product Support:** Specialized rendering for Simple, Variable, Grouped, and External products.
-* **Inline Variations:** Let customers select attributes (size, color, etc.) directly within the table.
-* **AJAX Add-to-Cart:** Add products to the cart without a page reload.
-* **Bulk Add-to-Cart:** A "Select All" feature to add multiple products in one click.
+ProductBay is built for WooCommerce from the ground up:
 
-= Design & Customization =
+* **Simple Products**: Standard add-to-cart button
+* **Variable Products**: Inline attribute selectors (for each variable) right inside the table row. Visual indicators showing which variations were added, natively synced with the WooCommerce Cart
+* **Grouped Products**: Link to product page or display child items
+* **External / Affiliate Products**: Displays the external buy button correctly
+* **AJAX Add-to-Cart**: Products are added without any page reload
+* **Bulk Add-to-Cart**: Customers can select multiple products and add them all at once with a single click
+* **Selected Items Panel**: A floating popup showing selected products with individual quantities, pricing, and remove controls
+* **Clear All Selections**: A global "Clear all" button to reset bulk selections instantly
 
-* **Instance-Scoped Styling:** Isolated CSS blocks prevent style conflicts between multiple tables on the same page.
-* **Deep Customization:** Adjust colors, typography (size/weight), borders, border radius, and cell padding per table.
+---
 
-= Upgrade to ProductBay Pro =
+= Search & Filter =
 
-Looking for even more power? **[ProductBay Pro](https://wpanchorbay.com/plugins/productbay)** adds:
+Help customers find instantly what they're looking for, without page reloads:
 
-* **Advanced Filtering:** Price range sliders. 
-* **Pro Columns:** SKU, Stock Status, and Product Attributes.
-* **Smart Variations:** Enhanced selection interface for variable and grouped products.
-* **Priority Support:** Direct access to our expert support team.
+* **Instant AJAX Search**: Live search that filters the product list as users type
+* **Category Filter**: Native dropdown to filter by product category
+* **Product Type Filter**: Dropdown to filter by Simple, Variable, Grouped, or External product type
+* **AJAX Pagination**: Page through results without full page reloads
+
+---
+
+= Image Lightbox =
+
+Product images open in a popup/modal with fullscreen toggling and close controls, built using native resources for maximum performance, with no bloated third-party library required.
+
+---
+
+= Deep Design Customization =
+
+Every table is independently styled. Multiple tables on the same page will never conflict with each other:
+
+* **Colors**: Background, text, borders, alternate rows (zebra striping) and hover states
+* **Typography**: Font size and font weight per element
+* **Borders**: Border style, width, and radius
+* **Spacing**: Cell padding per table
+
+---
+
+= Table Management Dashboard =
+
+A centralized admin dashboard to manage all your tables at a glance:
+
+* **Search Tables**: Find any table quickly by name
+* **Filter by Status**: Published or Private
+* **Filter by Product Source**: Category, Sale, IDs, or All
+* **Bulk Status Update**: Update status of tables at once to private or published
+* **Bulk Delete**: Clean up multiple tables at once
+* **Shortcode Display**: Every table shows its shortcode instantly
+* **Date**: See created, modified and published date for each table
+
+---
+
+= Developer-Friendly =
+
+ProductBay exposes **30+ action hooks and filters** across all plugin layers, Core, Data, API, Frontend, and Admin, so developers can extend or modify behavior without ever touching plugin files:
+
+* Hook into query arguments, cell output, table styles, and more
+* A dedicated **Hooks & Filters reference page** is included directly in the plugin's admin area
+* All frontend assets are only loaded on pages where a table shortcode is present
+
+---
+
+= Translation Ready =
+
+**100%** of all user-facing strings are wrapped in WordPress localization functions. ProductBay is fully ready to be translated into any language.
+
+---
+
+= Coming Soon: ProductBay Pro =
+
+We're actively building a Pro add-on that will extend ProductBay with advanced capabilities:
+
+* **Variation Popup & Nested Rows**: Richer variable/grouped product interactions
+* **Pro Columns**: Ratings, reviews, dimensions, discount badges, B2B quantity column
+* **Lazy Loading**: Improved performance with lazy loading including infinite scroll or "Load More" button instead of pagination
+* **Quick View Modal**: AJAX-loaded product detail popup
+* **Custom CSS Editor**: Per-table scoped CSS editor in the admin
+* **Advanced Filters**: Sidebar/drawer/top menu layout, attribute filters, active filter chips
+* **Import / Export**: Backup and share table configurations as JSON
+* **Premium Templates**: One-click style presets
+* **Analytics**: Table impressions, click tracking, and a dashboard widget
+
+---
 
 == Installation ==
 
-1. Upload the plugin folder to `/wp-content/plugins/productbay`, or install directly through the WordPress Plugins screen.
-2. Activate the plugin through the **Plugins** screen in WordPress.
-3. Ensure WooCommerce is installed and active.
-4. Navigate to **ProductBay** in the WordPress admin menu to create your first table.
-5. Copy the generated shortcode (e.g. `[productbay id="1"]`) and paste it into any page, post, or widget.
+= Option A: Install from WordPress.org (Recommended) =
+
+1. In your WordPress admin, go to **Plugins → Add New**.
+2. Search for **ProductBay**.
+3. Click **Install Now**, then **Activate**.
+4. Ensure WooCommerce is installed and active.
+5. Navigate to **ProductBay** in the admin menu to create your first table.
+
+= Option B: Manual Upload =
+
+1. Download the plugin `.zip` file.
+2. In your WordPress admin, go to **Plugins → Add New → Upload Plugin**.
+3. Upload the `.zip` file and click **Install Now**, then **Activate**.
+4. Navigate to **ProductBay** in the WordPress admin menu.
+
+= Using Your Table =
+
+After creating a table, copy its shortcode (e.g., `[productbay id="1"]`) and paste it into any page, post, or widget using the WordPress Shortcode block.
 
 == Frequently Asked Questions ==
 
@@ -83,96 +202,83 @@ Looking for even more power? **[ProductBay Pro](https://wpanchorbay.com/plugins/
 
 Yes. ProductBay is a WooCommerce extension and will not function without WooCommerce installed and active.
 
-= Which product types are supported? =
+= Which WooCommerce product types are supported? =
 
-ProductBay supports WooCommerce Simple, Variable (limited), Grouped (limited), and External/Affiliate (view only) product types.
+ProductBay supports all four core WooCommerce product types: **Simple**, **Variable**, **Grouped**, and **External/Affiliate**.
 
-= Can I filter products in the table? =
+= How do I display a product table on a page? =
 
-Yes. The free version of ProductBay includes native dropdown filters for **Product Type** (Simple, Variable, Grouped, External) and **Taxonomies/Attributes**. Advanced filtering options are available in the Pro version.
-
-= Can users select multiple products and add them to the cart? =
-
-Yes. Users can select multiple products and add them to the cart in a single click.
-
-= Can users search products in the table? =
-
-Yes. Users can search products in the table.
-
-= Does the search function require a page reload? =
-
-No. ProductBay features an instant AJAX-powered search that updates the product list in real-time as you type, providing a seamless experience without any page reloads.
-
-= How do I display a table on a page? =
-
-After creating a table in the ProductBay dashboard, copy its shortcode — for example `[productbay id="1"]` — and paste it into any page, post, or block using the Shortcode block.
+After creating a table in the ProductBay dashboard, copy its shortcode — for example `[productbay id="1"]` — and paste it into any page, post, or widget using the WordPress Shortcode block.
 
 = Can I display multiple tables on the same page? =
 
-Yes. Each table has its own scoped CSS, so multiple tables on the same page will not conflict with each other's styling.
+Yes. Each table uses its own scoped CSS, so multiple tables on the same page will never conflict with each other's styling.
 
-= Does this plugin call any external services? =
+= Can customers add multiple products to the cart at once? =
 
-No. All JavaScript, CSS, and other assets are bundled locally within the plugin. No data is sent to any external server.
+Yes. ProductBay includes a **Bulk Add-to-Cart** feature. Customers can select multiple products using checkboxes and add them all to the cart in a single click. A "Selected Items" panel shows a live summary of selections, and a "Clear All" button resets them instantly.
 
-= Will it slow down my site? =
+= How do variable products work inside the table? =
 
-ProductBay is built with performance in mind. Assets are loaded only on pages where a table shortcode is present, and product queries are cached for 30 minutes to minimize database load.
+Variable products display inline attribute selectors (size, color, etc.) directly in the table row, no need to visit the product page to choose a variation. Variation badges then visually confirm which options were added to the cart.
 
-= Is it translation ready? =
+= Can I configure different columns for desktop, tablet, and mobile? =
 
-Yes. All user-facing strings use WordPress localization functions and the plugin is 100% translation ready.
+Yes. The column editor allows you to configure independent show/hide rules for each column per device size (desktop, tablet, and phone). Tablet and phone columns are completely optional, if left empty, the plugin automatically uses your desktop column configuration for smaller devices.
+
+= Can customers search and filter products in the table? =
+
+Yes. Every table supports instant AJAX search, a price range filter (slider, inputs, or both), a product category dropdown filter, and a product type dropdown filter, all without any page reloads.
+
+= Does the plugin slow down my site? =
+
+No. ProductBay is built with performance as a core priority. Plugin assets are only loaded on pages where a table shortcode is present. Product queries are cached for 30 minutes using a stale-while-revalidate strategy to minimize database load. The frontend rendering engine is intentionally lightweight and optimized for Core Web Vitals.
+
+= Does the plugin call any external services or load remote scripts? =
+
+No. All JavaScript, CSS, and other assets are bundled locally inside the plugin. No data is sent to any external server, and no remote CDN scripts are ever loaded.
+
+= How many tables can I create? =
+
+There is no limit. You can create as many product tables as your store requires.
+
+= Is ProductBay compatible with page builders like Elementor, Divi, or WPBakery? =
+
+Yes. ProductBay uses a standard WordPress shortcode (`[productbay id="X"]`), which is compatible with any page builder that supports shortcodes.
 
 = Is there a Pro version available? =
 
-Yes! **[ProductBay Pro](https://wpanchorbay.com/plugins/productbay)** is a premium add-on that unlocks advanced features like price range sliders, additional column types (SKU, Stock Status, Attributes), enhanced variable product support, and priority support.
+A Pro add-on is currently in development and will unlock advanced features including additional column types, lazy loading, quick view modals, advanced filters, and more. Visit [wpanchorbay.com](https://wpanchorbay.com/plugins/productbay) for updates.
 
-= Does ProductBay Pro require this free version? =
+= Is ProductBay translation ready? =
 
-Yes. ProductBay Pro is built as an extension and requires the free ProductBay plugin to be installed and active to function.
+Yes. All user-facing strings use WordPress localization functions and the plugin is 100% translation ready.
 
 = Where can I get support? =
 
-For the free version, please use the support forum on this plugin's WordPress.org page. We aim to respond within 2 business days. Pro users have access to priority support through our **[Support Center](https://wpanchorbay.com/support)**.
+Use the support forum on this plugin's WordPress.org page. We aim to respond within 2 business days. You can also reach us directly at [contact@wpanchorbay.com](mailto:contact@wpanchorbay.com).
 
 == Screenshots ==
 
-1. The ProductBay dashboard showing all created tables with status and shortcode information.
-2. Step 1 of the creation wizard — table setup and product source selection.
-3. The column editor with drag-and-drop reordering and responsive visibility controls.
-4. The design customization panel with live preview.
-5. A product table on the front end with inline variation selectors and AJAX add-to-cart.
+1. Create/View/Modify product tables with live preview and smooth experience.
+2. The ProductBay dashboard — manage all your tables with status indicators and shortcodes at a glance.
+3. Show the product in any page or post using the shortcode througout your website. View products efficiently and filter by catrgory and type. 
+4. Add products to cart in bulk using the checkbox and add to cart button. View selected items in the floating panel and remove them if needed.
+5. Step 1 of the creation wizard — name your table and choose your product source.
+6. Step 2 — the column editor with drag-and-drop reordering and per-device responsive visibility controls.
+7. Step 3 — the design panel with live preview updating in real time as you customize colors, typography, and spacing.
+8. Step 4 — the options panel for configuring filters, pagination, and sorting.
+9. See full-screen live preview of the table as you design it.
+10. Step 4 — the table is created and ready to be used.
+
 
 == Changelog ==
 
 = 1.0.0 =
-**Added**
 
-* Initial release of ProductBay.
-* Extensibility API: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin).
-* New developer documentation page for hooks and filters reference.
-* Variation badges: visual indicators showing which variations were added to cart with precise quantities natively synced with the WooCommerce Cart.
-* Clear All Selections: A global "Clear all" button that allows users to instantly reset their bulk selections.
-* Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
-* Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
-* Image Lightbox: Native modal/popup display for product images with fullscreen toggling and close controls, utilizing native browser resources for maximum performance.
-* Centralized table management dashboard with search, status filtering, and bulk delete.
-* 5-step guided creation wizard with live preview.
-* Product source selection: by category, sale status, specific IDs, or all products.
-* Query modifiers: exclude IDs, filter by stock status, set price range.
-* Drag-and-drop column editor with responsive show/hide rules per device.
-* Column types: Image, Name, Price, SKU, Stock Status, Short Description.
-* Support for Simple, Variable, Grouped, and External WooCommerce product types.
-* Inline variation attribute selection within the table.
-* AJAX add-to-cart (single and bulk).
-* Instance-scoped CSS to prevent style conflicts between tables.
-* Deep design customization: colors, typography, borders, border radius, cell padding.
-* 30-minute category query caching with stale-while-revalidate.
-* Shortcode system: `[productbay id="XYZ"]`.
-* 100% translation-ready codebase.
-
+*   Initial release of ProductBay.
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial release — no upgrade steps required.
+Initial release, no upgrade steps required.

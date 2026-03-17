@@ -63,7 +63,7 @@ class SettingsController extends ApiController
 		/**
 		 * Filters settings before returning to the frontend.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $settings The current settings.
 		 */
@@ -93,7 +93,7 @@ class SettingsController extends ApiController
 		/**
 		 * Fires after settings are saved.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $settings The saved settings.
 		 */
@@ -256,7 +256,7 @@ class SettingsController extends ApiController
 		/**
 		 * Filters the default plugin settings.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $defaults The default settings array.
 		 */

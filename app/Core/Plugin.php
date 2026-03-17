@@ -92,10 +92,13 @@ class Plugin
 			// Priority 100 ensures it appears after core items.
 			\add_action('admin_bar_menu', array($admin, 'register_admin_bar'), 100);
 
+			// Filter plugin name in plugins list.
+			\add_filter('all_plugins', array($admin, 'change_plugin_display_name'));
+
 			/**
 			 * Fires after the admin component is initialized.
 			 *
-			 * @since 1.0.1
+			 * @since 1.0.0
 			 *
 			 * @param Admin $admin The Admin instance.
 			 */
@@ -121,7 +124,7 @@ class Plugin
 		 *
 		 * This is the primary hook for add-on plugins to bootstrap themselves.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param Plugin $plugin The main Plugin instance.
 		 */

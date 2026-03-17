@@ -85,7 +85,7 @@ export const DisplayPanel = ({
                 />
 
                 {/* Add to Cart Button - with hover colors */}
-                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-50 border border-transparent hover:border-orange-200 p-4 rounded-md m-0 mb-2">
                     <h3 className="text-sm font-semibold text-gray-900 m-0 pb-4">
                         {__('Add to Cart Button', 'productbay')}
                     </h3>
@@ -110,7 +110,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Table Header */}
-                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-50 border border-transparent hover:border-orange-200 p-4 rounded-md m-0 mb-2">
                     <h3 className="text-sm font-semibold text-gray-900 m-0 pb-4">
                         {__('Table Header', 'productbay')}
                     </h3>
@@ -125,7 +125,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Table Rows */}
-                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-50 border border-transparent hover:border-orange-200 p-4 rounded-md m-0 mb-2">
                     <h3 className="text-sm font-semibold text-gray-900 m-0 pb-4">
                         {__('Table Rows', 'productbay')}
                     </h3>
@@ -140,9 +140,9 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Alternate Rows (Zebra Striping) */}
-                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-50 border border-transparent hover:border-orange-200 p-4 rounded-md m-0 mb-2">
                     <SettingsOption
-                        className="px-0"
+                        className="px-0 hover:bg-transparent hover:border-transparent"
                         title={__('Alternate Rows (Zebra Striping)', 'productbay')}
                         description={__('Improve table readability with alternating row colors', 'productbay')}
                     >
@@ -169,7 +169,7 @@ export const DisplayPanel = ({
                 </div>
 
                 {/* Row Hover (Interaction) */}
-                <div className="space-y-4 hover:bg-orange-100 p-4 rounded-md m-0 mb-2">
+                <div className="space-y-4 hover:bg-orange-50 border border-transparent hover:border-orange-200 p-4 rounded-md m-0 mb-2">
                     <div className="flex items-center justify-between">
                         <div>
                             <h3 className="text-sm font-semibold text-gray-900 block m-0">

@@ -83,7 +83,7 @@ class TableRepository
 		/**
 		 * Filters table data before it is persisted.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $data The table data from the frontend.
 		 * @param int   $id   The table post ID (0 for new tables).
@@ -131,7 +131,7 @@ class TableRepository
 		/**
 		 * Fires after a table is successfully saved.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param int   $post_id The saved post ID.
 		 * @param array $data    The table data that was saved.
@@ -155,7 +155,7 @@ class TableRepository
 		/**
 		 * Fires after a table is deleted.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param int $id The deleted post ID.
 		 */
@@ -200,7 +200,7 @@ class TableRepository
 		/**
 		 * Filters the formatted table data returned by the repository.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array    $table_data The formatted table data.
 		 * @param \WP_Post $post       The original post object.

@@ -275,7 +275,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
                     variant="outline"
                     size="sm"
                     onClick={() => setShowAddMenu(!showAddMenu)}
-                    className="w-full justify-center"
+                    className="w-full justify-center cursor-pointer"
                 >
                     <PlusIcon className="w-4 h-4 mr-2" />
                     {__('Add Column', 'productbay')}
@@ -292,10 +292,10 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
                                         key={type}
                                         onClick={() => handleToggleColumn(type)}
                                         className={cn(
-                                            'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left',
+                                            'flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-orange-50 text-sm rounded-md transition-colors text-left border border-transparent hover:border-orange-200',
                                             isSelected
-                                                ? 'bg-blue-100 text-blue-700 hover:bg-blue-150'
-                                                : 'text-gray-700 hover:bg-gray-100'
+                                                ? 'bg-blue-100 text-blue-700'
+                                                : 'text-gray-700'
                                         )}
                                     >
                                         <Icon className="w-4 h-4 flex-shrink-0" />

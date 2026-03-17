@@ -137,9 +137,30 @@ class Admin
 		/**
 		 * Fires after all admin menu items are registered.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 */
 		\do_action('productbay_after_register_menu');
+	}
+
+	/**
+	 * Change the plugin display name in the WordPress plugins page.
+	 *
+	 * This filter modifies the plugin metadata before it's displayed in the
+	 * WordPress administration plugins list.
+	 *
+	 * @param array $plugins Array of all plugins and their metadata.
+	 * @return array Modified array of plugins.
+	 * @since 1.0.0
+	 */
+	public function change_plugin_display_name(array $plugins): array
+	{
+		$plugin_basename = PRODUCTBAY_PLUGIN_BASENAME;
+
+		if (isset($plugins[$plugin_basename])) {
+			$plugins[$plugin_basename]['Name'] = 'ProductBay';
+		}
+
+		return $plugins;
 	}
 
 	/**
@@ -298,7 +319,7 @@ class Admin
 		/**
 		 * Filters the data passed to the React admin app via wp_localize_script.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $script_data The localized script data.
 		 */
@@ -331,7 +352,7 @@ class Admin
 		 *
 		 * Use this to enqueue additional admin scripts or styles on ProductBay pages.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 */
 		\do_action('productbay_enqueue_admin_assets');
 	}

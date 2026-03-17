@@ -141,7 +141,7 @@ class AjaxRenderer
 		/**
 		 * Filters the AJAX filter response.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param array $response The response data (html, pagination).
 		 * @param array $table    The table configuration.
@@ -291,7 +291,7 @@ class AjaxRenderer
 			/**
 			 * Fires after a successful bulk add-to-cart operation.
 			 *
-			 * @since 1.0.1
+			 * @since 1.0.0
 			 *
 			 * @param int   $added_count Number of products added.
 			 * @param array $errors      Any errors encountered.

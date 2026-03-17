@@ -38,8 +38,8 @@ export const BulkSelectConfig = ({ value, onChange }: BulkSelectConfigProps) => 
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg border border-gray-200 mb-8">
-            <h3 className="text-sm font-semibold text-gray-900 mb-4">{__('Bulk Actions & Selection', 'productbay')}</h3>
+        <div className="bg-white p-4 rounded-lg border hover:bg-orange-50 border-gray-200 mb-8">
+            <h3 className="text-sm font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-300 pb-4">{__('Bulk Actions & Selection', 'productbay')}</h3>
 
             {/* Bulk Select Toggle */}
             <SettingsOption

@@ -227,7 +227,7 @@ class Router
 		 *
 		 * Use this to register additional endpoints under the productbay/v1 namespace.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.0
 		 *
 		 * @param Router $router The Router instance.
 		 */
