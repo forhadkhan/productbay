@@ -2,22 +2,30 @@
 
 ProductBay can be installed like any standard WordPress plugin.
 
-## Method 1: WordPress Plugin Upload
-
-1. Download the `productbay.zip` file from the [releases page](https://github.com/forhadkhan/productbay/releases) or from the WordPress.org plugin repository.
-2. In your WordPress admin, go to **Plugins → Add New → Upload Plugin**.
-3. Choose the `productbay.zip` file and click **Install Now**.
-4. After installation completes, click **Activate**.
-
-## Method 2: WordPress Plugin Directory
+## Method 1: WordPress Plugin Directory
 
 1. In your WordPress admin, go to **Plugins → Add New**.
 2. Search for **"ProductBay"**.
 3. Click **Install Now**, then **Activate**.
 
+------
+
+### Download
+You can download the plugin in two ways:
+ - Go to [WordPress.org plugin repository](https://wordpress.org/plugins/productbay/) and click **Download**. or
+ - Get the `productbay.zip` file from the [github releases page](https://github.com/wpanchorbay/productbay/releases/latest).
+
+
+## Method 2: WordPress Plugin Upload
+
+1. [Download](#download) the plugin. 
+2. In your WordPress admin, go to **Plugins → Add New → Upload Plugin**.
+3. Choose the `productbay.zip` file and click **Install Now**.
+4. After installation completes, click **Activate**.
+
 ## Method 3: Manual Upload (FTP)
 
-1. Download and extract the `productbay.zip` file.
+1. [Download](#download) and extract the `productbay.zip` file.
 2. Upload the `productbay` folder to `/wp-content/plugins/` on your server via FTP.
 3. In your WordPress admin, go to **Plugins** and activate **ProductBay**.
 
@@ -32,7 +40,3 @@ After activation:
 ::: tip
 If you don't see the ProductBay menu item after activation, try refreshing the admin page or clearing your browser cache.
 :::
-
-## Next Steps
-
-Once installed, head to [Quick Start](/guide/getting-started) to create your first product table.

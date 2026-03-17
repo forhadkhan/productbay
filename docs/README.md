@@ -1,6 +1,6 @@
 # ProductBay Documentation
 
-This is the official documentation site for [ProductBay](https://wpanchorbay.com/productbay)
+This is the official documentation site for [ProductBay](https://wpanchorbay.com/plugins/productbay)
 
 ## Requirements
 

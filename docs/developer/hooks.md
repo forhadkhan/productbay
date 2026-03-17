@@ -2,8 +2,8 @@
 
 ProductBay provides an extensive set of WordPress action hooks and filters, enabling developers to extend, customize, and integrate with the plugin without modifying its core source files.
 
-::: info Since v1.0.1
-All hooks listed on this page were introduced in ProductBay **1.0.1**.
+::: info Since v1.0.0
+All hooks listed on this page were introduced in ProductBay **1.0.0**.
 :::
 
 ## Hook Naming Convention

@@ -21,10 +21,10 @@ export default defineConfig({
 
         nav: [
             {
-                text: 'v1.0.1',
+                text: 'v1.0.0',
                 items: [
                     {
-                        text: 'v1.0.1 (Latest)',
+                        text: 'v1.0.0 (Latest)',
                         link: '/guide/introduction',
                         activeMatch: '^/(?!v\\d)'
                     },
@@ -61,6 +61,8 @@ export default defineConfig({
                 {
                     text: 'Advanced',
                     items: [
+                        { text: 'Admin Bar', link: '/guide/admin-bar' },
+                        { text: 'Clear All Data', link: '/guide/clear-all-data' },
                         { text: 'Uninstallation', link: '/guide/uninstallation' },
                     ]
                 }
@@ -119,7 +121,14 @@ export default defineConfig({
         },
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/forhadkhan/productbay' }
+            { icon: 'github', link: 'https://github.com/wpanchorbay/productbay' },
+            {
+                icon: {
+                    svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><image href="/productbay/wpanchorbay.png" width="24" height="24" /></svg>'
+                },
+                link: 'https://wpanchorbay.com/',
+                ariaLabel: 'WPAnchorBay'
+            }
         ],
 
         footer: {
@@ -135,7 +144,7 @@ export default defineConfig({
         },
 
         editLink: {
-            pattern: 'https://github.com/forhadkhan/productbay/edit/main/docs/:path',
+            pattern: 'https://github.com/wpanchorbay/productbay/edit/main/docs/:path',
             text: 'Edit this page on GitHub'
         },
 

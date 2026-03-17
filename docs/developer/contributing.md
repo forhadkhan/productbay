@@ -21,7 +21,7 @@ You'll also need a local WordPress development environment such as XAMPP, LAMP, 
 
 ```bash
 cd wp-content/plugins
-git clone https://github.com/forhadkhan/productbay.git
+git clone https://github.com/wpanchorbay/productbay.git
 cd productbay
 ```
 
@@ -120,7 +120,7 @@ bun run i18n:make-json    # Convert .po to .json for React
 
 ## Reporting Issues
 
-Found a bug or have a suggestion? Please open an issue on the [GitHub Issue Tracker](https://github.com/forhadkhan/productbay/issues).
+Found a bug or have a suggestion? Please open an issue on the [GitHub Issue Tracker](https://github.com/wpanchorbay/productbay/issues).
 
 When reporting, include:
 1. A clear description of the problem

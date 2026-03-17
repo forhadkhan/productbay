@@ -1,10 +1,10 @@
-=== ProductBay ===
+=== ProductBay – High-Performance Product Table for WooCommerce ===
 Contributors: wpanchorbay, forhadkhan
 Tags: woocommerce product table, product table, product list, woocommerce, bulk add to cart
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,9 +145,10 @@ For the free version, please use the support forum on this plugin's WordPress.or
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.0.0 =
 **Added**
 
+* Initial release of ProductBay.
 * Extensibility API: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin).
 * New developer documentation page for hooks and filters reference.
 * Variation badges: visual indicators showing which variations were added to cart with precise quantities natively synced with the WooCommerce Cart.
@@ -155,17 +156,6 @@ For the free version, please use the support forum on this plugin's WordPress.or
 * Selected Items View Panel: A floating popup showing all selected products with individual quantities, pricing, and remove controls.
 * Taxonomy & Type Filters: Add native dropdown filters for searching by Product Category and Product Type alongside the price range filters.
 * Image Lightbox: Native modal/popup display for product images with fullscreen toggling and close controls, utilizing native browser resources for maximum performance.
-
-**Fixed**
-
-* Bulk selection no longer resets when paginating or searching.
-* Selected products persist across page navigation and page reloads.
-* Live Preview: Fixed a rare infinite height growth bug during config changes and device scaling.
-
-= 1.0.0 =
-**Added**
-
-* Initial release of ProductBay.
 * Centralized table management dashboard with search, status filtering, and bulk delete.
 * 5-step guided creation wizard with live preview.
 * Product source selection: by category, sale status, specific IDs, or all products.
@@ -181,10 +171,8 @@ For the free version, please use the support forum on this plugin's WordPress.or
 * Shortcode system: `[productbay id="XYZ"]`.
 * 100% translation-ready codebase.
 
-== Upgrade Notice ==
 
-= 1.0.1 =
-Adds extensibility hooks for third-party and add-on integration. No breaking changes.
+== Upgrade Notice ==
 
 = 1.0.0 =
 Initial release — no upgrade steps required.

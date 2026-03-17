@@ -14,8 +14,9 @@ This page explains how to properly remove ProductBay from your WordPress site an
 ProductBay gives you control over what happens when the plugin is deleted:
 
 1. Go to **ProductBay → Settings** in your WordPress admin
-2. Look for the **"Delete data on uninstall"** toggle
-3. Toggle it based on your preference:
+2. Select **Plugin Settings** tab
+3. Look for the **"Delete data on uninstall"** toggle
+4. Toggle it based on your preference:
 
 | Setting | Effect on Uninstall |
 |---------|-------------------|

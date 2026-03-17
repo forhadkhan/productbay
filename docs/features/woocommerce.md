@@ -6,10 +6,10 @@ ProductBay is built as a WooCommerce extension, providing deep integration with 
 
 | Product Type | Support | Notes |
 |-------------|---------|-------|
-| **Simple** | ✅ Full | Standard add-to-cart with quantity |
-| **Variable** | ✅ Full | Inline attribute selectors within the table |
-| **Grouped** | ✅ Full | Links to the grouped product page |
-| **External / Affiliate** | ✅ Full | "Buy Now" button linking to external URL |
+| **Simple** | Full | Standard add-to-cart with quantity |
+| **Variable** | Full | Inline attribute selectors within the table |
+| **Grouped** | Full | Links to the grouped product page |
+| **External / Affiliate** | Full | "Buy Now" button linking to external URL |
 
 ## Add to Cart
 
@@ -51,13 +51,6 @@ Prices are rendered using WooCommerce's native formatting:
 - **Decimal separator** and thousand separator
 - **Sale prices** shown with strikethrough on the regular price
 - **Variable price ranges** (e.g., "$10.00 – $25.00") when no variation is selected
-
-## Stock Status
-
-The Stock column shows WooCommerce stock status:
-- **In Stock** — Product is available
-- **Out of Stock** — Product is not available
-- **On Backorder** — Product is available for backorder
 
 ## Cart URL
 After adding a product to cart, a "View Cart" link appears, directing customers to the WooCommerce cart page.

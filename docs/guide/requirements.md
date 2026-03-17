@@ -42,7 +42,3 @@ Product tables rendered on the frontend are built with standard HTML, CSS, and m
 ## Hosting
 
 ProductBay works on any standard WordPress hosting. No special server configuration is required. All assets (JavaScript, CSS) are bundled locally within the plugin — **no external CDN or remote scripts are loaded**.
-
-## Next Steps
-
-Once you've confirmed your environment meets these requirements, proceed to [Installation](/guide/installation).

@@ -12,12 +12,19 @@ import { useExtensionStore } from './store/extensionStore';
 
 import * as ui from './components/ui';
 
+import { SettingsOption } from './components/Table/SettingsOption';
+import { SectionHeading } from './components/Table/SectionHeading';
+
 // Expose core hooks to window for Pro plugins
 (window as any).productbay = {
 	...((window as any).productbay || {}),
 	useTableStore,
 	useExtensionStore,
 	ui,
+	components: {
+		SettingsOption,
+		SectionHeading,
+	},
 };
 
 domReady(() => {

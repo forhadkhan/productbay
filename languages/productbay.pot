@@ -2,25 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ProductBay 1.0.1\n"
+"Project-Id-Version: ProductBay – High-Performance Product Table for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/productbay\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-15T13:18:55+00:00\n"
+"POT-Creation-Date: 2026-03-17T02:23:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
 
 #. Plugin Name of the plugin
 #: productbay.php
-#: app/Admin/Admin.php:71
-#: app/Admin/Admin.php:73
-#: app/Admin/Admin.php:173
-#: app/Admin/Admin.php:178
-msgid "ProductBay"
+msgid "ProductBay – High-Performance Product Table for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -43,178 +39,181 @@ msgstr ""
 msgid "https://wpanchorbay.com/"
 msgstr ""
 
-#: app/Admin/Admin.php:92
-#: app/Admin/Admin.php:94
-#: app/Admin/Admin.php:127
-#: app/Admin/Admin.php:128
-#: app/Admin/Admin.php:188
+#: app/Admin/Admin.php:74
+#: app/Admin/Admin.php:76
+#: app/Admin/Admin.php:177
+#: app/Admin/Admin.php:182
+msgid "ProductBay"
+msgstr ""
+
+#: app/Admin/Admin.php:95
+#: app/Admin/Admin.php:97
+#: app/Admin/Admin.php:130
+#: app/Admin/Admin.php:131
+#: app/Admin/Admin.php:192
 #: assets/js/admin.js:22
 msgid "All Tables"
 msgstr ""
 
-#: app/Admin/Admin.php:106
-#: app/Admin/Admin.php:107
-#: app/Admin/Admin.php:208
+#: app/Admin/Admin.php:109
+#: app/Admin/Admin.php:110
+#: app/Admin/Admin.php:212
 #: assets/js/admin.js:30
 msgid "Create New Table"
 msgstr ""
 
-#: app/Admin/Admin.php:116
-#: app/Admin/Admin.php:117
-#: app/Admin/Admin.php:198
+#: app/Admin/Admin.php:119
+#: app/Admin/Admin.php:120
+#: app/Admin/Admin.php:202
 #: assets/js/admin.js:30
 msgid "Settings"
 msgstr ""
 
-#: app/Frontend/AjaxRenderer.php:167
+#: app/Frontend/AjaxRenderer.php:172
 msgid "No products selected"
 msgstr ""
 
 #. translators: %d: product ID
-#: app/Frontend/AjaxRenderer.php:193
+#: app/Frontend/AjaxRenderer.php:198
 #, php-format
 msgid "Product #%d not found."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:208
+#: app/Frontend/AjaxRenderer.php:213
 #, php-format
 msgid "\"%s\" is out of stock."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:227
+#: app/Frontend/AjaxRenderer.php:232
 #, php-format
 msgid "Please select options for \"%s\"."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:237
+#: app/Frontend/AjaxRenderer.php:242
 #, php-format
 msgid "Selected variation for \"%s\" is unavailable."
 msgstr ""
 
 #. translators: %s: product name
-#: app/Frontend/AjaxRenderer.php:260
+#: app/Frontend/AjaxRenderer.php:266
 #, php-format
 msgid "Could not add \"%s\" to cart."
 msgstr ""
 
 #. translators: %d: number of products added to cart
-#: app/Frontend/AjaxRenderer.php:279
+#: app/Frontend/AjaxRenderer.php:303
 #, php-format
 msgid "%d product(s) added to cart."
 msgstr ""
 
-#: app/Frontend/AjaxRenderer.php:289
+#: app/Frontend/AjaxRenderer.php:314
 msgid "Failed to add products to cart."
 msgstr ""
 
 #. translators: %s: table title
-#: app/Frontend/Shortcode.php:116
+#: app/Frontend/Shortcode.php:121
 #, php-format
 msgid "ProductBay: Table \"%s\" is currently private. It will appear here once it is published."
 msgstr ""
 
-#: app/Frontend/Shortcode.php:160
-msgid "View cart"
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:211
+#: app/Frontend/TableRenderer.php:215
 #: assets/js/admin.js:13
 msgid "Add to Cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:216
+#: app/Frontend/TableRenderer.php:220
 msgid "View selected items"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:217
+#: app/Frontend/TableRenderer.php:221
 msgid "View"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:249
+#: app/Frontend/TableRenderer.php:253
 #: assets/js/admin.js:25
 msgid "Filter"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:266
+#: app/Frontend/TableRenderer.php:270
 msgid "Reset all filters to default"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:266
-#: app/Frontend/TableRenderer.php:1359
+#: app/Frontend/TableRenderer.php:270
+#: app/Frontend/TableRenderer.php:1338
 #: assets/js/admin.js:22
 msgid "Clear"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:397
-#: app/Frontend/TableRenderer.php:1569
+#: app/Frontend/TableRenderer.php:401
+#: app/Frontend/TableRenderer.php:1548
 msgid "No products found."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:416
+#: app/Frontend/TableRenderer.php:420
 msgid "Toggle Fullscreen"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:420
+#: app/Frontend/TableRenderer.php:424
 #: assets/js/admin.js:13
 #: assets/js/admin.js:16
 #: assets/js/admin.js:30
 msgid "Close"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:656
+#: app/Frontend/TableRenderer.php:673
 msgid "Buy product"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:666
+#: app/Frontend/TableRenderer.php:683
 msgid "View Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:674
+#: app/Frontend/TableRenderer.php:691
 msgid "Out of Stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:682
+#: app/Frontend/TableRenderer.php:699
 msgid "Select Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:761
+#: app/Frontend/TableRenderer.php:778
 msgid "Add to cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:793
+#: app/Frontend/TableRenderer.php:810
 msgid "Increase quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:794
+#: app/Frontend/TableRenderer.php:811
 msgid "Decrease quantity"
 msgstr ""
 
 #. translators: %d: number of selected categories
-#: app/Frontend/TableRenderer.php:1293
+#: app/Frontend/TableRenderer.php:1273
 #, php-format
 msgid "%s selected"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1294
+#: app/Frontend/TableRenderer.php:1274
 msgid "All Categories"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1296
+#: app/Frontend/TableRenderer.php:1276
 msgid "Category:"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1329
+#: app/Frontend/TableRenderer.php:1309
 msgid "Type:"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1331
+#: app/Frontend/TableRenderer.php:1311
 msgid "All Types"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1358
+#: app/Frontend/TableRenderer.php:1337
 msgid "Search products..."
 msgstr ""
 
@@ -1393,14 +1392,17 @@ msgid "Watch Video"
 msgstr ""
 
 #: assets/js/admin.js:22
+#: assets/js/admin.js:30
 msgid "Documentation"
 msgstr ""
 
 #: assets/js/admin.js:22
+#: assets/js/admin.js:30
 msgid "Help & Support"
 msgstr ""
 
 #: assets/js/admin.js:22
+#: assets/js/admin.js:30
 msgid "Need help? Have a feature request? We'd love to hear from you."
 msgstr ""
 
@@ -1715,7 +1717,23 @@ msgid "Learn More"
 msgstr ""
 
 #: assets/js/admin.js:30
-msgid "Support"
+msgid "Explore ProductBay details or read the documentation to master it in minutes."
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "Find Details"
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "Community Support"
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "Registered User Help"
+msgstr ""
+
+#: assets/js/admin.js:30
+msgid "Email Us"
 msgstr ""
 
 #: assets/js/admin.js:30
