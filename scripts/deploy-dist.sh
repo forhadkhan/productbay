@@ -30,10 +30,14 @@ bun run release
 echo "🌿 Switching to $DIST_BRANCH branch..."
 git checkout $DIST_BRANCH
 
-# 4. Merge changes from main (to keep codebase in sync if desired)
-# We use --no-commit and -X theirs to ensure .gitignore doesn't conflict
+# 4. Merge changes from main (to keep codebase in sync)
 echo "🔄 Merging $MAIN_BRANCH into $DIST_BRANCH..."
-git merge $MAIN_BRANCH -m "Sync: Merge $MAIN_BRANCH into $DIST_BRANCH" --strategy-option=theirs
+# Backup our distribution-specific .gitignore
+cp .gitignore .gitignore.bak
+git merge $MAIN_BRANCH --no-edit || (echo "❌ Merge failed. Please resolve conflicts." && exit 1)
+# Restore distribution-specific .gitignore
+mv .gitignore.bak .gitignore
+git add .gitignore
 
 # 5. Add build files (now unignored in this branch)
 echo "📂 Tracking build artifacts..."
@@ -44,7 +48,7 @@ git add productbay.zip --force
 echo "💾 Committing changes..."
 git commit -m "Build: Distribution update $(date '+%Y-%m-%d %H:%M:%S')"
 
-# 7. Push (Optional, let user decide)
+# 7. Push (Optional: uncomment to enable auto-push)
 # echo "⬆️ Pushing to origin..."
 # git push origin $DIST_BRANCH
 
