@@ -1,0 +1,28 @@
+{
+	"name": "wpanchorbay/productbay",
+	"description": "WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "WPAnchorBay",
+			"email": "support@wpanchorbay.com",
+			"homepage": "https://wpanchorbay.com/",
+			"role": "Owner"
+		},
+		{
+			"name": "Forhad Khan",
+			"email": "dev@forhadkhan.com",
+			"homepage": "https://forhadkhan.com/",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"WpabProductBay\\": "app/"
+		}
+	}
+}
