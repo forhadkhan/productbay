@@ -1,13 +1,16 @@
 #!/bin/bash
 
+set -e # Exit immediately if a command fails
+
 # Configuration
 DIST_BRANCH="dist"
 MAIN_BRANCH="main"
+WORKTREE_DIR="dist-worktree-tmp"
+
+echo "🚀 Starting Distribution Sync..."
 
 # Get current branch
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-echo "🚀 Starting Distribution Sync..."
 
 # Check if current branch is main
 if [ "$CURRENT_BRANCH" != "$MAIN_BRANCH" ]; then
@@ -23,36 +26,45 @@ fi
 echo "🛠  Building project..."
 bun run release
 
-# 2. Store the build files temporarily if needed? 
-# No, they are in dist/ which is ignored on main but NOT on the 'dist' branch.
+# 2. Check if build was successful
+if [ ! -d "dist/productbay" ]; then
+    echo "❌ Build directory dist/productbay not found!"
+    exit 1
+fi
 
-# 3. Switch to dist branch
-echo "🌿 Switching to $DIST_BRANCH branch..."
-git checkout $DIST_BRANCH
+# 3. Setup temporary worktree for the dist branch
+echo "🌿 Preparing distribution worktree..."
+rm -rf "$WORKTREE_DIR"
+git worktree add "$WORKTREE_DIR" "$DIST_BRANCH"
 
-# 4. Merge changes from main (to keep codebase in sync)
-echo "🔄 Merging $MAIN_BRANCH into $DIST_BRANCH..."
-# Backup our distribution-specific .gitignore
-cp .gitignore .gitignore.bak
-git merge $MAIN_BRANCH --no-edit || (echo "❌ Merge failed. Please resolve conflicts." && exit 1)
-# Restore distribution-specific .gitignore
-mv .gitignore.bak .gitignore
-git add .gitignore
+# 4. Clean the worktree and copy artifacts
+echo "🧹 Syncing $DIST_BRANCH branch root..."
+# Remove all existing tracked files in the worktree
+(cd "$WORKTREE_DIR" && git rm -rf . --ignore-unmatch)
 
-# 5. Add build files (now unignored in this branch)
-echo "📂 Tracking build artifacts..."
-git add dist/
-git add productbay.zip --force
+# Copy files from dist/productbay to worktree root
+echo "📂 Moving build artifacts to distribution branch..."
+cp -rv dist/productbay/* "$WORKTREE_DIR/"
+cp -v productbay.zip "$WORKTREE_DIR/" 2>/dev/null || true
 
-# 6. Commit build
-echo "💾 Committing changes..."
-git commit -m "Build: Distribution update $(date '+%Y-%m-%d %H:%M:%S')"
+# 5. Commit changes in the worktree
+echo "💾 Committing changes to $DIST_BRANCH..."
+(
+    cd "$WORKTREE_DIR"
+    git add --all
+    git commit -m "Build: Distribution update $(date '+%Y-%m-%d %H:%M:%S')"
+)
 
-# 7. Push (Optional: uncomment to enable auto-push)
+# 6. Push (Optional: uncomment to enable auto-push)
 # echo "⬆️ Pushing to origin..."
 # git push origin $DIST_BRANCH
 
-# 8. Switch back to original branch
+# 7. Cleanup worktree
+echo "🧹 Cleaning up..."
+git worktree remove "$WORKTREE_DIR" --force
+
+echo "✅ Success! The '$DIST_BRANCH' branch now contains ONLY the production-ready plugin files at its root."
+
 echo "🔙 Returning to $CURRENT_BRANCH branch..."
 git checkout $CURRENT_BRANCH
 
