@@ -1,13 +1,13 @@
 <div align="center">
    <a href="https://wpanchorbay.com/products/productbay">
-      <img src="https://s6.imgcdn.dev/YSNRBn.png" alt="ProductBay Logo">
+      <img src="https://wpanchorbay.com/wp-content/uploads/2026/03/ProductBay-Logo-2.png" alt="ProductBay Logo">
    </a>
 </div>
 <br />
 
 # ProductBay – High-Performance Product Table for WooCommerce
 
-![Version](https://img.shields.io/badge/version-1.0.1-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) [![Documentation](https://img.shields.io/badge/docs-live-brightgreen.svg)](https://forhadkhan.github.io/productbay/)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg) [![Documentation](https://img.shields.io/badge/docs-live-brightgreen.svg)](https://forhadkhan.github.io/productbay/)
 
 **ProductBay** is a modern, high-performance plugin designed to transform how WooCommerce products are displayed. It bridges the gap between a robust PHP backend and a dynamic, reactive frontend, providing a seamless experience for both administrators and customers.
 
