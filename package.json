@@ -47,6 +47,7 @@
 		"stop:unix": "bash scripts/stop.sh",
 		"dev": "bun run dev:unix",
 		"stop": "bun run stop:unix",
+		"deploy-dist": "bash scripts/deploy-dist.sh",
 		"i18n:make-pot": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot . languages/productbay.pot --domain=productbay --slug=productbay --exclude=node_modules,vendor,dist,notes,instructions",
 		"i18n:make-json": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-json languages --no-purge"
 	},
