@@ -19,14 +19,18 @@ The `meta` branch is an **orphan branch** (no shared history with `main`) that e
 ### Working with the Meta Branch
 
 ```bash
+# Go to meta branch
+cd .meta-worktree
+
 # View meta branch contents
-cd .meta-worktree && ls
+ls .meta-worktree
 
 # Stage and commit changes to meta files
-cd .meta-worktree && git add -A && git commit -m "docs: update meta branch"
+git -C .meta-worktree add .
+git -C .meta-worktree commit -m "docs: update meta branch"
 
 # Push meta branch
-cd .meta-worktree && git push origin meta
+git -C .meta-worktree push origin meta
 ```
 
 ### Important Rules
