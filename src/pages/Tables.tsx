@@ -595,7 +595,7 @@ const Tables = () => {
 					<div>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button variant="outline" className="gap-2 bg-white relative">
+								<Button variant="outline" className="gap-2 bg-white relative border-gray-300">
 									<FilterIcon className="w-4 h-4 text-gray-500" />
 									{__('Filter', 'productbay')}
 									{(filterStatuses.length > 0 || filterSources.length > 0) && (

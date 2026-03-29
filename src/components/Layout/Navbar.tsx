@@ -59,7 +59,7 @@ const Navbar = () => {
 								className={({ isActive }) =>
 									`flex items-center px-4 h-9 rounded-lg text-sm font-semibold transition-colors
 									${isActive
-										? 'bg-productbay-secondary text-gray-900'
+										? 'bg-productbay-secondary text-gray-900 border border-gray-300'
 										: 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
 									}`
 								}
@@ -115,7 +115,7 @@ const Navbar = () => {
 								className={({ isActive }) =>
 									`flex items-center px-4 py-3 rounded-lg text-sm font-semibold transition-colors
 									${isActive
-										? 'bg-productbay-secondary text-gray-900'
+										? 'bg-productbay-secondary text-gray-900 border border-gray-300'
 										: 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
 									}`
 								}
