@@ -1,13 +1,13 @@
 # ProductBay Tech Stack
 
 ## Platform
-- **WordPress 6.0+** — Core CMS
+- **WordPress 6.8+** — Core CMS
 - **WooCommerce 6.1+** — Required e-commerce dependency
 - **PHP 7.4+** — Backend language
 
 ## Package Managers
 - **Bun** — JavaScript packages & script runner
-- **Composer** — PHP dependencies with PSR-4 autoloading (`WpabProductBay\`)
+- **Composer** — PHP dependencies with PSR-4 autoloading (`WpabProductBay\` for free version (productbay) and `WpabProductBayPro\` for pro version (productbay-pro))
 
 ## Frontend
 - **React** — UI library (via `@wordpress/element`)
@@ -48,4 +48,4 @@
 ## Directory Structure
 - `app/` — PHP backend (Admin, Api, Core, Data, Frontend, Http, Utils)
 - `src/` — React/TS frontend (components, pages, store, hooks, layouts, types)
-- `assets/` — Compiled JS/CSS output
+- `assets/` — Compiled JS/CSS output and media files

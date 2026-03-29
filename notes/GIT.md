@@ -1,27 +1,13 @@
 # Git Workflow
 
-## Branch Strategy
-
-| Branch     | Purpose                                                     |
-|------------|-------------------------------------------------------------|
-| `main`     | Stable, release-ready code                                  |
-| `develop`  | Active development integration branch                       |
-| `feature/*`| Feature branches off `develop`                              |
-| `meta`     | Orphan branch — stores dev-only config, notes & tooling     |
-| `dist`     | Orphan branch — stores production-ready build artifacts     |
-
----
+- Use conventional git commit messages in lowercase always.
+- Keep each commit small and focused on a single change.
+- Use `bun run deploy-dist` to deploy the plugin to the `dist` branch.
 
 ## Meta Branch
 
 The `meta` branch is an **orphan branch** (no shared history with `main`) that exclusively tracks development-only files that should **never** be included in any code branch:
 
-| Directory       | Contents                                    |
-|-----------------|---------------------------------------------|
-| `.agents/`      | AI agent workflows and configuration        |
-| `.vscode/`      | VS Code workspace settings                  |
-| `notes/`        | Architecture docs, dev notes, specs         |
-| `instructions/` | Project instructions, drafts, style guides  |
 
 ### How It Works
 
@@ -37,7 +23,7 @@ The `meta` branch is an **orphan branch** (no shared history with `main`) that e
 cd .meta-worktree && ls
 
 # Stage and commit changes to meta files
-cd .meta-worktree && git add -A && git commit -m "docs: update notes"
+cd .meta-worktree && git add -A && git commit -m "docs: update meta branch"
 
 # Push meta branch
 cd .meta-worktree && git push origin meta
