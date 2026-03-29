@@ -18,10 +18,9 @@ The `meta` branch is an **orphan branch** (no shared history with `main`) that e
 
 ### Working with the Meta Branch
 
-```bash
-# Go to meta branch
-cd .meta-worktree
+> **Note**: The following commands are designed to be run from the **root directory** of the plugin, *not* from inside the `.meta-worktree` folder.
 
+```bash
 # View meta branch contents
 ls .meta-worktree
 
