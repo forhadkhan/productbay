@@ -155,25 +155,25 @@
          */
         restoreModalSelections(e, modalContent) {
             const $modal = $(modalContent);
-            
+
             $modal.find('.productbay-select-product').each((i, checkbox) => {
                 const $checkbox = $(checkbox);
                 const $row = $checkbox.closest('tr');
                 const rawId = $checkbox.val();
-                
+
                 const storageKey = this.getStorageKey($row, rawId);
-                
+
                 if (this.selectedProducts.has(storageKey)) {
                     const savedItem = this.selectedProducts.get(storageKey);
-                    
+
                     // Restore checkbox state
                     $checkbox.prop('checked', true);
-                    
+
                     // Restore quantity input value
                     const $qtyInput = $row.find('.productbay-qty');
                     if ($qtyInput.length) {
                         $qtyInput.val(savedItem.quantity);
-                        
+
                         // Disable/enable arrows according to the restored value
                         const min = parseInt($qtyInput.attr('min'), 10) || 1;
                         const max = parseInt($qtyInput.attr('max'), 10) || Infinity;
@@ -216,7 +216,7 @@
             $filters.on('change', '.productbay-filter-select', this.handleTaxonomyFilter.bind(this));
 
             // Custom multi-select dropdown toggle
-            this.$wrapper.on('click', '.productbay-multiselect-trigger', function(e) {
+            this.$wrapper.on('click', '.productbay-multiselect-trigger', function (e) {
                 e.stopPropagation();
                 const $dropdown = $(this).siblings('.productbay-multiselect-dropdown');
                 const $parent = $(this).closest('.productbay-multiselect');
@@ -229,7 +229,7 @@
 
             // Checkbox change inside multi-select
             const self = this;
-            this.$wrapper.on('change', '.productbay-multiselect-option input[type="checkbox"]', function() {
+            this.$wrapper.on('change', '.productbay-multiselect-option input[type="checkbox"]', function () {
                 const $multi = $(this).closest('.productbay-multiselect');
                 const checked = $multi.find('input[type="checkbox"]:checked');
                 const count = checked.length;
@@ -242,7 +242,7 @@
             });
 
             // Close dropdown on outside click
-            $(document).on('click', function(e) {
+            $(document).on('click', function (e) {
                 if (!$(e.target).closest('.productbay-multiselect').length) {
                     $('.productbay-multiselect.productbay-multiselect-open').removeClass('productbay-multiselect-open');
                 }
@@ -273,7 +273,7 @@
             const $multiselect = this.$wrapper.find('.productbay-multiselect[data-filter="product_cat"]');
             if ($multiselect.length) {
                 const selected = [];
-                $multiselect.find('input[type="checkbox"]:checked').each(function() {
+                $multiselect.find('input[type="checkbox"]:checked').each(function () {
                     selected.push($(this).val());
                 });
                 state['product_cat[]'] = selected;
@@ -335,7 +335,7 @@
             if (!$dialog.length) return;
 
             this.$lightbox = $dialog;
-            
+
             // Open Lightbox
             this.$wrapper.on('click', '.productbay-lightbox-trigger', (e) => {
                 e.preventDefault();
@@ -371,7 +371,7 @@
                     $dialog.find('.productbay-icon-minimize').show();
                 }
             });
-            
+
             // Make escape key work naturally
             $dialog.on('cancel', (e) => {
                 $dialog.removeClass('productbay-lightbox-is-fullscreen');
@@ -490,17 +490,17 @@
                 const $cb = $(el);
                 const $row = $cb.closest('tr');
                 const rawId = $cb.val();
-                
+
                 const storageKey = this.getStorageKey($row, rawId);
 
                 if (this.selectedProducts.has(storageKey)) {
                     $cb.prop('checked', true);
                     const savedItem = this.selectedProducts.get(storageKey);
-                    
+
                     const $qtyInput = $row.find('.productbay-qty');
                     if ($qtyInput.length) {
                         $qtyInput.val(savedItem.quantity);
-                        
+
                         const min = parseInt($qtyInput.attr('min'), 10) || 1;
                         const max = parseInt($qtyInput.attr('max'), 10) || Infinity;
                         this.updateQtyButtons($qtyInput, savedItem.quantity, min, max);
@@ -608,7 +608,7 @@
                     // Use variation price if available
                     const varPrice = $variableWrap.data('current-variation-price');
                     if (varPrice) currentPrice = parseFloat(varPrice);
-                } 
+                }
                 // 2. Pro Plugin Nested/Popup Method
                 else if ($row.attr('data-parent-id')) {
                     const parentId = $row.attr('data-parent-id');
@@ -616,17 +616,17 @@
                     // For variations, the row's ID is the variation_id, and the parent is the product_id.
                     // The backend sets `data-product-type="simple"` for grouped children, so let's check it.
                     const pType = $row.attr('data-product-type') || 'variation';
-                    
+
                     if (pType !== 'simple') {
                         variationId = parseInt(id, 10);
                         id = parentId; // The actual WC cart product_id must be the parent
                     }
-                    
+
                     const attrData = $row.attr('data-attributes');
                     if (attrData) {
                         try {
                             attributes = JSON.parse(attrData);
-                        } catch (e) {}
+                        } catch (e) { }
                     }
                 }
 
@@ -634,12 +634,12 @@
 
                 let name = $row.find('.productbay-product-title').text().trim();
                 let img = $row.find('img').first().attr('src');
-                
+
                 // Fallback for Pro Variation/Grouped Popup rows
                 if (!name) {
                     name = $row.find('.productbay-pro-popup-col-name').text().trim();
                 }
-                
+
                 // Fallback for missing image (use parent image from main table)
                 if (!img && $row.attr('data-parent-id')) {
                     const parentId = $row.attr('data-parent-id');
@@ -970,7 +970,7 @@
             this.selectedProducts.forEach(item => {
                 totalItems += item.quantity;
                 totalPrice += item.quantity * item.price;
-                
+
                 const pId = item.parentId || item.productId;
                 if (pId) {
                     parentCounts.set(String(pId), (parentCounts.get(String(pId)) || 0) + 1);
@@ -1002,9 +1002,9 @@
                 const $btn = $(btn);
                 const pId = String($btn.data('product-id'));
                 const count = parentCounts.get(pId) || 0;
-                
+
                 $btn.find('.productbay-pro-btn-badge').remove();
-                
+
                 if (count > 0) {
                     const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="display:inline-block;vertical-align:-1px;margin-right:2px"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                     $btn.append(`<span class="productbay-pro-btn-badge" style="margin-left: 6px; font-weight: 600; color: #15803d; background: #dcfce7; padding: 2px 6px; border-radius: 12px; font-size: 12px; display: inline-flex; align-items: center;">${checkSvg}${count}</span>`);
