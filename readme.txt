@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -273,6 +273,10 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Update: Version bumped for next development cycle.
 
 = 1.0.0 =
 
