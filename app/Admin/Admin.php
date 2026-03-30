@@ -74,13 +74,13 @@ class Admin
 			\__('ProductBay', 'productbay'),
 			// $menu_title: The text shown in the admin sidebar menu.
 			\__('ProductBay', 'productbay'),
-			// $capability: The user capability required to access this menu (e.g., 'manage_options')
+				// $capability: The user capability required to access this menu (e.g., 'manage_options')
 			Constants::CAPABILITY,
-			// $menu_slug: Unique identifier for this menu, used in URLs (?page=productbay)
+				// $menu_slug: Unique identifier for this menu, used in URLs (?page=productbay)
 			Constants::MENU_SLUG,
-		// $callback: Function to render the page content (outputs React app container)
+			// $callback: Function to render the page content (outputs React app container)
 			array($this, 'render_app'),
-			// $icon_url: Dashicon class or base64-encoded SVG for the menu icon.
+				// $icon_url: Dashicon class or base64-encoded SVG for the menu icon.
 			Constants::MENU_ICON,
 			// $position: Menu position in sidebar (58 places it after WooCommerce's Products at 56)
 			58
@@ -89,17 +89,17 @@ class Admin
 		// Register "All Tables" as the default submenu (sharing the parent slug)
 		// This makes "All Tables" the page that loads when clicking the top-level "ProductBay" menu.
 		\add_submenu_page(
-			// $parent_slug: The slug of the parent menu.
+				// $parent_slug: The slug of the parent menu.
 			Constants::MENU_SLUG,
 			// $page_title: Browser title bar text.
 			\__('All Tables', 'productbay'),
 			// $menu_title: Text displayed in the submenu list.
 			\__('All Tables', 'productbay'),
-			// $capability: User capability required.
+				// $capability: User capability required.
 			Constants::CAPABILITY,
-			// $menu_slug: Same as parent to make it the default.
+				// $menu_slug: Same as parent to make it the default.
 			Constants::MENU_SLUG,
-		// $callback: Function to render page content.
+			// $callback: Function to render page content.
 			array($this, 'render_app')
 		);
 
@@ -127,8 +127,8 @@ class Admin
 		// Uses a redirect callback to open the ProductBay tables in its proper admin URL.
 		\add_submenu_page(
 			'edit.php?post_type=product',
-			\__('All Tables', 'productbay'),
-			\__('All Tables', 'productbay'),
+			\__('Product Tables', 'productbay'),
+			\__('Product Tables', 'productbay'),
 			Constants::CAPABILITY,
 			Constants::MENU_SLUG . '-woo-tables',
 			array($this, 'redirect_to_productbay')
@@ -193,46 +193,46 @@ class Admin
 		// Add parent node with icon using flexbox for perfect alignment.
 		$wp_admin_bar->add_node(
 			array(
-			'id' => Constants::MENU_SLUG,
-			'title' => '<span style="display: flex; align-items: center;">'
-			. '<span>' . esc_html(\__('ProductBay', 'productbay')) . '</span>'
-			. '</span>',
-			// Link to the main productbay page (now Tables).
-			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
-			'meta' => array(
-				'title' => \__('ProductBay', 'productbay'),
-			),
-		)
+				'id' => Constants::MENU_SLUG,
+				'title' => '<span style="display: flex; align-items: center;">'
+					. '<span>' . esc_html(\__('ProductBay', 'productbay')) . '</span>'
+					. '</span>',
+				// Link to the main productbay page (now Tables).
+				'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
+				'meta' => array(
+					'title' => \__('ProductBay', 'productbay'),
+				),
+			)
 		);
 
 		// Add All Tables submenu.
 		$wp_admin_bar->add_node(
 			array(
-			'id' => Constants::MENU_SLUG . '-tables',
-			'parent' => Constants::MENU_SLUG,
-			'title' => \__('All Tables', 'productbay'),
-			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
-		)
+				'id' => Constants::MENU_SLUG . '-tables',
+				'parent' => Constants::MENU_SLUG,
+				'title' => \__('All Tables', 'productbay'),
+				'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG),
+			)
 		);
 
 		// Add Settings submenu.
 		$wp_admin_bar->add_node(
 			array(
-			'id' => Constants::MENU_SLUG . '-settings',
-			'parent' => Constants::MENU_SLUG,
-			'title' => \__('Settings', 'productbay'),
-			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
-		)
+				'id' => Constants::MENU_SLUG . '-settings',
+				'parent' => Constants::MENU_SLUG,
+				'title' => \__('Settings', 'productbay'),
+				'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-settings'),
+			)
 		);
 
 		// Add "Create New Table" submenu.
 		$wp_admin_bar->add_node(
 			array(
-			'id' => Constants::MENU_SLUG . '-new',
-			'parent' => Constants::MENU_SLUG,
-			'title' => \__('Create New Table', 'productbay'),
-			'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
-		)
+				'id' => Constants::MENU_SLUG . '-new',
+				'parent' => Constants::MENU_SLUG,
+				'title' => \__('Create New Table', 'productbay'),
+				'href' => \admin_url('admin.php?page=' . Constants::MENU_SLUG . '-new'),
+			)
 		);
 	}
 
@@ -299,7 +299,7 @@ class Admin
 			'productbay-admin',
 			PRODUCTBAY_URL . 'assets/js/admin.js',
 			$asset['dependencies'],
-			(string)time(),
+			(string) time(),
 			true
 		);
 
@@ -335,7 +335,7 @@ class Admin
 		// Uses file modification time in dev mode for instant refresh,.
 		// or plugin version in production for proper cache control.
 		$css_path = PRODUCTBAY_PATH . 'assets/css/admin.css';
-		$css_version = (string)time();
+		$css_version = (string) time();
 
 		\wp_enqueue_style(
 			'productbay-admin-css',
