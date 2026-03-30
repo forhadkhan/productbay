@@ -276,17 +276,22 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.1.0 =
 
-* Feature: Added native Gutenberg blocks for Product Table and Tabbed Product Tables.
-
-= 1.0.1 =
-
-* Update: Version bumped for next development cycle.
+* Feature: Native Gutenberg blocks for Product Table and Tabbed Product Tables with server-side rendering.
+* Improvement: Filters bar repositioned above toolbar for better UX flow.
+* Improvement: Admin menu (WooCommerce > Products) renamed from "All Tables" to "Product Tables" for clarity.
+* Improvement: Hover highlight improvements across admin UI.
+* Improvement: Shortcode display layout refined on the table management page.
+* Dev: Restructured codebase for Pro extension architecture.
+* Dev: Exposed UI components and settings globally for Pro add-on consumption.
 
 = 1.0.0 =
 
-*   Initial release of ProductBay.
+* Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds native Gutenberg blocks, enhances the admin UI and restructures the codebase for Pro extension architecture.
 
 = 1.0.0 =
 Initial release, no upgrade steps required.
