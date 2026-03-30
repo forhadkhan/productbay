@@ -1,0 +1,232 @@
+<?php
+/**
+ * Server-side render callback for the Tab – Product Table block.
+ *
+ * @package ProductBay
+ */
+
+declare(strict_types=1);
+
+namespace WpabProductBay\Blocks;
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+use WpabProductBay\Data\TableRepository;
+use WpabProductBay\Frontend\TableRenderer;
+
+/**
+ * Class TabProductTableBlock
+ *
+ * Handles the render_callback for the `productbay/tab-product-table` block.
+ * Wraps multiple TableRenderer outputs in accessible tab markup and enqueues
+ * a lightweight vanilla-JS tab-switching script.
+ *
+ * @package WpabProductBay\Blocks
+ * @since   1.1.0
+ */
+class TabProductTableBlock
+{
+	/**
+	 * Repository for table data access.
+	 *
+	 * @var TableRepository
+	 * @since 1.1.0
+	 */
+	protected $repository;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param TableRepository $repository Table data repository.
+	 * @since 1.1.0
+	 */
+	public function __construct(TableRepository $repository)
+	{
+		$this->repository = $repository;
+	}
+
+	/**
+	 * Render the Tab – Product Table block.
+	 *
+	 * @param array  $attributes Block attributes from the editor.
+	 * @param string $content    Inner block content (unused for dynamic blocks).
+	 * @return string Rendered HTML.
+	 * @since 1.1.0
+	 */
+	public function render(array $attributes, string $content): string
+	{
+		$table_ids  = array_map('absint', $attributes['tableIds'] ?? array());
+		$tab_labels = $attributes['tabLabels'] ?? array();
+		$active_tab = absint($attributes['activeTab'] ?? 0);
+
+		if (empty($table_ids)) {
+			return '';
+		}
+
+		// Ensure active tab index is within bounds.
+		if ($active_tab >= count($table_ids)) {
+			$active_tab = 0;
+		}
+
+		$this->enqueue_assets();
+
+		// Unique wrapper ID prevents JS conflicts when multiple tab blocks exist on one page.
+		$block_id = 'pb-tabs-' . wp_unique_id();
+
+		$renderer = new TableRenderer($this->repository);
+
+		ob_start();
+
+		// get_block_wrapper_attributes() automatically includes classes/styles from block supports (Color, Typography, etc.)
+		$wrapper_attributes = \get_block_wrapper_attributes( array(
+			'class' => 'productbay-tabs-block',
+			'id'    => $block_id,
+		) );
+
+		echo '<div ' . $wrapper_attributes . ' onClick="return false;">'; // onClick prevented handled by specialized preview click logic in edit.js
+
+		// Tab List — accessible navigation.
+		echo '<div class="productbay-tabs-nav" role="tablist">';
+		foreach ($table_ids as $index => $table_id) {
+			$label     = isset($tab_labels[$index]) && $tab_labels[$index] !== ''
+				? $tab_labels[$index]
+				: sprintf(
+					/* translators: %d: tab index number */
+					esc_html__('Tab %d', 'productbay'),
+					$index + 1
+				);
+			$tab_id    = esc_attr($block_id . '-tab-' . $index);
+			$panel_id  = esc_attr($block_id . '-panel-' . $index);
+			$is_active = $index === $active_tab;
+
+			echo '<button'
+				. ' id="' . $tab_id . '"'
+				. ' class="productbay-tab-button' . ($is_active ? ' is-active' : '') . '"'
+				. ' role="tab"'
+				. ' aria-selected="' . ($is_active ? 'true' : 'false') . '"'
+				. ' aria-controls="' . $panel_id . '"'
+				. ' tabindex="' . ($is_active ? '0' : '-1') . '"'
+				. '>'
+				. esc_html($label)
+				. '</button>';
+		}
+		echo '</div>'; // .productbay-tabs-nav
+
+		// Tab Panels — one per table.
+		foreach ($table_ids as $index => $table_id) {
+			$table     = $this->repository->get_table($table_id);
+			$tab_id    = esc_attr($block_id . '-tab-' . $index);
+			$panel_id  = esc_attr($block_id . '-panel-' . $index);
+			$is_active = $index === $active_tab;
+
+			echo '<div'
+				. ' id="' . $panel_id . '"'
+				. ' class="productbay-tab-panel' . ($is_active ? ' is-active' : '') . '"'
+				. ' role="tabpanel"'
+				. ' aria-labelledby="' . $tab_id . '"'
+				. ($is_active ? '' : ' hidden')
+				. '>';
+
+			if (!$table) {
+				echo '<p>' . esc_html__('Table not found.', 'productbay') . '</p>';
+			} else {
+				$status = $table['status'] ?? 'draft';
+				if ('publish' !== $status && !is_preview() && !is_admin()) {
+					if (\current_user_can('manage_options')) {
+						echo '<p style="padding:12px 16px;background:#fef3cd;border:1px solid #e9b006;border-radius:4px;color:#664d03;font-size:14px;">'
+							. sprintf(
+								/* translators: %s: table title */
+								\esc_html__('ProductBay: Table "%s" is not published.', 'productbay'),
+								\esc_html($table['title'] ?? (string) $table_id)
+							)
+							. '</p>';
+					}
+				} else {
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- TableRenderer output is safe.
+					echo $renderer->render($table);
+				}
+			}
+
+			echo '</div>'; // .productbay-tab-panel
+		}
+
+		echo '</div>'; // .productbay-tabs-block
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Enqueue all assets required by the tabbed block.
+	 *
+	 * Enqueues the shared frontend assets plus the lightweight tab-switcher
+	 * script that is only loaded when this block is present on the page.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	private function enqueue_assets()
+	{
+		// Shared ProductBay frontend assets (CSS + cart JS).
+		\wp_enqueue_style(
+			'productbay-frontend',
+			PRODUCTBAY_URL . 'assets/css/frontend.css',
+			array(),
+			(string) filemtime(PRODUCTBAY_PATH . 'assets/css/frontend.css')
+		);
+
+		\wp_enqueue_style(
+			'productbay-tabs',
+			PRODUCTBAY_URL . 'assets/css/block-tabs.css',
+			array(),
+			(string) filemtime(PRODUCTBAY_PATH . 'assets/css/block-tabs.css')
+		);
+
+		\wp_enqueue_script(
+			'productbay-frontend',
+			PRODUCTBAY_URL . 'assets/js/frontend.js',
+			array('jquery'),
+			(string) filemtime(PRODUCTBAY_PATH . 'assets/js/frontend.js'),
+			true
+		);
+
+		if (!\wp_script_is('productbay-frontend', 'localized')) {
+			\wp_localize_script(
+				'productbay-frontend',
+				'productbay_frontend',
+				array(
+					'ajaxurl'               => \admin_url('admin-ajax.php'),
+					'nonce'                 => \wp_create_nonce('productbay_frontend'),
+					'cart_url'              => \wc_get_cart_url(),
+					'currency_symbol'       => \get_woocommerce_currency_symbol(),
+					'currency_position'     => \get_option('woocommerce_currency_pos', 'left'),
+					'currency_decimals'     => absint(\get_option('woocommerce_price_num_decimals', 2)),
+					'currency_decimal_sep'  => \wc_get_price_decimal_separator(),
+					'currency_thousand_sep' => \wc_get_price_thousand_separator(),
+				)
+			);
+		}
+
+		// Lightweight tab-switcher — only loaded when this block is on the page.
+		$tabs_js = PRODUCTBAY_PATH . 'assets/js/block-tabs.js';
+		if (file_exists($tabs_js)) {
+			\wp_enqueue_script(
+				'productbay-tabs',
+				PRODUCTBAY_URL . 'assets/js/block-tabs.js',
+				array(), // No deps — pure vanilla JS.
+				(string) filemtime($tabs_js),
+				true
+			);
+		}
+
+		/**
+		 * Fires after tab block assets are enqueued.
+		 *
+		 * @since 1.1.0
+		 */
+		\do_action('productbay_enqueue_frontend_assets');
+	}
+}

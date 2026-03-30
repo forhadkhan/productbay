@@ -82,13 +82,15 @@ class Router
 		$controller = new \WpabProductBay\Api\TablesController($this->repository, $this->request);
 
 		// List Tables.
+		// Uses read_permission_check (edit_posts) so editors/authors can populate
+		// the block editor dropdown without needing manage_options.
 		\register_rest_route(
 			'productbay/v1',
 			'/tables',
 			array(
 			'methods' => 'GET',
 			'callback' => array($controller, 'index'),
-			'permission_callback' => array($this, 'permission_check'),
+			'permission_callback' => array($this, 'read_permission_check'),
 		)
 		);
 
@@ -104,13 +106,14 @@ class Router
 		);
 
 		// Get Single Table.
+		// Also uses read_permission_check so block ServerSideRender works for editors.
 		\register_rest_route(
 			'productbay/v1',
 			'/tables/(?P<id>\d+)',
 			array(
 			'methods' => 'GET',
 			'callback' => array($controller, 'show'),
-			'permission_callback' => array($this, 'permission_check'),
+			'permission_callback' => array($this, 'read_permission_check'),
 		)
 		);
 
@@ -246,5 +249,21 @@ class Router
 	public function permission_check()
 	{
 		return \current_user_can('manage_options');
+	}
+
+	/**
+	 * Check if the current user can read tables.
+	 *
+	 * Used for GET /tables and GET /tables/{id} so that Contributors, Authors,
+	 * and Editors can populate the block editor dropdown and trigger ServerSideRender
+	 * previews without needing full admin access.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return bool True if user has 'edit_posts' capability.
+	 */
+	public function read_permission_check()
+	{
+		return \current_user_can('edit_posts');
 	}
 }
