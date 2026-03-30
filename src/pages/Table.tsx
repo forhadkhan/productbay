@@ -238,20 +238,17 @@ const Table = () => {
             {tableId && (
                 <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
                     <span className="font-semibold text-lg text-blue-900">{__('Shortcode:', 'productbay')}</span>
-                    <code className="bg-gray-100 select-all text-lg px-2 py-1 rounded border border-gray-200 text-gray-800 font-mono">
-                        {shortcode}
-                    </code>
                     <div className="flex items-center justify-between gap-2">
-                        <Tooltip content={__('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay')}>
-                            <InfoIcon className="size-6 text-gray-500 cursor-pointer" />
-                        </Tooltip>
+                        <code className="bg-gray-100 select-all text-lg px-2 py-1 h-10 rounded border border-gray-200 text-gray-800 font-mono">
+                            {shortcode}
+                        </code>
                         <Button
                             size="xs"
                             variant="outline"
                             onClick={() => {
                                 copyToClipboard(shortcode);
                             }}
-                            className={`cursor-pointer transition-colors w-20 ${isCopied ? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200' : 'bg-white hover:bg-blue-100 text-blue-700 border-blue-200'
+                            className={`cursor-pointer transition-colors w-20 h-10 ${isCopied ? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200' : 'bg-white hover:bg-blue-100 text-blue-700 border-blue-200'
                                 }`}
                         >
                             {isCopied ? (
@@ -267,6 +264,9 @@ const Table = () => {
                             )}
                         </Button>
                     </div>
+                    <Tooltip content={__('Copy this shortcode and paste it into any Page or Post to display this table. ', 'productbay')}>
+                        <InfoIcon className="size-6 text-gray-500 cursor-pointer" />
+                    </Tooltip>
                 </div>
             )}
 
