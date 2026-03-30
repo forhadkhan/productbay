@@ -295,12 +295,12 @@ Add `BlockManager` initialization. Blocks must register on `init`, not `plugins_
 ## Verification Plan
 
 ### Automated
-- `npm run build` — confirm no Webpack errors and that all block assets compile to `blocks/<name>/index.js` + `index.asset.php`
-- `npm run lint:js` — no ESLint errors in new block source files
-- `npm run lint:php` — no PHPCS violations in new PHP classes
+- `bun run build` — confirm no Webpack errors and that all block assets compile to `blocks/<name>/index.js` + `index.asset.php`
+- `bun run lint:js` — no ESLint errors in new block source files
+- `bun run lint:php` — no PHPCS violations in new PHP classes
 
 ### Manual
-1. Activate the plugin in a WP 6.5+ install with WooCommerce active
+1. Activate the plugin in a WP 6.8+ install with WooCommerce active
 2. Open Block Editor → Inserter → Search "Product Table" — both blocks appear
 3. Insert **Product Table** block → Inspector panel shows table dropdown populated with real table names
 4. Select a table → `ServerSideRender` preview appears in editor

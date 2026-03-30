@@ -133,6 +133,7 @@ Detailed documentation for specific components and features:
 
 ### System Architecture
 
+- **[Gutenberg Blocks Architecture](./BLOCKS.md)** - Dynamic block registration, style support, and rendering.
 - **[Routing & Navigation](./ROUTING.md)** - React Router integration with WordPress Admin Menu sync
 - **[Settings System](./SETTINGS.md)** - Plugin settings architecture and reload-required patterns
 
