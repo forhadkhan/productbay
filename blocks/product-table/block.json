@@ -35,5 +35,10 @@
             "width": true
         }
     },
+    "example": {
+        "attributes": {
+            "tableId": 1
+        }
+    },
     "editorScript": "file:./index.js"
 }

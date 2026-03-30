@@ -45,5 +45,11 @@
             "width": true
         }
     },
+    "example": {
+        "attributes": {
+            "tableIds": [1, 2],
+            "tabLabels": ["Laptops", "Smartphones"]
+        }
+    },
     "editorScript": "file:./index.js"
 }

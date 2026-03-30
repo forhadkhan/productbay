@@ -63,7 +63,7 @@ class TabProductTableBlock
 		$active_tab = absint($attributes['activeTab'] ?? 0);
 
 		if (empty($table_ids)) {
-			return '';
+			return $this->get_mockup();
 		}
 
 		// Ensure active tab index is within bounds.
@@ -131,7 +131,11 @@ class TabProductTableBlock
 				. '>';
 
 			if (!$table) {
-				echo '<p>' . esc_html__('Table not found.', 'productbay') . '</p>';
+				if (is_admin() || is_preview()) {
+					echo $this->get_mockup(true);
+				} else {
+					echo '<p>' . esc_html__('Table not found.', 'productbay') . '</p>';
+				}
 			} else {
 				$status = $table['status'] ?? 'draft';
 				if ('publish' !== $status && !is_preview() && !is_admin()) {
@@ -155,6 +159,52 @@ class TabProductTableBlock
 
 		echo '</div>'; // .productbay-tabs-block
 
+		return ob_get_clean();
+	}
+
+	/**
+	 * Returns a high-fidelity HTML mockup for the Tabbed Gutenberg inserter preview.
+	 *
+	 * @param bool $content_only If true, only returns the inner table mockup without the tab wrapper.
+	 * @since 1.1.0
+	 * @return string Sample HTML.
+	 */
+	private function get_mockup(bool $content_only = false): string
+	{
+		if (!is_admin() && !is_preview()) {
+			return '';
+		}
+
+		ob_start();
+		if (!$content_only) {
+			?>
+			<div class="productbay-tabs-mockup" style="max-width:100%; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; background:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+				<div style="display:flex; background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:0 8px;">
+					<div style="padding:12px 16px; font-size:12px; font-weight:700; color:#4f46e5; border-bottom:2px solid #4f46e5;">Laptops</div>
+					<div style="padding:12px 16px; font-size:12px; font-weight:500; color:#64748b;">Tablets</div>
+					<div style="padding:12px 16px; font-size:12px; font-weight:500; color:#64748b;">Accessories</div>
+				</div>
+				<div style="padding:16px;">
+			<?php
+		}
+		?>
+		<div style="display:grid; grid-template-columns: 40px 1fr 60px; gap:12px; align-items:center; border-bottom:1px solid #f1f5f9; padding:8px 0;">
+			<div style="width:40px; height:40px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:9px;">IMG</div>
+			<div style="font-size:12px; font-weight:500; color:#334155;">MacBook Pro M3</div>
+			<div style="font-size:12px; font-weight:700; color:#4f46e5; text-align:right;">$1,999</div>
+		</div>
+		<div style="display:grid; grid-template-columns: 40px 1fr 60px; gap:12px; align-items:center; padding:8px 0;">
+			<div style="width:40px; height:40px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:9px;">IMG</div>
+			<div style="font-size:12px; font-weight:500; color:#334155;">Dell XPS 13</div>
+			<div style="font-size:12px; font-weight:700; color:#4f46e5; text-align:right;">$1,249</div>
+		</div>
+		<?php
+		if (!$content_only) {
+			?>
+				</div>
+			</div>
+			<?php
+		}
 		return ob_get_clean();
 	}
 

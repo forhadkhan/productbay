@@ -61,13 +61,13 @@ class ProductTableBlock
 		$table_id = absint($attributes['tableId'] ?? 0);
 
 		if (!$table_id) {
-			return '';
+			return $this->get_mockup();
 		}
 
 		$table = $this->repository->get_table($table_id);
 
 		if (!$table) {
-			return '';
+			return is_admin() || is_preview() ? $this->get_mockup() : '';
 		}
 
 		// Only render published tables on the frontend.
@@ -91,6 +91,45 @@ class ProductTableBlock
 
 		// get_block_wrapper_attributes() handles Gutenberg style/color/typography attributes.
 		return '<div ' . \get_block_wrapper_attributes() . '>' . $html . '</div>';
+	}
+
+	/**
+	 * Returns a high-fidelity HTML mockup for the Gutenberg inserter preview.
+	 *
+	 * @since 1.1.0
+	 * @return string Sample HTML.
+	 */
+	private function get_mockup(): string
+	{
+		if (!is_admin() && !is_preview()) {
+			return '';
+		}
+
+		ob_start();
+		?>
+		<div class="productbay-table-mockup" style="max-width:100%; border:1px solid #e2e8f0; border-radius:12px; padding:16px; background:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
+			<div style="font-weight:700; margin-bottom:12px; font-size:15px; color:#1e293b;">⚡ Sample Product Table</div>
+			<div style="display:grid; grid-template-columns: 48px 1fr 70px; gap:12px; align-items:center; border-bottom:1px solid #f1f5f9; padding:8px 0;">
+				<div style="width:48px; height:48px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:10px;">IMG</div>
+				<div style="font-size:13px; font-weight:500; color:#334155;">Premium Wireless Headphones</div>
+				<div style="font-size:13px; font-weight:700; color:#4f46e5; text-align:right;">$299.00</div>
+			</div>
+			<div style="display:grid; grid-template-columns: 48px 1fr 70px; gap:12px; align-items:center; border-bottom:1px solid #f1f5f9; padding:8px 0;">
+				<div style="width:48px; height:48px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:10px;">IMG</div>
+				<div style="font-size:13px; font-weight:500; color:#334155;">Portable Bluetooth Speaker</div>
+				<div style="font-size:13px; font-weight:700; color:#4f46e5; text-align:right;">$89.00</div>
+			</div>
+			<div style="display:grid; grid-template-columns: 48px 1fr 70px; gap:12px; align-items:center; padding:8px 0;">
+				<div style="width:48px; height:48px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:10px;">IMG</div>
+				<div style="font-size:13px; font-weight:500; color:#334155;">Smart Watch Series 9</div>
+				<div style="font-size:13px; font-weight:700; color:#4f46e5; text-align:right;">$399.00</div>
+			</div>
+			<div style="margin-top:12px; padding-top:12px; border-top:1px solid #f1f5f9; text-align:center; font-size:11px; color:#64748b; font-style:italic;">
+				<?php \esc_html_e('Select a table to see live content', 'productbay'); ?>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 
 	/**
