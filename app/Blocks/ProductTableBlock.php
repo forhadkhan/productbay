@@ -89,7 +89,7 @@ class ProductTableBlock
 		$renderer = new TableRenderer($this->repository);
 		$html = $renderer->render($table);
 
-		// get_block_wrapper_attributes() handles Gutenberg style/color/typography attributes.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() and TableRenderer output are safe.
 		return '<div ' . \get_block_wrapper_attributes() . '>' . $html . '</div>';
 	}
 

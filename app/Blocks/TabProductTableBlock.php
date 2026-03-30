@@ -86,6 +86,7 @@ class TabProductTableBlock
 			'id'    => $block_id,
 		) );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() is pre-escaped.
 		echo '<div ' . $wrapper_attributes . ' onClick="return false;">'; // onClick prevented handled by specialized preview click logic in edit.js
 
 		// Tab List — accessible navigation.
@@ -103,11 +104,11 @@ class TabProductTableBlock
 			$is_active = $index === $active_tab;
 
 			echo '<button'
-				. ' id="' . $tab_id . '"'
+				. ' id="' . esc_attr($tab_id) . '"'
 				. ' class="productbay-tab-button' . ($is_active ? ' is-active' : '') . '"'
 				. ' role="tab"'
 				. ' aria-selected="' . ($is_active ? 'true' : 'false') . '"'
-				. ' aria-controls="' . $panel_id . '"'
+				. ' aria-controls="' . esc_attr($panel_id) . '"'
 				. ' tabindex="' . ($is_active ? '0' : '-1') . '"'
 				. '>'
 				. esc_html($label)
@@ -123,15 +124,16 @@ class TabProductTableBlock
 			$is_active = $index === $active_tab;
 
 			echo '<div'
-				. ' id="' . $panel_id . '"'
+				. ' id="' . esc_attr($panel_id) . '"'
 				. ' class="productbay-tab-panel' . ($is_active ? ' is-active' : '') . '"'
 				. ' role="tabpanel"'
-				. ' aria-labelledby="' . $tab_id . '"'
+				. ' aria-labelledby="' . esc_attr($tab_id) . '"'
 				. ($is_active ? '' : ' hidden')
 				. '>';
 
 			if (!$table) {
 				if (is_admin() || is_preview()) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Mockup HTML is safe.
 					echo $this->get_mockup(true);
 				} else {
 					echo '<p>' . esc_html__('Table not found.', 'productbay') . '</p>';
