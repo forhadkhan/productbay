@@ -193,6 +193,40 @@ class TableRenderer
 		 */
 		\do_action('productbay_before_table', $table);
 
+		// Filters Bar.
+		ob_start();
+
+		$has_tax_filters = !empty($settings['filters']['enabled']);
+
+		if ($has_tax_filters) {
+			echo '<span class="productbay-filters-heading">' . esc_html__('Filter', 'productbay') . '</span>';
+		}
+
+		// Taxonomy Filters (from free plugin).
+		$this->render_taxonomy_filters($settings, $runtime_args);
+
+		/**
+		 * Action to render additional filters (e.g. from Pro extensions).
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $settings The table settings.
+		 * @param array $source   The table source configuration.
+		 */
+		\do_action('productbay_render_filters', $settings, $source);
+
+		if ($has_tax_filters || !empty($settings['features']['priceFilter']['enabled'])) {
+			echo '<button type="button" class="productbay-filters-clear" title="' . esc_attr__('Reset all filters to default', 'productbay') . '">' . esc_html__('Clear', 'productbay') . '</button>';
+		}
+
+		$filters_html = ob_get_clean();
+
+		if (trim($filters_html) !== '') {
+			echo '<div class="productbay-filters-bar">';
+			echo $filters_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML is built by trusted render methods
+			echo '</div>';
+		}
+
 		// Toolbar: Bulk Actions + Search.
 		echo '<div class="productbay-toolbar">';
 
@@ -244,39 +278,6 @@ class TableRenderer
 
 		echo '</div>'; // End Toolbar.
 
-		// Filters Bar.
-		ob_start();
-
-		$has_tax_filters = !empty($settings['filters']['enabled']);
-
-		if ($has_tax_filters) {
-			echo '<span class="productbay-filters-heading">' . esc_html__('Filter', 'productbay') . '</span>';
-		}
-
-		// Taxonomy Filters (from free plugin).
-		$this->render_taxonomy_filters($settings, $runtime_args);
-
-		/**
-		 * Action to render additional filters (e.g. from Pro extensions).
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $settings The table settings.
-		 * @param array $source   The table source configuration.
-		 */
-		\do_action('productbay_render_filters', $settings, $source);
-
-		if ($has_tax_filters || !empty($settings['features']['priceFilter']['enabled'])) {
-			echo '<button type="button" class="productbay-filters-clear" title="' . esc_attr__('Reset all filters to default', 'productbay') . '">' . esc_html__('Clear', 'productbay') . '</button>';
-		}
-
-		$filters_html = ob_get_clean();
-
-		if (trim($filters_html) !== '') {
-			echo '<div class="productbay-filters-bar">';
-			echo $filters_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML is built by trusted render methods
-			echo '</div>';
-		}
 
 		echo '<div class="productbay-table-container">';
 		echo '<table class="productbay-table">';
