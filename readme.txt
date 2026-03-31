@@ -14,7 +14,7 @@ Build fast and efficient product tables for WooCommerce with AJAX search, bulk a
 
 WooCommerce's default grid layout is great for browsing, but it isn't always the right fit for every store. Wholesale shops, large catalogs, B2B order forms, price lists, quick-order tables, and restaurant menus all need something different, a clean, fast, scannable table where customers can compare products, select options, and add to cart in seconds.
 
-**ProductBay** transforms how your WooCommerce products are displayed. Build beautiful, responsive product tables using a guided wizard, no coding required, and embed them anywhere on your site with a simple shortcode.
+**ProductBay** transforms how your WooCommerce products are displayed. Build beautiful, responsive product tables using a guided wizard, no coding required, and embed them anywhere on your site using the native Gutenberg block or a simple shortcode.
 
 -------
 [Home](https://wpanchorbay.com/plugins/productbay/) | [Documentation](https://docs.wpanchorbay.com/productbay/)
@@ -194,7 +194,7 @@ We're actively building a Pro add-on that will extend ProductBay with advanced c
 
 = Using Your Table =
 
-After creating a table, copy its shortcode (e.g., `[productbay id="1"]`) and paste it into any page, post, or widget using the WordPress Shortcode block.
+After creating a table, you can display it using the native **Product Table block** for a live visual preview directly inside the editor, or copy its shortcode (e.g., `[productbay id="1"]`) to paste anywhere on your site.
 
 == Frequently Asked Questions ==
 
@@ -208,7 +208,7 @@ ProductBay supports all four core WooCommerce product types: **Simple**, **Varia
 
 = How do I display a product table on a page? =
 
-After creating a table in the ProductBay dashboard, copy its shortcode — for example `[productbay id="1"]` — and paste it into any page, post, or widget using the WordPress Shortcode block.
+You can use the native **Product Table block** to insert and preview your table directly in the WordPress block editor. Alternatively, you can copy its shortcode — for example `[productbay id="1"]` — and paste it into any page, post, or widget.
 
 = Can I display multiple tables on the same page? =
 
