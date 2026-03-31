@@ -100,6 +100,9 @@ class Plugin
 			// Filter plugin name in plugins list.
 			\add_filter('all_plugins', array($admin, 'change_plugin_display_name'));
 
+			// Add plugin action links.
+			\add_filter('plugin_action_links_' . PRODUCTBAY_PLUGIN_BASENAME, array($admin, 'add_plugin_action_links'));
+
 			/**
 			 * Fires after the admin component is initialized.
 			 *

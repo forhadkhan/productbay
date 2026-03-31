@@ -285,6 +285,8 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Feature: Native Gutenberg blocks for Product Table and Tabbed Product Tables with server-side rendering.
 * Improvement: Filters bar repositioned above toolbar for better UX flow.
 * Improvement: Admin menu (WooCommerce > Products) renamed from "All Tables" to "Product Tables" for clarity.
+* Improvement: Added a "Manage" link to the plugin action links on the Plugins page for quicker access.
+* Improvement: Standardized plugin display name across the WordPress admin.
 * Improvement: Hover highlight improvements across admin UI.
 * Improvement: Shortcode display layout refined on the table management page.
 * Dev: Restructured codebase for Pro extension architecture.

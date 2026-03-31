@@ -164,6 +164,23 @@ class Admin
 	}
 
 	/**
+	 * Add plugin action links.
+	 *
+	 * Adds a "Manage" link to the plugin's action links on the Plugins page.
+	 *
+	 * @param array $links Array of plugin action links.
+	 * @return array Modified array of plugin action links.
+	 * @since 1.1.0
+	 */
+	public function add_plugin_action_links(array $links): array
+	{
+		$manage_link = '<a href="' . \admin_url('admin.php?page=' . Constants::MENU_SLUG) . '">' . \esc_html__('Manage', 'productbay') . '</a>';
+		\array_unshift($links, $manage_link);
+
+		return $links;
+	}
+
+	/**
 	 * Register ProductBay in the WordPress admin bar.
 	 *
 	 * Adds a top-level node with the plugin icon and dropdown submenu items
