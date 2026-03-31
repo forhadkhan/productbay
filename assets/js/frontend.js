@@ -346,8 +346,8 @@
                 }
             });
 
-            // Close Lightbox
-            this.$wrapper.on('click', '.productbay-lightbox-close, .productbay-lightbox-backdrop', () => {
+            // Helper to close lightbox safely
+            const closeLightbox = () => {
                 if ($dialog[0].open) {
                     $dialog.removeClass('productbay-lightbox-is-fullscreen');
                     $dialog.find('.productbay-icon-maximize').show();
@@ -355,6 +355,21 @@
 
                     $dialog[0].close();
                     $dialog.find('.productbay-lightbox-img').attr('src', '');
+                }
+            };
+
+            // Close Lightbox (via button or explicit backdrop)
+            this.$wrapper.on('click', '.productbay-lightbox-close, .productbay-lightbox-backdrop', () => {
+                closeLightbox();
+            });
+
+            // Close Lightbox (via native HTML5 dialog backdrop click)
+            $dialog.on('click', (e) => {
+                if (e.target === $dialog[0]) {
+                    // Don't close if currently in fullscreen
+                    if (!$dialog.hasClass('productbay-lightbox-is-fullscreen')) {
+                        closeLightbox();
+                    }
                 }
             });
 
@@ -374,10 +389,8 @@
 
             // Make escape key work naturally
             $dialog.on('cancel', (e) => {
-                $dialog.removeClass('productbay-lightbox-is-fullscreen');
-                $dialog.find('.productbay-icon-maximize').show();
-                $dialog.find('.productbay-icon-minimize').hide();
-                $dialog.find('.productbay-lightbox-img').attr('src', '');
+                e.preventDefault();
+                closeLightbox();
             });
         }
 
