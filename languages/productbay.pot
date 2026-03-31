@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ProductBay – High-Performance Product Table for WooCommerce 1.0.0\n"
+"Project-Id-Version: ProductBay – High-Performance Product Table for WooCommerce 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/productbay\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-17T20:23:40+00:00\n"
+"POT-Creation-Date: 2026-03-31T05:55:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -41,32 +41,79 @@ msgstr ""
 
 #: app/Admin/Admin.php:74
 #: app/Admin/Admin.php:76
-#: app/Admin/Admin.php:198
-#: app/Admin/Admin.php:203
+#: app/Admin/Admin.php:215
+#: app/Admin/Admin.php:220
 msgid "ProductBay"
 msgstr ""
 
 #: app/Admin/Admin.php:95
 #: app/Admin/Admin.php:97
-#: app/Admin/Admin.php:130
-#: app/Admin/Admin.php:131
-#: app/Admin/Admin.php:213
+#: app/Admin/Admin.php:230
 #: assets/js/admin.js:22
 msgid "All Tables"
 msgstr ""
 
 #: app/Admin/Admin.php:109
 #: app/Admin/Admin.php:110
-#: app/Admin/Admin.php:233
+#: app/Admin/Admin.php:250
 #: assets/js/admin.js:30
 msgid "Create New Table"
 msgstr ""
 
 #: app/Admin/Admin.php:119
 #: app/Admin/Admin.php:120
-#: app/Admin/Admin.php:223
+#: app/Admin/Admin.php:240
 #: assets/js/admin.js:30
 msgid "Settings"
+msgstr ""
+
+#: app/Admin/Admin.php:130
+#: app/Admin/Admin.php:131
+msgid "Product Tables"
+msgstr ""
+
+#: app/Admin/Admin.php:177
+msgid "Manage"
+msgstr ""
+
+#. translators: %d: table ID
+#: app/Blocks/ProductTableBlock.php:79
+#: app/Blocks/TabProductTableBlock.php:143
+#, php-format
+msgid "The selected table (ID: %d) could not be found. It may have been deleted. Please select a different table or update the block settings."
+msgstr ""
+
+#. translators: %s: table title
+#: app/Blocks/ProductTableBlock.php:93
+#: app/Frontend/Shortcode.php:121
+#, php-format
+msgid "ProductBay: Table \"%s\" is currently private. It will appear here once it is published."
+msgstr ""
+
+#: app/Blocks/ProductTableBlock.php:142
+msgid "Select a table to see live content"
+msgstr ""
+
+#. translators: %d: tab index number
+#: app/Blocks/TabProductTableBlock.php:102
+#, php-format
+msgid "Tab %d"
+msgstr ""
+
+#: app/Blocks/TabProductTableBlock.php:148
+msgid "Table not found."
+msgstr ""
+
+#. translators: %s: table title
+#: app/Blocks/TabProductTableBlock.php:157
+#, php-format
+msgid "ProductBay: Table \"%s\" is not published."
+msgstr ""
+
+#. translators: %s: table title
+#: app/Blocks/TabProductTableBlock.php:169
+#, php-format
+msgid "The table \"%s\" rendered completely empty. Please check your table configuration, product source, and filters."
 msgstr ""
 
 #: app/Frontend/AjaxRenderer.php:172
@@ -113,42 +160,36 @@ msgstr ""
 msgid "Failed to add products to cart."
 msgstr ""
 
-#. translators: %s: table title
-#: app/Frontend/Shortcode.php:121
-#, php-format
-msgid "ProductBay: Table \"%s\" is currently private. It will appear here once it is published."
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:215
-#: assets/js/admin.js:13
-msgid "Add to Cart"
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:220
-msgid "View selected items"
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:221
-msgid "View"
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:253
+#: app/Frontend/TableRenderer.php:202
 #: assets/js/admin.js:25
 msgid "Filter"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:270
+#: app/Frontend/TableRenderer.php:219
 msgid "Reset all filters to default"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:270
-#: app/Frontend/TableRenderer.php:1338
+#: app/Frontend/TableRenderer.php:219
+#: app/Frontend/TableRenderer.php:1327
 #: assets/js/admin.js:22
 msgid "Clear"
 msgstr ""
 
+#: app/Frontend/TableRenderer.php:249
+#: assets/js/admin.js:13
+msgid "Add to Cart"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:254
+msgid "View selected items"
+msgstr ""
+
+#: app/Frontend/TableRenderer.php:255
+msgid "View"
+msgstr ""
+
 #: app/Frontend/TableRenderer.php:401
-#: app/Frontend/TableRenderer.php:1548
+#: app/Frontend/TableRenderer.php:1535
 msgid "No products found."
 msgstr ""
 
@@ -163,57 +204,49 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:673
+#: app/Frontend/TableRenderer.php:669
 msgid "Buy product"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:683
+#: app/Frontend/TableRenderer.php:679
 msgid "View Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:691
+#: app/Frontend/TableRenderer.php:687
 msgid "Out of Stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:699
+#: app/Frontend/TableRenderer.php:695
 msgid "Select Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:778
+#: app/Frontend/TableRenderer.php:774
 msgid "Add to cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:810
+#: app/Frontend/TableRenderer.php:806
 msgid "Increase quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:811
+#: app/Frontend/TableRenderer.php:807
 msgid "Decrease quantity"
 msgstr ""
 
 #. translators: %d: number of selected categories
-#: app/Frontend/TableRenderer.php:1273
+#: app/Frontend/TableRenderer.php:1265
 #, php-format
 msgid "%s selected"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1274
+#: app/Frontend/TableRenderer.php:1266
 msgid "All Categories"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1276
-msgid "Category:"
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:1309
-msgid "Type:"
-msgstr ""
-
-#: app/Frontend/TableRenderer.php:1311
+#: app/Frontend/TableRenderer.php:1300
 msgid "All Types"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1337
+#: app/Frontend/TableRenderer.php:1326
 msgid "Search products..."
 msgstr ""
 
@@ -1248,10 +1281,6 @@ msgid "Shortcode:"
 msgstr ""
 
 #: assets/js/admin.js:22
-msgid "Copy this shortcode and paste it into any Page or Post to display this table. "
-msgstr ""
-
-#: assets/js/admin.js:22
 #: assets/js/admin.js:25
 #: assets/js/admin.js:30
 msgid "Copied!"
@@ -1260,6 +1289,10 @@ msgstr ""
 #: assets/js/admin.js:22
 #: assets/js/admin.js:30
 msgid "Copy"
+msgstr ""
+
+#: assets/js/admin.js:22
+msgid "Copy this shortcode and paste it into any Page or Post to display this table. "
 msgstr ""
 
 #: assets/js/admin.js:22
@@ -1838,4 +1871,212 @@ msgstr ""
 
 #: assets/js/admin.js:30
 msgid "Getting everything ready for you..."
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/product-table/edit.js:33
+#: src/blocks/tab-product-table/edit.js:105
+#: blocks/product-table/index.js:63
+#: blocks/tab-product-table/index.js:135
+msgid "Failed to load tables. Please check your permissions."
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: src/blocks/product-table/edit.js:39
+#: blocks/product-table/index.js:69
+msgid "— Select a table —"
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: src/blocks/product-table/edit.js:46
+#: blocks/product-table/index.js:76
+msgid "Table Settings"
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/product-table/edit.js:50
+#: src/blocks/tab-product-table/edit.js:202
+#: blocks/product-table/index.js:80
+#: blocks/tab-product-table/index.js:232
+msgid "Editor Preview: Interactive features (Search, Filter, Add to Cart) are disabled in the editor, but will work perfectly on the frontend."
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: src/blocks/product-table/edit.js:58
+#: blocks/product-table/index.js:88
+msgid "Select Product Table"
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/product-table/edit.js:73
+#: src/blocks/tab-product-table/edit.js:256
+#: blocks/product-table/index.js:103
+#: blocks/tab-product-table/index.js:286
+msgid "Product Table"
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/product-table/edit.js:74
+#: src/blocks/tab-product-table/edit.js:308
+#: blocks/product-table/index.js:104
+#: blocks/tab-product-table/index.js:338
+msgid "Loading tables..."
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: src/blocks/product-table/edit.js:74
+#: blocks/product-table/index.js:104
+msgid "Select a product table to get started."
+msgstr ""
+
+#: blocks/product-table/index.js:13
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/product-table/edit.js:81
+#: src/blocks/tab-product-table/edit.js:327
+#: blocks/product-table/index.js:111
+#: blocks/tab-product-table/index.js:357
+msgid "Choose a table"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:175
+#: blocks/tab-product-table/index.js:205
+msgid "— Choose a table —"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:198
+#: blocks/tab-product-table/index.js:228
+msgid "Tab Settings"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:220
+#: blocks/tab-product-table/index.js:250
+msgid "Current Tabs"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:236
+#: blocks/tab-product-table/index.js:266
+msgid "Active Tab"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:236
+#: blocks/tab-product-table/index.js:266
+msgid "Tab"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:244
+#: blocks/tab-product-table/index.js:274
+msgid "Remove"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:249
+#: blocks/tab-product-table/index.js:279
+msgid "Tab Label"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:270
+#: blocks/tab-product-table/index.js:300
+msgid "Add New Tab"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:283
+#: blocks/tab-product-table/index.js:313
+msgid "+ Add Tab"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:291
+#: blocks/tab-product-table/index.js:321
+msgid "Advanced Tab Settings"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:293
+#: blocks/tab-product-table/index.js:323
+msgid "Default Active Tab"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:294
+#: blocks/tab-product-table/index.js:324
+msgid "Determines which tab is selected by default when the page loads."
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:307
+#: blocks/tab-product-table/index.js:337
+msgid "Product Table (Tab)"
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:308
+#: blocks/tab-product-table/index.js:338
+msgid "Add your first product table to get started."
+msgstr ""
+
+#: blocks/tab-product-table/index.js:13
+#: src/blocks/tab-product-table/edit.js:342
+#: blocks/tab-product-table/index.js:372
+msgid "Add Tab"
+msgstr ""
+
+#: blocks/product-table/block.json
+msgctxt "block title"
+msgid "Product Table"
+msgstr ""
+
+#: blocks/product-table/block.json
+msgctxt "block description"
+msgid "Display a WooCommerce product table via ProductBay."
+msgstr ""
+
+#: blocks/product-table/block.json
+#: blocks/tab-product-table/block.json
+msgctxt "block keyword"
+msgid "product"
+msgstr ""
+
+#: blocks/product-table/block.json
+#: blocks/tab-product-table/block.json
+msgctxt "block keyword"
+msgid "table"
+msgstr ""
+
+#: blocks/product-table/block.json
+#: blocks/tab-product-table/block.json
+msgctxt "block keyword"
+msgid "woocommerce"
+msgstr ""
+
+#: blocks/product-table/block.json
+#: blocks/tab-product-table/block.json
+msgctxt "block keyword"
+msgid "productbay"
+msgstr ""
+
+#: blocks/tab-product-table/block.json
+msgctxt "block title"
+msgid "Product Table (Tab)"
+msgstr ""
+
+#: blocks/tab-product-table/block.json
+msgctxt "block description"
+msgid "Display multiple WooCommerce product tables in a tabbed layout via ProductBay."
+msgstr ""
+
+#: blocks/tab-product-table/block.json
+msgctxt "block keyword"
+msgid "tabs"
 msgstr ""

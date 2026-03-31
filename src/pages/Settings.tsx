@@ -55,32 +55,49 @@ const Settings = () => {
 	const [showReloadModal, setShowReloadModal] = useState(false);
 	const adminBarValueBeforeSave = useRef<boolean | undefined>(undefined);
 
+	// -- State Management via custom store --
 	const {
-		settings,
-		loading,
-		saving,
-		isDirty,
-		originalSettings,
-		fetchSettings,
-		updateSettings,
-		saveSettings
+		settings,         // Current settings object (including unsaved changes)
+		loading,          // Flag for initial data fetching
+		saving,           // Flag for active save request
+		isDirty,          // True if current settings differ from originalSettings
+		originalSettings, // Pristine settings from DB
+		fetchSettings,    // Action to load settings from REST API
+		updateSettings,   // Action to update local state
+		saveSettings      // Action to persist state to DB
 	} = useSettingsStore();
 
+	/**
+	 * Toast notification hook for user feedback.
+	 */
 	const { toast } = useToast();
 
+	/**
+	 * Fetch settings on component mount.
+	 */
 	useEffect(() => {
 		fetchSettings();
 	}, [fetchSettings]);
 
-	// Ensure table_defaults structure exists
+	/**
+	 * Derived configuration objects from the global settings.
+	 * Default fallback values are applied if the data is missing.
+	 */
 	const tableDefaults = settings.table_defaults || {};
 	const source = tableDefaults.source || createDefaultSource();
 	const style = tableDefaults.style || createDefaultStyle();
 	const tableSettings = tableDefaults.settings || createDefaultSettings();
 	const columns = tableDefaults.columns || createDefaultColumns();
 
-	// -- Handlers for Panels --
+	// -- Handlers for Panel Updates --
 
+	/**
+	 * Generic updater for global table defaults.
+	 * Merges existing data with new changes for the specified key.
+	 * 
+	 * @param key The part of table_defaults to update.
+	 * @param data The new partial data.
+	 */
 	const updateDefaults = (key: 'source' | 'style' | 'settings' | 'columns', data: any) => {
 		updateSettings({
 			...settings,
@@ -91,13 +108,13 @@ const Settings = () => {
 		});
 	};
 
-	// Source Handlers
+	// Specialized source type handler
 	const setSourceType = (type: any) => updateDefaults('source', { ...source, type });
 
-	// Column Handler
+	// Specialized columns handler
 	const setColumns = (cols: any) => updateDefaults('columns', cols);
 
-	// Style Handlers
+	// Styling handlers for granular sub-objects
 	const setHeaderStyle = (v: any) => updateDefaults('style', { ...style, header: { ...style.header, ...v } });
 	const setBodyStyle = (v: any) => updateDefaults('style', { ...style, body: { ...style.body, ...v } });
 	const setButtonStyle = (v: any) => updateDefaults('style', { ...style, button: { ...style.button, ...v } });
@@ -105,12 +122,16 @@ const Settings = () => {
 	const setTypographyStyle = (v: any) => updateDefaults('style', { ...style, typography: { ...style.typography, ...v } });
 	const setHoverStyle = (v: any) => updateDefaults('style', { ...style, hover: { ...style.hover, ...v } });
 
-	// Settings Handlers
+	// Functionality handlers for granular sub-objects
 	const setFeatures = (v: any) => updateDefaults('settings', { ...tableSettings, features: { ...tableSettings.features, ...v } });
 	const setPagination = (v: any) => updateDefaults('settings', { ...tableSettings, pagination: { ...tableSettings.pagination, ...v } });
 	const setCart = (v: any) => updateDefaults('settings', { ...tableSettings, cart: { ...tableSettings.cart, ...v } });
+	const setFilters = (v: any) => updateDefaults('settings', { ...tableSettings, filters: { ...tableSettings.filters, ...v } });
 
-
+	/**
+	 * Persists current settings state to the backend.
+	 * Handles success/error notifications and triggers reload modal if needed.
+	 */
 	const handleSave = async () => {
 		adminBarValueBeforeSave.current = originalSettings.show_admin_bar;
 
@@ -173,12 +194,18 @@ const Settings = () => {
 	);
 
 	return (
-		<div className="w-full space-y-6">
-			<div className="flex items-center justify-between">
+		<div className="w-full space-y-6 relative">
+			{/* 
+				Main Settings Header - Sticky with Backdrop Blur
+				Contains the page title and global actions (Reset/Save).
+				The border and background become visible as users scroll.
+			*/}
+			<div className="sticky top-0 z-40 flex items-center justify-between pt-[48px] pb-4 mb-2 bg-wp-bg border-b border-gray-200/50">
 				<h1 className="text-2xl font-bold text-gray-800 m-0">
 					{__('Settings', 'productbay')}
 				</h1>
 				<div className="flex items-center gap-3">
+					{/* Reset button only visible on the Default Configuration tab */}
 					{activeTab === 'default' && (
 						<Button
 							variant="outline"
@@ -190,6 +217,7 @@ const Settings = () => {
 							<RotateCcwIcon className="w-4 h-4 ml-2" />
 						</Button>
 					)}
+					{/* Save button - dynamically disabled based on store state */}
 					<Button
 						onClick={handleSave}
 						disabled={saving || !isDirty}
@@ -202,14 +230,21 @@ const Settings = () => {
 				</div>
 			</div>
 
+			{/* 
+				Tabbed Navigation 
+				Controls which configuration panel is currently visible.
+				State is managed via 'activeTab' connected to the URL query string.
+			*/}
 			<Tabs
 				tabs={SETTINGS_TABS}
 				value={activeTab}
 				onChange={setActiveTab}
 				aria-label={__('Settings tabs', 'productbay')}
 			>
-				{/* Default ConfigurationTab */}
-				{/* Default ConfigurationTab */}
+				{/* 
+					TAB 1: Default Configuration
+					Allows setting global defaults for new tables (Source, Style, Functionality).
+				*/}
 				{activeTab === 'default' && (
 					<div className="space-y-10 p-6">
 						<div className="max-w-4xl space-y-10">
@@ -270,6 +305,7 @@ const Settings = () => {
 									setFeatures={setFeatures}
 									setPagination={setPagination}
 									setCart={setCart}
+									setFilters={setFilters}
 									className="border-none"
 								/>
 							</div>

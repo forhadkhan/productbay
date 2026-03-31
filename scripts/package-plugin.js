@@ -23,6 +23,7 @@ const ZIP_NAME = includeVersion
 // Files/Folders to COPY to the release
 const INCLUDES = [
 	'app',
+	'blocks',
 	// 'assets' is handled separately with filtering (see copyAssetsFiltered)
 	'languages',
 	// 'vendor' is generated inside PLUGIN_DIR by composer install

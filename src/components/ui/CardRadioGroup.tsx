@@ -142,7 +142,7 @@ const CardRadioGroup = <T extends string = string,>({
                         key={option.value}
                         className={cn(
                             /* Base card styles */
-                            'relative flex flex-1 min-w-[180px] cursor-pointer rounded-lg border p-4 transition-all duration-200',
+                            'relative flex flex-1 min-w-[180px] cursor-pointer border border-transparent rounded-lg p-4 transition-all duration-200',
                             /* Selected state: blue background, white text */
                             isSelected && [
                                 'border-blue-600 bg-blue-600 text-white',
@@ -150,8 +150,8 @@ const CardRadioGroup = <T extends string = string,>({
                             ],
                             /* Unselected state: light background, dark text */
                             !isSelected && [
-                                'border-gray-200 bg-gray-50 text-gray-900',
-                                'hover:bg-orange-50 border border-transparent hover:border-orange-200',
+                                'border-gray-200 bg-gray-100 text-gray-900',
+                                'hover:bg-orange-50 hover:border-orange-200',
                             ],
                             /* Disabled state */
                             isDisabled && [
