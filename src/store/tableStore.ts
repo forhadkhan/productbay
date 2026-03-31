@@ -746,7 +746,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		const { sourceStatsLoading, sourceStats } = get();
 
 		if (sourceStatsLoading[sourceType]) {
-			console.log(`[SourceStats] Already loading ${sourceType}, skipping...`);
+			// console.log(`[SourceStats] Already loading ${sourceType}, skipping...`);
 			return;
 		}
 
@@ -760,7 +760,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 		}));
 
 		try {
-			console.log(`[SourceStats] Fetching stats for source type: ${sourceType}`);
+			// console.log(`[SourceStats] Fetching stats for source type: ${sourceType}`);
 			const data = await apiFetch<SourceStats>(`source-stats?type=${sourceType}`);
 
 			set((state) => ({
@@ -774,7 +774,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				},
 			}));
 
-			console.log(`[SourceStats] Stats loaded for ${sourceType}:`, data);
+			// console.log(`[SourceStats] Stats loaded for ${sourceType}:`, data);
 		} catch (error) {
 			console.error(`[SourceStats] Failed to fetch stats for ${sourceType}:`, error);
 

@@ -82,7 +82,6 @@ export const ProductSearch: React.FC = () => {
 		const cacheKey = `${searchParams.type}:${searchParams.value.toLowerCase()}:page${pageNum}`;
 
 		if (searchCache.current.has(cacheKey)) {
-			console.log('[ProductSearch] Cache hit for:', cacheKey);
 			const cachedData = searchCache.current.get(cacheKey)!;
 			setResults(prev => append ? [...prev, ...cachedData] : cachedData);
 			setHasMore(cachedData.length >= RESULTS_PER_PAGE);
@@ -110,8 +109,6 @@ export const ProductSearch: React.FC = () => {
 			setResults(prev => append ? [...prev, ...data] : data);
 			setHasMore(data.length >= RESULTS_PER_PAGE);
 			setPage(pageNum);
-
-			console.log('[ProductSearch] Fetched and cached:', cacheKey);
 		} catch (error) {
 			console.error('Failed to search products', error);
 			if (!append) setResults([]);
