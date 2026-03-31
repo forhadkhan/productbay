@@ -171,9 +171,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 										handleSelect(option.value)
 									}
 									className={cn(
-										'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-gray-100 hover:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
+										'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-blue-100 hover:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
 										option.value === value &&
-										'bg-gray-50 font-medium'
+										'bg-blue-50 font-medium'
 									)}
 								>
 									<span className="block truncate">
