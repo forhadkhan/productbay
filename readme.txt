@@ -206,9 +206,15 @@ Yes. ProductBay is a WooCommerce extension and will not function without WooComm
 
 ProductBay supports all four core WooCommerce product types: **Simple**, **Variable**, **Grouped**, and **External/Affiliate**.
 
+= Do you support Gutenberg blocks? =
+
+Yes! ProductBay includes two native Gutenberg blocks that provide a live preview directly within the WordPress editor:
+1. **Product Table:** Easily insert a single product table.
+2. **Tabbed Product Tables:** Display multiple product tables organized cleanly within an interactive tabbed interface.
+
 = How do I display a product table on a page? =
 
-You can use the native **Product Table block** to insert and preview your table directly in the WordPress block editor. Alternatively, you can copy its shortcode — for example `[productbay id="1"]` — and paste it into any page, post, or widget.
+You can use the native **Product Table block** to insert and preview your table directly in the WordPress block editor. Alternatively, you can copy its shortcode, for example `[productbay id="1"]`, and paste it into any page, post, or widget.
 
 = Can I display multiple tables on the same page? =
 
