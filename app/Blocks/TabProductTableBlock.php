@@ -62,6 +62,8 @@ class TabProductTableBlock
 		$tab_labels = $attributes['tabLabels'] ?? array();
 		$active_tab = absint($attributes['activeTab'] ?? 0);
 
+		$is_editor = defined('REST_REQUEST') && REST_REQUEST && isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/block-renderer/') !== false;
+
 		if (empty($table_ids)) {
 			return $this->get_mockup();
 		}
@@ -88,6 +90,12 @@ class TabProductTableBlock
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() is pre-escaped.
 		echo '<div ' . $wrapper_attributes . ' onClick="return false;">'; // onClick prevented handled by specialized preview click logic in edit.js
+
+		if ($is_editor) {
+			echo '<div class="productbay-editor-notice" style="margin-bottom: 20px; padding: 12px 16px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #22c55e; border-radius: 4px; color: #166534; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 13px; font-weight: 500;">'
+				. '💡 ' . \esc_html__('Editor Preview: Interactive features (Search, Filter, Add to Cart) are disabled in the editor, but will work perfectly on the frontend.', 'productbay')
+				. '</div>';
+		}
 
 		// Tab List — accessible navigation.
 		echo '<div class="productbay-tabs-nav" role="tablist">';
@@ -132,9 +140,11 @@ class TabProductTableBlock
 				. '>';
 
 			if (!$table) {
-				if (is_admin() || is_preview()) {
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Mockup HTML is safe.
-					echo $this->get_mockup(true);
+				if ($is_editor || is_admin() || is_preview()) {
+					echo '<div style="padding:16px; border:1px dashed #fca5a5; background:#fef2f2; border-radius:8px; color:#991b1b; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 14px;">'
+						. '<div style="font-weight:700; margin-bottom:8px;">⚠️ ProductBay Tabbed Table</div>'
+						. sprintf(\esc_html__('The selected table (ID: %d) could not be found. It may have been deleted. Please select a different table or update the block settings.', 'productbay'), absint($table_id))
+						. '</div>';
 				} else {
 					echo '<p>' . esc_html__('Table not found.', 'productbay') . '</p>';
 				}
@@ -151,8 +161,16 @@ class TabProductTableBlock
 							. '</p>';
 					}
 				} else {
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- TableRenderer output is safe.
-					echo $renderer->render($table);
+					$html = $renderer->render($table);
+					if (empty(trim($html)) && ($is_editor || is_admin() || is_preview())) {
+						echo '<div style="padding:16px; border:1px dashed #fcd34d; background:#fffbeb; border-radius:8px; color:#92400e; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 14px;">'
+							. '<div style="font-weight:700; margin-bottom:8px;">⚠️ ProductBay Tabbed Table</div>'
+							. sprintf(\esc_html__('The table "%s" rendered completely empty. Please check your table configuration, product source, and filters.', 'productbay'), \esc_html($table['title']))
+							. '</div>';
+					} else {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- TableRenderer output is safe.
+						echo $html;
+					}
 				}
 			}
 
