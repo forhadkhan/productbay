@@ -10,7 +10,7 @@ import {
 } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import apiFetch from '@wordpress/api-fetch';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ProductBayIcon from '../icon';
 
@@ -25,11 +25,71 @@ import ProductBayIcon from '../icon';
 export default function Edit( { attributes, setAttributes } ) {
 	const { tableIds, tabLabels, activeTab } = attributes;
 	const blockProps = useBlockProps();
+	const wrapperRef = useRef( null );
 
 	const [ tables, setTables ] = useState( [] );
 	const [ isLoading, setIsLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( null );
 	const [ selectedToAdd, setSelectedToAdd ] = useState( 0 );
+
+	/**
+	 * Performance Optimization:
+	 * Manually toggle tab visibility in the SSR-rendered HTML to avoid
+	 * the delay of round-tripping to the server on every tab switch.
+	 * We use MutationObserver to re-apply this logic whenever ServerSideRender
+	 * finishes fetching and updates the DOM.
+	 */
+	useEffect( () => {
+		if ( ! wrapperRef.current ) return;
+
+		const applyVisibility = () => {
+			const block = wrapperRef.current.querySelector( '.productbay-tabs-block' );
+			if ( ! block ) return;
+
+			const tabs = Array.from( block.querySelectorAll( '.productbay-tab-button' ) );
+			const panels = Array.from( block.querySelectorAll( '.productbay-tab-panel' ) );
+
+			tabs.forEach( ( tab, i ) => {
+				const isActive = i === activeTab;
+				tab.setAttribute( 'aria-selected', isActive ? 'true' : 'false' );
+				tab.setAttribute( 'tabindex', isActive ? '0' : '-1' );
+				tab.classList.toggle( 'is-active', isActive );
+			} );
+
+			panels.forEach( ( panel, i ) => {
+				const isActive = i === activeTab;
+				panel.classList.toggle( 'is-active', isActive );
+				if ( isActive ) {
+					panel.removeAttribute( 'hidden' );
+				} else {
+					panel.setAttribute( 'hidden', '' );
+				}
+			} );
+		};
+
+		// Initial application
+		applyVisibility();
+
+		// Update on DOM changes (SSR content swapping)
+		const observer = new MutationObserver( applyVisibility );
+		observer.observe( wrapperRef.current, { childList: true, subtree: true } );
+
+		return () => observer.disconnect();
+	}, [ activeTab ] );
+
+	/**
+	 * We memoize the attributes passed to ServerSideRender and explicitly
+	 * EXCLUDE activeTab from its dependencies. This prevents SSR from
+	 * triggering a new fetch when only the active tab changes.
+	 */
+	const ssrAttributes = useMemo( () => {
+		const attr = { ...attributes };
+		// We don't delete it, just keep it stable at whatever it was initially or just use a constant.
+		// Actually, we can keep the value from when the page loaded or just use '0'.
+		// Since we handle visibility client-side, the server's choice doesn't matter much.
+		return attr;
+	}, [ tableIds, tabLabels ] ); // Note: activeTab is NOT a dependency here.
+
 
 	useEffect( () => {
 		apiFetch( { path: '/productbay/v1/tables' } )
@@ -278,10 +338,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 					</Placeholder>
 				) : (
-					<ServerSideRender
-						block="productbay/tab-product-table"
-						attributes={ attributes }
-					/>
+					<div ref={ wrapperRef }>
+						<ServerSideRender
+							block="productbay/tab-product-table"
+							attributes={ ssrAttributes }
+						/>
+					</div>
 				) }
 			</div>
 		</>
