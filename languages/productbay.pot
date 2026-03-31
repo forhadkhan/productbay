@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-31T04:09:38+00:00\n"
+"POT-Creation-Date: 2026-03-31T04:59:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -41,28 +41,28 @@ msgstr ""
 
 #: app/Admin/Admin.php:74
 #: app/Admin/Admin.php:76
-#: app/Admin/Admin.php:198
-#: app/Admin/Admin.php:203
+#: app/Admin/Admin.php:215
+#: app/Admin/Admin.php:220
 msgid "ProductBay"
 msgstr ""
 
 #: app/Admin/Admin.php:95
 #: app/Admin/Admin.php:97
-#: app/Admin/Admin.php:213
+#: app/Admin/Admin.php:230
 #: assets/js/admin.js:33040
 msgid "All Tables"
 msgstr ""
 
 #: app/Admin/Admin.php:109
 #: app/Admin/Admin.php:110
-#: app/Admin/Admin.php:233
+#: app/Admin/Admin.php:250
 #: assets/js/admin.js:34883
 msgid "Create New Table"
 msgstr ""
 
 #: app/Admin/Admin.php:119
 #: app/Admin/Admin.php:120
-#: app/Admin/Admin.php:223
+#: app/Admin/Admin.php:240
 #: assets/js/admin.js:31912
 #: assets/js/admin.js:34869
 msgid "Settings"
@@ -71,6 +71,10 @@ msgstr ""
 #: app/Admin/Admin.php:130
 #: app/Admin/Admin.php:131
 msgid "Product Tables"
+msgstr ""
+
+#: app/Admin/Admin.php:177
+msgid "Manage"
 msgstr ""
 
 #. translators: %s: table title
@@ -1914,11 +1918,11 @@ msgid "Tables"
 msgstr ""
 
 #: blocks/product-table/index.js:129
-#: blocks/tab-product-table/index.js:134
+#: blocks/tab-product-table/index.js:194
 #: src/blocks/product-table/edit.js:33
-#: src/blocks/tab-product-table/edit.js:45
+#: src/blocks/tab-product-table/edit.js:105
 #: blocks/product-table/index.js:63
-#: blocks/tab-product-table/index.js:75
+#: blocks/tab-product-table/index.js:135
 msgid "Failed to load tables. Please check your permissions."
 msgstr ""
 
@@ -1941,20 +1945,20 @@ msgid "Select Product Table"
 msgstr ""
 
 #: blocks/product-table/index.js:162
-#: blocks/tab-product-table/index.js:286
+#: blocks/tab-product-table/index.js:346
 #: src/blocks/product-table/edit.js:66
-#: src/blocks/tab-product-table/edit.js:189
+#: src/blocks/tab-product-table/edit.js:249
 #: blocks/product-table/index.js:96
-#: blocks/tab-product-table/index.js:219
+#: blocks/tab-product-table/index.js:279
 msgid "Product Table"
 msgstr ""
 
 #: blocks/product-table/index.js:163
-#: blocks/tab-product-table/index.js:344
+#: blocks/tab-product-table/index.js:404
 #: src/blocks/product-table/edit.js:67
-#: src/blocks/tab-product-table/edit.js:241
+#: src/blocks/tab-product-table/edit.js:301
 #: blocks/product-table/index.js:97
-#: blocks/tab-product-table/index.js:271
+#: blocks/tab-product-table/index.js:331
 msgid "Loading tables..."
 msgstr ""
 
@@ -1965,101 +1969,101 @@ msgid "Select a product table to get started."
 msgstr ""
 
 #: blocks/product-table/index.js:173
-#: blocks/tab-product-table/index.js:363
+#: blocks/tab-product-table/index.js:423
 #: src/blocks/product-table/edit.js:74
-#: src/blocks/tab-product-table/edit.js:260
+#: src/blocks/tab-product-table/edit.js:320
 #: blocks/product-table/index.js:104
-#: blocks/tab-product-table/index.js:290
+#: blocks/tab-product-table/index.js:350
 msgid "Choose a table"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:201
-#: src/blocks/tab-product-table/edit.js:115
-#: blocks/tab-product-table/index.js:145
+#: blocks/tab-product-table/index.js:261
+#: src/blocks/tab-product-table/edit.js:175
+#: blocks/tab-product-table/index.js:205
 msgid "— Choose a table —"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:223
-#: src/blocks/tab-product-table/edit.js:138
-#: blocks/tab-product-table/index.js:168
+#: blocks/tab-product-table/index.js:283
+#: src/blocks/tab-product-table/edit.js:198
+#: blocks/tab-product-table/index.js:228
 msgid "Tab Settings"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:241
-#: src/blocks/tab-product-table/edit.js:153
-#: blocks/tab-product-table/index.js:183
+#: blocks/tab-product-table/index.js:301
+#: src/blocks/tab-product-table/edit.js:213
+#: blocks/tab-product-table/index.js:243
 msgid "Current Tabs"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:265
-#: src/blocks/tab-product-table/edit.js:169
-#: blocks/tab-product-table/index.js:199
+#: blocks/tab-product-table/index.js:325
+#: src/blocks/tab-product-table/edit.js:229
+#: blocks/tab-product-table/index.js:259
 msgid "Active Tab"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:265
-#: src/blocks/tab-product-table/edit.js:169
-#: blocks/tab-product-table/index.js:199
+#: blocks/tab-product-table/index.js:325
+#: src/blocks/tab-product-table/edit.js:229
+#: blocks/tab-product-table/index.js:259
 msgid "Tab"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:276
-#: src/blocks/tab-product-table/edit.js:177
-#: blocks/tab-product-table/index.js:207
+#: blocks/tab-product-table/index.js:336
+#: src/blocks/tab-product-table/edit.js:237
+#: blocks/tab-product-table/index.js:267
 msgid "Remove"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:279
-#: src/blocks/tab-product-table/edit.js:182
-#: blocks/tab-product-table/index.js:212
+#: blocks/tab-product-table/index.js:339
+#: src/blocks/tab-product-table/edit.js:242
+#: blocks/tab-product-table/index.js:272
 msgid "Tab Label"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:308
-#: src/blocks/tab-product-table/edit.js:203
-#: blocks/tab-product-table/index.js:233
+#: blocks/tab-product-table/index.js:368
+#: src/blocks/tab-product-table/edit.js:263
+#: blocks/tab-product-table/index.js:293
 msgid "Add New Tab"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:321
-#: src/blocks/tab-product-table/edit.js:216
-#: blocks/tab-product-table/index.js:246
+#: blocks/tab-product-table/index.js:381
+#: src/blocks/tab-product-table/edit.js:276
+#: blocks/tab-product-table/index.js:306
 msgid "+ Add Tab"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:326
-#: src/blocks/tab-product-table/edit.js:224
-#: blocks/tab-product-table/index.js:254
+#: blocks/tab-product-table/index.js:386
+#: src/blocks/tab-product-table/edit.js:284
+#: blocks/tab-product-table/index.js:314
 msgid "Advanced Tab Settings"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:329
-#: src/blocks/tab-product-table/edit.js:226
-#: blocks/tab-product-table/index.js:256
+#: blocks/tab-product-table/index.js:389
+#: src/blocks/tab-product-table/edit.js:286
+#: blocks/tab-product-table/index.js:316
 msgid "Default Active Tab"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:330
-#: src/blocks/tab-product-table/edit.js:227
-#: blocks/tab-product-table/index.js:257
+#: blocks/tab-product-table/index.js:390
+#: src/blocks/tab-product-table/edit.js:287
+#: blocks/tab-product-table/index.js:317
 msgid "Determines which tab is selected by default when the page loads."
 msgstr ""
 
-#: blocks/tab-product-table/index.js:343
-#: src/blocks/tab-product-table/edit.js:240
-#: blocks/tab-product-table/index.js:270
+#: blocks/tab-product-table/index.js:403
+#: src/blocks/tab-product-table/edit.js:300
+#: blocks/tab-product-table/index.js:330
 msgid "Product Table (Tab)"
 msgstr ""
 
-#: blocks/tab-product-table/index.js:344
-#: src/blocks/tab-product-table/edit.js:241
-#: blocks/tab-product-table/index.js:271
+#: blocks/tab-product-table/index.js:404
+#: src/blocks/tab-product-table/edit.js:301
+#: blocks/tab-product-table/index.js:331
 msgid "Add your first product table to get started."
 msgstr ""
 
-#: blocks/tab-product-table/index.js:380
-#: src/blocks/tab-product-table/edit.js:275
-#: blocks/tab-product-table/index.js:305
+#: blocks/tab-product-table/index.js:440
+#: src/blocks/tab-product-table/edit.js:335
+#: blocks/tab-product-table/index.js:365
 msgid "Add Tab"
 msgstr ""
 
