@@ -62,7 +62,8 @@ class TabProductTableBlock
 		$tab_labels = $attributes['tabLabels'] ?? array();
 		$active_tab = absint($attributes['activeTab'] ?? 0);
 
-		$is_editor = defined('REST_REQUEST') && REST_REQUEST && isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/block-renderer/') !== false;
+		$request_uri = isset($_SERVER['REQUEST_URI']) ? \sanitize_text_field(\wp_unslash($_SERVER['REQUEST_URI'])) : '';
+		$is_editor   = defined('REST_REQUEST') && REST_REQUEST && strpos($request_uri, '/block-renderer/') !== false;
 
 		if (empty($table_ids)) {
 			return $this->get_mockup();
@@ -137,7 +138,11 @@ class TabProductTableBlock
 				if ($is_editor || is_admin() || is_preview()) {
 					echo '<div style="padding:16px; border:1px dashed #fca5a5; background:#fef2f2; border-radius:8px; color:#991b1b; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 14px;">'
 						. '<div style="font-weight:700; margin-bottom:8px;">⚠️ ProductBay Tabbed Table</div>'
-						. sprintf(\esc_html__('The selected table (ID: %d) could not be found. It may have been deleted. Please select a different table or update the block settings.', 'productbay'), absint($table_id))
+						. sprintf(
+							/* translators: %d: table ID */
+							\esc_html__('The selected table (ID: %d) could not be found. It may have been deleted. Please select a different table or update the block settings.', 'productbay'),
+							absint($table_id)
+						)
 						. '</div>';
 				} else {
 					echo '<p>' . esc_html__('Table not found.', 'productbay') . '</p>';
@@ -159,7 +164,11 @@ class TabProductTableBlock
 					if (empty(trim($html)) && ($is_editor || is_admin() || is_preview())) {
 						echo '<div style="padding:16px; border:1px dashed #fcd34d; background:#fffbeb; border-radius:8px; color:#92400e; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 14px;">'
 							. '<div style="font-weight:700; margin-bottom:8px;">⚠️ ProductBay Tabbed Table</div>'
-							. sprintf(\esc_html__('The table "%s" rendered completely empty. Please check your table configuration, product source, and filters.', 'productbay'), \esc_html($table['title']))
+							. sprintf(
+								/* translators: %s: table title */
+								\esc_html__('The table "%s" rendered completely empty. Please check your table configuration, product source, and filters.', 'productbay'),
+								\esc_html($table['title'])
+							)
 							. '</div>';
 					} else {
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- TableRenderer output is safe.

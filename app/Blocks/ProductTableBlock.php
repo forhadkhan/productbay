@@ -60,7 +60,8 @@ class ProductTableBlock
 	{
 		$table_id = absint($attributes['tableId'] ?? 0);
 
-		$is_editor = defined('REST_REQUEST') && REST_REQUEST && isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/block-renderer/') !== false;
+		$request_uri = isset($_SERVER['REQUEST_URI']) ? \sanitize_text_field(\wp_unslash($_SERVER['REQUEST_URI'])) : '';
+		$is_editor   = defined('REST_REQUEST') && REST_REQUEST && strpos($request_uri, '/block-renderer/') !== false;
 
 		if (!$table_id) {
 			return $this->get_mockup();
@@ -73,7 +74,11 @@ class ProductTableBlock
 				return '<div ' . \get_block_wrapper_attributes() . '>'
 					. '<div style="padding:16px; border:1px dashed #fca5a5; background:#fef2f2; border-radius:8px; color:#991b1b; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 14px;">'
 					. '<div style="font-weight:700; margin-bottom:8px;">⚠️ ProductBay Table Block</div>'
-					. sprintf(\esc_html__('The selected table (ID: %d) could not be found. It may have been deleted. Please select a different table or update the block settings.', 'productbay'), $table_id)
+					. sprintf(
+						/* translators: %d: table ID */
+						\esc_html__('The selected table (ID: %d) could not be found. It may have been deleted. Please select a different table or update the block settings.', 'productbay'),
+						$table_id
+					)
 					. '</div></div>';
 			}
 			return '';
