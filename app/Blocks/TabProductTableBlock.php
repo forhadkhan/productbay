@@ -91,12 +91,6 @@ class TabProductTableBlock
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() is pre-escaped.
 		echo '<div ' . $wrapper_attributes . ' onClick="return false;">'; // onClick prevented handled by specialized preview click logic in edit.js
 
-		if ($is_editor) {
-			echo '<div class="productbay-editor-notice" style="margin-bottom: 20px; padding: 12px 16px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #22c55e; border-radius: 4px; color: #166534; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 13px; font-weight: 500;">'
-				. '💡 ' . \esc_html__('Editor Preview: Interactive features (Search, Filter, Add to Cart) are disabled in the editor, but will work perfectly on the frontend.', 'productbay')
-				. '</div>';
-		}
-
 		// Tab List — accessible navigation.
 		echo '<div class="productbay-tabs-nav" role="tablist">';
 		foreach ($table_ids as $index => $table_id) {

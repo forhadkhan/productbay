@@ -1,5 +1,5 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, Placeholder, Spinner } from '@wordpress/components';
+import { PanelBody, SelectControl, Placeholder, Spinner, Notice } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
@@ -44,6 +44,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Table Settings', 'productbay' ) }>
+					{ tableId > 0 && (
+						<Notice status="info" isDismissible={ false } style={ { marginBottom: '16px' } }>
+							{ __( 'Editor Preview: Interactive features (Search, Filter, Add to Cart) are disabled in the editor, but will work perfectly on the frontend.', 'productbay' ) }
+						</Notice>
+					) }
 					{ isLoading && <Spinner /> }
 					{ fetchError && <p style={ { color: 'red' } }>{ fetchError }</p> }
 					{ ! isLoading && ! fetchError && (

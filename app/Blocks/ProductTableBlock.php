@@ -98,23 +98,8 @@ class ProductTableBlock
 		$renderer = new TableRenderer($this->repository);
 		$html = $renderer->render($table);
 
-		$info_card = '';
-		if ($is_editor) {
-			$info_card = '<div class="productbay-editor-notice" style="margin-bottom: 20px; padding: 12px 16px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #22c55e; border-radius: 4px; color: #166534; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 13px; font-weight: 500;">'
-				. '💡 ' . \esc_html__('Editor Preview: Interactive features (Search, Filter, Add to Cart) are disabled in the editor, but will work perfectly on the frontend.', 'productbay')
-				. '</div>';
-			
-			// Optional: if the table renders completely empty, we add a specific warning.
-			if (empty(trim($html))) {
-				$html = '<div style="padding:16px; border:1px dashed #fcd34d; background:#fffbeb; border-radius:8px; color:#92400e; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 14px;">'
-					. '<div style="font-weight:700; margin-bottom:8px;">⚠️ ProductBay Table Block</div>'
-					. sprintf(\esc_html__('The table "%s" rendered completely empty. Please check your table configuration, product source, and filters.', 'productbay'), \esc_html($table['title']))
-					. '</div>';
-			}
-		}
-
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() and TableRenderer output are safe.
-		return '<div ' . \get_block_wrapper_attributes() . '>' . $info_card . $html . '</div>';
+		return '<div ' . \get_block_wrapper_attributes() . '>' . $html . '</div>';
 	}
 
 	/**

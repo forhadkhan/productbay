@@ -196,6 +196,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Tab Settings', 'productbay' ) }>
+					{ tableIds.length > 0 && (
+						<Notice status="info" isDismissible={ false } style={ { marginBottom: '16px' } }>
+							{ __( 'Editor Preview: Interactive features (Search, Filter, Add to Cart) are disabled in the editor, but will work perfectly on the frontend.', 'productbay' ) }
+						</Notice>
+					) }
 					{ isLoading && <Spinner /> }
 
 					{ fetchError && (
