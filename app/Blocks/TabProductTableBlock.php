@@ -90,7 +90,9 @@ class TabProductTableBlock
 		) );
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() is pre-escaped.
-		echo '<div ' . $wrapper_attributes . ' onClick="return false;">'; // onClick prevented handled by specialized preview click logic in edit.js
+		// Only suppress clicks in the editor preview (ServerSideRender) — on the frontend all interactions must work normally.
+		$onclick = $is_editor ? ' onclick="return false;"' : '';
+		echo '<div ' . $wrapper_attributes . $onclick . '>';
 
 		// Tab List — accessible navigation.
 		echo '<div class="productbay-tabs-nav" role="tablist">';
