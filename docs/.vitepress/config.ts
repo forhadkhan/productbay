@@ -32,10 +32,16 @@ function getSidebar(base = '') {
 						items: [
 							{ text: 'Guided Wizard', link: `${base}/features/creation-wizard` },
 							{ text: 'Manual Methods', link: `${base}/features/create-page` },
-							{ text: 'Gutenberg Blocks', link: `${base}/features/gutenberg-blocks` },
 						],
 					},
-					{ text: 'Shortcodes', link: `${base}/features/shortcodes` },
+					{
+						text: 'Show Table',
+						link: `${base}/features/show-table`,
+						items: [
+							{ text: 'Gutenberg Blocks', link: `${base}/features/gutenberg-blocks` },
+							{ text: 'Shortcodes', link: `${base}/features/shortcodes` },
+						],
+					},
 				],
 			},
 			{
@@ -78,9 +84,9 @@ function getSidebar(base = '') {
 
 // Ensure the old v1.0.0 sidebar doesn't have the new v1.1.0 Gutenberg blocks link
 function getSidebarV1_0(base = '/v1.0.0') {
-	const sidebar = getSidebar(base);
-	sidebar[`${base}/features/`][0].items[1].items = sidebar[`${base}/features/`][0].items[1].items.filter(
-		(item) => item.text !== 'Gutenberg Blocks'
+	const sidebar: any = getSidebar(base);
+	sidebar[`${base}/features/`][0].items[2].items = sidebar[`${base}/features/`][0].items[2].items.filter(
+		(item: any) => item.text !== 'Gutenberg Blocks'
 	);
 	return sidebar;
 }
