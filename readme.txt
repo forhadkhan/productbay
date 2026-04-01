@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -280,6 +280,13 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 == Changelog ==
 
+= 1.1.1 =
+
+* Improvement: Block setup experience with "Create New Table" link in placeholders.
+* Improvement: Removed misleading product counts from category multiselect filters.
+* Improvement: Enhanced reliability of CSS injection into the Block Editor iframe.
+* Fix: Isolated table event handlers to prevent cross-tab state interference (e.g. AJAX filter state).
+
 = 1.1.0 =
 
 * Feature: Native Gutenberg blocks for Product Table and Tabbed Product Tables with server-side rendering.
@@ -296,6 +303,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Fixes critical interaction issues with Gutenberg blocks and improves multi-table state isolation.
 
 = 1.1.0 =
 Adds native Gutenberg blocks, enhances the admin UI and restructures the codebase for Pro extension architecture.
