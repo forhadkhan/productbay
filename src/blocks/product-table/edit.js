@@ -1,5 +1,12 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, Placeholder, Spinner, Notice, Button } from '@wordpress/components';
+import {
+	PanelBody,
+	SelectControl,
+	Placeholder,
+	Spinner,
+	Notice,
+	Button,
+} from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
@@ -31,7 +38,9 @@ export default function Edit({ attributes, setAttributes }) {
 				setIsLoading(false);
 			})
 			.catch(() => {
-				setFetchError(__('Failed to load tables. Please check your permissions.', 'productbay'));
+				setFetchError(
+					__('Failed to load tables. Please check your permissions.', 'productbay')
+				);
 				setIsLoading(false);
 			});
 	}, []);
@@ -45,12 +54,14 @@ export default function Edit({ attributes, setAttributes }) {
 		<>
 			<InspectorControls>
 				<PanelBody title={__('Table Settings', 'productbay')}>
-
 					{/* Editor Preview Notice */}
 					{tableId > 0 && (
 						<div style={{ marginBottom: '16px' }}>
 							<Notice status="info" isDismissible={false}>
-								{__('Editor Preview: Interactive features (Search, Filter, Add to Cart, Image Lightbox, Multi-Select, etc.) are disabled in the editor, but will work perfectly on the frontend.', 'productbay')}
+								{__(
+									'Editor Preview: Interactive features (Search, Filter, Add to Cart, Image Lightbox, Multi-Select, etc.) are disabled in the editor, but will work perfectly on the frontend.',
+									'productbay'
+								)}
 							</Notice>
 						</div>
 					)}
@@ -61,9 +72,7 @@ export default function Edit({ attributes, setAttributes }) {
 							label={__('Select Product Table', 'productbay')}
 							value={tableId}
 							options={tableOptions}
-							onChange={(value) =>
-								setAttributes({ tableId: Number(value) })
-							}
+							onChange={(value) => setAttributes({ tableId: Number(value) })}
 						/>
 					)}
 				</PanelBody>
@@ -74,12 +83,24 @@ export default function Edit({ attributes, setAttributes }) {
 					<Placeholder
 						icon={<ProductBayIcon />}
 						label={__('Product Table', 'productbay')}
-						instructions={isLoading ? __('Loading tables...', 'productbay') : __('Select a product table to get started.', 'productbay')}
+						instructions={
+							isLoading
+								? __('Loading tables...', 'productbay')
+								: __('Select a product table to get started.', 'productbay')
+						}
 					>
 						{isLoading ? (
 							<Spinner />
 						) : (
-							<div style={{ display: 'flex', gap: '8px', width: '100%', maxWidth: '300px', flexDirection: 'column' }}>
+							<div
+								style={{
+									display: 'flex',
+									gap: '8px',
+									width: '100%',
+									maxWidth: '300px',
+									flexDirection: 'column',
+								}}
+							>
 								<SelectControl
 									label={__('Choose a table', 'productbay')}
 									labelPosition="side"
@@ -87,13 +108,25 @@ export default function Edit({ attributes, setAttributes }) {
 									value={tableId}
 									options={tableOptions}
 									onChange={(value) =>
-										setAttributes({ tableId: Number(value) })
+										setAttributes({
+											tableId: Number(value),
+										})
 									}
 								/>
-								<div style={{ display: 'flex', justifyContent: 'left', marginTop: '4px' }}>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'left',
+										marginTop: '4px',
+									}}
+								>
 									<Button
 										variant="link"
-										href={window._productbayEditorData?.adminUrl || window.productbayEditorData?.adminUrl || PRODUCTBAY_DASHBOARD_PATH}
+										href={
+											window._productbayEditorData?.adminUrl ||
+											window.productbayEditorData?.adminUrl ||
+											PRODUCTBAY_DASHBOARD_PATH
+										}
 										target="_blank"
 									>
 										{__('Create New Table', 'productbay')}
@@ -103,10 +136,7 @@ export default function Edit({ attributes, setAttributes }) {
 						)}
 					</Placeholder>
 				) : (
-					<ServerSideRender
-						block="productbay/product-table"
-						attributes={attributes}
-					/>
+					<ServerSideRender block="productbay/product-table" attributes={attributes} />
 				)}
 			</div>
 		</>

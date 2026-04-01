@@ -9,27 +9,27 @@ import { DisplayPanel } from '@/components/Table/panels/DisplayPanel';
  * ============================================================================= */
 
 const TabDisplay: React.FC = () => {
-    const {
-        style,
-        setHeaderStyle,
-        setBodyStyle,
-        setButtonStyle,
-        setLayoutStyle,
-        setTypographyStyle,
-        setHoverStyle,
-    } = useTableStore();
+	const {
+		style,
+		setHeaderStyle,
+		setBodyStyle,
+		setButtonStyle,
+		setLayoutStyle,
+		setTypographyStyle,
+		setHoverStyle,
+	} = useTableStore();
 
-    return (
-        <DisplayPanel
-            style={style}
-            setHeaderStyle={setHeaderStyle}
-            setBodyStyle={setBodyStyle}
-            setButtonStyle={setButtonStyle}
-            setLayoutStyle={setLayoutStyle}
-            setTypographyStyle={setTypographyStyle}
-            setHoverStyle={setHoverStyle}
-        />
-    );
+	return (
+		<DisplayPanel
+			style={style}
+			setHeaderStyle={setHeaderStyle}
+			setBodyStyle={setBodyStyle}
+			setButtonStyle={setButtonStyle}
+			setLayoutStyle={setLayoutStyle}
+			setTypographyStyle={setTypographyStyle}
+			setHoverStyle={setHoverStyle}
+		/>
+	);
 };
 
 export default TabDisplay;

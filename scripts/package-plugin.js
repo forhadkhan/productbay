@@ -1,24 +1,24 @@
-const fs = require( 'fs-extra' );
-const archiver = require( 'archiver' );
-const path = require( 'path' );
-const { execSync } = require( 'child_process' );
+const fs = require('fs-extra');
+const archiver = require('archiver');
+const path = require('path');
+const { execSync } = require('child_process');
 
 // Configuration
 const PLUGIN_SLUG = 'productbay';
 // Go up one level from 'scripts' to root
-const ROOT_DIR = path.join( __dirname, '..' );
-const BUILD_DIR = path.join( ROOT_DIR, 'dist' );
-const PLUGIN_DIR = path.join( BUILD_DIR, PLUGIN_SLUG );
+const ROOT_DIR = path.join(__dirname, '..');
+const BUILD_DIR = path.join(ROOT_DIR, 'dist');
+const PLUGIN_DIR = path.join(BUILD_DIR, PLUGIN_SLUG);
 
 // Read version from package.json
-const packageJson = require( path.join( ROOT_DIR, 'package.json' ) );
+const packageJson = require(path.join(ROOT_DIR, 'package.json'));
 
 // Default: slug-only for WordPress.org compatibility
 // Use --versioned flag for GitHub releases or archival purposes
-const includeVersion = process.argv.includes( '--versioned' );
+const includeVersion = process.argv.includes('--versioned');
 const ZIP_NAME = includeVersion
-	? `${ PLUGIN_SLUG }-${ packageJson.version }.zip`
-	: `${ PLUGIN_SLUG }.zip`;
+	? `${PLUGIN_SLUG}-${packageJson.version}.zip`
+	: `${PLUGIN_SLUG}.zip`;
 
 // Files/Folders to COPY to the release
 const INCLUDES = [
@@ -59,26 +59,24 @@ const ASSETS_EXCLUDE_PATTERNS = [
  * @param {string} srcDir  Source assets directory.
  * @param {string} destDir Destination assets directory.
  */
-async function copyAssetsFiltered( srcDir, destDir ) {
-	await fs.copy( srcDir, destDir, {
-		filter: ( src ) => {
-			const rel = path.relative( srcDir, src );
+async function copyAssetsFiltered(srcDir, destDir) {
+	await fs.copy(srcDir, destDir, {
+		filter: (src) => {
+			const rel = path.relative(srcDir, src);
 
 			// Allow the root (srcDir itself)
-			if ( rel === '' ) {
+			if (rel === '') {
 				return true;
 			}
 
 			// Exclude files matching patterns
-			if ( ! fs.statSync( src ).isDirectory() ) {
-				return ! ASSETS_EXCLUDE_PATTERNS.some( ( pattern ) =>
-					pattern.test( rel )
-				);
+			if (!fs.statSync(src).isDirectory()) {
+				return !ASSETS_EXCLUDE_PATTERNS.some((pattern) => pattern.test(rel));
 			}
 
 			return true;
 		},
-	} );
+	});
 }
 
 /**
@@ -88,101 +86,91 @@ async function copyAssetsFiltered( srcDir, destDir ) {
  *
  * @param {string} composerPath Path to the copied composer.json in PLUGIN_DIR.
  */
-async function stripComposerDevSections( composerPath ) {
-	const composerData = await fs.readJson( composerPath );
-	delete composerData[ 'require-dev' ];
+async function stripComposerDevSections(composerPath) {
+	const composerData = await fs.readJson(composerPath);
+	delete composerData['require-dev'];
 	delete composerData.config;
-	await fs.writeJson( composerPath, composerData, { spaces: '\t' } );
+	await fs.writeJson(composerPath, composerData, { spaces: '\t' });
 }
 
-( async () => {
+(async () => {
 	try {
-		console.log( '🚀 Starting Release Build with Bun...' );
+		console.log('🚀 Starting Release Build with Bun...');
 
 		// 1. Clean previous builds
-		console.log( '🧹 Cleaning old build...' );
-		await fs.remove( BUILD_DIR );
-		await fs.remove( path.join( ROOT_DIR, ZIP_NAME ) );
-		await fs.ensureDir( PLUGIN_DIR );
+		console.log('🧹 Cleaning old build...');
+		await fs.remove(BUILD_DIR);
+		await fs.remove(path.join(ROOT_DIR, ZIP_NAME));
+		await fs.ensureDir(PLUGIN_DIR);
 
 		// 2. Generate i18n files (POT + JSON translations)
-		console.log( '🌐 Generating i18n files...' );
-		execSync( 'bun run i18n:make-pot', {
+		console.log('🌐 Generating i18n files...');
+		execSync('bun run i18n:make-pot', {
 			stdio: 'inherit',
 			cwd: ROOT_DIR,
-		} );
-		execSync( 'bun run i18n:make-json', {
+		});
+		execSync('bun run i18n:make-json', {
 			stdio: 'inherit',
 			cwd: ROOT_DIR,
-		} );
+		});
 
 		// 3. Run Production Build (React + Tailwind)
-		console.log( '🛠  Building assets...' );
-		execSync( 'bun run build', { stdio: 'inherit', cwd: ROOT_DIR } );
+		console.log('🛠  Building assets...');
+		execSync('bun run build', { stdio: 'inherit', cwd: ROOT_DIR });
 
 		// 4. Copy Files
-		console.log( '📂 Copying plugin files...' );
-		for ( const item of INCLUDES ) {
-			const src = path.join( ROOT_DIR, item );
-			const dest = path.join( PLUGIN_DIR, item );
-			if ( await fs.pathExists( src ) ) {
+		console.log('📂 Copying plugin files...');
+		for (const item of INCLUDES) {
+			const src = path.join(ROOT_DIR, item);
+			const dest = path.join(PLUGIN_DIR, item);
+			if (await fs.pathExists(src)) {
 				// Special case: Exclude source maps from 'blocks' directory to reduce zip size (~1.3MB)
-				if ( item === 'blocks' ) {
-					await fs.copy( src, dest, {
-						filter: ( srcPath ) => ! srcPath.endsWith( '.map' ),
-					} );
+				if (item === 'blocks') {
+					await fs.copy(src, dest, {
+						filter: (srcPath) => !srcPath.endsWith('.map'),
+					});
 				} else {
-					await fs.copy( src, dest );
+					await fs.copy(src, dest);
 				}
 			}
 		}
 
 		// 5. Copy assets with filtering (exclude source maps, unused files)
-		console.log( '📂 Copying assets (filtered)...' );
-		await copyAssetsFiltered(
-			path.join( ROOT_DIR, 'assets' ),
-			path.join( PLUGIN_DIR, 'assets' )
-		);
+		console.log('📂 Copying assets (filtered)...');
+		await copyAssetsFiltered(path.join(ROOT_DIR, 'assets'), path.join(PLUGIN_DIR, 'assets'));
 
 		// 6. Install Production Composer Dependencies (in the staging folder)
 		// Run BEFORE stripping require-dev so composer.json matches the lock file
-		console.log( '📦 Installing Production Composer Dependencies...' );
-		await fs.copy(
-			path.join( ROOT_DIR, 'composer.lock' ),
-			path.join( PLUGIN_DIR, 'composer.lock' )
-		);
-		execSync( 'composer install --no-dev --optimize-autoloader', {
+		console.log('📦 Installing Production Composer Dependencies...');
+		await fs.copy(path.join(ROOT_DIR, 'composer.lock'), path.join(PLUGIN_DIR, 'composer.lock'));
+		execSync('composer install --no-dev --optimize-autoloader', {
 			stdio: 'inherit',
 			cwd: PLUGIN_DIR,
-		} );
+		});
 
 		// 7. Strip require-dev and config from composer.json (after install)
-		console.log( '📝 Cleaning composer.json for production...' );
-		await stripComposerDevSections(
-			path.join( PLUGIN_DIR, 'composer.json' )
-		);
+		console.log('📝 Cleaning composer.json for production...');
+		await stripComposerDevSections(path.join(PLUGIN_DIR, 'composer.json'));
 
 		// 8. Create Zip
-		console.log( '🤐 Zipping...' );
-		const output = fs.createWriteStream( path.join( ROOT_DIR, ZIP_NAME ) );
-		const archive = archiver( 'zip', { zlib: { level: 9 } } );
+		console.log('🤐 Zipping...');
+		const output = fs.createWriteStream(path.join(ROOT_DIR, ZIP_NAME));
+		const archive = archiver('zip', { zlib: { level: 9 } });
 
-		output.on( 'close', () => {
-			console.log(
-				`✅ Success! Created ${ ZIP_NAME } (${ archive.pointer() } bytes)`
-			);
-		} );
+		output.on('close', () => {
+			console.log(`✅ Success! Created ${ZIP_NAME} (${archive.pointer()} bytes)`);
+		});
 
-		archive.on( 'error', ( err ) => {
+		archive.on('error', (err) => {
 			throw err;
-		} );
+		});
 
-		archive.pipe( output );
+		archive.pipe(output);
 		// This puts the 'productbay' folder inside the zip (Standard WP requirement)
-		archive.directory( BUILD_DIR, false );
+		archive.directory(BUILD_DIR, false);
 		await archive.finalize();
-	} catch ( err ) {
-		console.error( '❌ Error during build:', err );
-		process.exit( 1 );
+	} catch (err) {
+		console.error('❌ Error during build:', err);
+		process.exit(1);
 	}
-} )();
+})();

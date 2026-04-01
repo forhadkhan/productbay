@@ -30,7 +30,7 @@ export interface SelectOption {
 
 export interface SelectProps
 	extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
-	VariantProps<typeof selectVariants> {
+		VariantProps<typeof selectVariants> {
 	/** The currently selected value */
 	value?: string;
 	/** Callback when the selected value changes */
@@ -85,16 +85,12 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 		// Handle click outside
 		React.useEffect(() => {
 			const handleClickOutside = (event: MouseEvent) => {
-				if (
-					containerRef.current &&
-					!containerRef.current.contains(event.target as Node)
-				) {
+				if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
 					setIsOpen(false);
 				}
 			};
 			document.addEventListener('mousedown', handleClickOutside);
-			return () =>
-				document.removeEventListener('mousedown', handleClickOutside);
+			return () => document.removeEventListener('mousedown', handleClickOutside);
 		}, []);
 
 		const handleSelect = (optionValue: string) => {
@@ -103,11 +99,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 		};
 
 		return (
-			<div
-				className={cn('relative w-full', className)}
-				ref={containerRef}
-				{...props}
-			>
+			<div className={cn('relative w-full', className)} ref={containerRef} {...props}>
 				<button
 					type="button"
 					onClick={() => !disabled && setIsOpen(!isOpen)}
@@ -125,15 +117,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 								{icon}
 							</span>
 						)}
-						<span
-							className={cn(
-								'block truncate',
-								!selectedOption && 'text-gray-500'
-							)}
-						>
-							{selectedOption
-								? selectedOption.label
-								: label || placeholder}
+						<span className={cn('block truncate', !selectedOption && 'text-gray-500')}>
+							{selectedOption ? selectedOption.label : label || placeholder}
 						</span>
 					</div>
 					<ChevronDown className="h-4 w-4 opacity-50 flex-shrink-0 ml-2" />
@@ -151,8 +136,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 								className={cn(
 									'px-2 py-1.5 text-xs font-semibold text-gray-500 border-b border-gray-100 bg-gray-50/50',
 									allowDeselect &&
-									value &&
-									'cursor-pointer hover:bg-red-50 hover:text-red-500 transition-colors'
+										value &&
+										'cursor-pointer hover:bg-red-50 hover:text-red-500 transition-colors'
 								)}
 								title={
 									allowDeselect
@@ -167,18 +152,13 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 							{options.map((option) => (
 								<div
 									key={option.value}
-									onClick={() =>
-										handleSelect(option.value)
-									}
+									onClick={() => handleSelect(option.value)}
 									className={cn(
 										'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-blue-100 hover:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
-										option.value === value &&
-										'bg-blue-50 font-medium'
+										option.value === value && 'bg-blue-50 font-medium'
 									)}
 								>
-									<span className="block truncate">
-										{option.label}
-									</span>
+									<span className="block truncate">{option.label}</span>
 									{option.value === value && (
 										<span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
 											<Check className="h-4 w-4 text-blue-600" />

@@ -73,7 +73,10 @@ export default function Edit({ attributes, setAttributes }) {
 
 		// Update on DOM changes (SSR content swapping)
 		const observer = new MutationObserver(applyVisibility);
-		observer.observe(wrapperRef.current, { childList: true, subtree: true });
+		observer.observe(wrapperRef.current, {
+			childList: true,
+			subtree: true,
+		});
 
 		return () => observer.disconnect();
 	}, [activeTab]);
@@ -90,7 +93,6 @@ export default function Edit({ attributes, setAttributes }) {
 		// Since we handle visibility client-side, the server's choice doesn't matter much.
 		return attr;
 	}, [tableIds, tabLabels]); // Note: activeTab is NOT a dependency here.
-
 
 	useEffect(() => {
 		apiFetch({ path: '/productbay/v1/tables' })
@@ -136,7 +138,7 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({
 			tableIds: newIds,
 			tabLabels: newLabels,
-			activeTab: newActive
+			activeTab: newActive,
 		});
 	};
 
@@ -197,12 +199,14 @@ export default function Edit({ attributes, setAttributes }) {
 		<>
 			<InspectorControls>
 				<PanelBody title={__('Tab Settings', 'productbay')}>
-
 					{/* Editor Preview Notice */}
 					{tableIds.length > 0 && (
 						<div style={{ marginBottom: '16px' }}>
 							<Notice status="info" isDismissible={false}>
-								{__('Editor Preview: Interactive features (Search, Filter, Add to Cart, Image Lightbox, Multi-Select, etc.) are disabled in the editor, but will work perfectly on the frontend.', 'productbay')}
+								{__(
+									'Editor Preview: Interactive features (Search, Filter, Add to Cart, Image Lightbox, Multi-Select, etc.) are disabled in the editor, but will work perfectly on the frontend.',
+									'productbay'
+								)}
 							</Notice>
 						</div>
 					)}
@@ -216,10 +220,18 @@ export default function Edit({ attributes, setAttributes }) {
 
 					{!isLoading && !fetchError && (
 						<>
-							{ /* Current Tabs */}
+							{/* Current Tabs */}
 							{tableIds.length > 0 && (
 								<div style={{ marginBottom: '24px' }}>
-									<p style={{ fontWeight: 600, marginBottom: '12px', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+									<p
+										style={{
+											fontWeight: 600,
+											marginBottom: '12px',
+											fontSize: '13px',
+											textTransform: 'uppercase',
+											letterSpacing: '0.05em',
+										}}
+									>
 										{__('Current Tabs', 'productbay')}
 									</p>
 									{tableIds.map((id, index) => (
@@ -227,22 +239,51 @@ export default function Edit({ attributes, setAttributes }) {
 											key={`tab-${index}`}
 											style={{
 												padding: '12px',
-												background: index === activeTab ? '#f0f4ff' : '#f8f9fa',
-												border: index === activeTab ? '1px solid #4f46e5' : '1px solid #e1e4e7',
+												background:
+													index === activeTab ? '#f0f4ff' : '#f8f9fa',
+												border:
+													index === activeTab
+														? '1px solid #4f46e5'
+														: '1px solid #e1e4e7',
 												borderRadius: '4px',
 												marginBottom: '12px',
-												position: 'relative'
+												position: 'relative',
 											}}
 										>
-											<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-												<span style={{ fontSize: '11px', fontWeight: 700, color: index === activeTab ? '#4f46e5' : '#757575', textTransform: 'uppercase' }}>
-													{index === activeTab ? __('Active Tab', 'productbay') : __('Tab', 'productbay')} {index + 1}
+											<div
+												style={{
+													display: 'flex',
+													justifyContent: 'space-between',
+													alignItems: 'center',
+													marginBottom: '8px',
+												}}
+											>
+												<span
+													style={{
+														fontSize: '11px',
+														fontWeight: 700,
+														color:
+															index === activeTab
+																? '#4f46e5'
+																: '#757575',
+														textTransform: 'uppercase',
+													}}
+												>
+													{index === activeTab
+														? __('Active Tab', 'productbay')
+														: __('Tab', 'productbay')}{' '}
+													{index + 1}
 												</span>
 												<Button
 													isDestructive
 													variant="link"
 													onClick={() => removeTable(index)}
-													style={{ height: 'auto', padding: 0, fontSize: '11px', minHeight: 'auto' }}
+													style={{
+														height: 'auto',
+														padding: 0,
+														fontSize: '11px',
+														minHeight: 'auto',
+													}}
 												>
 													{__('Remove', 'productbay')}
 												</Button>
@@ -252,7 +293,9 @@ export default function Edit({ attributes, setAttributes }) {
 												label={__('Tab Label', 'productbay')}
 												value={tabLabels[index] || ''}
 												onChange={(val) => updateLabel(index, val)}
-												style={{ marginBottom: '8px' }}
+												style={{
+													marginBottom: '8px',
+												}}
 											/>
 
 											<SelectControl
@@ -267,9 +310,22 @@ export default function Edit({ attributes, setAttributes }) {
 								</div>
 							)}
 
-							{ /* Add Tab */}
-							<div style={{ borderTop: '1px solid #eee', paddingTop: '16px' }}>
-								<p style={{ fontWeight: 600, marginBottom: '12px', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+							{/* Add Tab */}
+							<div
+								style={{
+									borderTop: '1px solid #eee',
+									paddingTop: '16px',
+								}}
+							>
+								<p
+									style={{
+										fontWeight: 600,
+										marginBottom: '12px',
+										fontSize: '13px',
+										textTransform: 'uppercase',
+										letterSpacing: '0.05em',
+									}}
+								>
 									{__('Add New Tab', 'productbay')}
 								</p>
 								<SelectControl
@@ -281,7 +337,10 @@ export default function Edit({ attributes, setAttributes }) {
 									variant="secondary"
 									onClick={addTable}
 									disabled={!selectedToAdd || availableToAdd.length <= 1}
-									style={{ width: '100%', justifyContent: 'center' }}
+									style={{
+										width: '100%',
+										justifyContent: 'center',
+									}}
 								>
 									{__('+ Add Tab', 'productbay')}
 								</Button>
@@ -291,10 +350,16 @@ export default function Edit({ attributes, setAttributes }) {
 				</PanelBody>
 
 				{hasPreview && (
-					<PanelBody title={__('Advanced Tab Settings', 'productbay')} initialOpen={false}>
+					<PanelBody
+						title={__('Advanced Tab Settings', 'productbay')}
+						initialOpen={false}
+					>
 						<SelectControl
 							label={__('Default Active Tab', 'productbay')}
-							help={__('Determines which tab is selected by default when the page loads.', 'productbay')}
+							help={__(
+								'Determines which tab is selected by default when the page loads.',
+								'productbay'
+							)}
 							value={activeTab}
 							options={activeTabOptions}
 							onChange={(val) => setAttributes({ activeTab: Number(val) })}
@@ -308,24 +373,39 @@ export default function Edit({ attributes, setAttributes }) {
 					<Placeholder
 						icon={<ProductBayIcon />}
 						label={__('Product Table (Tab)', 'productbay')}
-						instructions={isLoading ? __('Loading tables...', 'productbay') : __('Add your first product table to get started.', 'productbay')}
+						instructions={
+							isLoading
+								? __('Loading tables...', 'productbay')
+								: __('Add your first product table to get started.', 'productbay')
+						}
 					>
 						{isLoading ? (
 							<Spinner />
 						) : (
-							<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', margin: '8px', marginLeft: '16px' }}>
-								<div style={{
+							<div
+								style={{
 									display: 'flex',
-									gap: '12px',
-									width: '100%',
-									maxWidth: '460px',
-									background: '#fff',
-									padding: '24px',
-									borderRadius: '12px',
-									border: '1px solid #e1e4e8',
-									boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-									alignItems: 'center'
-								}}>
+									flexDirection: 'column',
+									alignItems: 'center',
+									gap: '8px',
+									margin: '8px',
+									marginLeft: '16px',
+								}}
+							>
+								<div
+									style={{
+										display: 'flex',
+										gap: '12px',
+										width: '100%',
+										maxWidth: '460px',
+										background: '#fff',
+										padding: '24px',
+										borderRadius: '12px',
+										border: '1px solid #e1e4e8',
+										boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+										alignItems: 'center',
+									}}
+								>
 									<div style={{ flex: 1 }}>
 										<SelectControl
 											label={__('Choose a table', 'productbay')}
@@ -341,16 +421,27 @@ export default function Edit({ attributes, setAttributes }) {
 										variant="primary"
 										onClick={addTable}
 										disabled={!selectedToAdd || availableToAdd.length <= 1}
-										style={{ height: '30px', flexShrink: 0 }} // Matches standard Gutenberg SelectControl height when NoMarginBottom is on.
+										style={{
+											height: '30px',
+											flexShrink: 0,
+										}} // Matches standard Gutenberg SelectControl height when NoMarginBottom is on.
 									>
 										{__('Add Tab', 'productbay')}
 									</Button>
 								</div>
 								<Button
 									variant="link"
-									href={window._productbayEditorData?.adminUrl || window.productbayEditorData?.adminUrl || PRODUCTBAY_DASHBOARD_PATH}
+									href={
+										window._productbayEditorData?.adminUrl ||
+										window.productbayEditorData?.adminUrl ||
+										PRODUCTBAY_DASHBOARD_PATH
+									}
 									target="_blank"
-									style={{ fontSize: '12px', marginTop: '12px', justifyContent: 'left' }}
+									style={{
+										fontSize: '12px',
+										marginTop: '12px',
+										justifyContent: 'left',
+									}}
 								>
 									{__('Create New Table', 'productbay')}
 								</Button>

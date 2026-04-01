@@ -4,8 +4,8 @@ import ProductBayIcon from '../icon';
 import Edit from './edit';
 import save from './save';
 
-registerBlockType( metadata.name, {
+registerBlockType(metadata.name, {
 	icon: ProductBayIcon,
 	edit: Edit,
 	save,
-} );
+});

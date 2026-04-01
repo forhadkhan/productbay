@@ -31,7 +31,10 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		// @ts-ignore
 		const isFirstTime = window.productBaySettings?.isFirstTime;
-		const isHome = location.pathname === '/' || location.pathname === '/tables' || location.pathname === '';
+		const isHome =
+			location.pathname === '/' ||
+			location.pathname === '/tables' ||
+			location.pathname === '';
 
 		if (isFirstTime && isHome) {
 			// Show the splash screen first
@@ -63,16 +66,16 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="productbay-app bg-wp-bg font-sans text-wp-text p-0 m-0">
 			<Navbar />
-			<main className="p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
-				{children}
-			</main>
+			<main className="p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">{children}</main>
 			<Footer />
 
 			{/* Floating Action Button — opens the wizard (hidden when wizard is open) */}
 			{!showWizard && (
 				<button
 					className="fixed bottom-[20px] right-[20px] text-white rounded-full p-[12px] shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-[#EE00FF]/30 z-[100] cursor-pointer"
-					style={{ background: 'linear-gradient(to bottom, #EE00FF, #3300B3)' }}
+					style={{
+						background: 'linear-gradient(to bottom, #EE00FF, #3300B3)',
+					}}
 					onClick={handleOpenWizard}
 					title={__('Open Create Table Wizard', 'productbay')}
 				>

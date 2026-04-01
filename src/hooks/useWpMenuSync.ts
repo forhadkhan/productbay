@@ -14,7 +14,7 @@ import { useLocation } from 'react-router-dom';
  * 3. Updates the browser URL's ?page= query parameter (without reload)
  * 4. Manipulates the DOM to toggle WordPress's .current class on menu items
  *
- * 
+ *
  * @since 1.0.0
  */
 export const useWpMenuSync = () => {
@@ -44,7 +44,9 @@ export const useWpMenuSync = () => {
 		if (searchParams.get('page') !== slug) {
 			searchParams.set('page', slug);
 			// Replace state to keep history clean (back button works within React Router hash history)
-			const newUrl = `${currentUrl.pathname}?${searchParams.toString()}${window.location.hash}`;
+			const newUrl = `${currentUrl.pathname}?${searchParams.toString()}${
+				window.location.hash
+			}`;
 			window.history.replaceState(null, '', newUrl);
 		}
 
@@ -59,7 +61,8 @@ export const useWpMenuSync = () => {
 			// Only match relative admin.php links OR absolute links starting with current origin
 			// This filters out external links that may contain page= in encoded params
 			const isRelativeAdminLink = href.startsWith('admin.php');
-			const isAbsoluteAdminLink = href.startsWith(window.location.origin) && href.includes('admin.php');
+			const isAbsoluteAdminLink =
+				href.startsWith(window.location.origin) && href.includes('admin.php');
 
 			if (!isRelativeAdminLink && !isAbsoluteAdminLink) {
 				return false;
@@ -81,12 +84,8 @@ export const useWpMenuSync = () => {
 
 			if (submenu) {
 				// Remove 'current' class from all siblings
-				submenu
-					.querySelectorAll('li')
-					.forEach((li) => li.classList.remove('current'));
-				submenu
-					.querySelectorAll('a')
-					.forEach((a) => a.classList.remove('current'));
+				submenu.querySelectorAll('li').forEach((li) => li.classList.remove('current'));
+				submenu.querySelectorAll('a').forEach((a) => a.classList.remove('current'));
 
 				// Add 'current' class to the active item
 				const parentLi = menuLink.closest('li');

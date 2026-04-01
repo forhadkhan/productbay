@@ -17,9 +17,10 @@ const fs = require('fs');
 const packageJson = require('./package.json');
 let repoUrl = '';
 if (packageJson.repository) {
-	repoUrl = typeof packageJson.repository === 'string'
-		? packageJson.repository
-		: packageJson.repository.url || '';
+	repoUrl =
+		typeof packageJson.repository === 'string'
+			? packageJson.repository
+			: packageJson.repository.url || '';
 	repoUrl = repoUrl.replace(/^git\+/, '').replace(/\.git$/, '');
 }
 const version = packageJson.version || '1.0.0';
@@ -53,31 +54,50 @@ class CustomBuildPlugin {
 					const deps = Object.keys(packageJson.dependencies || {});
 					let licenseContent = '';
 
-					deps.forEach(dep => {
+					deps.forEach((dep) => {
 						try {
-							const depPackageJsonPath = path.resolve(__dirname, 'node_modules', dep, 'package.json');
+							const depPackageJsonPath = path.resolve(
+								__dirname,
+								'node_modules',
+								dep,
+								'package.json'
+							);
 							if (fs.existsSync(depPackageJsonPath)) {
-								const depPkg = JSON.parse(fs.readFileSync(depPackageJsonPath, 'utf8'));
+								const depPkg = JSON.parse(
+									fs.readFileSync(depPackageJsonPath, 'utf8')
+								);
 
 								let licenseText = `/**\n * @license ${depPkg.name}\n * version: ${depPkg.version}\n`;
 								if (depPkg.author) {
-									licenseText += ` * Author: ${typeof depPkg.author === 'string' ? depPkg.author : (depPkg.author.name || 'Unknown')}\n`;
+									licenseText += ` * Author: ${
+										typeof depPkg.author === 'string'
+											? depPkg.author
+											: depPkg.author.name || 'Unknown'
+									}\n`;
 								}
 								licenseText += ` * License: ${depPkg.license || 'Unknown'}\n`;
 
 								// Add repository or homepage link instead of full license text
 								let url = depPkg.homepage || '';
 								if (!url && depPkg.repository) {
-									url = typeof depPkg.repository === 'string' ? depPkg.repository : depPkg.repository.url;
+									url =
+										typeof depPkg.repository === 'string'
+											? depPkg.repository
+											: depPkg.repository.url;
 								}
 								if (url) {
 									// Brute force clean commonly weird NPM git URIs
-									url = url.replace('git+https://', 'https://')
+									url = url
+										.replace('git+https://', 'https://')
 										.replace('git://', 'https://')
 										.replace('.git', '');
 
 									// Handle "user/repo" shorthand or github:user/repo from package.json
-									if (!url.startsWith('http') && url.split('/').length === 2 && !url.includes(' ')) {
+									if (
+										!url.startsWith('http') &&
+										url.split('/').length === 2 &&
+										!url.includes(' ')
+									) {
 										url = 'https://github.com/' + url;
 									}
 
@@ -95,7 +115,7 @@ class CustomBuildPlugin {
 					// For each emitted JS file, prepend the banner and emit the LICENSE.txt file
 					compilation.entrypoints.forEach((entrypoint, name) => {
 						const files = entrypoint.getFiles();
-						files.forEach(file => {
+						files.forEach((file) => {
 							if (file.endsWith('.js') && assets[file]) {
 								// Prepend Banner
 								compilation.updateAsset(
@@ -120,7 +140,7 @@ class CustomBuildPlugin {
 // Intercept @wordpress/scripts TerserPlugin to disable extractComments
 // so it doesn't create duplicate .LICENSE.txt files or its own header comment.
 if (defaults.optimization && defaults.optimization.minimizer) {
-	defaults.optimization.minimizer = defaults.optimization.minimizer.map(plugin => {
+	defaults.optimization.minimizer = defaults.optimization.minimizer.map((plugin) => {
 		if (plugin.constructor.name === 'TerserPlugin') {
 			plugin.options.extractComments = false;
 			plugin.options.terserOptions = plugin.options.terserOptions || {};
@@ -171,8 +191,5 @@ module.exports = {
 	},
 
 	// 5. Custom Plugins
-	plugins: [
-		...(defaults.plugins || []),
-		new CustomBuildPlugin(),
-	],
+	plugins: [...(defaults.plugins || []), new CustomBuildPlugin()],
 };

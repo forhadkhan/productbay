@@ -9,10 +9,7 @@ interface ProductBayIconProps extends React.SVGProps<SVGSVGElement> {
 	className?: string;
 }
 
-const ProductBayIcon: React.FC<ProductBayIconProps> = ({
-	className,
-	...props
-}) => {
+const ProductBayIcon: React.FC<ProductBayIconProps> = ({ className, ...props }) => {
 	return (
 		<svg
 			width="64"

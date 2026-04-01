@@ -1,9 +1,9 @@
 /**
  * System Store
- * 
- * Manages global system status, such as WooCommerce activation 
+ *
+ * Manages global system status, such as WooCommerce activation
  * and general plugin metadata.
- * 
+ *
  * @since 1.0.0
  */
 import { create } from 'zustand';

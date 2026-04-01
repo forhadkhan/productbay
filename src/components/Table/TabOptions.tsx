@@ -9,23 +9,17 @@ import { OptionsPanel } from '@/components/Table/panels/OptionsPanel';
  * ============================================================================= */
 
 const TabOptions: React.FC = () => {
-    const {
-        settings,
-        setFeatures,
-        setPagination,
-        setCart,
-        setFilters,
-    } = useTableStore();
+	const { settings, setFeatures, setPagination, setCart, setFilters } = useTableStore();
 
-    return (
-        <OptionsPanel
-            settings={settings}
-            setFeatures={setFeatures}
-            setPagination={setPagination}
-            setCart={setCart}
-            setFilters={setFilters}
-        />
-    );
+	return (
+		<OptionsPanel
+			settings={settings}
+			setFeatures={setFeatures}
+			setPagination={setPagination}
+			setCart={setCart}
+			setFilters={setFilters}
+		/>
+	);
 };
 
 export default TabOptions;

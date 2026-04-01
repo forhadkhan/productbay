@@ -6,7 +6,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { PlusIcon, MenuIcon, XIcon } from 'lucide-react';
 import ProductBayLogo from '@/components/ui/ProductBayLogo';
 
-
 /* =============================================================================
  * Navbar Component
  * =============================================================================
@@ -58,9 +57,10 @@ const Navbar = () => {
 								to={link.path}
 								className={({ isActive }) =>
 									`flex items-center px-4 h-9 rounded-lg text-sm font-semibold transition-colors
-									${isActive
-										? 'bg-productbay-secondary text-gray-900 border border-gray-300'
-										: 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
+									${
+										isActive
+											? 'bg-productbay-secondary text-gray-900 border border-gray-300'
+											: 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
 									}`
 								}
 							>
@@ -77,11 +77,7 @@ const Navbar = () => {
 					>
 						<span className="font-semibold">{NEW_TABLE_PATH.label}</span>
 						<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-2">
-							<PlusIcon
-								size={12}
-								className="text-white"
-								strokeWidth={3}
-							/>
+							<PlusIcon size={12} className="text-white" strokeWidth={3} />
 						</div>
 					</Button>
 				</div>
@@ -91,14 +87,14 @@ const Navbar = () => {
 					type="button"
 					onClick={toggleMobileMenu}
 					className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-					aria-label={isMobileMenuOpen ? __('Close menu', 'productbay') : __('Open menu', 'productbay')}
+					aria-label={
+						isMobileMenuOpen
+							? __('Close menu', 'productbay')
+							: __('Open menu', 'productbay')
+					}
 					aria-expanded={isMobileMenuOpen}
 				>
-					{isMobileMenuOpen ? (
-						<XIcon size={24} />
-					) : (
-						<MenuIcon size={24} />
-					)}
+					{isMobileMenuOpen ? <XIcon size={24} /> : <MenuIcon size={24} />}
 				</button>
 			</div>
 
@@ -114,9 +110,10 @@ const Navbar = () => {
 								onClick={closeMobileMenu}
 								className={({ isActive }) =>
 									`flex items-center px-4 py-3 rounded-lg text-sm font-semibold transition-colors
-									${isActive
-										? 'bg-productbay-secondary text-gray-900 border border-gray-300'
-										: 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+									${
+										isActive
+											? 'bg-productbay-secondary text-gray-900 border border-gray-300'
+											: 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
 									}`
 								}
 							>
@@ -135,11 +132,7 @@ const Navbar = () => {
 						>
 							<span className="font-semibold">{NEW_TABLE_PATH.label}</span>
 							<div className="w-6 h-6 flex items-center justify-center p-0.5 bg-productbay-primary rounded-full ml-2">
-								<PlusIcon
-									size={12}
-									className="text-white"
-									strokeWidth={3}
-								/>
+								<PlusIcon size={12} className="text-white" strokeWidth={3} />
 							</div>
 						</Button>
 					</div>

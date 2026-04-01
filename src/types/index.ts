@@ -13,16 +13,16 @@
  * Controls when columns are visible based on device screen size.
  * ============================================================================= */
 export type VisibilityMode =
-    | 'default'     // Use system default visibility
-    | 'all'         // Visible on all devices
-    | 'none'        // Hidden on all devices
-    | 'mobile'      // Visible only on mobile (block md:hidden)
-    | 'tablet'      // Visible only on tablet
-    | 'desktop'     // Visible only on desktop (hidden lg:block)
-    | 'not-mobile'  // Hidden on mobile (hidden md:block)
-    | 'not-tablet'  // Hidden on tablet
-    | 'not-desktop' // Hidden on desktop (block lg:hidden)
-    | 'min-tablet'; // Visible on tablet and larger (hidden md:block)
+	| 'default' // Use system default visibility
+	| 'all' // Visible on all devices
+	| 'none' // Hidden on all devices
+	| 'mobile' // Visible only on mobile (block md:hidden)
+	| 'tablet' // Visible only on tablet
+	| 'desktop' // Visible only on desktop (hidden lg:block)
+	| 'not-mobile' // Hidden on mobile (hidden md:block)
+	| 'not-tablet' // Hidden on tablet
+	| 'not-desktop' // Hidden on desktop (block lg:hidden)
+	| 'min-tablet'; // Visible on tablet and larger (hidden md:block)
 
 /* =============================================================================
  * Column Types
@@ -31,17 +31,17 @@ export type VisibilityMode =
  * Each type has specific rendering logic and settings.
  * ============================================================================= */
 export type ColumnType =
-    | 'image'    // Product image with customizable size and link behavior
-    | 'name'     // Product name/title
-    | 'price'    // Product price (regular and sale)
-    | 'sku'      // Stock Keeping Unit
-    | 'stock'    // Stock status/quantity
-    | 'button'   // Add to cart button
-    | 'date'     // Product date (published/modified)
-    | 'summary'  // Short description
-    | 'tax'      // Taxonomy (category, tag, attribute)
-    | 'cf'       // Custom field (meta)
-    | 'combined'; // Multiple elements combined in one cell
+	| 'image' // Product image with customizable size and link behavior
+	| 'name' // Product name/title
+	| 'price' // Product price (regular and sale)
+	| 'sku' // Stock Keeping Unit
+	| 'stock' // Stock status/quantity
+	| 'button' // Add to cart button
+	| 'date' // Product date (published/modified)
+	| 'summary' // Short description
+	| 'tax' // Taxonomy (category, tag, attribute)
+	| 'cf' // Custom field (meta)
+	| 'combined'; // Multiple elements combined in one cell
 
 /* =============================================================================
  * Column Interface
@@ -50,46 +50,46 @@ export type ColumnType =
  * Stored in _pb_columns meta as an ordered array.
  * ============================================================================= */
 export interface Column {
-    /** Unique identifier for React keys and DnD */
-    id: string;
+	/** Unique identifier for React keys and DnD */
+	id: string;
 
-    /** Column type determines rendering logic */
-    type: ColumnType;
+	/** Column type determines rendering logic */
+	type: ColumnType;
 
-    /** Display heading for the column header */
-    heading: string;
+	/** Display heading for the column header */
+	heading: string;
 
-    /** Advanced display settings */
-    advanced: {
-        /** Whether to show the column heading */
-        showHeading: boolean;
+	/** Advanced display settings */
+	advanced: {
+		/** Whether to show the column heading */
+		showHeading: boolean;
 
-        /** 
-         * Column width configuration
-         * - 'auto': Let browser determine width (recommended default)
-         * - 'px': Fixed pixel width
-         * - '%': Percentage of table width
-         */
-        width: {
-            value: number;
-            unit: 'auto' | 'px' | '%';
-        };
+		/**
+		 * Column width configuration
+		 * - 'auto': Let browser determine width (recommended default)
+		 * - 'px': Fixed pixel width
+		 * - '%': Percentage of table width
+		 */
+		width: {
+			value: number;
+			unit: 'auto' | 'px' | '%';
+		};
 
-        /** Responsive visibility mode */
-        visibility: VisibilityMode;
+		/** Responsive visibility mode */
+		visibility: VisibilityMode;
 
-        /** Display order (used for sorting) */
-        order: number;
-    };
+		/** Display order (used for sorting) */
+		order: number;
+	};
 
-    /**
-     * Type-specific settings
-     * - image: { imageSize, linkTarget }
-     * - tax: { taxonomy, linkToArchive }
-     * - cf: { metaKey }
-     * - combined: { layout, elements }
-     */
-    settings?: Record<string, unknown>;
+	/**
+	 * Type-specific settings
+	 * - image: { imageSize, linkTarget }
+	 * - tax: { taxonomy, linkToArchive }
+	 * - cf: { metaKey }
+	 * - combined: { layout, elements }
+	 */
+	settings?: Record<string, unknown>;
 }
 
 /* =============================================================================
@@ -101,41 +101,41 @@ export interface Column {
 export type SourceType = 'all' | 'sale' | 'category' | 'specific';
 
 export interface DataSource {
-    /** Source type determines query strategy */
-    type: SourceType;
+	/** Source type determines query strategy */
+	type: SourceType;
 
-    /** Query arguments for filtering products */
-    queryArgs: {
-        /** Category IDs for 'category' source type */
-        categoryIds: number[];
+	/** Query arguments for filtering products */
+	queryArgs: {
+		/** Category IDs for 'category' source type */
+		categoryIds: number[];
 
-        /** Tag IDs for additional filtering */
-        tagIds: number[];
+		/** Tag IDs for additional filtering */
+		tagIds: number[];
 
-        /** Product IDs for 'specific' source type */
-        postIds: number[];
+		/** Product IDs for 'specific' source type */
+		postIds: number[];
 
-        /** Product IDs to exclude from results */
-        excludes: number[];
+		/** Product IDs to exclude from results */
+		excludes: number[];
 
-        /** Stock status filter */
-        stockStatus: 'any' | 'instock' | 'outofstock';
+		/** Stock status filter */
+		stockStatus: 'any' | 'instock' | 'outofstock';
 
-        /** Price range filter */
-        priceRange: {
-            min: number;
-            max: number | null;
-        };
-    };
+		/** Price range filter */
+		priceRange: {
+			min: number;
+			max: number | null;
+		};
+	};
 
-    /** Sorting configuration */
-    sort: {
-        /** Field to sort by (price, date, title, etc.) */
-        orderBy: string;
+	/** Sorting configuration */
+	sort: {
+		/** Field to sort by (price, date, title, etc.) */
+		orderBy: string;
 
-        /** Sort direction */
-        order: 'ASC' | 'DESC';
-    };
+		/** Sort direction */
+		order: 'ASC' | 'DESC';
+	};
 }
 
 /* =============================================================================
@@ -145,84 +145,84 @@ export interface DataSource {
  * Stored in _pb_settings meta.
  * ============================================================================= */
 export interface TableSettings {
-    /** Feature toggles */
-    features: {
-        /** Enable search box */
-        search: boolean;
+	/** Feature toggles */
+	features: {
+		/** Enable search box */
+		search: boolean;
 
-        /** Enable column sorting */
-        sorting: boolean;
+		/** Enable column sorting */
+		sorting: boolean;
 
-        /** Enable pagination */
-        pagination: boolean;
+		/** Enable pagination */
+		pagination: boolean;
 
-        /** Enable CSV/PDF export */
-        export: boolean;
+		/** Enable CSV/PDF export */
+		export: boolean;
 
-        /** Bulk Selection Settings */
-        bulkSelect: {
-            enabled: boolean;
-            position: 'first' | 'last';
-            width: {
-                value: number;
-                unit: 'px' | '%' | 'auto';
-            };
-            visibility: VisibilityMode;
-        };
+		/** Bulk Selection Settings */
+		bulkSelect: {
+			enabled: boolean;
+			position: 'first' | 'last';
+			width: {
+				value: number;
+				unit: 'px' | '%' | 'auto';
+			};
+			visibility: VisibilityMode;
+		};
 
-        /** Show variation badges after adding variable products */
-        variationBadges: boolean;
+		/** Show variation badges after adding variable products */
+		variationBadges: boolean;
 
-        /** Show clear all button when items are selected */
-        clearAllButton: boolean;
+		/** Show clear all button when items are selected */
+		clearAllButton: boolean;
 
-        /** Selected items popup configuration */
-        selectedItemsPanel: {
-            enabled: boolean;
-        };
+		/** Selected items popup configuration */
+		selectedItemsPanel: {
+			enabled: boolean;
+		};
 
-        /** Enable native image lightbox */
-        lightbox: boolean;
-    };
+		/** Enable native image lightbox */
+		lightbox: boolean;
+	};
 
-    /** Pagination configuration */
-    pagination: {
-        /** Products per page */
-        limit: number;
+	/** Pagination configuration */
+	pagination: {
+		/** Products per page */
+		limit: number;
 
-        /** Pagination position (top, bottom, both) */
-        position: 'top' | 'bottom' | 'both';
-    };
+		/** Pagination position (top, bottom, both) */
+		position: 'top' | 'bottom' | 'both';
+	};
 
-    /** Cart behavior settings */
-    cart: {
-        /** Enable add to cart functionality */
-        enable: boolean;
+	/** Cart behavior settings */
+	cart: {
+		/** Enable add to cart functionality */
+		enable: boolean;
 
-        /** Cart interaction method */
-        method: 'button' | 'checkbox' | 'text';
+		/** Cart interaction method */
+		method: 'button' | 'checkbox' | 'text';
 
-        /** Show quantity selector */
-        showQuantity: boolean;
+		/** Show quantity selector */
+		showQuantity: boolean;
 
-        /** Use AJAX for add to cart */
-        ajaxAdd: boolean;
-    };
+		/** Use AJAX for add to cart */
+		ajaxAdd: boolean;
+	};
 
-    /** Filter configuration */
-    filters: {
-        /** Enable filters */
-        enabled: boolean;
+	/** Filter configuration */
+	filters: {
+		/** Enable filters */
+		enabled: boolean;
 
-        /** Show category filter dropdown */
-        showCategory: boolean;
+		/** Show category filter dropdown */
+		showCategory: boolean;
 
-        /** Show product type filter dropdown */
-        showType: boolean;
+		/** Show product type filter dropdown */
+		showType: boolean;
 
-        /** Active taxonomy filters (product_cat, pa_color, etc.) */
-        activeTaxonomies: string[];
-    };
+		/** Active taxonomy filters (product_cat, pa_color, etc.) */
+		activeTaxonomies: string[];
+	};
 }
 
 /* =============================================================================
@@ -232,71 +232,71 @@ export interface TableSettings {
  * Stored in _pb_style meta.
  * ============================================================================= */
 export interface TableStyle {
-    /** Header row styling */
-    header: {
-        bgColor: string;
-        textColor: string;
-        fontSize: string;
-    };
+	/** Header row styling */
+	header: {
+		bgColor: string;
+		textColor: string;
+		fontSize: string;
+	};
 
-    /** Body/row styling */
-    body: {
-        bgColor: string;
-        textColor: string;
-        rowAlternate: boolean;
-        altBgColor: string;
-        altTextColor: string;
-        borderColor: string;
-    };
+	/** Body/row styling */
+	body: {
+		bgColor: string;
+		textColor: string;
+		rowAlternate: boolean;
+		altBgColor: string;
+		altTextColor: string;
+		borderColor: string;
+	};
 
-    /** Button styling (add to cart, etc.) */
-    button: {
-        bgColor: string;
-        textColor: string;
-        borderRadius: string;
-        icon: string;
-        /** Hover state colors */
-        hoverBgColor: string;
-        hoverTextColor: string;
-    };
+	/** Button styling (add to cart, etc.) */
+	button: {
+		bgColor: string;
+		textColor: string;
+		borderRadius: string;
+		icon: string;
+		/** Hover state colors */
+		hoverBgColor: string;
+		hoverTextColor: string;
+	};
 
-    /** Layout & Spacing configuration */
-    layout: {
-        /** Table border style */
-        borderStyle: 'none' | 'solid' | 'dashed';
-        /** Table border color */
-        borderColor: string;
-        /** Enable/Disable border radius entirely */
-        borderRadiusEnabled: boolean;
-        /** Table border radius */
-        borderRadius: string;
-        /** Cell padding density */
-        cellPadding: 'compact' | 'normal' | 'spacious';
-    };
+	/** Layout & Spacing configuration */
+	layout: {
+		/** Table border style */
+		borderStyle: 'none' | 'solid' | 'dashed';
+		/** Table border color */
+		borderColor: string;
+		/** Enable/Disable border radius entirely */
+		borderRadiusEnabled: boolean;
+		/** Table border radius */
+		borderRadius: string;
+		/** Cell padding density */
+		cellPadding: 'compact' | 'normal' | 'spacious';
+	};
 
-    /** Typography settings */
-    typography: {
-        /** Header row font weight */
-        headerFontWeight: 'normal' | 'bold' | 'extrabold';
-        /** Header row text transform */
-        headerTextTransform: 'capitalize' | 'uppercase' | 'lowercase' | 'normal-case';
-    };
+	/** Typography settings */
+	typography: {
+		/** Header row font weight */
+		headerFontWeight: 'normal' | 'bold' | 'extrabold';
+		/** Header row text transform */
+		headerTextTransform: 'capitalize' | 'uppercase' | 'lowercase' | 'normal-case';
+	};
 
-    /** Hover & Interaction effects */
-    hover: {
-        /** Enable row hover effect */
-        rowHoverEnabled: boolean;
-        /** Row hover background color */
-        rowHoverBgColor: string;
-        /** Row hover text color */
-        rowHoverTextColor: string;
-    };
+	/** Hover & Interaction effects */
+	hover: {
+		/** Enable row hover effect */
+		rowHoverEnabled: boolean;
+		/** Row hover background color */
+		rowHoverBgColor: string;
+		/** Row hover text color */
+		rowHoverTextColor: string;
+	};
 
-    /** Responsive display settings */
-    responsive: {
-        /** Responsive display mode */
-        mode: 'standard' | 'stack' | 'accordion';
-    };
+	/** Responsive display settings */
+	responsive: {
+		/** Responsive display mode */
+		mode: 'standard' | 'stack' | 'accordion';
+	};
 }
 
 /* =============================================================================
@@ -306,170 +306,169 @@ export interface TableStyle {
  * Matches backend structure.
  * ============================================================================= */
 export interface ProductTable {
-    id?: number;
-    title: string;
-    status: 'publish' | 'private';
-    date?: string;
-    modifiedDate?: string;
-    productCount?: number;
-    source: DataSource;
-    columns: Column[];
-    settings: TableSettings;
-    style: TableStyle;
+	id?: number;
+	title: string;
+	status: 'publish' | 'private';
+	date?: string;
+	modifiedDate?: string;
+	productCount?: number;
+	source: DataSource;
+	columns: Column[];
+	settings: TableSettings;
+	style: TableStyle;
 }
 
 /** Generates a unique column ID */
 export const generateColumnId = (): string =>
-    `col_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+	`col_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
 /** Creates a default TableSettings configuration */
 export const createDefaultSettings = (): TableSettings => ({
-    features: {
-        search: true,
-        sorting: true,
-        pagination: true,
-        export: false,
-        bulkSelect: {
-            enabled: true,
-            position: 'last',
-            width: { value: 64, unit: 'px' },
-            visibility: 'all',
-        },
-        variationBadges: true,
-        clearAllButton: true,
-        selectedItemsPanel: {
-            enabled: true,
-        },
-        lightbox: true,
-    },
-    pagination: {
-        limit: 10,
-        position: 'bottom',
-    },
-    cart: {
-        enable: true,
-        method: 'button',
-        showQuantity: true,
-        ajaxAdd: true,
-    },
-    filters: {
-        enabled: true,
-        showCategory: true,
-        showType: true,
-        activeTaxonomies: ['product_cat'],
-    },
+	features: {
+		search: true,
+		sorting: true,
+		pagination: true,
+		export: false,
+		bulkSelect: {
+			enabled: true,
+			position: 'last',
+			width: { value: 64, unit: 'px' },
+			visibility: 'all',
+		},
+		variationBadges: true,
+		clearAllButton: true,
+		selectedItemsPanel: {
+			enabled: true,
+		},
+		lightbox: true,
+	},
+	pagination: {
+		limit: 10,
+		position: 'bottom',
+	},
+	cart: {
+		enable: true,
+		method: 'button',
+		showQuantity: true,
+		ajaxAdd: true,
+	},
+	filters: {
+		enabled: true,
+		showCategory: true,
+		showType: true,
+		activeTaxonomies: ['product_cat'],
+	},
 });
 
 /** Creates default source configuration */
 export const createDefaultSource = (): DataSource => ({
-    type: 'all',
-    queryArgs: {
-        categoryIds: [],
-        tagIds: [],
-        postIds: [],
-        excludes: [],
-        stockStatus: 'any',
-        priceRange: { min: 0, max: null },
-    },
-    sort: {
-        orderBy: 'date',
-        order: 'DESC',
-    },
+	type: 'all',
+	queryArgs: {
+		categoryIds: [],
+		tagIds: [],
+		postIds: [],
+		excludes: [],
+		stockStatus: 'any',
+		priceRange: { min: 0, max: null },
+	},
+	sort: {
+		orderBy: 'date',
+		order: 'DESC',
+	},
 });
 
 /** Creates default style configuration */
 export const createDefaultStyle = (): TableStyle => ({
-    header: {
-        bgColor: '#f8f9fa',
-        textColor: '#333333',
-        fontSize: '14px',
-    },
-    body: {
-        bgColor: '#ffffff',
-        textColor: '#555555',
-        rowAlternate: false,
-        altBgColor: '#f9f9f9',
-        altTextColor: '#555555',
-        borderColor: '#eeeeee',
-    },
-    button: {
-        bgColor: '#2271b1',
-        textColor: '#ffffff',
-        borderRadius: '4px',
-        icon: 'cart',
-        hoverBgColor: '#135e96',
-        hoverTextColor: '#ffffff',
-    },
-    layout: {
-        borderStyle: 'solid',
-        borderColor: '#e5e7eb',
-        borderRadiusEnabled: true,
-        borderRadius: '8px',
-        cellPadding: 'normal',
-    },
-    typography: {
-        headerFontWeight: 'bold',
-        headerTextTransform: 'uppercase',
-    },
-    hover: {
-        rowHoverEnabled: true,
-        rowHoverBgColor: '#f3f4f6',
-        rowHoverTextColor: '',
-    },
-    responsive: {
-        mode: 'standard',
-    },
+	header: {
+		bgColor: '#f8f9fa',
+		textColor: '#333333',
+		fontSize: '14px',
+	},
+	body: {
+		bgColor: '#ffffff',
+		textColor: '#555555',
+		rowAlternate: false,
+		altBgColor: '#f9f9f9',
+		altTextColor: '#555555',
+		borderColor: '#eeeeee',
+	},
+	button: {
+		bgColor: '#2271b1',
+		textColor: '#ffffff',
+		borderRadius: '4px',
+		icon: 'cart',
+		hoverBgColor: '#135e96',
+		hoverTextColor: '#ffffff',
+	},
+	layout: {
+		borderStyle: 'solid',
+		borderColor: '#e5e7eb',
+		borderRadiusEnabled: true,
+		borderRadius: '8px',
+		cellPadding: 'normal',
+	},
+	typography: {
+		headerFontWeight: 'bold',
+		headerTextTransform: 'uppercase',
+	},
+	hover: {
+		rowHoverEnabled: true,
+		rowHoverBgColor: '#f3f4f6',
+		rowHoverTextColor: '',
+	},
+	responsive: {
+		mode: 'standard',
+	},
 });
 
 /** Creates default columns for a new table */
 export const createDefaultColumns = (): Column[] => [
-    {
-        id: 'col_image_default',
-        type: 'image',
-        heading: 'Image',
-        advanced: {
-            showHeading: true,
-            width: { value: 92, unit: 'px' },
-            visibility: 'all',
-            order: 1,
-        },
-        settings: {
-            imageSize: 'thumbnail',
-            linkTarget: 'product',
-        },
-    },
-    {
-        id: 'col_name_default',
-        type: 'name',
-        heading: 'Product',
-        advanced: {
-            showHeading: true,
-            width: { value: 0, unit: 'auto' },
-            visibility: 'all',
-            order: 2,
-        },
-    },
-    {
-        id: 'col_price_default',
-        type: 'price',
-        heading: 'Price',
-        advanced: {
-            showHeading: true,
-            width: { value: 0, unit: 'auto' },
-            visibility: 'all',
-            order: 3,
-        },
-    },
-    {
-        id: 'col_button_default',
-        type: 'button',
-        heading: 'Add to Cart',
-        advanced: {
-            showHeading: true,
-            width: { value: 0, unit: 'auto' },
-            visibility: 'all',
-            order: 4,
-        },
-    },
+	{
+		id: 'col_image_default',
+		type: 'image',
+		heading: 'Image',
+		advanced: {
+			showHeading: true,
+			width: { value: 92, unit: 'px' },
+			visibility: 'all',
+			order: 1,
+		},
+		settings: {
+			imageSize: 'thumbnail',
+			linkTarget: 'product',
+		},
+	},
+	{
+		id: 'col_name_default',
+		type: 'name',
+		heading: 'Product',
+		advanced: {
+			showHeading: true,
+			width: { value: 0, unit: 'auto' },
+			visibility: 'all',
+			order: 2,
+		},
+	},
+	{
+		id: 'col_price_default',
+		type: 'price',
+		heading: 'Price',
+		advanced: {
+			showHeading: true,
+			width: { value: 0, unit: 'auto' },
+			visibility: 'all',
+			order: 3,
+		},
+	},
+	{
+		id: 'col_button_default',
+		type: 'button',
+		heading: 'Add to Cart',
+		advanced: {
+			showHeading: true,
+			width: { value: 0, unit: 'auto' },
+			visibility: 'all',
+			order: 4,
+		},
+	},
 ];
-

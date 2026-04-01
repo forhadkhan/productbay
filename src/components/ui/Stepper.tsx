@@ -52,26 +52,21 @@ export const Stepper: React.FC<StepperProps> = ({
 					const circleState = isCompleted
 						? 'bg-green-500 text-white'
 						: isActive
-							? 'bg-blue-600 text-white scale-110 shadow-md'
-							: 'bg-gray-300 text-white';
+						? 'bg-blue-600 text-white scale-110 shadow-md'
+						: 'bg-gray-300 text-white';
 
 					return (
 						<div
 							key={step}
 							role={isClickable ? 'button' : 'presentation'}
-							onClick={() =>
-								isClickable &&
-								onStepClick &&
-								onStepClick(index)
-							}
+							onClick={() => isClickable && onStepClick && onStepClick(index)}
 							className={cn(
 								'group flex-1 flex flex-col items-center gap-1.5 p-2 rounded-xl transition-colors duration-200',
-								isClickable &&
-								'cursor-pointer hover:bg-gray-50',
+								isClickable && 'cursor-pointer hover:bg-gray-50',
 								classNames?.column
 							)}
 						>
-							{ /* Step Circle */}
+							{/* Step Circle */}
 							<div
 								className={cn(
 									'w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm z-10',
@@ -95,27 +90,23 @@ export const Stepper: React.FC<StepperProps> = ({
 									</svg>
 								) : (
 									<span className="text-base font-semibold">
-										{stepNum
-											.toString()
-											.padStart(2, '0')}
+										{stepNum.toString().padStart(2, '0')}
 									</span>
 								)}
 							</div>
 
-							{ /* Step Label */}
+							{/* Step Label */}
 							<div
 								className={cn(
 									'text-sm font-bold text-center leading-tight min-h-[40px] flex items-center transition-colors duration-200',
-									isActive || isCompleted
-										? 'text-gray-900'
-										: 'text-gray-400',
+									isActive || isCompleted ? 'text-gray-900' : 'text-gray-400',
 									classNames?.label
 								)}
 							>
 								{step}
 							</div>
 
-							{ /* Progress Bar Segment */}
+							{/* Progress Bar Segment */}
 							<div
 								className={cn(
 									'w-full h-1.5 rounded-full bg-gray-200 overflow-hidden',
@@ -125,9 +116,7 @@ export const Stepper: React.FC<StepperProps> = ({
 								<div
 									className={cn(
 										'h-full transition-all duration-500 ease-in-out',
-										isCompleted
-											? 'bg-green-500 w-full'
-											: 'bg-transparent w-0',
+										isCompleted ? 'bg-green-500 w-full' : 'bg-transparent w-0',
 										classNames?.bar
 									)}
 								/>
@@ -163,25 +152,21 @@ export const Stepper2: React.FC<StepperProps> = ({
 
 					return (
 						<React.Fragment key={step}>
-							{ /* Step Item */}
+							{/* Step Item */}
 							<div className="relative flex flex-col items-center flex-shrink-0">
-								{ /* Step Circle */}
+								{/* Step Circle */}
 								<div
 									role={isClickable ? 'button' : 'presentation'}
-									onClick={() =>
-										isClickable &&
-										onStepClick &&
-										onStepClick(index)
-									}
+									onClick={() => isClickable && onStepClick && onStepClick(index)}
 									className={cn(
 										'w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm z-10 font-bold',
 										isCompleted
 											? 'bg-green-500 text-white'
 											: isActive
-												? 'bg-blue-600 text-white shadow-md'
-												: 'bg-gray-200 text-gray-500',
+											? 'bg-blue-600 text-white shadow-md'
+											: 'bg-gray-200 text-gray-500',
 										isClickable &&
-										'cursor-pointer hover:opacity-90 hover:scale-105',
+											'cursor-pointer hover:opacity-90 hover:scale-105',
 										classNames?.circle
 									)}
 								>
@@ -204,15 +189,15 @@ export const Stepper2: React.FC<StepperProps> = ({
 									)}
 								</div>
 
-								{ /* Step Label (absolute below) */}
+								{/* Step Label (absolute below) */}
 								<div
 									className={cn(
 										'absolute top-[3.25rem] text-sm font-semibold whitespace-nowrap',
 										isCompleted
 											? 'text-green-500'
 											: isActive
-												? 'text-blue-600'
-												: 'text-gray-400',
+											? 'text-blue-600'
+											: 'text-gray-400',
 										classNames?.label
 									)}
 								>
@@ -220,7 +205,7 @@ export const Stepper2: React.FC<StepperProps> = ({
 								</div>
 							</div>
 
-							{ /* Connecting Line (except for the last item) */}
+							{/* Connecting Line (except for the last item) */}
 							{!isLast && (
 								<div
 									className={cn(

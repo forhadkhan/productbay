@@ -4,7 +4,7 @@
  * A multi-select dropdown component for selecting WooCommerce product categories.
  *
  * @since 1.0.0
- * 
+ *
  * === DATA FLOW ARCHITECTURE ===
  *
  * 1. PRELOADING (Parent Component - StepSource):
@@ -56,13 +56,7 @@ import { ConfirmButton } from '../../ui/ConfirmButton';
 import { SourceStatistics } from './SourceStatistics';
 import { useTableStore } from '../../../store/tableStore';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import {
-	XIcon,
-	ChevronDownIcon,
-	SearchIcon,
-	Loader2Icon,
-	RefreshCwIcon,
-} from 'lucide-react';
+import { XIcon, ChevronDownIcon, SearchIcon, Loader2Icon, RefreshCwIcon } from 'lucide-react';
 
 export const CategorySelector: React.FC = () => {
 	const {
@@ -98,9 +92,7 @@ export const CategorySelector: React.FC = () => {
 			return categories;
 		}
 		const query = searchQuery.toLowerCase();
-		return categories.filter((cat) =>
-			cat.name.toLowerCase().includes(query)
-		);
+		return categories.filter((cat) => cat.name.toLowerCase().includes(query));
 	}, [searchQuery, categories]);
 
 	/**
@@ -119,18 +111,14 @@ export const CategorySelector: React.FC = () => {
 	 */
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
-			if (
-				dropdownRef.current &&
-				!dropdownRef.current.contains(event.target as Node)
-			) {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
 				setOpen(false);
 			}
 		};
 
 		if (open) {
 			document.addEventListener('mousedown', handleClickOutside);
-			return () =>
-				document.removeEventListener('mousedown', handleClickOutside);
+			return () => document.removeEventListener('mousedown', handleClickOutside);
 		}
 	}, [open]);
 
@@ -138,15 +126,10 @@ export const CategorySelector: React.FC = () => {
 	const selectedIds = tableData.config.categories || [];
 
 	// Get full category objects for selected IDs
-	const selectedCategories = categories.filter((cat) =>
-		selectedIds.includes(cat.id)
-	);
+	const selectedCategories = categories.filter((cat) => selectedIds.includes(cat.id));
 
 	// Calculate statistics
-	const totalProducts = selectedCategories.reduce(
-		(sum, cat) => sum + cat.count,
-		0
-	);
+	const totalProducts = selectedCategories.reduce((sum, cat) => sum + cat.count, 0);
 
 	/**
 	 * Toggle category selection
@@ -199,15 +182,13 @@ export const CategorySelector: React.FC = () => {
 
 	return (
 		<div className="w-full space-y-3">
-			{ /* Main Selector */}
+			{/* Main Selector */}
 			<div className="relative" ref={dropdownRef}>
-				{ /* Select Input */}
+				{/* Select Input */}
 				<div
 					className={cn(
 						'min-h-[40px] w-full border border-gray-300 rounded-md px-3 py-2 bg-white cursor-pointer transition-colors',
-						open
-							? 'border-blue-500 ring-2 ring-blue-100'
-							: 'hover:border-gray-400'
+						open ? 'border-blue-500 ring-2 ring-blue-100' : 'hover:border-gray-400'
 					)}
 					onClick={() => setOpen(!open)}
 				>
@@ -247,10 +228,10 @@ export const CategorySelector: React.FC = () => {
 					</div>
 				</div>
 
-				{ /* Dropdown */}
+				{/* Dropdown */}
 				{open && (
 					<div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-80 flex flex-col">
-						{ /* Search Input */}
+						{/* Search Input */}
 						<div className="p-2 border-b border-gray-200">
 							<div className="relative">
 								<SearchIcon className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
@@ -260,27 +241,26 @@ export const CategorySelector: React.FC = () => {
 									placeholder={__('Search categories...', 'productbay')}
 									className="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 									value={searchQuery}
-									onChange={(e) =>
-										setSearchQuery(e.target.value)
-									}
+									onChange={(e) => setSearchQuery(e.target.value)}
 									onClick={(e) => e.stopPropagation()}
 								/>
 							</div>
 						</div>
 
-						{ /* Options List */}
+						{/* Options List */}
 						<div className="overflow-y-auto flex-1">
 							{filteredCategories.length === 0 ? (
 								<div className="p-3 text-sm text-gray-500 text-center">
 									{searchQuery
-										? __('No categories found matching your search.', 'productbay')
+										? __(
+												'No categories found matching your search.',
+												'productbay'
+										  )
 										: __('No categories available.', 'productbay')}
 								</div>
 							) : (
 								filteredCategories.map((category) => {
-									const isSelected = selectedIds.includes(
-										category.id
-									);
+									const isSelected = selectedIds.includes(category.id);
 									return (
 										<div
 											key={category.id}
@@ -298,7 +278,7 @@ export const CategorySelector: React.FC = () => {
 											<input
 												type="checkbox"
 												checked={isSelected}
-												onChange={() => { }}
+												onChange={() => {}}
 												className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
 											/>
 											<span className="flex-1 font-medium">
@@ -313,22 +293,22 @@ export const CategorySelector: React.FC = () => {
 							)}
 						</div>
 
-						{ /* Footer with selection count and reload button */}
+						{/* Footer with selection count and reload button */}
 						<div className="p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md">
 							<span className="text-xs text-gray-600">
 								{selectedIds.length > 0
 									? _n(
-										'%d category selected',
-										'%d categories selected',
-										selectedIds.length,
-										'productbay'
-									).replace('%d', selectedIds.length.toString())
+											'%d category selected',
+											'%d categories selected',
+											selectedIds.length,
+											'productbay'
+									  ).replace('%d', selectedIds.length.toString())
 									: __('No categories selected', 'productbay')}
 							</span>
 
-							{ /* Action Buttons */}
+							{/* Action Buttons */}
 							<div className="flex items-center gap-2">
-								{ /* Clear selection button with confirmation */}
+								{/* Clear selection button with confirmation */}
 								<ConfirmButton
 									onConfirm={handleClearSelection}
 									variant="ghost"
@@ -337,16 +317,14 @@ export const CategorySelector: React.FC = () => {
 									disabled={selectedIds.length === 0}
 									className={cn(
 										'flex items-center gap-1.5 font-medium hover:bg-red-50 hover:text-red-700 border border-transparent hover:border-gray-200',
-										selectedIds.length === 0
-											? 'text-gray-300'
-											: 'text-red-600'
+										selectedIds.length === 0 ? 'text-gray-300' : 'text-red-600'
 									)}
 								>
 									<XIcon className="h-3 w-3" />
 									{__('Clear', 'productbay')}
 								</ConfirmButton>
 
-								{ /* Reload button: Manual refresh */}
+								{/* Reload button: Manual refresh */}
 								<Button
 									variant="ghost"
 									size="xs"
@@ -374,7 +352,7 @@ export const CategorySelector: React.FC = () => {
 				)}
 			</div>
 
-			{ /* Statistics Display */}
+			{/* Statistics Display */}
 			<SourceStatistics
 				categoryCount={selectedCategories.length}
 				productCount={totalProducts}

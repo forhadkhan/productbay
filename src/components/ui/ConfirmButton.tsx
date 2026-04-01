@@ -36,10 +36,7 @@ export interface ConfirmButtonProps extends ButtonProps {
  * A feature-rich button that shows a confirmation popover before executing an action.
  * This is more user-friendly as it doesn't change the layout of the page.
  */
-export const ConfirmButton = React.forwardRef<
-	HTMLButtonElement,
-	ConfirmButtonProps
->(
+export const ConfirmButton = React.forwardRef<HTMLButtonElement, ConfirmButtonProps>(
 	(
 		{
 			className,
@@ -59,9 +56,7 @@ export const ConfirmButton = React.forwardRef<
 		const [isConfirming, setIsConfirming] = React.useState(false);
 		const containerRef = React.useRef<HTMLDivElement>(null);
 
-		const handleInitialClick = (
-			e: React.MouseEvent<HTMLButtonElement>
-		) => {
+		const handleInitialClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 			e.preventDefault();
 			e.stopPropagation();
 			setIsConfirming(true);
@@ -86,17 +81,13 @@ export const ConfirmButton = React.forwardRef<
 			if (!isConfirming) return;
 
 			const handleOutsideClick = (e: MouseEvent) => {
-				if (
-					containerRef.current &&
-					!containerRef.current.contains(e.target as Node)
-				) {
+				if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
 					setIsConfirming(false);
 				}
 			};
 
 			document.addEventListener('mousedown', handleOutsideClick);
-			return () =>
-				document.removeEventListener('mousedown', handleOutsideClick);
+			return () => document.removeEventListener('mousedown', handleOutsideClick);
 		}, [isConfirming]);
 
 		// Position classes for the popover
@@ -171,34 +162,28 @@ export const ConfirmButton = React.forwardRef<
 									title={__('Cancel', 'productbay')}
 								>
 									{cancelIcon || (
-										<XIcon
-											className="h-4 w-4 font-bold"
-											strokeWidth={2.5}
-										/>
+										<XIcon className="h-4 w-4 font-bold" strokeWidth={2.5} />
 									)}
 								</button>
 							</div>
 						</div>
 
-						{ /* Tooltip Arrow shadow-ish border part */}
+						{/* Tooltip Arrow shadow-ish border part */}
 						<div
 							className={cn(
 								'absolute w-0 h-0 border-[6px]',
-								arrowClasses[popoverPosition].replace(
-									/-white/g,
-									'-gray-100'
-								),
+								arrowClasses[popoverPosition].replace(/-white/g, '-gray-100'),
 								popoverPosition === 'top'
 									? 'mt-[1px]'
 									: popoverPosition === 'bottom'
-										? 'mb-[1px]'
-										: popoverPosition === 'left'
-											? 'ml-[1px]'
-											: 'mr-[1px]'
+									? 'mb-[1px]'
+									: popoverPosition === 'left'
+									? 'ml-[1px]'
+									: 'mr-[1px]'
 							)}
 						/>
 
-						{ /* Tooltip Arrow white part */}
+						{/* Tooltip Arrow white part */}
 						<div
 							className={cn(
 								'absolute w-0 h-0 border-[5px]',

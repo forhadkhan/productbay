@@ -9,10 +9,7 @@ const Skeleton = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
 		<div
 			data-slot="skeleton"
-			className={cn(
-				'bg-gray-200 rounded-md animate-pulse',
-				className
-			)}
+			className={cn('bg-gray-200 rounded-md animate-pulse', className)}
 			{...props}
 		/>
 	);

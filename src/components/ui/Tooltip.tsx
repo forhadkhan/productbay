@@ -60,20 +60,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
 	const showTooltip = () => {
 		clearTimeouts();
 		if (!isVisible) {
-			showTimeoutRef.current = window.setTimeout(
-				() => setIsVisible(true),
-				delay
-			);
+			showTimeoutRef.current = window.setTimeout(() => setIsVisible(true), delay);
 		}
 	};
 
 	const hideTooltip = () => {
 		clearTimeouts();
 		if (isVisible) {
-			hideTimeoutRef.current = window.setTimeout(
-				() => setIsVisible(false),
-				hideDelay
-			);
+			hideTimeoutRef.current = window.setTimeout(() => setIsVisible(false), hideDelay);
 		}
 	};
 
@@ -119,7 +113,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 					onMouseLeave={hideTooltip}
 				>
 					<span className="relative z-10">{content}</span>
-					{ /* Arrow: Rotated square that inherits parent background */}
+					{/* Arrow: Rotated square that inherits parent background */}
 					<div
 						className={cn(
 							'absolute w-2 h-2 bg-inherit transform rotate-45',

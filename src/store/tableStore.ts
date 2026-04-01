@@ -1,10 +1,10 @@
 /**
  * Table Store
- * 
+ *
  * The central engine for table configuration in ProductBay.
  * Manages the state for Source, Columns, Settings, and Style.
  * Includes persistence logic (load/save) and category caching.
- * 
+ *
  * @since 1.0.0
  */
 import { create } from 'zustand';
@@ -243,7 +243,7 @@ interface TableStore {
 
 const CACHE_KEY = 'productbay_categories_cache';
 const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
-const STALE_DURATION = 1000 * 60 * 5;  // 5 minutes
+const STALE_DURATION = 1000 * 60 * 5; // 5 minutes
 
 interface CacheData {
 	categories: Category[];
@@ -297,12 +297,13 @@ export const useTableStore = create<TableStore>((set, get) => ({
 	// Core Actions
 	// =========================================================================
 
-	setTitle: (title) => set({
-		tableTitle: title,
-		isDirty: true,
-		// Also update legacy state for backward compatibility
-		tableData: { ...get().tableData, title }
-	}),
+	setTitle: (title) =>
+		set({
+			tableTitle: title,
+			isDirty: true,
+			// Also update legacy state for backward compatibility
+			tableData: { ...get().tableData, title },
+		}),
 
 	setStatus: (status) => set({ tableStatus: status, isDirty: true }),
 
@@ -310,168 +311,190 @@ export const useTableStore = create<TableStore>((set, get) => ({
 	// Source Actions
 	// =========================================================================
 
-	setSourceType: (type) => set((state) => ({
-		source: { ...state.source, type },
-		isDirty: true,
-		// Also update legacy state
-		tableData: { ...state.tableData, source_type: type }
-	})),
+	setSourceType: (type) =>
+		set((state) => ({
+			source: { ...state.source, type },
+			isDirty: true,
+			// Also update legacy state
+			tableData: { ...state.tableData, source_type: type },
+		})),
 
-	setSourceQueryArgs: (args) => set((state) => ({
-		source: {
-			...state.source,
-			queryArgs: { ...state.source.queryArgs, ...args }
-		},
-		isDirty: true,
-		// Also update legacy state for categories/products
-		tableData: {
-			...state.tableData,
-			config: {
-				...state.tableData.config,
-				...(args.categoryIds !== undefined && { categories: args.categoryIds }),
-				...(args.postIds !== undefined && { products: args.postIds }),
-			}
-		}
-	})),
+	setSourceQueryArgs: (args) =>
+		set((state) => ({
+			source: {
+				...state.source,
+				queryArgs: { ...state.source.queryArgs, ...args },
+			},
+			isDirty: true,
+			// Also update legacy state for categories/products
+			tableData: {
+				...state.tableData,
+				config: {
+					...state.tableData.config,
+					...(args.categoryIds !== undefined && {
+						categories: args.categoryIds,
+					}),
+					...(args.postIds !== undefined && {
+						products: args.postIds,
+					}),
+				},
+			},
+		})),
 
-	setSourceSort: (sort) => set((state) => ({
-		source: {
-			...state.source,
-			sort: { ...state.source.sort, ...sort }
-		},
-		isDirty: true,
-	})),
+	setSourceSort: (sort) =>
+		set((state) => ({
+			source: {
+				...state.source,
+				sort: { ...state.source.sort, ...sort },
+			},
+			isDirty: true,
+		})),
 
 	// =========================================================================
 	// Column Actions
 	// =========================================================================
 
-	addColumn: (column) => set((state) => ({
-		columns: [...state.columns, column],
-		isDirty: true,
-	})),
+	addColumn: (column) =>
+		set((state) => ({
+			columns: [...state.columns, column],
+			isDirty: true,
+		})),
 
-	updateColumn: (columnId, updates) => set((state) => ({
-		columns: state.columns.map((col) =>
-			col.id === columnId ? { ...col, ...updates } : col
-		),
-		isDirty: true,
-	})),
+	updateColumn: (columnId, updates) =>
+		set((state) => ({
+			columns: state.columns.map((col) =>
+				col.id === columnId ? { ...col, ...updates } : col
+			),
+			isDirty: true,
+		})),
 
-	removeColumn: (columnId) => set((state) => ({
-		columns: state.columns.filter((col) => col.id !== columnId),
-		isDirty: true,
-	})),
+	removeColumn: (columnId) =>
+		set((state) => ({
+			columns: state.columns.filter((col) => col.id !== columnId),
+			isDirty: true,
+		})),
 
-	reorderColumns: (sourceIndex, destinationIndex) => set((state) => {
-		const newColumns = [...state.columns];
-		const [removed] = newColumns.splice(sourceIndex, 1);
-		newColumns.splice(destinationIndex, 0, removed);
+	reorderColumns: (sourceIndex, destinationIndex) =>
+		set((state) => {
+			const newColumns = [...state.columns];
+			const [removed] = newColumns.splice(sourceIndex, 1);
+			newColumns.splice(destinationIndex, 0, removed);
 
-		// Update order property for each column
-		const reorderedColumns = newColumns.map((col, index) => ({
-			...col,
-			advanced: { ...col.advanced, order: index + 1 }
-		}));
+			// Update order property for each column
+			const reorderedColumns = newColumns.map((col, index) => ({
+				...col,
+				advanced: { ...col.advanced, order: index + 1 },
+			}));
 
-		return { columns: reorderedColumns, isDirty: true };
-	}),
+			return { columns: reorderedColumns, isDirty: true };
+		}),
 
 	// =========================================================================
 	// Settings Actions
 	// =========================================================================
 
-	setFeatures: (features) => set((state) => ({
-		settings: {
-			...state.settings,
-			features: { ...state.settings.features, ...features }
-		},
-		isDirty: true,
-	})),
+	setFeatures: (features) =>
+		set((state) => ({
+			settings: {
+				...state.settings,
+				features: { ...state.settings.features, ...features },
+			},
+			isDirty: true,
+		})),
 
-	setPagination: (pagination) => set((state) => ({
-		settings: {
-			...state.settings,
-			pagination: { ...state.settings.pagination, ...pagination }
-		},
-		isDirty: true,
-	})),
+	setPagination: (pagination) =>
+		set((state) => ({
+			settings: {
+				...state.settings,
+				pagination: { ...state.settings.pagination, ...pagination },
+			},
+			isDirty: true,
+		})),
 
-	setCart: (cart) => set((state) => ({
-		settings: {
-			...state.settings,
-			cart: { ...state.settings.cart, ...cart }
-		},
-		isDirty: true,
-	})),
+	setCart: (cart) =>
+		set((state) => ({
+			settings: {
+				...state.settings,
+				cart: { ...state.settings.cart, ...cart },
+			},
+			isDirty: true,
+		})),
 
-	setFilters: (filters) => set((state) => ({
-		settings: {
-			...state.settings,
-			filters: { ...state.settings.filters, ...filters }
-		},
-		isDirty: true,
-	})),
+	setFilters: (filters) =>
+		set((state) => ({
+			settings: {
+				...state.settings,
+				filters: { ...state.settings.filters, ...filters },
+			},
+			isDirty: true,
+		})),
 
 	// =========================================================================
 	// Style Actions
 	// =========================================================================
 
-	setHeaderStyle: (header) => set((state) => ({
-		style: {
-			...state.style,
-			header: { ...state.style.header, ...header }
-		},
-		isDirty: true,
-	})),
+	setHeaderStyle: (header) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				header: { ...state.style.header, ...header },
+			},
+			isDirty: true,
+		})),
 
-	setBodyStyle: (body) => set((state) => ({
-		style: {
-			...state.style,
-			body: { ...state.style.body, ...body }
-		},
-		isDirty: true,
-	})),
+	setBodyStyle: (body) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				body: { ...state.style.body, ...body },
+			},
+			isDirty: true,
+		})),
 
-	setButtonStyle: (button) => set((state) => ({
-		style: {
-			...state.style,
-			button: { ...state.style.button, ...button }
-		},
-		isDirty: true,
-	})),
+	setButtonStyle: (button) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				button: { ...state.style.button, ...button },
+			},
+			isDirty: true,
+		})),
 
-	setLayoutStyle: (layout) => set((state) => ({
-		style: {
-			...state.style,
-			layout: { ...state.style.layout, ...layout }
-		},
-		isDirty: true,
-	})),
+	setLayoutStyle: (layout) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				layout: { ...state.style.layout, ...layout },
+			},
+			isDirty: true,
+		})),
 
-	setTypographyStyle: (typography) => set((state) => ({
-		style: {
-			...state.style,
-			typography: { ...state.style.typography, ...typography }
-		},
-		isDirty: true,
-	})),
+	setTypographyStyle: (typography) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				typography: { ...state.style.typography, ...typography },
+			},
+			isDirty: true,
+		})),
 
-	setHoverStyle: (hover) => set((state) => ({
-		style: {
-			...state.style,
-			hover: { ...state.style.hover, ...hover }
-		},
-		isDirty: true,
-	})),
+	setHoverStyle: (hover) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				hover: { ...state.style.hover, ...hover },
+			},
+			isDirty: true,
+		})),
 
-	setResponsiveStyle: (responsive) => set((state) => ({
-		style: {
-			...state.style,
-			responsive: { ...state.style.responsive, ...responsive }
-		},
-		isDirty: true,
-	})),
+	setResponsiveStyle: (responsive) =>
+		set((state) => ({
+			style: {
+				...state.style,
+				responsive: { ...state.style.responsive, ...responsive },
+			},
+			isDirty: true,
+		})),
 
 	// =========================================================================
 	// Persistence Actions
@@ -487,8 +510,13 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			tableStatus: 'publish',
 			// Use global defaults if available, otherwise factory defaults
 			source: defaults.source ? { ...defaultSource(), ...defaults.source } : defaultSource(),
-			columns: (defaults.columns && defaults.columns.length > 0) ? defaults.columns : defaultColumns(),
-			settings: defaults.settings ? { ...defaultSettings(), ...defaults.settings } : defaultSettings(),
+			columns:
+				defaults.columns && defaults.columns.length > 0
+					? defaults.columns
+					: defaultColumns(),
+			settings: defaults.settings
+				? { ...defaultSettings(), ...defaults.settings }
+				: defaultSettings(),
 			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
 
 			isLoading: false,
@@ -527,7 +555,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				tableStatus: data.status || 'private',
 				// Use default if source is empty array or invalid
 				source: isSourceValid(data.source) ? data.source : defaultSource(),
-				columns: (data.columns && data.columns.length > 0) ? data.columns : defaultColumns(),
+				columns: data.columns && data.columns.length > 0 ? data.columns : defaultColumns(),
 				// Use default if settings is empty array or invalid
 				settings: isSettingsValid(data.settings) ? data.settings : defaultSettings(),
 				// Use default if style is empty array or invalid
@@ -537,7 +565,11 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				tableData: {
 					title: data.title || '',
 					source_type: data.source?.type || 'all',
-					columns: data.columns?.map((c: Column) => ({ id: c.id, label: c.heading })) || [],
+					columns:
+						data.columns?.map((c: Column) => ({
+							id: c.id,
+							label: c.heading,
+						})) || [],
 					config: {
 						categories: data.source?.queryArgs?.categoryIds || [],
 						products: data.source?.queryArgs?.postIds || [],
@@ -577,7 +609,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				status: state.tableStatus,
 				source: {
 					...state.source,
-					queryArgs: cleanedQueryArgs
+					queryArgs: cleanedQueryArgs,
 				},
 				columns: state.columns,
 				settings: state.settings,
@@ -610,44 +642,48 @@ export const useTableStore = create<TableStore>((set, get) => ({
 
 	setStep: (step) => set({ currentStep: step }),
 
-	setTableData: (data) => set((state) => {
-		const newTableData = { ...state.tableData, ...data };
+	setTableData: (data) =>
+		set((state) => {
+			const newTableData = { ...state.tableData, ...data };
 
-		// Sync to new state structure
-		const updates: Partial<TableStore> = { tableData: newTableData };
+			// Sync to new state structure
+			const updates: Partial<TableStore> = { tableData: newTableData };
 
-		if (data.title !== undefined) {
-			updates.tableTitle = data.title;
-		}
+			if (data.title !== undefined) {
+				updates.tableTitle = data.title;
+			}
 
-		if (data.source_type !== undefined) {
-			updates.source = { ...state.source, type: data.source_type as SourceType };
-		}
+			if (data.source_type !== undefined) {
+				updates.source = {
+					...state.source,
+					type: data.source_type as SourceType,
+				};
+			}
 
-		if (data.config?.categories !== undefined) {
-			updates.source = {
-				...(updates.source || state.source),
-				queryArgs: {
-					...(updates.source?.queryArgs || state.source.queryArgs),
-					categoryIds: data.config.categories,
-				}
-			};
-		}
+			if (data.config?.categories !== undefined) {
+				updates.source = {
+					...(updates.source || state.source),
+					queryArgs: {
+						...(updates.source?.queryArgs || state.source.queryArgs),
+						categoryIds: data.config.categories,
+					},
+				};
+			}
 
-		if (data.config?.products !== undefined) {
-			updates.source = {
-				...(updates.source || state.source),
-				queryArgs: {
-					...(updates.source?.queryArgs || state.source.queryArgs),
-					postIds: data.config.products,
-				}
-			};
-		}
+			if (data.config?.products !== undefined) {
+				updates.source = {
+					...(updates.source || state.source),
+					queryArgs: {
+						...(updates.source?.queryArgs || state.source.queryArgs),
+						postIds: data.config.products,
+					},
+				};
+			}
 
-		updates.isDirty = true;
+			updates.isDirty = true;
 
-		return updates as TableStore;
-	}),
+			return updates as TableStore;
+		}),
 
 	// =========================================================================
 	// Category Cache Actions (preserved from original)
@@ -711,7 +747,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				categories: data,
 				categoriesLastFetched: timestamp,
 			});
-
 		} catch (error) {
 			// Fail silently for background refresh
 		}
@@ -732,7 +767,6 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				categoriesLastFetched: timestamp,
 				categoriesLoading: false,
 			});
-
 		} catch (error) {
 			set({ categoriesLoading: false });
 		}
