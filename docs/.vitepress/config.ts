@@ -92,9 +92,9 @@ function getSidebarV1_0(base = '/v1.0.0') {
 }
 
 export default defineConfig({
-	title: 'ProductBay',
+	title: 'ProductBay Documentation',
 	description:
-		'Official documentation for ProductBay — the modern WooCommerce product table plugin.',
+		'Official documentation for ProductBay — the fast, high-converting WooCommerce product table plugin with Gutenberg blocks and shortcodes.',
 	lang: 'en-US',
 	base: '/productbay/',
 
@@ -115,10 +115,20 @@ export default defineConfig({
 			{
 				property: 'og:description',
 				content:
-					'Official documentation for ProductBay — the modern WooCommerce product table plugin.',
+					'Official documentation for ProductBay — the fast, high-converting WooCommerce product table plugin with Gutenberg blocks and shortcodes.',
 			},
 		],
 		['meta', { property: 'og:image', content: '/productbay/logo.svg' }],
+		['meta', { property: 'twitter:card', content: 'summary_large_image' }],
+		['meta', { property: 'twitter:title', content: 'ProductBay Documentation' }],
+		[
+			'meta',
+			{
+				property: 'twitter:description',
+				content:
+					'Official documentation for ProductBay — the fast, high-converting WooCommerce product table plugin with Gutenberg blocks and shortcodes.',
+			},
+		],
 	],
 
 	themeConfig: {
