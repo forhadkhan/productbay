@@ -1275,7 +1275,7 @@ class TableRenderer
 					$checked = in_array($category->slug, $current_cats, true) ? ' checked' : '';
 					echo '<label class="productbay-multiselect-option">';
 					echo '<input type="checkbox" value="' . esc_attr($category->slug) . '" ' . checked(in_array($category->slug, $current_cats, true), true, false) . ' />';
-					echo '<span>' . esc_html($category->name) . ' (' . esc_html((string) $category->count) . ')</span>';
+					echo '<span>' . esc_html($category->name) . '</span>';
 					echo '</label>';
 				}
 
