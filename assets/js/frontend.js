@@ -88,24 +88,24 @@
             this.$searchInput.on('input', this.handleSearch.bind(this));
             this.$searchClear.on('click', this.clearSearch.bind(this));
 
-            // Selection
+            // Selection (scoped to this wrapper to prevent cross-table interference in tab blocks)
             this.$selectAll.on('change', this.toggleSelectAll.bind(this));
-            $(document.body).on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
+            this.$wrapper.on('change', '.productbay-select-product', this.handleRowSelect.bind(this));
             this.$wrapper.on('click', '.productbay-btn-clear-all', this.handleClearAll.bind(this));
 
             // Quantity changes
-            $(document.body).on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
-            $(document.body).on('blur', '.productbay-qty', this.handleQuantityBlur.bind(this));
+            this.$wrapper.on('input', '.productbay-qty', this.handleQuantityChange.bind(this));
+            this.$wrapper.on('blur', '.productbay-qty', this.handleQuantityBlur.bind(this));
 
             // Variation selection
-            $(document.body).on('change', '.productbay-variation-select', this.handleVariationChange.bind(this));
+            this.$wrapper.on('change', '.productbay-variation-select', this.handleVariationChange.bind(this));
 
             // Quantity +/- buttons
-            $(document.body).on('click', '.productbay-qty-minus', this.handleQtyMinus.bind(this));
-            $(document.body).on('click', '.productbay-qty-plus', this.handleQtyPlus.bind(this));
+            this.$wrapper.on('click', '.productbay-qty-minus', this.handleQtyMinus.bind(this));
+            this.$wrapper.on('click', '.productbay-qty-plus', this.handleQtyPlus.bind(this));
 
             // Single add-to-cart buttons
-            $(document.body).on('click', '.productbay-btn-addtocart', this.handleSingleAddToCart.bind(this));
+            this.$wrapper.on('click', '.productbay-btn-addtocart', this.handleSingleAddToCart.bind(this));
 
             // Bulk Action
             this.$bulkBtn.on('click', this.handleBulkAddToCart.bind(this));
