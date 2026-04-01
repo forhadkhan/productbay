@@ -1,10 +1,11 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, Placeholder, Spinner, Notice } from '@wordpress/components';
+import { PanelBody, SelectControl, Placeholder, Spinner, Notice, Button } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ProductBayIcon from '../icon';
+import { PRODUCTBAY_DASHBOARD_PATH } from '@/utils/routes';
 
 /**
  * Edit component for the Product Table block.
@@ -89,6 +90,15 @@ export default function Edit({ attributes, setAttributes }) {
 										setAttributes({ tableId: Number(value) })
 									}
 								/>
+								<div style={{ display: 'flex', justifyContent: 'left', marginTop: '4px' }}>
+									<Button
+										variant="link"
+										href={window._productbayEditorData?.adminUrl || window.productbayEditorData?.adminUrl || PRODUCTBAY_DASHBOARD_PATH}
+										target="_blank"
+									>
+										{__('Create New Table', 'productbay')}
+									</Button>
+								</div>
 							</div>
 						)}
 					</Placeholder>

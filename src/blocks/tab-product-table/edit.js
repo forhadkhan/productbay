@@ -13,6 +13,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect, useRef, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ProductBayIcon from '../icon';
+import { PRODUCTBAY_DASHBOARD_PATH } from '@/utils/routes';
 
 /**
  * Edit component for the Tab – Product Table block.
@@ -312,36 +313,46 @@ export default function Edit({ attributes, setAttributes }) {
 						{isLoading ? (
 							<Spinner />
 						) : (
-							<div style={{
-								display: 'flex',
-								gap: '12px',
-								width: '100%',
-								maxWidth: '460px',
-								background: '#fff',
-								padding: '24px',
-								borderRadius: '12px',
-								border: '1px solid #e1e4e8',
-								boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-								alignItems: 'center'
-							}}>
-								<div style={{ flex: 1 }}>
-									<SelectControl
-										label={__('Choose a table', 'productbay')}
-										labelPosition="side"
-										hideLabelFromVision
-										value={selectedToAdd}
-										options={availableToAdd}
-										onChange={(val) => setSelectedToAdd(Number(val))}
-										__nextHasNoMarginBottom
-									/>
+							<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', margin: '8px', marginLeft: '16px' }}>
+								<div style={{
+									display: 'flex',
+									gap: '12px',
+									width: '100%',
+									maxWidth: '460px',
+									background: '#fff',
+									padding: '24px',
+									borderRadius: '12px',
+									border: '1px solid #e1e4e8',
+									boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+									alignItems: 'center'
+								}}>
+									<div style={{ flex: 1 }}>
+										<SelectControl
+											label={__('Choose a table', 'productbay')}
+											labelPosition="side"
+											hideLabelFromVision
+											value={selectedToAdd}
+											options={availableToAdd}
+											onChange={(val) => setSelectedToAdd(Number(val))}
+											__nextHasNoMarginBottom
+										/>
+									</div>
+									<Button
+										variant="primary"
+										onClick={addTable}
+										disabled={!selectedToAdd || availableToAdd.length <= 1}
+										style={{ height: '30px', flexShrink: 0 }} // Matches standard Gutenberg SelectControl height when NoMarginBottom is on.
+									>
+										{__('Add Tab', 'productbay')}
+									</Button>
 								</div>
 								<Button
-									variant="primary"
-									onClick={addTable}
-									disabled={!selectedToAdd || availableToAdd.length <= 1}
-									style={{ height: '30px', flexShrink: 0 }} // Matches standard Gutenberg SelectControl height when NoMarginBottom is on.
+									variant="link"
+									href={window._productbayEditorData?.adminUrl || window.productbayEditorData?.adminUrl || PRODUCTBAY_DASHBOARD_PATH}
+									target="_blank"
+									style={{ fontSize: '12px', marginTop: '12px', justifyContent: 'left' }}
 								>
-									{__('Add Tab', 'productbay')}
+									{__('Create New Table', 'productbay')}
 								</Button>
 							</div>
 						)}
