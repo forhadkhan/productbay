@@ -97,6 +97,9 @@ export default defineConfig({
 		'Official documentation for ProductBay — the fast, high-converting WooCommerce product table plugin with Gutenberg blocks and shortcodes.',
 	lang: 'en-US',
 	base: '/productbay/',
+	sitemap: {
+		hostname: 'https://wpanchorbay.com',
+	},
 
 	head: [
 		[

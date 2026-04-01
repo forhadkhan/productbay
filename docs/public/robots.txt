@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wpanchorbay.com/productbay/sitemap.xml
