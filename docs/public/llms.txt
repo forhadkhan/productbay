@@ -5,11 +5,11 @@
 ProductBay is a modern WordPress plugin that replaces standard WooCommerce grid views with interactive, AJAX-powered product tables. It is heavily optimized for wholesale, B2B, restaurant menus, and technical part catalogs.
 
 ## Quick Links
-- Homepage & Getting Started: https://wpanchorbay.com/productbay/guide/getting-started
-- Native Gutenberg Blocks: https://wpanchorbay.com/productbay/features/gutenberg-blocks
-- Shortcode Integration: https://wpanchorbay.com/productbay/features/shortcodes
-- Hooks & Filters (Developer API): https://wpanchorbay.com/productbay/developer/hooks
-- Known Issues: https://wpanchorbay.com/productbay/known-issues
+- Homepage & Getting Started: https://docs.wpanchorbay.com/productbay/guide/getting-started
+- Native Gutenberg Blocks: https://docs.wpanchorbay.com/productbay/features/gutenberg-blocks
+- Shortcode Integration: https://docs.wpanchorbay.com/productbay/features/shortcodes
+- Hooks & Filters (Developer API): https://docs.wpanchorbay.com/productbay/developer/hooks
+- Known Issues: https://docs.wpanchorbay.com/productbay/known-issues
 
 ## Core Features
 1. **Interactive UI**: Search, sort, pagination, and category filters that work instantly without reloading the page.

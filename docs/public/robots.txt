@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wpanchorbay.com/productbay/sitemap.xml
+Sitemap: https://docs.wpanchorbay.com/productbay/sitemap.xml
