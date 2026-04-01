@@ -12,8 +12,30 @@ import { useSystemStore } from '@/store/systemStore';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/DropdownMenu';
-import { SearchIcon, CopyIcon, ChevronLeftIcon, ChevronRightIcon, FilterIcon, XIcon, Loader2Icon, PlusIcon, PackageIcon, CheckIcon, CopyCheckIcon, ArrowUpDownIcon, ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+} from '@/components/ui/DropdownMenu';
+import {
+	SearchIcon,
+	CopyIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	FilterIcon,
+	XIcon,
+	Loader2Icon,
+	PlusIcon,
+	PackageIcon,
+	CheckIcon,
+	CopyCheckIcon,
+	ArrowUpDownIcon,
+	ArrowUpIcon,
+	ArrowDownIcon,
+} from 'lucide-react';
 
 interface Table {
 	id: number;
@@ -78,7 +100,7 @@ interface ModalState {
  * Tables Page Component
  *
  * Lists all ProductBay tables with search, filter, bulk actions, and pagination.
- * 
+ *
  * @since 1.0.0
  */
 const Tables = () => {
@@ -95,7 +117,10 @@ const Tables = () => {
 	const [jumpPage, setJumpPage] = useState('');
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [isCustomPerPage, setIsCustomPerPage] = useState(false);
-	const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>({ key: 'date', direction: 'desc' });
+	const [sortConfig, setSortConfig] = useState<{
+		key: string;
+		direction: 'asc' | 'desc';
+	} | null>({ key: 'date', direction: 'desc' });
 
 	// Use the system store instead of local state
 	const { status, loading, fetchStatus, error } = useSystemStore();
@@ -133,7 +158,7 @@ const Tables = () => {
 			toast({
 				title: __('Error', 'productbay'),
 				description: __('Failed to load tables', 'productbay'),
-				type: 'error'
+				type: 'error',
 			});
 		} finally {
 			setIsLoading(false);
@@ -152,7 +177,12 @@ const Tables = () => {
 
 	// Open toggle status modal
 	const openToggleModal = (id: number, title: string, currentStatus: string) => {
-		setModalState({ type: 'toggle', tableId: id, tableName: title, currentStatus });
+		setModalState({
+			type: 'toggle',
+			tableId: id,
+			tableName: title,
+			currentStatus,
+		});
 	};
 
 	// Close modal
@@ -165,26 +195,26 @@ const Tables = () => {
 		if (!modalState.tableId) return;
 
 		const id = modalState.tableId;
-		setActionLoading(prev => ({ ...prev, [id]: 'delete' }));
+		setActionLoading((prev) => ({ ...prev, [id]: 'delete' }));
 		closeModal();
 
 		try {
 			await apiFetch(`tables/${id}`, { method: 'DELETE' });
-			setTables(prev => prev.filter(t => t.id !== id));
+			setTables((prev) => prev.filter((t) => t.id !== id));
 			toast({
 				title: __('Success', 'productbay'),
 				description: __('Table deleted successfully', 'productbay'),
-				type: 'success'
+				type: 'success',
 			});
 		} catch (error) {
 			console.error(error);
 			toast({
 				title: __('Error', 'productbay'),
 				description: __('Failed to delete table', 'productbay'),
-				type: 'error'
+				type: 'error',
 			});
 		} finally {
-			setActionLoading(prev => {
+			setActionLoading((prev) => {
 				const newState = { ...prev };
 				delete newState[id];
 				return newState;
@@ -197,10 +227,10 @@ const Tables = () => {
 		if (!modalState.tableId) return;
 
 		const id = modalState.tableId;
-		const tableToClone = tables.find(t => t.id === id);
+		const tableToClone = tables.find((t) => t.id === id);
 		if (!tableToClone) return;
 
-		setActionLoading(prev => ({ ...prev, [id]: 'duplicate' }));
+		setActionLoading((prev) => ({ ...prev, [id]: 'duplicate' }));
 		closeModal();
 
 		try {
@@ -216,24 +246,24 @@ const Tables = () => {
 
 			const newTable = await apiFetch<Table>('tables', {
 				method: 'POST',
-				body: JSON.stringify({ data: payload })
+				body: JSON.stringify({ data: payload }),
 			});
 
-			setTables(prev => [newTable, ...prev]);
+			setTables((prev) => [newTable, ...prev]);
 			toast({
 				title: __('Success', 'productbay'),
 				description: __('Table duplicated successfully', 'productbay'),
-				type: 'success'
+				type: 'success',
 			});
 		} catch (error) {
 			console.error(error);
 			toast({
 				title: __('Error', 'productbay'),
 				description: __('Failed to duplicate table', 'productbay'),
-				type: 'error'
+				type: 'error',
 			});
 		} finally {
-			setActionLoading(prev => {
+			setActionLoading((prev) => {
 				const newState = { ...prev };
 				delete newState[id];
 				return newState;
@@ -246,11 +276,11 @@ const Tables = () => {
 		if (!modalState.tableId) return;
 
 		const id = modalState.tableId;
-		const table = tables.find(t => t.id === id);
+		const table = tables.find((t) => t.id === id);
 		if (!table) return;
 
 		const newStatus = table.status === 'publish' ? 'private' : 'publish';
-		setActionLoading(prev => ({ ...prev, [id]: 'toggle' }));
+		setActionLoading((prev) => ({ ...prev, [id]: 'toggle' }));
 		closeModal();
 
 		try {
@@ -266,29 +296,28 @@ const Tables = () => {
 
 			await apiFetch('tables', {
 				method: 'POST',
-				body: JSON.stringify({ data: payload })
+				body: JSON.stringify({ data: payload }),
 			});
 
-			setTables(prev =>
-				prev.map(t => t.id === id ? { ...t, status: newStatus } : t)
-			);
+			setTables((prev) => prev.map((t) => (t.id === id ? { ...t, status: newStatus } : t)));
 
 			toast({
 				title: __('Success', 'productbay'),
-				description: newStatus === 'publish'
-					? __('Table published successfully', 'productbay')
-					: __('Table set to private successfully', 'productbay'),
-				type: 'success'
+				description:
+					newStatus === 'publish'
+						? __('Table published successfully', 'productbay')
+						: __('Table set to private successfully', 'productbay'),
+				type: 'success',
 			});
 		} catch (error) {
 			console.error(error);
 			toast({
 				title: __('Error', 'productbay'),
 				description: __('Failed to update table status', 'productbay'),
-				type: 'error'
+				type: 'error',
 			});
 		} finally {
-			setActionLoading(prev => {
+			setActionLoading((prev) => {
 				const newState = { ...prev };
 				delete newState[id];
 				return newState;
@@ -302,7 +331,10 @@ const Tables = () => {
 	const copyShortcode = (shortcode: string, id: number) => {
 		copyToClipboard(shortcode);
 		setCopiedTableId(id);
-		setTimeout(() => setCopiedTableId((currentId) => currentId === id ? null : currentId), 2000);
+		setTimeout(
+			() => setCopiedTableId((currentId) => (currentId === id ? null : currentId)),
+			2000
+		);
 	};
 
 	// Bulk Actions
@@ -331,73 +363,83 @@ const Tables = () => {
 			// Process actions
 			if (selectedBulkAction === 'delete') {
 				// Delete all selected tables
-				await Promise.all(selectedRows.map(id =>
-					apiFetch(`tables/${id}`, { method: 'DELETE' })
-				));
+				await Promise.all(
+					selectedRows.map((id) => apiFetch(`tables/${id}`, { method: 'DELETE' }))
+				);
 
 				// Update local state
-				setTables(prev => prev.filter(t => !selectedRows.includes(t.id)));
+				setTables((prev) => prev.filter((t) => !selectedRows.includes(t.id)));
 
 				toast({
 					title: __('Success', 'productbay'),
 					description: sprintf(
 						/* translators: %d: number of tables deleted */
-						_n('Deleted %d table successfully', 'Deleted %d tables successfully', selectedRows.length, 'productbay'),
+						_n(
+							'Deleted %d table successfully',
+							'Deleted %d tables successfully',
+							selectedRows.length,
+							'productbay'
+						),
 						selectedRows.length
 					),
-					type: 'success'
+					type: 'success',
 				});
-
 			} else if (selectedBulkAction === 'published' || selectedBulkAction === 'private') {
 				// Determine new status
 				const newStatus = selectedBulkAction === 'published' ? 'publish' : 'private';
 
 				// Process updates for each selected table
-				await Promise.all(selectedRows.map(async (id) => {
-					const table = tables.find(t => t.id === id);
-					if (!table) return;
+				await Promise.all(
+					selectedRows.map(async (id) => {
+						const table = tables.find((t) => t.id === id);
+						if (!table) return;
 
-					// Only update if status is different
-					if (table.status === newStatus) return;
+						// Only update if status is different
+						if (table.status === newStatus) return;
 
-					const payload = {
-						id: table.id,
-						title: table.title,
-						status: newStatus,
-						source: table.source || {},
-						columns: table.columns || [],
-						settings: table.settings || {},
-						style: table.style || {},
-					};
+						const payload = {
+							id: table.id,
+							title: table.title,
+							status: newStatus,
+							source: table.source || {},
+							columns: table.columns || [],
+							settings: table.settings || {},
+							style: table.style || {},
+						};
 
-					await apiFetch('tables', {
-						method: 'POST',
-						body: JSON.stringify({ data: payload })
-					});
-				}));
+						await apiFetch('tables', {
+							method: 'POST',
+							body: JSON.stringify({ data: payload }),
+						});
+					})
+				);
 
 				// Update local state
-				setTables(prev =>
-					prev.map(t => selectedRows.includes(t.id) ? { ...t, status: newStatus } : t)
+				setTables((prev) =>
+					prev.map((t) => (selectedRows.includes(t.id) ? { ...t, status: newStatus } : t))
 				);
 
 				toast({
 					title: __('Success', 'productbay'),
 					description: sprintf(
 						/* translators: %d: number of tables updated */
-						_n('Updated status for %d table', 'Updated status for %d tables', selectedRows.length, 'productbay'),
+						_n(
+							'Updated status for %d table',
+							'Updated status for %d tables',
+							selectedRows.length,
+							'productbay'
+						),
 						selectedRows.length
 					),
-					type: 'success'
+					type: 'success',
 				});
 			}
-
 		} catch (error) {
 			console.error(error);
 			toast({
 				title: __('Error', 'productbay'),
 				description: __('Failed to apply bulk action', 'productbay'),
-				type: 'error'
+				type: 'error',
 			});
 		} finally {
 			setIsLoading(false);
@@ -408,17 +450,20 @@ const Tables = () => {
 
 	// Filtering & Pagination	// Derived state
 	const filteredTables = React.useMemo(() => {
-		return tables.filter(table => {
-			const matchesSearch = table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+		return tables.filter((table) => {
+			const matchesSearch =
+				table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 				table.id.toString() === searchQuery.replace('#', '') ||
 				table.shortcode.toLowerCase().includes(searchQuery.toLowerCase());
 
-			const matchesStatus = filterStatuses.length === 0 || filterStatuses.includes(table.status);
+			const matchesStatus =
+				filterStatuses.length === 0 || filterStatuses.includes(table.status);
 
 			// Resolve the actual source type
-			const sourceType = typeof table.source === 'object' && table.source !== null
-				? (table.source.type || 'all')
-				: (table.source || 'all');
+			const sourceType =
+				typeof table.source === 'object' && table.source !== null
+					? table.source.type || 'all'
+					: table.source || 'all';
 
 			const matchesSource = filterSources.length === 0 || filterSources.includes(sourceType);
 
@@ -437,8 +482,14 @@ const Tables = () => {
 					aValue = new Date(a.date.replace(' ', 'T')).getTime();
 					bValue = new Date(b.date.replace(' ', 'T')).getTime();
 				} else if (sortConfig.key === 'source') {
-					aValue = typeof a.source === 'object' && a.source !== null ? (a.source.type || 'all') : (a.source || 'all');
-					bValue = typeof b.source === 'object' && b.source !== null ? (b.source.type || 'all') : (b.source || 'all');
+					aValue =
+						typeof a.source === 'object' && a.source !== null
+							? a.source.type || 'all'
+							: a.source || 'all';
+					bValue =
+						typeof b.source === 'object' && b.source !== null
+							? b.source.type || 'all'
+							: b.source || 'all';
 				} else if (typeof aValue === 'string') {
 					aValue = aValue.toLowerCase();
 					bValue = bValue.toLowerCase();
@@ -472,21 +523,24 @@ const Tables = () => {
 
 	const SortIcon = ({ columnKey }: { columnKey: string }) => {
 		if (sortConfig?.key !== columnKey) {
-			return <ArrowUpDownIcon className="w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1" />;
+			return (
+				<ArrowUpDownIcon className="w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1" />
+			);
 		}
-		return sortConfig.direction === 'asc'
-			? <ArrowUpIcon className="w-3 h-3 text-blue-600 ml-1" />
-			: <ArrowDownIcon className="w-3 h-3 text-blue-600 ml-1" />;
+		return sortConfig.direction === 'asc' ? (
+			<ArrowUpIcon className="w-3 h-3 text-blue-600 ml-1" />
+		) : (
+			<ArrowDownIcon className="w-3 h-3 text-blue-600 ml-1" />
+		);
 	};
 
 	return (
 		<div className="space-y-6">
-
-			{ /* 
+			{/* 
 				Empty State Products: No Published Products Found
 				Shown when the site has zero 'published' WooCommerce products.
 				ProductBay requires published products to build and display tables.
-			*/ }
+			*/}
 			{!isLoading && status?.product_count === 0 && (
 				<div className="bg-white p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 mb-6 shadow-sm border border-orange-500">
 					<div className="p-4 rounded-2xl text-orange-500 shrink-0">
@@ -497,20 +551,27 @@ const Tables = () => {
 							{__('No Published Products Found', 'productbay')}
 						</h3>
 						<p className="text-gray-600 text-sm max-w-2xl">
-							{__('ProductBay requires published WooCommerce products to build your tables.', 'productbay')}
+							{__(
+								'ProductBay requires published WooCommerce products to build your tables.',
+								'productbay'
+							)}
 							<br />
-							{__("We couldn't find any products in your WooCommerce store yet.", 'productbay')}
+							{__(
+								"We couldn't find any products in your WooCommerce store yet.",
+								'productbay'
+							)}
 							<br />
-							{__('Create your first product to start building high-converting tables.', 'productbay')}
+							{__(
+								'Create your first product to start building high-converting tables.',
+								'productbay'
+							)}
 						</p>
 					</div>
 					<div className="shrink-0">
 						<Button
 							variant="secondary"
 							className="cursor-pointer border border-green-500"
-							onClick={() =>
-								window.open(WC_PRODUCTS_PATH, '_blank')
-							}
+							onClick={() => window.open(WC_PRODUCTS_PATH, '_blank')}
 						>
 							<PlusIcon size={18} className="mr-2" />
 							{__('Add Products', 'productbay')}
@@ -519,19 +580,22 @@ const Tables = () => {
 				</div>
 			)}
 
-			{ /* Header */}
+			{/* Header */}
 			<div className="flex justify-between items-center">
 				{/* Page Title */}
 				<h1 className="text-2xl font-bold text-gray-800 m-0">
 					<span className="mr-1">{__('All Tables', 'productbay')}</span>
-					{loading ? <span className="animate-pulse font-medium">(*)</span> : <span className="font-medium text-gray-600">({status?.table_count})</span>}
+					{loading ? (
+						<span className="animate-pulse font-medium">(*)</span>
+					) : (
+						<span className="font-medium text-gray-600">({status?.table_count})</span>
+					)}
 				</h1>
-
 			</div>
 
-			{ /* Top Menu: Bulk Actions & Search/Filter */}
+			{/* Top Menu: Bulk Actions & Search/Filter */}
 			<div className="flex flex-col sm:flex-row justify-between items-center gap-4 py-2">
-				{ /* Left: Bulk Actions */}
+				{/* Left: Bulk Actions */}
 				<div className="flex items-center gap-2 w-full sm:w-auto">
 					<div className="w-48">
 						<Select
@@ -546,9 +610,7 @@ const Tables = () => {
 					<Button
 						variant="default"
 						className="px-3 py-2 text-sm disabled:opacity-50 font-medium h-10"
-						disabled={
-							selectedRows.length === 0 || !selectedBulkAction
-						}
+						disabled={selectedRows.length === 0 || !selectedBulkAction}
 						onClick={handleBulkAction}
 					>
 						{__('Apply', 'productbay')}
@@ -557,24 +619,23 @@ const Tables = () => {
 						<span className="text-sm text-gray-500 ml-2">
 							{sprintf(
 								/* translators: %d: number of selected items */
-								__('%d items selected', 'productbay'), selectedRows.length
+								__('%d items selected', 'productbay'),
+								selectedRows.length
 							)}
 						</span>
 					)}
 				</div>
 
-				{ /* Right: Search & Filter */}
+				{/* Right: Search & Filter */}
 				<div className="flex items-center gap-2 w-full sm:w-auto">
-					{ /* Search */}
+					{/* Search */}
 					<div className="relative w-full sm:w-64">
 						<Input
 							type="text"
 							placeholder={__('Search tables...', 'productbay')}
 							className="pr-9"
 							value={searchQuery}
-							onChange={(e) =>
-								setSearchQuery(e.target.value)
-							}
+							onChange={(e) => setSearchQuery(e.target.value)}
 						/>
 						{searchQuery ? (
 							<button
@@ -591,11 +652,14 @@ const Tables = () => {
 						)}
 					</div>
 
-					{ /* Filter */}
+					{/* Filter */}
 					<div>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button variant="outline" className="gap-2 bg-white relative border-gray-300">
+								<Button
+									variant="outline"
+									className="gap-2 bg-white relative border-gray-300"
+								>
 									<FilterIcon className="w-4 h-4 text-gray-500" />
 									{__('Filter', 'productbay')}
 									{(filterStatuses.length > 0 || filterSources.length > 0) && (
@@ -612,9 +676,9 @@ const Tables = () => {
 										key={option.value}
 										closeOnSelect={false}
 										onClick={(e) => {
-											setFilterStatuses(prev =>
+											setFilterStatuses((prev) =>
 												prev.includes(option.value)
-													? prev.filter(v => v !== option.value)
+													? prev.filter((v) => v !== option.value)
 													: [...prev, option.value]
 											);
 										}}
@@ -636,9 +700,9 @@ const Tables = () => {
 										key={option.value}
 										closeOnSelect={false}
 										onClick={(e) => {
-											setFilterSources(prev =>
+											setFilterSources((prev) =>
 												prev.includes(option.value)
-													? prev.filter(v => v !== option.value)
+													? prev.filter((v) => v !== option.value)
 													: [...prev, option.value]
 											);
 										}}
@@ -672,7 +736,7 @@ const Tables = () => {
 				</div>
 			</div>
 
-			{ /* Table */}
+			{/* Table */}
 			<div className="bg-white rounded-lg shadow-xs border border-gray-200 overflow-hidden">
 				<table className="w-full text-left border-collapse">
 					<thead className="bg-gray-50 border-b border-gray-200">
@@ -683,8 +747,7 @@ const Tables = () => {
 									className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
 									checked={
 										currentTables.length > 0 &&
-										selectedRows.length ===
-										currentTables.length
+										selectedRows.length === currentTables.length
 									}
 									onChange={handleSelectAll}
 								/>
@@ -761,10 +824,7 @@ const Tables = () => {
 							))
 						) : currentTables.length === 0 ? (
 							<tr>
-								<td
-									colSpan={6}
-									className="px-6 py-12 text-center text-gray-400"
-								>
+								<td colSpan={6} className="px-6 py-12 text-center text-gray-400">
 									{/* Show welcome screen if no tables exist at all */}
 									{tables.length === 0 ? (
 										<EmptyStateTables />
@@ -807,19 +867,17 @@ const Tables = () => {
 									// Table Row
 									<tr
 										key={table.id}
-										className={`group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''}`}
+										className={`group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${
+											isActing ? 'opacity-50' : ''
+										}`}
 									>
 										{/* Checkbox */}
 										<td className="px-4 py-4 text-center">
 											<input
 												type="checkbox"
 												className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
-												checked={selectedRows.includes(
-													table.id
-												)}
-												onChange={() =>
-													handleSelectRow(table.id)
-												}
+												checked={selectedRows.includes(table.id)}
+												onChange={() => handleSelectRow(table.id)}
 												disabled={isActing}
 											/>
 										</td>
@@ -832,7 +890,8 @@ const Tables = () => {
 												>
 													{table.title}
 													<span className="ml-2 text-sm font-normal text-gray-400">
-														({table.columns?.length || 0} {__('cols', 'productbay')})
+														({table.columns?.length || 0}{' '}
+														{__('cols', 'productbay')})
 													</span>
 													{isActing && (
 														<Loader2Icon className="w-4 h-4 inline-block ml-2 animate-spin" />
@@ -840,7 +899,7 @@ const Tables = () => {
 												</Link>
 											</div>
 
-											{ /* Hover Actions (Visible on group hover) */}
+											{/* Hover Actions (Visible on group hover) */}
 											<div className="flex items-center gap-2 mt-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
 												<Link
 													to={`/table/${table.id}`}
@@ -848,9 +907,7 @@ const Tables = () => {
 												>
 													{__('Edit', 'productbay')}
 												</Link>
-												<span className="text-gray-300">
-													|
-												</span>
+												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
 														openDuplicateModal(table.id, table.title)
@@ -860,9 +917,7 @@ const Tables = () => {
 												>
 													{__('Duplicate', 'productbay')}
 												</button>
-												<span className="text-gray-300">
-													|
-												</span>
+												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
 														openToggleModal(
@@ -878,9 +933,7 @@ const Tables = () => {
 														? __('Set Private', 'productbay')
 														: __('Publish', 'productbay')}
 												</button>
-												<span className="text-gray-300">
-													|
-												</span>
+												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
 														openDeleteModal(table.id, table.title)
@@ -916,11 +969,16 @@ const Tables = () => {
 													onClick={() =>
 														copyShortcode(table.shortcode, table.id)
 													}
-													title={copiedTableId === table.id ? __('Copied!', 'productbay') : __('Copy shortcode', 'productbay')}
-													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${copiedTableId === table.id
-														? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
-														: 'bg-transparent hover:bg-white text-gray-600'
-														}`}
+													title={
+														copiedTableId === table.id
+															? __('Copied!', 'productbay')
+															: __('Copy shortcode', 'productbay')
+													}
+													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${
+														copiedTableId === table.id
+															? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
+															: 'bg-transparent hover:bg-white text-gray-600'
+													}`}
 													disabled={isActing}
 												>
 													{copiedTableId === table.id ? (
@@ -935,14 +993,20 @@ const Tables = () => {
 										<td className="p-4 text-sm text-gray-600 capitalize">
 											<div className="flex items-center gap-2">
 												<span>
-													{typeof table.source === 'object' && table.source !== null
-														// @ts-ignore
-														? (table.source.type || 'Custom')
-														: (table.source || 'WooCommerce')
-													}
+													{typeof table.source === 'object' &&
+													table.source !== null
+														? // @ts-ignore
+														  table.source.type || 'Custom'
+														: table.source || 'WooCommerce'}
 												</span>
 												{table.productCount !== undefined && (
-													<span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600 border border-gray-200" title={__('Matching Products', 'productbay')}>
+													<span
+														className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600 border border-gray-200"
+														title={__(
+															'Matching Products',
+															'productbay'
+														)}
+													>
 														{table.productCount}
 													</span>
 												)}
@@ -955,20 +1019,46 @@ const Tables = () => {
 													{table.status === 'publish' ? (
 														<span className="font-medium text-xs text-gray-700">
 															{__('Published', 'productbay')}: &nbsp;
-															{new Date(table.date.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+															{new Date(
+																table.date.replace(' ', 'T')
+															).toLocaleDateString(undefined, {
+																year: 'numeric',
+																month: 'short',
+																day: 'numeric',
+															})}
 														</span>
 													) : (
 														<span className="font-medium text-xs text-gray-700">
 															{__('Created', 'productbay')}: &nbsp;
-															{new Date(table.date.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+															{new Date(
+																table.date.replace(' ', 'T')
+															).toLocaleDateString(undefined, {
+																year: 'numeric',
+																month: 'short',
+																day: 'numeric',
+															})}
 														</span>
 													)}
-													{table.modifiedDate && table.modifiedDate !== table.date && (
-														<span className="text-xs text-gray-400 mt-1" title={table.modifiedDate}>
-															{__('Modified', 'productbay')}: &nbsp;
-															{new Date(table.modifiedDate.replace(' ', 'T')).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
-														</span>
-													)}
+													{table.modifiedDate &&
+														table.modifiedDate !== table.date && (
+															<span
+																className="text-xs text-gray-400 mt-1"
+																title={table.modifiedDate}
+															>
+																{__('Modified', 'productbay')}:
+																&nbsp;
+																{new Date(
+																	table.modifiedDate.replace(
+																		' ',
+																		'T'
+																	)
+																).toLocaleDateString(undefined, {
+																	year: 'numeric',
+																	month: 'short',
+																	day: 'numeric',
+																})}
+															</span>
+														)}
 												</div>
 											)}
 										</td>
@@ -980,7 +1070,7 @@ const Tables = () => {
 				</table>
 			</div>
 
-			{ /* Pagination Menu */}
+			{/* Pagination Menu */}
 			<div className="flex justify-between items-center">
 				{/* Pagination Info */}
 				<div className="text-sm text-gray-500 px-1">
@@ -1052,26 +1142,17 @@ const Tables = () => {
 						<Button
 							size="xs"
 							variant="outline"
-							onClick={() =>
-								setCurrentPage((p) => Math.max(1, p - 1))
-							}
+							onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
 							disabled={currentPage === 1}
 						>
 							<ChevronLeftIcon size={16} />
 						</Button>
 						{/* Page Number Buttons */}
-						{Array.from(
-							{ length: totalPages },
-							(_, i) => i + 1
-						).map((page) => (
+						{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
 							<Button
 								key={page}
 								size="xs"
-								variant={
-									currentPage === page
-										? 'default'
-										: 'outline'
-								}
+								variant={currentPage === page ? 'default' : 'outline'}
 								disabled={currentPage === page}
 								onClick={() => setCurrentPage(page)}
 							>
@@ -1082,11 +1163,7 @@ const Tables = () => {
 						<Button
 							size="xs"
 							variant="outline"
-							onClick={() =>
-								setCurrentPage((p) =>
-									Math.min(totalPages, p + 1)
-								)
-							}
+							onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
 							disabled={currentPage === totalPages}
 						>
 							<ChevronRightIcon size={16} />
@@ -1108,11 +1185,7 @@ const Tables = () => {
 							onKeyDown={(e) => {
 								if (e.key === 'Enter') {
 									const page = parseInt(jumpPage);
-									if (
-										!isNaN(page) &&
-										page >= 1 &&
-										page <= totalPages
-									) {
+									if (!isNaN(page) && page >= 1 && page <= totalPages) {
 										setCurrentPage(page);
 										setJumpPage('');
 									}
@@ -1124,7 +1197,7 @@ const Tables = () => {
 				</div>
 			</div>
 
-			{ /* Delete Confirmation Modal */}
+			{/* Delete Confirmation Modal */}
 			<Modal
 				isOpen={modalState.type === 'delete'}
 				onClose={closeModal}
@@ -1133,24 +1206,27 @@ const Tables = () => {
 				primaryButton={{
 					text: __('Delete', 'productbay'),
 					onClick: handleDelete,
-					variant: 'danger'
+					variant: 'danger',
 				}}
 				secondaryButton={{
 					text: __('Cancel', 'productbay'),
 					onClick: closeModal,
-					variant: 'secondary'
+					variant: 'secondary',
 				}}
 			>
 				<p className="text-gray-700">
 					{sprintf(
 						/* translators: %s: table name */
-						__('Are you sure you want to delete "%s"? This action cannot be undone.', 'productbay'),
+						__(
+							'Are you sure you want to delete "%s"? This action cannot be undone.',
+							'productbay'
+						),
 						modalState.tableName
 					)}
 				</p>
 			</Modal>
 
-			{ /* Duplicate Confirmation Modal */}
+			{/* Duplicate Confirmation Modal */}
 			<Modal
 				isOpen={modalState.type === 'duplicate'}
 				onClose={closeModal}
@@ -1159,12 +1235,12 @@ const Tables = () => {
 				primaryButton={{
 					text: __('Duplicate', 'productbay'),
 					onClick: handleDuplicate,
-					variant: 'primary'
+					variant: 'primary',
 				}}
 				secondaryButton={{
 					text: __('Cancel', 'productbay'),
 					onClick: closeModal,
-					variant: 'secondary'
+					variant: 'secondary',
 				}}
 			>
 				<p className="text-gray-700">
@@ -1176,38 +1252,38 @@ const Tables = () => {
 				</p>
 			</Modal>
 
-			{ /* Toggle Status Confirmation Modal */}
+			{/* Toggle Status Confirmation Modal */}
 			<Modal
 				isOpen={modalState.type === 'toggle'}
 				onClose={closeModal}
 				title={__('Change Table Status?', 'productbay')}
 				maxWidth="md"
 				primaryButton={{
-					text: modalState.currentStatus === 'publish'
-						? __('Set Private', 'productbay')
-						: __('Publish', 'productbay'),
+					text:
+						modalState.currentStatus === 'publish'
+							? __('Set Private', 'productbay')
+							: __('Publish', 'productbay'),
 					onClick: handleToggleActive,
-					variant: modalState.currentStatus === 'publish' ? 'danger' : 'primary'
+					variant: modalState.currentStatus === 'publish' ? 'danger' : 'primary',
 				}}
 				secondaryButton={{
 					text: __('Cancel', 'productbay'),
 					onClick: closeModal,
-					variant: 'secondary'
+					variant: 'secondary',
 				}}
 			>
 				<p className="text-gray-700">
 					{modalState.currentStatus === 'publish'
 						? sprintf(
-							/* translators: %s: table name */
-							__('Are you sure you want to set "%s" to private?', 'productbay'),
-							modalState.tableName
-						)
+								/* translators: %s: table name */
+								__('Are you sure you want to set "%s" to private?', 'productbay'),
+								modalState.tableName
+						  )
 						: sprintf(
-							/* translators: %s: table name */
-							__('Are you sure you want to publish "%s"?', 'productbay'),
-							modalState.tableName
-						)
-					}
+								/* translators: %s: table name */
+								__('Are you sure you want to publish "%s"?', 'productbay'),
+								modalState.tableName
+						  )}
 				</p>
 			</Modal>
 		</div>
@@ -1229,7 +1305,7 @@ const EmptyStateTables = () => {
 					<p className="text-gray-500 mb-6 text-sm">
 						{__(
 							"You haven't created any tables yet. Create your first table to get started!",
-							"productbay",
+							'productbay'
 						)}
 					</p>
 
@@ -1242,8 +1318,6 @@ const EmptyStateTables = () => {
 						<PlusIcon size={16} className="mr-2" />
 						{NEW_TABLE_PATH.label}
 					</Button>
-
-
 				</div>
 			</div>
 		</div>

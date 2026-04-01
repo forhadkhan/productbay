@@ -11,31 +11,26 @@ import LivePreview from '@/components/Table/LivePreview';
  * ============================================================================= */
 
 const WizardStepOptions: React.FC = () => {
-    const {
-        settings,
-        setFeatures,
-        setPagination,
-        setCart,
-    } = useTableStore();
+	const { settings, setFeatures, setPagination, setCart } = useTableStore();
 
-    return (
-        <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-6">
-            {/* Left: Options Config */}
-            <div className="lg:col-span-3">
-                <OptionsPanel
-                    settings={settings}
-                    setFeatures={setFeatures}
-                    setPagination={setPagination}
-                    setCart={setCart}
-                />
-            </div>
+	return (
+		<div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-6">
+			{/* Left: Options Config */}
+			<div className="lg:col-span-3">
+				<OptionsPanel
+					settings={settings}
+					setFeatures={setFeatures}
+					setPagination={setPagination}
+					setCart={setCart}
+				/>
+			</div>
 
-            {/* Right: Live Preview */}
-            <div className="lg:col-span-2 min-w-0">
-                <LivePreview className="sticky top-4" />
-            </div>
-        </div>
-    );
+			{/* Right: Live Preview */}
+			<div className="lg:col-span-2 min-w-0">
+				<LivePreview className="sticky top-4" />
+			</div>
+		</div>
+	);
 };
 
 export default WizardStepOptions;

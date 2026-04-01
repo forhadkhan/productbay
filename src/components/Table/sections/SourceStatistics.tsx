@@ -37,12 +37,7 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
 	className = '',
 }) => {
 	// Don't render if no data and not loading, unless showEmpty is true
-	if (
-		!loading &&
-		!showEmpty &&
-		categoryCount === 0 &&
-		productCount === 0
-	) {
+	if (!loading && !showEmpty && categoryCount === 0 && productCount === 0) {
 		return null;
 	}
 
@@ -53,17 +48,17 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
 			{loading ? (
 				// Skeleton loader - exact same structure as data for consistent height
 				<div className="flex items-center gap-4 text-sm">
-					{ /* Category skeleton */}
+					{/* Category skeleton */}
 					<div className="flex items-center gap-2">
 						<Skeleton className="h-4 w-4 rounded" />
 						<Skeleton className="h-4 w-8 rounded" />
 						<Skeleton className="h-4 w-20 rounded" />
 					</div>
 
-					{ /* Divider */}
+					{/* Divider */}
 					<div className="h-4 w-px bg-blue-300"></div>
 
-					{ /* Product skeleton */}
+					{/* Product skeleton */}
 					<div className="flex items-center gap-2">
 						<Skeleton className="h-4 w-4 rounded" />
 						<Skeleton className="h-4 w-12 rounded" />
@@ -72,7 +67,7 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
 				</div>
 			) : (
 				<div className="flex items-center gap-4 text-sm">
-					{ /* Category Count */}
+					{/* Category Count */}
 					<div className="flex items-center gap-2 text-blue-700">
 						<FolderOpen className="h-4 w-4" />
 						<span className="font-semibold">{categoryCount}</span>
@@ -81,10 +76,10 @@ export const SourceStatistics: React.FC<SourceStatisticsProps> = ({
 						</span>
 					</div>
 
-					{ /* Divider */}
+					{/* Divider */}
 					<div className="h-4 w-px bg-blue-300"></div>
 
-					{ /* Product Count */}
+					{/* Product Count */}
 					<div className="flex items-center gap-2 text-indigo-700">
 						<Package className="h-4 w-4" />
 						<span className="font-semibold">{productCount}</span>

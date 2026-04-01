@@ -71,11 +71,13 @@ export const NEW_TABLE_PATH: RouteConfig = {
 	showInNav: false,
 };
 
+// ProductBay dashboard path
+export const PRODUCTBAY_DASHBOARD_PATH = '/wp-admin/admin.php?page=productbay';
+
 /** WooCommerce admin paths */
 export const WC_PRODUCTS_PATH = '/wp-admin/edit.php?post_type=product';
 export const WC_ADD_PRODUCT_PATH = '/wp-admin/post-new.php?post_type=product';
-export const WC_ADMIN_PRODUCTS_PATH =
-	'/wp-admin/admin.php?page=wc-admin&task=products';
+export const WC_ADMIN_PRODUCTS_PATH = '/wp-admin/admin.php?page=wc-admin&task=products';
 
 export const PRODUCTBAY_VIDEO_GUIDE_URL = 'https://www.youtube.com/watch?v=VIDEO_ID';
 export const PRODUCTBAY_DOCUMENTATION_URL = 'http://docs.wpanchorbay.com/productbay';

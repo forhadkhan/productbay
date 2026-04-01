@@ -12,7 +12,7 @@ import { PackageIcon, PlusIcon, PlayCircleIcon, LifeBuoyIcon, SheetIcon } from '
  *
  * Main landing page showing system status, quick stats, and getting started guides.
  * Displays different states based on product / table counts.
- * 
+ *
  * @since 1.0.0
  */
 const Dashboard = () => {
@@ -44,11 +44,11 @@ const Dashboard = () => {
 				</h1>
 			</div>
 
-			{ /* 
+			{/* 
                 Empty State: No Published Products Found
                 Shown when the site has zero 'published' WooCommerce products.
                 ProductBay requires published products to build and display tables.
-            */ }
+            */}
 			{!isLoading && status?.product_count === 0 && (
 				<div className="bg-white p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 mb-6 shadow-sm border border-orange-500">
 					<div className="p-4 rounded-2xl text-orange-500 shrink-0">
@@ -59,20 +59,27 @@ const Dashboard = () => {
 							{__('No Published Products Found', 'productbay')}
 						</h3>
 						<p className="text-gray-600 text-sm max-w-2xl">
-							{__('ProductBay requires published WooCommerce products to build your tables.', 'productbay')}
+							{__(
+								'ProductBay requires published WooCommerce products to build your tables.',
+								'productbay'
+							)}
 							<br />
-							{__("We couldn't find any products in your WooCommerce store yet.", 'productbay')}
+							{__(
+								"We couldn't find any products in your WooCommerce store yet.",
+								'productbay'
+							)}
 							<br />
-							{__('Create your first product to start building high-converting tables.', 'productbay')}
+							{__(
+								'Create your first product to start building high-converting tables.',
+								'productbay'
+							)}
 						</p>
 					</div>
 					<div className="shrink-0">
 						<Button
 							variant="secondary"
 							className="cursor-pointer border border-green-500"
-							onClick={() =>
-								window.open(WC_PRODUCTS_PATH, '_blank')
-							}
+							onClick={() => window.open(WC_PRODUCTS_PATH, '_blank')}
 						>
 							<PlusIcon size={18} className="mr-2" />
 							{__('Add Products', 'productbay')}
@@ -81,7 +88,7 @@ const Dashboard = () => {
 				</div>
 			)}
 
-			{ /* Main Content Area */}
+			{/* Main Content Area */}
 			{isLoading ? (
 				// LOADING SKELETON
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,7 +115,10 @@ const Dashboard = () => {
 						{__('Welcome to ProductBay', 'productbay')}
 					</h2>
 					<p className="text-gray-500 max-w-md mx-auto mb-8">
-						{__('Get started by creating your first product table. It takes less than 2 minutes to significantly improve your conversion rate.', 'productbay')}
+						{__(
+							'Get started by creating your first product table. It takes less than 2 minutes to significantly improve your conversion rate.',
+							'productbay'
+						)}
 					</p>
 					<Button
 						onClick={() => navigate(PATHS.NEW)}
@@ -153,42 +163,42 @@ const Dashboard = () => {
 				</div>
 			)}
 
-			{ /* Info Cards Grid - Always Visible (Static content doesn't need loading state) */}
+			{/* Info Cards Grid - Always Visible (Static content doesn't need loading state) */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-				{ /* Getting Started */}
+				{/* Getting Started */}
 				<div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
 					<div className="flex items-center gap-3 mb-4 text-gray-800">
 						<PlayCircleIcon className="text-blue-500" />
 						<h3 className="font-bold">{__('Getting Started', 'productbay')}</h3>
 					</div>
 					<p className="text-sm text-gray-500 mb-4">
-						{__('Watch our quick video guide or read the documentation to master ProductBay in minutes.', 'productbay')}
+						{__(
+							'Watch our quick video guide or read the documentation to master ProductBay in minutes.',
+							'productbay'
+						)}
 					</p>
 					<div className="flex gap-3 text-sm">
-						<a
-							href="#"
-							className="text-blue-600 hover:underline underline-offset-4"
-						>
+						<a href="#" className="text-blue-600 hover:underline underline-offset-4">
 							{__('Watch Video', 'productbay')}
 						</a>
 						<span className="text-gray-300">|</span>
-						<a
-							href="#"
-							className="text-blue-600 hover:underline underline-offset-4"
-						>
+						<a href="#" className="text-blue-600 hover:underline underline-offset-4">
 							{__('Documentation', 'productbay')}
 						</a>
 					</div>
 				</div>
 
-				{ /* Feedback */}
+				{/* Feedback */}
 				<div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
 					<div className="flex items-center gap-3 mb-4 text-gray-800">
 						<LifeBuoyIcon className="text-orange-500" />
 						<h3 className="font-bold">{__('Help & Support', 'productbay')}</h3>
 					</div>
 					<p className="text-sm text-gray-500 mb-4">
-						{__("Need help? Have a feature request? We'd love to hear from you.", 'productbay')}
+						{__(
+							"Need help? Have a feature request? We'd love to hear from you.",
+							'productbay'
+						)}
 					</p>
 					<Link
 						to="/help"

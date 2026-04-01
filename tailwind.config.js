@@ -3,13 +3,7 @@ module.exports = {
 	// This scopes all Tailwind utilities to our plugin wrapper
 	important: '#productbay-root',
 
-	content: [
-		'./**/*.php',
-		'./src/**/*.js',
-		'./src/**/*.ts',
-		'./src/**/*.jsx',
-		'./src/**/*.tsx',
-	],
+	content: ['./**/*.php', './src/**/*.js', './src/**/*.ts', './src/**/*.jsx', './src/**/*.tsx'],
 
 	corePlugins: {
 		// CRITICAL: Disable preflight so we don't break the WP Admin or Theme styles
@@ -37,7 +31,7 @@ module.exports = {
 					error: '#dc2626',
 					warning: '#fbbf24',
 					info: '#93c5fd',
-					brand: '#f05c2a'
+					brand: '#f05c2a',
 				},
 			},
 		},

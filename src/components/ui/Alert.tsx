@@ -81,10 +81,7 @@ const AlertTitle = ({ className, ...props }: React.ComponentProps<'div'>) => {
  * AlertDescription component for the alert body text.
  * Should be used as a direct child of Alert.
  */
-const AlertDescription = ({
-	className,
-	...props
-}: React.ComponentProps<'div'>) => {
+const AlertDescription = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
 		<div
 			data-slot="alert-description"

@@ -1,141 +1,167 @@
-import { PRODUCTBAY_DOCUMENTATION_URL, PRODUCTBAY_LANDING_PAGE_URL, PRODUCTBAY_PRO_SUPPORT_URL, PRODUCTBAY_SUPPORT_EMAIL, PRODUCTBAY_SUPPORT_URL } from "@/utils/routes";
-import { LifeBuoyIcon, PlayCircleIcon } from "lucide-react";
-import ProductBayIcon from "@/components/ui/ProductBayIcon";
+import {
+	PRODUCTBAY_DOCUMENTATION_URL,
+	PRODUCTBAY_LANDING_PAGE_URL,
+	PRODUCTBAY_PRO_SUPPORT_URL,
+	PRODUCTBAY_SUPPORT_EMAIL,
+	PRODUCTBAY_SUPPORT_URL,
+} from '@/utils/routes';
+import { LifeBuoyIcon, PlayCircleIcon } from 'lucide-react';
+import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { __ } from '@wordpress/i18n';
 
 export const MinimalFooter = () => {
-    return (
-        <footer className="my-6">
-            {/* Divider */}
-            <div className="relative py-4">
-                <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                    <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center">
-                    <span className="bg-wp-bg px-4">
-                        <ProductBayIcon className="size-10 grayscale" />
-                    </span>
-                </div>
-            </div>
+	return (
+		<footer className="my-6">
+			{/* Divider */}
+			<div className="relative py-4">
+				<div className="absolute inset-0 flex items-center" aria-hidden="true">
+					<div className="w-full border-t border-gray-300"></div>
+				</div>
+				<div className="relative flex justify-center">
+					<span className="bg-wp-bg px-4">
+						<ProductBayIcon className="size-10 grayscale" />
+					</span>
+				</div>
+			</div>
 
-            {/* Links */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a className="hover:underline underline-offset-4 w-20 text-center" href={PRODUCTBAY_LANDING_PAGE_URL} target="_blank" rel="noopener noreferrer">
-                    {__('Learn More', 'productbay')}
-                </a>
-                {/* <span className="hidden sm:inline text-gray-700">&#9678;</span>
+			{/* Links */}
+			<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+				<a
+					className="hover:underline underline-offset-4 w-20 text-center"
+					href={PRODUCTBAY_LANDING_PAGE_URL}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{__('Learn More', 'productbay')}
+				</a>
+				{/* <span className="hidden sm:inline text-gray-700">&#9678;</span>
                 <a className="hover:underline underline-offset-4 w-20 text-center" href={PRODUCTBAY_DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer">
                     {__('Documentation', 'productbay')}
                 </a> */}
-                <span className="hidden sm:inline text-gray-700">&#9678;</span>
-                <a className="hover:underline underline-offset-4 w-20 text-center" href={PRODUCTBAY_SUPPORT_URL} target="_blank" rel="noopener noreferrer">
-                    {__('Support', 'productbay')}
-                </a>
-            </div>
+				<span className="hidden sm:inline text-gray-700">&#9678;</span>
+				<a
+					className="hover:underline underline-offset-4 w-20 text-center"
+					href={PRODUCTBAY_SUPPORT_URL}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{__('Support', 'productbay')}
+				</a>
+			</div>
 
-            {/* Version Info */}
-            <div className="text-center text-xs text-gray-400 mt-4">
-                {__('ProductBay v', 'productbay')}{productBaySettings.version}
-                {productBaySettings.proVersion && ` ◎ ${__('Pro v', 'productbay')}${productBaySettings.proVersion}`}
-            </div>
-        </footer>
-    );
-}
+			{/* Version Info */}
+			<div className="text-center text-xs text-gray-400 mt-4">
+				{__('ProductBay v', 'productbay')}
+				{productBaySettings.version}
+				{productBaySettings.proVersion &&
+					` ◎ ${__('Pro v', 'productbay')}${productBaySettings.proVersion}`}
+			</div>
+		</footer>
+	);
+};
 
 export const Footer = () => {
-    return (
-        <footer className="mt-6">
-            {/* Divider */}
-            <div className="relative py-4">
-                <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                    <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center">
-                    <span className="bg-wp-bg px-4">
-                        <ProductBayIcon className="size-10 grayscale" />
-                    </span>
-                </div>
-            </div>
+	return (
+		<footer className="mt-6">
+			{/* Divider */}
+			<div className="relative py-4">
+				<div className="absolute inset-0 flex items-center" aria-hidden="true">
+					<div className="w-full border-t border-gray-300"></div>
+				</div>
+				<div className="relative flex justify-center">
+					<span className="bg-wp-bg px-4">
+						<ProductBayIcon className="size-10 grayscale" />
+					</span>
+				</div>
+			</div>
 
-            {/* Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
-                { /* Guides */}
-                <section className="bg-gray-50 p-6 rounded-lg border border-gray-100">
-                    <div className="flex items-center gap-3 mb-4 text-gray-800">
-                        <PlayCircleIcon className="text-blue-500" />
-                        <h3 className="font-bold">{__('Learn More', 'productbay')}</h3>
-                    </div>
-                    <p className="text-sm text-gray-500 mb-4">
-                        {__('Explore ProductBay details or read the documentation to master it in minutes.', 'productbay')}
-                    </p>
-                    <div className="flex gap-3 text-sm">
-                        <a
-                            href={PRODUCTBAY_LANDING_PAGE_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline underline-offset-4"
-                        >
-                            {__('Find Details', 'productbay')}
-                        </a>
-                        <span className="text-gray-300">|</span>
-                        <a
-                            href={PRODUCTBAY_DOCUMENTATION_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline underline-offset-4"
-                        >
-                            {__('Documentation', 'productbay')}
-                        </a>
-                    </div>
-                </section>
+			{/* Info Cards */}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
+				{/* Guides */}
+				<section className="bg-gray-50 p-6 rounded-lg border border-gray-100">
+					<div className="flex items-center gap-3 mb-4 text-gray-800">
+						<PlayCircleIcon className="text-blue-500" />
+						<h3 className="font-bold">{__('Learn More', 'productbay')}</h3>
+					</div>
+					<p className="text-sm text-gray-500 mb-4">
+						{__(
+							'Explore ProductBay details or read the documentation to master it in minutes.',
+							'productbay'
+						)}
+					</p>
+					<div className="flex gap-3 text-sm">
+						<a
+							href={PRODUCTBAY_LANDING_PAGE_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:underline underline-offset-4"
+						>
+							{__('Find Details', 'productbay')}
+						</a>
+						<span className="text-gray-300">|</span>
+						<a
+							href={PRODUCTBAY_DOCUMENTATION_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:underline underline-offset-4"
+						>
+							{__('Documentation', 'productbay')}
+						</a>
+					</div>
+				</section>
 
-                { /* Feedback */}
-                <section className="bg-gray-50 p-6 rounded-lg border border-gray-100">
-                    <div className="flex items-center gap-3 mb-4 text-gray-800">
-                        <LifeBuoyIcon className="text-orange-500" />
-                        <h3 className="font-bold">{__('Help & Support', 'productbay')}</h3>
-                    </div>
-                    <p className="text-sm text-gray-500 mb-4">
-                        {__("Need help? Have a feature request? We'd love to hear from you.", 'productbay')}
-                    </p>
-                    <div className="flex gap-3 text-sm">
-                        <a
-                            href={PRODUCTBAY_SUPPORT_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline underline-offset-4"
-                        >
-                            {__('Community Support', 'productbay')}
-                        </a>
-                        <span className="text-gray-300">|</span>
-                        <a
-                            href={PRODUCTBAY_PRO_SUPPORT_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline underline-offset-4"
-                        >
-                            {__('Registered User Help', 'productbay')}
-                        </a>
-                        <span className="text-gray-300">|</span>
-                        <a
-                            href={`mailto:${PRODUCTBAY_SUPPORT_EMAIL}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline underline-offset-4"
-                        >
-                            {__('Email Us', 'productbay')}
-                        </a>
-                    </div>
-                </section>
-            </div>
+				{/* Feedback */}
+				<section className="bg-gray-50 p-6 rounded-lg border border-gray-100">
+					<div className="flex items-center gap-3 mb-4 text-gray-800">
+						<LifeBuoyIcon className="text-orange-500" />
+						<h3 className="font-bold">{__('Help & Support', 'productbay')}</h3>
+					</div>
+					<p className="text-sm text-gray-500 mb-4">
+						{__(
+							"Need help? Have a feature request? We'd love to hear from you.",
+							'productbay'
+						)}
+					</p>
+					<div className="flex gap-3 text-sm">
+						<a
+							href={PRODUCTBAY_SUPPORT_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:underline underline-offset-4"
+						>
+							{__('Community Support', 'productbay')}
+						</a>
+						<span className="text-gray-300">|</span>
+						<a
+							href={PRODUCTBAY_PRO_SUPPORT_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:underline underline-offset-4"
+						>
+							{__('Registered User Help', 'productbay')}
+						</a>
+						<span className="text-gray-300">|</span>
+						<a
+							href={`mailto:${PRODUCTBAY_SUPPORT_EMAIL}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:underline underline-offset-4"
+						>
+							{__('Email Us', 'productbay')}
+						</a>
+					</div>
+				</section>
+			</div>
 
-            {/* Version Info */}
-            <div className="text-center text-xs text-gray-400 mt-4 pb-6">
-                {__('ProductBay v', 'productbay')}{productBaySettings.version}
-                {productBaySettings.proVersion && ` ◎ ${__('Pro v', 'productbay')}${productBaySettings.proVersion}`}
-            </div>
-        </footer>
-    );
+			{/* Version Info */}
+			<div className="text-center text-xs text-gray-400 mt-4 pb-6">
+				{__('ProductBay v', 'productbay')}
+				{productBaySettings.version}
+				{productBaySettings.proVersion &&
+					` ◎ ${__('Pro v', 'productbay')}${productBaySettings.proVersion}`}
+			</div>
+		</footer>
+	);
 };
 
 export default Footer;

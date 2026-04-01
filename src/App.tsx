@@ -11,12 +11,14 @@ import { SlotFillProvider } from '@wordpress/components';
 import { useExtensionStore } from './store/extensionStore';
 
 const ExtensionFills = () => {
-    const fills = useExtensionStore((state) => state.fills);
-    return (
-        <>
-            {fills.map((Fill, i) => <Fill key={i} />)}
-        </>
-    );
+	const fills = useExtensionStore((state) => state.fills);
+	return (
+		<>
+			{fills.map((Fill, i) => (
+				<Fill key={i} />
+			))}
+		</>
+	);
 };
 
 const App = () => {
@@ -28,11 +30,7 @@ const App = () => {
 					<AdminLayout>
 						<Routes>
 							{routes.map((route, index) => (
-								<Route
-									key={index}
-									path={route.path}
-									element={<route.element />}
-								/>
+								<Route key={index} path={route.path} element={<route.element />} />
 							))}
 						</Routes>
 						<Toaster />

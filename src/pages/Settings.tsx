@@ -20,7 +20,7 @@ import {
 	createDefaultColumns,
 	DataSource,
 	TableStyle,
-	TableSettings as TableSettingsType
+	TableSettings as TableSettingsType,
 } from '@/types';
 
 // Static imports for settings components
@@ -45,9 +45,9 @@ const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 
 /**
  * Settings Page Component
- * 
+ *
  * Main configuration hub for global defaults and plugin-wide behavior.
- * 
+ *
  * @since 1.0.0
  */
 const Settings = () => {
@@ -57,14 +57,14 @@ const Settings = () => {
 
 	// -- State Management via custom store --
 	const {
-		settings,         // Current settings object (including unsaved changes)
-		loading,          // Flag for initial data fetching
-		saving,           // Flag for active save request
-		isDirty,          // True if current settings differ from originalSettings
+		settings, // Current settings object (including unsaved changes)
+		loading, // Flag for initial data fetching
+		saving, // Flag for active save request
+		isDirty, // True if current settings differ from originalSettings
 		originalSettings, // Pristine settings from DB
-		fetchSettings,    // Action to load settings from REST API
-		updateSettings,   // Action to update local state
-		saveSettings      // Action to persist state to DB
+		fetchSettings, // Action to load settings from REST API
+		updateSettings, // Action to update local state
+		saveSettings, // Action to persist state to DB
 	} = useSettingsStore();
 
 	/**
@@ -94,7 +94,7 @@ const Settings = () => {
 	/**
 	 * Generic updater for global table defaults.
 	 * Merges existing data with new changes for the specified key.
-	 * 
+	 *
 	 * @param key The part of table_defaults to update.
 	 * @param data The new partial data.
 	 */
@@ -103,8 +103,8 @@ const Settings = () => {
 			...settings,
 			table_defaults: {
 				...tableDefaults,
-				[key]: key === 'columns' ? data : { ...tableDefaults[key], ...data }
-			}
+				[key]: key === 'columns' ? data : { ...tableDefaults[key], ...data },
+			},
 		});
 	};
 
@@ -115,18 +115,55 @@ const Settings = () => {
 	const setColumns = (cols: any) => updateDefaults('columns', cols);
 
 	// Styling handlers for granular sub-objects
-	const setHeaderStyle = (v: any) => updateDefaults('style', { ...style, header: { ...style.header, ...v } });
-	const setBodyStyle = (v: any) => updateDefaults('style', { ...style, body: { ...style.body, ...v } });
-	const setButtonStyle = (v: any) => updateDefaults('style', { ...style, button: { ...style.button, ...v } });
-	const setLayoutStyle = (v: any) => updateDefaults('style', { ...style, layout: { ...style.layout, ...v } });
-	const setTypographyStyle = (v: any) => updateDefaults('style', { ...style, typography: { ...style.typography, ...v } });
-	const setHoverStyle = (v: any) => updateDefaults('style', { ...style, hover: { ...style.hover, ...v } });
+	const setHeaderStyle = (v: any) =>
+		updateDefaults('style', {
+			...style,
+			header: { ...style.header, ...v },
+		});
+	const setBodyStyle = (v: any) =>
+		updateDefaults('style', { ...style, body: { ...style.body, ...v } });
+	const setButtonStyle = (v: any) =>
+		updateDefaults('style', {
+			...style,
+			button: { ...style.button, ...v },
+		});
+	const setLayoutStyle = (v: any) =>
+		updateDefaults('style', {
+			...style,
+			layout: { ...style.layout, ...v },
+		});
+	const setTypographyStyle = (v: any) =>
+		updateDefaults('style', {
+			...style,
+			typography: { ...style.typography, ...v },
+		});
+	const setHoverStyle = (v: any) =>
+		updateDefaults('style', {
+			...style,
+			hover: { ...style.hover, ...v },
+		});
 
 	// Functionality handlers for granular sub-objects
-	const setFeatures = (v: any) => updateDefaults('settings', { ...tableSettings, features: { ...tableSettings.features, ...v } });
-	const setPagination = (v: any) => updateDefaults('settings', { ...tableSettings, pagination: { ...tableSettings.pagination, ...v } });
-	const setCart = (v: any) => updateDefaults('settings', { ...tableSettings, cart: { ...tableSettings.cart, ...v } });
-	const setFilters = (v: any) => updateDefaults('settings', { ...tableSettings, filters: { ...tableSettings.filters, ...v } });
+	const setFeatures = (v: any) =>
+		updateDefaults('settings', {
+			...tableSettings,
+			features: { ...tableSettings.features, ...v },
+		});
+	const setPagination = (v: any) =>
+		updateDefaults('settings', {
+			...tableSettings,
+			pagination: { ...tableSettings.pagination, ...v },
+		});
+	const setCart = (v: any) =>
+		updateDefaults('settings', {
+			...tableSettings,
+			cart: { ...tableSettings.cart, ...v },
+		});
+	const setFilters = (v: any) =>
+		updateDefaults('settings', {
+			...tableSettings,
+			filters: { ...tableSettings.filters, ...v },
+		});
 
 	/**
 	 * Persists current settings state to the backend.
@@ -149,7 +186,9 @@ const Settings = () => {
 		} catch (error) {
 			toast({
 				title: __('Failed to save settings', 'productbay'),
-				description: (error as Error).message || __('An error occurred while saving your settings.', 'productbay'),
+				description:
+					(error as Error).message ||
+					__('An error occurred while saving your settings.', 'productbay'),
 				type: 'error',
 			});
 		}
@@ -172,13 +211,16 @@ const Settings = () => {
 				source: createDefaultSource(),
 				style: createDefaultStyle(),
 				settings: createDefaultSettings(),
-				columns: createDefaultColumns()
-			}
+				columns: createDefaultColumns(),
+			},
 		});
 		setShowResetModal(false);
 		toast({
 			title: __('Defaults Reset', 'productbay'),
-			description: __('Global default settings have been reset to factory values.', 'productbay'),
+			description: __(
+				'Global default settings have been reset to factory values.',
+				'productbay'
+			),
 			type: 'success',
 		});
 	};
@@ -222,7 +264,9 @@ const Settings = () => {
 						onClick={handleSave}
 						disabled={saving || !isDirty}
 						variant="default"
-						className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+						className={`w-36 ${
+							saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'
+						}`}
 					>
 						{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
 						<SaveIcon className="w-4 h-4 ml-2" />
@@ -249,8 +293,15 @@ const Settings = () => {
 					<div className="space-y-10 p-6">
 						<div className="max-w-4xl space-y-10">
 							<div>
-								<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Source', 'productbay')}</h2>
-								<p className="text-gray-500 mb-6">{__('Configure the default data source settings for new tables.', 'productbay')}</p>
+								<h2 className="text-lg font-bold text-gray-900 mb-2">
+									{__('Default Source', 'productbay')}
+								</h2>
+								<p className="text-gray-500 mb-6">
+									{__(
+										'Configure the default data source settings for new tables.',
+										'productbay'
+									)}
+								</p>
 
 								<SourcePanel
 									source={source}
@@ -263,12 +314,16 @@ const Settings = () => {
 
 							<div className="flex flex-col gap-8">
 								<div>
-									<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Columns', 'productbay')}</h2>
-									<p className="text-gray-500 mb-6">{__('Configure the default columns for new tables.', 'productbay')}</p>
-									<DefaultColumnsConfig
-										columns={columns}
-										onChange={setColumns}
-									/>
+									<h2 className="text-lg font-bold text-gray-900 mb-2">
+										{__('Default Columns', 'productbay')}
+									</h2>
+									<p className="text-gray-500 mb-6">
+										{__(
+											'Configure the default columns for new tables.',
+											'productbay'
+										)}
+									</p>
+									<DefaultColumnsConfig columns={columns} onChange={setColumns} />
 								</div>
 
 								{/* Bulk Select Configuration */}
@@ -281,8 +336,15 @@ const Settings = () => {
 							<hr className="border-b-2 border-gray-200" />
 
 							<div>
-								<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Styling', 'productbay')}</h2>
-								<p className="text-gray-500 mb-6">{__('Set the default look and feel for your tables.', 'productbay')}</p>
+								<h2 className="text-lg font-bold text-gray-900 mb-2">
+									{__('Default Styling', 'productbay')}
+								</h2>
+								<p className="text-gray-500 mb-6">
+									{__(
+										'Set the default look and feel for your tables.',
+										'productbay'
+									)}
+								</p>
 								<DisplayPanel
 									style={style}
 									setHeaderStyle={setHeaderStyle}
@@ -298,8 +360,15 @@ const Settings = () => {
 							<hr className="border-b-2 border-gray-200" />
 
 							<div>
-								<h2 className="text-lg font-bold text-gray-900 mb-2">{__('Default Functionality', 'productbay')}</h2>
-								<p className="text-gray-500 mb-6">{__('Configure default features like sorting, pagination, and filters.', 'productbay')}</p>
+								<h2 className="text-lg font-bold text-gray-900 mb-2">
+									{__('Default Functionality', 'productbay')}
+								</h2>
+								<p className="text-gray-500 mb-6">
+									{__(
+										'Configure default features like sorting, pagination, and filters.',
+										'productbay'
+									)}
+								</p>
 								<OptionsPanel
 									settings={tableSettings}
 									setFeatures={setFeatures}
@@ -326,9 +395,7 @@ const Settings = () => {
 							setSettings={updateSettings}
 							loading={loading}
 						/>
-						<ClearDataOptions
-							loading={loading}
-						/>
+						<ClearDataOptions loading={loading} />
 					</div>
 				)}
 			</Tabs>
@@ -353,7 +420,10 @@ const Settings = () => {
 				}}
 			>
 				<p className="text-gray-600 m-0">
-					{__('The admin bar setting requires a page reload to take effect. Would you like to reload now?', 'productbay')}
+					{__(
+						'The admin bar setting requires a page reload to take effect. Would you like to reload now?',
+						'productbay'
+					)}
 				</p>
 			</Modal>
 
@@ -377,7 +447,10 @@ const Settings = () => {
 				}}
 			>
 				<p className="text-gray-600 m-0">
-					{__('Are you sure you want to reset all global default configurations to their factory settings? This action cannot be undone.', 'productbay')}
+					{__(
+						'Are you sure you want to reset all global default configurations to their factory settings? This action cannot be undone.',
+						'productbay'
+					)}
 				</p>
 			</Modal>
 		</div>

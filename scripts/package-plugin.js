@@ -71,9 +71,7 @@ async function copyAssetsFiltered(srcDir, destDir) {
 
 			// Exclude files matching patterns
 			if (!fs.statSync(src).isDirectory()) {
-				return !ASSETS_EXCLUDE_PATTERNS.some((pattern) =>
-					pattern.test(rel)
-				);
+				return !ASSETS_EXCLUDE_PATTERNS.some((pattern) => pattern.test(rel));
 			}
 
 			return true;
@@ -107,7 +105,10 @@ async function stripComposerDevSections(composerPath) {
 
 		// 2. Generate i18n files (POT + JSON translations)
 		console.log('🌐 Generating i18n files...');
-		execSync('bun run i18n:make-pot', { stdio: 'inherit', cwd: ROOT_DIR });
+		execSync('bun run i18n:make-pot', {
+			stdio: 'inherit',
+			cwd: ROOT_DIR,
+		});
 		execSync('bun run i18n:make-json', {
 			stdio: 'inherit',
 			cwd: ROOT_DIR,
@@ -123,24 +124,25 @@ async function stripComposerDevSections(composerPath) {
 			const src = path.join(ROOT_DIR, item);
 			const dest = path.join(PLUGIN_DIR, item);
 			if (await fs.pathExists(src)) {
-				await fs.copy(src, dest);
+				// Special case: Exclude source maps from 'blocks' directory to reduce zip size (~1.3MB)
+				if (item === 'blocks') {
+					await fs.copy(src, dest, {
+						filter: (srcPath) => !srcPath.endsWith('.map'),
+					});
+				} else {
+					await fs.copy(src, dest);
+				}
 			}
 		}
 
 		// 5. Copy assets with filtering (exclude source maps, unused files)
 		console.log('📂 Copying assets (filtered)...');
-		await copyAssetsFiltered(
-			path.join(ROOT_DIR, 'assets'),
-			path.join(PLUGIN_DIR, 'assets')
-		);
+		await copyAssetsFiltered(path.join(ROOT_DIR, 'assets'), path.join(PLUGIN_DIR, 'assets'));
 
 		// 6. Install Production Composer Dependencies (in the staging folder)
 		// Run BEFORE stripping require-dev so composer.json matches the lock file
 		console.log('📦 Installing Production Composer Dependencies...');
-		await fs.copy(
-			path.join(ROOT_DIR, 'composer.lock'),
-			path.join(PLUGIN_DIR, 'composer.lock')
-		);
+		await fs.copy(path.join(ROOT_DIR, 'composer.lock'), path.join(PLUGIN_DIR, 'composer.lock'));
 		execSync('composer install --no-dev --optimize-autoloader', {
 			stdio: 'inherit',
 			cwd: PLUGIN_DIR,
@@ -148,9 +150,7 @@ async function stripComposerDevSections(composerPath) {
 
 		// 7. Strip require-dev and config from composer.json (after install)
 		console.log('📝 Cleaning composer.json for production...');
-		await stripComposerDevSections(
-			path.join(PLUGIN_DIR, 'composer.json')
-		);
+		await stripComposerDevSections(path.join(PLUGIN_DIR, 'composer.json'));
 
 		// 8. Create Zip
 		console.log('🤐 Zipping...');
@@ -158,9 +158,7 @@ async function stripComposerDevSections(composerPath) {
 		const archive = archiver('zip', { zlib: { level: 9 } });
 
 		output.on('close', () => {
-			console.log(
-				`✅ Success! Created ${ZIP_NAME} (${archive.pointer()} bytes)`
-			);
+			console.log(`✅ Success! Created ${ZIP_NAME} (${archive.pointer()} bytes)`);
 		});
 
 		archive.on('error', (err) => {
