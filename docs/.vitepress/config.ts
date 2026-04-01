@@ -98,7 +98,7 @@ export default defineConfig({
 	lang: 'en-US',
 	base: '/productbay/',
 	sitemap: {
-		hostname: 'https://docs.wpanchorbay.com',
+		hostname: 'https://docs.wpanchorbay.com/productbay/',
 	},
 
 	head: [
