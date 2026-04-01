@@ -2,6 +2,10 @@
 
 Welcome to **ProductBay**, a high-performance WooCommerce product tables plugin. This document serves as the core context provider for AI agents and developers working on this repository, containing all high-level rules and architecture index.
 
+## Agent instructions
+- you don't have to visit the browser. tell me what you need to confirm in step by step details, i will do that for you.
+- if you absolately need to visit the browser. the username & password both is 'forhad' and the plugin url is "https://forhad.test/wp-admin/admin.php?page=productbay#/tables" 
+
 ---
 
 ## 🏗 Project Identity & Architecture
@@ -11,11 +15,25 @@ ProductBay utilizes a decoupled frontend/backend architecture with a strict **Fr
 - **Free/Pro Relationship:** The Pro plugin (`WpabProductBayPro\`) NEVER accesses the database directly. It piggybacks on the Free plugin via WordPress hooks and a **SlotFill** pattern in React. Pro code is totally separate and shipped independently.
 
 ## 📂 Directory Structure
-- `app/` — PHP Backend logic (Admin, API, Core, Data, Frontend, Utils).
-- `src/` — React/TypeScript Frontend (Components, pages, store, hooks).
-- `assets/` — Compiled JS/CSS bundles (do not edit directly).
-- `languages/` — i18n `.pot` and `.json` translation files.
-- `.meta-worktree/` — Central repository for all architectural documents, diagrams, and instructions.
+- [`app/`](../../app/) — Free versions PHP Backend logic (Admin, API, Core, Data, Frontend, Utils).
+- [`src/`](../../src/) — Free versions React/TypeScript Frontend (Components, pages, store, hooks).
+- [`assets/`](../../assets/) — Free versions compiled JS/CSS bundles (do not edit directly).
+- [`languages/`](../../languages/) — Free versions i18n `.pot` and `.json` translation files.
+- [`.meta-worktree/`](../) — Free versions central repository for all architectural documents, diagrams, and instructions.
+- [Pro Directory](../../../productbay-pro/) 
+- [Pro meta-worktree](../../../productbay-pro/.meta-worktree/instructions/context.md)
+- [Pro `app/`](../../../productbay-pro/app/) - Pro versions PHP Backend logic (Admin, API, Core, Data, Frontend, Utils).
+- [Pro `src/`](../../../productbay-pro/src/) - Pro versions React/TypeScript Frontend (Components, pages, store, hooks).
+- [Pro `assets/`](../../../productbay-pro/assets/) - Pro versions compiled JS/CSS bundles (do not edit directly).
+- [Pro `languages/`](../../../productbay-pro/languages/) - Pro versions i18n `.pot` and `.json` translation files.
+
+## ⚙️ Coding Standards & Formatting
+1. **Frontend (React/TypeScript):** Modern React/TS standards. This project uses a root `.prettierrc` to override WordPress's default `wp-scripts` formatting. Specifically:
+   - No spaces inside parentheses or brackets: `(state) => ({count})` instead of `( state ) => ( { count } )`.
+   - Tabs for indentation (width 4).
+   - Single quotes and semicolons required.
+   - Use `bun run format` to enforce these rules across the `src/` directory.
+2. **Backend (PHP):** Follows standard WordPress Coding Standards (WPCS). Indent with Tabs. Use `vendor/bin/phpcs` to check compliance.
 
 ## ⚠️ Core Development Rules
 1. **Security ("Late Escaping"):** Validate early, sanitize on arrival (`sanitize_text_field`, `absint`), but ALWAYS escape data exactly at the moment of output (`esc_html`, `esc_attr`). Use Nonces for ALL forms and REST API requests.
