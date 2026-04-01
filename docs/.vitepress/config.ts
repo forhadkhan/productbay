@@ -153,6 +153,7 @@ export default defineConfig({
 				items: [
 					{ text: 'FAQ', link: '/faq' },
 					{ text: 'Changelog', link: '/changelog' },
+					{ text: 'Known Issues', link: '/known-issues' },
 					{ text: 'Request a Feature', link: '/feature-request' },
 				],
 			},
