@@ -89,9 +89,9 @@ class TabProductTableBlock
 			'id'    => $block_id,
 		) );
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() is pre-escaped.
 		// Only suppress clicks in the editor preview (ServerSideRender) — on the frontend all interactions must work normally.
 		$onclick = $is_editor ? ' onclick="return false;"' : '';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() is pre-escaped by WordPress core, and $onclick is a trusted constant string.
 		echo '<div ' . $wrapper_attributes . $onclick . '>';
 
 		// Tab List — accessible navigation.
