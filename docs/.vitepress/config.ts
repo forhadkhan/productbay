@@ -1,5 +1,90 @@
 import { defineConfig } from 'vitepress';
 
+function getSidebar(base = '') {
+	return {
+		[`${base}/guide/`]: [
+			{
+				text: 'Getting Started',
+				items: [
+					{ text: 'Introduction', link: `${base}/guide/introduction` },
+					{ text: 'Requirements', link: `${base}/guide/requirements` },
+					{ text: 'Installation', link: `${base}/guide/installation` },
+					{ text: 'Quick Start', link: `${base}/guide/getting-started` },
+				],
+			},
+			{
+				text: 'Advanced',
+				items: [
+					{ text: 'Admin Bar', link: `${base}/guide/admin-bar` },
+					{ text: 'Clear All Data', link: `${base}/guide/clear-all-data` },
+					{ text: 'Uninstallation', link: `${base}/guide/uninstallation` },
+				],
+			},
+		],
+		[`${base}/features/`]: [
+			{
+				text: 'Core Features',
+				items: [
+					{ text: 'Table Dashboard', link: `${base}/features/table-dashboard` },
+					{
+						text: 'Create Table',
+						link: `${base}/features/create-table`,
+						items: [
+							{ text: 'Guided Wizard', link: `${base}/features/creation-wizard` },
+							{ text: 'Manual Methods', link: `${base}/features/create-page` },
+							{ text: 'Gutenberg Blocks', link: `${base}/features/gutenberg-blocks` },
+						],
+					},
+					{ text: 'Shortcodes', link: `${base}/features/shortcodes` },
+				],
+			},
+			{
+				text: 'Table Configuration',
+				items: [
+					{ text: 'Product Sources', link: `${base}/features/product-sources` },
+					{ text: 'Column Editor', link: `${base}/features/column-editor` },
+					{ text: 'Design Customization', link: `${base}/features/design-customization` },
+				],
+			},
+			{
+				text: 'Frontend',
+				items: [
+					{ text: 'WooCommerce Integration', link: `${base}/features/woocommerce` },
+					{ text: 'Search & Filters', link: `${base}/features/search-and-filters` },
+				],
+			},
+			{
+				text: 'Settings',
+				collapsed: false,
+				items: [
+					{ text: 'Default Configuration', link: `${base}/features/default-configuration` },
+					{ text: 'Plugin Settings', link: `${base}/features/plugin-settings` },
+				],
+			},
+		],
+		[`${base}/developer/`]: [
+			{
+				text: 'Developer Reference',
+				items: [
+					{ text: 'Architecture', link: `${base}/developer/architecture` },
+					{ text: 'REST API', link: `${base}/developer/rest-api` },
+					{ text: 'Hooks & Filters', link: `${base}/developer/hooks` },
+					{ text: 'Contributing', link: `${base}/developer/contributing` },
+				],
+			},
+		],
+	};
+}
+
+// Ensure the old v1.0.0 sidebar doesn't have the new v1.1.0 Gutenberg blocks link
+function getSidebarV1_0(base = '/v1.0.0') {
+	const sidebar = getSidebar(base);
+	sidebar[`${base}/features/`][0].items[1].items = sidebar[`${base}/features/`][0].items[1].items.filter(
+		(item) => item.text !== 'Gutenberg Blocks'
+	);
+	return sidebar;
+}
+
 export default defineConfig({
 	title: 'ProductBay',
 	description:
@@ -36,12 +121,17 @@ export default defineConfig({
 
 		nav: [
 			{
-				text: 'v1.0.0',
+				text: 'v1.1.0',
 				items: [
 					{
-						text: 'v1.0.0 (Latest)',
+						text: 'v1.1.0 (Latest)',
 						link: '/guide/introduction',
 						activeMatch: '^/(?!v\\d)',
+					},
+					{
+						text: 'v1.0.0',
+						link: '/v1.0.0/guide/introduction',
+						activeMatch: '^/v1\\.0\\.0/',
 					},
 					{
 						text: 'Changelog',
@@ -63,118 +153,8 @@ export default defineConfig({
 		],
 
 		sidebar: {
-			'/guide/': [
-				{
-					text: 'Getting Started',
-					items: [
-						{ text: 'Introduction', link: '/guide/introduction' },
-						{ text: 'Requirements', link: '/guide/requirements' },
-						{ text: 'Installation', link: '/guide/installation' },
-						{ text: 'Quick Start', link: '/guide/getting-started' },
-					],
-				},
-				{
-					text: 'Advanced',
-					items: [
-						{ text: 'Admin Bar', link: '/guide/admin-bar' },
-						{
-							text: 'Clear All Data',
-							link: '/guide/clear-all-data',
-						},
-						{
-							text: 'Uninstallation',
-							link: '/guide/uninstallation',
-						},
-					],
-				},
-			],
-			'/features/': [
-				{
-					text: 'Core Features',
-					items: [
-						{
-							text: 'Table Dashboard',
-							link: '/features/table-dashboard',
-						},
-						{
-							text: 'Create Table',
-							link: '/features/create-table',
-							items: [
-								{
-									text: 'Guided Wizard',
-									link: '/features/creation-wizard',
-								},
-								{
-									text: 'Manual Methods',
-									link: '/features/create-page',
-								},
-							],
-						},
-						{ text: 'Shortcodes', link: '/features/shortcodes' },
-					],
-				},
-				{
-					text: 'Table Configuration',
-					items: [
-						{
-							text: 'Product Sources',
-							link: '/features/product-sources',
-						},
-						{
-							text: 'Column Editor',
-							link: '/features/column-editor',
-						},
-						{
-							text: 'Design Customization',
-							link: '/features/design-customization',
-						},
-					],
-				},
-				{
-					text: 'Frontend',
-					items: [
-						{
-							text: 'WooCommerce Integration',
-							link: '/features/woocommerce',
-						},
-						{
-							text: 'Search & Filters',
-							link: '/features/search-and-filters',
-						},
-					],
-				},
-				{
-					text: 'Settings',
-					collapsed: false,
-					items: [
-						{
-							text: 'Default Configuration',
-							link: '/features/default-configuration',
-						},
-						{
-							text: 'Plugin Settings',
-							link: '/features/plugin-settings',
-						},
-					],
-				},
-			],
-			'/developer/': [
-				{
-					text: 'Developer Reference',
-					items: [
-						{
-							text: 'Architecture',
-							link: '/developer/architecture',
-						},
-						{ text: 'REST API', link: '/developer/rest-api' },
-						{ text: 'Hooks & Filters', link: '/developer/hooks' },
-						{
-							text: 'Contributing',
-							link: '/developer/contributing',
-						},
-					],
-				},
-			],
+			...getSidebar(''),
+			...getSidebarV1_0('/v1.0.0'),
 		},
 
 		socialLinks: [

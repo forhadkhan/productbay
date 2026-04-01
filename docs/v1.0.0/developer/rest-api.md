@@ -23,7 +23,7 @@ All endpoints require:
 
 ### Tables
 
-#### List Product Tables
+#### List All Tables
 
 ```http
 GET /wp-json/productbay/v1/tables

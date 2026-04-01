@@ -44,7 +44,7 @@ Once the process is complete, you will see a success notification indicating how
 
 When you perform a factory reset, the following happens:
 
-- **Product Tables are Deleted**: Every table you've created will be permanently removed.
+- **All Tables are Deleted**: Every table you've created will be permanently removed.
 - **Settings are Restored**: All plugin settings are reverted to their default values.
 - **Onboarding is Reset**: The onboarding wizard will reappear the next time you visit the plugin dashboard.
 - **Styles are Cleared**: Any custom CSS or design configurations are removed.

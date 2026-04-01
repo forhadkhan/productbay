@@ -10,7 +10,7 @@ Control the visibility of the ProductBay quick-access link in the WordPress admi
 
 ![Admin Bar Settings](/images/admin-bar-settings.png)
 
-- **Show Admin Bar**: When enabled, a "ProductBay" menu appears in the topbar, providing quick links to "Product Tables" and "Create New Table".
+- **Show Admin Bar**: When enabled, a "ProductBay" menu appears in the topbar, providing quick links to "All Tables" and "Create New Table".
 
 [Learn more about admin bar](/guide/admin-bar.html)
 
