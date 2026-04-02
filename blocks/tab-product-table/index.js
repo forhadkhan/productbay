@@ -25780,15 +25780,16 @@ const ColumnItem = ({
             className: "w-8 h-8 text-blue-400 mx-auto mb-2 opacity-50"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("p", {
             className: "text-sm font-medium text-blue-900 mb-1",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Advanced Meta Selector is a Pro Feature', 'productbay')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Custom Field Column is a Pro Feature', 'productbay')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("p", {
             className: "text-xs text-blue-700 mb-3",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Easily select any product meta field from a searchable list.', 'productbay')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Display any product meta field with advanced selection and formatting.', 'productbay')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Slot, {
             name: "productbay-pro-cf-cta"
           })]
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
           className: "space-y-4",
+          "data-slot-name": "productbay-pro-cf-settings",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Slot, {
             name: "productbay-pro-cf-settings",
             fillProps: {
@@ -25796,55 +25797,58 @@ const ColumnItem = ({
               onUpdate
             }
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
-            className: "pt-3 border-t border-gray-100",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("label", {
-              className: "block text-xs font-medium text-gray-700 mb-1",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Meta Key (Manual Override)', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("input", {
-              type: "text",
-              value: column.settings?.metaKey || '',
-              onChange: e => onUpdate({
-                settings: {
-                  ...column.settings,
-                  metaKey: e.target.value
-                }
-              }),
-              className: "w-full px-2 py-1.5 text-sm border border-gray-300 rounded"
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
-          className: "grid grid-cols-2 gap-3 pt-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("label", {
-              className: "block text-xs font-medium text-gray-700 mb-1",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Prefix', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("input", {
-              type: "text",
-              value: column.settings?.prefix || '',
-              onChange: e => onUpdate({
-                settings: {
-                  ...column.settings,
-                  prefix: e.target.value
-                }
-              }),
-              placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('e.g., Weight:', 'productbay'),
-              className: "w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("label", {
-              className: "block text-xs font-medium text-gray-700 mb-1",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Suffix', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("input", {
-              type: "text",
-              value: column.settings?.suffix || '',
-              onChange: e => onUpdate({
-                settings: {
-                  ...column.settings,
-                  suffix: e.target.value
-                }
-              }),
-              placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('e.g., kg', 'productbay'),
-              className: "w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+            className: "pt-3 border-t border-gray-100 space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("label", {
+                className: "block text-xs font-medium text-gray-700 mb-1",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Meta Key (Manual Override)', 'productbay')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("input", {
+                type: "text",
+                value: column.settings?.metaKey || '',
+                onChange: e => onUpdate({
+                  settings: {
+                    ...column.settings,
+                    metaKey: e.target.value
+                  }
+                }),
+                className: "w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500",
+                placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('e.g. _weight', 'productbay')
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
+              className: "grid grid-cols-2 gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("label", {
+                  className: "block text-xs font-medium text-gray-700 mb-1",
+                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Prefix', 'productbay')
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("input", {
+                  type: "text",
+                  value: column.settings?.prefix || '',
+                  onChange: e => onUpdate({
+                    settings: {
+                      ...column.settings,
+                      prefix: e.target.value
+                    }
+                  }),
+                  placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('e.g., Weight:', 'productbay'),
+                  className: "w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("label", {
+                  className: "block text-xs font-medium text-gray-700 mb-1",
+                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Suffix', 'productbay')
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("input", {
+                  type: "text",
+                  value: column.settings?.suffix || '',
+                  onChange: e => onUpdate({
+                    settings: {
+                      ...column.settings,
+                      suffix: e.target.value
+                    }
+                  }),
+                  placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('e.g., kg', 'productbay'),
+                  className: "w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                })]
+              })]
             })]
           })]
         })]
