@@ -757,30 +757,15 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 								<div className="p-4 bg-blue-50 border border-blue-100 rounded-lg text-center">
 									<DatabaseIcon className="w-8 h-8 text-blue-400 mx-auto mb-2 opacity-50" />
 									<p className="text-sm font-medium text-blue-900 mb-1">
-										{__('Advanced Meta Selector is a Pro Feature', 'productbay')}
+										{__('Custom Field is a Pro Feature', 'productbay')}
 									</p>
-									<p className="text-xs text-blue-700 mb-3">
+									<p className="text-xs text-blue-700">
 										{__(
-											'Easily select any product meta field from a searchable list.',
+											'Display any product meta field, from weight and dimensions to custom meta keys.',
 											'productbay'
 										)}
 									</p>
-									<div className="pt-2 border-t border-blue-200">
-										<p className="text-[10px] text-blue-400 uppercase font-bold mb-2">
-											{__('Manual Entry (Free)', 'productbay')}
-										</p>
-										<input
-											type="text"
-											value={(column.settings?.metaKey as string) || ''}
-											onChange={(e) =>
-												onUpdate({
-													settings: { ...column.settings, metaKey: e.target.value },
-												})
-											}
-											placeholder={__('Enter meta key manually...', 'productbay')}
-											className="w-full px-2 py-1.5 text-xs border border-blue-200 rounded bg-white text-blue-900 placeholder:text-blue-300"
-										/>
-									</div>
+									<Slot name="productbay-pro-cf-cta" />
 								</div>
 							) : (
 								<div className="space-y-4">
@@ -809,41 +794,43 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 								</div>
 							)}
 
-							{/* Common Prefix/Suffix Settings (Shared for Free/Pro) */}
-							<div className="grid grid-cols-2 gap-3 pt-2">
-								<div>
-									<label className="block text-xs font-medium text-gray-700 mb-1">
-										{__('Prefix', 'productbay')}
-									</label>
-									<input
-										type="text"
-										value={(column.settings?.prefix as string) || ''}
-										onChange={(e) =>
-											onUpdate({
-												settings: { ...column.settings, prefix: e.target.value },
-											})
-										}
-										placeholder={__('e.g., Weight:', 'productbay')}
-										className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-									/>
+							{/* Common Prefix/Suffix Settings (Show only if Pro is active) */}
+							{isProActive && (
+								<div className="grid grid-cols-2 gap-3 pt-2">
+									<div>
+										<label className="block text-xs font-medium text-gray-700 mb-1">
+											{__('Prefix', 'productbay')}
+										</label>
+										<input
+											type="text"
+											value={(column.settings?.prefix as string) || ''}
+											onChange={(e) =>
+												onUpdate({
+													settings: { ...column.settings, prefix: e.target.value },
+												})
+											}
+											placeholder={__('e.g., Weight:', 'productbay')}
+											className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+										/>
+									</div>
+									<div>
+										<label className="block text-xs font-medium text-gray-700 mb-1">
+											{__('Suffix', 'productbay')}
+										</label>
+										<input
+											type="text"
+											value={(column.settings?.suffix as string) || ''}
+											onChange={(e) =>
+												onUpdate({
+													settings: { ...column.settings, suffix: e.target.value },
+												})
+											}
+											placeholder={__('e.g., kg', 'productbay')}
+											className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+										/>
+									</div>
 								</div>
-								<div>
-									<label className="block text-xs font-medium text-gray-700 mb-1">
-										{__('Suffix', 'productbay')}
-									</label>
-									<input
-										type="text"
-										value={(column.settings?.suffix as string) || ''}
-										onChange={(e) =>
-											onUpdate({
-												settings: { ...column.settings, suffix: e.target.value },
-											})
-										}
-										placeholder={__('e.g., kg', 'productbay')}
-										className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-									/>
-								</div>
-							</div>
+							)}
 						</div>
 					)}
 				</div>
