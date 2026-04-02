@@ -78,30 +78,30 @@ const COMBINABLE_COLUMN_TYPES: {
 	label: string;
 	icon: React.ElementType;
 }[] = [
-	{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
-	{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
-	{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
-	{
-		type: 'button',
-		label: __('Add to Cart', 'productbay'),
-		icon: ShoppingCartIcon,
-	},
-	{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-	{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
-	{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
-	{
-		type: 'summary',
-		label: __('Description', 'productbay'),
-		icon: FileTextIcon,
-	},
-	{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
-	{
-		type: 'cf',
-		label: __('Custom Field', 'productbay'),
-		icon: DatabaseIcon,
-	},
-	{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
-];
+		{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
+		{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
+		{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
+		{
+			type: 'button',
+			label: __('Add to Cart', 'productbay'),
+			icon: ShoppingCartIcon,
+		},
+		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
+		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+		{
+			type: 'summary',
+			label: __('Description', 'productbay'),
+			icon: FileTextIcon,
+		},
+		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+		{
+			type: 'cf',
+			label: __('Custom Field', 'productbay'),
+			icon: DatabaseIcon,
+		},
+		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
+	];
 
 /**
  * Visibility mode labels
@@ -162,6 +162,7 @@ const SubElementItem: React.FC<{
 	onRemove: () => void;
 	onUpdate: (updates: Partial<CombinedElement>) => void;
 }> = ({ element, onRemove, onUpdate }) => {
+	const [isExpanded, setIsExpanded] = useState(false);
 	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
 		id: element.id,
 	});
@@ -178,67 +179,129 @@ const SubElementItem: React.FC<{
 			ref={setNodeRef}
 			style={style}
 			className={cn(
-				'flex flex-col gap-2 p-2 bg-white border border-gray-200 rounded-md shadow-sm',
-				isDragging && 'opacity-50 ring-2 ring-blue-500 z-50'
+				'bg-white border border-gray-200 rounded-lg overflow-hidden transition-shadow',
+				isDragging && 'shadow-lg ring-2 ring-blue-400 opacity-90',
+				!isDragging && 'hover:bg-orange-50 hover:border-orange-200'
 			)}
 		>
-			<div className="flex items-center gap-2">
-				<div
+			{/* Main Bar */}
+			<div className="flex items-center gap-2 px-2 py-1.5 bg-gray-50/50">
+				{/* Drag Handle */}
+				<button
 					{...attributes}
 					{...listeners}
-					className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600"
+					className="flex-shrink-0 bg-transparent text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
+					aria-label={__('Drag to reorder', 'productbay')}
+					title={__('Drag to reorder', 'productbay')}
 				>
 					<GripVerticalIcon className="w-4 h-4" />
-				</div>
-				<Icon className="w-3.5 h-3.5 text-gray-500" />
-				<span className="text-xs font-medium text-gray-700 capitalize">
-					{element.type.replace('_', ' ')}
-				</span>
-				<button
-					onClick={onRemove}
-					className="ml-auto p-1 text-gray-400 hover:text-red-500 rounded hover:bg-red-50"
-				>
-					<TrashIcon className="w-3.5 h-3.5" />
 				</button>
+
+				<div className="flex items-center justify-center gap-2">
+					<Icon className="w-3.5 h-3.5 text-gray-500" />
+					<span className="text-[11px] font-semibold text-gray-700 capitalize truncate">
+						{element.type.replace('_', ' ')}
+					</span>
+				</div>
+
+				{/* Actions (Right) */}
+				<div className="ml-auto flex items-center gap-1">
+
+					{/* Remove Button */}
+					<button
+						onClick={onRemove}
+						className="flex-shrink-0 bg-transparent p-1 text-gray-400 hover:text-red-500 transition-colors rounded-md cursor-pointer flex items-center hover:bg-red-100"
+						aria-label={__('Remove column', 'productbay')}
+						title={__('Remove column', 'productbay')}
+					>
+						<TrashIcon className="w-4 h-4" />
+					</button>
+
+					{/* Expand/Collapse Button */}
+					<button
+						onClick={() => setIsExpanded(!isExpanded)}
+						className="flex-shrink-0 border border-gray-300 bg-transparent p-1 text-gray-400 hover:text-gray-600 transition-colors rounded-md cursor-pointer flex items-center hover:bg-gray-100"
+						aria-label={
+							isExpanded
+								? __('Collapse settings', 'productbay')
+								: __('Expand settings', 'productbay')
+						}
+						title={
+							isExpanded
+								? __('Collapse settings', 'productbay')
+								: __('Expand settings', 'productbay')
+						}
+					>
+						{isExpanded ? (
+							<ChevronUpIcon className="w-4 h-4" />
+						) : (
+							<ChevronDownIcon className="w-4 h-4" />
+						)}
+					</button>
+				</div>
 			</div>
 
-			<div className="grid grid-cols-2 gap-2">
-				<input
-					type="text"
-					value={(element.settings?.prefix as string) || ''}
-					onChange={(e) =>
-						onUpdate({
-							settings: { ...element.settings, prefix: e.target.value },
-						})
-					}
-					placeholder={__('Prefix', 'productbay')}
-					className="px-2 py-1 text-[11px] border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
-				/>
-				<input
-					type="text"
-					value={(element.settings?.suffix as string) || ''}
-					onChange={(e) =>
-						onUpdate({
-							settings: { ...element.settings, suffix: e.target.value },
-						})
-					}
-					placeholder={__('Suffix', 'productbay')}
-					className="px-2 py-1 text-[11px] border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
-				/>
-			</div>
+			{/* Sub-Element Settings Panel */}
+			{isExpanded && (
+				<div className="p-3 border-t border-gray-100 bg-white space-y-3">
+					<div className="grid grid-cols-2 gap-3">
+						{/* Prefix */}
+						<div>
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-tighter mb-1">
+								{__('Prefix', 'productbay')}
+							</label>
+							<input
+								type="text"
+								value={(element.settings?.prefix as string) || ''}
+								onChange={(e) =>
+									onUpdate({
+										settings: { ...element.settings, prefix: e.target.value },
+									})
+								}
+								placeholder={__('e.g. Price:', 'productbay')}
+								className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
+							/>
+						</div>
 
-			{element.type === 'cf' && (
-				<input
-					type="text"
-					value={(element.settings?.metaKey as string) || ''}
-					onChange={(e) =>
-						onUpdate({
-							settings: { ...element.settings, metaKey: e.target.value },
-						})
-					}
-					placeholder={__('Meta Key', 'productbay')}
-					className="w-full px-2 py-1 text-[11px] border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
-				/>
+						{/* Suffix */}
+						<div>
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-tighter mb-1">
+								{__('Suffix', 'productbay')}
+							</label>
+							<input
+								type="text"
+								value={(element.settings?.suffix as string) || ''}
+								onChange={(e) =>
+									onUpdate({
+										settings: { ...element.settings, suffix: e.target.value },
+									})
+								}
+								placeholder={__('e.g. / mo', 'productbay')}
+								className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
+							/>
+						</div>
+					</div>
+
+					{/* Meta Key for CF */}
+					{element.type === 'cf' && (
+						<div>
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-tighter mb-1">
+								{__('Meta Key', 'productbay')}
+							</label>
+							<input
+								type="text"
+								value={(element.settings?.metaKey as string) || ''}
+								onChange={(e) =>
+									onUpdate({
+										settings: { ...element.settings, metaKey: e.target.value },
+									})
+								}
+								placeholder={__('Enter meta key...', 'productbay')}
+								className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
+							/>
+						</div>
+					)}
+				</div>
 			)}
 		</div>
 	);
@@ -698,7 +761,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 												items={combinedSettings.elements.map((el) => el.id)}
 												strategy={verticalListSortingStrategy}
 											>
-												<div className="space-y-2 border-l-2 border-gray-200 pl-3">
+												<div className="space-y-2 border-l-2 border-gray-200 pl-3 py-3">
 													{combinedSettings.elements.map((element) => (
 														<SubElementItem
 															key={element.id}
@@ -757,11 +820,11 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 								<div className="p-4 bg-blue-50 border border-blue-100 rounded-lg text-center">
 									<DatabaseIcon className="w-8 h-8 text-blue-400 mx-auto mb-2 opacity-50" />
 									<p className="text-sm font-medium text-blue-900 mb-1">
-										{__('Custom Field is a Pro Feature', 'productbay')}
+										{__('Advanced Meta Selector is a Pro Feature', 'productbay')}
 									</p>
 									<p className="text-xs text-blue-700 mb-3">
 										{__(
-											'Display any product meta field (Weight, Dimensions, or 3rd party fields).',
+											'Easily select any product meta field from a searchable list.',
 											'productbay'
 										)}
 									</p>
