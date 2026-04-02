@@ -759,9 +759,9 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 									<p className="text-sm font-medium text-blue-900 mb-1">
 										{__('Custom Field is a Pro Feature', 'productbay')}
 									</p>
-									<p className="text-xs text-blue-700">
+									<p className="text-xs text-blue-700 mb-3">
 										{__(
-											'Display any product meta field, from weight and dimensions to custom meta keys.',
+											'Display any product meta field (Weight, Dimensions, or 3rd party fields).',
 											'productbay'
 										)}
 									</p>
@@ -794,43 +794,41 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 								</div>
 							)}
 
-							{/* Common Prefix/Suffix Settings (Show only if Pro is active) */}
-							{isProActive && (
-								<div className="grid grid-cols-2 gap-3 pt-2">
-									<div>
-										<label className="block text-xs font-medium text-gray-700 mb-1">
-											{__('Prefix', 'productbay')}
-										</label>
-										<input
-											type="text"
-											value={(column.settings?.prefix as string) || ''}
-											onChange={(e) =>
-												onUpdate({
-													settings: { ...column.settings, prefix: e.target.value },
-												})
-											}
-											placeholder={__('e.g., Weight:', 'productbay')}
-											className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-										/>
-									</div>
-									<div>
-										<label className="block text-xs font-medium text-gray-700 mb-1">
-											{__('Suffix', 'productbay')}
-										</label>
-										<input
-											type="text"
-											value={(column.settings?.suffix as string) || ''}
-											onChange={(e) =>
-												onUpdate({
-													settings: { ...column.settings, suffix: e.target.value },
-												})
-											}
-											placeholder={__('e.g., kg', 'productbay')}
-											className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-										/>
-									</div>
+							{/* Common Prefix/Suffix Settings (Shared for Free/Pro) */}
+							<div className="grid grid-cols-2 gap-3 pt-2">
+								<div>
+									<label className="block text-xs font-medium text-gray-700 mb-1">
+										{__('Prefix', 'productbay')}
+									</label>
+									<input
+										type="text"
+										value={(column.settings?.prefix as string) || ''}
+										onChange={(e) =>
+											onUpdate({
+												settings: { ...column.settings, prefix: e.target.value },
+											})
+										}
+										placeholder={__('e.g., Weight:', 'productbay')}
+										className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+									/>
 								</div>
-							)}
+								<div>
+									<label className="block text-xs font-medium text-gray-700 mb-1">
+										{__('Suffix', 'productbay')}
+									</label>
+									<input
+										type="text"
+										value={(column.settings?.suffix as string) || ''}
+										onChange={(e) =>
+											onUpdate({
+												settings: { ...column.settings, suffix: e.target.value },
+											})
+										}
+										placeholder={__('e.g., kg', 'productbay')}
+										className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+									/>
+								</div>
+							</div>
 						</div>
 					)}
 				</div>
