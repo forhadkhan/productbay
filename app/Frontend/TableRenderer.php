@@ -578,8 +578,16 @@ class TableRenderer
 	 */
 	private function render_cell($col, $product)
 	{
-		$type = $col['type'];
+		$type     = $col['type'];
 		$settings = $col['settings'] ?? array();
+
+		// Security: Block Pro-only columns if the Pro version is not active.
+		// This prevents "vulnerabilities" where users could manually craft table configs
+		// to use premium features without a license.
+		$pro_types = array( 'combined', 'cf' );
+		if ( in_array( $type, $pro_types, true ) && ! defined( 'PRODUCTBAY_PRO_VERSION' ) ) {
+			return;
+		}
 
 		ob_start();
 
@@ -1290,7 +1298,18 @@ class TableRenderer
 	 */
 	private function should_hide_column($col)
 	{
-		return ($col['advanced']['visibility'] ?? 'default') === 'none';
+		// Manual visibility override.
+		if ( ( $col['advanced']['visibility'] ?? 'default' ) === 'none' ) {
+			return true;
+		}
+
+		// Security: Automatically hide Pro-only columns if Pro version is not active.
+		$pro_types = array( 'combined', 'cf' );
+		if ( in_array( $col['type'] ?? '', $pro_types, true ) && ! defined( 'PRODUCTBAY_PRO_VERSION' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
