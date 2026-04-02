@@ -2,8 +2,8 @@ import React from 'react';
 import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
 import { TableSettings } from '@/types';
-import { Toggle } from '@/components/ui/Toggle';
 import { Slot } from '@wordpress/components';
+import { Toggle } from '@/components/ui/Toggle';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
 
@@ -46,6 +46,8 @@ export const OptionsPanel = ({
 	setFilters,
 	className,
 }: OptionsPanelProps) => {
+	const isProActive = !!(window as any).productBaySettings?.proVersion;
+
 	return (
 		<div className={cn('w-full p-4 space-y-8', className)}>
 			{/* Table Controls - User-facing features */}
@@ -135,6 +137,26 @@ export const OptionsPanel = ({
 						onChange={(e) => setFilters({ showType: e.target.checked })}
 					/>
 				</SettingsOption>
+
+				{/* Price Range Filter (Pro Shell) */}
+				<SettingsOption
+					title={__('Price Range Filter', 'productbay')}
+					description={__(
+						'Allow users to filter products by a price range slider',
+						'productbay'
+					)}
+				>
+					{!isProActive ? (
+						<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
+							PRO
+						</span>
+					) : (
+						<Toggle
+							checked={settings.filters?.showPriceRange ?? false}
+							onChange={(e) => setFilters({ showPriceRange: e.target.checked })}
+						/>
+					)}
+				</SettingsOption>
 			</SettingsSection>
 
 			{/* Cart Settings */}
@@ -153,6 +175,26 @@ export const OptionsPanel = ({
 						checked={settings.cart.enable}
 						onChange={(e) => setCart({ enable: e.target.checked })}
 					/>
+				</SettingsOption>
+
+				{/* Variable & Grouped Products (Pro Shell) */}
+				<SettingsOption
+					title={__('Variable & Grouped Products', 'productbay')}
+					description={__(
+						'Full support for variations and grouped product types',
+						'productbay'
+					)}
+				>
+					{!isProActive ? (
+						<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
+							PRO
+						</span>
+					) : (
+						<Toggle
+							checked={settings.features.variableGrouped ?? false}
+							onChange={(e) => setFeatures({ variableGrouped: e.target.checked })}
+						/>
+					)}
 				</SettingsOption>
 
 				{/* Cart sub-options - Only relevant when AJAX Add to Cart is enabled */}

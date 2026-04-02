@@ -193,6 +193,9 @@ export interface TableSettings {
 
 		/** Enable native image lightbox */
 		lightbox: boolean;
+
+		/** Enable Support for Variable & Grouped Products (Pro) */
+		variableGrouped?: boolean;
 	};
 
 	/** Pagination configuration */
@@ -232,6 +235,9 @@ export interface TableSettings {
 
 		/** Active taxonomy filters (product_cat, pa_color, etc.) */
 		activeTaxonomies: string[];
+
+		/** Show price range slider (Pro) */
+		showPriceRange?: boolean;
 	};
 }
 
