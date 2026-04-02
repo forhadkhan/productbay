@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -280,6 +280,12 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 == Changelog ==
 
+= 1.2.0 =
+
+* Feature: Pro-only columns (Combined, Custom Fields) are now blocked in the frontend when Pro version is disabled.
+* Security: Fixed vulnerability where Combined columns could be used without a Pro license.
+* Dev: Unified Pro activation detection across Free plugin layers.
+
 = 1.1.1 =
 
 * Improvement: Block setup experience with "Create New Table" link in placeholders.
@@ -303,6 +309,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Security update to protect Pro-exclusive features and ensure license consistency.
 
 = 1.1.1 =
 Fixes critical interaction issues with Gutenberg blocks and improves multi-table state isolation.
