@@ -28,7 +28,6 @@ import {
 	verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import {
-	PlusIcon,
 	ImageIcon,
 	TypeIcon,
 	DollarSignIcon,
@@ -45,6 +44,7 @@ import {
 	DatabaseIcon,
 	LayoutGridIcon,
 	StarIcon,
+	Settings2Icon,
 } from 'lucide-react';
 
 /* =============================================================================
@@ -68,37 +68,37 @@ const COLUMN_TYPES: {
 	icon: React.ElementType;
 	isPro?: boolean;
 }[] = [
-	{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
-	{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
-	{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
-	{
-		type: 'button',
-		label: __('Add to Cart', 'productbay'),
-		icon: ShoppingCartIcon,
-	},
-	{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-	{
-		type: 'summary',
-		label: __('Description', 'productbay'),
-		icon: FileTextIcon,
-	},
-	{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
-	{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
-	{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
-	{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
-	{
-		type: 'cf',
-		label: __('Custom Field', 'productbay'),
-		icon: DatabaseIcon,
-		isPro: true,
-	},
-	{
-		type: 'combined',
-		label: __('Combined', 'productbay'),
-		icon: LayoutGridIcon,
-		isPro: true,
-	},
-];
+		{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
+		{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
+		{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
+		{
+			type: 'button',
+			label: __('Add to Cart', 'productbay'),
+			icon: ShoppingCartIcon,
+		},
+		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
+		{
+			type: 'summary',
+			label: __('Description', 'productbay'),
+			icon: FileTextIcon,
+		},
+		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
+		{
+			type: 'cf',
+			label: __('Custom Field', 'productbay'),
+			icon: DatabaseIcon,
+			isPro: true,
+		},
+		{
+			type: 'combined',
+			label: __('Combined', 'productbay'),
+			icon: LayoutGridIcon,
+			isPro: true,
+		},
+	];
 
 export interface ColumnEditorProps {
 	className?: string;
@@ -312,13 +312,13 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 					onClick={() => setShowAddMenu(!showAddMenu)}
 					className="w-full justify-center cursor-pointer"
 				>
-					<PlusIcon className="w-4 h-4 mr-2" />
-					{__('Add Column', 'productbay')}
+					<Settings2Icon className="w-4 h-4 mr-2" />
+					{__('Manage Columns', 'productbay')}
 				</Button>
 
 				{/* Add Column Dropdown Menu */}
 				{showAddMenu && (
-					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-blue-600 rounded-lg shadow-lg z-50">
 						<div className="p-2 grid grid-cols-2 gap-1">
 							{COLUMN_TYPES.map(({ type, label, icon: Icon, isPro }) => {
 								const isSelected = selectedTypes.has(type);
@@ -382,10 +382,10 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 						<button
 							onClick={() => setShowAddMenu(false)}
 							title={__('Close', 'productbay')}
-							className="w-full flex justify-center items-center p-1 text-gray-400 hover:text-gray-600 bg-transparent hover:bg-gray-100 cursor-pointer"
+							className="w-full rounded-b-lg flex justify-center items-center p-1 text-gray-600 hover:text-gray-800 bg-transparent hover:bg-gray-200 cursor-pointer"
 							aria-label={__('Close', 'productbay')}
 						>
-							<ChevronDownIcon className="w-4 h-4" />
+							<ChevronDownIcon className="w-4 h-4 bg-gray-200" />
 						</button>
 					</div>
 				)}
