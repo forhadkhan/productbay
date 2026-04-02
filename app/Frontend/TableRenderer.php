@@ -612,7 +612,21 @@ class TableRenderer
 				break;
 
 			case 'stock':
-				echo wp_kses_post(wc_get_stock_html($product));
+				$stock_status   = $product->get_stock_status();
+				$stock_quantity = $product->get_stock_quantity();
+				$is_in_stock    = $product->is_in_stock();
+
+				if ('outofstock' === $stock_status) {
+					echo '<span class="productbay-stock-status out-of-stock" style="color: #dc3232;">' . esc_html__('Out of stock', 'productbay') . '</span>';
+				} elseif ('onbackorder' === $stock_status) {
+					echo '<span class="productbay-stock-status on-backorder" style="color: #e6a817;">' . esc_html__('On backorder', 'productbay') . '</span>';
+				} else {
+					if ($product->managing_stock() && $stock_quantity !== null) {
+						echo '<span class="productbay-stock-status in-stock" style="color: #46b450;">' . esc_html(sprintf(__('%d in stock', 'productbay'), $stock_quantity)) . '</span>';
+					} else {
+						echo '<span class="productbay-stock-status in-stock" style="color: #46b450;">' . esc_html__('In stock', 'productbay') . '</span>';
+					}
+				}
 				break;
 
 			case 'button':
@@ -621,6 +635,116 @@ class TableRenderer
 
 			case 'summary':
 				echo wp_kses_post(wp_trim_words($product->get_short_description(), 10));
+				break;
+
+			case 'date':
+				$date_obj = $product->get_date_created();
+				if ($date_obj) {
+					echo esc_html($date_obj->date_i18n(get_option('date_format')));
+				}
+				break;
+
+			case 'tax':
+				$taxonomy = $settings['taxonomy'] ?? 'product_cat';
+				$link     = !empty($settings['linkToArchive']);
+				$terms    = \wp_get_post_terms($product->get_id(), sanitize_key($taxonomy));
+
+				if (!is_wp_error($terms) && !empty($terms)) {
+					$parts = array();
+					foreach ($terms as $term) {
+						if ($link) {
+							$parts[] = '<a href="' . esc_url(get_term_link($term)) . '">' . esc_html($term->name) . '</a>';
+						} else {
+							$parts[] = esc_html($term->name);
+						}
+					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each part is individually escaped above.
+					echo implode(', ', $parts);
+				}
+				break;
+
+			case 'rating':
+				$rating = $product->get_average_rating();
+				$display_format = $settings['displayFormat'] ?? 'stars';
+
+				if ($rating > 0) {
+					if ('woocommerce' === $display_format) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo wc_get_rating_html($rating, $product->get_rating_count());
+					} elseif ('text' === $display_format) {
+						echo '<span class="productbay-rating-text">' . esc_html(sprintf(__('Rated %s out of 5', 'productbay'), $rating)) . '</span>';
+					} else {
+						// Default: stars (custom SVG implementation)
+						$percentage = ( $rating / 5 ) * 100;
+						$star_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+						$stars_html = str_repeat($star_svg, 5);
+
+						echo '<div class="productbay-custom-stars" title="' . esc_attr(sprintf(__('Rated %s out of 5', 'productbay'), $rating)) . '" style="position: relative; display: inline-flex; vertical-align: middle;">';
+						echo '<div class="productbay-stars-bg" style="color: #e5e7eb; display: flex;">' . $stars_html . '</div>';
+						echo '<div class="productbay-stars-active" style="color: #f59e0b; display: flex; position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; width: ' . esc_attr(strval($percentage)) . '%;">' . $stars_html . '</div>';
+						echo '</div>';
+					}
+				} else {
+					echo '<span class="productbay-no-rating">' . esc_html__('No ratings', 'productbay') . '</span>';
+				}
+				break;
+
+			case 'combined':
+				$elements  = $settings['elements'] ?? array();
+				$layout    = $settings['layout'] ?? 'inline';
+				$separator = $settings['separator'] ?? '';
+
+				if (!empty($elements) && is_array($elements)) {
+					echo '<div class="productbay-combined-cell ' . esc_attr('layout-' . $layout) . '" style="display: ' . esc_attr('inline' === $layout ? 'flex' : 'block') . '; gap: 8px; flex-wrap: wrap; align-items: center;">';
+
+					$count = count($elements);
+					foreach ($elements as $index => $element) {
+						// Backward compatibility: handle string elements
+						if (is_string($element)) {
+							$element = array(
+								'type'     => $element,
+								'settings' => array(),
+							);
+						}
+
+						$el_type     = $element['type'] ?? '';
+						$el_settings = $element['settings'] ?? array();
+
+						if ($el_type) {
+							$el_html = '';
+
+							// Recursively get cell content
+							ob_start();
+							$this->render_cell(array(
+								'type'     => $el_type,
+								'settings' => $el_settings,
+							), $product);
+							$el_html = ob_get_clean();
+
+							if ($el_html !== '') {
+								$prefix = $el_settings['prefix'] ?? '';
+								$suffix = $el_settings['suffix'] ?? '';
+
+								echo '<div class="productbay-combined-element element-' . esc_attr($el_type) . '" style="display: ' . ( 'inline' === $layout ? 'inline-flex' : 'block' ) . '; align-items: center; gap: 4px;">';
+								if ($prefix) {
+									echo '<span class="productbay-element-prefix">' . esc_html($prefix) . '</span>';
+								}
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is escaped within render_cell recursive call.
+								echo $el_html;
+								if ($suffix) {
+									echo '<span class="productbay-element-suffix">' . esc_html($suffix) . '</span>';
+								}
+								echo '</div>';
+
+								// Add separator if inline and not last
+								if ('inline' === $layout && $separator && $index < $count - 1) {
+									echo '<span class="productbay-element-separator" style="margin: 0 4px; opacity: 0.5;">' . esc_html($separator) . '</span>';
+								}
+							}
+						}
+					}
+					echo '</div>';
+				}
 				break;
 
 			default:

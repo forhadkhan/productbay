@@ -41,7 +41,17 @@ export type ColumnType =
 	| 'summary' // Short description
 	| 'tax' // Taxonomy (category, tag, attribute)
 	| 'cf' // Custom field (meta)
-	| 'combined'; // Multiple elements combined in one cell
+	| 'combined' // Multiple elements combined in one cell
+	| 'rating'; // Product average star rating
+
+export interface CombinedElement {
+	/** Unique ID for drag and drop */
+	id: string;
+	/** The type of attribute to display */
+	type: ColumnType;
+	/** Type-specific settings for this element (e.g. prefix, suffix, imageSize) */
+	settings?: Record<string, unknown>;
+}
 
 /* =============================================================================
  * Column Interface

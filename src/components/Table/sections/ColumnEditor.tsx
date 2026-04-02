@@ -39,6 +39,12 @@ import {
 	AlertTriangleIcon,
 	InfoIcon,
 	ChevronDownIcon,
+	PackageIcon,
+	CalendarIcon,
+	TagIcon,
+	DatabaseIcon,
+	LayoutGridIcon,
+	StarIcon,
 } from 'lucide-react';
 
 /* =============================================================================
@@ -60,6 +66,7 @@ const COLUMN_TYPES: {
 	type: ColumnType;
 	label: string;
 	icon: React.ElementType;
+	isPro?: boolean;
 }[] = [
 	{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
 	{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
@@ -74,6 +81,22 @@ const COLUMN_TYPES: {
 		type: 'summary',
 		label: __('Description', 'productbay'),
 		icon: FileTextIcon,
+	},
+	{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+	{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+	{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+	{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
+	{
+		type: 'cf',
+		label: __('Custom Field', 'productbay'),
+		icon: DatabaseIcon,
+		isPro: true,
+	},
+	{
+		type: 'combined',
+		label: __('Combined', 'productbay'),
+		icon: LayoutGridIcon,
+		isPro: true,
 	},
 ];
 
@@ -297,22 +320,58 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 				{showAddMenu && (
 					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
 						<div className="p-2 grid grid-cols-2 gap-1">
-							{COLUMN_TYPES.map(({ type, label, icon: Icon }) => {
+							{COLUMN_TYPES.map(({ type, label, icon: Icon, isPro }) => {
 								const isSelected = selectedTypes.has(type);
+								const isProFeature =
+									isPro &&
+									!(window as any).productBaySettings?.proVersion;
+
 								return (
 									<button
 										key={type}
-										onClick={() => handleToggleColumn(type)}
+										onClick={(e) => {
+											if (isProFeature) {
+												e.preventDefault();
+												alert(
+													__(
+														'This feature requires ProductBay Pro.',
+														'productbay'
+													)
+												);
+												return;
+											}
+											handleToggleColumn(type);
+										}}
 										className={cn(
-											'flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-orange-50 text-sm rounded-md transition-colors text-left border border-transparent hover:border-orange-200',
-											isSelected
+											'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent',
+											isProFeature
+												? 'opacity-75 cursor-not-allowed hover:bg-gray-50'
+												: 'cursor-pointer hover:bg-orange-50 hover:border-orange-200',
+											isSelected && !isProFeature
 												? 'bg-blue-100 text-blue-700'
 												: 'text-gray-700'
 										)}
+										title={
+											isProFeature
+												? __('Available in Pro version', 'productbay')
+												: ''
+										}
 									>
 										<Icon className="w-4 h-4 flex-shrink-0" />
-										<span className="truncate flex-1">{label}</span>
-										{isSelected && (
+										<span
+											className={cn(
+												'truncate flex-1',
+												isProFeature && 'text-gray-500'
+											)}
+										>
+											{label}
+										</span>
+										{isProFeature && (
+											<span className="ml-auto text-[9px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
+												PRO
+											</span>
+										)}
+										{isSelected && !isProFeature && (
 											<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
 										)}
 									</button>
