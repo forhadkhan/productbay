@@ -282,8 +282,8 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.2.0 =
 
-* Feature: Pro-only columns (Combined, Custom Fields) are now blocked in the frontend when Pro version is disabled.
-* Security: Fixed vulnerability where Combined columns could be used without a Pro license.
+* Feature: Added new column types: Stock, Date, Taxonomy, and Rating.
+* Feature: Introduced Pro Shells for premium features: Custom Field, Combined, Price Range Filter, and Variable & Grouped Products.
 * Dev: Unified Pro activation detection across Free plugin layers.
 
 = 1.1.1 =
@@ -311,7 +311,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 == Upgrade Notice ==
 
 = 1.2.0 =
-Security update to protect Pro-exclusive features and ensure license consistency.
+Security and feature update: Adds new column types (Stock, Date, Taxonomy, Rating) and implements secure Pro-exclusive feature blocking.
 
 = 1.1.1 =
 Fixes critical interaction issues with Gutenberg blocks and improves multi-table state isolation.
