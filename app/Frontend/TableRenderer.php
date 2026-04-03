@@ -630,6 +630,7 @@ class TableRenderer
 					echo '<span class="productbay-stock-status on-backorder" style="color: #e6a817;">' . esc_html__('On backorder', 'productbay') . '</span>';
 				} else {
 					if ($product->managing_stock() && $stock_quantity !== null) {
+						/* translators: %d: stock quantity */
 						echo '<span class="productbay-stock-status in-stock" style="color: #46b450;">' . esc_html(sprintf(__('%d in stock', 'productbay'), $stock_quantity)) . '</span>';
 					} else {
 						echo '<span class="productbay-stock-status in-stock" style="color: #46b450;">' . esc_html__('In stock', 'productbay') . '</span>';
@@ -680,16 +681,30 @@ class TableRenderer
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo wc_get_rating_html($rating, $product->get_rating_count());
 					} elseif ('text' === $display_format) {
+						/* translators: %s: average star rating, e.g. "4.5" */
 						echo '<span class="productbay-rating-text">' . esc_html(sprintf(__('Rated %s out of 5', 'productbay'), $rating)) . '</span>';
 					} else {
 						// Default: stars (custom SVG implementation)
 						$percentage = ( $rating / 5 ) * 100;
 						$star_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
 						$stars_html = str_repeat($star_svg, 5);
+						$allowed_svg = array(
+							'svg'  => array(
+								'width'   => true,
+								'height'  => true,
+								'viewbox' => true,
+								'fill'    => true,
+								'xmlns'   => true,
+							),
+							'path' => array(
+								'd' => true,
+							),
+						);
 
+						/* translators: %s: average star rating, e.g. "4.5" */
 						echo '<div class="productbay-custom-stars" title="' . esc_attr(sprintf(__('Rated %s out of 5', 'productbay'), $rating)) . '" style="position: relative; display: inline-flex; vertical-align: middle;">';
-						echo '<div class="productbay-stars-bg" style="color: #e5e7eb; display: flex;">' . $stars_html . '</div>';
-						echo '<div class="productbay-stars-active" style="color: #f59e0b; display: flex; position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; width: ' . esc_attr(strval($percentage)) . '%;">' . $stars_html . '</div>';
+						echo '<div class="productbay-stars-bg" style="color: #e5e7eb; display: flex;">' . wp_kses($stars_html, $allowed_svg) . '</div>';
+						echo '<div class="productbay-stars-active" style="color: #f59e0b; display: flex; position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; width: ' . esc_attr(strval($percentage)) . '%;">' . wp_kses($stars_html, $allowed_svg) . '</div>';
 						echo '</div>';
 					}
 				} else {
