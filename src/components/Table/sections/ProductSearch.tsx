@@ -387,12 +387,15 @@ export const ProductSearch: React.FC = () => {
 							onConfirm={confirmRemoveAll}
 							variant="ghost"
 							size="sm"
-							confirmMessage={_n(
-								'Remove %d product?',
-								'Remove %d products?',
-								selectedProductsMap.size,
-								'productbay'
-							).replace('%d', selectedProductsMap.size.toString())}
+							confirmMessage={
+								/* translators: %d: number of products to remove */
+								_n(
+									'Remove %d product?',
+									'Remove %d products?',
+									selectedProductsMap.size,
+									'productbay'
+								).replace('%d', selectedProductsMap.size.toString())
+							}
 							className="font-normal text-red-600 hover:text-red-700 rounded-md hover:bg-red-100 px-2 py-0 flex items-center gap-1"
 						>
 							<Trash2Icon className="h-4 w-4 mr-1" />

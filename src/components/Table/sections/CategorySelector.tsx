@@ -297,7 +297,8 @@ export const CategorySelector: React.FC = () => {
 						<div className="p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md">
 							<span className="text-xs text-gray-600">
 								{selectedIds.length > 0
-									? _n(
+									? /* translators: %d: number of selected categories */
+									  _n(
 											'%d category selected',
 											'%d categories selected',
 											selectedIds.length,
