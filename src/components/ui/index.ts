@@ -104,6 +104,23 @@ export * from './ProductBayIcon';
 export * from './ProductBayLogo';
 
 /**
+ * Badge indicating a feature requires ProductBay Pro.
+ * @param props.size - Optional. Size: 'default' | 'sm'.
+ * @returns A styled "PRO" pill badge.
+ */
+export * from './ProBadge';
+
+/**
+ * Wrapper that gates features behind ProductBay Pro.
+ * Shows an informational modal when Pro is not active.
+ * @param props.children - Mandatory. The clickable element to gate.
+ * @param props.featureName - Mandatory. Feature name shown in the modal.
+ * @param props.description - Optional. Custom description for the modal body.
+ * @returns A click-intercepting wrapper or pass-through when Pro is active.
+ */
+export * from './ProFeatureGate';
+
+/**
  * Custom alternative to the native HTML select element.
  * @param props.options - Mandatory. List of select options.
  * @param props.onChange - Mandatory. Selection change handler.
