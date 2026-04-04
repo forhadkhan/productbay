@@ -52,6 +52,8 @@ export interface ModalProps {
 	header?: React.ReactNode;
 	/** Whether to hide the default footer buttons (default: false) */
 	hideFooter?: boolean;
+	/** Whether to show the close button (default: false) */
+	showCloseButton?: boolean;
 }
 
 /** Default container ID for portal rendering */
@@ -60,7 +62,7 @@ const MODAL_CONTAINER_ID = 'productbay-root';
 export const Modal: React.FC<ModalProps> = ({
 	isOpen,
 	onClose,
-	title,
+	title = '',
 	className,
 	children,
 	primaryButton,
@@ -71,6 +73,7 @@ export const Modal: React.FC<ModalProps> = ({
 	fullScreen = false,
 	header,
 	hideFooter = false,
+	showCloseButton = false,
 }) => {
 	const modalRef = useRef<HTMLDivElement>(null);
 
@@ -159,39 +162,48 @@ export const Modal: React.FC<ModalProps> = ({
 				)}
 			>
 				{/* Header Section */}
-				{header
-					? header
-					: title && (
-							<div className="flex items-center justify-between bg-white px-6 py-4 mt-8">
-								<h3 className="text-lg font-bold text-gray-900 m-0">{title}</h3>
-								{/* Close button for full screen mode */}
-								{fullScreen && (
-									<Button
-										variant="ghost"
-										size="icon"
-										onClick={onClose}
-										className="bg-transparent hover:bg-gray-100 cursor-pointer"
-									>
-										<span className="sr-only">{__('Close', 'productbay')}</span>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="24"
-											height="24"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											className="lucide lucide-x"
-										>
-											<path d="M18 6 6 18" />
-											<path d="m6 6 12 12" />
-										</svg>
-									</Button>
-								)}
-							</div>
-					  )}
+				{header ? (
+					header
+				) : title || fullScreen || closeOnBackdropClick || closeOnEsc ? (
+					<div
+						className={cn(
+							'flex items-center justify-between bg-white px-6 pt-4 rounded-t-lg',
+							fullScreen && 'mt-8'
+						)}
+					>
+						{title ? (
+							<h3 className="text-lg font-bold text-gray-900 m-0">{title}</h3>
+						) : (
+							<div />
+						)}
+						{/* Close button */}
+						{showCloseButton &&
+							<Button
+								variant="ghost"
+								size="icon"
+								onClick={onClose}
+								className="bg-transparent hover:bg-red-100 cursor-pointer ml-auto"
+							>
+								<span className="sr-only">{__('Close', 'productbay')}</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									className="lucide lucide-x"
+								>
+									<path d="M18 6 6 18" />
+									<path d="m6 6 12 12" />
+								</svg>
+							</Button>
+						}
+					</div>
+				) : null}
 
 				{/* Body Section */}
 				<div
@@ -213,7 +225,7 @@ export const Modal: React.FC<ModalProps> = ({
 							disabled={secondaryBtn.disabled}
 							className={cn(
 								secondaryBtn.variant === 'secondary' &&
-									'cursor-pointer bg-white border-transparent hover:border-gray-200 text-gray-700 hover:bg-gray-50'
+								'cursor-pointer bg-white border-transparent hover:border-gray-200 text-gray-700 hover:bg-gray-50'
 							)}
 						>
 							{secondaryBtn.icon && <span className="mr-2">{secondaryBtn.icon}</span>}
