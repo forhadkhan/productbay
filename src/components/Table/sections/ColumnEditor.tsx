@@ -12,6 +12,8 @@ import { __, _n } from '@wordpress/i18n';
 import { generateColumnId } from '@/types';
 import { Button } from '@/components/ui/Button';
 import type { Column, ColumnType } from '@/types';
+import { ProBadge } from '@/components/ui/ProBadge';
+import { ProFeatureGate } from '@/components/ui/ProFeatureGate';
 import ColumnItem from '@/components/Table/sections/ColumnItem';
 import {
 	DndContext,
@@ -285,7 +287,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 								key={column.id}
 								column={column}
 								onRemove={() => onRemoveColumn(column.id)}
-								onUpdate={(updates) => onUpdateColumn(column.id, updates)}
+								onUpdate={(updates: Partial<Column>) => onUpdateColumn(column.id, updates)}
 							/>
 						))}
 					</div>
@@ -327,54 +329,45 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 									!(window as any).productBaySettings?.proVersion;
 
 								return (
-									<button
+									<ProFeatureGate
 										key={type}
-										onClick={(e) => {
-											if (isProFeature) {
-												e.preventDefault();
-												alert(
-													__(
-														'This feature requires ProductBay Pro.',
-														'productbay'
-													)
-												);
-												return;
-											}
-											handleToggleColumn(type);
-										}}
-										className={cn(
-											'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent',
-											isProFeature
-												? 'opacity-75 cursor-not-allowed hover:bg-gray-50'
-												: 'cursor-pointer hover:bg-orange-50 hover:border-orange-200',
-											isSelected && !isProFeature
-												? 'bg-blue-100 text-blue-700'
-												: 'text-gray-700'
-										)}
-										title={
-											isProFeature
-												? __('Available in Pro version', 'productbay')
-												: ''
-										}
+										featureName={label}
+										description={__('This column type is a Pro feature. Upgrade to create more advanced tables.', 'productbay')}
 									>
-										<Icon className="w-4 h-4 flex-shrink-0" />
-										<span
+										<button
+											onClick={() => handleToggleColumn(type)}
 											className={cn(
-												'truncate flex-1',
-												isProFeature && 'text-gray-500'
+												'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
+												isProFeature
+													? 'opacity-75 hover:bg-gray-50'
+													: 'cursor-pointer hover:bg-orange-50 hover:border-orange-200',
+												isSelected && !isProFeature
+													? 'bg-blue-100 text-blue-700'
+													: 'text-gray-700'
 											)}
+											title={
+												isProFeature
+													? __('Available in Pro version', 'productbay')
+													: ''
+											}
 										>
-											{label}
-										</span>
-										{isProFeature && (
-											<span className="ml-auto text-[9px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
-												PRO
+											<Icon className="w-4 h-4 flex-shrink-0" />
+											<span
+												className={cn(
+													'truncate flex-1',
+													isProFeature && 'text-gray-500'
+												)}
+											>
+												{label}
 											</span>
-										)}
-										{isSelected && !isProFeature && (
-											<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
-										)}
-									</button>
+											{isProFeature && (
+												<ProBadge size="sm" className="ml-auto" />
+											)}
+											{isSelected && !isProFeature && (
+												<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
+											)}
+										</button>
+									</ProFeatureGate>
 								);
 							})}
 						</div>

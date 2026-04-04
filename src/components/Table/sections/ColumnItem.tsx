@@ -37,6 +37,7 @@ import {
 	Settings2Icon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { ProBadge } from '@/components/ui/ProBadge';
 import type { Column, ColumnType, VisibilityMode, CombinedElement } from '@/types';
 
 /* =============================================================================
@@ -520,9 +521,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 						{column.type}
 					</span>
 					{(column.type === 'cf' || column.type === 'combined') && !isProActive && (
-						<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
-							PRO
-						</span>
+						<ProBadge size="sm" />
 					)}
 				</div>
 
@@ -676,11 +675,7 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 								<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
 									{__('Combined Column Elements', 'productbay')}
 								</h4>
-								{!isProActive && (
-									<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">
-										PRO
-									</span>
-								)}
+								{!isProActive && <ProBadge />}
 							</div>
 
 							{!isProActive ? (
@@ -809,13 +804,8 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 								<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
 									{__('Custom Field Settings', 'productbay')}
 								</h4>
-								{!isProActive && (
-									<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">
-										PRO
-									</span>
-								)}
+								{!isProActive && <ProBadge />}
 							</div>
-
 							{!isProActive ? (
 								<div className="p-4 bg-blue-50 border border-blue-100 rounded-lg text-center">
 									<DatabaseIcon className="w-8 h-8 text-blue-400 mx-auto mb-2 opacity-50" />

@@ -5,6 +5,7 @@ import { TableSettings } from '@/types';
 import { Slot } from '@wordpress/components';
 import { Toggle } from '@/components/ui/Toggle';
 import { Select } from '@/components/ui/Select';
+import { ProBadge } from '@/components/ui/ProBadge';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
 
@@ -129,11 +130,7 @@ export const OptionsPanel = ({
 								},
 							]}
 						/>
-						{!isProActive && (
-							<span className="shrink-0 text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
-								PRO
-							</span>
-						)}
+						{!isProActive && <ProBadge />}
 					</div>
 				</SettingsOption>
 
@@ -188,9 +185,7 @@ export const OptionsPanel = ({
 					)}
 				>
 					{!isProActive ? (
-						<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
-							PRO
-						</span>
+						<ProBadge />
 					) : (
 						<Toggle
 							checked={settings.filters?.showPriceRange ?? false}
@@ -227,9 +222,7 @@ export const OptionsPanel = ({
 					)}
 				>
 					{!isProActive ? (
-						<span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
-							PRO
-						</span>
+						<ProBadge />
 					) : (
 						<Toggle
 							checked={settings.features.variableGrouped ?? false}
