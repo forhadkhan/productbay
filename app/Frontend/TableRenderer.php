@@ -1504,32 +1504,45 @@ class TableRenderer
 		}
 
 		$total = $query->max_num_pages;
+		$mode  = $settings['pagination']['mode'] ?? 'standard';
 
 		if ($total > 1) {
-			$base_url = !empty($runtime_args['page_url']) ? $runtime_args['page_url'] : get_pagenum_link(999999999);
+			echo '<div class="productbay-pagination" data-mode="' . esc_attr($mode) . '" data-current="' . esc_attr((string)max(1, $paged)) . '" data-total="' . esc_attr((string)$total) . '">';
 
-			// If base_url was from get_pagenum_link(999999999), it has 999999999.
-			// If from runtime_args, it's a clean URL.
-			$base = str_replace('999999999', '%#%', $base_url);
+			if ('standard' === $mode || !defined('PRODUCTBAY_PRO_VERSION')) {
+				$base_url = !empty($runtime_args['page_url']) ? $runtime_args['page_url'] : get_pagenum_link(999999999);
+				$base = str_replace('999999999', '%#%', $base_url);
+				if (strpos($base, '%#%') === false) {
+					$base = add_query_arg('paged', '%#%', $base);
+				}
 
-			// If it's a clean URL without %#%, add it for the paged param.
-			if (strpos($base, '%#%') === false) {
-				$base = add_query_arg('paged', '%#%', $base);
+				echo wp_kses_post(
+					paginate_links(
+						array(
+							'base' => $base,
+							'format' => '',
+							'current' => max(1, $paged),
+							'total' => $total,
+							'prev_text' => '&laquo;',
+							'next_text' => '&raquo;',
+						)
+					)
+				);
+			} elseif ('load_more' === $mode) {
+				if ($paged < $total) {
+					echo '<button type="button" class="productbay-load-more-btn productbay-button">';
+					echo esc_html__('Load More', 'productbay');
+					echo '<span class="productbay-spinner" style="display:none; margin-left: 8px;"></span>';
+					echo '</button>';
+				}
+			} elseif ('infinite' === $mode) {
+				if ($paged < $total) {
+					echo '<div class="productbay-infinite-sentinel">';
+					echo '<span class="productbay-spinner"></span>';
+					echo '</div>';
+				}
 			}
 
-			echo '<div class="productbay-pagination">';
-			echo wp_kses_post(
-				paginate_links(
-					array(
-						'base' => $base,
-						'format' => '',
-						'current' => max(1, $paged),
-						'total' => $total,
-						'prev_text' => '&laquo;',
-						'next_text' => '&raquo;',
-					)
-				)
-			);
 			echo '</div>';
 		}
 	}
