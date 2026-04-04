@@ -203,6 +203,9 @@ export interface TableSettings {
 		/** Products per page */
 		limit: number;
 
+		/** Pagination mode (Pro only: load_more, infinite) */
+		mode?: 'standard' | 'load_more' | 'infinite';
+
 		/** Pagination position (top, bottom, both) */
 		position: 'top' | 'bottom' | 'both';
 	};
@@ -360,6 +363,7 @@ export const createDefaultSettings = (): TableSettings => ({
 	},
 	pagination: {
 		limit: 10,
+		mode: 'standard',
 		position: 'bottom',
 	},
 	cart: {
