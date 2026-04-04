@@ -122,6 +122,11 @@ class AjaxRenderer
 			\wp_send_json_error(array('message' => 'Table not found'));
 		}
 
+		// Security Hardening: Ensure table is published.
+		if ('publish' !== ($table['status'] ?? '')) {
+			\wp_send_json_error(array('message' => 'This table is not available for public viewing.'));
+		}
+
 		// Initialize renderer.
 		$renderer = new TableRenderer($this->repository);
 
