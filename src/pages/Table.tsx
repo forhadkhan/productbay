@@ -10,11 +10,16 @@ import {
 	PlusIcon,
 	LoaderIcon,
 	CopyCheckIcon,
+	DownloadIcon,
 } from 'lucide-react';
+import { useImportExportStore } from '@/store/importExportStore';
+import { ProFeatureGate } from '@/components/ui/ProFeatureGate';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { EditableText } from '@/components/ui/EditableText';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { useParams, useNavigate } from 'react-router-dom';
 import LivePreview from '@/components/Table/LivePreview';
+import { PATHS, NEW_TABLE_PATH } from '@/utils/routes';
 import TabOptions from '@/components/Table/TabOptions';
 import TabDisplay from '@/components/Table/TabDisplay';
 import { Tabs, TabOption } from '@/components/ui/Tabs';
@@ -23,11 +28,9 @@ import TabTable from '@/components/Table/TabTable';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { useToast } from '@/context/ToastContext';
 import { Toggle } from '@/components/ui/Toggle';
-import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { Button } from '@/components/ui/Button';
 import { useUrlTab } from '@/hooks/useUrlTab';
 import { useState, useEffect } from 'react';
-import { PATHS, NEW_TABLE_PATH } from '@/utils/routes';
 import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
@@ -96,7 +99,13 @@ const Table = () => {
 		saveTable,
 		isLoading,
 		error,
+		source,
+		columns,
+		settings,
+		style,
 	} = useTableStore();
+
+	const { openExportModal } = useImportExportStore();
 
 	// Load data on mount or ID change
 	useEffect(() => {
@@ -272,11 +281,10 @@ const Table = () => {
 							onClick={() => {
 								copyToClipboard(shortcode);
 							}}
-							className={`cursor-pointer transition-colors w-20 h-10 ${
-								isCopied
-									? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200'
-									: 'bg-white hover:bg-blue-100 text-blue-700 border-blue-200'
-							}`}
+							className={`cursor-pointer transition-colors w-20 h-10 ${isCopied
+								? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200'
+								: 'bg-white hover:bg-blue-100 text-blue-700 border-blue-200'
+								}`}
 						>
 							{isCopied ? (
 								<>
@@ -316,6 +324,37 @@ const Table = () => {
 					</div>
 					{/* Controls */}
 					<div className="flex items-center justify-between md:justify-left gap-4 order-1 md:order-2">
+						{/* Export Button (Only for existing tables) */}
+						{!isNewTable && (
+							<ProFeatureGate featureName={__('Export Table', 'productbay')}>
+								<Tooltip content={__('Export this table configuration', 'productbay')}>
+									<Button
+										size="sm"
+										variant="ghost"
+										onClick={() =>
+											openExportModal(
+												[
+													{
+														id: tableId!,
+														title: tableTitle,
+														status: tableStatus,
+														source,
+														columns,
+														settings,
+														style,
+													},
+												],
+												[tableId!]
+											)
+										}
+										className="text-blue-500 hover:text-blue-700 hover:bg-blue-50 px-2 cursor-pointer"
+									>
+										<DownloadIcon className="size-4" />
+									</Button>
+								</Tooltip>
+							</ProFeatureGate>
+						)}
+
 						{/* Delete Button (Only for existing tables) */}
 						{!isNewTable && (
 							<Tooltip content={__('Delete this table', 'productbay')}>
@@ -372,9 +411,8 @@ const Table = () => {
 							size="default"
 							onClick={handleSave}
 							disabled={isSaving || isLoading}
-							className={`w-32 flex items-center justify-between cursor-pointer ${
-								isSaving ? 'opacity-75 cursor-wait' : ''
-							}`}
+							className={`w-32 flex items-center justify-between cursor-pointer ${isSaving ? 'opacity-75 cursor-wait' : ''
+								}`}
 						>
 							{isSaving
 								? __('Saving...', 'productbay')
