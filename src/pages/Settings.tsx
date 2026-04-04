@@ -27,15 +27,19 @@ import {
 import AdminBarOptions from '@/components/Settings/AdminBarOptions';
 import UninstallOptions from '@/components/Settings/UninstallOptions';
 import ClearDataOptions from '@/components/Settings/ClearDataOptions';
+import AdvancedSettings from '@/components/Settings/AdvancedSettings';
 
-type SettingsTabValue = 'default' | 'plugin';
-
-const VALID_SETTINGS_TABS = ['default', 'plugin'] as const;
+const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin'] as const;
+type SettingsTabValue = (typeof VALID_SETTINGS_TABS)[number];
 
 const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 	{
 		value: 'default',
 		label: __('Default Configuration', 'productbay'),
+	},
+	{
+		value: 'advanced',
+		label: __('Advanced Settings', 'productbay'),
 	},
 	{
 		value: 'plugin',
@@ -264,9 +268,8 @@ const Settings = () => {
 						onClick={handleSave}
 						disabled={saving || !isDirty}
 						variant="default"
-						className={`w-36 ${
-							saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'
-						}`}
+						className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'
+							}`}
 					>
 						{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
 						<SaveIcon className="w-4 h-4 ml-2" />
@@ -285,10 +288,11 @@ const Settings = () => {
 				onChange={setActiveTab}
 				aria-label={__('Settings tabs', 'productbay')}
 			>
-				{/* 
-					TAB 1: Default Configuration
-					Allows setting global defaults for new tables (Source, Style, Functionality).
-				*/}
+				{/**
+				 * Tab 1: Default Configuration
+				 * 
+				 * Allows setting global defaults for new tables (Source, Style, Functionality).
+				 */}
 				{activeTab === 'default' && (
 					<div className="space-y-10 p-6">
 						<div className="max-w-4xl space-y-10">
@@ -382,7 +386,15 @@ const Settings = () => {
 					</div>
 				)}
 
-				{/* Plugin Configuration Tab */}
+				{/**
+				 * Tab 2: Advanced Settings
+				 * 
+				 */}
+				{activeTab === 'advanced' && <AdvancedSettings />}
+
+				{/**
+				 * Tab 3: Plugin Configuration Tab 
+				 */}
 				{activeTab === 'plugin' && (
 					<div className="space-y-6">
 						<AdminBarOptions
