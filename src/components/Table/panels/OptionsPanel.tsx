@@ -4,6 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { TableSettings } from '@/types';
 import { Slot } from '@wordpress/components';
 import { Toggle } from '@/components/ui/Toggle';
+import { Select } from '@/components/ui/Select';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
 
@@ -94,6 +95,46 @@ export const OptionsPanel = ({
 						}
 						className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
 					/>
+				</SettingsOption>
+
+				{/* Pagination Style */}
+				<SettingsOption
+					title={__('Pagination Style', 'productbay')}
+					description={__('Choose how additional products are loaded', 'productbay')}
+				>
+					<div className="flex items-center gap-2">
+						<Select
+							value={settings.pagination.mode || 'standard'}
+							onChange={(val) =>
+								setPagination({
+									mode: val as 'standard' | 'load_more' | 'infinite',
+								})
+							}
+							size="sm"
+							className="w-48"
+							options={[
+								{
+									label: __('Standard (Numbers)', 'productbay'),
+									value: 'standard',
+								},
+								{
+									label: __('Load More Button', 'productbay') + (isProActive ? '' : ' (PRO)'),
+									value: 'load_more',
+									disabled: !isProActive,
+								},
+								{
+									label: __('Infinite Scroll', 'productbay') + (isProActive ? '' : ' (PRO)'),
+									value: 'infinite',
+									disabled: !isProActive,
+								},
+							]}
+						/>
+						{!isProActive && (
+							<span className="shrink-0 text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded tracking-wide">
+								PRO
+							</span>
+						)}
+					</div>
 				</SettingsOption>
 
 				{/* Enable Image Lightbox */}
