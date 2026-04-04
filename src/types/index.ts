@@ -327,6 +327,7 @@ export interface TableStyle {
 export interface ProductTable {
 	id?: number;
 	title: string;
+	shortcode?: string;
 	status: 'publish' | 'private';
 	date?: string;
 	modifiedDate?: string;
