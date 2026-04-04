@@ -9,9 +9,12 @@ import { useToast } from '@/context/ToastContext';
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
+import { useImportExportStore } from '@/store/importExportStore';
+import { ProFeatureGate } from '@/components/ui/ProFeatureGate';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
+import { ProductTable } from '@/types';
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -35,21 +38,9 @@ import {
 	ArrowUpDownIcon,
 	ArrowUpIcon,
 	ArrowDownIcon,
+	UploadIcon,
+	DownloadIcon,
 } from 'lucide-react';
-
-interface Table {
-	id: number;
-	title: string;
-	shortcode: string;
-	date: string;
-	modifiedDate?: string;
-	productCount?: number;
-	status: string; // 'publish' | 'private' etc.
-	source?: any;
-	columns?: any[];
-	settings?: any;
-	style?: any;
-}
 
 /**
  * Bulk action options for table management
@@ -58,6 +49,7 @@ const BULK_OPTIONS = [
 	{ label: __('Delete', 'productbay'), value: 'delete' },
 	{ label: __('Set Published', 'productbay'), value: 'published' },
 	{ label: __('Set Private', 'productbay'), value: 'private' },
+	{ label: __('Export Selected', 'productbay'), value: 'export' },
 ];
 
 /**
@@ -104,7 +96,7 @@ interface ModalState {
  * @since 1.0.0
  */
 const Tables = () => {
-	const [tables, setTables] = useState<Table[]>([]);
+	const [tables, setTables] = useState<ProductTable[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	// UI States
@@ -122,8 +114,9 @@ const Tables = () => {
 		direction: 'asc' | 'desc';
 	} | null>({ key: 'date', direction: 'desc' });
 
-	// Use the system store instead of local state
-	const { status, loading, fetchStatus, error } = useSystemStore();
+	// Use the system store
+	const { status, loading, fetchStatus } = useSystemStore();
+	const { openImportModal, openExportModal } = useImportExportStore();
 
 	useEffect(() => {
 		// Fetch fresh data on mount (background update if data exists)
@@ -151,7 +144,7 @@ const Tables = () => {
 
 	const loadTables = async () => {
 		try {
-			const data = await apiFetch<Table[]>('tables');
+			const data = await apiFetch<ProductTable[]>('tables');
 			setTables(data);
 		} catch (error) {
 			console.error(error);
@@ -244,7 +237,7 @@ const Tables = () => {
 				style: tableToClone.style || {},
 			};
 
-			const newTable = await apiFetch<Table>('tables', {
+			const newTable = await apiFetch<ProductTable>('tables', {
 				method: 'POST',
 				body: JSON.stringify({ data: payload }),
 			});
@@ -340,7 +333,7 @@ const Tables = () => {
 	// Bulk Actions
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.checked) {
-			setSelectedRows(currentTables.map((t) => t.id));
+			setSelectedRows(currentTables.map((t) => t.id!).filter(Boolean));
 		} else {
 			setSelectedRows([]);
 		}
@@ -368,7 +361,7 @@ const Tables = () => {
 				);
 
 				// Update local state
-				setTables((prev) => prev.filter((t) => !selectedRows.includes(t.id)));
+				setTables((prev) => prev.filter((t) => t.id !== undefined && !selectedRows.includes(t.id)));
 
 				toast({
 					title: __('Success', 'productbay'),
@@ -416,7 +409,7 @@ const Tables = () => {
 
 				// Update local state
 				setTables((prev) =>
-					prev.map((t) => (selectedRows.includes(t.id) ? { ...t, status: newStatus } : t))
+					prev.map((t) => (t.id !== undefined && selectedRows.includes(t.id) ? { ...t, status: newStatus } : t))
 				);
 
 				toast({
@@ -433,6 +426,8 @@ const Tables = () => {
 					),
 					type: 'success',
 				});
+			} else if (selectedBulkAction === 'export') {
+				handleExport();
 			}
 		} catch (error) {
 			console.error(error);
@@ -443,9 +438,19 @@ const Tables = () => {
 			});
 		} finally {
 			setIsLoading(false);
-			setSelectedRows([]);
+			if (selectedBulkAction !== 'export') {
+				setSelectedRows([]);
+			}
 			setSelectedBulkAction('');
 		}
+	};
+
+	/**
+	 * Handle individual and bulk export
+	 */
+	const handleExport = (ids?: number[]) => {
+		const exportIds = ids || selectedRows;
+		openExportModal(tables, exportIds);
 	};
 
 	// Filtering & Pagination	// Derived state
@@ -453,8 +458,8 @@ const Tables = () => {
 		return tables.filter((table) => {
 			const matchesSearch =
 				table.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				table.id.toString() === searchQuery.replace('#', '') ||
-				table.shortcode.toLowerCase().includes(searchQuery.toLowerCase());
+				table.id?.toString() === searchQuery.replace('#', '') ||
+				table.shortcode?.toLowerCase().includes(searchQuery.toLowerCase());
 
 			const matchesStatus =
 				filterStatuses.length === 0 || filterStatuses.includes(table.status);
@@ -475,12 +480,12 @@ const Tables = () => {
 		const sortableTables = [...filteredTables];
 		if (sortConfig !== null) {
 			sortableTables.sort((a, b) => {
-				let aValue: any = a[sortConfig.key as keyof Table];
-				let bValue: any = b[sortConfig.key as keyof Table];
+				let aValue: any = a[sortConfig.key as keyof ProductTable];
+				let bValue: any = b[sortConfig.key as keyof ProductTable];
 
 				if (sortConfig.key === 'date') {
-					aValue = new Date(a.date.replace(' ', 'T')).getTime();
-					bValue = new Date(b.date.replace(' ', 'T')).getTime();
+					aValue = new Date((a.date || '').replace(' ', 'T')).getTime();
+					bValue = new Date((b.date || '').replace(' ', 'T')).getTime();
 				} else if (sortConfig.key === 'source') {
 					aValue =
 						typeof a.source === 'object' && a.source !== null
@@ -591,6 +596,31 @@ const Tables = () => {
 						<span className="font-medium text-gray-600">({status?.table_count})</span>
 					)}
 				</h1>
+
+				<div className="flex gap-2">
+					<ProFeatureGate featureName={__('Import Tables', 'productbay')}>
+						<Button
+							variant="secondary"
+							size="sm"
+							onClick={openImportModal}
+							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors"
+						>
+							<UploadIcon size={14} /> {__('Import', 'productbay')}
+						</Button>
+					</ProFeatureGate>
+
+					<ProFeatureGate featureName={__('Export All Tables', 'productbay')}>
+						<Button
+							variant="secondary"
+							size="sm"
+							onClick={() => openExportModal(tables)}
+							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+							disabled={isLoading || tables.length === 0}
+						>
+							<DownloadIcon size={14} /> {__('Export', 'productbay')}
+						</Button>
+					</ProFeatureGate>
+				</div>
 			</div>
 
 			{/* Top Menu: Bulk Actions & Search/Filter */}
@@ -860,6 +890,7 @@ const Tables = () => {
 							</tr>
 						) : (
 							currentTables.map((table) => {
+								if (table.id === undefined) return null;
 								const isActing = !!actionLoading[table.id];
 								const actionType = actionLoading[table.id];
 
@@ -867,21 +898,19 @@ const Tables = () => {
 									// Table Row
 									<tr
 										key={table.id}
-										className={`group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${
-											isActing ? 'opacity-50' : ''
-										}`}
+										className={`group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''
+											}`}
 									>
 										{/* Checkbox */}
 										<td className="px-4 py-4 text-center">
 											<input
 												type="checkbox"
 												className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
-												checked={selectedRows.includes(table.id)}
-												onChange={() => handleSelectRow(table.id)}
+												checked={selectedRows.includes(table.id!)}
+												onChange={() => handleSelectRow(table.id!)}
 												disabled={isActing}
 											/>
 										</td>
-										{/* Title (Columns used) */}
 										<td className="p-4 relative">
 											<div className="font-medium text-wp-text text-base flex items-center gap-2">
 												<Link
@@ -910,7 +939,7 @@ const Tables = () => {
 												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
-														openDuplicateModal(table.id, table.title)
+														openDuplicateModal(table.id!, table.title)
 													}
 													className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 													disabled={isActing}
@@ -918,10 +947,20 @@ const Tables = () => {
 													{__('Duplicate', 'productbay')}
 												</button>
 												<span className="text-gray-300">|</span>
+												<ProFeatureGate featureName={__('Export Table', 'productbay')}>
+													<button
+														onClick={() => handleExport([table.id!])}
+														className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+														disabled={isActing}
+													>
+														{__('Export', 'productbay')}
+													</button>
+												</ProFeatureGate>
+												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
 														openToggleModal(
-															table.id,
+															table.id!,
 															table.title,
 															table.status
 														)
@@ -936,7 +975,7 @@ const Tables = () => {
 												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
-														openDeleteModal(table.id, table.title)
+														openDeleteModal(table.id!, table.title)
 													}
 													className="text-red-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
 													disabled={isActing}
@@ -961,24 +1000,23 @@ const Tables = () => {
 										<td className="p-4">
 											<div className="bg-gray-100 inline-flex text-gray-600 px-3 py-1 rounded border border-gray-300 items-center gap-1">
 												<span className="select-all font-mono text-sm bg-transparent p-1 hover:bg-gray-200">
-													{table.shortcode}
+													{table.shortcode || ''}
 												</span>
 												<Button
 													variant="outline"
 													size="xs"
 													onClick={() =>
-														copyShortcode(table.shortcode, table.id)
+														copyShortcode(table.shortcode || '', table.id!)
 													}
 													title={
 														copiedTableId === table.id
 															? __('Copied!', 'productbay')
 															: __('Copy shortcode', 'productbay')
 													}
-													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${
-														copiedTableId === table.id
-															? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
-															: 'bg-transparent hover:bg-white text-gray-600'
-													}`}
+													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${copiedTableId === table.id
+														? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
+														: 'bg-transparent hover:bg-white text-gray-600'
+														}`}
 													disabled={isActing}
 												>
 													{copiedTableId === table.id ? (
@@ -994,9 +1032,9 @@ const Tables = () => {
 											<div className="flex items-center gap-2">
 												<span>
 													{typeof table.source === 'object' &&
-													table.source !== null
+														table.source !== null
 														? // @ts-ignore
-														  table.source.type || 'Custom'
+														table.source.type || 'Custom'
 														: table.source || 'WooCommerce'}
 												</span>
 												{table.productCount !== undefined && (
@@ -1275,15 +1313,15 @@ const Tables = () => {
 				<p className="text-gray-700">
 					{modalState.currentStatus === 'publish'
 						? sprintf(
-								/* translators: %s: table name */
-								__('Are you sure you want to set "%s" to private?', 'productbay'),
-								modalState.tableName
-						  )
+							/* translators: %s: table name */
+							__('Are you sure you want to set "%s" to private?', 'productbay'),
+							modalState.tableName
+						)
 						: sprintf(
-								/* translators: %s: table name */
-								__('Are you sure you want to publish "%s"?', 'productbay'),
-								modalState.tableName
-						  )}
+							/* translators: %s: table name */
+							__('Are you sure you want to publish "%s"?', 'productbay'),
+							modalState.tableName
+						)}
 				</p>
 			</Modal>
 		</div>
