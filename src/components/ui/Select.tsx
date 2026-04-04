@@ -26,6 +26,8 @@ export interface SelectOption {
 	label: string;
 	/** The internal value for the option */
 	value: string;
+	/** Whether the option is disabled */
+	disabled?: boolean;
 }
 
 export interface SelectProps
@@ -152,11 +154,13 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 							{options.map((option) => (
 								<div
 									key={option.value}
-									onClick={() => handleSelect(option.value)}
+									onClick={() => !option.disabled && handleSelect(option.value)}
 									className={cn(
-										'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-blue-100 hover:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
-										option.value === value && 'bg-blue-50 font-medium'
+										'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-blue-100 hover:text-gray-900 transition-colors',
+										option.value === value && 'bg-blue-50 font-medium',
+										option.disabled && 'pointer-events-none opacity-50 grayscale'
 									)}
+									data-disabled={option.disabled}
 								>
 									<span className="block truncate">{option.label}</span>
 									{option.value === value && (
