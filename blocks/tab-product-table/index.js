@@ -30822,15 +30822,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ui_Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/components/ui/Button */ "./src/components/ui/Button.tsx");
 /* harmony import */ var _components_ui_Modal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/components/ui/Modal */ "./src/components/ui/Modal.tsx");
 /* harmony import */ var _hooks_useUrlTab__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/hooks/useUrlTab */ "./src/hooks/useUrlTab.ts");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/types */ "./src/types/index.ts");
-/* harmony import */ var _components_Settings_AdminBarOptions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/components/Settings/AdminBarOptions */ "./src/components/Settings/AdminBarOptions.tsx");
-/* harmony import */ var _components_Settings_UninstallOptions__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/components/Settings/UninstallOptions */ "./src/components/Settings/UninstallOptions.tsx");
-/* harmony import */ var _components_Settings_ClearDataOptions__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/components/Settings/ClearDataOptions */ "./src/components/Settings/ClearDataOptions.tsx");
-/* harmony import */ var _components_Settings_AdvancedSettings__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/components/Settings/AdvancedSettings */ "./src/components/Settings/AdvancedSettings.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/types */ "./src/types/index.ts");
+/* harmony import */ var _components_Settings_AdminBarOptions__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/components/Settings/AdminBarOptions */ "./src/components/Settings/AdminBarOptions.tsx");
+/* harmony import */ var _components_Settings_UninstallOptions__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/components/Settings/UninstallOptions */ "./src/components/Settings/UninstallOptions.tsx");
+/* harmony import */ var _components_Settings_ClearDataOptions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/components/Settings/ClearDataOptions */ "./src/components/Settings/ClearDataOptions.tsx");
+/* harmony import */ var _components_Settings_AdvancedSettings__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/components/Settings/AdvancedSettings */ "./src/components/Settings/AdvancedSettings.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__);
+
+
 
 
 
@@ -30854,16 +30858,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin'];
+const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin', 'license'];
 const SETTINGS_TABS = [{
   value: 'default',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Default Configuration', 'productbay')
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Default Configuration', 'productbay')
 }, {
   value: 'advanced',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Advanced Settings', 'productbay')
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Advanced Settings', 'productbay')
 }, {
   value: 'plugin',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Plugin Settings', 'productbay')
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Plugin Settings', 'productbay')
 }];
 
 /**
@@ -30910,16 +30914,26 @@ const Settings = () => {
   (0,react__WEBPACK_IMPORTED_MODULE_11__.useEffect)(() => {
     fetchSettings();
   }, [fetchSettings]);
+  const activeTabs = react__WEBPACK_IMPORTED_MODULE_11___default().useMemo(() => {
+    const baseTabs = [...SETTINGS_TABS];
+    if (productBaySettings.proActive) {
+      baseTabs.push({
+        value: 'license',
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('License', 'productbay')
+      });
+    }
+    return baseTabs;
+  }, []);
 
   /**
    * Derived configuration objects from the global settings.
    * Default fallback values are applied if the data is missing.
    */
   const tableDefaults = settings.table_defaults || {};
-  const source = tableDefaults.source || (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultSource)();
-  const style = tableDefaults.style || (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultStyle)();
-  const tableSettings = tableDefaults.settings || (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultSettings)();
-  const columns = tableDefaults.columns || (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultColumns)();
+  const source = tableDefaults.source || (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultSource)();
+  const style = tableDefaults.style || (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultStyle)();
+  const tableSettings = tableDefaults.settings || (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultSettings)();
+  const columns = tableDefaults.columns || (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultColumns)();
 
   // -- Handlers for Panel Updates --
 
@@ -31035,8 +31049,8 @@ const Settings = () => {
     try {
       await saveSettings();
       toast({
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Settings saved!', 'productbay'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Your settings have been saved successfully.', 'productbay'),
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Settings saved!', 'productbay'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Your settings have been saved successfully.', 'productbay'),
         type: 'success'
       });
       if (adminBarValueBeforeSave.current !== settings.show_admin_bar) {
@@ -31044,8 +31058,8 @@ const Settings = () => {
       }
     } catch (error) {
       toast({
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Failed to save settings', 'productbay'),
-        description: error.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('An error occurred while saving your settings.', 'productbay'),
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Failed to save settings', 'productbay'),
+        description: error.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('An error occurred while saving your settings.', 'productbay'),
         type: 'error'
       });
     }
@@ -31061,111 +31075,111 @@ const Settings = () => {
     updateSettings({
       ...settings,
       table_defaults: {
-        source: (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultSource)(),
-        style: (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultStyle)(),
-        settings: (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultSettings)(),
-        columns: (0,_types__WEBPACK_IMPORTED_MODULE_17__.createDefaultColumns)()
+        source: (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultSource)(),
+        style: (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultStyle)(),
+        settings: (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultSettings)(),
+        columns: (0,_types__WEBPACK_IMPORTED_MODULE_18__.createDefaultColumns)()
       }
     });
     setShowResetModal(false);
     toast({
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Defaults Reset', 'productbay'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Global default settings have been reset to factory values.', 'productbay'),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Defaults Reset', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Global default settings have been reset to factory values.', 'productbay'),
       type: 'success'
     });
   };
-  const SettingsTabSkeleton = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+  const SettingsTabSkeleton = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
     className: "p-6 space-y-6",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("div", {
       className: "h-7 w-48 bg-gray-200 rounded animate-pulse mb-6"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
       className: "space-y-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_10__.Skeleton, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_10__.Skeleton, {
         className: "h-10 w-full"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_10__.Skeleton, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_ui_Skeleton__WEBPACK_IMPORTED_MODULE_10__.Skeleton, {
         className: "h-10 w-full"
       })]
     })]
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
     className: "w-full space-y-6 relative",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
       className: "sticky top-0 z-40 flex items-center justify-between pt-[48px] pb-4 mb-2 bg-wp-bg border-b border-gray-200/50",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("h1", {
         className: "text-2xl font-bold text-gray-800 m-0",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Settings', 'productbay')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Settings', 'productbay')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
         className: "flex items-center gap-3",
-        children: [activeTab === 'default' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_13__.Button, {
+        children: [activeTab === 'default' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_13__.Button, {
           variant: "outline",
           onClick: handleResetDefaults,
           className: "text-gray-500 hover:bg-red-500 hover:text-white cursor-pointer",
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Reset to Factory Defaults', 'productbay'),
-          children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Reset Defaults', 'productbay'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Reset to Factory Defaults', 'productbay'),
+          children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Reset Defaults', 'productbay'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
             className: "w-4 h-4 ml-2"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_13__.Button, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_13__.Button, {
           onClick: handleSave,
           disabled: saving || !isDirty,
           variant: "default",
           className: `w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'}`,
-          children: [saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Saving...', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Save Changes', 'productbay'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: [saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Saving...', 'productbay') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Save Changes', 'productbay'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
             className: "w-4 h-4 ml-2"
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_components_ui_Tabs__WEBPACK_IMPORTED_MODULE_9__.Tabs, {
-      tabs: SETTINGS_TABS,
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)(_components_ui_Tabs__WEBPACK_IMPORTED_MODULE_9__.Tabs, {
+      tabs: activeTabs,
       value: activeTab,
       onChange: setActiveTab,
-      "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Settings tabs', 'productbay'),
-      children: [activeTab === 'default' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
+      "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Settings tabs', 'productbay'),
+      children: [activeTab === 'default' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("div", {
         className: "space-y-10 p-6",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
           className: "max-w-4xl space-y-10",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("h2", {
               className: "text-lg font-bold text-gray-900 mb-2",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Default Source', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("p", {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Default Source', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("p", {
               className: "text-gray-500 mb-6",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Configure the default data source settings for new tables.', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Table_panels_SourcePanel__WEBPACK_IMPORTED_MODULE_7__.SourcePanel, {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Configure the default data source settings for new tables.', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Table_panels_SourcePanel__WEBPACK_IMPORTED_MODULE_7__.SourcePanel, {
               source: source,
               setSourceType: setSourceType,
               className: "border-none"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("hr", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("hr", {
             className: "border-b-2 border-gray-200"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
             className: "flex flex-col gap-8",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("h2", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("h2", {
                 className: "text-lg font-bold text-gray-900 mb-2",
-                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Default Columns', 'productbay')
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("p", {
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Default Columns', 'productbay')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("p", {
                 className: "text-gray-500 mb-6",
-                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Configure the default columns for new tables.', 'productbay')
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Table_sections_DefaultColumnsConfig__WEBPACK_IMPORTED_MODULE_0__.DefaultColumnsConfig, {
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Configure the default columns for new tables.', 'productbay')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Table_sections_DefaultColumnsConfig__WEBPACK_IMPORTED_MODULE_0__.DefaultColumnsConfig, {
                 columns: columns,
                 onChange: setColumns
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Table_sections_BulkSelectConfig__WEBPACK_IMPORTED_MODULE_1__.BulkSelectConfig, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Table_sections_BulkSelectConfig__WEBPACK_IMPORTED_MODULE_1__.BulkSelectConfig, {
               value: tableSettings.features.bulkSelect,
               onChange: config => setFeatures({
                 bulkSelect: config
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("hr", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("hr", {
             className: "border-b-2 border-gray-200"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("h2", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("h2", {
               className: "text-lg font-bold text-gray-900 mb-2",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Default Styling', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("p", {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Default Styling', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("p", {
               className: "text-gray-500 mb-6",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Set the default look and feel for your tables.', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Table_panels_DisplayPanel__WEBPACK_IMPORTED_MODULE_2__.DisplayPanel, {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Set the default look and feel for your tables.', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Table_panels_DisplayPanel__WEBPACK_IMPORTED_MODULE_2__.DisplayPanel, {
               style: style,
               setHeaderStyle: setHeaderStyle,
               setBodyStyle: setBodyStyle,
@@ -31175,16 +31189,16 @@ const Settings = () => {
               setHoverStyle: setHoverStyle,
               className: "border-none"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("hr", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("hr", {
             className: "border-b-2 border-gray-200"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("h2", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("h2", {
               className: "text-lg font-bold text-gray-900 mb-2",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Default Functionality', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("p", {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Default Functionality', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("p", {
               className: "text-gray-500 mb-6",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Configure default features like sorting, pagination, and filters.', 'productbay')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Table_panels_OptionsPanel__WEBPACK_IMPORTED_MODULE_3__.OptionsPanel, {
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Configure default features like sorting, pagination, and filters.', 'productbay')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Table_panels_OptionsPanel__WEBPACK_IMPORTED_MODULE_3__.OptionsPanel, {
               settings: tableSettings,
               setFeatures: setFeatures,
               setPagination: setPagination,
@@ -31194,65 +31208,70 @@ const Settings = () => {
             })]
           })]
         })
-      }), activeTab === 'advanced' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Settings_AdvancedSettings__WEBPACK_IMPORTED_MODULE_21__["default"], {}), activeTab === 'plugin' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+      }), activeTab === 'advanced' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Settings_AdvancedSettings__WEBPACK_IMPORTED_MODULE_22__["default"], {}), activeTab === 'plugin' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
         className: "space-y-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Settings_AdminBarOptions__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Settings_AdminBarOptions__WEBPACK_IMPORTED_MODULE_19__["default"], {
           settings: settings,
           setSettings: updateSettings,
           loading: loading
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Settings_UninstallOptions__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Settings_UninstallOptions__WEBPACK_IMPORTED_MODULE_20__["default"], {
           settings: settings,
           setSettings: updateSettings,
           loading: loading
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_Settings_ClearDataOptions__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_Settings_ClearDataOptions__WEBPACK_IMPORTED_MODULE_21__["default"], {
           loading: loading
         })]
+      }), activeTab === 'license' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("div", {
+        className: "space-y-6",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_16__.Slot, {
+          name: "productbay-pro-settings-license"
+        })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_14__.Modal, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_14__.Modal, {
       isOpen: showReloadModal,
       onClose: () => setShowReloadModal(false),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Page Reload Required', 'productbay'),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Page Reload Required', 'productbay'),
       maxWidth: "sm",
       closeOnBackdropClick: false,
       primaryButton: {
-        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Reload Now', 'productbay'),
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Reload Now', 'productbay'),
         onClick: handleReload,
         variant: 'primary',
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
           className: "w-4 h-4"
         })
       },
       secondaryButton: {
-        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Later', 'productbay'),
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Later', 'productbay'),
         onClick: () => setShowReloadModal(false),
         variant: 'secondary'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("p", {
         className: "text-gray-600 m-0",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('The admin bar setting requires a page reload to take effect. Would you like to reload now?', 'productbay')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('The admin bar setting requires a page reload to take effect. Would you like to reload now?', 'productbay')
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_14__.Modal, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_components_ui_Modal__WEBPACK_IMPORTED_MODULE_14__.Modal, {
       isOpen: showResetModal,
       onClose: () => setShowResetModal(false),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Reset Global Defaults?', 'productbay'),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Reset Global Defaults?', 'productbay'),
       maxWidth: "sm",
       closeOnBackdropClick: true,
       primaryButton: {
-        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Yes, Reset Defaults', 'productbay'),
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Yes, Reset Defaults', 'productbay'),
         onClick: confirmResetDefaults,
         variant: 'danger',
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
           className: "w-4 h-4"
         })
       },
       secondaryButton: {
-        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Cancel', 'productbay'),
+        text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Cancel', 'productbay'),
         onClick: () => setShowResetModal(false),
         variant: 'secondary'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("p", {
         className: "text-gray-600 m-0",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_16__.__)('Are you sure you want to reset all global default configurations to their factory settings? This action cannot be undone.', 'productbay')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.__)('Are you sure you want to reset all global default configurations to their factory settings? This action cannot be undone.', 'productbay')
       })
     })]
   });
