@@ -12,7 +12,9 @@ import { useToast } from '@/context/ToastContext';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { useUrlTab } from '@/hooks/useUrlTab';
+import { Slot } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import React from 'react';
 import {
 	createDefaultSource,
 	createDefaultStyle,
@@ -29,7 +31,7 @@ import UninstallOptions from '@/components/Settings/UninstallOptions';
 import ClearDataOptions from '@/components/Settings/ClearDataOptions';
 import AdvancedSettings from '@/components/Settings/AdvancedSettings';
 
-const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin'] as const;
+const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin', 'license'] as const;
 type SettingsTabValue = (typeof VALID_SETTINGS_TABS)[number];
 
 const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
@@ -82,6 +84,17 @@ const Settings = () => {
 	useEffect(() => {
 		fetchSettings();
 	}, [fetchSettings]);
+
+	const activeTabs = React.useMemo(() => {
+		const baseTabs: TabOption<SettingsTabValue>[] = [...SETTINGS_TABS];
+		if (productBaySettings.proActive) {
+			baseTabs.push({
+				value: 'license',
+				label: __('License', 'productbay'),
+			});
+		}
+		return baseTabs;
+	}, []);
 
 	/**
 	 * Derived configuration objects from the global settings.
@@ -283,7 +296,7 @@ const Settings = () => {
 				State is managed via 'activeTab' connected to the URL query string.
 			*/}
 			<Tabs
-				tabs={SETTINGS_TABS}
+				tabs={activeTabs}
 				value={activeTab}
 				onChange={setActiveTab}
 				aria-label={__('Settings tabs', 'productbay')}
@@ -408,6 +421,15 @@ const Settings = () => {
 							loading={loading}
 						/>
 						<ClearDataOptions loading={loading} />
+					</div>
+				)}
+
+				{/**
+				 * Tab 4: License Tab 
+				 */}
+				{activeTab === 'license' && (
+					<div className="space-y-6">
+						<Slot name="productbay-pro-settings-license" />
 					</div>
 				)}
 			</Tabs>
