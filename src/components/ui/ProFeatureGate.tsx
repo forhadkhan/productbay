@@ -71,8 +71,8 @@ export const ProFeatureGate = ({ children, featureName, description }: ProFeatur
 				}}
 			>
 				<div className="flex flex-col items-center text-center py-2">
-					<div className="w-16 h-16 bg-[#f05c2a]/10 flex items-center justify-center rounded-full mb-4 shrink-0">
-						<CrownIcon className="w-8 h-8 text-[#f05c2a]" />
+					<div className="w-16 h-16 bg-productbay-brand/10 flex items-center justify-center rounded-full mb-4 shrink-0">
+						<CrownIcon className="w-8 h-8 text-productbay-brand" />
 					</div>
 					<p className="text-gray-700 font-bold mb-2 text-base">
 						{__('This feature requires ProductBay Pro', 'productbay')}{' '}
