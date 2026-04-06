@@ -30700,9 +30700,9 @@ const ProFeatureGate = ({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "flex flex-col items-center text-center py-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "w-16 h-16 bg-[#f05c2a]/10 flex items-center justify-center rounded-full mb-4 shrink-0",
+          className: "w-16 h-16 bg-productbay-brand/10 flex items-center justify-center rounded-full mb-4 shrink-0",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            className: "w-8 h-8 text-[#f05c2a]"
+            className: "w-8 h-8 text-productbay-brand"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
           className: "text-gray-700 font-bold mb-2 text-base",
@@ -34104,13 +34104,13 @@ const Tables = () => {
   }) => {
     if (sortConfig?.key !== columnKey) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_19__["default"], {
-        className: "w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1"
+        className: "w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1"
       });
     }
     return sortConfig.direction === 'asc' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "w-3 h-3 text-blue-600 ml-1"
+      className: "w-4 h-4 text-blue-600 ml-1"
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_18__["default"], {
-      className: "w-3 h-3 text-blue-600 ml-1"
+      className: "w-4 h-4 text-blue-600 ml-1"
     });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
@@ -34165,7 +34165,7 @@ const Tables = () => {
             variant: "secondary",
             size: "sm",
             onClick: openImportModal,
-            className: "flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors",
+            className: "flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_30__["default"], {
               size: 14
             }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Import', 'productbay')]
@@ -34176,7 +34176,7 @@ const Tables = () => {
             variant: "secondary",
             size: "sm",
             onClick: () => openExportModal(tables),
-            className: "flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+            className: "flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed",
             disabled: isLoading || tables.length === 0,
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_26__["default"], {
               size: 14
@@ -34235,9 +34235,9 @@ const Tables = () => {
               asChild: true,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(_components_ui_Button__WEBPACK_IMPORTED_MODULE_4__.Button, {
                 variant: "outline",
-                className: "gap-2 bg-white relative border-gray-300",
+                className: "gap-2 bg-white hover:bg-blue-500 hover:text-white relative border-gray-300 cursor-pointer group",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {
-                  className: "w-4 h-4 text-gray-500"
+                  className: "w-4 h-4 text-gray-500 group-hover:text-white"
                 }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Filter', 'productbay'), (filterStatuses.length > 0 || filterSources.length > 0) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("span", {
                   className: "absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full",
                   children: filterStatuses.length + filterSources.length
@@ -34301,12 +34301,12 @@ const Tables = () => {
               className: "px-4 py-4 w-10 text-center",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("input", {
                 type: "checkbox",
-                className: "rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500",
+                className: "rounded border border-gray-400/70 bg-wp-bg text-blue-600 focus:ring-blue-500",
                 checked: currentTables.length > 0 && selectedRows.length === currentTables.length,
                 onChange: handleSelectAll
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("th", {
-              className: "p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none",
+              className: "p-4 text-sm font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none",
               onClick: () => handleSort('title'),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
                 className: "flex items-center",
@@ -34315,7 +34315,7 @@ const Tables = () => {
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("th", {
-              className: "p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-24 cursor-pointer hover:bg-gray-100 group transition-colors select-none",
+              className: "p-4 text-sm font-bold text-gray-500 uppercase tracking-wider w-24 cursor-pointer hover:bg-gray-100 group transition-colors select-none",
               onClick: () => handleSort('status'),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
                 className: "flex items-center",
@@ -34324,10 +34324,10 @@ const Tables = () => {
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("th", {
-              className: "p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider",
+              className: "p-4 text-sm font-bold text-gray-500 uppercase tracking-wider",
               children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Shortcode', 'productbay')
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("th", {
-              className: "p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none",
+              className: "p-4 text-sm font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none",
               onClick: () => handleSort('source'),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
                 className: "flex items-center",
@@ -34336,7 +34336,7 @@ const Tables = () => {
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("th", {
-              className: "p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-32 cursor-pointer hover:bg-gray-100 group transition-colors select-none",
+              className: "p-4 text-sm font-bold text-gray-500 uppercase tracking-wider w-32 cursor-pointer hover:bg-gray-100 group transition-colors select-none",
               onClick: () => handleSort('date'),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
                 className: "flex items-center",
@@ -34431,12 +34431,12 @@ const Tables = () => {
               /*#__PURE__*/
               // Table Row
               (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("tr", {
-                className: `group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''}`,
+                className: `group hover:bg-productbay-brand/7 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''}`,
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("td", {
                   className: "px-4 py-4 text-center",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("input", {
                     type: "checkbox",
-                    className: "rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500",
+                    className: "rounded border border-gray-400/70 bg-white text-blue-600 focus:ring-blue-500",
                     checked: selectedRows.includes(table.id),
                     onChange: () => handleSelectRow(table.id),
                     disabled: isActing
@@ -34449,7 +34449,7 @@ const Tables = () => {
                       to: `/table/${table.id}`,
                       className: "hover:text-blue-600",
                       children: [table.title, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
-                        className: "ml-2 text-sm font-normal text-gray-400",
+                        className: "ml-2 text-sm font-normal text-gray-500",
                         children: ["(", table.columns?.length || 0, ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('cols', 'productbay'), ")"]
                       }), isActing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_17__["default"], {
                         className: "w-4 h-4 inline-block ml-2 animate-spin"
@@ -34758,7 +34758,7 @@ const EmptyStateTables = () => {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
         className: "mx-auto",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("h3", {
-          className: "text-lg font-semibold text-gray-900 mb-2",
+          className: "text-lg font-bold text-gray-900 mb-2",
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Welcome to ProductBay', 'productbay')
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("p", {
           className: "text-gray-500 mb-6 text-sm",
