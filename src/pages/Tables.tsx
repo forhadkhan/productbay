@@ -529,13 +529,13 @@ const Tables = () => {
 	const SortIcon = ({ columnKey }: { columnKey: string }) => {
 		if (sortConfig?.key !== columnKey) {
 			return (
-				<ArrowUpDownIcon className="w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1" />
+				<ArrowUpDownIcon className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1" />
 			);
 		}
 		return sortConfig.direction === 'asc' ? (
-			<ArrowUpIcon className="w-3 h-3 text-blue-600 ml-1" />
+			<ArrowUpIcon className="w-4 h-4 text-blue-600 ml-1" />
 		) : (
-			<ArrowDownIcon className="w-3 h-3 text-blue-600 ml-1" />
+			<ArrowDownIcon className="w-4 h-4 text-blue-600 ml-1" />
 		);
 	};
 
@@ -603,7 +603,7 @@ const Tables = () => {
 							variant="secondary"
 							size="sm"
 							onClick={openImportModal}
-							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 transition-colors"
+							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							<UploadIcon size={14} /> {__('Import', 'productbay')}
 						</Button>
@@ -614,7 +614,7 @@ const Tables = () => {
 							variant="secondary"
 							size="sm"
 							onClick={() => openExportModal(tables)}
-							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
 							disabled={isLoading || tables.length === 0}
 						>
 							<DownloadIcon size={14} /> {__('Export', 'productbay')}
@@ -688,9 +688,9 @@ const Tables = () => {
 							<DropdownMenuTrigger asChild>
 								<Button
 									variant="outline"
-									className="gap-2 bg-white relative border-gray-300"
+									className="gap-2 bg-white hover:bg-blue-500 hover:text-white relative border-gray-300 cursor-pointer group"
 								>
-									<FilterIcon className="w-4 h-4 text-gray-500" />
+									<FilterIcon className="w-4 h-4 text-gray-500 group-hover:text-white" />
 									{__('Filter', 'productbay')}
 									{(filterStatuses.length > 0 || filterSources.length > 0) && (
 										<span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
@@ -774,7 +774,7 @@ const Tables = () => {
 							<th className="px-4 py-4 w-10 text-center">
 								<input
 									type="checkbox"
-									className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
+									className="rounded border border-gray-400/70 bg-wp-bg text-blue-600 focus:ring-blue-500"
 									checked={
 										currentTables.length > 0 &&
 										selectedRows.length === currentTables.length
@@ -783,7 +783,7 @@ const Tables = () => {
 								/>
 							</th>
 							<th
-								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								className="p-4 text-sm font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
 								onClick={() => handleSort('title')}
 							>
 								<div className="flex items-center">
@@ -792,7 +792,7 @@ const Tables = () => {
 								</div>
 							</th>
 							<th
-								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-24 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								className="p-4 text-sm font-bold text-gray-500 uppercase tracking-wider w-24 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
 								onClick={() => handleSort('status')}
 							>
 								<div className="flex items-center">
@@ -800,11 +800,11 @@ const Tables = () => {
 									<SortIcon columnKey="status" />
 								</div>
 							</th>
-							<th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+							<th className="p-4 text-sm font-bold text-gray-500 uppercase tracking-wider">
 								{__('Shortcode', 'productbay')}
 							</th>
 							<th
-								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								className="p-4 text-sm font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group transition-colors select-none"
 								onClick={() => handleSort('source')}
 							>
 								<div className="flex items-center">
@@ -813,7 +813,7 @@ const Tables = () => {
 								</div>
 							</th>
 							<th
-								className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-32 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
+								className="p-4 text-sm font-bold text-gray-500 uppercase tracking-wider w-32 cursor-pointer hover:bg-gray-100 group transition-colors select-none"
 								onClick={() => handleSort('date')}
 							>
 								<div className="flex items-center">
@@ -898,14 +898,14 @@ const Tables = () => {
 									// Table Row
 									<tr
 										key={table.id}
-										className={`group hover:bg-gray-50 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''
+										className={`group hover:bg-productbay-brand/7 border-l-2 border-transparent hover:border-blue-300 transition-colors ${isActing ? 'opacity-50' : ''
 											}`}
 									>
 										{/* Checkbox */}
 										<td className="px-4 py-4 text-center">
 											<input
 												type="checkbox"
-												className="rounded border-gray-400 bg-wp-bg text-blue-600 focus:ring-blue-500"
+												className="rounded border border-gray-400/70 bg-white text-blue-600 focus:ring-blue-500"
 												checked={selectedRows.includes(table.id!)}
 												onChange={() => handleSelectRow(table.id!)}
 												disabled={isActing}
@@ -918,7 +918,7 @@ const Tables = () => {
 													className="hover:text-blue-600"
 												>
 													{table.title}
-													<span className="ml-2 text-sm font-normal text-gray-400">
+													<span className="ml-2 text-sm font-normal text-gray-500">
 														({table.columns?.length || 0}{' '}
 														{__('cols', 'productbay')})
 													</span>
@@ -1336,7 +1336,7 @@ const EmptyStateTables = () => {
 			<div className="flex flex-col items-center justify-center text-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-10">
 				{/* Text Content Section */}
 				<div className="mx-auto">
-					<h3 className="text-lg font-semibold text-gray-900 mb-2">
+					<h3 className="text-lg font-bold text-gray-900 mb-2">
 						{__('Welcome to ProductBay', 'productbay')}
 					</h3>
 
