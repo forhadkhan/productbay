@@ -176,11 +176,6 @@ class SettingsController extends ApiController
 				'header_bg' => '#f3f4f6',
 				'border_color' => '#e5e7eb',
 			),
-			'enable_import_export' => false,
-			'import_export' => array(
-				'include_settings'    => true,
-				'settings_import_mode' => 'merge', // 'merge' or 'replace'
-			),
 			// Default configuration for new tables.
 			'table_defaults' => array(
 				'source' => array(

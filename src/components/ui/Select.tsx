@@ -32,7 +32,7 @@ export interface SelectOption {
 
 export interface SelectProps
 	extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
-		VariantProps<typeof selectVariants> {
+	VariantProps<typeof selectVariants> {
 	/** The currently selected value */
 	value?: string;
 	/** Callback when the selected value changes */
@@ -138,8 +138,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 								className={cn(
 									'px-2 py-1.5 text-xs font-semibold text-gray-500 border-b border-gray-100 bg-gray-50/50',
 									allowDeselect &&
-										value &&
-										'cursor-pointer hover:bg-red-50 hover:text-red-500 transition-colors'
+									value &&
+									'cursor-pointer hover:bg-red-50 hover:text-red-500 transition-colors'
 								)}
 								title={
 									allowDeselect

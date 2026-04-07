@@ -29,19 +29,14 @@ import {
 import AdminBarOptions from '@/components/Settings/AdminBarOptions';
 import UninstallOptions from '@/components/Settings/UninstallOptions';
 import ClearDataOptions from '@/components/Settings/ClearDataOptions';
-import AdvancedSettings from '@/components/Settings/AdvancedSettings';
 
-const VALID_SETTINGS_TABS = ['default', 'advanced', 'plugin', 'license'] as const;
+const VALID_SETTINGS_TABS = ['default', 'plugin', 'license'] as const;
 type SettingsTabValue = (typeof VALID_SETTINGS_TABS)[number];
 
 const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 	{
 		value: 'default',
 		label: __('Default Configuration', 'productbay'),
-	},
-	{
-		value: 'advanced',
-		label: __('Advanced Settings', 'productbay'),
 	},
 	{
 		value: 'plugin',
@@ -398,12 +393,6 @@ const Settings = () => {
 						</div>
 					</div>
 				)}
-
-				{/**
-				 * Tab 2: Advanced Settings
-				 * 
-				 */}
-				{activeTab === 'advanced' && <AdvancedSettings />}
 
 				{/**
 				 * Tab 3: Plugin Configuration Tab 
