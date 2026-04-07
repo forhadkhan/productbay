@@ -328,7 +328,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 									isPro &&
 									!(window as any).productBaySettings?.proVersion;
 
-								return (
+								return (isProFeature ?
 									<ProFeatureGate
 										key={type}
 										featureName={label}
@@ -338,36 +338,40 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 											onClick={() => handleToggleColumn(type)}
 											className={cn(
 												'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
-												isProFeature
-													? 'opacity-75 hover:bg-gray-50'
-													: 'cursor-pointer hover:bg-orange-50 hover:border-orange-200',
-												isSelected && !isProFeature
-													? 'bg-blue-100 text-blue-700'
-													: 'text-gray-700'
+												'hover:bg-productbay-brand/20',
 											)}
-											title={
-												isProFeature
-													? __('Available in Pro version', 'productbay')
-													: ''
-											}
+											title={__('Available in Pro version', 'productbay')}
 										>
 											<Icon className="w-4 h-4 flex-shrink-0" />
-											<span
-												className={cn(
-													'truncate flex-1',
-													isProFeature && 'text-gray-500'
-												)}
-											>
+											<span className={cn('truncate flex-1 text-gray-700')}>
 												{label}
 											</span>
-											{isProFeature && (
-												<ProBadge size="sm" className="ml-auto" />
-											)}
-											{isSelected && !isProFeature && (
-												<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
-											)}
+											<ProBadge size="sm" className="ml-auto" />
 										</button>
 									</ProFeatureGate>
+									:
+									<button
+										onClick={() => handleToggleColumn(type)}
+										className={cn(
+											'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
+											'cursor-pointer hover:bg-orange-50 hover:border-orange-200',
+											isSelected
+												? 'bg-blue-100 text-blue-700'
+												: 'text-gray-700'
+										)}
+									>
+										<Icon className="w-4 h-4 flex-shrink-0" />
+										<span
+											className={cn(
+												'truncate flex-1',
+											)}
+										>
+											{label}
+										</span>
+										{isSelected && (
+											<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
+										)}
+									</button>
 								);
 							})}
 						</div>
