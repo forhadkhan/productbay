@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-07T07:29:58+00:00\n"
+"POT-Creation-Date: 2026-04-07T09:46:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -49,20 +49,20 @@ msgstr ""
 #: app/Admin/Admin.php:95
 #: app/Admin/Admin.php:97
 #: app/Admin/Admin.php:230
-#: assets/js/admin.js:34157
-#: blocks/product-table/index.js:32036
-#: blocks/tab-product-table/index.js:32307
+#: assets/js/admin.js:34187
+#: blocks/product-table/index.js:32066
+#: blocks/tab-product-table/index.js:32337
 msgid "All Tables"
 msgstr ""
 
 #: app/Admin/Admin.php:109
 #: app/Admin/Admin.php:110
 #: app/Admin/Admin.php:250
-#: assets/js/admin.js:36114
+#: assets/js/admin.js:36144
 #: blocks/product-table/index.js:22004
-#: blocks/product-table/index.js:33972
+#: blocks/product-table/index.js:34002
 #: blocks/tab-product-table/index.js:22273
-#: blocks/tab-product-table/index.js:34243
+#: blocks/tab-product-table/index.js:34273
 #: src/blocks/product-table/edit.js:132
 #: src/blocks/tab-product-table/edit.js:446
 msgid "Create New Table"
@@ -71,12 +71,12 @@ msgstr ""
 #: app/Admin/Admin.php:119
 #: app/Admin/Admin.php:120
 #: app/Admin/Admin.php:240
-#: assets/js/admin.js:32965
-#: assets/js/admin.js:36100
-#: blocks/product-table/index.js:30844
-#: blocks/product-table/index.js:33958
-#: blocks/tab-product-table/index.js:31115
-#: blocks/tab-product-table/index.js:34229
+#: assets/js/admin.js:32974
+#: assets/js/admin.js:36130
+#: blocks/product-table/index.js:30853
+#: blocks/product-table/index.js:33988
+#: blocks/tab-product-table/index.js:31124
+#: blocks/tab-product-table/index.js:34259
 msgid "Settings"
 msgstr ""
 
@@ -174,9 +174,9 @@ msgid "Failed to add products to cart."
 msgstr ""
 
 #: app/Frontend/TableRenderer.php:202
-#: assets/js/admin.js:34246
-#: blocks/product-table/index.js:32125
-#: blocks/tab-product-table/index.js:32396
+#: assets/js/admin.js:34276
+#: blocks/product-table/index.js:32155
+#: blocks/tab-product-table/index.js:32426
 msgid "Filter"
 msgstr ""
 
@@ -194,11 +194,11 @@ msgstr ""
 
 #: app/Frontend/TableRenderer.php:249
 #: assets/js/admin.js:25303
-#: assets/js/admin.js:25657
+#: assets/js/admin.js:25666
 #: blocks/product-table/index.js:24924
-#: blocks/product-table/index.js:25278
+#: blocks/product-table/index.js:25287
 #: blocks/tab-product-table/index.js:25195
-#: blocks/tab-product-table/index.js:25549
+#: blocks/tab-product-table/index.js:25558
 msgid "Add to Cart"
 msgstr ""
 
@@ -221,25 +221,25 @@ msgstr ""
 
 #: app/Frontend/TableRenderer.php:424
 #: assets/js/admin.js:23509
-#: assets/js/admin.js:25537
-#: assets/js/admin.js:25539
-#: assets/js/admin.js:27064
-#: assets/js/admin.js:27065
-#: assets/js/admin.js:29515
-#: assets/js/admin.js:29525
-#: assets/js/admin.js:30532
+#: assets/js/admin.js:25546
+#: assets/js/admin.js:25548
+#: assets/js/admin.js:27073
+#: assets/js/admin.js:27074
+#: assets/js/admin.js:29524
+#: assets/js/admin.js:29534
+#: assets/js/admin.js:30541
 #: blocks/product-table/index.js:23130
-#: blocks/product-table/index.js:25158
-#: blocks/product-table/index.js:25160
-#: blocks/product-table/index.js:28310
-#: blocks/product-table/index.js:28320
-#: blocks/product-table/index.js:29233
+#: blocks/product-table/index.js:25167
+#: blocks/product-table/index.js:25169
+#: blocks/product-table/index.js:28319
+#: blocks/product-table/index.js:28329
+#: blocks/product-table/index.js:29242
 #: blocks/tab-product-table/index.js:23401
-#: blocks/tab-product-table/index.js:25429
-#: blocks/tab-product-table/index.js:25431
-#: blocks/tab-product-table/index.js:28581
-#: blocks/tab-product-table/index.js:28591
-#: blocks/tab-product-table/index.js:29504
+#: blocks/tab-product-table/index.js:25438
+#: blocks/tab-product-table/index.js:25440
+#: blocks/tab-product-table/index.js:28590
+#: blocks/tab-product-table/index.js:28600
+#: blocks/tab-product-table/index.js:29513
 msgid "Close"
 msgstr ""
 
@@ -350,23 +350,23 @@ msgid "Find Details"
 msgstr ""
 
 #: assets/js/admin.js:22209
-#: assets/js/admin.js:32624
-#: blocks/product-table/index.js:30503
-#: blocks/tab-product-table/index.js:30774
+#: assets/js/admin.js:32633
+#: blocks/product-table/index.js:30512
+#: blocks/tab-product-table/index.js:30783
 msgid "Documentation"
 msgstr ""
 
 #: assets/js/admin.js:22220
-#: assets/js/admin.js:32635
-#: blocks/product-table/index.js:30514
-#: blocks/tab-product-table/index.js:30785
+#: assets/js/admin.js:32644
+#: blocks/product-table/index.js:30523
+#: blocks/tab-product-table/index.js:30794
 msgid "Help & Support"
 msgstr ""
 
 #: assets/js/admin.js:22224
-#: assets/js/admin.js:32639
-#: blocks/product-table/index.js:30518
-#: blocks/tab-product-table/index.js:30789
+#: assets/js/admin.js:32648
+#: blocks/product-table/index.js:30527
+#: blocks/tab-product-table/index.js:30798
 msgid "Need help? Have a feature request? We'd love to hear from you."
 msgstr ""
 
@@ -444,13 +444,13 @@ msgstr ""
 
 #: assets/js/admin.js:22612
 #: assets/js/admin.js:22619
-#: assets/js/admin.js:34168
+#: assets/js/admin.js:34198
 #: blocks/product-table/index.js:22233
 #: blocks/product-table/index.js:22240
-#: blocks/product-table/index.js:32047
+#: blocks/product-table/index.js:32077
 #: blocks/tab-product-table/index.js:22504
 #: blocks/tab-product-table/index.js:22511
-#: blocks/tab-product-table/index.js:32318
+#: blocks/tab-product-table/index.js:32348
 msgid "Import Tables"
 msgstr ""
 
@@ -461,11 +461,11 @@ msgid "Export Tables"
 msgstr ""
 
 #: assets/js/admin.js:22632
-#: assets/js/admin.js:34179
+#: assets/js/admin.js:34209
 #: blocks/product-table/index.js:22253
-#: blocks/product-table/index.js:32058
+#: blocks/product-table/index.js:32088
 #: blocks/tab-product-table/index.js:22524
-#: blocks/tab-product-table/index.js:32329
+#: blocks/tab-product-table/index.js:32359
 msgid "Export All Tables"
 msgstr ""
 
@@ -564,11 +564,11 @@ msgid "Clear Data"
 msgstr ""
 
 #: assets/js/admin.js:22794
-#: assets/js/admin.js:32972
+#: assets/js/admin.js:32981
 #: blocks/product-table/index.js:22415
-#: blocks/product-table/index.js:30851
+#: blocks/product-table/index.js:30860
 #: blocks/tab-product-table/index.js:22686
-#: blocks/tab-product-table/index.js:31122
+#: blocks/tab-product-table/index.js:31131
 msgid "Reset to Factory Defaults"
 msgstr ""
 
@@ -609,26 +609,29 @@ msgid "Yes, Reset Everything"
 msgstr ""
 
 #: assets/js/admin.js:22828
-#: assets/js/admin.js:29878
-#: assets/js/admin.js:30506
-#: assets/js/admin.js:33123
-#: assets/js/admin.js:34704
-#: assets/js/admin.js:34724
-#: assets/js/admin.js:34744
+#: assets/js/admin.js:29887
+#: assets/js/admin.js:30515
+#: assets/js/admin.js:33132
+#: assets/js/admin.js:33452
+#: assets/js/admin.js:34734
+#: assets/js/admin.js:34754
+#: assets/js/admin.js:34774
 #: blocks/product-table/index.js:22449
-#: blocks/product-table/index.js:28579
-#: blocks/product-table/index.js:29207
-#: blocks/product-table/index.js:31002
-#: blocks/product-table/index.js:32583
-#: blocks/product-table/index.js:32603
-#: blocks/product-table/index.js:32623
+#: blocks/product-table/index.js:28588
+#: blocks/product-table/index.js:29216
+#: blocks/product-table/index.js:31011
+#: blocks/product-table/index.js:31331
+#: blocks/product-table/index.js:32613
+#: blocks/product-table/index.js:32633
+#: blocks/product-table/index.js:32653
 #: blocks/tab-product-table/index.js:22720
-#: blocks/tab-product-table/index.js:28850
-#: blocks/tab-product-table/index.js:29478
-#: blocks/tab-product-table/index.js:31273
-#: blocks/tab-product-table/index.js:32854
-#: blocks/tab-product-table/index.js:32874
-#: blocks/tab-product-table/index.js:32894
+#: blocks/tab-product-table/index.js:28859
+#: blocks/tab-product-table/index.js:29487
+#: blocks/tab-product-table/index.js:31282
+#: blocks/tab-product-table/index.js:31602
+#: blocks/tab-product-table/index.js:32884
+#: blocks/tab-product-table/index.js:32904
+#: blocks/tab-product-table/index.js:32924
 msgid "Cancel"
 msgstr ""
 
@@ -768,56 +771,56 @@ msgid "Loading preview..."
 msgstr ""
 
 #: assets/js/admin.js:23840
-#: assets/js/admin.js:27637
+#: assets/js/admin.js:27646
 #: blocks/product-table/index.js:23461
 #: blocks/tab-product-table/index.js:23732
 msgid "No products found!"
 msgstr ""
 
 #: assets/js/admin.js:23843
-#: assets/js/admin.js:27640
+#: assets/js/admin.js:27649
 #: blocks/product-table/index.js:23464
 #: blocks/tab-product-table/index.js:23735
 msgid "Your WooCommerce store appears to be empty. Add some products to create a table."
 msgstr ""
 
 #: assets/js/admin.js:23848
-#: assets/js/admin.js:27645
+#: assets/js/admin.js:27654
 #: blocks/product-table/index.js:23469
 #: blocks/tab-product-table/index.js:23740
 msgid "Add your first product"
 msgstr ""
 
 #: assets/js/admin.js:23870
-#: assets/js/admin.js:27667
+#: assets/js/admin.js:27676
 #: blocks/product-table/index.js:23491
 #: blocks/tab-product-table/index.js:23762
 msgid "No products on sale!"
 msgstr ""
 
 #: assets/js/admin.js:23873
-#: assets/js/admin.js:27670
+#: assets/js/admin.js:27679
 #: blocks/product-table/index.js:23494
 #: blocks/tab-product-table/index.js:23765
 msgid "Set sale prices on some products to use this source type."
 msgstr ""
 
 #: assets/js/admin.js:23880
-#: assets/js/admin.js:27675
+#: assets/js/admin.js:27684
 #: blocks/product-table/index.js:23501
 #: blocks/tab-product-table/index.js:23772
 msgid "Manage products"
 msgstr ""
 
 #: assets/js/admin.js:23896
-#: assets/js/admin.js:27180
+#: assets/js/admin.js:27189
 #: blocks/product-table/index.js:23517
 #: blocks/tab-product-table/index.js:23788
 msgid "Table Columns"
 msgstr ""
 
 #: assets/js/admin.js:23897
-#: assets/js/admin.js:27181
+#: assets/js/admin.js:27190
 #: blocks/product-table/index.js:23518
 #: blocks/tab-product-table/index.js:23789
 msgid "Configure which columns to display and their order"
@@ -1322,11 +1325,11 @@ msgid "Show a floating panel displaying all selected items with individual quant
 msgstr ""
 
 #: assets/js/admin.js:24582
-#: assets/js/admin.js:33674
+#: assets/js/admin.js:33704
 #: blocks/product-table/index.js:24203
-#: blocks/product-table/index.js:31553
+#: blocks/product-table/index.js:31583
 #: blocks/tab-product-table/index.js:24474
-#: blocks/tab-product-table/index.js:31824
+#: blocks/tab-product-table/index.js:31854
 msgid "All Products"
 msgstr ""
 
@@ -1337,11 +1340,11 @@ msgid "Display all published products from your store"
 msgstr ""
 
 #: assets/js/admin.js:24586
-#: assets/js/admin.js:33683
+#: assets/js/admin.js:33713
 #: blocks/product-table/index.js:24207
-#: blocks/product-table/index.js:31562
+#: blocks/product-table/index.js:31592
 #: blocks/tab-product-table/index.js:24478
-#: blocks/tab-product-table/index.js:31833
+#: blocks/tab-product-table/index.js:31863
 msgid "On Sale"
 msgstr ""
 
@@ -1364,11 +1367,11 @@ msgid "Select specific product categories"
 msgstr ""
 
 #: assets/js/admin.js:24594
-#: assets/js/admin.js:33677
+#: assets/js/admin.js:33707
 #: blocks/product-table/index.js:24215
-#: blocks/product-table/index.js:31556
+#: blocks/product-table/index.js:31586
 #: blocks/tab-product-table/index.js:24486
-#: blocks/tab-product-table/index.js:31827
+#: blocks/tab-product-table/index.js:31857
 msgid "Specific Products"
 msgstr ""
 
@@ -1379,11 +1382,11 @@ msgid "Hand-pick individual products"
 msgstr ""
 
 #: assets/js/admin.js:24607
-#: assets/js/admin.js:34339
+#: assets/js/admin.js:34369
 #: blocks/product-table/index.js:24228
-#: blocks/product-table/index.js:32218
+#: blocks/product-table/index.js:32248
 #: blocks/tab-product-table/index.js:24499
-#: blocks/tab-product-table/index.js:32489
+#: blocks/tab-product-table/index.js:32519
 msgid "Product Source"
 msgstr ""
 
@@ -1455,65 +1458,65 @@ msgid "Clear all"
 msgstr ""
 
 #: assets/js/admin.js:24751
-#: assets/js/admin.js:25694
+#: assets/js/admin.js:25703
 #: blocks/product-table/index.js:24372
-#: blocks/product-table/index.js:25315
+#: blocks/product-table/index.js:25324
 #: blocks/tab-product-table/index.js:24643
-#: blocks/tab-product-table/index.js:25586
+#: blocks/tab-product-table/index.js:25595
 msgid "All devices"
 msgstr ""
 
 #: assets/js/admin.js:24754
-#: assets/js/admin.js:25697
+#: assets/js/admin.js:25706
 #: blocks/product-table/index.js:24375
-#: blocks/product-table/index.js:25318
+#: blocks/product-table/index.js:25327
 #: blocks/tab-product-table/index.js:24646
-#: blocks/tab-product-table/index.js:25589
+#: blocks/tab-product-table/index.js:25598
 msgid "Desktop only"
 msgstr ""
 
 #: assets/js/admin.js:24757
-#: assets/js/admin.js:25700
+#: assets/js/admin.js:25709
 #: blocks/product-table/index.js:24378
-#: blocks/product-table/index.js:25321
+#: blocks/product-table/index.js:25330
 #: blocks/tab-product-table/index.js:24649
-#: blocks/tab-product-table/index.js:25592
+#: blocks/tab-product-table/index.js:25601
 msgid "Tablet only"
 msgstr ""
 
 #: assets/js/admin.js:24760
-#: assets/js/admin.js:25703
+#: assets/js/admin.js:25712
 #: blocks/product-table/index.js:24381
-#: blocks/product-table/index.js:25324
+#: blocks/product-table/index.js:25333
 #: blocks/tab-product-table/index.js:24652
-#: blocks/tab-product-table/index.js:25595
+#: blocks/tab-product-table/index.js:25604
 msgid "Mobile only"
 msgstr ""
 
 #: assets/js/admin.js:24763
-#: assets/js/admin.js:25706
+#: assets/js/admin.js:25715
 #: blocks/product-table/index.js:24384
-#: blocks/product-table/index.js:25327
+#: blocks/product-table/index.js:25336
 #: blocks/tab-product-table/index.js:24655
-#: blocks/tab-product-table/index.js:25598
+#: blocks/tab-product-table/index.js:25607
 msgid "Hide on mobile"
 msgstr ""
 
 #: assets/js/admin.js:24766
-#: assets/js/admin.js:25709
+#: assets/js/admin.js:25718
 #: blocks/product-table/index.js:24387
-#: blocks/product-table/index.js:25330
+#: blocks/product-table/index.js:25339
 #: blocks/tab-product-table/index.js:24658
-#: blocks/tab-product-table/index.js:25601
+#: blocks/tab-product-table/index.js:25610
 msgid "Hide on desktop"
 msgstr ""
 
 #: assets/js/admin.js:24769
-#: assets/js/admin.js:25712
+#: assets/js/admin.js:25721
 #: blocks/product-table/index.js:24390
-#: blocks/product-table/index.js:25333
+#: blocks/product-table/index.js:25342
 #: blocks/tab-product-table/index.js:24661
-#: blocks/tab-product-table/index.js:25604
+#: blocks/tab-product-table/index.js:25613
 msgid "Hidden"
 msgstr ""
 
@@ -1554,11 +1557,11 @@ msgid "Last Column (Right)"
 msgstr ""
 
 #: assets/js/admin.js:24836
-#: assets/js/admin.js:26171
+#: assets/js/admin.js:26180
 #: blocks/product-table/index.js:24457
-#: blocks/product-table/index.js:25792
+#: blocks/product-table/index.js:25801
 #: blocks/tab-product-table/index.js:24728
-#: blocks/tab-product-table/index.js:26063
+#: blocks/tab-product-table/index.js:26072
 msgid "Visibility"
 msgstr ""
 
@@ -1569,11 +1572,11 @@ msgid "Column Width"
 msgstr ""
 
 #: assets/js/admin.js:24884
-#: assets/js/admin.js:26158
+#: assets/js/admin.js:26167
 #: blocks/product-table/index.js:24505
-#: blocks/product-table/index.js:25779
+#: blocks/product-table/index.js:25788
 #: blocks/tab-product-table/index.js:24776
-#: blocks/tab-product-table/index.js:26050
+#: blocks/tab-product-table/index.js:26059
 msgid "Auto"
 msgstr ""
 
@@ -1642,95 +1645,95 @@ msgid "Reload"
 msgstr ""
 
 #: assets/js/admin.js:25291
-#: assets/js/admin.js:25645
+#: assets/js/admin.js:25654
 #: blocks/product-table/index.js:24912
-#: blocks/product-table/index.js:25266
+#: blocks/product-table/index.js:25275
 #: blocks/tab-product-table/index.js:25183
-#: blocks/tab-product-table/index.js:25537
+#: blocks/tab-product-table/index.js:25546
 msgid "Image"
 msgstr ""
 
 #: assets/js/admin.js:25295
-#: assets/js/admin.js:25649
+#: assets/js/admin.js:25658
 #: blocks/product-table/index.js:24916
-#: blocks/product-table/index.js:25270
+#: blocks/product-table/index.js:25279
 #: blocks/tab-product-table/index.js:25187
-#: blocks/tab-product-table/index.js:25541
+#: blocks/tab-product-table/index.js:25550
 msgid "Product Name"
 msgstr ""
 
 #: assets/js/admin.js:25299
-#: assets/js/admin.js:25653
+#: assets/js/admin.js:25662
 #: blocks/product-table/index.js:24920
-#: blocks/product-table/index.js:25274
+#: blocks/product-table/index.js:25283
 #: blocks/tab-product-table/index.js:25191
-#: blocks/tab-product-table/index.js:25545
+#: blocks/tab-product-table/index.js:25554
 msgid "Price"
 msgstr ""
 
 #: assets/js/admin.js:25307
-#: assets/js/admin.js:25661
+#: assets/js/admin.js:25670
 #: blocks/product-table/index.js:24928
-#: blocks/product-table/index.js:25282
+#: blocks/product-table/index.js:25291
 #: blocks/tab-product-table/index.js:25199
-#: blocks/tab-product-table/index.js:25553
+#: blocks/tab-product-table/index.js:25562
 msgid "SKU"
 msgstr ""
 
 #: assets/js/admin.js:25311
-#: assets/js/admin.js:25673
+#: assets/js/admin.js:25682
 #: blocks/product-table/index.js:24932
-#: blocks/product-table/index.js:25294
+#: blocks/product-table/index.js:25303
 #: blocks/tab-product-table/index.js:25203
-#: blocks/tab-product-table/index.js:25565
+#: blocks/tab-product-table/index.js:25574
 msgid "Description"
 msgstr ""
 
 #: assets/js/admin.js:25315
-#: assets/js/admin.js:25665
+#: assets/js/admin.js:25674
 #: blocks/product-table/index.js:24936
-#: blocks/product-table/index.js:25286
+#: blocks/product-table/index.js:25295
 #: blocks/tab-product-table/index.js:25207
-#: blocks/tab-product-table/index.js:25557
+#: blocks/tab-product-table/index.js:25566
 msgid "Stock"
 msgstr ""
 
 #: assets/js/admin.js:25319
-#: assets/js/admin.js:25669
-#: assets/js/admin.js:34348
+#: assets/js/admin.js:25678
+#: assets/js/admin.js:34378
 #: blocks/product-table/index.js:24940
-#: blocks/product-table/index.js:25290
-#: blocks/product-table/index.js:32227
+#: blocks/product-table/index.js:25299
+#: blocks/product-table/index.js:32257
 #: blocks/tab-product-table/index.js:25211
-#: blocks/tab-product-table/index.js:25561
-#: blocks/tab-product-table/index.js:32498
+#: blocks/tab-product-table/index.js:25570
+#: blocks/tab-product-table/index.js:32528
 msgid "Date"
 msgstr ""
 
 #: assets/js/admin.js:25323
-#: assets/js/admin.js:25677
+#: assets/js/admin.js:25686
 #: blocks/product-table/index.js:24944
-#: blocks/product-table/index.js:25298
+#: blocks/product-table/index.js:25307
 #: blocks/tab-product-table/index.js:25215
-#: blocks/tab-product-table/index.js:25569
+#: blocks/tab-product-table/index.js:25578
 msgid "Taxonomy"
 msgstr ""
 
 #: assets/js/admin.js:25327
-#: assets/js/admin.js:25685
+#: assets/js/admin.js:25694
 #: blocks/product-table/index.js:24948
-#: blocks/product-table/index.js:25306
+#: blocks/product-table/index.js:25315
 #: blocks/tab-product-table/index.js:25219
-#: blocks/tab-product-table/index.js:25577
+#: blocks/tab-product-table/index.js:25586
 msgid "Rating"
 msgstr ""
 
 #: assets/js/admin.js:25331
-#: assets/js/admin.js:25681
+#: assets/js/admin.js:25690
 #: blocks/product-table/index.js:24952
-#: blocks/product-table/index.js:25302
+#: blocks/product-table/index.js:25311
 #: blocks/tab-product-table/index.js:25223
-#: blocks/tab-product-table/index.js:25573
+#: blocks/tab-product-table/index.js:25582
 msgid "Custom Field"
 msgstr ""
 
@@ -1770,1179 +1773,1188 @@ msgstr ""
 msgid "Available in Pro version"
 msgstr ""
 
-#: assets/js/admin.js:25720
-#: blocks/product-table/index.js:25341
-#: blocks/tab-product-table/index.js:25612
+#: assets/js/admin.js:25729
+#: blocks/product-table/index.js:25350
+#: blocks/tab-product-table/index.js:25621
 msgid "Inline (horizontal)"
-msgstr ""
-
-#: assets/js/admin.js:25723
-#: blocks/product-table/index.js:25344
-#: blocks/tab-product-table/index.js:25615
-msgid "Stacked (vertical)"
 msgstr ""
 
 #: assets/js/admin.js:25732
 #: blocks/product-table/index.js:25353
 #: blocks/tab-product-table/index.js:25624
-msgid "Weight"
-msgstr ""
-
-#: assets/js/admin.js:25735
-#: blocks/product-table/index.js:25356
-#: blocks/tab-product-table/index.js:25627
-msgid "Length"
-msgstr ""
-
-#: assets/js/admin.js:25738
-#: assets/js/admin.js:26143
-#: blocks/product-table/index.js:25359
-#: blocks/product-table/index.js:25764
-#: blocks/tab-product-table/index.js:25630
-#: blocks/tab-product-table/index.js:26035
-msgid "Width"
+msgid "Stacked (vertical)"
 msgstr ""
 
 #: assets/js/admin.js:25741
 #: blocks/product-table/index.js:25362
 #: blocks/tab-product-table/index.js:25633
-msgid "Height"
+msgid "Weight"
 msgstr ""
 
 #: assets/js/admin.js:25744
 #: blocks/product-table/index.js:25365
 #: blocks/tab-product-table/index.js:25636
-msgid "Total Sales"
+msgid "Length"
 msgstr ""
 
 #: assets/js/admin.js:25747
+#: assets/js/admin.js:26152
 #: blocks/product-table/index.js:25368
+#: blocks/product-table/index.js:25773
 #: blocks/tab-product-table/index.js:25639
+#: blocks/tab-product-table/index.js:26044
+msgid "Width"
+msgstr ""
+
+#: assets/js/admin.js:25750
+#: blocks/product-table/index.js:25371
+#: blocks/tab-product-table/index.js:25642
+msgid "Height"
+msgstr ""
+
+#: assets/js/admin.js:25753
+#: blocks/product-table/index.js:25374
+#: blocks/tab-product-table/index.js:25645
+msgid "Total Sales"
+msgstr ""
+
+#: assets/js/admin.js:25756
+#: blocks/product-table/index.js:25377
+#: blocks/tab-product-table/index.js:25648
 msgid "Purchase Note"
 msgstr ""
 
-#: assets/js/admin.js:25790
-#: assets/js/admin.js:25791
-#: assets/js/admin.js:26079
-#: assets/js/admin.js:26080
-#: blocks/product-table/index.js:25411
-#: blocks/product-table/index.js:25412
-#: blocks/product-table/index.js:25700
-#: blocks/product-table/index.js:25701
-#: blocks/tab-product-table/index.js:25682
-#: blocks/tab-product-table/index.js:25683
-#: blocks/tab-product-table/index.js:25971
-#: blocks/tab-product-table/index.js:25972
+#: assets/js/admin.js:25799
+#: assets/js/admin.js:25800
+#: assets/js/admin.js:26088
+#: assets/js/admin.js:26089
+#: blocks/product-table/index.js:25420
+#: blocks/product-table/index.js:25421
+#: blocks/product-table/index.js:25709
+#: blocks/product-table/index.js:25710
+#: blocks/tab-product-table/index.js:25691
+#: blocks/tab-product-table/index.js:25692
+#: blocks/tab-product-table/index.js:25980
+#: blocks/tab-product-table/index.js:25981
 msgid "Drag to reorder"
 msgstr ""
 
-#: assets/js/admin.js:25808
-#: assets/js/admin.js:25809
-#: assets/js/admin.js:26120
-#: assets/js/admin.js:26121
-#: blocks/product-table/index.js:25429
-#: blocks/product-table/index.js:25430
-#: blocks/product-table/index.js:25741
-#: blocks/product-table/index.js:25742
-#: blocks/tab-product-table/index.js:25700
-#: blocks/tab-product-table/index.js:25701
-#: blocks/tab-product-table/index.js:26012
-#: blocks/tab-product-table/index.js:26013
+#: assets/js/admin.js:25817
+#: assets/js/admin.js:25818
+#: assets/js/admin.js:26129
+#: assets/js/admin.js:26130
+#: blocks/product-table/index.js:25438
+#: blocks/product-table/index.js:25439
+#: blocks/product-table/index.js:25750
+#: blocks/product-table/index.js:25751
+#: blocks/tab-product-table/index.js:25709
+#: blocks/tab-product-table/index.js:25710
+#: blocks/tab-product-table/index.js:26021
+#: blocks/tab-product-table/index.js:26022
 msgid "Remove column"
 msgstr ""
 
-#: assets/js/admin.js:25816
-#: assets/js/admin.js:25817
-#: assets/js/admin.js:26128
-#: assets/js/admin.js:26129
-#: blocks/product-table/index.js:25437
-#: blocks/product-table/index.js:25438
-#: blocks/product-table/index.js:25749
-#: blocks/product-table/index.js:25750
-#: blocks/tab-product-table/index.js:25708
-#: blocks/tab-product-table/index.js:25709
-#: blocks/tab-product-table/index.js:26020
-#: blocks/tab-product-table/index.js:26021
+#: assets/js/admin.js:25825
+#: assets/js/admin.js:25826
+#: assets/js/admin.js:26137
+#: assets/js/admin.js:26138
+#: blocks/product-table/index.js:25446
+#: blocks/product-table/index.js:25447
+#: blocks/product-table/index.js:25758
+#: blocks/product-table/index.js:25759
+#: blocks/tab-product-table/index.js:25717
+#: blocks/tab-product-table/index.js:25718
+#: blocks/tab-product-table/index.js:26029
+#: blocks/tab-product-table/index.js:26030
 msgid "Collapse settings"
 msgstr ""
 
-#: assets/js/admin.js:25816
-#: assets/js/admin.js:25817
-#: assets/js/admin.js:26128
-#: assets/js/admin.js:26129
-#: blocks/product-table/index.js:25437
-#: blocks/product-table/index.js:25438
-#: blocks/product-table/index.js:25749
-#: blocks/product-table/index.js:25750
-#: blocks/tab-product-table/index.js:25708
-#: blocks/tab-product-table/index.js:25709
-#: blocks/tab-product-table/index.js:26020
-#: blocks/tab-product-table/index.js:26021
+#: assets/js/admin.js:25825
+#: assets/js/admin.js:25826
+#: assets/js/admin.js:26137
+#: assets/js/admin.js:26138
+#: blocks/product-table/index.js:25446
+#: blocks/product-table/index.js:25447
+#: blocks/product-table/index.js:25758
+#: blocks/product-table/index.js:25759
+#: blocks/tab-product-table/index.js:25717
+#: blocks/tab-product-table/index.js:25718
+#: blocks/tab-product-table/index.js:26029
+#: blocks/tab-product-table/index.js:26030
 msgid "Expand settings"
 msgstr ""
 
-#: assets/js/admin.js:25832
-#: assets/js/admin.js:26366
-#: blocks/product-table/index.js:25453
-#: blocks/product-table/index.js:25987
-#: blocks/tab-product-table/index.js:25724
-#: blocks/tab-product-table/index.js:26258
+#: assets/js/admin.js:25841
+#: assets/js/admin.js:26375
+#: blocks/product-table/index.js:25462
+#: blocks/product-table/index.js:25996
+#: blocks/tab-product-table/index.js:25733
+#: blocks/tab-product-table/index.js:26267
 msgid "Prefix"
 msgstr ""
 
-#: assets/js/admin.js:25842
-#: blocks/product-table/index.js:25463
-#: blocks/tab-product-table/index.js:25734
+#: assets/js/admin.js:25851
+#: blocks/product-table/index.js:25472
+#: blocks/tab-product-table/index.js:25743
 msgid "e.g. Price:"
 msgstr ""
 
-#: assets/js/admin.js:25848
-#: assets/js/admin.js:26382
-#: blocks/product-table/index.js:25469
-#: blocks/product-table/index.js:26003
-#: blocks/tab-product-table/index.js:25740
-#: blocks/tab-product-table/index.js:26274
+#: assets/js/admin.js:25857
+#: assets/js/admin.js:26391
+#: blocks/product-table/index.js:25478
+#: blocks/product-table/index.js:26012
+#: blocks/tab-product-table/index.js:25749
+#: blocks/tab-product-table/index.js:26283
 msgid "Suffix"
 msgstr ""
 
-#: assets/js/admin.js:25858
-#: blocks/product-table/index.js:25479
-#: blocks/tab-product-table/index.js:25750
+#: assets/js/admin.js:25867
+#: blocks/product-table/index.js:25488
+#: blocks/tab-product-table/index.js:25759
 msgid "e.g. / mo"
 msgstr ""
 
-#: assets/js/admin.js:25865
-#: blocks/product-table/index.js:25486
-#: blocks/tab-product-table/index.js:25757
+#: assets/js/admin.js:25874
+#: blocks/product-table/index.js:25495
+#: blocks/tab-product-table/index.js:25766
 msgid "Meta Key"
 msgstr ""
 
-#: assets/js/admin.js:25875
-#: blocks/product-table/index.js:25496
-#: blocks/tab-product-table/index.js:25767
+#: assets/js/admin.js:25884
+#: blocks/product-table/index.js:25505
+#: blocks/tab-product-table/index.js:25776
 msgid "Enter meta key..."
 msgstr ""
 
-#: assets/js/admin.js:26094
-#: blocks/product-table/index.js:25715
-#: blocks/tab-product-table/index.js:25986
+#: assets/js/admin.js:26103
+#: blocks/product-table/index.js:25724
+#: blocks/tab-product-table/index.js:25995
 msgid "Column heading"
 msgstr ""
 
-#: assets/js/admin.js:26095
-#: blocks/product-table/index.js:25716
-#: blocks/tab-product-table/index.js:25987
+#: assets/js/admin.js:26104
+#: blocks/product-table/index.js:25725
+#: blocks/tab-product-table/index.js:25996
 msgid "Edit column heading"
 msgstr ""
 
-#: assets/js/admin.js:26107
-#: blocks/product-table/index.js:25728
-#: blocks/tab-product-table/index.js:25999
+#: assets/js/admin.js:26116
+#: blocks/product-table/index.js:25737
+#: blocks/tab-product-table/index.js:26008
 msgid "element"
 msgid_plural "elements"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin.js:26111
-#: blocks/product-table/index.js:25732
-#: blocks/tab-product-table/index.js:26003
+#: assets/js/admin.js:26120
+#: blocks/product-table/index.js:25741
+#: blocks/tab-product-table/index.js:26012
 msgid "Heading visible - Click to hide column header text"
 msgstr ""
 
-#: assets/js/admin.js:26111
-#: blocks/product-table/index.js:25732
-#: blocks/tab-product-table/index.js:26003
+#: assets/js/admin.js:26120
+#: blocks/product-table/index.js:25741
+#: blocks/tab-product-table/index.js:26012
 msgid "Heading hidden - Click to show column header text"
 msgstr ""
 
-#: assets/js/admin.js:26186
-#: blocks/product-table/index.js:25807
-#: blocks/tab-product-table/index.js:26078
+#: assets/js/admin.js:26195
+#: blocks/product-table/index.js:25816
+#: blocks/tab-product-table/index.js:26087
 msgid "Rating Settings"
 msgstr ""
 
-#: assets/js/admin.js:26190
-#: blocks/product-table/index.js:25811
-#: blocks/tab-product-table/index.js:26082
+#: assets/js/admin.js:26199
+#: blocks/product-table/index.js:25820
+#: blocks/tab-product-table/index.js:26091
 msgid "Display Format"
 msgstr ""
 
-#: assets/js/admin.js:26202
-#: blocks/product-table/index.js:25823
-#: blocks/tab-product-table/index.js:26094
+#: assets/js/admin.js:26211
+#: blocks/product-table/index.js:25832
+#: blocks/tab-product-table/index.js:26103
 msgid "Stars (Custom)"
 msgstr ""
 
-#: assets/js/admin.js:26205
-#: blocks/product-table/index.js:25826
-#: blocks/tab-product-table/index.js:26097
+#: assets/js/admin.js:26214
+#: blocks/product-table/index.js:25835
+#: blocks/tab-product-table/index.js:26106
 msgid "Text Based"
 msgstr ""
 
-#: assets/js/admin.js:26208
-#: blocks/product-table/index.js:25829
-#: blocks/tab-product-table/index.js:26100
+#: assets/js/admin.js:26217
+#: blocks/product-table/index.js:25838
+#: blocks/tab-product-table/index.js:26109
 msgid "WooCommerce Default"
 msgstr ""
 
-#: assets/js/admin.js:26218
-#: blocks/product-table/index.js:25839
-#: blocks/tab-product-table/index.js:26110
+#: assets/js/admin.js:26227
+#: blocks/product-table/index.js:25848
+#: blocks/tab-product-table/index.js:26119
 msgid "Combined Column Elements"
 msgstr ""
 
-#: assets/js/admin.js:26226
-#: blocks/product-table/index.js:25847
-#: blocks/tab-product-table/index.js:26118
+#: assets/js/admin.js:26235
+#: blocks/product-table/index.js:25856
+#: blocks/tab-product-table/index.js:26127
 msgid "Combined Column is a Pro Feature"
 msgstr ""
 
-#: assets/js/admin.js:26229
-#: blocks/product-table/index.js:25850
-#: blocks/tab-product-table/index.js:26121
+#: assets/js/admin.js:26238
+#: blocks/product-table/index.js:25859
+#: blocks/tab-product-table/index.js:26130
 msgid "Create complex cells by combining images, text, and icons."
 msgstr ""
 
-#: assets/js/admin.js:26240
-#: blocks/product-table/index.js:25861
-#: blocks/tab-product-table/index.js:26132
+#: assets/js/admin.js:26249
+#: blocks/product-table/index.js:25870
+#: blocks/tab-product-table/index.js:26141
 msgid "Layout"
 msgstr ""
 
-#: assets/js/admin.js:26258
-#: blocks/product-table/index.js:25879
-#: blocks/tab-product-table/index.js:26150
+#: assets/js/admin.js:26267
+#: blocks/product-table/index.js:25888
+#: blocks/tab-product-table/index.js:26159
 msgid "Separator"
 msgstr ""
 
-#: assets/js/admin.js:26276
-#: blocks/product-table/index.js:25897
-#: blocks/tab-product-table/index.js:26168
+#: assets/js/admin.js:26285
+#: blocks/product-table/index.js:25906
+#: blocks/tab-product-table/index.js:26177
 msgid "Elements & Order"
 msgstr ""
 
-#: assets/js/admin.js:26298
-#: blocks/product-table/index.js:25919
-#: blocks/tab-product-table/index.js:26190
+#: assets/js/admin.js:26307
+#: blocks/product-table/index.js:25928
+#: blocks/tab-product-table/index.js:26199
 msgid "Add Sub-Element"
 msgstr ""
 
-#: assets/js/admin.js:26319
-#: blocks/product-table/index.js:25940
-#: blocks/tab-product-table/index.js:26211
+#: assets/js/admin.js:26328
+#: blocks/product-table/index.js:25949
+#: blocks/tab-product-table/index.js:26220
 msgid "Custom Field Settings"
 msgstr ""
 
-#: assets/js/admin.js:26327
-#: blocks/product-table/index.js:25948
-#: blocks/tab-product-table/index.js:26219
+#: assets/js/admin.js:26336
+#: blocks/product-table/index.js:25957
+#: blocks/tab-product-table/index.js:26228
 msgid "Custom Field Column is a Pro Feature"
 msgstr ""
 
-#: assets/js/admin.js:26330
-#: blocks/product-table/index.js:25951
-#: blocks/tab-product-table/index.js:26222
+#: assets/js/admin.js:26339
+#: blocks/product-table/index.js:25960
+#: blocks/tab-product-table/index.js:26231
 msgid "Display any product meta field with advanced selection and formatting."
 msgstr ""
 
-#: assets/js/admin.js:26348
-#: blocks/product-table/index.js:25969
-#: blocks/tab-product-table/index.js:26240
+#: assets/js/admin.js:26357
+#: blocks/product-table/index.js:25978
+#: blocks/tab-product-table/index.js:26249
 msgid "Meta Key (Manual Override)"
 msgstr ""
 
-#: assets/js/admin.js:26359
-#: blocks/product-table/index.js:25980
-#: blocks/tab-product-table/index.js:26251
+#: assets/js/admin.js:26368
+#: blocks/product-table/index.js:25989
+#: blocks/tab-product-table/index.js:26260
 msgid "e.g. _weight"
 msgstr ""
 
-#: assets/js/admin.js:26376
-#: blocks/product-table/index.js:25997
-#: blocks/tab-product-table/index.js:26268
+#: assets/js/admin.js:26385
+#: blocks/product-table/index.js:26006
+#: blocks/tab-product-table/index.js:26277
 msgid "e.g., Weight:"
 msgstr ""
 
-#: assets/js/admin.js:26392
-#: blocks/product-table/index.js:26013
-#: blocks/tab-product-table/index.js:26284
+#: assets/js/admin.js:26401
+#: blocks/product-table/index.js:26022
+#: blocks/tab-product-table/index.js:26293
 msgid "e.g., kg"
 msgstr ""
 
-#: assets/js/admin.js:26682
-#: blocks/product-table/index.js:26303
-#: blocks/tab-product-table/index.js:26574
+#: assets/js/admin.js:26691
+#: blocks/product-table/index.js:26312
+#: blocks/tab-product-table/index.js:26583
 msgid "Search products by name, ID (id:123), or SKU (sku:ABC)..."
 msgstr ""
 
-#: assets/js/admin.js:26697
-#: blocks/product-table/index.js:26318
-#: blocks/tab-product-table/index.js:26589
+#: assets/js/admin.js:26706
+#: blocks/product-table/index.js:26327
+#: blocks/tab-product-table/index.js:26598
 msgid "Clear search"
-msgstr ""
-
-#: assets/js/admin.js:26739
-#: blocks/product-table/index.js:26360
-#: blocks/tab-product-table/index.js:26631
-msgid "No products found matching your search."
-msgstr ""
-
-#: assets/js/admin.js:26745
-#: blocks/product-table/index.js:26366
-#: blocks/tab-product-table/index.js:26637
-msgid "Searching products..."
 msgstr ""
 
 #: assets/js/admin.js:26748
 #: blocks/product-table/index.js:26369
 #: blocks/tab-product-table/index.js:26640
+msgid "No products found matching your search."
+msgstr ""
+
+#: assets/js/admin.js:26754
+#: blocks/product-table/index.js:26375
+#: blocks/tab-product-table/index.js:26646
+msgid "Searching products..."
+msgstr ""
+
+#: assets/js/admin.js:26757
+#: blocks/product-table/index.js:26378
+#: blocks/tab-product-table/index.js:26649
 msgid "Start typing to find products..."
 msgstr ""
 
-#: assets/js/admin.js:26753
-#: blocks/product-table/index.js:26374
-#: blocks/tab-product-table/index.js:26645
+#: assets/js/admin.js:26762
+#: blocks/product-table/index.js:26383
+#: blocks/tab-product-table/index.js:26654
 msgid "Loading more results..."
 msgstr ""
 
-#: assets/js/admin.js:26848
-#: blocks/product-table/index.js:26469
-#: blocks/tab-product-table/index.js:26740
+#: assets/js/admin.js:26857
+#: blocks/product-table/index.js:26478
+#: blocks/tab-product-table/index.js:26749
 msgid "category"
 msgid_plural "categories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin.js:26861
-#: blocks/product-table/index.js:26482
-#: blocks/tab-product-table/index.js:26753
+#: assets/js/admin.js:26870
+#: blocks/product-table/index.js:26491
+#: blocks/tab-product-table/index.js:26762
 msgid "product included"
 msgid_plural "products included"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin.js:26936
+#: assets/js/admin.js:26945
 msgid "Setup"
 msgstr ""
 
-#: assets/js/admin.js:26936
+#: assets/js/admin.js:26945
 msgid "Columns"
 msgstr ""
 
-#: assets/js/admin.js:26936
-#: assets/js/admin.js:33239
-#: blocks/product-table/index.js:31118
-#: blocks/tab-product-table/index.js:31389
+#: assets/js/admin.js:26945
+#: assets/js/admin.js:33250
+#: blocks/product-table/index.js:31129
+#: blocks/tab-product-table/index.js:31400
 msgid "Display"
 msgstr ""
 
-#: assets/js/admin.js:26936
-#: assets/js/admin.js:33243
-#: blocks/product-table/index.js:31122
-#: blocks/tab-product-table/index.js:31393
+#: assets/js/admin.js:26945
+#: assets/js/admin.js:33254
+#: blocks/product-table/index.js:31133
+#: blocks/tab-product-table/index.js:31404
 msgid "Options"
 msgstr ""
 
-#: assets/js/admin.js:26936
+#: assets/js/admin.js:26945
 msgid "Finish"
 msgstr ""
 
-#: assets/js/admin.js:26940
+#: assets/js/admin.js:26949
 msgid "Name your table and choose a product source"
 msgstr ""
 
-#: assets/js/admin.js:26941
+#: assets/js/admin.js:26950
 msgid "Select and configure the columns for your table"
 msgstr ""
 
-#: assets/js/admin.js:26942
+#: assets/js/admin.js:26951
 msgid "Customize colors, layout, and typography"
 msgstr ""
 
-#: assets/js/admin.js:26943
+#: assets/js/admin.js:26952
 msgid "Configure search, pagination, and cart options"
 msgstr ""
 
-#: assets/js/admin.js:26944
+#: assets/js/admin.js:26953
 msgid "Your table is ready!"
 msgstr ""
 
-#: assets/js/admin.js:26970
-#: assets/js/admin.js:33332
-#: blocks/product-table/index.js:31211
-#: blocks/tab-product-table/index.js:31482
+#: assets/js/admin.js:26979
+#: assets/js/admin.js:33345
+#: blocks/product-table/index.js:31224
+#: blocks/tab-product-table/index.js:31495
 msgid "Table name is required."
 msgstr ""
 
-#: assets/js/admin.js:26981
-#: assets/js/admin.js:33346
-#: assets/js/admin.js:33818
-#: assets/js/admin.js:33870
-#: assets/js/admin.js:33925
-#: assets/js/admin.js:33985
-#: assets/js/admin.js:34024
-#: blocks/product-table/index.js:31225
-#: blocks/product-table/index.js:31697
-#: blocks/product-table/index.js:31749
-#: blocks/product-table/index.js:31804
-#: blocks/product-table/index.js:31864
-#: blocks/product-table/index.js:31903
-#: blocks/tab-product-table/index.js:31496
-#: blocks/tab-product-table/index.js:31968
-#: blocks/tab-product-table/index.js:32020
-#: blocks/tab-product-table/index.js:32075
-#: blocks/tab-product-table/index.js:32135
-#: blocks/tab-product-table/index.js:32174
+#: assets/js/admin.js:26990
+#: assets/js/admin.js:33359
+#: assets/js/admin.js:33848
+#: assets/js/admin.js:33900
+#: assets/js/admin.js:33955
+#: assets/js/admin.js:34015
+#: assets/js/admin.js:34054
+#: blocks/product-table/index.js:31238
+#: blocks/product-table/index.js:31727
+#: blocks/product-table/index.js:31779
+#: blocks/product-table/index.js:31834
+#: blocks/product-table/index.js:31894
+#: blocks/product-table/index.js:31933
+#: blocks/tab-product-table/index.js:31509
+#: blocks/tab-product-table/index.js:31998
+#: blocks/tab-product-table/index.js:32050
+#: blocks/tab-product-table/index.js:32105
+#: blocks/tab-product-table/index.js:32165
+#: blocks/tab-product-table/index.js:32204
 msgid "Success"
 msgstr ""
 
-#: assets/js/admin.js:26982
-#: assets/js/admin.js:33347
-#: blocks/product-table/index.js:31226
-#: blocks/tab-product-table/index.js:31497
-msgid "Table saved successfully."
-msgstr ""
-
-#: assets/js/admin.js:26997
-#: assets/js/admin.js:32038
-#: assets/js/admin.js:33320
-#: assets/js/admin.js:33359
-#: assets/js/admin.js:33757
-#: assets/js/admin.js:33825
-#: assets/js/admin.js:33877
-#: assets/js/admin.js:33932
-#: assets/js/admin.js:34035
-#: blocks/product-table/index.js:30157
-#: blocks/product-table/index.js:31199
-#: blocks/product-table/index.js:31238
-#: blocks/product-table/index.js:31636
-#: blocks/product-table/index.js:31704
-#: blocks/product-table/index.js:31756
-#: blocks/product-table/index.js:31811
-#: blocks/product-table/index.js:31914
-#: blocks/tab-product-table/index.js:30428
-#: blocks/tab-product-table/index.js:31470
-#: blocks/tab-product-table/index.js:31509
-#: blocks/tab-product-table/index.js:31907
-#: blocks/tab-product-table/index.js:31975
-#: blocks/tab-product-table/index.js:32027
-#: blocks/tab-product-table/index.js:32082
-#: blocks/tab-product-table/index.js:32185
-msgid "Error"
-msgstr ""
-
-#: assets/js/admin.js:26998
+#: assets/js/admin.js:26991
 #: assets/js/admin.js:33360
 #: blocks/product-table/index.js:31239
 #: blocks/tab-product-table/index.js:31510
+msgid "Table saved successfully."
+msgstr ""
+
+#: assets/js/admin.js:27006
+#: assets/js/admin.js:32047
+#: assets/js/admin.js:33333
+#: assets/js/admin.js:33372
+#: assets/js/admin.js:33787
+#: assets/js/admin.js:33855
+#: assets/js/admin.js:33907
+#: assets/js/admin.js:33962
+#: assets/js/admin.js:34065
+#: blocks/product-table/index.js:30166
+#: blocks/product-table/index.js:31212
+#: blocks/product-table/index.js:31251
+#: blocks/product-table/index.js:31666
+#: blocks/product-table/index.js:31734
+#: blocks/product-table/index.js:31786
+#: blocks/product-table/index.js:31841
+#: blocks/product-table/index.js:31944
+#: blocks/tab-product-table/index.js:30437
+#: blocks/tab-product-table/index.js:31483
+#: blocks/tab-product-table/index.js:31522
+#: blocks/tab-product-table/index.js:31937
+#: blocks/tab-product-table/index.js:32005
+#: blocks/tab-product-table/index.js:32057
+#: blocks/tab-product-table/index.js:32112
+#: blocks/tab-product-table/index.js:32215
+msgid "Error"
+msgstr ""
+
+#: assets/js/admin.js:27007
+#: assets/js/admin.js:33373
+#: blocks/product-table/index.js:31252
+#: blocks/tab-product-table/index.js:31523
 msgid "Failed to save table."
 msgstr ""
 
-#: assets/js/admin.js:27056
-#: assets/js/admin.js:27057
+#: assets/js/admin.js:27065
+#: assets/js/admin.js:27066
 msgid "Close wizard"
 msgstr ""
 
-#: assets/js/admin.js:27099
+#: assets/js/admin.js:27108
 msgid "Back"
 msgstr ""
 
-#: assets/js/admin.js:27107
+#: assets/js/admin.js:27116
 msgid "Creating..."
 msgstr ""
 
-#: assets/js/admin.js:27107
+#: assets/js/admin.js:27116
 msgid "Create Table"
 msgstr ""
 
-#: assets/js/admin.js:27113
+#: assets/js/admin.js:27122
 msgid "Next"
 msgstr ""
 
-#: assets/js/admin.js:27374
+#: assets/js/admin.js:27383
 msgid "Table Created Successfully!"
 msgstr ""
 
-#: assets/js/admin.js:27377
+#: assets/js/admin.js:27386
 msgid "Your ProductBay table is ready to be embedded on your website"
 msgstr ""
 
-#: assets/js/admin.js:27392
+#: assets/js/admin.js:27401
 msgid "Your Shortcode"
 msgstr ""
 
-#: assets/js/admin.js:27395
+#: assets/js/admin.js:27404
 msgid "Copy and paste this code into any page or post"
 msgstr ""
 
-#: assets/js/admin.js:27413
-#: assets/js/admin.js:33449
-#: assets/js/admin.js:34526
-#: blocks/product-table/index.js:31328
-#: blocks/product-table/index.js:32405
-#: blocks/tab-product-table/index.js:31599
-#: blocks/tab-product-table/index.js:32676
+#: assets/js/admin.js:27422
+#: assets/js/admin.js:33479
+#: assets/js/admin.js:34556
+#: blocks/product-table/index.js:31358
+#: blocks/product-table/index.js:32435
+#: blocks/tab-product-table/index.js:31629
+#: blocks/tab-product-table/index.js:32706
 msgid "Copied!"
 msgstr ""
 
-#: assets/js/admin.js:27417
-#: assets/js/admin.js:33453
-#: blocks/product-table/index.js:31332
-#: blocks/tab-product-table/index.js:31603
+#: assets/js/admin.js:27426
+#: assets/js/admin.js:33483
+#: blocks/product-table/index.js:31362
+#: blocks/tab-product-table/index.js:31633
 msgid "Copy"
 msgstr ""
 
-#: assets/js/admin.js:27427
+#: assets/js/admin.js:27436
 msgid "View/Edit this table"
 msgstr ""
 
-#: assets/js/admin.js:27435
+#: assets/js/admin.js:27444
 msgid "Show all tables"
 msgstr ""
 
-#: assets/js/admin.js:27594
+#: assets/js/admin.js:27603
 msgid "Create a New Table"
 msgstr ""
 
-#: assets/js/admin.js:27600
+#: assets/js/admin.js:27609
 msgid "Table Name"
 msgstr ""
 
-#: assets/js/admin.js:27610
+#: assets/js/admin.js:27619
 msgid "e.g. Summer Sale Products"
 msgstr ""
 
-#: assets/js/admin.js:29508
-#: blocks/product-table/index.js:28303
-#: blocks/tab-product-table/index.js:28574
+#: assets/js/admin.js:29517
+#: blocks/product-table/index.js:28312
+#: blocks/tab-product-table/index.js:28583
 msgid "Open color picker"
 msgstr ""
 
-#: assets/js/admin.js:29520
-#: assets/js/admin.js:29525
-#: blocks/product-table/index.js:28315
-#: blocks/product-table/index.js:28320
-#: blocks/tab-product-table/index.js:28586
-#: blocks/tab-product-table/index.js:28591
+#: assets/js/admin.js:29529
+#: assets/js/admin.js:29534
+#: blocks/product-table/index.js:28324
+#: blocks/product-table/index.js:28329
+#: blocks/tab-product-table/index.js:28595
+#: blocks/tab-product-table/index.js:28600
 msgid "Edit Color"
 msgstr ""
 
-#: assets/js/admin.js:29637
-#: blocks/product-table/index.js:28432
-#: blocks/tab-product-table/index.js:28703
+#: assets/js/admin.js:29646
+#: blocks/product-table/index.js:28441
+#: blocks/tab-product-table/index.js:28712
 msgid "Presets"
 msgstr ""
 
-#: assets/js/admin.js:29867
-#: blocks/product-table/index.js:28568
-#: blocks/tab-product-table/index.js:28839
+#: assets/js/admin.js:29876
+#: blocks/product-table/index.js:28577
+#: blocks/tab-product-table/index.js:28848
 msgid "Confirm"
 msgstr ""
 
-#: assets/js/admin.js:30578
-#: blocks/product-table/index.js:29279
-#: blocks/tab-product-table/index.js:29550
+#: assets/js/admin.js:30587
+#: blocks/product-table/index.js:29288
+#: blocks/tab-product-table/index.js:29559
 msgid "To Close, Press"
 msgstr ""
 
-#: assets/js/admin.js:30694
-#: blocks/product-table/index.js:29395
-#: blocks/tab-product-table/index.js:29666
+#: assets/js/admin.js:30703
+#: blocks/product-table/index.js:29404
+#: blocks/tab-product-table/index.js:29675
 msgid "Get Pro"
 msgstr ""
 
-#: assets/js/admin.js:30701
-#: assets/js/admin.js:33100
-#: blocks/product-table/index.js:29402
-#: blocks/product-table/index.js:30979
-#: blocks/tab-product-table/index.js:29673
-#: blocks/tab-product-table/index.js:31250
+#: assets/js/admin.js:30710
+#: assets/js/admin.js:33109
+#: blocks/product-table/index.js:29411
+#: blocks/product-table/index.js:30988
+#: blocks/tab-product-table/index.js:29682
+#: blocks/tab-product-table/index.js:31259
 msgid "Later"
 msgstr ""
 
-#: assets/js/admin.js:30714
-#: blocks/product-table/index.js:29415
-#: blocks/tab-product-table/index.js:29686
+#: assets/js/admin.js:30723
+#: blocks/product-table/index.js:29424
+#: blocks/tab-product-table/index.js:29695
 msgid "This feature requires ProductBay Pro"
 msgstr ""
 
-#: assets/js/admin.js:30718
-#: blocks/product-table/index.js:29419
-#: blocks/tab-product-table/index.js:29690
+#: assets/js/admin.js:30727
+#: blocks/product-table/index.js:29428
+#: blocks/tab-product-table/index.js:29699
 msgid "Upgrade to ProductBay Pro to unlock this feature and many more."
 msgstr ""
 
-#: assets/js/admin.js:30887
-#: blocks/product-table/index.js:29535
-#: blocks/tab-product-table/index.js:29806
+#: assets/js/admin.js:30896
+#: blocks/product-table/index.js:29544
+#: blocks/tab-product-table/index.js:29815
 msgid "Select..."
 msgstr ""
 
-#: assets/js/admin.js:30947
-#: blocks/product-table/index.js:29595
-#: blocks/tab-product-table/index.js:29866
+#: assets/js/admin.js:30956
+#: blocks/product-table/index.js:29604
+#: blocks/tab-product-table/index.js:29875
 msgid "Click to clear selection"
 msgstr ""
 
-#: assets/js/admin.js:32026
-#: blocks/product-table/index.js:30145
-#: blocks/tab-product-table/index.js:30416
+#: assets/js/admin.js:32035
+#: blocks/product-table/index.js:30154
+#: blocks/tab-product-table/index.js:30425
 msgid "Copied"
 msgstr ""
 
-#: assets/js/admin.js:32027
-#: blocks/product-table/index.js:30146
-#: blocks/tab-product-table/index.js:30417
+#: assets/js/admin.js:32036
+#: blocks/product-table/index.js:30155
+#: blocks/tab-product-table/index.js:30426
 msgid "Text copied to clipboard"
 msgstr ""
 
-#: assets/js/admin.js:32039
-#: blocks/product-table/index.js:30158
-#: blocks/tab-product-table/index.js:30429
+#: assets/js/admin.js:32048
+#: blocks/product-table/index.js:30167
+#: blocks/tab-product-table/index.js:30438
 msgid "Failed to copy to clipboard. Please copy manually."
 msgstr ""
 
-#: assets/js/admin.js:32386
+#: assets/js/admin.js:32395
 msgid "Open Create Table Wizard"
 msgstr ""
 
-#: assets/js/admin.js:32401
-#: assets/js/admin.js:32545
-#: assets/js/admin.js:34767
-#: blocks/product-table/index.js:30424
-#: blocks/product-table/index.js:32646
-#: blocks/tab-product-table/index.js:30695
-#: blocks/tab-product-table/index.js:32917
+#: assets/js/admin.js:32410
+#: assets/js/admin.js:32554
+#: assets/js/admin.js:34797
+#: blocks/product-table/index.js:30433
+#: blocks/product-table/index.js:32676
+#: blocks/tab-product-table/index.js:30704
+#: blocks/tab-product-table/index.js:32947
 msgid "Welcome to ProductBay"
 msgstr ""
 
-#: assets/js/admin.js:32404
+#: assets/js/admin.js:32413
 msgid "Getting everything ready for you..."
 msgstr ""
 
-#: assets/js/admin.js:32473
-#: blocks/product-table/index.js:30352
-#: blocks/tab-product-table/index.js:30623
+#: assets/js/admin.js:32482
+#: blocks/product-table/index.js:30361
+#: blocks/tab-product-table/index.js:30632
 msgid "Error:"
 msgstr ""
 
-#: assets/js/admin.js:32485
-#: assets/js/admin.js:36090
-#: blocks/product-table/index.js:30364
-#: blocks/product-table/index.js:33948
-#: blocks/tab-product-table/index.js:30635
-#: blocks/tab-product-table/index.js:34219
+#: assets/js/admin.js:32494
+#: assets/js/admin.js:36120
+#: blocks/product-table/index.js:30373
+#: blocks/product-table/index.js:33978
+#: blocks/tab-product-table/index.js:30644
+#: blocks/tab-product-table/index.js:34249
 msgid "Dashboard"
 msgstr ""
 
-#: assets/js/admin.js:32498
-#: assets/js/admin.js:34134
-#: blocks/product-table/index.js:30377
-#: blocks/product-table/index.js:32013
-#: blocks/tab-product-table/index.js:30648
-#: blocks/tab-product-table/index.js:32284
+#: assets/js/admin.js:32507
+#: assets/js/admin.js:34164
+#: blocks/product-table/index.js:30386
+#: blocks/product-table/index.js:32043
+#: blocks/tab-product-table/index.js:30657
+#: blocks/tab-product-table/index.js:32314
 msgid "No Published Products Found"
 msgstr ""
 
-#: assets/js/admin.js:32501
-#: assets/js/admin.js:34137
-#: blocks/product-table/index.js:30380
-#: blocks/product-table/index.js:32016
-#: blocks/tab-product-table/index.js:30651
-#: blocks/tab-product-table/index.js:32287
+#: assets/js/admin.js:32510
+#: assets/js/admin.js:34167
+#: blocks/product-table/index.js:30389
+#: blocks/product-table/index.js:32046
+#: blocks/tab-product-table/index.js:30660
+#: blocks/tab-product-table/index.js:32317
 msgid "ProductBay requires published WooCommerce products to build your tables."
 msgstr ""
 
-#: assets/js/admin.js:32501
-#: assets/js/admin.js:34137
-#: blocks/product-table/index.js:30380
-#: blocks/product-table/index.js:32016
-#: blocks/tab-product-table/index.js:30651
-#: blocks/tab-product-table/index.js:32287
+#: assets/js/admin.js:32510
+#: assets/js/admin.js:34167
+#: blocks/product-table/index.js:30389
+#: blocks/product-table/index.js:32046
+#: blocks/tab-product-table/index.js:30660
+#: blocks/tab-product-table/index.js:32317
 msgid "We couldn't find any products in your WooCommerce store yet."
 msgstr ""
 
-#: assets/js/admin.js:32501
-#: assets/js/admin.js:34137
-#: blocks/product-table/index.js:30380
-#: blocks/product-table/index.js:32016
-#: blocks/tab-product-table/index.js:30651
-#: blocks/tab-product-table/index.js:32287
+#: assets/js/admin.js:32510
+#: assets/js/admin.js:34167
+#: blocks/product-table/index.js:30389
+#: blocks/product-table/index.js:32046
+#: blocks/tab-product-table/index.js:30660
+#: blocks/tab-product-table/index.js:32317
 msgid "Create your first product to start building high-converting tables."
 msgstr ""
 
-#: assets/js/admin.js:32512
-#: assets/js/admin.js:34148
-#: blocks/product-table/index.js:30391
-#: blocks/product-table/index.js:32027
-#: blocks/tab-product-table/index.js:30662
-#: blocks/tab-product-table/index.js:32298
+#: assets/js/admin.js:32521
+#: assets/js/admin.js:34178
+#: blocks/product-table/index.js:30400
+#: blocks/product-table/index.js:32057
+#: blocks/tab-product-table/index.js:30671
+#: blocks/tab-product-table/index.js:32328
 msgid "Add Products"
-msgstr ""
-
-#: assets/js/admin.js:32548
-#: blocks/product-table/index.js:30427
-#: blocks/tab-product-table/index.js:30698
-msgid "Get started by creating your first product table. It takes less than 2 minutes to significantly improve your conversion rate."
 msgstr ""
 
 #: assets/js/admin.js:32557
 #: blocks/product-table/index.js:30436
 #: blocks/tab-product-table/index.js:30707
+msgid "Get started by creating your first product table. It takes less than 2 minutes to significantly improve your conversion rate."
+msgstr ""
+
+#: assets/js/admin.js:32566
+#: blocks/product-table/index.js:30445
+#: blocks/tab-product-table/index.js:30716
 msgid "Create First Table"
 msgstr ""
 
-#: assets/js/admin.js:32574
-#: blocks/product-table/index.js:30453
-#: blocks/tab-product-table/index.js:30724
+#: assets/js/admin.js:32583
+#: blocks/product-table/index.js:30462
+#: blocks/tab-product-table/index.js:30733
 msgid "Published WooCommerce Products"
 msgstr ""
 
-#: assets/js/admin.js:32590
-#: blocks/product-table/index.js:30469
-#: blocks/tab-product-table/index.js:30740
+#: assets/js/admin.js:32599
+#: blocks/product-table/index.js:30478
+#: blocks/tab-product-table/index.js:30749
 msgid "Active ProductBay Tables"
 msgstr ""
 
-#: assets/js/admin.js:32607
-#: blocks/product-table/index.js:30486
-#: blocks/tab-product-table/index.js:30757
+#: assets/js/admin.js:32616
+#: blocks/product-table/index.js:30495
+#: blocks/tab-product-table/index.js:30766
 msgid "Getting Started"
 msgstr ""
 
-#: assets/js/admin.js:32611
-#: blocks/product-table/index.js:30490
-#: blocks/tab-product-table/index.js:30761
+#: assets/js/admin.js:32620
+#: blocks/product-table/index.js:30499
+#: blocks/tab-product-table/index.js:30770
 msgid "Watch our quick video guide or read the documentation to master ProductBay in minutes."
 msgstr ""
 
-#: assets/js/admin.js:32617
-#: blocks/product-table/index.js:30496
-#: blocks/tab-product-table/index.js:30767
+#: assets/js/admin.js:32626
+#: blocks/product-table/index.js:30505
+#: blocks/tab-product-table/index.js:30776
 msgid "Watch Video"
 msgstr ""
 
-#: assets/js/admin.js:32643
-#: blocks/product-table/index.js:30522
-#: blocks/tab-product-table/index.js:30793
+#: assets/js/admin.js:32652
+#: blocks/product-table/index.js:30531
+#: blocks/tab-product-table/index.js:30802
 msgid "Contact Support"
 msgstr ""
 
-#: assets/js/admin.js:32719
-#: blocks/product-table/index.js:30598
-#: blocks/tab-product-table/index.js:30869
+#: assets/js/admin.js:32728
+#: blocks/product-table/index.js:30607
+#: blocks/tab-product-table/index.js:30878
 msgid "Default Configuration"
 msgstr ""
 
-#: assets/js/admin.js:32722
-#: blocks/product-table/index.js:30601
-#: blocks/tab-product-table/index.js:30872
+#: assets/js/admin.js:32731
+#: blocks/product-table/index.js:30610
+#: blocks/tab-product-table/index.js:30881
 msgid "Advanced Settings"
 msgstr ""
 
-#: assets/js/admin.js:32725
-#: blocks/product-table/index.js:30604
-#: blocks/tab-product-table/index.js:30875
+#: assets/js/admin.js:32734
+#: blocks/product-table/index.js:30613
+#: blocks/tab-product-table/index.js:30884
 msgid "Plugin Settings"
 msgstr ""
 
-#: assets/js/admin.js:32777
-#: blocks/product-table/index.js:30656
-#: blocks/tab-product-table/index.js:30927
+#: assets/js/admin.js:32786
+#: blocks/product-table/index.js:30665
+#: blocks/tab-product-table/index.js:30936
 msgid "License"
-msgstr ""
-
-#: assets/js/admin.js:32907
-#: blocks/product-table/index.js:30786
-#: blocks/tab-product-table/index.js:31057
-msgid "Settings saved!"
-msgstr ""
-
-#: assets/js/admin.js:32908
-#: blocks/product-table/index.js:30787
-#: blocks/tab-product-table/index.js:31058
-msgid "Your settings have been saved successfully."
 msgstr ""
 
 #: assets/js/admin.js:32916
 #: blocks/product-table/index.js:30795
 #: blocks/tab-product-table/index.js:31066
-msgid "Failed to save settings"
+msgid "Settings saved!"
 msgstr ""
 
 #: assets/js/admin.js:32917
 #: blocks/product-table/index.js:30796
 #: blocks/tab-product-table/index.js:31067
+msgid "Your settings have been saved successfully."
+msgstr ""
+
+#: assets/js/admin.js:32925
+#: blocks/product-table/index.js:30804
+#: blocks/tab-product-table/index.js:31075
+msgid "Failed to save settings"
+msgstr ""
+
+#: assets/js/admin.js:32926
+#: blocks/product-table/index.js:30805
+#: blocks/tab-product-table/index.js:31076
 msgid "An error occurred while saving your settings."
 msgstr ""
 
-#: assets/js/admin.js:32941
-#: blocks/product-table/index.js:30820
-#: blocks/tab-product-table/index.js:31091
+#: assets/js/admin.js:32950
+#: blocks/product-table/index.js:30829
+#: blocks/tab-product-table/index.js:31100
 msgid "Defaults Reset"
 msgstr ""
 
-#: assets/js/admin.js:32942
-#: blocks/product-table/index.js:30821
-#: blocks/tab-product-table/index.js:31092
+#: assets/js/admin.js:32951
+#: blocks/product-table/index.js:30830
+#: blocks/tab-product-table/index.js:31101
 msgid "Global default settings have been reset to factory values."
 msgstr ""
 
-#: assets/js/admin.js:32973
-#: blocks/product-table/index.js:30852
-#: blocks/tab-product-table/index.js:31123
+#: assets/js/admin.js:32982
+#: blocks/product-table/index.js:30861
+#: blocks/tab-product-table/index.js:31132
 msgid "Reset Defaults"
 msgstr ""
 
-#: assets/js/admin.js:32981
-#: assets/js/admin.js:33530
-#: blocks/product-table/index.js:30860
-#: blocks/product-table/index.js:31409
-#: blocks/tab-product-table/index.js:31131
-#: blocks/tab-product-table/index.js:31680
+#: assets/js/admin.js:32990
+#: assets/js/admin.js:33560
+#: blocks/product-table/index.js:30869
+#: blocks/product-table/index.js:31439
+#: blocks/tab-product-table/index.js:31140
+#: blocks/tab-product-table/index.js:31710
 msgid "Saving..."
-msgstr ""
-
-#: assets/js/admin.js:32981
-#: blocks/product-table/index.js:30860
-#: blocks/tab-product-table/index.js:31131
-msgid "Save Changes"
 msgstr ""
 
 #: assets/js/admin.js:32990
 #: blocks/product-table/index.js:30869
 #: blocks/tab-product-table/index.js:31140
+msgid "Save Changes"
+msgstr ""
+
+#: assets/js/admin.js:32999
+#: blocks/product-table/index.js:30878
+#: blocks/tab-product-table/index.js:31149
 msgid "Settings tabs"
 msgstr ""
 
-#: assets/js/admin.js:32998
-#: blocks/product-table/index.js:30877
-#: blocks/tab-product-table/index.js:31148
+#: assets/js/admin.js:33007
+#: blocks/product-table/index.js:30886
+#: blocks/tab-product-table/index.js:31157
 msgid "Default Source"
 msgstr ""
 
-#: assets/js/admin.js:33001
-#: blocks/product-table/index.js:30880
-#: blocks/tab-product-table/index.js:31151
+#: assets/js/admin.js:33010
+#: blocks/product-table/index.js:30889
+#: blocks/tab-product-table/index.js:31160
 msgid "Configure the default data source settings for new tables."
 msgstr ""
 
-#: assets/js/admin.js:33014
-#: blocks/product-table/index.js:30893
-#: blocks/tab-product-table/index.js:31164
+#: assets/js/admin.js:33023
+#: blocks/product-table/index.js:30902
+#: blocks/tab-product-table/index.js:31173
 msgid "Default Columns"
 msgstr ""
 
-#: assets/js/admin.js:33017
-#: blocks/product-table/index.js:30896
-#: blocks/tab-product-table/index.js:31167
+#: assets/js/admin.js:33026
+#: blocks/product-table/index.js:30905
+#: blocks/tab-product-table/index.js:31176
 msgid "Configure the default columns for new tables."
 msgstr ""
 
-#: assets/js/admin.js:33033
-#: blocks/product-table/index.js:30912
-#: blocks/tab-product-table/index.js:31183
+#: assets/js/admin.js:33042
+#: blocks/product-table/index.js:30921
+#: blocks/tab-product-table/index.js:31192
 msgid "Default Styling"
 msgstr ""
 
-#: assets/js/admin.js:33036
-#: blocks/product-table/index.js:30915
-#: blocks/tab-product-table/index.js:31186
+#: assets/js/admin.js:33045
+#: blocks/product-table/index.js:30924
+#: blocks/tab-product-table/index.js:31195
 msgid "Set the default look and feel for your tables."
 msgstr ""
 
-#: assets/js/admin.js:33052
-#: blocks/product-table/index.js:30931
-#: blocks/tab-product-table/index.js:31202
+#: assets/js/admin.js:33061
+#: blocks/product-table/index.js:30940
+#: blocks/tab-product-table/index.js:31211
 msgid "Default Functionality"
 msgstr ""
 
-#: assets/js/admin.js:33055
-#: blocks/product-table/index.js:30934
-#: blocks/tab-product-table/index.js:31205
+#: assets/js/admin.js:33064
+#: blocks/product-table/index.js:30943
+#: blocks/tab-product-table/index.js:31214
 msgid "Configure default features like sorting, pagination, and filters."
 msgstr ""
 
-#: assets/js/admin.js:33088
-#: blocks/product-table/index.js:30967
-#: blocks/tab-product-table/index.js:31238
+#: assets/js/admin.js:33097
+#: blocks/product-table/index.js:30976
+#: blocks/tab-product-table/index.js:31247
 msgid "Page Reload Required"
 msgstr ""
 
-#: assets/js/admin.js:33092
-#: blocks/product-table/index.js:30971
-#: blocks/tab-product-table/index.js:31242
+#: assets/js/admin.js:33101
+#: blocks/product-table/index.js:30980
+#: blocks/tab-product-table/index.js:31251
 msgid "Reload Now"
-msgstr ""
-
-#: assets/js/admin.js:33106
-#: blocks/product-table/index.js:30985
-#: blocks/tab-product-table/index.js:31256
-msgid "The admin bar setting requires a page reload to take effect. Would you like to reload now?"
-msgstr ""
-
-#: assets/js/admin.js:33111
-#: blocks/product-table/index.js:30990
-#: blocks/tab-product-table/index.js:31261
-msgid "Reset Global Defaults?"
 msgstr ""
 
 #: assets/js/admin.js:33115
 #: blocks/product-table/index.js:30994
 #: blocks/tab-product-table/index.js:31265
+msgid "The admin bar setting requires a page reload to take effect. Would you like to reload now?"
+msgstr ""
+
+#: assets/js/admin.js:33120
+#: blocks/product-table/index.js:30999
+#: blocks/tab-product-table/index.js:31270
+msgid "Reset Global Defaults?"
+msgstr ""
+
+#: assets/js/admin.js:33124
+#: blocks/product-table/index.js:31003
+#: blocks/tab-product-table/index.js:31274
 msgid "Yes, Reset Defaults"
 msgstr ""
 
-#: assets/js/admin.js:33129
-#: blocks/product-table/index.js:31008
-#: blocks/tab-product-table/index.js:31279
+#: assets/js/admin.js:33138
+#: blocks/product-table/index.js:31017
+#: blocks/tab-product-table/index.js:31288
 msgid "Are you sure you want to reset all global default configurations to their factory settings? This action cannot be undone."
 msgstr ""
 
-#: assets/js/admin.js:33235
-#: blocks/product-table/index.js:31114
-#: blocks/tab-product-table/index.js:31385
+#: assets/js/admin.js:33246
+#: blocks/product-table/index.js:31125
+#: blocks/tab-product-table/index.js:31396
 msgid "Table"
 msgstr ""
 
-#: assets/js/admin.js:33304
-#: blocks/product-table/index.js:31183
-#: blocks/tab-product-table/index.js:31454
-msgid "Are you sure you want to delete this table? This action cannot be undone."
-msgstr ""
-
-#: assets/js/admin.js:33312
-#: blocks/product-table/index.js:31191
-#: blocks/tab-product-table/index.js:31462
+#: assets/js/admin.js:33325
+#: blocks/product-table/index.js:31204
+#: blocks/tab-product-table/index.js:31475
 msgid "Deleted"
 msgstr ""
 
-#: assets/js/admin.js:33313
-#: blocks/product-table/index.js:31192
-#: blocks/tab-product-table/index.js:31463
+#: assets/js/admin.js:33326
+#: blocks/product-table/index.js:31205
+#: blocks/tab-product-table/index.js:31476
 msgid "Table deleted successfully."
 msgstr ""
 
-#: assets/js/admin.js:33321
-#: blocks/product-table/index.js:31200
-#: blocks/tab-product-table/index.js:31471
+#: assets/js/admin.js:33334
+#: blocks/product-table/index.js:31213
+#: blocks/tab-product-table/index.js:31484
 msgid "Failed to delete table."
 msgstr ""
 
-#: assets/js/admin.js:33335
-#: blocks/product-table/index.js:31214
-#: blocks/tab-product-table/index.js:31485
+#: assets/js/admin.js:33348
+#: blocks/product-table/index.js:31227
+#: blocks/tab-product-table/index.js:31498
 msgid "Validation Error"
 msgstr ""
 
-#: assets/js/admin.js:33403
-#: blocks/product-table/index.js:31282
-#: blocks/tab-product-table/index.js:31553
+#: assets/js/admin.js:33416
+#: blocks/product-table/index.js:31295
+#: blocks/tab-product-table/index.js:31566
 msgid "Table Not Found"
 msgstr ""
 
-#: assets/js/admin.js:33406
-#: blocks/product-table/index.js:31285
-#: blocks/tab-product-table/index.js:31556
+#: assets/js/admin.js:33419
+#: blocks/product-table/index.js:31298
+#: blocks/tab-product-table/index.js:31569
 msgid "The table you are looking for does not exist or has been deleted."
 msgstr ""
 
-#: assets/js/admin.js:33413
-#: blocks/product-table/index.js:31292
-#: blocks/tab-product-table/index.js:31563
+#: assets/js/admin.js:33426
+#: blocks/product-table/index.js:31305
+#: blocks/tab-product-table/index.js:31576
 msgid "View Tables"
 msgstr ""
 
-#: assets/js/admin.js:33433
-#: blocks/product-table/index.js:31312
-#: blocks/tab-product-table/index.js:31583
-msgid "Shortcode:"
+#: assets/js/admin.js:33445
+#: blocks/product-table/index.js:31324
+#: blocks/tab-product-table/index.js:31595
+msgid "Delete Table"
+msgstr ""
+
+#: assets/js/admin.js:33447
+#: assets/js/admin.js:33660
+#: assets/js/admin.js:34533
+#: assets/js/admin.js:34729
+#: blocks/product-table/index.js:31326
+#: blocks/product-table/index.js:31539
+#: blocks/product-table/index.js:32412
+#: blocks/product-table/index.js:32608
+#: blocks/tab-product-table/index.js:31597
+#: blocks/tab-product-table/index.js:31810
+#: blocks/tab-product-table/index.js:32683
+#: blocks/tab-product-table/index.js:32879
+msgid "Delete"
 msgstr ""
 
 #: assets/js/admin.js:33457
 #: blocks/product-table/index.js:31336
 #: blocks/tab-product-table/index.js:31607
+msgid "Are you sure you want to delete this table? This action cannot be undone."
+msgstr ""
+
+#: assets/js/admin.js:33463
+#: blocks/product-table/index.js:31342
+#: blocks/tab-product-table/index.js:31613
+msgid "Shortcode:"
+msgstr ""
+
+#: assets/js/admin.js:33487
+#: blocks/product-table/index.js:31366
+#: blocks/tab-product-table/index.js:31637
 msgid "Copy this shortcode and paste it into any Page or Post to display this table. "
 msgstr ""
 
-#: assets/js/admin.js:33472
-#: blocks/product-table/index.js:31351
-#: blocks/tab-product-table/index.js:31622
+#: assets/js/admin.js:33502
+#: blocks/product-table/index.js:31381
+#: blocks/tab-product-table/index.js:31652
 msgid "Enter table name..."
 msgstr ""
 
-#: assets/js/admin.js:33477
-#: assets/js/admin.js:34481
-#: blocks/product-table/index.js:31356
-#: blocks/product-table/index.js:32360
-#: blocks/tab-product-table/index.js:31627
-#: blocks/tab-product-table/index.js:32631
+#: assets/js/admin.js:33507
+#: assets/js/admin.js:34511
+#: blocks/product-table/index.js:31386
+#: blocks/product-table/index.js:32390
+#: blocks/tab-product-table/index.js:31657
+#: blocks/tab-product-table/index.js:32661
 msgid "Export Table"
 msgstr ""
 
-#: assets/js/admin.js:33479
-#: blocks/product-table/index.js:31358
-#: blocks/tab-product-table/index.js:31629
+#: assets/js/admin.js:33509
+#: blocks/product-table/index.js:31388
+#: blocks/tab-product-table/index.js:31659
 msgid "Export this table configuration"
 msgstr ""
 
-#: assets/js/admin.js:33499
-#: blocks/product-table/index.js:31378
-#: blocks/tab-product-table/index.js:31649
+#: assets/js/admin.js:33529
+#: blocks/product-table/index.js:31408
+#: blocks/tab-product-table/index.js:31679
 msgid "Delete this table"
 msgstr ""
 
-#: assets/js/admin.js:33517
-#: assets/js/admin.js:33667
-#: assets/js/admin.js:34510
-#: assets/js/admin.js:34556
-#: blocks/product-table/index.js:31396
-#: blocks/product-table/index.js:31546
-#: blocks/product-table/index.js:32389
-#: blocks/product-table/index.js:32435
-#: blocks/tab-product-table/index.js:31667
-#: blocks/tab-product-table/index.js:31817
-#: blocks/tab-product-table/index.js:32660
-#: blocks/tab-product-table/index.js:32706
+#: assets/js/admin.js:33547
+#: assets/js/admin.js:33697
+#: assets/js/admin.js:34540
+#: assets/js/admin.js:34586
+#: blocks/product-table/index.js:31426
+#: blocks/product-table/index.js:31576
+#: blocks/product-table/index.js:32419
+#: blocks/product-table/index.js:32465
+#: blocks/tab-product-table/index.js:31697
+#: blocks/tab-product-table/index.js:31847
+#: blocks/tab-product-table/index.js:32690
+#: blocks/tab-product-table/index.js:32736
 msgid "Published"
 msgstr ""
 
-#: assets/js/admin.js:33517
-#: assets/js/admin.js:33670
-#: assets/js/admin.js:34513
-#: blocks/product-table/index.js:31396
-#: blocks/product-table/index.js:31549
-#: blocks/product-table/index.js:32392
-#: blocks/tab-product-table/index.js:31667
-#: blocks/tab-product-table/index.js:31820
-#: blocks/tab-product-table/index.js:32663
+#: assets/js/admin.js:33547
+#: assets/js/admin.js:33700
+#: assets/js/admin.js:34543
+#: blocks/product-table/index.js:31426
+#: blocks/product-table/index.js:31579
+#: blocks/product-table/index.js:32422
+#: blocks/tab-product-table/index.js:31697
+#: blocks/tab-product-table/index.js:31850
+#: blocks/tab-product-table/index.js:32693
 msgid "Private"
 msgstr ""
 
-#: assets/js/admin.js:33523
-#: blocks/product-table/index.js:31402
-#: blocks/tab-product-table/index.js:31673
+#: assets/js/admin.js:33553
+#: blocks/product-table/index.js:31432
+#: blocks/tab-product-table/index.js:31703
 msgid "Click toggle to set private"
 msgstr ""
 
-#: assets/js/admin.js:33523
-#: blocks/product-table/index.js:31402
-#: blocks/tab-product-table/index.js:31673
+#: assets/js/admin.js:33553
+#: blocks/product-table/index.js:31432
+#: blocks/tab-product-table/index.js:31703
 msgid "Click toggle to publish"
 msgstr ""
 
-#: assets/js/admin.js:33530
-#: blocks/product-table/index.js:31409
-#: blocks/tab-product-table/index.js:31680
+#: assets/js/admin.js:33560
+#: blocks/product-table/index.js:31439
+#: blocks/tab-product-table/index.js:31710
 msgid "Save Table"
 msgstr ""
 
-#: assets/js/admin.js:33545
-#: blocks/product-table/index.js:31424
-#: blocks/tab-product-table/index.js:31695
+#: assets/js/admin.js:33575
+#: blocks/product-table/index.js:31454
+#: blocks/tab-product-table/index.js:31725
 msgid "Table configuration tabs"
 msgstr ""
 
-#: assets/js/admin.js:33630
-#: assets/js/admin.js:34503
-#: assets/js/admin.js:34699
-#: blocks/product-table/index.js:31509
-#: blocks/product-table/index.js:32382
-#: blocks/product-table/index.js:32578
-#: blocks/tab-product-table/index.js:31780
-#: blocks/tab-product-table/index.js:32653
-#: blocks/tab-product-table/index.js:32849
-msgid "Delete"
-msgstr ""
-
-#: assets/js/admin.js:33633
-#: blocks/product-table/index.js:31512
-#: blocks/tab-product-table/index.js:31783
+#: assets/js/admin.js:33663
+#: blocks/product-table/index.js:31542
+#: blocks/tab-product-table/index.js:31813
 msgid "Set Published"
 msgstr ""
 
-#: assets/js/admin.js:33636
-#: assets/js/admin.js:34495
-#: assets/js/admin.js:34739
-#: blocks/product-table/index.js:31515
-#: blocks/product-table/index.js:32374
-#: blocks/product-table/index.js:32618
-#: blocks/tab-product-table/index.js:31786
-#: blocks/tab-product-table/index.js:32645
-#: blocks/tab-product-table/index.js:32889
+#: assets/js/admin.js:33666
+#: assets/js/admin.js:34525
+#: assets/js/admin.js:34769
+#: blocks/product-table/index.js:31545
+#: blocks/product-table/index.js:32404
+#: blocks/product-table/index.js:32648
+#: blocks/tab-product-table/index.js:31816
+#: blocks/tab-product-table/index.js:32675
+#: blocks/tab-product-table/index.js:32919
 msgid "Set Private"
 msgstr ""
 
-#: assets/js/admin.js:33639
-#: blocks/product-table/index.js:31518
-#: blocks/tab-product-table/index.js:31789
+#: assets/js/admin.js:33669
+#: blocks/product-table/index.js:31548
+#: blocks/tab-product-table/index.js:31819
 msgid "Export Selected"
 msgstr ""
 
-#: assets/js/admin.js:33659
-#: blocks/product-table/index.js:31538
-#: blocks/tab-product-table/index.js:31809
+#: assets/js/admin.js:33689
+#: blocks/product-table/index.js:31568
+#: blocks/tab-product-table/index.js:31839
 msgid "Custom"
 msgstr ""
 
-#: assets/js/admin.js:33680
-#: blocks/product-table/index.js:31559
-#: blocks/tab-product-table/index.js:31830
+#: assets/js/admin.js:33710
+#: blocks/product-table/index.js:31589
+#: blocks/tab-product-table/index.js:31860
 msgid "Specific Categories"
 msgstr ""
 
-#: assets/js/admin.js:33758
-#: blocks/product-table/index.js:31637
-#: blocks/tab-product-table/index.js:31908
+#: assets/js/admin.js:33788
+#: blocks/product-table/index.js:31667
+#: blocks/tab-product-table/index.js:31938
 msgid "Failed to load tables"
 msgstr ""
 
-#: assets/js/admin.js:33819
-#: blocks/product-table/index.js:31698
-#: blocks/tab-product-table/index.js:31969
+#: assets/js/admin.js:33849
+#: blocks/product-table/index.js:31728
+#: blocks/tab-product-table/index.js:31999
 msgid "Table deleted successfully"
 msgstr ""
 
-#: assets/js/admin.js:33826
-#: blocks/product-table/index.js:31705
-#: blocks/tab-product-table/index.js:31976
+#: assets/js/admin.js:33856
+#: blocks/product-table/index.js:31735
+#: blocks/tab-product-table/index.js:32006
 msgid "Failed to delete table"
 msgstr ""
 
-#: assets/js/admin.js:33871
-#: blocks/product-table/index.js:31750
-#: blocks/tab-product-table/index.js:32021
+#: assets/js/admin.js:33901
+#: blocks/product-table/index.js:31780
+#: blocks/tab-product-table/index.js:32051
 msgid "Table duplicated successfully"
 msgstr ""
 
-#: assets/js/admin.js:33878
-#: blocks/product-table/index.js:31757
-#: blocks/tab-product-table/index.js:32028
+#: assets/js/admin.js:33908
+#: blocks/product-table/index.js:31787
+#: blocks/tab-product-table/index.js:32058
 msgid "Failed to duplicate table"
 msgstr ""
 
-#: assets/js/admin.js:33926
-#: blocks/product-table/index.js:31805
-#: blocks/tab-product-table/index.js:32076
+#: assets/js/admin.js:33956
+#: blocks/product-table/index.js:31835
+#: blocks/tab-product-table/index.js:32106
 msgid "Table published successfully"
 msgstr ""
 
-#: assets/js/admin.js:33926
-#: blocks/product-table/index.js:31805
-#: blocks/tab-product-table/index.js:32076
+#: assets/js/admin.js:33956
+#: blocks/product-table/index.js:31835
+#: blocks/tab-product-table/index.js:32106
 msgid "Table set to private successfully"
 msgstr ""
 
-#: assets/js/admin.js:33933
-#: blocks/product-table/index.js:31812
-#: blocks/tab-product-table/index.js:32083
+#: assets/js/admin.js:33963
+#: blocks/product-table/index.js:31842
+#: blocks/tab-product-table/index.js:32113
 msgid "Failed to update table status"
 msgstr ""
 
 #. translators: %d: number of tables deleted
-#: assets/js/admin.js:33987
-#: blocks/product-table/index.js:31866
-#: blocks/tab-product-table/index.js:32137
+#: assets/js/admin.js:34017
+#: blocks/product-table/index.js:31896
+#: blocks/tab-product-table/index.js:32167
 #, js-format
 msgid "Deleted %d table successfully"
 msgid_plural "Deleted %d tables successfully"
@@ -2950,252 +2962,252 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of tables updated
-#: assets/js/admin.js:34026
-#: blocks/product-table/index.js:31905
-#: blocks/tab-product-table/index.js:32176
+#: assets/js/admin.js:34056
+#: blocks/product-table/index.js:31935
+#: blocks/tab-product-table/index.js:32206
 #, js-format
 msgid "Updated status for %d table"
 msgid_plural "Updated status for %d tables"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin.js:34036
-#: blocks/product-table/index.js:31915
-#: blocks/tab-product-table/index.js:32186
+#: assets/js/admin.js:34066
+#: blocks/product-table/index.js:31945
+#: blocks/tab-product-table/index.js:32216
 msgid "Failed to apply bulk action"
 msgstr ""
 
-#: assets/js/admin.js:34176
-#: blocks/product-table/index.js:32055
-#: blocks/tab-product-table/index.js:32326
+#: assets/js/admin.js:34206
+#: blocks/product-table/index.js:32085
+#: blocks/tab-product-table/index.js:32356
 msgid "Import"
 msgstr ""
 
-#: assets/js/admin.js:34188
-#: assets/js/admin.js:34486
-#: blocks/product-table/index.js:32067
-#: blocks/product-table/index.js:32365
-#: blocks/tab-product-table/index.js:32338
-#: blocks/tab-product-table/index.js:32636
+#: assets/js/admin.js:34218
+#: assets/js/admin.js:34516
+#: blocks/product-table/index.js:32097
+#: blocks/product-table/index.js:32395
+#: blocks/tab-product-table/index.js:32368
+#: blocks/tab-product-table/index.js:32666
 msgid "Export"
 msgstr ""
 
-#: assets/js/admin.js:34199
-#: blocks/product-table/index.js:32078
-#: blocks/tab-product-table/index.js:32349
+#: assets/js/admin.js:34229
+#: blocks/product-table/index.js:32108
+#: blocks/tab-product-table/index.js:32379
 msgid "Bulk Actions"
 msgstr ""
 
-#: assets/js/admin.js:34200
-#: blocks/product-table/index.js:32079
-#: blocks/tab-product-table/index.js:32350
+#: assets/js/admin.js:34230
+#: blocks/product-table/index.js:32109
+#: blocks/tab-product-table/index.js:32380
 msgid "Actions"
 msgstr ""
 
-#: assets/js/admin.js:34211
-#: blocks/product-table/index.js:32090
-#: blocks/tab-product-table/index.js:32361
+#: assets/js/admin.js:34241
+#: blocks/product-table/index.js:32120
+#: blocks/tab-product-table/index.js:32391
 msgid "Apply"
 msgstr ""
 
 #. translators: %d: number of selected items
-#: assets/js/admin.js:34215
-#: blocks/product-table/index.js:32094
-#: blocks/tab-product-table/index.js:32365
+#: assets/js/admin.js:34245
+#: blocks/product-table/index.js:32124
+#: blocks/tab-product-table/index.js:32395
 #, js-format
 msgid "%d items selected"
 msgstr ""
 
-#: assets/js/admin.js:34223
-#: blocks/product-table/index.js:32102
-#: blocks/tab-product-table/index.js:32373
+#: assets/js/admin.js:34253
+#: blocks/product-table/index.js:32132
+#: blocks/tab-product-table/index.js:32403
 msgid "Search tables..."
 msgstr ""
 
-#: assets/js/admin.js:34255
-#: assets/js/admin.js:34327
-#: blocks/product-table/index.js:32134
-#: blocks/product-table/index.js:32206
-#: blocks/tab-product-table/index.js:32405
-#: blocks/tab-product-table/index.js:32477
+#: assets/js/admin.js:34285
+#: assets/js/admin.js:34357
+#: blocks/product-table/index.js:32164
+#: blocks/product-table/index.js:32236
+#: blocks/tab-product-table/index.js:32435
+#: blocks/tab-product-table/index.js:32507
 msgid "Status"
 msgstr ""
 
-#: assets/js/admin.js:34270
-#: blocks/product-table/index.js:32149
-#: blocks/tab-product-table/index.js:32420
+#: assets/js/admin.js:34300
+#: blocks/product-table/index.js:32179
+#: blocks/tab-product-table/index.js:32450
 msgid "Source"
 msgstr ""
 
-#: assets/js/admin.js:34291
-#: blocks/product-table/index.js:32170
-#: blocks/tab-product-table/index.js:32441
+#: assets/js/admin.js:34321
+#: blocks/product-table/index.js:32200
+#: blocks/tab-product-table/index.js:32471
 msgid "Clear Filters"
 msgstr ""
 
-#: assets/js/admin.js:34318
-#: blocks/product-table/index.js:32197
-#: blocks/tab-product-table/index.js:32468
+#: assets/js/admin.js:34348
+#: blocks/product-table/index.js:32227
+#: blocks/tab-product-table/index.js:32498
 msgid "Title"
 msgstr ""
 
-#: assets/js/admin.js:34333
-#: blocks/product-table/index.js:32212
-#: blocks/tab-product-table/index.js:32483
+#: assets/js/admin.js:34363
+#: blocks/product-table/index.js:32242
+#: blocks/tab-product-table/index.js:32513
 msgid "Shortcode"
 msgstr ""
 
-#: assets/js/admin.js:34415
-#: blocks/product-table/index.js:32294
-#: blocks/tab-product-table/index.js:32565
+#: assets/js/admin.js:34445
+#: blocks/product-table/index.js:32324
+#: blocks/tab-product-table/index.js:32595
 msgid "No tables found"
 msgstr ""
 
-#: assets/js/admin.js:34418
-#: blocks/product-table/index.js:32297
-#: blocks/tab-product-table/index.js:32568
+#: assets/js/admin.js:34448
+#: blocks/product-table/index.js:32327
+#: blocks/tab-product-table/index.js:32598
 msgid "Your search query or filters did not match any tables. Try adjusting your search term or filters."
 msgstr ""
 
-#: assets/js/admin.js:34427
-#: blocks/product-table/index.js:32306
-#: blocks/tab-product-table/index.js:32577
+#: assets/js/admin.js:34457
+#: blocks/product-table/index.js:32336
+#: blocks/tab-product-table/index.js:32607
 msgid "Clear Search & Filters"
 msgstr ""
 
-#: assets/js/admin.js:34458
-#: blocks/product-table/index.js:32337
-#: blocks/tab-product-table/index.js:32608
+#: assets/js/admin.js:34488
+#: blocks/product-table/index.js:32367
+#: blocks/tab-product-table/index.js:32638
 msgid "cols"
 msgstr ""
 
-#: assets/js/admin.js:34468
-#: blocks/product-table/index.js:32347
-#: blocks/tab-product-table/index.js:32618
+#: assets/js/admin.js:34498
+#: blocks/product-table/index.js:32377
+#: blocks/tab-product-table/index.js:32648
 msgid "Edit"
 msgstr ""
 
-#: assets/js/admin.js:34476
-#: assets/js/admin.js:34719
-#: blocks/product-table/index.js:32355
-#: blocks/product-table/index.js:32598
-#: blocks/tab-product-table/index.js:32626
-#: blocks/tab-product-table/index.js:32869
+#: assets/js/admin.js:34506
+#: assets/js/admin.js:34749
+#: blocks/product-table/index.js:32385
+#: blocks/product-table/index.js:32628
+#: blocks/tab-product-table/index.js:32656
+#: blocks/tab-product-table/index.js:32899
 msgid "Duplicate"
 msgstr ""
 
-#: assets/js/admin.js:34495
-#: assets/js/admin.js:34739
-#: blocks/product-table/index.js:32374
-#: blocks/product-table/index.js:32618
-#: blocks/tab-product-table/index.js:32645
-#: blocks/tab-product-table/index.js:32889
+#: assets/js/admin.js:34525
+#: assets/js/admin.js:34769
+#: blocks/product-table/index.js:32404
+#: blocks/product-table/index.js:32648
+#: blocks/tab-product-table/index.js:32675
+#: blocks/tab-product-table/index.js:32919
 msgid "Publish"
 msgstr ""
 
-#: assets/js/admin.js:34526
-#: blocks/product-table/index.js:32405
-#: blocks/tab-product-table/index.js:32676
+#: assets/js/admin.js:34556
+#: blocks/product-table/index.js:32435
+#: blocks/tab-product-table/index.js:32706
 msgid "Copy shortcode"
 msgstr ""
 
-#: assets/js/admin.js:34546
-#: blocks/product-table/index.js:32425
-#: blocks/tab-product-table/index.js:32696
+#: assets/js/admin.js:34576
+#: blocks/product-table/index.js:32455
+#: blocks/tab-product-table/index.js:32726
 msgid "Matching Products"
 msgstr ""
 
-#: assets/js/admin.js:34563
-#: blocks/product-table/index.js:32442
-#: blocks/tab-product-table/index.js:32713
+#: assets/js/admin.js:34593
+#: blocks/product-table/index.js:32472
+#: blocks/tab-product-table/index.js:32743
 msgid "Created"
 msgstr ""
 
-#: assets/js/admin.js:34571
-#: blocks/product-table/index.js:32450
-#: blocks/tab-product-table/index.js:32721
+#: assets/js/admin.js:34601
+#: blocks/product-table/index.js:32480
+#: blocks/tab-product-table/index.js:32751
 msgid "Modified"
 msgstr ""
 
 #. translators: %1$d: start index, %2$d: end index, %3$d: total entries
-#: assets/js/admin.js:34589
-#: blocks/product-table/index.js:32468
-#: blocks/tab-product-table/index.js:32739
+#: assets/js/admin.js:34619
+#: blocks/product-table/index.js:32498
+#: blocks/tab-product-table/index.js:32769
 #, js-format
 msgid "Showing %1$d to %2$d of %3$d entries"
 msgstr ""
 
-#: assets/js/admin.js:34596
-#: blocks/product-table/index.js:32475
-#: blocks/tab-product-table/index.js:32746
+#: assets/js/admin.js:34626
+#: blocks/product-table/index.js:32505
+#: blocks/tab-product-table/index.js:32776
 msgid "Rows per page:"
 msgstr ""
 
-#: assets/js/admin.js:34672
-#: blocks/product-table/index.js:32551
-#: blocks/tab-product-table/index.js:32822
+#: assets/js/admin.js:34702
+#: blocks/product-table/index.js:32581
+#: blocks/tab-product-table/index.js:32852
 msgid "Go to page"
 msgstr ""
 
-#: assets/js/admin.js:34696
-#: blocks/product-table/index.js:32575
-#: blocks/tab-product-table/index.js:32846
+#: assets/js/admin.js:34726
+#: blocks/product-table/index.js:32605
+#: blocks/tab-product-table/index.js:32876
 msgid "Delete Table?"
 msgstr ""
 
 #. translators: %s: table name
-#: assets/js/admin.js:34711
-#: blocks/product-table/index.js:32590
-#: blocks/tab-product-table/index.js:32861
+#: assets/js/admin.js:34741
+#: blocks/product-table/index.js:32620
+#: blocks/tab-product-table/index.js:32891
 #, js-format
 msgid "Are you sure you want to delete \"%s\"? This action cannot be undone."
 msgstr ""
 
-#: assets/js/admin.js:34716
-#: blocks/product-table/index.js:32595
-#: blocks/tab-product-table/index.js:32866
+#: assets/js/admin.js:34746
+#: blocks/product-table/index.js:32625
+#: blocks/tab-product-table/index.js:32896
 msgid "Duplicate Table?"
 msgstr ""
 
 #. translators: %s: table name
-#: assets/js/admin.js:34731
-#: blocks/product-table/index.js:32610
-#: blocks/tab-product-table/index.js:32881
+#: assets/js/admin.js:34761
+#: blocks/product-table/index.js:32640
+#: blocks/tab-product-table/index.js:32911
 #, js-format
 msgid "Create a copy of \"%s\"?"
 msgstr ""
 
-#: assets/js/admin.js:34736
-#: blocks/product-table/index.js:32615
-#: blocks/tab-product-table/index.js:32886
+#: assets/js/admin.js:34766
+#: blocks/product-table/index.js:32645
+#: blocks/tab-product-table/index.js:32916
 msgid "Change Table Status?"
 msgstr ""
 
 #. translators: %s: table name
-#: assets/js/admin.js:34751
-#: blocks/product-table/index.js:32630
-#: blocks/tab-product-table/index.js:32901
+#: assets/js/admin.js:34781
+#: blocks/product-table/index.js:32660
+#: blocks/tab-product-table/index.js:32931
 #, js-format
 msgid "Are you sure you want to set \"%s\" to private?"
 msgstr ""
 
 #. translators: %s: table name
-#: assets/js/admin.js:34752
-#: blocks/product-table/index.js:32631
-#: blocks/tab-product-table/index.js:32902
+#: assets/js/admin.js:34782
+#: blocks/product-table/index.js:32661
+#: blocks/tab-product-table/index.js:32932
 #, js-format
 msgid "Are you sure you want to publish \"%s\"?"
 msgstr ""
 
-#: assets/js/admin.js:34770
-#: blocks/product-table/index.js:32649
-#: blocks/tab-product-table/index.js:32920
+#: assets/js/admin.js:34800
+#: blocks/product-table/index.js:32679
+#: blocks/tab-product-table/index.js:32950
 msgid "You haven't created any tables yet. Create your first table to get started!"
 msgstr ""
 
-#: assets/js/admin.js:36095
-#: blocks/product-table/index.js:33953
-#: blocks/tab-product-table/index.js:34224
+#: assets/js/admin.js:36125
+#: blocks/product-table/index.js:33983
+#: blocks/tab-product-table/index.js:34254
 msgid "Tables"
 msgstr ""
 
