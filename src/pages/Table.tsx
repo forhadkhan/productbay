@@ -30,6 +30,7 @@ import { useToast } from '@/context/ToastContext';
 import { Toggle } from '@/components/ui/Toggle';
 import { Button } from '@/components/ui/Button';
 import { useUrlTab } from '@/hooks/useUrlTab';
+import { Modal } from '@/components/ui/Modal';
 import { useState, useEffect } from 'react';
 import { apiFetch } from '@/utils/api';
 import { __ } from '@wordpress/i18n';
@@ -122,22 +123,17 @@ const Table = () => {
 
 	// Validation state
 	const [titleError, setTitleError] = useState<string | undefined>(undefined);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 	const shortcode = `[productbay id="${tableId}"]`;
 
 	// Handle Delete
-	const handleDelete = async () => {
-		if (
-			!confirm(
-				__(
-					'Are you sure you want to delete this table? This action cannot be undone.',
-					'productbay'
-				)
-			)
-		) {
-			return;
-		}
+	const handleDelete = () => {
+		setIsDeleteModalOpen(true);
+	};
 
+	const confirmDelete = async () => {
+		setIsDeleteModalOpen(false);
 		try {
 			await apiFetch(`tables/${tableId}`, { method: 'DELETE' });
 			toast({
@@ -265,6 +261,28 @@ const Table = () => {
 
 	return (
 		<>
+			<Modal
+				isOpen={isDeleteModalOpen}
+				onClose={() => setIsDeleteModalOpen(false)}
+				title={__('Delete Table', 'productbay')}
+				primaryButton={{
+					text: __('Delete', 'productbay'),
+					variant: 'danger',
+					onClick: confirmDelete,
+				}}
+				secondaryButton={{
+					text: __('Cancel', 'productbay'),
+					variant: 'secondary',
+					onClick: () => setIsDeleteModalOpen(false),
+				}}
+			>
+				<p>
+					{__(
+						'Are you sure you want to delete this table? This action cannot be undone.',
+						'productbay'
+					)}
+				</p>
+			</Modal>
 			{/* Conditional: Shortcode for already saved table */}
 			{tableId && (
 				<div className="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
