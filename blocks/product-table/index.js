@@ -24166,10 +24166,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Table/SectionHeading */ "./src/components/Table/SectionHeading.tsx");
-/* harmony import */ var _components_ui_CardRadioGroup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ui/CardRadioGroup */ "./src/components/ui/CardRadioGroup.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui/Tooltip */ "./src/components/ui/Tooltip.tsx");
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _components_ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ui/ConfirmButton */ "./src/components/ui/ConfirmButton.tsx");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/components/Table/SectionHeading */ "./src/components/Table/SectionHeading.tsx");
+/* harmony import */ var _components_ui_CardRadioGroup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/components/ui/CardRadioGroup */ "./src/components/ui/CardRadioGroup.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__);
+
+
+
+
 
 
 
@@ -24211,14 +24221,14 @@ const SourcePanel = ({
   className,
   children
 }) => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
     className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)('w-full p-4 space-y-8', className),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("section", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("section", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_9__["default"], {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Product Source', 'productbay'),
         description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose which products to display', 'productbay'),
         isRequired: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui_CardRadioGroup__WEBPACK_IMPORTED_MODULE_4__.CardRadioGroup, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_ui_CardRadioGroup__WEBPACK_IMPORTED_MODULE_10__.CardRadioGroup, {
         name: "source-type",
         options: SOURCE_OPTIONS,
         value: source.type,
@@ -24226,11 +24236,110 @@ const SourcePanel = ({
         "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Select product source', 'productbay'),
         className: "grid grid-cols-1 md:grid-cols-2 gap-3",
         cardClassName: "min-w-0"
-      }), children && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), children && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "mt-6",
         children: children
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(SelectedProductsSummary, {
+        sourceType: source.type
       })]
     })
+  });
+};
+
+/**
+ * Sub-component to display selected products for 'specific' source type
+ */
+const SelectedProductsSummary = ({
+  sourceType
+}) => {
+  const {
+    source,
+    setSourceQueryArgs
+  } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_4__.useTableStore)();
+  const {
+    postIds: productIds = [],
+    productObjects = {}
+  } = source.queryArgs;
+  if (sourceType !== 'specific' || productIds.length === 0) {
+    return null;
+  }
+  const toggleProduct = product => {
+    const isSelected = productIds.includes(product.id);
+    let nextIds = [...productIds];
+    let nextObjects = {
+      ...productObjects
+    };
+    if (isSelected) {
+      nextIds = nextIds.filter(id => id !== product.id);
+      delete nextObjects[product.id];
+    } else {
+      nextIds.push(product.id);
+      nextObjects[product.id] = product;
+    }
+    setSourceQueryArgs({
+      postIds: nextIds,
+      productObjects: nextObjects
+    });
+  };
+  const confirmRemoveAll = () => {
+    setSourceQueryArgs({
+      postIds: [],
+      productObjects: {}
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    className: "mt-8 pt-6 border-t border-gray-100 animate-fade-in space-y-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Table_SectionHeading__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Selected Products', 'productbay'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Currently hand-picked products for this table', 'productbay')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "flex flex-wrap gap-2",
+      children: productIds.map(id => {
+        const product = productObjects[id];
+        if (!product) return null;
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-sm border border-blue-200 group transition-all hover:border-blue-300",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_3__.Tooltip, {
+            content: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'), product.name, product.id.toString(), product.sku || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('N/A', 'productbay')),
+            className: "bg-blue-800",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+              className: "max-w-[180px] truncate block cursor-help font-medium",
+              children: product.name
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+            onClick: () => toggleProduct(product),
+            title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove "%s"', 'productbay'), product.name),
+            className: "text-blue-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center transition-colors",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              className: "h-3.5 w-3.5 border-l border-blue-200 pl-1 ml-0.5"
+            })
+          })]
+        }, id);
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "flex items-center justify-between text-sm bg-gray-50 border border-gray-200 rounded-lg p-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "flex items-center gap-2 text-gray-700",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          className: "h-4 w-4 text-blue-500"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+          className: "font-semibold",
+          children: productIds.length
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+          className: "text-gray-600",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__._n)('product selected', 'products selected', productIds.length, 'productbay')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_components_ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_5__.ConfirmButton, {
+        onConfirm: confirmRemoveAll,
+        variant: "ghost",
+        size: "sm",
+        confirmMessage: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__._n)('Remove %d product?', 'Remove %d products?', productIds.length, 'productbay'), productIds.length),
+        className: "text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-1 flex items-center gap-1.5 font-medium transition-colors",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          className: "h-4 w-4"
+        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Clear all', 'productbay')]
+      })]
+    })]
   });
 };
 
@@ -24495,8 +24604,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const CategorySelector = () => {
   const {
-    tableData,
-    setTableData,
+    source,
+    setSourceQueryArgs,
     categories,
     categoriesLoading,
     refreshCategoriesIfStale,
@@ -24556,7 +24665,7 @@ const CategorySelector = () => {
   }, [open]);
 
   // Selected category IDs from store
-  const selectedIds = tableData.config.categories || [];
+  const selectedIds = source.queryArgs.categoryIds || [];
 
   // Get full category objects for selected IDs
   const selectedCategories = categories.filter(cat => selectedIds.includes(cat.id));
@@ -24569,11 +24678,8 @@ const CategorySelector = () => {
    */
   const toggleCategory = id => {
     const newSelected = selectedIds.includes(id) ? selectedIds.filter(catId => catId !== id) : [...selectedIds, id];
-    setTableData({
-      config: {
-        ...tableData.config,
-        categories: newSelected
-      }
+    setSourceQueryArgs({
+      categoryIds: newSelected
     });
   };
 
@@ -24582,11 +24688,8 @@ const CategorySelector = () => {
    */
   const removeCategory = id => {
     const newSelected = selectedIds.filter(catId => catId !== id);
-    setTableData({
-      config: {
-        ...tableData.config,
-        categories: newSelected
-      }
+    setSourceQueryArgs({
+      categoryIds: newSelected
     });
   };
 
@@ -24602,11 +24705,8 @@ const CategorySelector = () => {
    * Clear selection logic
    */
   function handleClearSelection() {
-    setTableData({
-      config: {
-        ...tableData.config,
-        categories: []
-      }
+    setSourceQueryArgs({
+      categoryIds: []
     });
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -25999,26 +26099,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ProductSearch: () => (/* binding */ ProductSearch)
 /* harmony export */ });
-/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/api */ "./src/utils/api.ts");
-/* harmony import */ var _components_ui_Input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/ui/Input */ "./src/components/ui/Input.tsx");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ui/Tooltip */ "./src/components/ui/Tooltip.tsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
 /* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
-/* harmony import */ var _components_ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/ConfirmButton */ "./src/components/ui/ConfirmButton.tsx");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__);
-
-
+/* harmony import */ var _components_ui_Input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/ui/Input */ "./src/components/ui/Input.tsx");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/utils/api */ "./src/utils/api.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
 
 
 
@@ -26028,32 +26122,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const RESULTS_PER_PAGE = 20;
+
+/**
+ * ProductSearch Component
+ *
+ * Provides a search interface for hand-picking individual products.
+ * Selected products are managed via the centralized tableStore.
+ */
 const ProductSearch = () => {
   const {
-    tableData,
-    setTableData
+    source,
+    setSourceQueryArgs
   } = (0,_store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore)();
-  const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)('');
-  const [results, setResults] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)([]);
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
-  const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(1);
-  const [hasMore, setHasMore] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(true);
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
-  const wrapperRef = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)(null);
+  const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [results, setResults] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+  const [hasMore, setHasMore] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const wrapperRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   // Cache for search results to avoid redundant API calls
-  const searchCache = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)(new Map());
-
-  // Persistent storage for selected products (full objects with name, id, sku)
-  const [selectedProductsMap, setSelectedProductsMap] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(new Map());
+  const searchCache = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Map());
 
   /**
-   * Parse search query for special syntax
-   *
-   * Supports:
-   * - id:123 or ID:123 (case insensitive) - search by exact ID
-   * - sku:ABC123 or SKU:ABC123 (case insensitive) - search by exact SKU
-   * - regular text - search by product name
+   * Parse search query for special syntax (ID or SKU)
    */
   const parseSearchQuery = q => {
     const trimmed = q.trim();
@@ -26084,7 +26177,7 @@ const ProductSearch = () => {
   /**
    * Search products with caching and pagination
    */
-  const fetchProducts = (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(async (searchQuery, pageNum, append = false) => {
+  const fetchProducts = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(async (searchQuery, pageNum, append = false) => {
     if (searchQuery.length > 0 && searchQuery.length < 2) {
       if (!append) setResults([]);
       return;
@@ -26109,7 +26202,7 @@ const ProductSearch = () => {
       } else if (searchParams.value) {
         apiQuery += `&search=${encodeURIComponent(searchParams.value)}`;
       }
-      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_1__.apiFetch)(apiQuery);
+      const data = await (0,_utils_api__WEBPACK_IMPORTED_MODULE_7__.apiFetch)(apiQuery);
 
       // Store in cache
       searchCache.current.set(cacheKey, data);
@@ -26123,7 +26216,9 @@ const ProductSearch = () => {
       setLoading(false);
     }
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
+
+  // Debounced search trigger
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // Only run if the dropdown is open (focused) OR we have a query
     if (!isOpen && query.length === 0) return;
     const timeoutId = setTimeout(() => {
@@ -26133,7 +26228,7 @@ const ProductSearch = () => {
   }, [query, isOpen, fetchProducts]);
 
   // Handle click outside to close results dropdown
-  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const handleClickOutside = event => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -26154,220 +26249,130 @@ const ProductSearch = () => {
   };
 
   /**
-   * Sync selectedProductsMap from tableData on mount
-   */
-  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
-    const productIds = tableData.config.products || [];
-    const productObjects = tableData.config.productObjects || {};
-    const map = new Map();
-    productIds.forEach(id => {
-      if (productObjects[id]) {
-        map.set(id, productObjects[id]);
-      }
-    });
-    setSelectedProductsMap(map);
-  }, []);
-
-  /**
    * Memoized Set of selected product IDs for O(1) lookup
    */
-  const selectedIdsSet = (0,react__WEBPACK_IMPORTED_MODULE_7__.useMemo)(() => {
-    return new Set(tableData.config.products || []);
-  }, [tableData.config.products]);
+  const selectedIdsSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return new Set(source.queryArgs.postIds || []);
+  }, [source.queryArgs.postIds]);
 
   /**
-   * Optimized toggleProduct with full product persistence
+   * Toggle a product selection in the centralized store
    */
-  const toggleProduct = (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(product => {
-    const currentIds = tableData.config.products || [];
-    const currentObjects = tableData.config.productObjects || {};
+  const toggleProduct = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(product => {
+    const currentIds = source.queryArgs.postIds || [];
+    const currentObjects = source.queryArgs.productObjects || {};
     const isSelected = currentIds.includes(product.id);
-    let newIds;
-    let newObjects;
-    let newMap;
+    let nextIds = [...currentIds];
+    let nextObjects = {
+      ...currentObjects
+    };
     if (isSelected) {
-      // Remove product
-      newIds = currentIds.filter(id => id !== product.id);
-      newObjects = {
-        ...currentObjects
-      };
-      delete newObjects[product.id];
-      newMap = new Map(selectedProductsMap);
-      newMap.delete(product.id);
+      nextIds = nextIds.filter(id => id !== product.id);
+      delete nextObjects[product.id];
     } else {
-      // Add product
-      newIds = [...currentIds, product.id];
-      newObjects = {
-        ...currentObjects,
-        [product.id]: product
-      };
-      newMap = new Map(selectedProductsMap);
-      newMap.set(product.id, product);
+      nextIds.push(product.id);
+      nextObjects[product.id] = product;
     }
-    setSelectedProductsMap(newMap);
-    setTableData({
-      config: {
-        ...tableData.config,
-        products: newIds,
-        productObjects: newObjects
-      }
+    setSourceQueryArgs({
+      postIds: nextIds,
+      productObjects: nextObjects
     });
-  }, [tableData.config, setTableData, selectedProductsMap]);
-
-  /**
-   * Confirm remove all action
-   */
-  const confirmRemoveAll = (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(() => {
-    const count = (tableData.config.products || []).length;
-    if (count === 0) return;
-    setSelectedProductsMap(new Map());
-    setTableData({
-      config: {
-        ...tableData.config,
-        products: [],
-        productObjects: {}
-      }
-    });
-  }, [tableData.config, setTableData]);
+  }, [source.queryArgs.postIds, source.queryArgs.productObjects, setSourceQueryArgs]);
 
   /**
    * Clear search input
    */
-  const handleClearSearch = (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(() => {
+  const handleClearSearch = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
     setQuery('');
-    // It will automatically fetch default suggestions because `isOpen` is still true
   }, []);
 
   /**
-   * Fast O(1) selection check using Set
+   * Selection check
    */
-  const isSelected = (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(id => {
+  const isProductSelected = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(id => {
     return selectedIdsSet.has(id);
   }, [selectedIdsSet]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-    className: "w-full space-y-4",
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+    className: "w-full",
     ref: wrapperRef,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "relative flex items-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
         className: "absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_2__.Input, {
-        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search products by name, or use id:123 or sku:ABC', 'productbay'),
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_ui_Input__WEBPACK_IMPORTED_MODULE_6__.Input, {
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Search products by name, ID (id:123), or SKU (sku:ABC)...', 'productbay'),
         value: query,
         onChange: e => {
           setQuery(e.target.value);
           setIsOpen(true);
         },
         onFocus: () => setIsOpen(true),
-        className: "pl-9 pr-9"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+        className: "pl-9 pr-9 h-11 border-gray-200 focus:border-blue-400 focus:ring-blue-100 transition-all shadow-sm"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "absolute right-3 top-1/2 -translate-y-1/2 flex items-center",
-        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
           className: "h-4 w-4 animate-spin text-gray-400"
-        }) : query.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
+        }) : query.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
           onClick: handleClearSearch,
-          className: "bg-transparent cursor-pointer text-gray-400 hover:text-gray-600 p-0 m-0 flex items-center justify-center",
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Clear search', 'productbay'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          className: "bg-transparent cursor-pointer text-gray-400 hover:text-gray-600 p-0 m-0 flex items-center justify-center transition-colors",
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Clear search', 'productbay'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
             className: "h-4 w-4"
           })
         }) : null
       })]
-    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-      className: "border border-gray-200 rounded-md shadow-sm max-h-60 overflow-y-auto divide-y divide-gray-100 bg-white",
+    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      className: "mt-2 border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto divide-y divide-gray-100 bg-white z-10 animate-in fade-in slide-in-from-top-2 duration-200",
       onScroll: handleScroll,
-      children: [results.length > 0 ? results.map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)('flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 transition-colors', isSelected(product.id) && 'bg-blue-50/50'),
+      children: [results.length > 0 ? results.map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)('flex items-center gap-3 p-3 cursor-pointer hover:bg-blue-50/50 transition-colors group', isProductSelected(product.id) && 'bg-blue-50/30'),
         onClick: () => toggleProduct(product),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-          className: "h-10 w-10 bg-gray-100 rounded flex-shrink-0 overflow-hidden",
-          children: product.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("img", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: "h-10 w-10 bg-gray-100 rounded flex-shrink-0 overflow-hidden border border-gray-200 group-hover:border-blue-200 transition-colors",
+          children: product.image ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
             src: product.image,
             alt: product.name,
             className: "h-full w-full object-cover"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "h-full w-full flex items-center justify-center text-gray-300",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              className: "h-4 w-4"
+            })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "flex-1 min-w-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-            className: "text-sm font-medium text-gray-900 truncate",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "text-sm font-medium text-gray-900 truncate group-hover:text-blue-700 transition-colors",
             children: product.name
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-            className: "text-xs text-gray-500",
-            children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('ID:', 'productbay'), " ", product.id, " \u2022", ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('SKU:', 'productbay'), ' ', product.sku || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('N/A', 'productbay')]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "text-xs text-gray-500 font-mono mt-0.5",
+            children: ["#", product.id, " ", product.sku && `• ${product.sku}`]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_0__.cn)('h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center', isSelected(product.id) ? 'bg-primary border-primary text-white' : 'text-transparent'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)('h-5 w-5 rounded-full border flex items-center justify-center transition-all', isProductSelected(product.id) ? 'bg-blue-600 border-blue-600 text-white shadow-sm' : 'border-gray-300 text-transparent group-hover:border-blue-300'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
             className: "h-3 w-3"
           })
         })]
-      }, product.id)) : !loading && query.length >= 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-        className: "p-4 text-center text-sm text-gray-500",
-        children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('No products found for', 'productbay'), " \"", query, "\""]
-      }) : loading && results.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-        className: "p-4 flex justify-center text-sm text-gray-500",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          className: "h-5 w-5 animate-spin text-gray-400 mr-2"
-        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Loading products...', 'productbay')]
-      }) : null, loading && results.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-        className: "p-3 bg-gray-50/50 flex justify-center text-sm text-gray-500",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          className: "h-4 w-4 animate-spin text-gray-400 mr-2"
-        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Loading more...', 'productbay')]
-      })]
-    }), selectedProductsMap.size > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-      className: "pt-2 space-y-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-        className: "flex flex-wrap gap-2",
-        children: Array.from(selectedProductsMap.values()).map(product => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-          className: "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-sm border border-gray-200",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_4__.Tooltip, {
-            content:
-            // translators: 1: Product name, 2: Product ID, 3: Product SKU
-            (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'), product.name, product.id.toString(), product.sku || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('N/A', 'productbay')),
-            className: "bg-blue-800",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-              className: "max-w-[150px] truncate block cursor-help",
-              children: product.name
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
-            onClick: () => toggleProduct(product),
-            title:
-            // translators: %s: Product name
-            (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Remove "%s"', 'productbay'), product.name),
-            className: "text-gray-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              className: "h-3 w-3"
-            })
-          })]
-        }, product.id))
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-        className: "flex items-center gap-4 text-sm bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-2 ",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_components_ui_ConfirmButton__WEBPACK_IMPORTED_MODULE_6__.ConfirmButton, {
-          onConfirm: confirmRemoveAll,
-          variant: "ghost",
-          size: "sm",
-          confirmMessage: /* translators: %d: number of products to remove */
-          (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__._n)('Remove %d product?', 'Remove %d products?', selectedProductsMap.size, 'productbay').replace('%d', selectedProductsMap.size.toString()),
-          className: "font-normal text-red-600 hover:text-red-700 rounded-md hover:bg-red-100 px-2 py-0 flex items-center gap-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            className: "h-4 w-4 mr-1"
-          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Remove all', 'productbay')]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-          className: "h-4 w-px bg-blue-300"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-          className: "flex items-center gap-2 text-indigo-700",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            className: "h-4 w-4"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-            className: "font-semibold",
-            children: selectedProductsMap.size
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-            className: "text-indigo-600",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__._n)('product included', 'products included', selectedProductsMap.size, 'productbay')
-          })]
-        })]
-      })]
+      }, product.id)) : !loading && query.length >= 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "p-8 text-center text-sm text-gray-500",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('No products found matching your search.', 'productbay')
+        })
+      }) : loading && results.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "p-8 flex flex-col items-center justify-center text-sm text-gray-500",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          className: "h-6 w-6 animate-spin text-blue-500 mb-2"
+        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Searching products...', 'productbay')]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "p-6 text-center text-sm text-gray-400",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Start typing to find products...', 'productbay')
+      }), loading && results.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "p-3 bg-gray-50/50 flex justify-center text-xs text-gray-500 italic",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          className: "h-3 w-3 animate-spin text-gray-400 mr-2"
+        }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Loading more results...', 'productbay')]
+      }) : null]
     })]
   });
 };
@@ -33039,6 +33044,9 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
         }),
         ...(args.postIds !== undefined && {
           products: args.postIds
+        }),
+        ...(args.productObjects !== undefined && {
+          productObjects: args.productObjects
         })
       }
     }
@@ -33295,7 +33303,8 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
           })) || [],
           config: {
             categories: data.source?.queryArgs?.categoryIds || [],
-            products: data.source?.queryArgs?.postIds || []
+            products: data.source?.queryArgs?.postIds || [],
+            productObjects: data.source?.queryArgs?.productObjects || {}
           }
         }
       });
@@ -33328,6 +33337,7 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       }
       if (activeType !== 'specific') {
         cleanedQueryArgs.postIds = [];
+        cleanedQueryArgs.productObjects = {};
       }
 
       // Build payload matching 4-key backend structure
@@ -33576,6 +33586,16 @@ __webpack_require__.r(__webpack_exports__);
  * Central type definitions for the ProductBay table configuration system.
  * These interfaces match the backend schema defined in DataArchitectureSpecification.md
  * and are used throughout the React admin interface.
+ */
+
+/**
+ * Product Interface
+ * Matches WooCommerce product data subset used in the frontend.
+ */
+
+/**
+ * Category Interface
+ * Matches WooCommerce product category data used in the frontend.
  */
 
 /* =============================================================================
