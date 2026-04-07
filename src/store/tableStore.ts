@@ -16,6 +16,8 @@ import type {
 	TableStyle,
 	ProductTable,
 	SourceType,
+	Product,
+	Category,
 } from '@/types';
 import {
 	createDefaultSource as defaultSource,
@@ -28,24 +30,9 @@ import {
  * Existing Types (Preserved for backward compatibility)
  * ============================================================================= */
 
-export interface Category {
-	id: number;
-	name: string;
-	count: number;
-	slug: string;
-}
-
 export interface SourceStats {
 	categories: number;
 	products: number;
-}
-
-export interface Product {
-	id: number;
-	name: string;
-	sku: string;
-	price: string;
-	image: string;
 }
 
 /* =============================================================================
@@ -337,6 +324,9 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					...(args.postIds !== undefined && {
 						products: args.postIds,
 					}),
+					...(args.productObjects !== undefined && {
+						productObjects: args.productObjects,
+					}),
 				},
 			},
 		})),
@@ -573,6 +563,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					config: {
 						categories: data.source?.queryArgs?.categoryIds || [],
 						products: data.source?.queryArgs?.postIds || [],
+						productObjects: data.source?.queryArgs?.productObjects || {},
 					},
 				},
 			});
@@ -600,6 +591,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 
 			if (activeType !== 'specific') {
 				cleanedQueryArgs.postIds = [];
+				cleanedQueryArgs.productObjects = {};
 			}
 
 			// Build payload matching 4-key backend structure

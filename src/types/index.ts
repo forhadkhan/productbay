@@ -6,6 +6,29 @@
  * and are used throughout the React admin interface.
  */
 
+/**
+ * Product Interface
+ * Matches WooCommerce product data subset used in the frontend.
+ */
+export interface Product {
+	id: number;
+	name: string;
+	sku: string;
+	price: string;
+	image: string;
+}
+
+/**
+ * Category Interface
+ * Matches WooCommerce product category data used in the frontend.
+ */
+export interface Category {
+	id: number;
+	name: string;
+	count: number;
+	slug: string;
+}
+
 /* =============================================================================
  * Column Visibility Modes
  * =============================================================================
@@ -124,6 +147,9 @@ export interface DataSource {
 
 		/** Product IDs for 'specific' source type */
 		postIds: number[];
+
+		/** Full product objects for 'specific' source type (to avoid re-fetching on load) */
+		productObjects?: Record<number, Product>;
 
 		/** Product IDs to exclude from results */
 		excludes: number[];
