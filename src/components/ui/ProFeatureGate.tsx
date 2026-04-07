@@ -20,6 +20,10 @@ interface ProFeatureGateProps {
 	featureName?: string;
 	/** Optional custom description for the modal body. */
 	description?: string;
+	/** Optional external control for the modal. */
+	isOpen?: boolean;
+	/** Callback when the modal is closed. */
+	onClose?: () => void;
 }
 
 /**
@@ -29,44 +33,67 @@ const isProActive = (): boolean => {
 	return !!(window as any).productBaySettings?.proVersion;
 };
 
-export const ProFeatureGate = ({ children, featureName, description }: ProFeatureGateProps) => {
-	const [showModal, setShowModal] = useState(false);
+export const ProFeatureGate = ({
+	children,
+	featureName,
+	description,
+	isOpen: externalIsOpen,
+	onClose: externalOnClose,
+}: ProFeatureGateProps) => {
+	const [internalIsOpen, setInternalIsOpen] = useState(false);
+
+	const showModal = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
 
 	// When Pro is active, render children with no wrapper
-	if (isProActive()) {
+	// We only bypass if NOT forced open externally
+	if (isProActive() && externalIsOpen === undefined) {
 		return <>{children}</>;
 	}
 
+	const handleClose = () => {
+		if (externalOnClose) {
+			externalOnClose();
+		} else {
+			setInternalIsOpen(false);
+		}
+	};
+
 	return (
 		<>
-			{/* Intercept click on the gated element */}
-			<div
-				onClick={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					setShowModal(true);
-				}}
-				className="contents cursor-pointer"
-			>
-				{children}
-			</div>
+			{/* Intercept click on the gated element if children provided */}
+			{children && (
+				<div
+					onClick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						if (externalIsOpen !== undefined && externalOnClose) {
+							externalOnClose(); // This might be wrong, but we usually want to toggle it or call a specific open function
+							// Actually, if we're wrapping, we just want to set showModal to true.
+						}
+						setInternalIsOpen(true);
+					}}
+					className="contents cursor-pointer"
+				>
+					{children}
+				</div>
+			)}
 
 			{/* Pro Required Modal */}
 			<Modal
 				isOpen={showModal}
-				onClose={() => setShowModal(false)}
+				onClose={handleClose}
 				title={featureName ? featureName : ''}
 				maxWidth="sm"
 				primaryButton={{
 					text: __('Get Pro', 'productbay'),
 					onClick: () => {
 						window.open(PRODUCTBAY_LANDING_PAGE_URL, '_blank');
-						setShowModal(false);
+						handleClose();
 					},
 				}}
 				secondaryButton={{
 					text: __('Later', 'productbay'),
-					onClick: () => setShowModal(false),
+					onClick: handleClose,
 					variant: 'secondary',
 				}}
 			>
