@@ -347,7 +347,7 @@ const Table = () => {
 												[tableId!]
 											)
 										}
-										className="text-blue-500 hover:text-blue-700 hover:bg-blue-50 px-2 cursor-pointer"
+										className="text-blue-500 hover:text-white bg-white hover:bg-blue-600 px-2 cursor-pointer"
 									>
 										<DownloadIcon className="size-4" />
 									</Button>
@@ -362,7 +362,7 @@ const Table = () => {
 									size="sm"
 									variant="ghost"
 									onClick={handleDelete}
-									className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 cursor-pointer"
+									className="bg-white text-red-500 hover:text-white hover:bg-red-600 px-2 cursor-pointer"
 								>
 									<TrashIcon className="size-4" />
 								</Button>
