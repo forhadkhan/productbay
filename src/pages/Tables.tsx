@@ -1,4 +1,5 @@
 import { apiFetch } from '@/utils/api';
+import { ProductTable } from '@/types';
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
@@ -9,12 +10,11 @@ import { useToast } from '@/context/ToastContext';
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useSystemStore } from '@/store/systemStore';
-import { useImportExportStore } from '@/store/importExportStore';
-import { ProFeatureGate } from '@/components/ui/ProFeatureGate';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { ProFeatureGate } from '@/components/ui/ProFeatureGate';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { useImportExportStore } from '@/store/importExportStore';
 import { WC_PRODUCTS_PATH, NEW_TABLE_PATH } from '@/utils/routes';
-import { ProductTable } from '@/types';
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -41,16 +41,11 @@ import {
 	UploadIcon,
 	DownloadIcon,
 } from 'lucide-react';
+import { cn } from '@/utils/cn';
 
 /**
  * Bulk action options for table management
  */
-const BULK_OPTIONS = [
-	{ label: __('Delete', 'productbay'), value: 'delete' },
-	{ label: __('Set Published', 'productbay'), value: 'published' },
-	{ label: __('Set Private', 'productbay'), value: 'private' },
-	{ label: __('Export Selected', 'productbay'), value: 'export' },
-];
 
 /**
  * Rows per page pagination options
@@ -137,6 +132,25 @@ const Tables = () => {
 	const { toast } = useToast();
 
 	const location = useLocation();
+
+	// Pro Gate State
+	const [showProGate, setShowProGate] = useState(false);
+	const isPro = !!(window as any).productBaySettings?.proVersion;
+
+	/**
+	 * Bulk action options for table management
+	 */
+	const bulkOptions = [
+		{ label: __('Delete', 'productbay'), value: 'delete' },
+		{ label: __('Set Published', 'productbay'), value: 'published' },
+		{ label: __('Set Private', 'productbay'), value: 'private' },
+		{
+			label: isPro
+				? __('Export Selected', 'productbay')
+				: __('Export Selected (PRO)', 'productbay'),
+			value: 'export',
+		},
+	];
 
 	useEffect(() => {
 		loadTables();
@@ -449,8 +463,24 @@ const Tables = () => {
 	 * Handle individual and bulk export
 	 */
 	const handleExport = (ids?: number[]) => {
+		if (!isPro) {
+			setShowProGate(true);
+			return;
+		}
+		// Use provided IDs or current selection
 		const exportIds = ids || selectedRows;
 		openExportModal(tables, exportIds);
+	};
+
+	/**
+	 * Handle table import with pro gate
+	 */
+	const handleImport = () => {
+		if (!isPro) {
+			setShowProGate(true);
+			return;
+		}
+		openImportModal();
 	};
 
 	// Filtering & Pagination	// Derived state
@@ -598,28 +628,24 @@ const Tables = () => {
 				</h1>
 
 				<div className="flex gap-2">
-					<ProFeatureGate featureName={__('Import Tables', 'productbay')}>
-						<Button
-							variant="secondary"
-							size="sm"
-							onClick={openImportModal}
-							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-						>
-							<UploadIcon size={14} /> {__('Import', 'productbay')}
-						</Button>
-					</ProFeatureGate>
+					<Button
+						variant="secondary"
+						size="sm"
+						onClick={handleImport}
+						className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+					>
+						<UploadIcon size={14} /> {__('Import', 'productbay')}
+					</Button>
 
-					<ProFeatureGate featureName={__('Export All Tables', 'productbay')}>
-						<Button
-							variant="secondary"
-							size="sm"
-							onClick={() => openExportModal(tables)}
-							className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-							disabled={isLoading || tables.length === 0}
-						>
-							<DownloadIcon size={14} /> {__('Export', 'productbay')}
-						</Button>
-					</ProFeatureGate>
+					<Button
+						variant="secondary"
+						size="sm"
+						onClick={() => handleExport()}
+						className="flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 border border-gray-200 rounded text-sm bg-white hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+						disabled={isLoading || tables.length === 0}
+					>
+						<DownloadIcon size={14} /> {__('Export', 'productbay')}
+					</Button>
 				</div>
 			</div>
 
@@ -632,7 +658,7 @@ const Tables = () => {
 							placeholder={__('Bulk Actions', 'productbay')}
 							label={__('Actions', 'productbay')}
 							allowDeselect={true}
-							options={BULK_OPTIONS}
+							options={bulkOptions}
 							value={selectedBulkAction}
 							onChange={setSelectedBulkAction}
 						/>
@@ -947,16 +973,6 @@ const Tables = () => {
 													{__('Duplicate', 'productbay')}
 												</button>
 												<span className="text-gray-300">|</span>
-												<ProFeatureGate featureName={__('Export Table', 'productbay')}>
-													<button
-														onClick={() => handleExport([table.id!])}
-														className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
-														disabled={isActing}
-													>
-														{__('Export', 'productbay')}
-													</button>
-												</ProFeatureGate>
-												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
 														openToggleModal(
@@ -971,6 +987,17 @@ const Tables = () => {
 													{table.status === 'publish'
 														? __('Set Private', 'productbay')
 														: __('Publish', 'productbay')}
+												</button>
+												<span className="text-gray-300">|</span>
+												<button
+													onClick={() => handleExport([table.id!])}
+													className={cn(
+														"bg-transparent cursor-pointer",
+														isPro ? "text-blue-600 hover:underline underline-offset-4" : "font-bold text-productbay-brand"
+													)}
+													disabled={isActing}
+												>
+													{__('Export', 'productbay')}
 												</button>
 												<span className="text-gray-300">|</span>
 												<button
@@ -1324,6 +1351,15 @@ const Tables = () => {
 						)}
 				</p>
 			</Modal>
+
+			{/* Pro Feature Gate for programmatic trigger */}
+			<ProFeatureGate
+				featureName={__('Export Tables', 'productbay')}
+				isOpen={showProGate}
+				onClose={() => setShowProGate(false)}
+			>
+				{null}
+			</ProFeatureGate>
 		</div>
 	);
 };
