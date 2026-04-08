@@ -141,7 +141,7 @@ class TableRenderer
 		$query = new \WP_Query($args);
 
 		// 3. Generate Styles.
-		$css = $this->generate_styles($unique_id, $style, $columns, $settings);
+		$css = $this->generate_styles("#{$unique_id}", $style, $columns, $settings);
 
 		/**
 		 * Filters the generated scoped CSS for a table.
@@ -1037,13 +1037,13 @@ class TableRenderer
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $id       Unique table wrapper ID (already escaped).
+	 * @param string $selector CSS selector for scoping (e.g. #id or .class).
 	 * @param array  $style    Style configuration from the table.
 	 * @param array  $columns  Column definitions for width styles.
 	 * @param array  $settings Table settings (features, pagination, cart, etc.).
 	 * @return string Generated CSS string.
 	 */
-	private function generate_styles($id, $style, $columns, $settings = array())
+	public function generate_styles($selector, $style, $columns, $settings = array())
 	{
 		$css = '';
 		$header = $style['header'] ?? array();
@@ -1055,7 +1055,7 @@ class TableRenderer
 		$typography = $style['typography'] ?? array();
 
 		// Header Styles.
-		$css .= "#{$id} .productbay-table thead th {";
+		$css .= "{$selector} .productbay-table thead th {";
 		$h_bg = $this->sanitize_css_color($header['bgColor'] ?? '');
 		$h_text = $this->sanitize_css_color($header['textColor'] ?? '');
 		$h_font = $this->sanitize_css_value($header['fontSize'] ?? '');
@@ -1097,7 +1097,7 @@ class TableRenderer
 		// Body Styles — base td.
 		$b_bg = $this->sanitize_css_color($body['bgColor'] ?? '');
 		$b_text = $this->sanitize_css_color($body['textColor'] ?? '');
-		$css .= "#{$id} .productbay-table tbody td {";
+		$css .= "{$selector} .productbay-table tbody td {";
 		$css .= 'vertical-align: top;';
 		if ($b_bg) {
 			$css .= "background-color: {$b_bg};";
@@ -1109,13 +1109,13 @@ class TableRenderer
 
 		// Body text color: override specific child elements that have hardcoded colors.
 		if ($b_text) {
-			$css .= "#{$id} .productbay-table tbody td .productbay-product-title,";
-			$css .= "#{$id} .productbay-table tbody td a:not(.productbay-button),";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price ins,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price del,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
+			$css .= "{$selector} .productbay-table tbody td .productbay-product-title,";
+			$css .= "{$selector} .productbay-table tbody td a:not(.productbay-button),";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price ins,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price del,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
 			$css .= "color: {$b_text} !important;";
 			$css .= '}';
 		}
@@ -1127,22 +1127,22 @@ class TableRenderer
 		$b_color = $this->sanitize_css_color($layout['borderColor'] ?? '#e2e8f0');
 
 		if ($b_style === 'none') {
-			$css .= "#{$id} .productbay-table-container { border: none; }";
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border: none; }";
+			$css .= "{$selector} .productbay-table-container { border: none; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { border: none; }";
 		} elseif ($b_style && $b_color) {
-			$css .= "#{$id} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
+			$css .= "{$selector} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
 		} elseif ($b_color) {
-			$css .= "#{$id} .productbay-table-container { border-color: {$b_color}; }";
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom-color: {$b_color}; }";
+			$css .= "{$selector} .productbay-table-container { border-color: {$b_color}; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { border-bottom-color: {$b_color}; }";
 		}
 
 		$radius_enabled = $layout['borderRadiusEnabled'] ?? true;
 		if ($radius_enabled && isset($layout['borderRadius'])) {
 			$radius = intval($layout['borderRadius']);
-			$css .= "#{$id} .productbay-table-container { border-radius: " . (string) $radius . 'px; }';
+			$css .= "{$selector} .productbay-table-container { border-radius: " . (string) $radius . 'px; }';
 		} elseif (!$radius_enabled) {
-			$css .= "#{$id} .productbay-table-container { border-radius: 0; }";
+			$css .= "{$selector} .productbay-table-container { border-radius: 0; }";
 		}
 
 		if (!empty($layout['cellPadding'])) {
@@ -1152,14 +1152,14 @@ class TableRenderer
 				'spacious' => '16px 24px',
 			);
 			$padding = $cell_padding_map[$layout['cellPadding']] ?? '12px 16px';
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { padding: {$padding}; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { padding: {$padding}; }";
 		}
 
 		// Alternate Rows.
 		if (!empty($body['rowAlternate'])) {
 			$alt_bg = $this->sanitize_css_color($body['altBgColor'] ?? '');
 			$alt_text = $this->sanitize_css_color($body['altTextColor'] ?? '');
-			$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td {";
+			$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td {";
 			if ($alt_bg) {
 				$css .= "background-color: {$alt_bg};";
 			}
@@ -1170,13 +1170,13 @@ class TableRenderer
 
 			// Alt row text color: override specific child elements.
 			if ($alt_text) {
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price ins,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
 				$css .= "color: {$alt_text} !important;";
 				$css .= '}';
 			}
@@ -1186,7 +1186,7 @@ class TableRenderer
 		if (!empty($hover['rowHoverEnabled'])) {
 			$hov_bg = $this->sanitize_css_color($hover['rowHoverBgColor'] ?? '');
 			$hov_text = $this->sanitize_css_color($hover['rowHoverTextColor'] ?? '');
-			$css .= "#{$id} .productbay-table tbody tr:hover td {";
+			$css .= "{$selector} .productbay-table tbody tr:hover td {";
 			if ($hov_bg) {
 				$css .= "background-color: {$hov_bg};";
 			}
@@ -1197,13 +1197,13 @@ class TableRenderer
 
 			// Hover text color: override specific child elements.
 			if ($hov_text) {
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-product-title,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td a:not(.productbay-button),";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-product-title,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td a:not(.productbay-button),";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price ins,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price del,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
 				$css .= "color: {$hov_text} !important;";
 				$css .= '}';
 			}
@@ -1216,7 +1216,7 @@ class TableRenderer
 		$btn_hov_bg = $this->sanitize_css_color($button['hoverBgColor'] ?? '');
 		$btn_hov_text = $this->sanitize_css_color($button['hoverTextColor'] ?? '');
 
-		$css .= "#{$id} .productbay-button {";
+		$css .= "{$selector} .productbay-button {";
 		$css .= 'display: inline-flex;';
 		$css .= 'align-items: center;';
 		$css .= 'justify-content: center;';
@@ -1232,7 +1232,7 @@ class TableRenderer
 		}
 		$css .= '}';
 
-		$css .= "#{$id} .productbay-button:hover {";
+		$css .= "{$selector} .productbay-button:hover {";
 		if ($btn_hov_bg) {
 			$css .= "background-color: {$btn_hov_bg} !important;";
 		}
@@ -1242,10 +1242,10 @@ class TableRenderer
 		$css .= '}';
 
 		// Added to cart checkmark (SVG).
-		$css .= "#{$id} .productbay-button.added {";
+		$css .= "{$selector} .productbay-button.added {";
 		$css .= 'gap: 6px;';
 		$css .= '}';
-		$css .= "#{$id} .productbay-table .button.added::after {";
+		$css .= "{$selector} .productbay-table .button.added::after {";
 		$css .= "content: '';";
 		$css .= 'display: inline-block;';
 		$css .= 'width: 16px;';
@@ -1262,7 +1262,7 @@ class TableRenderer
 		$css .= '}';
 
 		// Image styles.
-		$css .= "#{$id} img {";
+		$css .= "{$selector} img {";
 		$css .= 'max-width: 100%;';
 		$css .= 'height: auto;';
 		$css .= 'display: block;';
@@ -1279,7 +1279,7 @@ class TableRenderer
 			$w_value = intval($width['value']);
 			$w_unit = $this->sanitize_css_unit($width['unit'] ?? 'auto');
 			if ($w_value > 0 && $w_unit !== 'auto') {
-				$css .= "#{$id} .productbay-col-" . esc_attr((string) $col['id']) . ' { width: ' . (string) $w_value . "{$w_unit}; }";
+				$css .= "{$selector} .productbay-col-" . esc_attr((string) $col['id']) . ' { width: ' . (string) $w_value . "{$w_unit}; }";
 			}
 		}
 
@@ -1297,7 +1297,7 @@ class TableRenderer
 			$bs_value = intval($width['value']);
 			$bs_unit = $this->sanitize_css_unit($width['unit'] ?? 'px');
 			if ($bs_value > 0 && $bs_unit !== 'auto') {
-				$css .= "#{$id} .productbay-col-select { width: " . (string) $bs_value . "{$bs_unit}; }";
+				$css .= "{$selector} .productbay-col-select { width: " . (string) $bs_value . "{$bs_unit}; }";
 			}
 		}
 
