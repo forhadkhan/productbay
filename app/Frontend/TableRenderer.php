@@ -123,6 +123,9 @@ class TableRenderer
 		// Store lightbox settings for use in render methods.
 		$this->lightbox_enabled = isset($settings['features']['lightbox']) ? $settings['features']['lightbox'] : true;
 
+		// Pass the showChildCount feature flag into cart_settings so render_cell can access it.
+		$this->cart_settings['_show_child_count'] = $settings['features']['showChildCount'] ?? true;
+
 		// 1. Prepare Query Arguments.
 		$args = $this->build_query_args($source, $settings, $runtime_args);
 
@@ -609,6 +612,22 @@ class TableRenderer
 
 			case 'name':
 				echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-product-title">' . esc_html($product->get_name()) . '</a>';
+
+				/**
+				 * Show child count subtitle for variable/grouped products.
+				 * Gated by the 'showChildCount' feature setting (default: true).
+				 * Uses WC_Product::get_children() to count without loading full objects.
+				 */
+				$show_child_count = $this->cart_settings['_show_child_count'] ?? true;
+				if ($show_child_count && ($product->is_type('variable') || $product->is_type('grouped'))) {
+					$children_ids = $product->get_children();
+					$child_count = count($children_ids);
+					if ($child_count > 0) {
+						/* translators: %d: number of available product options/variations */
+						$subtitle = sprintf(_n('%d option available', '%d options available', $child_count, 'productbay'), $child_count);
+						echo '<span class="productbay-product-subtitle">' . esc_html($subtitle) . '</span>';
+					}
+				}
 				break;
 
 			case 'price':
@@ -1628,6 +1647,23 @@ class TableRenderer
 			)
 		);
 
+		// Store lightbox settings for use in render methods.
+		$this->lightbox_enabled = isset($settings['features']['lightbox']) ? $settings['features']['lightbox'] : true;
+
+		// Pass the showChildCount feature flag into cart_settings so render_cell can access it.
+		$this->cart_settings['_show_child_count'] = $settings['features']['showChildCount'] ?? true;
+
+		/**
+		 * Fires before the AJAX table render, allowing Pro modules to capture table config.
+		 * This is critical for persistence — without this hook, the Pro module's
+		 * set_current_table() never fires during AJAX, causing mode fallback to 'inline'.
+		 *
+		 * @since 1.0.3
+		 *
+		 * @param array $table The full table configuration.
+		 */
+		\do_action('productbay_before_table', $table);
+
 		$args = $this->build_query_args($source, $settings, $runtime_args);
 
 		/**
@@ -1656,6 +1692,17 @@ class TableRenderer
 
 				$product_type = $product->get_type();
 				$in_stock = $product->is_in_stock() ? '1' : '0';
+
+				/**
+				 * Fires before each product row during AJAX rendering.
+				 *
+				 * @since 1.0.3
+				 *
+				 * @param \WC_Product $product The current product.
+				 * @param array       $table   The full table configuration.
+				 */
+				\do_action('productbay_before_row', $product, $table);
+
 				echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
 				// Bulk Select - First.
@@ -1688,6 +1735,18 @@ class TableRenderer
 					echo '</td>';
 				}
 				echo '</tr>';
+
+				/**
+				 * Fires after each product row during AJAX rendering.
+				 * Critical for Pro module nested rows — without this hook,
+				 * nested row containers are never injected during AJAX refresh.
+				 *
+				 * @since 1.0.3
+				 *
+				 * @param \WC_Product $product The current product.
+				 * @param array       $table   The full table configuration.
+				 */
+				\do_action('productbay_after_row', $product, $table);
 			}
 			wp_reset_postdata();
 		} else {
