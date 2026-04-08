@@ -32634,7 +32634,7 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       label: 'Price'
     }, {
       id: 'add-to-cart',
-      label: 'Add to Cart'
+      label: 'Buy'
     }],
     config: {}
   },
@@ -32924,7 +32924,7 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
           label: 'Price'
         }, {
           id: 'add-to-cart',
-          label: 'Add to Cart'
+          label: 'Buy'
         }],
         config: {}
       }
