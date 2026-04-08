@@ -33346,7 +33346,11 @@ const createDefaultSettings = () => ({
       customMin: null,
       customMax: null
     },
-    variationsMode: 'inline'
+    variationsMode: 'inline',
+    variableProductMode: 'inline',
+    groupedProductMode: 'popup',
+    nestedDefaultExpanded: false,
+    showChildCount: true
   },
   pagination: {
     limit: 10,

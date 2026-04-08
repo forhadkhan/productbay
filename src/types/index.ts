@@ -232,8 +232,20 @@ export interface TableSettings {
 			customMax?: number | null;
 		};
 
-		/** Pro: Variations display mode */
-		variationsMode?: 'inline' | 'popup' | 'nested';
+		/** @deprecated Use variableProductMode / groupedProductMode instead. Kept for backward compatibility. */
+		variationsMode?: 'inline' | 'popup' | 'nested' | 'separate';
+
+		/** Pro: Display mode for variable products (products with attribute-based variations) */
+		variableProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
+
+		/** Pro: Display mode for grouped products (products containing child simple products) */
+		groupedProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
+
+		/** Pro: Whether nested rows should be expanded by default */
+		nestedDefaultExpanded?: boolean;
+
+		/** Pro: Show child/variation count subtitle below product name */
+		showChildCount?: boolean;
 	};
 
 	/** Pagination configuration */
@@ -408,6 +420,10 @@ export const createDefaultSettings = (): TableSettings => ({
 			customMax: null,
 		},
 		variationsMode: 'inline',
+		variableProductMode: 'inline',
+		groupedProductMode: 'popup',
+		nestedDefaultExpanded: false,
+		showChildCount: true,
 	},
 	pagination: {
 		limit: 10,
