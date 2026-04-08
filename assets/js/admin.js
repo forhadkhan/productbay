@@ -22658,12 +22658,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Table_panels_DisplayPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Table/panels/DisplayPanel */ "./src/components/Table/panels/DisplayPanel.tsx");
 /* harmony import */ var _components_Table_panels_OptionsPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Table/panels/OptionsPanel */ "./src/components/Table/panels/OptionsPanel.tsx");
 /* harmony import */ var _components_Table_panels_SourcePanel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Table/panels/SourcePanel */ "./src/components/Table/panels/SourcePanel.tsx");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _store_tableStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/store/tableStore */ "./src/store/tableStore.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -22677,6 +22679,11 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Handles the "Default Configuration" tab in settings.
  * Allows setting global defaults for new tables (Source, Style, Functionality).
+ *
+ * Includes a bidirectional sync bridge between the Settings page's store and the
+ * tableStore so that Pro slot fills (PriceFilterSlot, VariationsSlot) — which
+ * read/write window.productbay.useTableStore — can operate on the correct data
+ * when rendered inside the Settings page's OptionsPanel <Slot>.
  */
 const DefaultSettings = ({
   source,
@@ -22696,53 +22703,106 @@ const DefaultSettings = ({
   setCart,
   setFilters
 }) => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+  /**
+   * Ref to prevent circular sync loops.
+   * When the settings page pushes data INTO tableStore, we set this flag
+   * so the tableStore subscriber doesn't echo the change back.
+   */
+  const syncingRef = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)(false);
+
+  /**
+   * Push settings page defaults into tableStore whenever tableSettings changes.
+   * This ensures Pro fills (which call useTableStore()) see the correct values.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
+    syncingRef.current = true;
+    _store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore.setState({
+      settings: tableSettings
+    });
+    // Use microtask so the synchronous Zustand subscriber fires with flag=true,
+    // then we re-enable backward sync for future Pro fill interactions.
+    Promise.resolve().then(() => {
+      syncingRef.current = false;
+    });
+  }, [tableSettings]);
+
+  /**
+   * Subscribe to tableStore.settings.features changes.
+   * When a Pro fill updates features via tableStore.setFeatures(),
+   * forward those changes to the settings page's setFeatures().
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
+    let prevFeatures = _store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore.getState().settings.features;
+    const unsub = _store_tableStore__WEBPACK_IMPORTED_MODULE_5__.useTableStore.subscribe(state => {
+      // Skip if this update was triggered by the settings page sync above
+      if (syncingRef.current) {
+        prevFeatures = state.settings.features;
+        return;
+      }
+      const currentFeatures = state.settings.features;
+      if (currentFeatures !== prevFeatures) {
+        // Compute the diff: only forward keys that actually changed
+        const diff = {};
+        for (const key of Object.keys(currentFeatures)) {
+          if (currentFeatures[key] !== prevFeatures?.[key]) {
+            diff[key] = currentFeatures[key];
+          }
+        }
+        prevFeatures = currentFeatures;
+        if (Object.keys(diff).length > 0) {
+          setFeatures(diff);
+        }
+      }
+    });
+    return unsub;
+  }, [setFeatures]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
     className: "space-y-10 p-6",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "max-w-4xl space-y-10",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
           className: "text-lg font-bold text-gray-900 mb-2",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Default Source', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Default Source', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           className: "text-gray-500 mb-6",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Configure the default data source settings for new tables.', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_panels_SourcePanel__WEBPACK_IMPORTED_MODULE_4__.SourcePanel, {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Configure the default data source settings for new tables.', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_panels_SourcePanel__WEBPACK_IMPORTED_MODULE_4__.SourcePanel, {
           source: source,
           setSourceType: setSourceType,
           className: "border-none"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {
         className: "border-b-2 border-gray-200"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "flex flex-col gap-8",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
             className: "text-lg font-bold text-gray-900 mb-2",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Default Columns', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Default Columns', 'productbay')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
             className: "text-gray-500 mb-6",
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Configure the default columns for new tables.', 'productbay')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_sections_DefaultColumnsConfig__WEBPACK_IMPORTED_MODULE_0__.DefaultColumnsConfig, {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Configure the default columns for new tables.', 'productbay')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_sections_DefaultColumnsConfig__WEBPACK_IMPORTED_MODULE_0__.DefaultColumnsConfig, {
             columns: columns,
             onChange: setColumns
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_sections_BulkSelectConfig__WEBPACK_IMPORTED_MODULE_1__.BulkSelectConfig, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_sections_BulkSelectConfig__WEBPACK_IMPORTED_MODULE_1__.BulkSelectConfig, {
           value: tableSettings.features.bulkSelect,
           onChange: config => setFeatures({
             bulkSelect: config
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {
         className: "border-b-2 border-gray-200"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
           className: "text-lg font-bold text-gray-900 mb-2",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Default Styling', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Default Styling', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           className: "text-gray-500 mb-6",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Set the default look and feel for your tables.', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_panels_DisplayPanel__WEBPACK_IMPORTED_MODULE_2__.DisplayPanel, {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Set the default look and feel for your tables.', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_panels_DisplayPanel__WEBPACK_IMPORTED_MODULE_2__.DisplayPanel, {
           style: style,
           setHeaderStyle: setHeaderStyle,
           setBodyStyle: setBodyStyle,
@@ -22752,16 +22812,16 @@ const DefaultSettings = ({
           setHoverStyle: setHoverStyle,
           className: "border-none"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {
         className: "border-b-2 border-gray-200"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
           className: "text-lg font-bold text-gray-900 mb-2",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Default Functionality', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Default Functionality', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           className: "text-gray-500 mb-6",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Configure default features like sorting, pagination, and filters.', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Table_panels_OptionsPanel__WEBPACK_IMPORTED_MODULE_3__.OptionsPanel, {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Configure default features like sorting, pagination, and filters.', 'productbay')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Table_panels_OptionsPanel__WEBPACK_IMPORTED_MODULE_3__.OptionsPanel, {
           settings: tableSettings,
           setFeatures: setFeatures,
           setPagination: setPagination,
@@ -24268,7 +24328,7 @@ const OptionsPanel = ({
   setFilters,
   className
 }) => {
-  var _settings$features$li, _settings$filters$sho, _settings$filters$sho2, _settings$filters$sho3, _settings$features$va, _settings$features$se;
+  var _settings$features$li, _settings$filters$sho, _settings$filters$sho2, _settings$features$se;
   const isProActive = !!window.productBaySettings?.proVersion;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)('w-full p-4 space-y-8', className),
@@ -24363,15 +24423,10 @@ const OptionsPanel = ({
             showType: e.target.checked
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_8__.SettingsOption, {
+      }), !isProActive && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_8__.SettingsOption, {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Price Range Filter', 'productbay'),
         description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Allow users to filter products by a price range slider', 'productbay'),
-        children: !isProActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ProBadge__WEBPACK_IMPORTED_MODULE_6__.ProBadge, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_4__.Toggle, {
-          checked: (_settings$filters$sho3 = settings.filters?.showPriceRange) !== null && _settings$filters$sho3 !== void 0 ? _settings$filters$sho3 : false,
-          onChange: e => setFilters({
-            showPriceRange: e.target.checked
-          })
-        })
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ProBadge__WEBPACK_IMPORTED_MODULE_6__.ProBadge, {})
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(SettingsSection, {
       title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cart / Functionality', 'productbay'),
@@ -24385,15 +24440,10 @@ const OptionsPanel = ({
             enable: e.target.checked
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_8__.SettingsOption, {
+      }), !isProActive && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_8__.SettingsOption, {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Variable & Grouped Products', 'productbay'),
         description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Full support for variations and grouped product types', 'productbay'),
-        children: !isProActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ProBadge__WEBPACK_IMPORTED_MODULE_6__.ProBadge, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_4__.Toggle, {
-          checked: (_settings$features$va = settings.features.variableGrouped) !== null && _settings$features$va !== void 0 ? _settings$features$va : false,
-          onChange: e => setFeatures({
-            variableGrouped: e.target.checked
-          })
-        })
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ui_ProBadge__WEBPACK_IMPORTED_MODULE_6__.ProBadge, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)('transition-all duration-300', settings.cart.enable ? 'opacity-100' : 'opacity-40 pointer-events-none grayscale'),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Table_SettingsOption__WEBPACK_IMPORTED_MODULE_8__.SettingsOption, {
@@ -35051,7 +35101,23 @@ const useTableStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get)
       columns: defaults.columns && defaults.columns.length > 0 ? defaults.columns : (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultColumns)(),
       settings: defaults.settings ? {
         ...(0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)(),
-        ...defaults.settings
+        ...defaults.settings,
+        features: {
+          ...(0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)().features,
+          ...(defaults.settings.features || {})
+        },
+        pagination: {
+          ...(0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)().pagination,
+          ...(defaults.settings.pagination || {})
+        },
+        cart: {
+          ...(0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)().cart,
+          ...(defaults.settings.cart || {})
+        },
+        filters: {
+          ...(0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)().filters,
+          ...(defaults.settings.filters || {})
+        }
       } : (0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultSettings)(),
       style: defaults.style ? {
         ...(0,_types__WEBPACK_IMPORTED_MODULE_2__.createDefaultStyle)(),
@@ -35489,7 +35555,16 @@ const createDefaultSettings = () => ({
     selectedItemsPanel: {
       enabled: true
     },
-    lightbox: true
+    lightbox: true,
+    variableGrouped: false,
+    priceFilter: {
+      enabled: false,
+      mode: 'both',
+      step: 1,
+      customMin: null,
+      customMax: null
+    },
+    variationsMode: 'inline'
   },
   pagination: {
     limit: 10,
@@ -35506,7 +35581,8 @@ const createDefaultSettings = () => ({
     enabled: true,
     showCategory: true,
     showType: true,
-    activeTaxonomies: ['product_cat']
+    activeTaxonomies: ['product_cat'],
+    showPriceRange: false
   }
 });
 
