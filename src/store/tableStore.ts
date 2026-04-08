@@ -278,7 +278,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			{ id: 'image', label: 'Image' },
 			{ id: 'name', label: 'Product Name' },
 			{ id: 'price', label: 'Price' },
-			{ id: 'add-to-cart', label: 'Add to Cart' },
+			{ id: 'add-to-cart', label: 'Buy' },
 		],
 		config: {},
 	},
@@ -509,25 +509,25 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					: defaultColumns(),
 			settings: defaults.settings
 				? {
-						...defaultSettings(),
-						...defaults.settings,
-						features: {
-							...defaultSettings().features,
-							...(defaults.settings.features || {}),
-						},
-						pagination: {
-							...defaultSettings().pagination,
-							...(defaults.settings.pagination || {}),
-						},
-						cart: {
-							...defaultSettings().cart,
-							...(defaults.settings.cart || {}),
-						},
-						filters: {
-							...defaultSettings().filters,
-							...(defaults.settings.filters || {}),
-						},
-				  }
+					...defaultSettings(),
+					...defaults.settings,
+					features: {
+						...defaultSettings().features,
+						...(defaults.settings.features || {}),
+					},
+					pagination: {
+						...defaultSettings().pagination,
+						...(defaults.settings.pagination || {}),
+					},
+					cart: {
+						...defaultSettings().cart,
+						...(defaults.settings.cart || {}),
+					},
+					filters: {
+						...defaultSettings().filters,
+						...(defaults.settings.filters || {}),
+					},
+				}
 				: defaultSettings(),
 			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
 
@@ -543,7 +543,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					{ id: 'image', label: 'Image' },
 					{ id: 'name', label: 'Product Name' },
 					{ id: 'price', label: 'Price' },
-					{ id: 'add-to-cart', label: 'Add to Cart' },
+					{ id: 'add-to-cart', label: 'Buy' },
 				],
 				config: {},
 			},
