@@ -3,8 +3,9 @@ import { BulkSelectConfig } from '@/components/Table/sections/BulkSelectConfig';
 import { DisplayPanel } from '@/components/Table/panels/DisplayPanel';
 import { OptionsPanel } from '@/components/Table/panels/OptionsPanel';
 import { SourcePanel } from '@/components/Table/panels/SourcePanel';
+import { useTableStore } from '@/store/tableStore';
 import { __ } from '@wordpress/i18n';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface DefaultSettingsProps {
 	source: any;
@@ -30,6 +31,11 @@ interface DefaultSettingsProps {
  *
  * Handles the "Default Configuration" tab in settings.
  * Allows setting global defaults for new tables (Source, Style, Functionality).
+ *
+ * Includes a bidirectional sync bridge between the Settings page's store and the
+ * tableStore so that Pro slot fills (PriceFilterSlot, VariationsSlot) — which
+ * read/write window.productbay.useTableStore — can operate on the correct data
+ * when rendered inside the Settings page's OptionsPanel <Slot>.
  */
 const DefaultSettings: React.FC<DefaultSettingsProps> = ({
 	source,
@@ -49,6 +55,61 @@ const DefaultSettings: React.FC<DefaultSettingsProps> = ({
 	setCart,
 	setFilters,
 }) => {
+	/**
+	 * Ref to prevent circular sync loops.
+	 * When the settings page pushes data INTO tableStore, we set this flag
+	 * so the tableStore subscriber doesn't echo the change back.
+	 */
+	const syncingRef = useRef(false);
+
+	/**
+	 * Push settings page defaults into tableStore whenever tableSettings changes.
+	 * This ensures Pro fills (which call useTableStore()) see the correct values.
+	 */
+	useEffect(() => {
+		syncingRef.current = true;
+		useTableStore.setState({ settings: tableSettings });
+		// Use microtask so the synchronous Zustand subscriber fires with flag=true,
+		// then we re-enable backward sync for future Pro fill interactions.
+		Promise.resolve().then(() => {
+			syncingRef.current = false;
+		});
+	}, [tableSettings]);
+
+	/**
+	 * Subscribe to tableStore.settings.features changes.
+	 * When a Pro fill updates features via tableStore.setFeatures(),
+	 * forward those changes to the settings page's setFeatures().
+	 */
+	useEffect(() => {
+		let prevFeatures = useTableStore.getState().settings.features;
+
+		const unsub = useTableStore.subscribe((state) => {
+			// Skip if this update was triggered by the settings page sync above
+			if (syncingRef.current) {
+				prevFeatures = state.settings.features;
+				return;
+			}
+
+			const currentFeatures = state.settings.features;
+			if (currentFeatures !== prevFeatures) {
+				// Compute the diff: only forward keys that actually changed
+				const diff: Record<string, any> = {};
+				for (const key of Object.keys(currentFeatures as any)) {
+					if ((currentFeatures as any)[key] !== (prevFeatures as any)?.[key]) {
+						diff[key] = (currentFeatures as any)[key];
+					}
+				}
+				prevFeatures = currentFeatures;
+				if (Object.keys(diff).length > 0) {
+					setFeatures(diff);
+				}
+			}
+		});
+
+		return unsub;
+	}, [setFeatures]);
+
 	return (
 		<div className="space-y-10 p-6">
 			<div className="max-w-4xl space-y-10">

@@ -508,7 +508,26 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					? defaults.columns
 					: defaultColumns(),
 			settings: defaults.settings
-				? { ...defaultSettings(), ...defaults.settings }
+				? {
+						...defaultSettings(),
+						...defaults.settings,
+						features: {
+							...defaultSettings().features,
+							...(defaults.settings.features || {}),
+						},
+						pagination: {
+							...defaultSettings().pagination,
+							...(defaults.settings.pagination || {}),
+						},
+						cart: {
+							...defaultSettings().cart,
+							...(defaults.settings.cart || {}),
+						},
+						filters: {
+							...defaultSettings().filters,
+							...(defaults.settings.filters || {}),
+						},
+				  }
 				: defaultSettings(),
 			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
 

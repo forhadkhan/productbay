@@ -176,23 +176,18 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
-				{/* Price Range Filter (Pro Shell) */}
-				<SettingsOption
-					title={__('Price Range Filter', 'productbay')}
-					description={__(
-						'Allow users to filter products by a price range slider',
-						'productbay'
-					)}
-				>
-					{!isProActive ? (
+				{/* Price Range Filter (Pro Shell - shown only when Pro is not active) */}
+				{!isProActive && (
+					<SettingsOption
+						title={__('Price Range Filter', 'productbay')}
+						description={__(
+							'Allow users to filter products by a price range slider',
+							'productbay'
+						)}
+					>
 						<ProBadge />
-					) : (
-						<Toggle
-							checked={settings.filters?.showPriceRange ?? false}
-							onChange={(e) => setFilters({ showPriceRange: e.target.checked })}
-						/>
-					)}
-				</SettingsOption>
+					</SettingsOption>
+				)}
 			</SettingsSection>
 
 			{/* Cart Settings */}
@@ -213,23 +208,18 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
-				{/* Variable & Grouped Products (Pro Shell) */}
-				<SettingsOption
-					title={__('Variable & Grouped Products', 'productbay')}
-					description={__(
-						'Full support for variations and grouped product types',
-						'productbay'
-					)}
-				>
-					{!isProActive ? (
+				{/* Variable & Grouped Products (Pro Shell - shown only when Pro is not active) */}
+				{!isProActive && (
+					<SettingsOption
+						title={__('Variable & Grouped Products', 'productbay')}
+						description={__(
+							'Full support for variations and grouped product types',
+							'productbay'
+						)}
+					>
 						<ProBadge />
-					) : (
-						<Toggle
-							checked={settings.features.variableGrouped ?? false}
-							onChange={(e) => setFeatures({ variableGrouped: e.target.checked })}
-						/>
-					)}
-				</SettingsOption>
+					</SettingsOption>
+				)}
 
 				{/* Cart sub-options - Only relevant when AJAX Add to Cart is enabled */}
 				<div

@@ -222,6 +222,18 @@ export interface TableSettings {
 
 		/** Enable Support for Variable & Grouped Products (Pro) */
 		variableGrouped?: boolean;
+
+		/** Pro: Price filter configuration */
+		priceFilter?: {
+			enabled: boolean;
+			mode: 'slider' | 'input' | 'both';
+			step: number;
+			customMin?: number | null;
+			customMax?: number | null;
+		};
+
+		/** Pro: Variations display mode */
+		variationsMode?: 'inline' | 'popup' | 'nested';
 	};
 
 	/** Pagination configuration */
@@ -387,6 +399,15 @@ export const createDefaultSettings = (): TableSettings => ({
 			enabled: true,
 		},
 		lightbox: true,
+		variableGrouped: false,
+		priceFilter: {
+			enabled: false,
+			mode: 'both',
+			step: 1,
+			customMin: null,
+			customMax: null,
+		},
+		variationsMode: 'inline',
 	},
 	pagination: {
 		limit: 10,
@@ -404,6 +425,7 @@ export const createDefaultSettings = (): TableSettings => ({
 		showCategory: true,
 		showType: true,
 		activeTaxonomies: ['product_cat'],
+		showPriceRange: false,
 	},
 });
 
