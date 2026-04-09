@@ -9,6 +9,9 @@ import domReady from '@wordpress/dom-ready';
 import { createRoot } from '@wordpress/element';
 import { useTableStore } from './store/tableStore';
 import { useExtensionStore } from './store/extensionStore';
+import { useSettingsStore } from './store/settingsStore';
+import { useImportExportStore } from './store/importExportStore';
+import { apiFetch } from './utils/api';
 
 import * as ui from './components/ui';
 
@@ -20,6 +23,9 @@ import { SectionHeading } from './components/Table/SectionHeading';
 	...((window as any).productbay || {}),
 	useTableStore,
 	useExtensionStore,
+	useSettingsStore,
+	useImportExportStore,
+	apiFetch,
 	ui,
 	components: {
 		SettingsOption,

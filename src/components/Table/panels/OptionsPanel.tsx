@@ -2,8 +2,10 @@ import React from 'react';
 import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
 import { TableSettings } from '@/types';
-import { Toggle } from '@/components/ui/Toggle';
 import { Slot } from '@wordpress/components';
+import { Toggle } from '@/components/ui/Toggle';
+import { Select } from '@/components/ui/Select';
+import { ProBadge } from '@/components/ui/ProBadge';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
 
@@ -46,6 +48,8 @@ export const OptionsPanel = ({
 	setFilters,
 	className,
 }: OptionsPanelProps) => {
+	const isProActive = !!(window as any).productBaySettings?.proVersion;
+
 	return (
 		<div className={cn('w-full p-4 space-y-8', className)}>
 			{/* Table Controls - User-facing features */}
@@ -94,6 +98,42 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
+				{/* Pagination Style */}
+				<SettingsOption
+					title={__('Pagination Style', 'productbay')}
+					description={__('Choose how additional products are loaded', 'productbay')}
+				>
+					<div className="flex items-center gap-2">
+						<Select
+							value={settings.pagination.mode || 'standard'}
+							onChange={(val) =>
+								setPagination({
+									mode: val as 'standard' | 'load_more' | 'infinite',
+								})
+							}
+							size="sm"
+							className="w-48"
+							options={[
+								{
+									label: __('Standard (Numbers)', 'productbay'),
+									value: 'standard',
+								},
+								{
+									label: __('Load More Button', 'productbay') + (isProActive ? '' : ' (PRO)'),
+									value: 'load_more',
+									disabled: !isProActive,
+								},
+								{
+									label: __('Infinite Scroll', 'productbay') + (isProActive ? '' : ' (PRO)'),
+									value: 'infinite',
+									disabled: !isProActive,
+								},
+							]}
+						/>
+						{!isProActive && <ProBadge />}
+					</div>
+				</SettingsOption>
+
 				{/* Enable Image Lightbox */}
 				<SettingsOption
 					title={__('Enable Image Lightbox', 'productbay')}
@@ -135,6 +175,19 @@ export const OptionsPanel = ({
 						onChange={(e) => setFilters({ showType: e.target.checked })}
 					/>
 				</SettingsOption>
+
+				{/* Price Range Filter (Pro Shell - shown only when Pro is not active) */}
+				{!isProActive && (
+					<SettingsOption
+						title={__('Price Range Filter', 'productbay')}
+						description={__(
+							'Allow users to filter products by a price range slider',
+							'productbay'
+						)}
+					>
+						<ProBadge />
+					</SettingsOption>
+				)}
 			</SettingsSection>
 
 			{/* Cart Settings */}
@@ -154,6 +207,19 @@ export const OptionsPanel = ({
 						onChange={(e) => setCart({ enable: e.target.checked })}
 					/>
 				</SettingsOption>
+
+				{/* Variable & Grouped Products (Pro Shell - shown only when Pro is not active) */}
+				{!isProActive && (
+					<SettingsOption
+						title={__('Variable & Grouped Products', 'productbay')}
+						description={__(
+							'Full support for variations and grouped product types',
+							'productbay'
+						)}
+					>
+						<ProBadge />
+					</SettingsOption>
+				)}
 
 				{/* Cart sub-options - Only relevant when AJAX Add to Cart is enabled */}
 				<div

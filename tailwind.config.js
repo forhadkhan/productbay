@@ -3,7 +3,11 @@ module.exports = {
 	// This scopes all Tailwind utilities to our plugin wrapper
 	important: '#productbay-root',
 
-	content: ['./**/*.php', './src/**/*.js', './src/**/*.ts', './src/**/*.jsx', './src/**/*.tsx'],
+	content: [
+		'./**/*.php',
+		'./src/**/*.{js,ts,jsx,tsx}',
+		'../productbay-pro/src/**/*.{js,ts,jsx,tsx}',
+	],
 
 	corePlugins: {
 		// CRITICAL: Disable preflight so we don't break the WP Admin or Theme styles

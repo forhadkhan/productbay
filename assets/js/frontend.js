@@ -128,6 +128,18 @@
                 this.fetchProducts({ ...state, ...data, paged: 1, _context: 'filter' });
             });
 
+            // Next Page Trigger (for Pro Lazy Loading)
+            this.$wrapper.on('productbay_next_page', (e) => {
+                const $pagination = this.$wrapper.find('.productbay-pagination');
+                const current = parseInt($pagination.data('current'), 10) || 1;
+                const total = parseInt($pagination.data('total'), 10) || 1;
+
+                if (current < total) {
+                    const state = this.gatherFilterState();
+                    this.fetchProducts({ ...state, paged: current + 1, _append: true, _context: 'pagination' });
+                }
+            });
+
             // Pro Plugin Modal Persistence
             $(document.body).on('productbay_pro_modal_loaded', this.restoreModalSelections.bind(this));
         }
@@ -423,12 +435,16 @@
 
         fetchProducts(args) {
             const context = args._context || 'table';
+            const isAppend = !!args._append;
             delete args._context;
+            delete args._append;
 
             if (context === 'search') {
                 this.$wrapper.find('.productbay-search').addClass('loading');
-            } else {
+            } else if (!isAppend) {
                 this.$wrapper.addClass('productbay-loading');
+            } else {
+                this.$wrapper.find('.productbay-load-more-btn').addClass('loading').prop('disabled', true);
             }
 
             const data = {
@@ -445,17 +461,30 @@
                 data: data,
                 success: (response) => {
                     if (response.success) {
-                        this.$tbody.html(response.data.html);
+                        if (isAppend) {
+                            this.$tbody.append(response.data.html);
+                        } else {
+                            this.$tbody.html(response.data.html);
+                        }
+
                         if (response.data.pagination) {
                             this.$wrapper.find('.productbay-pagination').replaceWith(response.data.pagination);
+                        } else if (isAppend) {
+                            // If appending and no new pagination, it means we reached the end
+                            this.$wrapper.find('.productbay-pagination').remove();
                         }
+
                         // Restore selections for products visible on the new page
                         this.restoreSelections();
+
+                        // Trigger event for Pro plugin or other extensions
+                        this.$wrapper.trigger('productbay_after_fetch', [response, isAppend]);
                     }
                 },
                 complete: () => {
                     this.$wrapper.removeClass('productbay-loading');
                     this.$wrapper.find('.productbay-search').removeClass('loading');
+                    this.$wrapper.find('.productbay-load-more-btn').removeClass('loading').prop('disabled', false);
                 }
             });
         }

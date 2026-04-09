@@ -233,7 +233,15 @@ class SettingsController extends ApiController
 						'sorting' => true,
 						'pagination' => true,
 						'export' => false,
-						'priceRange' => false,
+						'variableGrouped' => false,
+						'priceFilter' => array(
+							'enabled' => false,
+							'mode' => 'both',
+							'step' => 1,
+							'customMin' => null,
+							'customMax' => null,
+						),
+						'variationsMode' => 'inline',
 					),
 					'pagination' => array(
 						'limit' => 10,
@@ -247,7 +255,10 @@ class SettingsController extends ApiController
 					),
 					'filters' => array(
 						'enabled' => true,
+						'showCategory' => true,
+						'showType' => true,
 						'activeTaxonomies' => array('product_cat'),
+						'showPriceRange' => false,
 					),
 				),
 			),

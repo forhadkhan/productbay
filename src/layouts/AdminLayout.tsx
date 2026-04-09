@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { apiFetch } from '@/utils/api';
+import { Slot } from '@wordpress/components';
 import { useLocation } from 'react-router-dom';
 import { WandSparklesIcon } from 'lucide-react';
 import Navbar from '@/components/Layout/Navbar';
@@ -66,6 +67,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="productbay-app bg-wp-bg font-sans text-wp-text p-0 m-0">
 			<Navbar />
+			{/* License Banner */}
+			<Slot name="productbay-pro-banner" />
 			<main className="p-2 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">{children}</main>
 			<Footer />
 

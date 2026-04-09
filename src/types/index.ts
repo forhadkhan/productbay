@@ -6,6 +6,29 @@
  * and are used throughout the React admin interface.
  */
 
+/**
+ * Product Interface
+ * Matches WooCommerce product data subset used in the frontend.
+ */
+export interface Product {
+	id: number;
+	name: string;
+	sku: string;
+	price: string;
+	image: string;
+}
+
+/**
+ * Category Interface
+ * Matches WooCommerce product category data used in the frontend.
+ */
+export interface Category {
+	id: number;
+	name: string;
+	count: number;
+	slug: string;
+}
+
 /* =============================================================================
  * Column Visibility Modes
  * =============================================================================
@@ -41,7 +64,17 @@ export type ColumnType =
 	| 'summary' // Short description
 	| 'tax' // Taxonomy (category, tag, attribute)
 	| 'cf' // Custom field (meta)
-	| 'combined'; // Multiple elements combined in one cell
+	| 'combined' // Multiple elements combined in one cell
+	| 'rating'; // Product average star rating
+
+export interface CombinedElement {
+	/** Unique ID for drag and drop */
+	id: string;
+	/** The type of attribute to display */
+	type: ColumnType;
+	/** Type-specific settings for this element (e.g. prefix, suffix, imageSize) */
+	settings?: Record<string, unknown>;
+}
 
 /* =============================================================================
  * Column Interface
@@ -115,6 +148,9 @@ export interface DataSource {
 		/** Product IDs for 'specific' source type */
 		postIds: number[];
 
+		/** Full product objects for 'specific' source type (to avoid re-fetching on load) */
+		productObjects?: Record<number, Product>;
+
 		/** Product IDs to exclude from results */
 		excludes: number[];
 
@@ -183,12 +219,42 @@ export interface TableSettings {
 
 		/** Enable native image lightbox */
 		lightbox: boolean;
+
+		/** Enable Support for Variable & Grouped Products (Pro) */
+		variableGrouped?: boolean;
+
+		/** Pro: Price filter configuration */
+		priceFilter?: {
+			enabled: boolean;
+			mode: 'slider' | 'input' | 'both';
+			step: number;
+			customMin?: number | null;
+			customMax?: number | null;
+		};
+
+		/** @deprecated Use variableProductMode / groupedProductMode instead. Kept for backward compatibility. */
+		variationsMode?: 'inline' | 'popup' | 'nested' | 'separate';
+
+		/** Pro: Display mode for variable products (products with attribute-based variations) */
+		variableProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
+
+		/** Pro: Display mode for grouped products (products containing child simple products) */
+		groupedProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
+
+		/** Pro: Whether nested rows should be expanded by default */
+		nestedDefaultExpanded?: boolean;
+
+		/** Pro: Show child/variation count subtitle below product name */
+		showChildCount?: boolean;
 	};
 
 	/** Pagination configuration */
 	pagination: {
 		/** Products per page */
 		limit: number;
+
+		/** Pagination mode (Pro only: load_more, infinite) */
+		mode?: 'standard' | 'load_more' | 'infinite';
 
 		/** Pagination position (top, bottom, both) */
 		position: 'top' | 'bottom' | 'both';
@@ -222,6 +288,9 @@ export interface TableSettings {
 
 		/** Active taxonomy filters (product_cat, pa_color, etc.) */
 		activeTaxonomies: string[];
+
+		/** Show price range slider (Pro) */
+		showPriceRange?: boolean;
 	};
 }
 
@@ -308,6 +377,7 @@ export interface TableStyle {
 export interface ProductTable {
 	id?: number;
 	title: string;
+	shortcode?: string;
 	status: 'publish' | 'private';
 	date?: string;
 	modifiedDate?: string;
@@ -341,9 +411,23 @@ export const createDefaultSettings = (): TableSettings => ({
 			enabled: true,
 		},
 		lightbox: true,
+		variableGrouped: false,
+		priceFilter: {
+			enabled: false,
+			mode: 'both',
+			step: 1,
+			customMin: null,
+			customMax: null,
+		},
+		variationsMode: 'inline',
+		variableProductMode: 'inline',
+		groupedProductMode: 'popup',
+		nestedDefaultExpanded: false,
+		showChildCount: true,
 	},
 	pagination: {
 		limit: 10,
+		mode: 'standard',
 		position: 'bottom',
 	},
 	cart: {
@@ -357,6 +441,7 @@ export const createDefaultSettings = (): TableSettings => ({
 		showCategory: true,
 		showType: true,
 		activeTaxonomies: ['product_cat'],
+		showPriceRange: false,
 	},
 });
 
