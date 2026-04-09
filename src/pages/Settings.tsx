@@ -25,6 +25,7 @@ import AdminBarOptions from '@/components/Settings/AdminBarOptions';
 import UninstallOptions from '@/components/Settings/UninstallOptions';
 import ClearDataOptions from '@/components/Settings/ClearDataOptions';
 import DefaultSettings from '@/components/Settings/DefaultSettings';
+import ProPromotion from '@/components/Settings/ProPromotion';
 
 const VALID_SETTINGS_TABS = ['default', 'plugin', 'license'] as const;
 type SettingsTabValue = (typeof VALID_SETTINGS_TABS)[number];
@@ -78,12 +79,12 @@ const Settings = () => {
 
 	const activeTabs = React.useMemo(() => {
 		const baseTabs: TabOption<SettingsTabValue>[] = [...SETTINGS_TABS];
-		if (productBaySettings.proActive) {
-			baseTabs.push({
-				value: 'license',
-				label: __('License', 'productbay'),
-			});
-		}
+
+		baseTabs.push({
+			value: 'license',
+			label: __('License', 'productbay'),
+		});
+
 		return baseTabs;
 	}, []);
 
@@ -342,7 +343,11 @@ const Settings = () => {
 				 */}
 				{activeTab === 'license' && (
 					<div className="space-y-6">
-						<Slot name="productbay-pro-settings-license" />
+						{productBaySettings.proActive ? (
+							<Slot name="productbay-pro-settings-license" />
+						) : (
+							<ProPromotion />
+						)}
 					</div>
 				)}
 			</Tabs>
