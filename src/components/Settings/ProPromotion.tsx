@@ -1,20 +1,19 @@
-import React from 'react';
-import { __ } from '@wordpress/i18n';
-import { Button } from '@/components/ui/Button';
-import {
-	Zap,
-	Filter,
-	Database,
-	Layers,
-	ExternalLink,
-	CheckCircle2,
-	LayoutGrid,
-	MousePointer2,
-	SlidersHorizontal,
-	Key,
-	CrownIcon
-} from 'lucide-react';
 import { PRODUCTBAY_LANDING_PAGE_URL } from '@/utils/routes';
+import { Button } from '@/components/ui/Button';
+import { __ } from '@wordpress/i18n';
+import {
+	ZapIcon,
+	KeyIcon,
+	CrownIcon,
+	LayersIcon,
+	FilterIcon,
+	InfinityIcon,
+	DatabaseIcon,
+	LayoutGridIcon,
+	ExternalLinkIcon,
+	CheckCircle2Icon,
+	MousePointer2Icon,
+} from 'lucide-react';
 
 /**
  * ProPromotion Component
@@ -27,37 +26,37 @@ import { PRODUCTBAY_LANDING_PAGE_URL } from '@/utils/routes';
 const ProPromotion = () => {
 	const features = [
 		{
-			icon: <Layers className="w-5 h-5 text-indigo-500" />,
+			icon: <LayersIcon className="w-5 h-5 text-indigo-500" />,
 			title: __('Variations Management', 'productbay'),
 			description: __('Showcase product variations in a clean, high-converting table format with easy quantity management.', 'productbay')
 		},
 		{
-			icon: <Filter className="w-5 h-5 text-blue-500" />,
+			icon: <FilterIcon className="w-5 h-5 text-blue-500" />,
 			title: __('Advanced Filtering', 'productbay'),
 			description: __('Empower shoppers with price range sliders and sophisticated filtering options to find products faster.', 'productbay')
 		},
 		{
-			icon: <Database className="w-5 h-5 text-emerald-500" />,
+			icon: <DatabaseIcon className="w-5 h-5 text-emerald-500" />,
 			title: __('Import & Export', 'productbay'),
 			description: __('Seamlessly migrate your table configurations and global settings between sites with JSON portability.', 'productbay')
 		},
 		{
-			icon: <LayoutGrid className="w-5 h-5 text-purple-500" />,
+			icon: <LayoutGridIcon className="w-5 h-5 text-purple-500" />,
 			title: __('Grouped Product Support', 'productbay'),
 			description: __('Full support for WooCommerce grouped products with inline selection and bulk add-to-cart.', 'productbay')
 		},
 		{
-			icon: <MousePointer2 className="w-5 h-5 text-orange-500" />,
+			icon: <MousePointer2Icon className="w-5 h-5 text-orange-500" />,
 			title: __('Custom Column Logic', 'productbay'),
 			description: __('Unlock more powerful column settings and data sources for ultimate control over your product data.', 'productbay')
 		},
 		{
-			icon: <SlidersHorizontal className="w-5 h-5 text-pink-500" />,
-			title: __('Price Slider Filter', 'productbay'),
-			description: __('Add a professional dual-handle price range slider to your tables for effortless product discovery.', 'productbay')
+			icon: <InfinityIcon className="w-5 h-5 text-pink-500" />,
+			title: __('Lazy Loading', 'productbay'),
+			description: __('Enhance performance with Infinite Scroll or Load More pagination, perfect for tables with hundreds of products.', 'productbay')
 		},
 		{
-			icon: <Zap className="w-5 h-5 text-yellow-500" />,
+			icon: <ZapIcon className="w-5 h-5 text-yellow-500" />,
 			title: __('Priority Support', 'productbay'),
 			description: __('Get fast assistance from our expert team to help you optimize and troubleshoot your tables.', 'productbay'),
 			fullWidth: true
@@ -93,7 +92,7 @@ const ProPromotion = () => {
 							onClick={() => window.open(PRODUCTBAY_LANDING_PAGE_URL, '_blank')}
 						>
 							{__('Upgrade to Pro Now', 'productbay')}
-							<ExternalLink className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+							<ExternalLinkIcon className="w-5 h-5 transition-transform group-hover:translate-x-1" />
 						</Button>
 					</div>
 				</div>
@@ -102,7 +101,7 @@ const ProPromotion = () => {
 			{/* License Info Box */}
 			<div className="mx-4 md:mx-8 mt-8 border border-indigo-100 bg-indigo-50/50 rounded-lg p-5 flex items-start gap-4">
 				<div className="p-2 w-10 h-10 flex items-center justify-center bg-productbay-brand text-white rounded-md shrink-0">
-					<Key className="w-5 h-5" />
+					<KeyIcon className="w-5 h-5" />
 				</div>
 				<div>
 					<h4 className="text-gray-900 text-lg font-semibold mb-1">
@@ -149,15 +148,15 @@ const ProPromotion = () => {
 			<div className="p-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6 bg-white">
 				<div className="flex items-center gap-6">
 					<div className="flex items-center text-gray-600 text-sm font-medium">
-						<CheckCircle2 className="w-4 h-4 text-emerald-500 mr-2" />
+						<CheckCircle2Icon className="w-4 h-4 text-emerald-500 mr-2" />
 						{__('No Hidden Fees', 'productbay')}
 					</div>
 					<div className="flex items-center text-gray-600 text-sm font-medium">
-						<CheckCircle2 className="w-4 h-4 text-emerald-500 mr-2" />
+						<CheckCircle2Icon className="w-4 h-4 text-emerald-500 mr-2" />
 						{__('Priority Support', 'productbay')}
 					</div>
 					<div className="flex items-center text-gray-600 text-sm font-medium">
-						<CheckCircle2 className="w-4 h-4 text-emerald-500 mr-2" />
+						<CheckCircle2Icon className="w-4 h-4 text-emerald-500 mr-2" />
 						{__('Regular Updates', 'productbay')}
 					</div>
 				</div>
@@ -167,7 +166,7 @@ const ProPromotion = () => {
 					onClick={() => window.open(PRODUCTBAY_LANDING_PAGE_URL, '_blank')}
 				>
 					{__('Learn more about all Pro features', 'productbay')}
-					<ExternalLink className="w-3 h-3" />
+					<ExternalLinkIcon className="w-3 h-3" />
 				</button>
 			</div>
 		</div>
