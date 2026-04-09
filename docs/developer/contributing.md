@@ -127,3 +127,7 @@ When reporting, include:
 2. Steps to reproduce
 3. Screenshots or error logs (if applicable)
 4. Your WordPress, WooCommerce, and PHP versions
+
+## Contact Developers
+
+ProductBay is developed by [WPAnchorBay](https://wpanchorbay.com). If you need help or have questions, please [contact us](https://wpanchorbay.com/contact-us/) or directly email us at [support@wpanchorbay.com](mailto:[support@wpanchorbay.com]). If you need urgent help, reach out to the lead developer [Forhad Khan](https://forhadkhan.com).

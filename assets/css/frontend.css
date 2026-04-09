@@ -550,7 +550,7 @@
 .productbay-wrapper .productbay-qty-wrap {
     display: inline-flex;
     align-items: stretch;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #94a3b8;
     border-radius: 6px;
     overflow: hidden;
     background: #fff;
@@ -589,7 +589,7 @@
 .productbay-wrapper .productbay-qty-btns {
     display: flex;
     flex-direction: column;
-    border-left: 1px solid #e2e8f0;
+    border-left: 1px solid #94a3b8;
 }
 
 .productbay-wrapper .productbay-qty-btn {
@@ -610,7 +610,7 @@
 }
 
 .productbay-wrapper .productbay-qty-plus {
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #94a3b8;
 }
 
 .productbay-wrapper .productbay-qty-btn:hover {

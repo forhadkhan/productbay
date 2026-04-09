@@ -1,5 +1,4 @@
 import { ComponentType } from '@wordpress/element';
-import Dashboard from '@/pages/Dashboard';
 import Settings from '@/pages/Settings';
 import { __ } from '@wordpress/i18n';
 import Tables from '@/pages/Tables';
@@ -34,12 +33,6 @@ export const PATHS = {
  * Labels are translatable for i18n support
  */
 export const routes: RouteConfig[] = [
-	{
-		path: PATHS.DASHBOARD,
-		element: Dashboard,
-		label: __('Dashboard', 'productbay'),
-		showInNav: false,
-	},
 	{
 		path: PATHS.TABLES,
 		element: Tables,

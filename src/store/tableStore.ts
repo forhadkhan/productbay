@@ -16,6 +16,8 @@ import type {
 	TableStyle,
 	ProductTable,
 	SourceType,
+	Product,
+	Category,
 } from '@/types';
 import {
 	createDefaultSource as defaultSource,
@@ -28,24 +30,9 @@ import {
  * Existing Types (Preserved for backward compatibility)
  * ============================================================================= */
 
-export interface Category {
-	id: number;
-	name: string;
-	count: number;
-	slug: string;
-}
-
 export interface SourceStats {
 	categories: number;
 	products: number;
-}
-
-export interface Product {
-	id: number;
-	name: string;
-	sku: string;
-	price: string;
-	image: string;
 }
 
 /* =============================================================================
@@ -205,8 +192,11 @@ interface TableStore {
 	/** Reset store to defaults */
 	resetStore: () => void;
 
-	/** Load table from API */
+	/** Load table from API by ID */
 	loadTable: (id: number) => Promise<void>;
+
+	/** Update store state from a table data object */
+	applyTableData: (data: ProductTable) => void;
 
 	/** Save table to API */
 	saveTable: () => Promise<boolean>;
@@ -288,7 +278,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			{ id: 'image', label: 'Image' },
 			{ id: 'name', label: 'Product Name' },
 			{ id: 'price', label: 'Price' },
-			{ id: 'add-to-cart', label: 'Add to Cart' },
+			{ id: 'add-to-cart', label: 'Buy' },
 		],
 		config: {},
 	},
@@ -336,6 +326,9 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					}),
 					...(args.postIds !== undefined && {
 						products: args.postIds,
+					}),
+					...(args.productObjects !== undefined && {
+						productObjects: args.productObjects,
 					}),
 				},
 			},
@@ -515,7 +508,26 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					? defaults.columns
 					: defaultColumns(),
 			settings: defaults.settings
-				? { ...defaultSettings(), ...defaults.settings }
+				? {
+					...defaultSettings(),
+					...defaults.settings,
+					features: {
+						...defaultSettings().features,
+						...(defaults.settings.features || {}),
+					},
+					pagination: {
+						...defaultSettings().pagination,
+						...(defaults.settings.pagination || {}),
+					},
+					cart: {
+						...defaultSettings().cart,
+						...(defaults.settings.cart || {}),
+					},
+					filters: {
+						...defaultSettings().filters,
+						...(defaults.settings.filters || {}),
+					},
+				}
 				: defaultSettings(),
 			style: defaults.style ? { ...defaultStyle(), ...defaults.style } : defaultStyle(),
 
@@ -531,7 +543,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 					{ id: 'image', label: 'Image' },
 					{ id: 'name', label: 'Product Name' },
 					{ id: 'price', label: 'Price' },
-					{ id: 'add-to-cart', label: 'Add to Cart' },
+					{ id: 'add-to-cart', label: 'Buy' },
 				],
 				config: {},
 			},
@@ -541,46 +553,50 @@ export const useTableStore = create<TableStore>((set, get) => ({
 	loadTable: async (id) => {
 		set({ isLoading: true, error: null });
 		try {
-			const data = await apiFetch<any>(`tables/${id}`);
-
-			// Map API response to store state
-			// Helper to check if source is valid (not empty array)
-			const isSourceValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
-			const isSettingsValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
-			const isStyleValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
-
-			set({
-				tableId: data.id,
-				tableTitle: data.title || '',
-				tableStatus: data.status || 'private',
-				// Use default if source is empty array or invalid
-				source: isSourceValid(data.source) ? data.source : defaultSource(),
-				columns: data.columns && data.columns.length > 0 ? data.columns : defaultColumns(),
-				// Use default if settings is empty array or invalid
-				settings: isSettingsValid(data.settings) ? data.settings : defaultSettings(),
-				// Use default if style is empty array or invalid
-				style: isStyleValid(data.style) ? data.style : defaultStyle(),
-				isDirty: false,
-				// Also set legacy state
-				tableData: {
-					title: data.title || '',
-					source_type: data.source?.type || 'all',
-					columns:
-						data.columns?.map((c: Column) => ({
-							id: c.id,
-							label: c.heading,
-						})) || [],
-					config: {
-						categories: data.source?.queryArgs?.categoryIds || [],
-						products: data.source?.queryArgs?.postIds || [],
-					},
-				},
-			});
+			const data = await apiFetch<ProductTable>(`tables/${id}`);
+			get().applyTableData(data);
 		} catch (error) {
 			set({ error: 'Failed to load table data' });
 		} finally {
 			set({ isLoading: false });
 		}
+	},
+
+	applyTableData: (data) => {
+		// Map API response to store state
+		// Helper to check if source is valid (not empty array)
+		const isSourceValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+		const isSettingsValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+		const isStyleValid = (s: any) => s && !Array.isArray(s) && typeof s === 'object';
+
+		set({
+			tableId: data.id || null,
+			tableTitle: data.title || '',
+			tableStatus: (data.status as 'publish' | 'private') || 'private',
+			// Use default if source is empty array or invalid
+			source: isSourceValid(data.source) ? data.source : defaultSource(),
+			columns: data.columns && data.columns.length > 0 ? data.columns : defaultColumns(),
+			// Use default if settings is empty array or invalid
+			settings: isSettingsValid(data.settings) ? data.settings : defaultSettings(),
+			// Use default if style is empty array or invalid
+			style: isStyleValid(data.style) ? data.style : defaultStyle(),
+			isDirty: false,
+			// Also set legacy state
+			tableData: {
+				title: data.title || '',
+				source_type: data.source?.type || 'all',
+				columns:
+					data.columns?.map((c: Column) => ({
+						id: c.id,
+						label: c.heading,
+					})) || [],
+				config: {
+					categories: data.source?.queryArgs?.categoryIds || [],
+					products: data.source?.queryArgs?.postIds || [],
+					productObjects: data.source?.queryArgs?.productObjects || {},
+				},
+			},
+		});
 	},
 
 	saveTable: async () => {
@@ -600,6 +616,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 
 			if (activeType !== 'specific') {
 				cleanedQueryArgs.postIds = [];
+				cleanedQueryArgs.productObjects = {};
 			}
 
 			// Build payload matching 4-key backend structure
@@ -616,14 +633,15 @@ export const useTableStore = create<TableStore>((set, get) => ({
 				style: state.style,
 			};
 
-			const response = await apiFetch<{ id: number }>('tables', {
+			const response = await apiFetch<ProductTable>('tables', {
 				method: 'POST',
 				body: JSON.stringify({ data: payload }),
 			});
 
-			// Update table ID if this was a new table
-			if (response.id && !state.tableId) {
-				set({ tableId: response.id });
+			if (response && response.id) {
+				// Use applyTableData logic to ensure the store is perfectly
+				// in sync with what was actually persisted (including remapped IDs).
+				get().applyTableData(response);
 			}
 
 			set({ isDirty: false });

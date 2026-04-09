@@ -123,6 +123,9 @@ class TableRenderer
 		// Store lightbox settings for use in render methods.
 		$this->lightbox_enabled = isset($settings['features']['lightbox']) ? $settings['features']['lightbox'] : true;
 
+		// Pass the showChildCount feature flag into cart_settings so render_cell can access it.
+		$this->cart_settings['_show_child_count'] = $settings['features']['showChildCount'] ?? true;
+
 		// 1. Prepare Query Arguments.
 		$args = $this->build_query_args($source, $settings, $runtime_args);
 
@@ -141,7 +144,7 @@ class TableRenderer
 		$query = new \WP_Query($args);
 
 		// 3. Generate Styles.
-		$css = $this->generate_styles($unique_id, $style, $columns, $settings);
+		$css = $this->generate_styles("#{$unique_id}", $style, $columns, $settings);
 
 		/**
 		 * Filters the generated scoped CSS for a table.
@@ -578,8 +581,16 @@ class TableRenderer
 	 */
 	private function render_cell($col, $product)
 	{
-		$type = $col['type'];
+		$type     = $col['type'];
 		$settings = $col['settings'] ?? array();
+
+		// Security: Block Pro-only columns if the Pro version is not active.
+		// This prevents "vulnerabilities" where users could manually craft table configs
+		// to use premium features without a license.
+		$pro_types = array( 'combined', 'cf' );
+		if ( in_array( $type, $pro_types, true ) && ! defined( 'PRODUCTBAY_PRO_VERSION' ) ) {
+			return;
+		}
 
 		ob_start();
 
@@ -601,6 +612,22 @@ class TableRenderer
 
 			case 'name':
 				echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-product-title">' . esc_html($product->get_name()) . '</a>';
+
+				/**
+				 * Show child count subtitle for variable/grouped products.
+				 * Gated by the 'showChildCount' feature setting (default: true).
+				 * Uses WC_Product::get_children() to count without loading full objects.
+				 */
+				$show_child_count = $this->cart_settings['_show_child_count'] ?? true;
+				if ($show_child_count && ($product->is_type('variable') || $product->is_type('grouped'))) {
+					$children_ids = $product->get_children();
+					$child_count = count($children_ids);
+					if ($child_count > 0) {
+						/* translators: %d: number of available product options/variations */
+						$subtitle = sprintf(_n('%d option available', '%d options available', $child_count, 'productbay'), $child_count);
+						echo '<span class="productbay-product-subtitle">' . esc_html($subtitle) . '</span>';
+					}
+				}
 				break;
 
 			case 'price':
@@ -612,7 +639,22 @@ class TableRenderer
 				break;
 
 			case 'stock':
-				echo wp_kses_post(wc_get_stock_html($product));
+				$stock_status   = $product->get_stock_status();
+				$stock_quantity = $product->get_stock_quantity();
+				$is_in_stock    = $product->is_in_stock();
+
+				if ('outofstock' === $stock_status) {
+					echo '<span class="productbay-stock-status out-of-stock" style="color: #dc3232;">' . esc_html__('Out of stock', 'productbay') . '</span>';
+				} elseif ('onbackorder' === $stock_status) {
+					echo '<span class="productbay-stock-status on-backorder" style="color: #e6a817;">' . esc_html__('On backorder', 'productbay') . '</span>';
+				} else {
+					if ($product->managing_stock() && $stock_quantity !== null) {
+						/* translators: %d: stock quantity */
+						echo '<span class="productbay-stock-status in-stock" style="color: #46b450;">' . esc_html(sprintf(__('%d in stock', 'productbay'), $stock_quantity)) . '</span>';
+					} else {
+						echo '<span class="productbay-stock-status in-stock" style="color: #46b450;">' . esc_html__('In stock', 'productbay') . '</span>';
+					}
+				}
 				break;
 
 			case 'button':
@@ -621,6 +663,130 @@ class TableRenderer
 
 			case 'summary':
 				echo wp_kses_post(wp_trim_words($product->get_short_description(), 10));
+				break;
+
+			case 'date':
+				$date_obj = $product->get_date_created();
+				if ($date_obj) {
+					echo esc_html($date_obj->date_i18n(get_option('date_format')));
+				}
+				break;
+
+			case 'tax':
+				$taxonomy = $settings['taxonomy'] ?? 'product_cat';
+				$link     = !empty($settings['linkToArchive']);
+				$terms    = \wp_get_post_terms($product->get_id(), sanitize_key($taxonomy));
+
+				if (!is_wp_error($terms) && !empty($terms)) {
+					$parts = array();
+					foreach ($terms as $term) {
+						if ($link) {
+							$parts[] = '<a href="' . esc_url(get_term_link($term)) . '">' . esc_html($term->name) . '</a>';
+						} else {
+							$parts[] = esc_html($term->name);
+						}
+					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each part is individually escaped above.
+					echo implode(', ', $parts);
+				}
+				break;
+
+			case 'rating':
+				$rating = $product->get_average_rating();
+				$display_format = $settings['displayFormat'] ?? 'stars';
+
+				if ($rating > 0) {
+					if ('woocommerce' === $display_format) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo wc_get_rating_html($rating, $product->get_rating_count());
+					} elseif ('text' === $display_format) {
+						/* translators: %s: average star rating, e.g. "4.5" */
+						echo '<span class="productbay-rating-text">' . esc_html(sprintf(__('Rated %s out of 5', 'productbay'), $rating)) . '</span>';
+					} else {
+						// Default: stars (custom SVG implementation)
+						$percentage = ( $rating / 5 ) * 100;
+						$star_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+						$stars_html = str_repeat($star_svg, 5);
+						$allowed_svg = array(
+							'svg'  => array(
+								'width'   => true,
+								'height'  => true,
+								'viewbox' => true,
+								'fill'    => true,
+								'xmlns'   => true,
+							),
+							'path' => array(
+								'd' => true,
+							),
+						);
+
+						/* translators: %s: average star rating, e.g. "4.5" */
+						echo '<div class="productbay-custom-stars" title="' . esc_attr(sprintf(__('Rated %s out of 5', 'productbay'), $rating)) . '" style="position: relative; display: inline-flex; vertical-align: middle;">';
+						echo '<div class="productbay-stars-bg" style="color: #e5e7eb; display: flex;">' . wp_kses($stars_html, $allowed_svg) . '</div>';
+						echo '<div class="productbay-stars-active" style="color: #f59e0b; display: flex; position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; width: ' . esc_attr(strval($percentage)) . '%;">' . wp_kses($stars_html, $allowed_svg) . '</div>';
+						echo '</div>';
+					}
+				} else {
+					echo '<span class="productbay-no-rating">' . esc_html__('No ratings', 'productbay') . '</span>';
+				}
+				break;
+
+			case 'combined':
+				$elements  = $settings['elements'] ?? array();
+				$layout    = $settings['layout'] ?? 'inline';
+				$separator = $settings['separator'] ?? '';
+
+				if (!empty($elements) && is_array($elements)) {
+					echo '<div class="productbay-combined-cell ' . esc_attr('layout-' . $layout) . '" style="display: ' . esc_attr('inline' === $layout ? 'flex' : 'block') . '; gap: 8px; flex-wrap: wrap; align-items: center;">';
+
+					$count = count($elements);
+					foreach ($elements as $index => $element) {
+						// Backward compatibility: handle string elements
+						if (is_string($element)) {
+							$element = array(
+								'type'     => $element,
+								'settings' => array(),
+							);
+						}
+
+						$el_type     = $element['type'] ?? '';
+						$el_settings = $element['settings'] ?? array();
+
+						if ($el_type) {
+							$el_html = '';
+
+							// Recursively get cell content
+							ob_start();
+							$this->render_cell(array(
+								'type'     => $el_type,
+								'settings' => $el_settings,
+							), $product);
+							$el_html = ob_get_clean();
+
+							if ($el_html !== '') {
+								$prefix = $el_settings['prefix'] ?? '';
+								$suffix = $el_settings['suffix'] ?? '';
+
+								echo '<div class="productbay-combined-element element-' . esc_attr($el_type) . '" style="display: ' . ( 'inline' === $layout ? 'inline-flex' : 'block' ) . '; align-items: center; gap: 4px;">';
+								if ($prefix) {
+									echo '<span class="productbay-element-prefix">' . esc_html($prefix) . '</span>';
+								}
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is escaped within render_cell recursive call.
+								echo $el_html;
+								if ($suffix) {
+									echo '<span class="productbay-element-suffix">' . esc_html($suffix) . '</span>';
+								}
+								echo '</div>';
+
+								// Add separator if inline and not last
+								if ('inline' === $layout && $separator && $index < $count - 1) {
+									echo '<span class="productbay-element-separator" style="margin: 0 4px; opacity: 0.5;">' . esc_html($separator) . '</span>';
+								}
+							}
+						}
+					}
+					echo '</div>';
+				}
 				break;
 
 			default:
@@ -890,13 +1056,13 @@ class TableRenderer
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $id       Unique table wrapper ID (already escaped).
+	 * @param string $selector CSS selector for scoping (e.g. #id or .class).
 	 * @param array  $style    Style configuration from the table.
 	 * @param array  $columns  Column definitions for width styles.
 	 * @param array  $settings Table settings (features, pagination, cart, etc.).
 	 * @return string Generated CSS string.
 	 */
-	private function generate_styles($id, $style, $columns, $settings = array())
+	public function generate_styles($selector, $style, $columns, $settings = array())
 	{
 		$css = '';
 		$header = $style['header'] ?? array();
@@ -908,7 +1074,7 @@ class TableRenderer
 		$typography = $style['typography'] ?? array();
 
 		// Header Styles.
-		$css .= "#{$id} .productbay-table thead th {";
+		$css .= "{$selector} .productbay-table thead th {";
 		$h_bg = $this->sanitize_css_color($header['bgColor'] ?? '');
 		$h_text = $this->sanitize_css_color($header['textColor'] ?? '');
 		$h_font = $this->sanitize_css_value($header['fontSize'] ?? '');
@@ -950,7 +1116,7 @@ class TableRenderer
 		// Body Styles — base td.
 		$b_bg = $this->sanitize_css_color($body['bgColor'] ?? '');
 		$b_text = $this->sanitize_css_color($body['textColor'] ?? '');
-		$css .= "#{$id} .productbay-table tbody td {";
+		$css .= "{$selector} .productbay-table tbody td {";
 		$css .= 'vertical-align: top;';
 		if ($b_bg) {
 			$css .= "background-color: {$b_bg};";
@@ -962,13 +1128,13 @@ class TableRenderer
 
 		// Body text color: override specific child elements that have hardcoded colors.
 		if ($b_text) {
-			$css .= "#{$id} .productbay-table tbody td .productbay-product-title,";
-			$css .= "#{$id} .productbay-table tbody td a:not(.productbay-button),";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price ins,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price del,";
-			$css .= "#{$id} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
+			$css .= "{$selector} .productbay-table tbody td .productbay-product-title,";
+			$css .= "{$selector} .productbay-table tbody td a:not(.productbay-button),";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price ins,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price ins .woocommerce-Price-amount,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price del,";
+			$css .= "{$selector} .productbay-table tbody td .productbay-price del .woocommerce-Price-amount {";
 			$css .= "color: {$b_text} !important;";
 			$css .= '}';
 		}
@@ -980,22 +1146,22 @@ class TableRenderer
 		$b_color = $this->sanitize_css_color($layout['borderColor'] ?? '#e2e8f0');
 
 		if ($b_style === 'none') {
-			$css .= "#{$id} .productbay-table-container { border: none; }";
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border: none; }";
+			$css .= "{$selector} .productbay-table-container { border: none; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { border: none; }";
 		} elseif ($b_style && $b_color) {
-			$css .= "#{$id} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
+			$css .= "{$selector} .productbay-table-container { border: 1px {$b_style} {$b_color}; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { border-bottom: 1px {$b_style} {$b_color}; }";
 		} elseif ($b_color) {
-			$css .= "#{$id} .productbay-table-container { border-color: {$b_color}; }";
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { border-bottom-color: {$b_color}; }";
+			$css .= "{$selector} .productbay-table-container { border-color: {$b_color}; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { border-bottom-color: {$b_color}; }";
 		}
 
 		$radius_enabled = $layout['borderRadiusEnabled'] ?? true;
 		if ($radius_enabled && isset($layout['borderRadius'])) {
 			$radius = intval($layout['borderRadius']);
-			$css .= "#{$id} .productbay-table-container { border-radius: " . (string) $radius . 'px; }';
+			$css .= "{$selector} .productbay-table-container { border-radius: " . (string) $radius . 'px; }';
 		} elseif (!$radius_enabled) {
-			$css .= "#{$id} .productbay-table-container { border-radius: 0; }";
+			$css .= "{$selector} .productbay-table-container { border-radius: 0; }";
 		}
 
 		if (!empty($layout['cellPadding'])) {
@@ -1005,14 +1171,14 @@ class TableRenderer
 				'spacious' => '16px 24px',
 			);
 			$padding = $cell_padding_map[$layout['cellPadding']] ?? '12px 16px';
-			$css .= "#{$id} .productbay-table th, #{$id} .productbay-table td { padding: {$padding}; }";
+			$css .= "{$selector} .productbay-table th, {$selector} .productbay-table td { padding: {$padding}; }";
 		}
 
 		// Alternate Rows.
 		if (!empty($body['rowAlternate'])) {
 			$alt_bg = $this->sanitize_css_color($body['altBgColor'] ?? '');
 			$alt_text = $this->sanitize_css_color($body['altTextColor'] ?? '');
-			$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td {";
+			$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td {";
 			if ($alt_bg) {
 				$css .= "background-color: {$alt_bg};";
 			}
@@ -1023,13 +1189,13 @@ class TableRenderer
 
 			// Alt row text color: override specific child elements.
 			if ($alt_text) {
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
-				$css .= "#{$id} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-product-title,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td a:not(.productbay-button),";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price ins,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price ins .woocommerce-Price-amount,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price del,";
+				$css .= "{$selector} .productbay-table tbody tr:nth-child(even) td .productbay-price del .woocommerce-Price-amount {";
 				$css .= "color: {$alt_text} !important;";
 				$css .= '}';
 			}
@@ -1039,7 +1205,7 @@ class TableRenderer
 		if (!empty($hover['rowHoverEnabled'])) {
 			$hov_bg = $this->sanitize_css_color($hover['rowHoverBgColor'] ?? '');
 			$hov_text = $this->sanitize_css_color($hover['rowHoverTextColor'] ?? '');
-			$css .= "#{$id} .productbay-table tbody tr:hover td {";
+			$css .= "{$selector} .productbay-table tbody tr:hover td {";
 			if ($hov_bg) {
 				$css .= "background-color: {$hov_bg};";
 			}
@@ -1050,13 +1216,13 @@ class TableRenderer
 
 			// Hover text color: override specific child elements.
 			if ($hov_text) {
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-product-title,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td a:not(.productbay-button),";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del,";
-				$css .= "#{$id} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-product-title,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td a:not(.productbay-button),";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price ins,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price ins .woocommerce-Price-amount,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price del,";
+				$css .= "{$selector} .productbay-table tbody tr:hover td .productbay-price del .woocommerce-Price-amount {";
 				$css .= "color: {$hov_text} !important;";
 				$css .= '}';
 			}
@@ -1069,7 +1235,7 @@ class TableRenderer
 		$btn_hov_bg = $this->sanitize_css_color($button['hoverBgColor'] ?? '');
 		$btn_hov_text = $this->sanitize_css_color($button['hoverTextColor'] ?? '');
 
-		$css .= "#{$id} .productbay-button {";
+		$css .= "{$selector} .productbay-button {";
 		$css .= 'display: inline-flex;';
 		$css .= 'align-items: center;';
 		$css .= 'justify-content: center;';
@@ -1085,7 +1251,7 @@ class TableRenderer
 		}
 		$css .= '}';
 
-		$css .= "#{$id} .productbay-button:hover {";
+		$css .= "{$selector} .productbay-button:hover {";
 		if ($btn_hov_bg) {
 			$css .= "background-color: {$btn_hov_bg} !important;";
 		}
@@ -1095,10 +1261,10 @@ class TableRenderer
 		$css .= '}';
 
 		// Added to cart checkmark (SVG).
-		$css .= "#{$id} .productbay-button.added {";
+		$css .= "{$selector} .productbay-button.added {";
 		$css .= 'gap: 6px;';
 		$css .= '}';
-		$css .= "#{$id} .productbay-table .button.added::after {";
+		$css .= "{$selector} .productbay-table .button.added::after {";
 		$css .= "content: '';";
 		$css .= 'display: inline-block;';
 		$css .= 'width: 16px;';
@@ -1115,7 +1281,7 @@ class TableRenderer
 		$css .= '}';
 
 		// Image styles.
-		$css .= "#{$id} img {";
+		$css .= "{$selector} img {";
 		$css .= 'max-width: 100%;';
 		$css .= 'height: auto;';
 		$css .= 'display: block;';
@@ -1132,7 +1298,7 @@ class TableRenderer
 			$w_value = intval($width['value']);
 			$w_unit = $this->sanitize_css_unit($width['unit'] ?? 'auto');
 			if ($w_value > 0 && $w_unit !== 'auto') {
-				$css .= "#{$id} .productbay-col-" . esc_attr((string) $col['id']) . ' { width: ' . (string) $w_value . "{$w_unit}; }";
+				$css .= "{$selector} .productbay-col-" . esc_attr((string) $col['id']) . ' { width: ' . (string) $w_value . "{$w_unit}; }";
 			}
 		}
 
@@ -1150,7 +1316,7 @@ class TableRenderer
 			$bs_value = intval($width['value']);
 			$bs_unit = $this->sanitize_css_unit($width['unit'] ?? 'px');
 			if ($bs_value > 0 && $bs_unit !== 'auto') {
-				$css .= "#{$id} .productbay-col-select { width: " . (string) $bs_value . "{$bs_unit}; }";
+				$css .= "{$selector} .productbay-col-select { width: " . (string) $bs_value . "{$bs_unit}; }";
 			}
 		}
 
@@ -1166,7 +1332,18 @@ class TableRenderer
 	 */
 	private function should_hide_column($col)
 	{
-		return ($col['advanced']['visibility'] ?? 'default') === 'none';
+		// Manual visibility override.
+		if ( ( $col['advanced']['visibility'] ?? 'default' ) === 'none' ) {
+			return true;
+		}
+
+		// Security: Automatically hide Pro-only columns if Pro version is not active.
+		$pro_types = array( 'combined', 'cf' );
+		if ( in_array( $col['type'] ?? '', $pro_types, true ) && ! defined( 'PRODUCTBAY_PRO_VERSION' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -1346,32 +1523,45 @@ class TableRenderer
 		}
 
 		$total = $query->max_num_pages;
+		$mode  = $settings['pagination']['mode'] ?? 'standard';
 
 		if ($total > 1) {
-			$base_url = !empty($runtime_args['page_url']) ? $runtime_args['page_url'] : get_pagenum_link(999999999);
+			echo '<div class="productbay-pagination" data-mode="' . esc_attr($mode) . '" data-current="' . esc_attr((string)max(1, $paged)) . '" data-total="' . esc_attr((string)$total) . '">';
 
-			// If base_url was from get_pagenum_link(999999999), it has 999999999.
-			// If from runtime_args, it's a clean URL.
-			$base = str_replace('999999999', '%#%', $base_url);
+			if ('standard' === $mode || !defined('PRODUCTBAY_PRO_VERSION')) {
+				$base_url = !empty($runtime_args['page_url']) ? $runtime_args['page_url'] : get_pagenum_link(999999999);
+				$base = str_replace('999999999', '%#%', $base_url);
+				if (strpos($base, '%#%') === false) {
+					$base = add_query_arg('paged', '%#%', $base);
+				}
 
-			// If it's a clean URL without %#%, add it for the paged param.
-			if (strpos($base, '%#%') === false) {
-				$base = add_query_arg('paged', '%#%', $base);
+				echo wp_kses_post(
+					paginate_links(
+						array(
+							'base' => $base,
+							'format' => '',
+							'current' => max(1, $paged),
+							'total' => $total,
+							'prev_text' => '&laquo;',
+							'next_text' => '&raquo;',
+						)
+					)
+				);
+			} elseif ('load_more' === $mode) {
+				if ($paged < $total) {
+					echo '<button type="button" class="productbay-load-more-btn productbay-button">';
+					echo esc_html__('Load More', 'productbay');
+					echo '<span class="productbay-spinner" style="display:none; margin-left: 8px;"></span>';
+					echo '</button>';
+				}
+			} elseif ('infinite' === $mode) {
+				if ($paged < $total) {
+					echo '<div class="productbay-infinite-sentinel">';
+					echo '<span class="productbay-spinner"></span>';
+					echo '</div>';
+				}
 			}
 
-			echo '<div class="productbay-pagination">';
-			echo wp_kses_post(
-				paginate_links(
-					array(
-						'base' => $base,
-						'format' => '',
-						'current' => max(1, $paged),
-						'total' => $total,
-						'prev_text' => '&laquo;',
-						'next_text' => '&raquo;',
-					)
-				)
-			);
 			echo '</div>';
 		}
 	}
@@ -1457,6 +1647,23 @@ class TableRenderer
 			)
 		);
 
+		// Store lightbox settings for use in render methods.
+		$this->lightbox_enabled = isset($settings['features']['lightbox']) ? $settings['features']['lightbox'] : true;
+
+		// Pass the showChildCount feature flag into cart_settings so render_cell can access it.
+		$this->cart_settings['_show_child_count'] = $settings['features']['showChildCount'] ?? true;
+
+		/**
+		 * Fires before the AJAX table render, allowing Pro modules to capture table config.
+		 * This is critical for persistence — without this hook, the Pro module's
+		 * set_current_table() never fires during AJAX, causing mode fallback to 'inline'.
+		 *
+		 * @since 1.0.3
+		 *
+		 * @param array $table The full table configuration.
+		 */
+		\do_action('productbay_before_table', $table);
+
 		$args = $this->build_query_args($source, $settings, $runtime_args);
 
 		/**
@@ -1485,6 +1692,17 @@ class TableRenderer
 
 				$product_type = $product->get_type();
 				$in_stock = $product->is_in_stock() ? '1' : '0';
+
+				/**
+				 * Fires before each product row during AJAX rendering.
+				 *
+				 * @since 1.0.3
+				 *
+				 * @param \WC_Product $product The current product.
+				 * @param array       $table   The full table configuration.
+				 */
+				\do_action('productbay_before_row', $product, $table);
+
 				echo '<tr data-product-type="' . esc_attr($product_type) . '" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-in-stock="' . esc_attr($in_stock) . '">';
 
 				// Bulk Select - First.
@@ -1517,6 +1735,18 @@ class TableRenderer
 					echo '</td>';
 				}
 				echo '</tr>';
+
+				/**
+				 * Fires after each product row during AJAX rendering.
+				 * Critical for Pro module nested rows — without this hook,
+				 * nested row containers are never injected during AJAX refresh.
+				 *
+				 * @since 1.0.3
+				 *
+				 * @param \WC_Product $product The current product.
+				 * @param array       $table   The full table configuration.
+				 */
+				\do_action('productbay_after_row', $product, $table);
 			}
 			wp_reset_postdata();
 		} else {

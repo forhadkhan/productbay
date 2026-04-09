@@ -12,8 +12,7 @@ This is the official documentation site for [ProductBay](https://wpanchorbay.com
 Install dependencies (first time only):
 
 ```bash
-cd docs
-npm install
+npm run docs:install
 ```
 
 ### Start Dev Server
@@ -28,13 +27,14 @@ npm run docs:dev
 npm run docs:build
 ```
 
-Output is written to `.vitepress/dist/`.
+Output is written to `docs/.vitepress/dist/`.
 
 ### Preview Production Build
 
 ```bash
 npm run docs:preview
 ```
+
 
 ## Deployment
 

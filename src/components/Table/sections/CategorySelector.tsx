@@ -60,8 +60,8 @@ import { XIcon, ChevronDownIcon, SearchIcon, Loader2Icon, RefreshCwIcon } from '
 
 export const CategorySelector: React.FC = () => {
 	const {
-		tableData,
-		setTableData,
+		source,
+		setSourceQueryArgs,
 		categories,
 		categoriesLoading,
 		refreshCategoriesIfStale,
@@ -123,7 +123,7 @@ export const CategorySelector: React.FC = () => {
 	}, [open]);
 
 	// Selected category IDs from store
-	const selectedIds = tableData.config.categories || [];
+	const selectedIds = source.queryArgs.categoryIds || [];
 
 	// Get full category objects for selected IDs
 	const selectedCategories = categories.filter((cat) => selectedIds.includes(cat.id));
@@ -136,14 +136,11 @@ export const CategorySelector: React.FC = () => {
 	 */
 	const toggleCategory = (id: number) => {
 		const newSelected = selectedIds.includes(id)
-			? selectedIds.filter((catId) => catId !== id)
+			? selectedIds.filter((catId: number) => catId !== id)
 			: [...selectedIds, id];
 
-		setTableData({
-			config: {
-				...tableData.config,
-				categories: newSelected,
-			},
+		setSourceQueryArgs({
+			categoryIds: newSelected,
 		});
 	};
 
@@ -151,12 +148,9 @@ export const CategorySelector: React.FC = () => {
 	 * Remove category from selection
 	 */
 	const removeCategory = (id: number) => {
-		const newSelected = selectedIds.filter((catId) => catId !== id);
-		setTableData({
-			config: {
-				...tableData.config,
-				categories: newSelected,
-			},
+		const newSelected = selectedIds.filter((catId: number) => catId !== id);
+		setSourceQueryArgs({
+			categoryIds: newSelected,
 		});
 	};
 
@@ -172,11 +166,8 @@ export const CategorySelector: React.FC = () => {
 	 * Clear selection logic
 	 */
 	function handleClearSelection(): void {
-		setTableData({
-			config: {
-				...tableData.config,
-				categories: [],
-			},
+		setSourceQueryArgs({
+			categoryIds: [],
 		});
 	}
 
@@ -297,7 +288,8 @@ export const CategorySelector: React.FC = () => {
 						<div className="p-2 border-t border-gray-200 bg-gray-50 flex items-center justify-between gap-2 rounded-b-md">
 							<span className="text-xs text-gray-600">
 								{selectedIds.length > 0
-									? _n(
+									? /* translators: %d: number of selected categories */
+									  _n(
 											'%d category selected',
 											'%d categories selected',
 											selectedIds.length,

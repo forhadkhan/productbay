@@ -2,28 +2,24 @@
 
 All notable changes to ProductBay are documented on this page.
 
+## 1.1.1
+
+* **Improvement:** Block setup experience with "Create New Table" link in placeholders.
+* **Improvement:** Removed misleading product counts from category multiselect filters.
+* **Improvement:** Enhanced reliability of CSS injection into the Block Editor iframe.
+* **Fix:** Isolated table event handlers to prevent cross-tab state interference (e.g. AJAX filter state).
+
+## 1.1.0
+
+* **Feature:** Native Gutenberg blocks for Product Table and Tabbed Product Tables with server-side rendering.
+* **Improvement:** Filters bar repositioned above toolbar for better UX flow.
+* **Improvement:** Admin menu (WooCommerce > Products) renamed from "All Tables" to "Product Tables" for clarity.
+* **Improvement:** Added a "Manage" link to the plugin action links on the Plugins page for quicker access.
+* **Improvement:** Hover highlight improvements across admin UI.
+* **Improvement:** Shortcode display layout refined on the table management page.
+* **Dev:** Restructured codebase for Pro extension architecture.
+* **Dev:** Exposed UI components and settings globally for Pro add-on consumption.
+
 ## 1.0.0
 
 *Initial Release*
-
-### Added
-
-- **Extensibility API**: 30+ action hooks and filters across all plugin layers (Core, Data, API, Frontend, Admin) enabling third-party and add-on integration.
-- New [Hooks & Filters](/developer/hooks) developer documentation page.
-- Centralized table management dashboard with search, status filtering, and bulk delete
-- 5-step guided creation wizard with live preview
-- Product source selection: by category, sale status, specific IDs, or all products
-- Query modifiers: exclude IDs, filter by stock status, set price range
-- Drag-and-drop column editor with responsive show/hide rules per device
-- Column types: Image, Name, Price, SKU, Stock Status, Short Description
-- Live preview of table changes while building
-- Support for Simple, Variable, Grouped, and External WooCommerce product types
-- Inline variation attribute selection within the table
-- AJAX add-to-cart (single and bulk)
-- Instance-scoped CSS to prevent style conflicts between tables
-- Deep design customization: colors, typography, borders, border radius, cell padding
-- 30-minute category query caching with stale-while-revalidate
-- Shortcode system: `[productbay id="XYZ"]`
-- 100% translation-ready codebase
-- Global settings: add-to-cart text, products per page, design defaults, data deletion control
-- Clean uninstallation with configurable data retention

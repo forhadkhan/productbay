@@ -1,6 +1,6 @@
 {
 	"name": "productbay",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"description": "WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.",
 	"author": "WPAnchorBay <support@wpanchorbay.com> (https://wpanchorbay.com/)",
 	"contributors": [
@@ -38,6 +38,10 @@
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"lint:php": "vendor/bin/phpcs",
+		"docs:install": "npm --prefix docs install",
+		"docs:dev": "npm --prefix docs run docs:dev",
+		"docs:build": "npm --prefix docs run docs:build",
+		"docs:preview": "npm --prefix docs run docs:preview",
 		"packages-update": "wp-scripts packages-update",
 		"release": "bun scripts/package-plugin.js",
 		"dev:win": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",

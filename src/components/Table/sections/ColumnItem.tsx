@@ -1,9 +1,18 @@
-import type { Column, ColumnType, VisibilityMode } from '@/types';
-import { useSortable } from '@dnd-kit/sortable';
+import { cn } from '@/utils/cn';
+import { Slot } from '@wordpress/components';
+import { arrayMove, useSortable, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import {
+	DndContext,
+	closestCenter,
+	KeyboardSensor,
+	PointerSensor,
+	useSensor,
+	useSensors,
+	DragEndEvent,
+} from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { __, _n } from '@wordpress/i18n';
-import React, { useState } from 'react';
-import { cn } from '@/utils/cn';
+import React, { useState, useMemo } from 'react';
 import {
 	GripVerticalIcon,
 	TrashIcon,
@@ -23,7 +32,13 @@ import {
 	EyeIcon,
 	EyeOffIcon,
 	CheckIcon,
+	StarIcon,
+	PlusIcon,
+	Settings2Icon,
 } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { ProBadge } from '@/components/ui/ProBadge';
+import type { Column, ColumnType, VisibilityMode, CombinedElement } from '@/types';
 
 /* =============================================================================
  * ColumnItem Component
@@ -53,6 +68,7 @@ const COLUMN_ICONS: Record<ColumnType, React.ElementType> = {
 	tax: TagIcon,
 	cf: DatabaseIcon,
 	combined: LayoutGridIcon,
+	rating: StarIcon,
 };
 
 /**
@@ -63,29 +79,30 @@ const COMBINABLE_COLUMN_TYPES: {
 	label: string;
 	icon: React.ElementType;
 }[] = [
-	{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
-	{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
-	{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
-	{
-		type: 'button',
-		label: __('Add to Cart', 'productbay'),
-		icon: ShoppingCartIcon,
-	},
-	{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-	{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
-	{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
-	{
-		type: 'summary',
-		label: __('Description', 'productbay'),
-		icon: FileTextIcon,
-	},
-	{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
-	{
-		type: 'cf',
-		label: __('Custom Field', 'productbay'),
-		icon: DatabaseIcon,
-	},
-];
+		{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
+		{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
+		{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
+		{
+			type: 'button',
+			label: __('Add to Cart', 'productbay'),
+			icon: ShoppingCartIcon,
+		},
+		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
+		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+		{
+			type: 'summary',
+			label: __('Description', 'productbay'),
+			icon: FileTextIcon,
+		},
+		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+		{
+			type: 'cf',
+			label: __('Custom Field', 'productbay'),
+			icon: DatabaseIcon,
+		},
+		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
+	];
 
 /**
  * Visibility mode labels
@@ -132,8 +149,164 @@ export interface ColumnItemProps {
  */
 interface CombinedSettings {
 	layout: 'inline' | 'stacked';
-	elements: ColumnType[];
+	separator?: string;
+	elements: CombinedElement[];
 }
+
+/**
+ * SubElementItem Component
+ *
+ * Individual draggable element within a combined column.
+ */
+const SubElementItem: React.FC<{
+	element: CombinedElement;
+	onRemove: () => void;
+	onUpdate: (updates: Partial<CombinedElement>) => void;
+}> = ({ element, onRemove, onUpdate }) => {
+	const [isExpanded, setIsExpanded] = useState(false);
+	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+		id: element.id,
+	});
+
+	const style = {
+		transform: CSS.Transform.toString(transform),
+		transition,
+	};
+
+	const Icon = COLUMN_ICONS[element.type] || TypeIcon;
+
+	return (
+		<div
+			ref={setNodeRef}
+			style={style}
+			className={cn(
+				'bg-white border border-gray-200 rounded-lg overflow-hidden transition-shadow',
+				isDragging && 'shadow-lg ring-2 ring-blue-400 opacity-90',
+				!isDragging && 'hover:bg-orange-50 hover:border-orange-200'
+			)}
+		>
+			{/* Main Bar */}
+			<div className="flex items-center gap-2 px-2 py-1.5 bg-gray-50/50">
+				{/* Drag Handle */}
+				<button
+					{...attributes}
+					{...listeners}
+					className="flex-shrink-0 bg-transparent text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
+					aria-label={__('Drag to reorder', 'productbay')}
+					title={__('Drag to reorder', 'productbay')}
+				>
+					<GripVerticalIcon className="w-4 h-4" />
+				</button>
+
+				<div className="flex items-center justify-center gap-2">
+					<Icon className="w-3.5 h-3.5 text-gray-500" />
+					<span className="text-[11px] font-semibold text-gray-700 capitalize truncate">
+						{element.type.replace('_', ' ')}
+					</span>
+				</div>
+
+				{/* Actions (Right) */}
+				<div className="ml-auto flex items-center gap-1">
+
+					{/* Remove Button */}
+					<button
+						onClick={onRemove}
+						className="flex-shrink-0 bg-transparent p-1 text-gray-400 hover:text-red-500 transition-colors rounded-md cursor-pointer flex items-center hover:bg-red-100"
+						aria-label={__('Remove column', 'productbay')}
+						title={__('Remove column', 'productbay')}
+					>
+						<TrashIcon className="w-4 h-4" />
+					</button>
+
+					{/* Expand/Collapse Button */}
+					<button
+						onClick={() => setIsExpanded(!isExpanded)}
+						className="flex-shrink-0 border border-gray-300 bg-transparent p-1 text-gray-400 hover:text-gray-600 transition-colors rounded-md cursor-pointer flex items-center hover:bg-gray-100"
+						aria-label={
+							isExpanded
+								? __('Collapse settings', 'productbay')
+								: __('Expand settings', 'productbay')
+						}
+						title={
+							isExpanded
+								? __('Collapse settings', 'productbay')
+								: __('Expand settings', 'productbay')
+						}
+					>
+						{isExpanded ? (
+							<ChevronUpIcon className="w-4 h-4" />
+						) : (
+							<ChevronDownIcon className="w-4 h-4" />
+						)}
+					</button>
+				</div>
+			</div>
+
+			{/* Sub-Element Settings Panel */}
+			{isExpanded && (
+				<div className="p-3 border-t border-gray-100 bg-white space-y-3">
+					<div className="grid grid-cols-2 gap-3">
+						{/* Prefix */}
+						<div>
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-tighter mb-1">
+								{__('Prefix', 'productbay')}
+							</label>
+							<input
+								type="text"
+								value={(element.settings?.prefix as string) || ''}
+								onChange={(e) =>
+									onUpdate({
+										settings: { ...element.settings, prefix: e.target.value },
+									})
+								}
+								placeholder={__('e.g. Price:', 'productbay')}
+								className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
+							/>
+						</div>
+
+						{/* Suffix */}
+						<div>
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-tighter mb-1">
+								{__('Suffix', 'productbay')}
+							</label>
+							<input
+								type="text"
+								value={(element.settings?.suffix as string) || ''}
+								onChange={(e) =>
+									onUpdate({
+										settings: { ...element.settings, suffix: e.target.value },
+									})
+								}
+								placeholder={__('e.g. / mo', 'productbay')}
+								className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
+							/>
+						</div>
+					</div>
+
+					{/* Meta Key for CF */}
+					{element.type === 'cf' && (
+						<div>
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-tighter mb-1">
+								{__('Meta Key', 'productbay')}
+							</label>
+							<input
+								type="text"
+								value={(element.settings?.metaKey as string) || ''}
+								onChange={(e) =>
+									onUpdate({
+										settings: { ...element.settings, metaKey: e.target.value },
+									})
+								}
+								placeholder={__('Enter meta key...', 'productbay')}
+								className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-blue-500"
+							/>
+						</div>
+					)}
+				</div>
+			)}
+		</div>
+	);
+};
 
 /**
  * ColumnItem Component
@@ -142,17 +315,37 @@ interface CombinedSettings {
  */
 const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) => {
 	const [isExpanded, setIsExpanded] = useState(false);
+	const isProActive = !!(window as any).productBaySettings?.proVersion;
+
+	// Sensors for sub-elements reordering
+	const sensors = useSensors(
+		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+		useSensor(KeyboardSensor)
+	);
 
 	/**
 	 * Get combined settings from column.settings
 	 */
-	const combinedSettings: CombinedSettings =
-		column.type === 'combined'
-			? {
-					layout: (column.settings?.layout as 'inline' | 'stacked') || 'inline',
-					elements: (column.settings?.elements as ColumnType[]) || [],
-			  }
-			: { layout: 'inline', elements: [] };
+	const combinedSettings: CombinedSettings = useMemo(() => {
+		if (column.type !== 'combined') return { layout: 'inline', elements: [] };
+
+		const settings = column.settings || {};
+		const rawElements = (settings.elements as any[]) || [];
+
+		// Data transformation for backward compatibility
+		const elements: CombinedElement[] = rawElements.map((el) => {
+			if (typeof el === 'string') {
+				return { id: `el-${Math.random().toString(36).substr(2, 9)}`, type: el as ColumnType };
+			}
+			return el as CombinedElement;
+		});
+
+		return {
+			layout: (settings.layout as 'inline' | 'stacked') || 'inline',
+			separator: (settings.separator as string) || '',
+			elements,
+		};
+	}, [column.settings, column.type]);
 
 	/**
 	 * Sortable hook for drag-and-drop
@@ -231,34 +424,54 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 	};
 
 	/**
-	 * Handle combined layout change
+	 * Combined Column Handlers
 	 */
-	const handleLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleAddElement = (type: ColumnType) => {
+		const newElement: CombinedElement = {
+			id: `el-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+			type,
+			settings: {},
+		};
 		onUpdate({
 			settings: {
 				...column.settings,
-				layout: e.target.value as 'inline' | 'stacked',
+				elements: [...combinedSettings.elements, newElement],
 			},
 		});
 	};
 
-	/**
-	 * Toggle a sub-element in combined column
-	 */
-	const handleToggleElement = (elementType: ColumnType) => {
-		const currentElements = combinedSettings.elements;
-		const isSelected = currentElements.includes(elementType);
-
-		const newElements = isSelected
-			? currentElements.filter((el) => el !== elementType)
-			: [...currentElements, elementType];
-
+	const handleRemoveSubElement = (id: string) => {
 		onUpdate({
 			settings: {
 				...column.settings,
-				elements: newElements,
+				elements: combinedSettings.elements.filter((el) => el.id !== id),
 			},
 		});
+	};
+
+	const handleUpdateSubElement = (id: string, updates: Partial<CombinedElement>) => {
+		onUpdate({
+			settings: {
+				...column.settings,
+				elements: combinedSettings.elements.map((el) =>
+					el.id === id ? { ...el, ...updates } : el
+				),
+			},
+		});
+	};
+
+	const handleSubDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event;
+		if (over && active.id !== over.id) {
+			const oldIndex = combinedSettings.elements.findIndex((el) => el.id === active.id);
+			const newIndex = combinedSettings.elements.findIndex((el) => el.id === over.id);
+			onUpdate({
+				settings: {
+					...column.settings,
+					elements: arrayMove(combinedSettings.elements, oldIndex, newIndex),
+				},
+			});
+		}
 	};
 
 	return (
@@ -300,12 +513,17 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 				/>
 
 				{/* Column Type Badge */}
-				<span
-					className="flex-shrink-0 text-xs text-gray-500 bg-gray-100 border border-gray-300 px-2 py-0.5 rounded"
-					title={`Column type: ${column.type}`}
-				>
-					{column.type}
-				</span>
+				<div className="flex items-center gap-1 flex-shrink-0">
+					<span
+						className="text-[10px] text-gray-500 bg-gray-100 border border-gray-300 px-1.5 py-0.5 rounded uppercase font-bold tracking-wider"
+						title={`Column type: ${column.type}`}
+					>
+						{column.type}
+					</span>
+					{(column.type === 'cf' || column.type === 'combined') && !isProActive && (
+						<ProBadge size="sm" />
+					)}
+				</div>
 
 				{/* Combined Elements Count Badge */}
 				{column.type === 'combined' && combinedSettings.elements.length > 0 && (
@@ -421,210 +639,250 @@ const ColumnItem: React.FC<ColumnItemProps> = ({ column, onRemove, onUpdate }) =
 						</div>
 					</div>
 
+					{/* Rating Column Settings */}
+					{column.type === 'rating' && (
+						<div className="space-y-3 pt-3 border-t border-gray-200">
+							<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+								{__('Rating Settings', 'productbay')}
+							</h4>
+							<div>
+								<label className="block text-xs font-medium text-gray-700 mb-1">
+									{__('Display Format', 'productbay')}
+								</label>
+								<select
+									value={(column.settings?.displayFormat as string) || 'stars'}
+									onChange={(e) =>
+										onUpdate({
+											settings: { ...column.settings, displayFormat: e.target.value },
+										})
+									}
+									className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+								>
+									<option value="stars">{__('Stars (Custom)', 'productbay')}</option>
+									<option value="text">{__('Text Based', 'productbay')}</option>
+									<option value="woocommerce">
+										{__('WooCommerce Default', 'productbay')}
+									</option>
+								</select>
+							</div>
+						</div>
+					)}
+
 					{/* Combined Column Settings */}
 					{column.type === 'combined' && (
 						<div className="space-y-3 pt-3 border-t border-gray-200">
-							<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
-								{__('Combined Column Settings', 'productbay')}
-							</h4>
-
-							{/* Layout Selection */}
-							<div>
-								<label className="block text-xs font-medium text-gray-700 mb-1">
-									{__('Layout', 'productbay')}
-								</label>
-								<select
-									value={combinedSettings.layout}
-									onChange={handleLayoutChange}
-									className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-								>
-									{LAYOUT_OPTIONS.map((opt) => (
-										<option key={opt.value} value={opt.value}>
-											{opt.label}
-										</option>
-									))}
-								</select>
+							<div className="flex items-center justify-between">
+								<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+									{__('Combined Column Elements', 'productbay')}
+								</h4>
+								{!isProActive && <ProBadge />}
 							</div>
 
-							{/* Sub-Elements Selection */}
-							<div>
-								<label className="block text-xs font-medium text-gray-700 mb-2">
-									{__('Elements to Include', 'productbay')}
-								</label>
-								<div className="grid grid-cols-2 gap-2">
-									{COMBINABLE_COLUMN_TYPES.map(({ type, label, icon: Icon }) => {
-										const isSelected = combinedSettings.elements.includes(type);
-										return (
-											<button
-												key={type}
-												onClick={() => handleToggleElement(type)}
-												className={cn(
-													'flex items-center gap-2 px-3 py-2 text-sm rounded-md border transition-colors text-left',
-													isSelected
-														? 'bg-blue-50 border-blue-300 text-blue-700'
-														: 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
-												)}
-											>
-												<Icon className="w-4 h-4 flex-shrink-0" />
-												<span className="flex-1 truncate">{label}</span>
-												{isSelected && (
-													<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
-												)}
-											</button>
-										);
-									})}
-								</div>
-								{combinedSettings.elements.length < 2 && (
-									<p className="text-xs text-amber-600 mt-2">
+							{!isProActive ? (
+								<div className="p-4 bg-blue-50 border border-blue-100 rounded-lg text-center">
+									<LayoutGridIcon className="w-8 h-8 text-blue-400 mx-auto mb-2 opacity-50" />
+									<p className="text-sm font-medium text-blue-900 mb-1">
+										{__('Combined Column is a Pro Feature', 'productbay')}
+									</p>
+									<p className="text-xs text-blue-700">
 										{__(
-											'Select at least two elements to include in this combined column.',
+											'Create complex cells by combining images, text, and icons.',
 											'productbay'
 										)}
 									</p>
-								)}
-							</div>
+									<Slot name="productbay-pro-combined-cta" />
+								</div>
+							) : (
+								<div className="space-y-4">
+									{/* Layout & Separator */}
+									<div className="grid grid-cols-2 gap-3">
+										<div>
+											<label className="block text-xs font-medium text-gray-700 mb-1">
+												{__('Layout', 'productbay')}
+											</label>
+											<select
+												value={combinedSettings.layout}
+												onChange={(e) =>
+													onUpdate({
+														settings: {
+															...column.settings,
+															layout: e.target.value as 'inline' | 'stacked',
+														},
+													})
+												}
+												className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+											>
+												{LAYOUT_OPTIONS.map((opt) => (
+													<option key={opt.value} value={opt.value}>
+														{opt.label}
+													</option>
+												))}
+											</select>
+										</div>
+										{combinedSettings.layout === 'inline' && (
+											<div>
+												<label className="block text-xs font-medium text-gray-700 mb-1">
+													{__('Separator', 'productbay')}
+												</label>
+												<input
+													type="text"
+													value={combinedSettings.separator || ''}
+													onChange={(e) =>
+														onUpdate({
+															settings: {
+																...column.settings,
+																separator: e.target.value,
+															},
+														})
+													}
+													placeholder="e.g. | or •"
+													className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+												/>
+											</div>
+										)}
+									</div>
+
+									{/* Sub-elements list */}
+									<div className="space-y-2">
+										<p className="text-xs font-medium text-gray-600">
+											{__('Elements & Order', 'productbay')}
+										</p>
+										<DndContext
+											sensors={sensors}
+											collisionDetection={closestCenter}
+											onDragEnd={handleSubDragEnd}
+										>
+											<SortableContext
+												items={combinedSettings.elements.map((el) => el.id)}
+												strategy={verticalListSortingStrategy}
+											>
+												<div className="space-y-2 border-l-2 border-gray-200 pl-3 py-3">
+													{combinedSettings.elements.map((element) => (
+														<SubElementItem
+															key={element.id}
+															element={element}
+															onRemove={() => handleRemoveSubElement(element.id)}
+															onUpdate={(updates) =>
+																handleUpdateSubElement(element.id, updates)
+															}
+														/>
+													))}
+												</div>
+											</SortableContext>
+										</DndContext>
+									</div>
+
+									{/* Quick Add Sub-Element */}
+									<div className="pt-2">
+										<p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mb-2">
+											{__('Add Sub-Element', 'productbay')}
+										</p>
+										<div className="flex flex-wrap gap-1">
+											{COMBINABLE_COLUMN_TYPES.map((type) => (
+												<Button
+													key={type.type}
+													variant="outline"
+													size="xs"
+													onClick={() => handleAddElement(type.type)}
+													className="h-7 text-[11px] px-2"
+												>
+													<PlusIcon className="w-3 h-3 mr-1" />
+													{type.label}
+												</Button>
+											))}
+										</div>
+									</div>
+								</div>
+							)}
 						</div>
 					)}
 
 					{/* Custom Field Settings */}
 					{column.type === 'cf' && (
 						<div className="space-y-3 pt-3 border-t border-gray-200">
-							<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
-								{__('Custom Field Settings', 'productbay')}
-							</h4>
-
-							{/* Meta Key Input */}
-							<div>
-								<label className="block text-xs font-medium text-gray-700 mb-1">
-									{__('Meta Key', 'productbay')}
-								</label>
-								<input
-									type="text"
-									value={(column.settings?.metaKey as string) || ''}
-									onChange={(e) => {
-										onUpdate({
-											settings: {
-												...column.settings,
-												metaKey: e.target.value,
-											},
-										});
-									}}
-									placeholder={__(
-										'e.g., _weight, custom_field_name',
-										'productbay'
-									)}
-									className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-								/>
-								<p className="text-xs text-gray-500 mt-1">
-									{__('Enter the product meta key to display.', 'productbay')}
-								</p>
+							<div className="flex items-center justify-between">
+								<h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+									{__('Custom Field Settings', 'productbay')}
+								</h4>
+								{!isProActive && <ProBadge />}
 							</div>
+							{!isProActive ? (
+								<div className="p-4 bg-blue-50 border border-blue-100 rounded-lg text-center">
+									<DatabaseIcon className="w-8 h-8 text-blue-400 mx-auto mb-2 opacity-50" />
+									<p className="text-sm font-medium text-blue-900 mb-1">
+										{__('Custom Field Column is a Pro Feature', 'productbay')}
+									</p>
+									<p className="text-xs text-blue-700 mb-3">
+										{__(
+											'Display any product meta field with advanced selection and formatting.',
+											'productbay'
+										)}
+									</p>
+									<Slot name="productbay-pro-cf-cta" />
+								</div>
+							) : (
+								<div className="space-y-4" data-slot-name="productbay-pro-cf-settings">
+									{/* Slot for Pro Advanced Meta Selector & Format */}
+									<Slot
+										name="productbay-pro-cf-settings"
+										fillProps={{ column, onUpdate }}
+									/>
 
-							{/* Quick Select Common Fields */}
-							<div>
-								<label className="block text-xs font-medium text-gray-700 mb-2">
-									{__('Common Fields', 'productbay')}
-								</label>
-								<div className="flex flex-wrap gap-1">
-									{COMMON_META_FIELDS.map(({ key, label }) => {
-										const isSelected =
-											(column.settings?.metaKey as string) === key;
-										return (
-											<button
-												key={key}
-												onClick={() => {
+									{/* Shared Meta Settings (Only if Pro) */}
+									<div className="pt-3 border-t border-gray-100 space-y-4">
+										<div>
+											<label className="block text-xs font-medium text-gray-700 mb-1">
+												{__('Meta Key (Manual Override)', 'productbay')}
+											</label>
+											<input
+												type="text"
+												value={(column.settings?.metaKey as string) || ''}
+												onChange={(e) =>
 													onUpdate({
-														settings: {
-															...column.settings,
-															metaKey: key,
-														},
-													});
-												}}
-												className={cn(
-													'px-2 py-1 text-xs rounded border transition-colors',
-													isSelected
-														? 'bg-blue-100 border-blue-300 text-blue-700'
-														: 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
-												)}
-											>
-												{label}
-											</button>
-										);
-									})}
-								</div>
-							</div>
+														settings: { ...column.settings, metaKey: e.target.value },
+													})
+												}
+												className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+												placeholder={__('e.g. _weight', 'productbay')}
+											/>
+										</div>
 
-							{/* Prefix/Suffix Settings */}
-							<div className="grid grid-cols-2 gap-3">
-								<div>
-									<label className="block text-xs font-medium text-gray-700 mb-1">
-										{__('Prefix', 'productbay')}
-									</label>
-									<input
-										type="text"
-										value={(column.settings?.prefix as string) || ''}
-										onChange={(e) => {
-											onUpdate({
-												settings: {
-													...column.settings,
-													prefix: e.target.value,
-												},
-											});
-										}}
-										placeholder={__('e.g., Weight:', 'productbay')}
-										className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-									/>
+										<div className="grid grid-cols-2 gap-3">
+											<div>
+												<label className="block text-xs font-medium text-gray-700 mb-1">
+													{__('Prefix', 'productbay')}
+												</label>
+												<input
+													type="text"
+													value={(column.settings?.prefix as string) || ''}
+													onChange={(e) =>
+														onUpdate({
+															settings: { ...column.settings, prefix: e.target.value },
+														})
+													}
+													placeholder={__('e.g., Weight:', 'productbay')}
+													className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+												/>
+											</div>
+											<div>
+												<label className="block text-xs font-medium text-gray-700 mb-1">
+													{__('Suffix', 'productbay')}
+												</label>
+												<input
+													type="text"
+													value={(column.settings?.suffix as string) || ''}
+													onChange={(e) =>
+														onUpdate({
+															settings: { ...column.settings, suffix: e.target.value },
+														})
+													}
+													placeholder={__('e.g., kg', 'productbay')}
+													className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+												/>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div>
-									<label className="block text-xs font-medium text-gray-700 mb-1">
-										{__('Suffix', 'productbay')}
-									</label>
-									<input
-										type="text"
-										value={(column.settings?.suffix as string) || ''}
-										onChange={(e) => {
-											onUpdate({
-												settings: {
-													...column.settings,
-													suffix: e.target.value,
-												},
-											});
-										}}
-										placeholder={__('e.g., kg', 'productbay')}
-										className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-									/>
-								</div>
-							</div>
-
-							{/* Fallback Value */}
-							<div>
-								<label className="block text-xs font-medium text-gray-700 mb-1">
-									{__('Fallback Value', 'productbay')}
-								</label>
-								<input
-									type="text"
-									value={(column.settings?.fallback as string) || ''}
-									onChange={(e) => {
-										onUpdate({
-											settings: {
-												...column.settings,
-												fallback: e.target.value,
-											},
-										});
-									}}
-									placeholder={__('e.g., N/A', 'productbay')}
-									className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-								/>
-								<p className="text-xs text-gray-500 mt-1">
-									{__('Shown when the meta field is empty.', 'productbay')}
-								</p>
-							</div>
-
-							{/* Warning if no meta key */}
-							{!column.settings?.metaKey && (
-								<p className="text-xs text-amber-600">
-									{__('Please specify a meta key to display.', 'productbay')}
-								</p>
 							)}
 						</div>
 					)}

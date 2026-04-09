@@ -85,7 +85,7 @@ src/
 ├── layouts/       # Page layout wrappers
 ├── pages/         # Main page components
 │   ├── Dashboard.tsx    # Welcome/onboarding dashboard
-│   ├── Tables.tsx       # All Tables list view
+│   ├── Tables.tsx       # Product Tables list view
 │   ├── Table.tsx        # Table creation/edit wizard
 │   └── Settings.tsx     # Plugin settings page
 ├── store/         # Zustand state stores

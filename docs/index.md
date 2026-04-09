@@ -1,4 +1,6 @@
 ---
+title: ProductBay Documentation
+titleTemplate: false
 layout: home
 
 hero:

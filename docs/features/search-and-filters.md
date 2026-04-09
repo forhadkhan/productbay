@@ -4,7 +4,7 @@ ProductBay includes built-in frontend search, filtering, sorting, and pagination
 
 ## Search
 
-When search is enabled, a search bar appears above the table. Customers can type to search products by:
+When search is enabled, a search bar appears in the main toolbar above the table. For a cleaner user experience, category filters (and the price slider in Pro) are positioned in a dedicated Filter Bar directly above this main toolbar. Customers can type to search products by:
 
 - **Product name** — Partial or full match
 - Results update instantly as the user types (with a debounce delay)
@@ -16,7 +16,7 @@ Search operates on the products loaded by the table's [product source](/features
 
 ## Category Filters
 
-When category filters are enabled, a filter dropdown appears alongside the search bar. Customers can:
+When category filters are enabled, a filter dropdown appears in the dedicated Filter Bar above the main table tools. Customers can:
 
 - Select a product category to filter the table
 - Clear the filter to show all products again

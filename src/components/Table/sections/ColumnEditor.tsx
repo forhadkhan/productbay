@@ -12,6 +12,8 @@ import { __, _n } from '@wordpress/i18n';
 import { generateColumnId } from '@/types';
 import { Button } from '@/components/ui/Button';
 import type { Column, ColumnType } from '@/types';
+import { ProBadge } from '@/components/ui/ProBadge';
+import { ProFeatureGate } from '@/components/ui/ProFeatureGate';
 import ColumnItem from '@/components/Table/sections/ColumnItem';
 import {
 	DndContext,
@@ -28,7 +30,6 @@ import {
 	verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import {
-	PlusIcon,
 	ImageIcon,
 	TypeIcon,
 	DollarSignIcon,
@@ -39,6 +40,13 @@ import {
 	AlertTriangleIcon,
 	InfoIcon,
 	ChevronDownIcon,
+	PackageIcon,
+	CalendarIcon,
+	TagIcon,
+	DatabaseIcon,
+	LayoutGridIcon,
+	StarIcon,
+	Settings2Icon,
 } from 'lucide-react';
 
 /* =============================================================================
@@ -60,22 +68,39 @@ const COLUMN_TYPES: {
 	type: ColumnType;
 	label: string;
 	icon: React.ElementType;
+	isPro?: boolean;
 }[] = [
-	{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
-	{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
-	{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
-	{
-		type: 'button',
-		label: __('Add to Cart', 'productbay'),
-		icon: ShoppingCartIcon,
-	},
-	{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-	{
-		type: 'summary',
-		label: __('Description', 'productbay'),
-		icon: FileTextIcon,
-	},
-];
+		{ type: 'image', label: __('Image', 'productbay'), icon: ImageIcon },
+		{ type: 'name', label: __('Product Name', 'productbay'), icon: TypeIcon },
+		{ type: 'price', label: __('Price', 'productbay'), icon: DollarSignIcon },
+		{
+			type: 'button',
+			label: __('Add to Cart', 'productbay'),
+			icon: ShoppingCartIcon,
+		},
+		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
+		{
+			type: 'summary',
+			label: __('Description', 'productbay'),
+			icon: FileTextIcon,
+		},
+		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
+		{
+			type: 'cf',
+			label: __('Custom Field', 'productbay'),
+			icon: DatabaseIcon,
+			isPro: true,
+		},
+		{
+			type: 'combined',
+			label: __('Combined', 'productbay'),
+			icon: LayoutGridIcon,
+			isPro: true,
+		},
+	];
 
 export interface ColumnEditorProps {
 	className?: string;
@@ -262,7 +287,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 								key={column.id}
 								column={column}
 								onRemove={() => onRemoveColumn(column.id)}
-								onUpdate={(updates) => onUpdateColumn(column.id, updates)}
+								onUpdate={(updates: Partial<Column>) => onUpdateColumn(column.id, updates)}
 							/>
 						))}
 					</div>
@@ -289,29 +314,60 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 					onClick={() => setShowAddMenu(!showAddMenu)}
 					className="w-full justify-center cursor-pointer"
 				>
-					<PlusIcon className="w-4 h-4 mr-2" />
-					{__('Add Column', 'productbay')}
+					<Settings2Icon className="w-4 h-4 mr-2" />
+					{__('Manage Columns', 'productbay')}
 				</Button>
 
 				{/* Add Column Dropdown Menu */}
 				{showAddMenu && (
-					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-blue-600 rounded-lg shadow-lg z-50">
 						<div className="p-2 grid grid-cols-2 gap-1">
-							{COLUMN_TYPES.map(({ type, label, icon: Icon }) => {
+							{COLUMN_TYPES.map(({ type, label, icon: Icon, isPro }) => {
 								const isSelected = selectedTypes.has(type);
-								return (
-									<button
+								const isProFeature =
+									isPro &&
+									!(window as any).productBaySettings?.proVersion;
+
+								return (isProFeature ?
+									<ProFeatureGate
 										key={type}
+										featureName={label}
+										description={__('This column type is a Pro feature. Upgrade to create more advanced tables.', 'productbay')}
+									>
+										<button
+											onClick={() => handleToggleColumn(type)}
+											className={cn(
+												'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
+												'hover:bg-productbay-brand/20',
+											)}
+											title={__('Available in Pro version', 'productbay')}
+										>
+											<Icon className="w-4 h-4 flex-shrink-0" />
+											<span className={cn('truncate flex-1 text-gray-700')}>
+												{label}
+											</span>
+											<ProBadge size="sm" className="ml-auto" />
+										</button>
+									</ProFeatureGate>
+									:
+									<button
 										onClick={() => handleToggleColumn(type)}
 										className={cn(
-											'flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-orange-50 text-sm rounded-md transition-colors text-left border border-transparent hover:border-orange-200',
+											'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
+											'cursor-pointer hover:bg-orange-50 hover:border-orange-200',
 											isSelected
 												? 'bg-blue-100 text-blue-700'
 												: 'text-gray-700'
 										)}
 									>
 										<Icon className="w-4 h-4 flex-shrink-0" />
-										<span className="truncate flex-1">{label}</span>
+										<span
+											className={cn(
+												'truncate flex-1',
+											)}
+										>
+											{label}
+										</span>
 										{isSelected && (
 											<CheckIcon className="w-4 h-4 flex-shrink-0 text-blue-600" />
 										)}
@@ -323,10 +379,10 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 						<button
 							onClick={() => setShowAddMenu(false)}
 							title={__('Close', 'productbay')}
-							className="w-full flex justify-center items-center p-1 text-gray-400 hover:text-gray-600 bg-transparent hover:bg-gray-100 cursor-pointer"
+							className="w-full rounded-b-lg flex justify-center items-center p-1 text-gray-600 hover:text-gray-800 bg-transparent hover:bg-gray-200 cursor-pointer"
 							aria-label={__('Close', 'productbay')}
 						>
-							<ChevronDownIcon className="w-4 h-4" />
+							<ChevronDownIcon className="w-4 h-4 bg-gray-200" />
 						</button>
 					</div>
 				)}
