@@ -1,6 +1,0 @@
-{
-	"phpcs.executablePath": "./vendor/bin/phpcs.bat",
-	"phpcbf.executablePath": "./vendor/bin/phpcbf.bat",
-	"phpcheckstyle.executablePath": "./vendor/bin/phpcs.bat",
-	"phpcs.enable": true
-}
