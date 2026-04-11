@@ -3,6 +3,7 @@ import './custom.css';
 import { h, onMounted, watch, nextTick } from 'vue';
 import { useRoute } from 'vitepress';
 import mediumZoom from 'medium-zoom';
+import ProBadge from './components/ProBadge.vue';
 
 export default {
 	extends: DefaultTheme,
@@ -14,6 +15,9 @@ export default {
 					'Bay',
 				]),
 		});
+	},
+	enhanceApp({ app }) {
+		app.component('ProBadge', ProBadge);
 	},
 	setup() {
 		const route = useRoute();

@@ -21,12 +21,6 @@ Define which columns should be enabled by default for new tables. You can select
 - SKU
 - Stock Status
 - Summary
-- Stock
-- Date 
-- Taxonomy
-- Rating
-- Custom Field (Pro) 
-- Combined Column (Pro)
 
 ## Bulk Select
 

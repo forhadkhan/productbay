@@ -7,8 +7,8 @@ ProductBay is built as a WooCommerce extension, providing deep integration with 
 | Product Type | Support | Notes |
 |-------------|---------|-------|
 | **Simple** | Full | Standard add-to-cart with quantity |
-| **Variable** | Full | Inline attribute selectors (Free) or Popup/Nested/Separate rows (Pro) |
-| **Grouped** | Full | Links to single product page (Free) or Inline/Popup/Nested/Separate (Pro) |
+| **Variable** | Full | Inline attribute selectors within the table |
+| **Grouped** | Full | Links to the grouped product page |
 | **External / Affiliate** | Full | "Buy Now" button linking to external URL |
 
 ## Add to Cart
@@ -35,37 +35,14 @@ Bulk add-to-cart works with simple products. Variable products need their attrib
 
 ## Variable Products
 
-By default, ProductBay displays variable products using inline attribute selectors:
+Variable products display inline attribute selectors directly in the table row:
 
 - **Dropdowns** appear for each attribute (e.g., Size, Color)
 - Selecting attributes updates the **price** in real-time
 - The **Add to Cart** button activates once all required attributes are selected
 - **Out of stock** variations are automatically disabled
 
-### Advanced Variable Modes <ProBadge />
-
-ProductBay Pro unlocks **3 additional display modes** for variable products, allowing for a vastly superior shopping experience:
-
-1. **Popup Modal:** Opens a full-featured modal where customers can see all variations, select quantities, and add multiple variations at once using bulk selection.
-2. **Nested Rows:** Expandable child rows that display all variations directly below the parent row.
-3. **Separate Rows:** Each variation is split into its own independent row in the main table.
-
-[Read the Advanced Modes guide &rarr;](/features/variable-grouped-modes)
-
-## Grouped Products
-
-By default, grouped products display a simple button directing the user to the single product page.
-
-### Advanced Grouped Modes <ProBadge />
-
-ProductBay Pro allows you to display grouped products directly within the table using 4 different modes:
-
-1. **Inline Select:** A dropdown in the table row letting customers pick a child product, set quantity, and add to cart without leaving the page.
-2. **Popup Modal:** A full modal listing all child products for easy selection.
-3. **Nested Rows:** Expandable child rows containing grouped items underneath the parent limit.
-4. **Separate Rows:** Treats each child product as a separate standalone table row.
-
-[Read the Advanced Modes guide &rarr;](/features/variable-grouped-modes)
+This eliminates the need to visit individual product pages to choose variations.
 
 ## Price Display
 

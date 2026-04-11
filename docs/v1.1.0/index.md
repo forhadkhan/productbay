@@ -15,7 +15,7 @@ hero:
       text: Get Started
       link: /guide/introduction
     - theme: alt
-      text: Get Pro
+      text: Pro Version
       link: https://wpanchorbay.com/plugins/productbay/
     - theme: alt
       text: Free Download
@@ -49,7 +49,7 @@ features:
 
 ### What is ProductBay?
 
-ProductBay is a modern, high-performance WordPress plugin that completely transforms how your WooCommerce products are displayed to your customers. Designed with both aesthetics and speed in mind, it replaces the standard grid view with an advanced, interactive spreadsheet-like table layout. It comes in two versions: a powerful free version available on WordPress.org, and **ProductBay Pro**, which unlocks advanced features like custom fields, price range filters, advanced variable product displays, and import/export capabilities.
+ProductBay is a modern, high-performance WordPress plugin that completely transforms how your WooCommerce products are displayed to your customers. Designed with both aesthetics and speed in mind, it replaces the standard grid view with an advanced, interactive spreadsheet-like table layout. Powered by a robust React-driven admin dashboard and a lightweight, extremely fast frontend rendering engine, ProductBay ensures your customers get a fluid, intuitive, and conversion-optimized browsing experience. You can display product lists using categories, specific product IDs, stock statuses, or a combination of smart filters to curate exactly what you want to sell.
 
 ### Who Should Use ProductBay?
 
@@ -70,28 +70,6 @@ Most WooCommerce product table plugins are built using outdated frameworks like 
 
 </div>
 
-### Free vs Pro
-
-| Feature | Free | Pro |
-|---|:---:|:---:|
-| Table Creation Wizard | ✅ | ✅ |
-| Gutenberg Blocks | ✅ | ✅ |
-| AJAX Search & Pagination | ✅ | ✅ |
-| Category & Type Filters | ✅ | ✅ |
-| Bulk Add-to-Cart | ✅ | ✅ |
-| Image Lightbox | ✅ | ✅ |
-| Image, Name, Price, SKU, Description Columns | ✅ | ✅ |
-| Stock, Date, Taxonomy, Rating Columns | ✅ | ✅ |
-| Design Customization | ✅ | ✅ |
-| 30+ Developer Hooks | ✅ | ✅ |
-| Price Range Filter | — | ✅ |
-| Custom Field Column (ACF, WC Meta) | — | ✅ |
-| Combined Column | — | ✅ |
-| Variable Product Modes (Popup, Nested, Separate) | — | ✅ |
-| Grouped Product Modes (Inline, Popup, Nested, Separate) | — | ✅ |
-| Import / Export (JSON) | — | ✅ |
-| Priority Support | — | ✅ |
-
 <hr />
 
 ## ⚡ Quick Navigation
@@ -100,12 +78,12 @@ Ready to dive deeper? Choose a section below to find exactly what you're looking
 
 <div class="tip custom-block">
   <p class="custom-block-title">Getting Started</p>
-  <p><a href="/productbay/guide/installation">Installation</a> • <a href="/productbay/guide/getting-started">Quick Start Guide</a> • <a href="/productbay/guide/license-activation">License Activation <ProBadge /></a> • <a href="/productbay/faq">FAQ</a></p>
+  <p><a href="/productbay/guide/installation">Installation</a> • <a href="/productbay/guide/getting-started">Quick Start Guide</a> • <a href="/productbay/faq">FAQ</a></p>
 </div>
 
 <div class="info custom-block">
-  <p class="custom-block-title">Free & Pro Features</p>
-  <p><a href="/productbay/features/table-dashboard">The Dashboard</a> • <a href="/productbay/features/creation-wizard">Creation Wizard</a> • <a href="/productbay/features/column-editor">Column Editor</a> • <a href="/productbay/features/woocommerce">WooCommerce Integration</a> • <a href="/productbay/features/search-and-filters">Search & Filters</a> • <a href="/productbay/features/import-export">Import / Export <ProBadge /></a></p>
+  <p class="custom-block-title">Core Features & Configuration</p>
+  <p><a href="/productbay/features/table-dashboard">The Dashboard</a> • <a href="/productbay/features/creation-wizard">Creation Wizard</a> • <a href="/productbay/features/column-editor">Column Editor</a> • <a href="/productbay/features/woocommerce">WooCommerce Integration</a></p>
 </div>
 
 <div class="warning custom-block">

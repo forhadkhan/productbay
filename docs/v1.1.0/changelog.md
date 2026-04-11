@@ -2,18 +2,6 @@
 
 All notable changes to ProductBay are documented on this page.
 
-## 1.2.1
-
-* **Feature:** Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
-* **Improvement:** General maintenance and stability updates.
-* **Dev:** Internal optimizations and code cleanup.
-
-## 1.2.0
-
-* **Feature:** Added new column types: Stock, Date, Taxonomy, and Rating.
-* **Feature:** Introduced Pro integration for premium features: Custom Field, Combined, Price Range Filter, and Variable & Grouped Products.
-* **Dev:** Unified Pro activation detection across Free plugin layers.
-
 ## 1.1.1
 
 * **Improvement:** Block setup experience with "Create New Table" link in placeholders.

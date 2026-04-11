@@ -2,44 +2,16 @@
 
 The Column Editor lets you choose which data columns appear in your product table, arrange their order, and control responsive visibility.
 
-![Column Editor](/images/columns.webp)
-
 ## Available Columns
 
-ProductBay includes a variety of column types to build your perfect product table.
-
-### Product Image
-Displays the product's featured thumbnail. Optionally includes a built-in lightbox for full-size viewing on click.
-
-### Product Name
-The product title, linked directly to the single product page.
-
-### Price
-The current price of the product, appropriately formatted with strike-throughs for products on sale.
-
-### SKU
-The Stock Keeping Unit of the product.
-
-### Description
-The product's short description (summary).
-
-### Stock
-Displays the product's stock status (In Stock, Out of Stock, On Backorder) and optionally the exact stock quantity.
-
-### Date
-Shows the product's published date or last modified date, formatted according to your WordPress date settings.
-
-### Taxonomy
-Displays terms from any registered taxonomy, such as standard Categories and Tags, or any custom taxonomy you've registered.
-
-### Rating
-Renders the average customer review rating as a visual stars element.
-
-### Custom Field <ProBadge />
-Display any product meta field, Advanced Custom Fields (ACF) data, or WooCommerce internal data. Includes intelligent auto-formatting for images, links, dates, and numbers. [Read the full Custom Field guide &rarr;](/features/custom-field-column)
-
-### Combined Column <ProBadge />
-Merge multiple data points into a single column using a powerful template syntax. For example, combine a product's SKU and Stock status into one cell. [Read the full Combined Column guide &rarr;](/features/combined-column)
+| Column | Description | Example Content |
+|--------|-------------|-----------------|
+| **Image** | Product thumbnail | Product photo |
+| **Name** | Product title, linked to the product page | "Blue Running Shoes" |
+| **Price** | Current price, including sale formatting | ~~$49.99~~ $39.99 |
+| **SKU** | Stock Keeping Unit | "SHOE-BLUE-42" |
+| **Stock** | Stock status indicator | "In Stock", "Out of Stock" |
+| **Summary** | Product short description | "Lightweight breathable running shoes..." |
 
 ## Adding & Removing Columns
 

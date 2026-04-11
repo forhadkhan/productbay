@@ -1,6 +1,6 @@
 # Known Issues
 
-This page tracks confirmed bugs, limitations, or quirks currently present in the ProductBay **v1.2.x** release, along with available workarounds and expected resolution plans.
+This page tracks confirmed bugs, limitations, or quirks currently present in the ProductBay **v1.1.x** release, along with available workarounds and expected resolution plans.
 
 ## Gutenberg Editor Interaction
 

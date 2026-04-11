@@ -56,12 +56,6 @@ When pagination is enabled:
 | **Products per page** | Any number (1–100+) | 10 |
 | **Position** | Bottom | Bottom |
 
-## Price Range Filter <ProBadge />
-
-ProductBay Pro includes a powerful price filter that allows customers to refine products by an exact price range. It can display as a dual-handle slider, number inputs, or both. The filter auto-detects the minimum and maximum prices of the products in your table.
-
-[Read the full Price Filter guide &rarr;](/features/price-filter)
-
 ## Feature Toggles
 
 All frontend features can be individually enabled or disabled:
@@ -72,6 +66,5 @@ All frontend features can be individually enabled or disabled:
 | **Sorting** | ✅ On | Column header sorting |
 | **Pagination** | ✅ On | Paginated results |
 | **Category Filters** | ✅ On | Category dropdown filter |
-| **Price Filter** <ProBadge /> | ❌ Off | Price range slider and inputs |
 
 Configure these in the **Options** step of the [Creation Wizard](/features/creation-wizard).
