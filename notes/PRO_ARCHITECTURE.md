@@ -1,0 +1,1 @@
+/var/www/html/wp-content/plugins/productbay-pro/.meta-worktree/notes/PRO_ARCHITECTURE.md

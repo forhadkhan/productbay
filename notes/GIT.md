@@ -25,7 +25,7 @@ The `meta` branch is an **orphan branch** (no shared history with `main`) that e
 ls .meta-worktree
 
 # Stage and commit changes to meta files
-git -C .meta-worktree add .
+git -C .meta-worktree add . -f
 git -C .meta-worktree commit -m "docs: update meta branch"
 
 # Push meta branch

@@ -15,12 +15,14 @@ ProductBay utilizes a decoupled frontend/backend architecture with a strict **Fr
 - **Free/Pro Relationship:** The Pro plugin (`WpabProductBayPro\`) NEVER accesses the database directly. It piggybacks on the Free plugin via WordPress hooks and a **SlotFill** pattern in React. Pro code is totally separate and shipped independently.
 
 ## 📂 Directory Structure
+- Free Directory: "/var/www/html/wp-content/plugins/productbay/"
+- For following relative path, the base url is: "/var/www/html/wp-content/plugins/productbay/.meta-worktree/instructions/"
 - [`app/`](../../app/) — Free versions PHP Backend logic (Admin, API, Core, Data, Frontend, Utils).
 - [`src/`](../../src/) — Free versions React/TypeScript Frontend (Components, pages, store, hooks).
 - [`assets/`](../../assets/) — Free versions compiled JS/CSS bundles (do not edit directly).
 - [`languages/`](../../languages/) — Free versions i18n `.pot` and `.json` translation files.
 - [`.meta-worktree/`](../) — Free versions central repository for all architectural documents, diagrams, and instructions.
-- [Pro Directory](../../../productbay-pro/) 
+- [Pro Directory](../../../productbay-pro/) (absolute path: /var/www/html/wp-content/plugins/productbay-pro/)
 - [Pro meta-worktree](../../../productbay-pro/.meta-worktree/instructions/context.md)
 - [Pro `app/`](../../../productbay-pro/app/) - Pro versions PHP Backend logic (Admin, API, Core, Data, Frontend, Utils).
 - [Pro `src/`](../../../productbay-pro/src/) - Pro versions React/TypeScript Frontend (Components, pages, store, hooks).
