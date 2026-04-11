@@ -26,8 +26,9 @@ import UninstallOptions from '@/components/Settings/UninstallOptions';
 import ClearDataOptions from '@/components/Settings/ClearDataOptions';
 import DefaultSettings from '@/components/Settings/DefaultSettings';
 import ProPromotion from '@/components/Settings/ProPromotion';
+import LogViewer from '@/components/Settings/LogViewer';
 
-const VALID_SETTINGS_TABS = ['default', 'plugin', 'license'] as const;
+const VALID_SETTINGS_TABS = ['default', 'plugin', 'log', 'license'] as const;
 type SettingsTabValue = (typeof VALID_SETTINGS_TABS)[number];
 
 const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
@@ -38,6 +39,10 @@ const SETTINGS_TABS: TabOption<SettingsTabValue>[] = [
 	{
 		value: 'plugin',
 		label: __('Plugin Settings', 'productbay'),
+	},
+	{
+		value: 'log',
+		label: __('Log', 'productbay'),
 	},
 ];
 
@@ -255,31 +260,34 @@ const Settings = () => {
 				<h1 className="text-2xl font-bold text-gray-800 m-0">
 					{__('Settings', 'productbay')}
 				</h1>
-				<div className="flex items-center gap-3">
-					{/* Reset button only visible on the Default Configuration tab */}
-					{activeTab === 'default' && (
+				{/* Hide save/reset buttons on the Log tab (read-only) */}
+				{activeTab !== 'log' && (
+					<div className="flex items-center gap-3">
+						{/* Reset button only visible on the Default Configuration tab */}
+						{activeTab === 'default' && (
+							<Button
+								variant="outline"
+								onClick={handleResetDefaults}
+								className="text-gray-500 hover:bg-red-500 hover:text-white cursor-pointer"
+								title={__('Reset to Factory Defaults', 'productbay')}
+							>
+								{__('Reset Defaults', 'productbay')}
+								<RotateCcwIcon className="w-4 h-4 ml-2" />
+							</Button>
+						)}
+						{/* Save button - dynamically disabled based on store state */}
 						<Button
-							variant="outline"
-							onClick={handleResetDefaults}
-							className="text-gray-500 hover:bg-red-500 hover:text-white cursor-pointer"
-							title={__('Reset to Factory Defaults', 'productbay')}
+							onClick={handleSave}
+							disabled={saving || !isDirty}
+							variant="default"
+							className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'
+								}`}
 						>
-							{__('Reset Defaults', 'productbay')}
-							<RotateCcwIcon className="w-4 h-4 ml-2" />
+							{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
+							<SaveIcon className="w-4 h-4 ml-2" />
 						</Button>
-					)}
-					{/* Save button - dynamically disabled based on store state */}
-					<Button
-						onClick={handleSave}
-						disabled={saving || !isDirty}
-						variant="default"
-						className={`w-36 ${saving || !isDirty ? 'cursor-not-allowed' : 'cursor-pointer'
-							}`}
-					>
-						{saving ? __('Saving...', 'productbay') : __('Save Changes', 'productbay')}
-						<SaveIcon className="w-4 h-4 ml-2" />
-					</Button>
-				</div>
+					</div>
+				)}
 			</div>
 
 			{/* 
@@ -335,6 +343,15 @@ const Settings = () => {
 							loading={loading}
 						/>
 						<ClearDataOptions loading={loading} />
+					</div>
+				)}
+
+				{/**
+				 * Tab 3: Activity Log
+				 */}
+				{activeTab === 'log' && (
+					<div className="p-4">
+						<LogViewer />
 					</div>
 				)}
 

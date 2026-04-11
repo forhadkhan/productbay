@@ -39,7 +39,7 @@ const AdminBarOptions = memo(({ settings, setSettings, loading }: AdminBarOption
 			</h3>
 			<div className="flex items-center justify-between p-4 border border-gray-200 bg-gray-50 rounded-lg">
 				<div>
-					<span className="font-medium text-gray-800">
+					<span className="text-sm font-bold text-gray-800">
 						{__('Show in Admin Bar', 'productbay')}
 					</span>
 					<p className="text-sm text-gray-600 mt-1">

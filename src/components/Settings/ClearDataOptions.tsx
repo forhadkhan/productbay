@@ -32,19 +32,19 @@ const ClearDataOptions = memo(({ loading }: ClearDataOptionsProps) => {
 				description:
 					deletedCount > 0
 						? sprintf(
-								// translators: %d is the number of tables deleted
-								_n(
-									'%d table deleted. All data has been reset to factory defaults. Reloading...',
-									'%d tables deleted. All data has been reset to factory defaults. Reloading...',
-									deletedCount,
-									'productbay'
-								),
-								deletedCount
-						  )
-						: __(
-								'All data has been reset to factory defaults. Reloading...',
+							// translators: %d is the number of tables deleted
+							_n(
+								'%d table deleted. All data has been reset to factory defaults. Reloading...',
+								'%d tables deleted. All data has been reset to factory defaults. Reloading...',
+								deletedCount,
 								'productbay'
-						  ),
+							),
+							deletedCount
+						)
+						: __(
+							'All data has been reset to factory defaults. Reloading...',
+							'productbay'
+						),
 				type: 'success',
 			});
 			setShowConfirmModal(false);
@@ -87,7 +87,7 @@ const ClearDataOptions = memo(({ loading }: ClearDataOptionsProps) => {
 			</h3>
 			<div className="flex items-center justify-between p-4 border border-red-200 bg-red-50 rounded-lg">
 				<div>
-					<span className="font-medium text-red-800">
+					<span className="text-sm font-bold text-red-800">
 						{__('Reset to Factory Defaults', 'productbay')}
 					</span>
 					<p className="text-sm text-red-600 mt-1">
