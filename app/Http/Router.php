@@ -225,6 +225,39 @@ class Router
 		)
 		);
 
+		// Activity Logs.
+		$log_controller = new \WpabProductBay\Api\LogController($this->request);
+
+		\register_rest_route(
+			'productbay/v1',
+			'/logs',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array($log_controller, 'index'),
+				'permission_callback' => array($this, 'permission_check'),
+			)
+		);
+
+		\register_rest_route(
+			'productbay/v1',
+			'/logs/export',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array($log_controller, 'export'),
+				'permission_callback' => array($this, 'permission_check'),
+			)
+		);
+
+		\register_rest_route(
+			'productbay/v1',
+			'/logs/clear',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array($log_controller, 'clear'),
+				'permission_callback' => array($this, 'permission_check'),
+			)
+		);
+
 		/**
 		 * Fires after all core REST routes are registered.
 		 *

@@ -95,4 +95,33 @@ if ( $productbay_delete_on_uninstall ) {
 			)
 		);
 	}
+
+	// 5. Delete activity log files.
+	$productbay_log_dir = WP_CONTENT_DIR . '/productbay-logs';
+	if ( is_dir( $productbay_log_dir ) ) {
+		$productbay_log_files = glob( $productbay_log_dir . '/*' );
+		if ( ! empty( $productbay_log_files ) ) {
+			foreach ( $productbay_log_files as $productbay_log_file ) {
+				if ( is_file( $productbay_log_file ) ) {
+					unlink( $productbay_log_file );
+				}
+			}
+		}
+		// Also remove hidden files (.htaccess).
+		$productbay_hidden_files = glob( $productbay_log_dir . '/.*' );
+		if ( ! empty( $productbay_hidden_files ) ) {
+			foreach ( $productbay_hidden_files as $productbay_hidden_file ) {
+				if ( is_file( $productbay_hidden_file ) ) {
+					unlink( $productbay_hidden_file );
+				}
+			}
+		}
+		rmdir( $productbay_log_dir );
+	}
+
+	// 6. Clear log pruning cron event.
+	$productbay_cron_timestamp = wp_next_scheduled( 'productbay_prune_logs' );
+	if ( $productbay_cron_timestamp ) {
+		wp_unschedule_event( $productbay_cron_timestamp, 'productbay_prune_logs' );
+	}
 }

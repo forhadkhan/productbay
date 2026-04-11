@@ -16,6 +16,9 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBay\Admin\Admin;
 use WpabProductBay\Blocks\BlockManager;
+use WpabProductBay\Data\ActivityLog;
+use WpabProductBay\Data\TableLogger;
+use WpabProductBay\Data\SettingsLogger;
 
 /**
  * Class Plugin
@@ -57,6 +60,7 @@ class Plugin
 	{
 		$this->load_dependencies();
 		$this->init_components();
+		$this->init_logging();
 	}
 
 	/**
@@ -137,5 +141,68 @@ class Plugin
 		 * @param Plugin $plugin The main Plugin instance.
 		 */
 		\do_action('productbay_loaded', $this);
+	}
+
+	/**
+	 * Initialize the activity logging system.
+	 *
+	 * Registers the cron hook for log pruning and hooks into
+	 * existing plugin actions to auto-log key events.
+	 *
+	 * @return void
+	 * @since 1.2.0
+	 */
+	private function init_logging()
+	{
+		// Cron: daily log file pruning.
+		\add_action(ActivityLog::CRON_HOOK, array(ActivityLog::class, 'prune'));
+
+		// Capture state before table save for detailed diffing.
+		\add_filter('productbay_before_save_table', function (array $data, int $id) {
+			TableLogger::capture($id);
+			return $data;
+		}, 10, 2);
+
+		// Auto-log: table saved (create or update).
+		\add_action('productbay_after_save_table', function (int $post_id, array $data) {
+			$title = $data['title'] ?? 'Untitled Table';
+			$is_new = empty($data['id']) || (int) $data['id'] === 0;
+
+			if ($is_new) {
+				$columns_count = !empty($data['columns']) ? count($data['columns']) : 0;
+				ActivityLog::success(
+					'Table created',
+					sprintf('Table "%s" (ID: %d) created with %d column(s).', $title, $post_id, $columns_count)
+				);
+			} else {
+				ActivityLog::success(
+					'Table updated',
+					sprintf(__('Table "%s" (ID: %d) modified.', 'productbay'), $title, $post_id),
+					TableLogger::get_summary($data)
+				);
+			}
+		}, 10, 2);
+
+		// Auto-log: table deleted.
+		\add_action('productbay_after_delete_table', function (int $id) {
+			ActivityLog::info(
+				'Table deleted',
+				sprintf('Table (ID: %d) permanently deleted.', $id)
+			);
+		});
+
+		// Auto-log: settings updated.
+		\add_filter('pre_update_option_productbay_settings', function ($value) {
+			SettingsLogger::capture();
+			return $value;
+		});
+
+		\add_action('productbay_settings_updated', function (array $settings) {
+			ActivityLog::success(
+				'Settings updated',
+				'Global plugin settings saved.',
+				SettingsLogger::get_summary($settings)
+			);
+		});
 	}
 }
