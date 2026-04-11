@@ -331,6 +331,7 @@ class Admin
 			'isFirstTime' => $is_first_time,
 			'version' => Constants::VERSION,
 			'proVersion' => \defined('PRODUCTBAY_PRO_VERSION') ? \PRODUCTBAY_PRO_VERSION : false,
+			'today' => \current_time('Y-m-d'),
 		);
 
 		/**

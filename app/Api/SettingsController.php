@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
 }
 
 use WpabProductBay\Http\Request;
+use WpabProductBay\Data\ActivityLog;
 
 /**
  * Class SettingsController
@@ -85,19 +86,41 @@ class SettingsController extends ApiController
 			$settings = array();
 		}
 
+		$old_settings = get_option(self::OPTION_NAME, array());
+		
 		// Merge with defaults to ensure structure.
 		$settings = array_merge($this->defaults(), $settings);
 
 		update_option(self::OPTION_NAME, $settings);
 
-		/**
-		 * Fires after settings are saved.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $settings The saved settings.
-		 */
 		\do_action('productbay_settings_updated', $settings);
+
+		// Identify what changed for better logging.
+		$changed_keys = array();
+		foreach ($settings as $key => $value) {
+			if (!isset($old_settings[$key]) || $old_settings[$key] !== $value) {
+				$changed_keys[] = $key;
+			}
+		}
+
+		if (empty($changed_keys)) {
+			ActivityLog::info(__('Settings saved', 'productbay'), __('Settings saved without any visible changes.', 'productbay'));
+		} else {
+			$details = array();
+			foreach ($changed_keys as $key) {
+				if ($key === 'logging_enabled') {
+					$details[] = sprintf(__('Logging %s', 'productbay'), $settings[$key] ? 'Enabled' : 'Disabled');
+				} elseif ($key === 'log_retention') {
+					$details[] = sprintf(__('Retention set to %d days', 'productbay'), $settings[$key]);
+				}
+			}
+
+			$summary = !empty($details) 
+				? sprintf(__('Log settings updated: %s', 'productbay'), implode(', ', $details))
+				: sprintf(__('Global settings updated: %s', 'productbay'), implode(', ', $changed_keys));
+
+			ActivityLog::success(__('Settings updated', 'productbay'), $summary);
+		}
 
 		return $settings;
 	}
@@ -148,6 +171,11 @@ class SettingsController extends ApiController
 		// 4. Reset onboarding state.
 		delete_option('productbay_onboarding_completed');
 
+		ActivityLog::warning(
+			'Factory reset',
+			sprintf('All data cleared. %d table(s) deleted. Settings restored to defaults.', $deleted_count)
+		);
+
 		return array(
 			'success' => true,
 			'deleted_tables' => $deleted_count,
@@ -170,6 +198,8 @@ class SettingsController extends ApiController
 		$defaults = array(
 			'add_to_cart_text' => 'Add to Cart',
 			'products_per_page' => 10,
+			'logging_enabled' => true,
+			'log_retention' => 30, // Default to 30 days.
 			'show_admin_bar' => true,
 			'delete_on_uninstall' => true,
 			'design' => array(
