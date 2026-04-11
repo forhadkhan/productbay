@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress';
 
-function getSidebar(base = '') {
+function getSidebar(base = '', includePro = true) {
 	return {
 		[`${base}/guide/`]: [
 			{
@@ -10,6 +10,7 @@ function getSidebar(base = '') {
 					{ text: 'Requirements', link: `${base}/guide/requirements` },
 					{ text: 'Installation', link: `${base}/guide/installation` },
 					{ text: 'Quick Start', link: `${base}/guide/getting-started` },
+					...(includePro ? [{ text: 'License Activation (Pro)', link: `${base}/guide/license-activation` }] : []),
 				],
 			},
 			{
@@ -48,15 +49,35 @@ function getSidebar(base = '') {
 				text: 'Table Configuration',
 				items: [
 					{ text: 'Product Sources', link: `${base}/features/product-sources` },
-					{ text: 'Column Editor', link: `${base}/features/column-editor` },
+					{ 
+						text: 'Column Editor', 
+						link: `${base}/features/column-editor`,
+						items: includePro ? [
+							{ text: 'Custom Field Column (Pro)', link: `${base}/features/custom-field-column` },
+							{ text: 'Combined Column (Pro)', link: `${base}/features/combined-column` },
+						] : undefined
+					},
 					{ text: 'Design Customization', link: `${base}/features/design-customization` },
+					...(includePro ? [{ text: 'Import / Export (Pro)', link: `${base}/features/import-export` }] : []),
 				],
 			},
 			{
 				text: 'Frontend',
 				items: [
-					{ text: 'WooCommerce Integration', link: `${base}/features/woocommerce` },
-					{ text: 'Search & Filters', link: `${base}/features/search-and-filters` },
+					{ 
+						text: 'WooCommerce Integration', 
+						link: `${base}/features/woocommerce`,
+						items: includePro ? [
+							{ text: 'Variable & Grouped Modes (Pro)', link: `${base}/features/variable-grouped-modes` },
+						] : undefined
+					},
+					{ 
+						text: 'Search & Filters', 
+						link: `${base}/features/search-and-filters`,
+						items: includePro ? [
+							{ text: 'Price Filter (Pro)', link: `${base}/features/price-filter` },
+						] : undefined
+					},
 				],
 			},
 			{
@@ -65,6 +86,7 @@ function getSidebar(base = '') {
 				items: [
 					{ text: 'Default Configuration', link: `${base}/features/default-configuration` },
 					{ text: 'Plugin Settings', link: `${base}/features/plugin-settings` },
+					{ text: 'Activity Log', link: `${base}/features/activity-log` },
 				],
 			},
 		],
@@ -82,9 +104,14 @@ function getSidebar(base = '') {
 	};
 }
 
+// v1.1.0 sidebar (no pro features)
+function getSidebarV1_1(base = '/v1.1.0') {
+	return getSidebar(base, false);
+}
+
 // Ensure the old v1.0.0 sidebar doesn't have the new v1.1.0 Gutenberg blocks link
 function getSidebarV1_0(base = '/v1.0.0') {
-	const sidebar: any = getSidebar(base);
+	const sidebar: any = getSidebar(base, false);
 	sidebar[`${base}/features/`][0].items[2].items = sidebar[`${base}/features/`][0].items[2].items.filter(
 		(item: any) => item.text !== 'Gutenberg Blocks'
 	);
@@ -140,12 +167,17 @@ export default defineConfig({
 
 		nav: [
 			{
-				text: 'v1.1.0',
+				text: 'v1.2.1',
 				items: [
 					{
-						text: 'v1.1.0 (Latest)',
+						text: 'v1.2.1 (Latest)',
 						link: '/guide/introduction',
 						activeMatch: '^/(?!v\\d)',
+					},
+					{
+						text: 'v1.1.0',
+						link: '/v1.1.0/guide/introduction',
+						activeMatch: '^/v1\\.1\\.0/',
 					},
 					{
 						text: 'v1.0.0',
@@ -166,6 +198,7 @@ export default defineConfig({
 				items: [
 					{ text: 'FAQ', link: '/faq' },
 					{ text: 'Changelog', link: '/changelog' },
+					{ text: 'Pro Changelog', link: '/pro-changelog' },
 					{ text: 'Known Issues', link: '/known-issues' },
 					{ text: 'Request a Feature', link: '/feature-request' },
 				],
@@ -174,6 +207,7 @@ export default defineConfig({
 
 		sidebar: {
 			...getSidebar(''),
+			...getSidebarV1_1('/v1.1.0'),
 			...getSidebarV1_0('/v1.0.0'),
 		},
 
