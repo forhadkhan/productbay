@@ -382,6 +382,7 @@ export interface ProductTable {
 	date?: string;
 	modifiedDate?: string;
 	productCount?: number;
+	permalink?: string;
 	source: DataSource;
 	columns: Column[];
 	settings: TableSettings;
