@@ -37,8 +37,10 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Modal } from '@/components/ui/Modal';
+import { DatePicker } from '@/components/ui/DatePicker';
 import { __ } from '@wordpress/i18n';
 import { apiFetch } from '@/utils/api';
+import { formatDate, todayStr } from '@/utils/date';
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -132,26 +134,10 @@ const formatTime = (iso: string): string => {
 };
 
 const formatDateLabel = (dateStr: string): string => {
-	try {
-		const d = new Date(dateStr + 'T00:00:00');
-		return d.toLocaleDateString(undefined, {
-			weekday: 'short',
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		});
-	} catch {
-		return dateStr;
-	}
+	return formatDate(dateStr, 'MMM d, yyyy');
 };
 
-const todayStr = (): string => {
-	const now = new Date();
-	const y = now.getFullYear();
-	const m = String(now.getMonth() + 1).padStart(2, '0');
-	const d = String(now.getDate()).padStart(2, '0');
-	return `${y}-${m}-${d}`;
-};
+const todayDateStr = todayStr;
 
 /* -------------------------------------------------------------------------- */
 /*  LogRow                                                                     */
@@ -556,22 +542,24 @@ const LogViewer = memo(() => {
 						variant="outline"
 						onClick={goToPrevDate}
 						disabled={!hasPrev}
-						className={`p-1.5 ${!hasPrev ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+						className={`p-1.5 h-9 ${!hasPrev ? 'cursor-not-allowed' : 'cursor-pointer'}`}
 						title={__('Previous day', 'productbay')}
 					>
 						<ChevronLeftIcon className="w-4 h-4" />
 					</Button>
-					<div className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-md min-w-[180px] justify-center">
-						<CalendarIcon className="w-3.5 h-3.5 text-gray-400" />
-						<span className="text-sm font-medium text-gray-700">
-							{formatDateLabel(date)}
-						</span>
-					</div>
+
+					<DatePicker
+						value={date}
+						onChange={setDate}
+						highlightedDates={availableDates}
+						format="MMM d, yyyy"
+					/>
+
 					<Button
 						variant="outline"
 						onClick={goToNextDate}
 						disabled={!hasNext}
-						className={`p-1.5 ${!hasNext ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+						className={`p-1.5 h-9 ${!hasNext ? 'cursor-not-allowed' : 'cursor-pointer'}`}
 						title={__('Next day', 'productbay')}
 					>
 						<ChevronRightIcon className="w-4 h-4" />
