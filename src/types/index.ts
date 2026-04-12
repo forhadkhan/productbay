@@ -220,7 +220,7 @@ export interface TableSettings {
 		/** Enable native image lightbox */
 		lightbox: boolean;
 
-		/** Enable Support for Variable & Grouped Products (Pro) */
+		/** Enable Support for Variable & Grouped Products */
 		variableGrouped?: boolean;
 
 		/** Pro: Price filter configuration */
@@ -238,7 +238,7 @@ export interface TableSettings {
 		/** Pro: Display mode for variable products (products with attribute-based variations) */
 		variableProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
 
-		/** Pro: Display mode for grouped products (products containing child simple products) */
+		/** Display mode for grouped products (products containing child simple products). 'inline' is Free, others are Pro. */
 		groupedProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
 
 		/** Pro: Whether nested rows should be expanded by default */

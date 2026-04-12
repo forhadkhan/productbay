@@ -208,18 +208,86 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
-				{/* Variable & Grouped Products (Pro Shell - shown only when Pro is not active) */}
-				{!isProActive && (
-					<SettingsOption
-						title={__('Variable & Grouped Products', 'productbay')}
-						description={__(
-							'Full support for variations and grouped product types',
-							'productbay'
-						)}
-					>
-						<ProBadge />
-					</SettingsOption>
-				)}
+				{/* Variable & Grouped Products - Display modes */}
+				{(() => {
+					const variableMode = settings.features.variableProductMode || settings.features.variationsMode || 'inline';
+					const groupedMode = settings.features.groupedProductMode || (settings.features.variationsMode !== 'inline' ? settings.features.variationsMode : 'popup') || 'popup';
+					
+					const variableModeOptions = [
+						{ label: __('Inline Dropdown', 'productbay'), value: 'inline' },
+						{ label: __('Popup Modal (PRO)', 'productbay'), value: 'popup', disabled: !isProActive },
+						{ label: __('Nested Rows (PRO)', 'productbay'), value: 'nested', disabled: !isProActive },
+						{ label: __('Separate Rows (PRO)', 'productbay'), value: 'separate', disabled: !isProActive },
+					];
+
+					const groupedModeOptions = [
+						{ label: __('Inline Dropdown', 'productbay'), value: 'inline' },
+						{ label: __('Popup Modal (PRO)', 'productbay'), value: 'popup', disabled: !isProActive },
+						{ label: __('Nested Rows (PRO)', 'productbay'), value: 'nested', disabled: !isProActive },
+						{ label: __('Separate Rows (PRO)', 'productbay'), value: 'separate', disabled: !isProActive },
+					];
+
+					// Check if either uses nested
+					const hasNestedMode = variableMode === 'nested' || groupedMode === 'nested';
+
+					return (
+						<>
+							<div className="pt-4 border-t border-gray-100 mt-6">
+								<h4 className="text-sm font-medium text-gray-900 mb-1">{__('Variable & Grouped Products', 'productbay')}</h4>
+								<p className="text-xs text-gray-500 mb-4">{__('Configure how complex products are displayed. Advanced modes require PRO.', 'productbay')}</p>
+								
+								<SettingsOption
+									title={__('Grouped Products', 'productbay')}
+									description={__('Products containing multiple child simple products', 'productbay')}
+								>
+									<Select
+										value={groupedMode}
+										onChange={(value: string) => setFeatures({ groupedProductMode: value })}
+										options={groupedModeOptions}
+										className="w-60"
+									/>
+								</SettingsOption>
+
+								<SettingsOption
+									title={__('Variable Products', 'productbay')}
+									description={__('Products with attribute variations. Inline dropdown supported natively.', 'productbay')}
+								>
+									<Select
+										value={variableMode}
+										onChange={(value: string) => setFeatures({
+											variableProductMode: value,
+											variationsMode: value, // Sync legacy
+										})}
+										options={variableModeOptions}
+										className="w-60"
+									/>
+								</SettingsOption>
+
+								{hasNestedMode && isProActive && (
+									<SettingsOption
+										title={__('Expand Nested Rows', 'productbay')}
+										description={__('Show nested rows expanded by default instead of collapsed', 'productbay')}
+									>
+										<Toggle
+											checked={settings.features.nestedDefaultExpanded ?? false}
+											onChange={(e) => setFeatures({ nestedDefaultExpanded: e.target.checked })}
+										/>
+									</SettingsOption>
+								)}
+
+								<SettingsOption
+									title={__('Show Options Count', 'productbay')}
+									description={__('Display "X options available" subtitle below product name', 'productbay')}
+								>
+									<Toggle
+										checked={settings.features.showChildCount ?? true}
+										onChange={(e) => setFeatures({ showChildCount: e.target.checked })}
+									/>
+								</SettingsOption>
+							</div>
+						</>
+					);
+				})()}
 
 				{/* Cart sub-options - Always relevant for Add to Cart functionality */}
 				<div className="transition-all duration-300">

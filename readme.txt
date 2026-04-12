@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -280,8 +280,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 == Changelog ==
 
-= 1.2.1 =
+= 1.3.0 =
 
+* Feature: Decoupled cart functionality from AJAX to support native form submissions and improved compatibility.
 * Feature: Added permalink feature for tables to provide direct, shareable URLs for every product table.
 * Feature: Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
 * Improvement: Enhanced performance, UI and stability updates.
@@ -315,6 +316,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Major functional update: Decouples cart actions from AJAX and introduces a new reusable UI component library (Calendar, DatePicker) for enhanced interface consistency.
 
 = 1.2.1 =
 Adds permalink feature for tables and a comprehensive Activity Log system for tracking plugin actions, along with performance and stability improvements.

@@ -1338,6 +1338,183 @@
             if (isOpen) $popup.addClass('is-open');
         }
     }
+	// ─── Grouped Product Inline Select Handlers ─────────────────────────────────────
+	// When a child product is selected: enable qty/cart/checkbox.
+	// 'Select All' option => enable checkbox with all child IDs.
+	document.body.addEventListener('change', (e) => {
+		if (!e.target.classList.contains('productbay-grouped-child-select')) return;
+
+		const select = e.target;
+		const wrap = select.closest('.productbay-grouped-inline-wrap');
+		if (!wrap) return;
+
+		const qtyInput = wrap.querySelector('.productbay-qty') || wrap.querySelector('input[name="quantity"]');
+		const addBtn = wrap.querySelector('.productbay-grouped-add-btn');
+		const priceSpan = wrap.querySelector('.productbay-grouped-inline-price');
+		const hiddenInput = wrap.querySelector('.productbay-grouped-hidden-id');
+		const row = select.closest('tr');
+		const rowCheckbox = row ? row.querySelector('.productbay-col-select .productbay-select-product') : null;
+
+		const selectedId = select.value;
+		const childrenData = JSON.parse(wrap.getAttribute('data-children') || '[]');
+
+		if (!selectedId) {
+			// No selection — disable controls
+			if (qtyInput) qtyInput.disabled = true;
+			if (addBtn) { addBtn.disabled = true; addBtn.setAttribute('data-product-id', ''); }
+			if (hiddenInput) hiddenInput.value = '';
+			if (priceSpan) priceSpan.innerHTML = '';
+			if (rowCheckbox) { rowCheckbox.disabled = true; rowCheckbox.checked = false; rowCheckbox.dispatchEvent(new Event('change', { bubbles: true })); }
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = true);
+			return;
+		}
+
+		if (selectedId === '__all__') {
+			// Select All — enable qty/cart with all child IDs
+			const allIds = childrenData.map(c => String(c.id));
+			if (addBtn) { addBtn.disabled = false; addBtn.setAttribute('data-product-id', allIds.join(',')); }
+			if (hiddenInput) hiddenInput.value = allIds.join(',');
+			if (qtyInput) qtyInput.disabled = false;
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = false);
+			if (priceSpan) priceSpan.innerHTML = '';
+			if (rowCheckbox) {
+				rowCheckbox.disabled = false;
+				rowCheckbox.value = allIds.join(',');
+				const totalPrice = childrenData.reduce((sum, c) => sum + parseFloat(c.price || 0), 0);
+				rowCheckbox.setAttribute('data-price', totalPrice);
+				rowCheckbox.setAttribute('data-multi', '1');
+				rowCheckbox.checked = true;
+				// Trigger change to update bulk selection
+				rowCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+			return;
+		}
+
+		// Single child selected — enable all controls
+		const child = childrenData.find(c => String(c.id) === selectedId);
+		if (child) {
+			if (priceSpan) priceSpan.innerHTML = child.price_html;
+			if (addBtn) { addBtn.disabled = false; addBtn.setAttribute('data-product-id', String(child.id)); }
+			if (hiddenInput) hiddenInput.value = String(child.id);
+			if (qtyInput) qtyInput.disabled = false;
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = false);
+			if (rowCheckbox) {
+				rowCheckbox.disabled = false;
+				rowCheckbox.value = String(child.id);
+				rowCheckbox.setAttribute('data-price', String(child.price));
+				rowCheckbox.removeAttribute('data-multi');
+				rowCheckbox.checked = true;
+				rowCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+		}
+	});
+
+	// Grouped Product Add To Cart (Native integration without reloading if possible, but fallback to bulk add)
+	document.body.addEventListener('click', (e) => {
+		const btn = e.target.closest('.productbay-grouped-add-btn');
+		if (!btn || btn.disabled) return;
+
+		const idsStr = btn.getAttribute('data-product-id');
+		if (!idsStr) return;
+		const ids = idsStr.split(',');
+
+		// If AJAX is disabled the button type is submit.
+		if (btn.getAttribute('type') === 'submit') {
+			if (ids.length > 1) {
+				// We can't handle multiple native WP add_to_cart params cleanly inside generic POST.
+				// We'll intercept and force the Bulk add-to-cart handler via AJAX, then redirect.
+				e.preventDefault();
+				const wrap = btn.closest('.productbay-grouped-inline-wrap');
+				const qtyInput = wrap.querySelector('input[name="quantity"]');
+				const quantity = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+				
+				const items = ids.map(id => ({
+					product_id: parseInt(id, 10),
+					quantity: quantity,
+					variation_id: 0,
+					attributes: {}
+				}));
+
+				btn.innerHTML = 'Adding...';
+				btn.disabled = true;
+
+				window.jQuery.ajax({
+					url: window.productbay_frontend.ajaxurl,
+					type: 'POST',
+					data: {
+						action: 'productbay_bulk_add_to_cart',
+						nonce: window.productbay_frontend.nonce,
+						items: items
+					},
+					success: (response) => {
+						if (response.success) {
+							window.location.reload(); // Reload since ajax is visually disabled
+						} else {
+							alert(response.data?.errors?.join('\n') || 'Error');
+							btn.disabled = false;
+						}
+					}
+				});
+			} else {
+				// Single product, native submit is fine. Do nothing with e.preventDefault()
+			}
+			return;
+		}
+
+		e.preventDefault(); // It's an ajax button
+
+		const wrap = btn.closest('.productbay-grouped-inline-wrap');
+		const qtyInput = wrap.querySelector('.productbay-qty');
+		const quantity = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+
+		const items = ids.map(id => ({
+			product_id: parseInt(id, 10),
+			quantity: quantity,
+			variation_id: 0,
+			attributes: {}
+		}));
+
+		if (!btn.hasAttribute('data-original-text')) {
+			btn.setAttribute('data-original-text', btn.innerHTML);
+		}
+		const originalText = btn.getAttribute('data-original-text');
+
+		btn.innerHTML = 'Adding...';
+		btn.disabled = true;
+
+		const $ = window.jQuery;
+		if (!$) return;
+
+		$.ajax({
+			url: window.productbay_frontend.ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'productbay_bulk_add_to_cart',
+				nonce: window.productbay_frontend.nonce,
+				items: items
+			},
+			success: (response) => {
+				if (response.success) {
+					btn.innerHTML = 'Added ✓';
+					$(document.body).trigger('wc_fragment_refresh');
+				} else {
+					btn.innerHTML = 'Error';
+					alert(response.data?.errors?.join('\n') || 'Error adding to cart');
+				}
+			},
+			error: () => {
+				btn.innerHTML = 'Error';
+			},
+			complete: () => {
+				setTimeout(() => {
+					if (btn.innerHTML === 'Added ✓' || btn.innerHTML === 'Error') {
+						btn.innerHTML = originalText;
+						btn.disabled = false;
+					}
+				}, 2000);
+			}
+		});
+	});
 
     // Initialize on document ready
     $(document).ready(function () {

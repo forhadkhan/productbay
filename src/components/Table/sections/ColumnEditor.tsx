@@ -79,16 +79,6 @@ const COLUMN_TYPES: {
 			label: __('Add to Cart', 'productbay'),
 			icon: ShoppingCartIcon,
 		},
-		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-		{
-			type: 'summary',
-			label: __('Description', 'productbay'),
-			icon: FileTextIcon,
-		},
-		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
-		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
-		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
-		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
 		{
 			type: 'cf',
 			label: __('Custom Field', 'productbay'),
@@ -101,6 +91,16 @@ const COLUMN_TYPES: {
 			icon: LayoutGridIcon,
 			isPro: true,
 		},
+		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
+		{
+			type: 'summary',
+			label: __('Description', 'productbay'),
+			icon: FileTextIcon,
+		},
+		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
 	];
 
 export interface ColumnEditorProps {

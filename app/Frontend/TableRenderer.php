@@ -840,8 +840,22 @@ class TableRenderer
 			return;
 		}
 
-		// Grouped: always redirect to product page.
+		// Grouped: conditionally render inline select or fallback to standard view options button
 		if ($product->is_type('grouped')) {
+			$grouped_mode = $this->table_config['settings']['features']['groupedProductMode'] ?? 'popup';
+			
+			// Legacy fallback for old table configurations
+			if (empty($this->table_config['settings']['features']['groupedProductMode']) && !empty($this->table_config['settings']['features']['variationsMode'])) {
+				$legacy = $this->table_config['settings']['features']['variationsMode'];
+				$grouped_mode = ($legacy === 'inline') ? 'inline' : $legacy;
+			}
+
+			// Core now supports inline mode. Other advanced modes require Pro.
+			if ($grouped_mode === 'inline') {
+				$this->render_grouped_inline_select($product);
+				return;
+			}
+
 			echo '<div class="productbay-btn-cell">';
 			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
 			echo '</div>';
@@ -885,6 +899,96 @@ class TableRenderer
 		echo esc_html($product->add_to_cart_text());
 		echo '</button>';
 
+		if (!$ajax_enabled) {
+			echo '</form>';
+		} else {
+			echo '</div>';
+		}
+	}
+
+	/**
+	 * Render an inline `<select>` dropdown for grouped products.
+	 *
+	 * Uses $product->get_children() and wc_get_product() to build a dropdown
+	 * listing child products by name, with price data embedded for JS to read.
+	 * When a child is selected, the add-to-cart button targets that child's ID.
+	 *
+	 * @param \WC_Product $product The WooCommerce product object.
+	 */
+	private function render_grouped_inline_select($product)
+	{
+		$children_ids = $product->get_children();
+		if (empty($children_ids)) {
+			// Fallback if no children
+			echo '<div class="productbay-btn-cell">';
+			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
+			echo '</div>';
+			return;
+		}
+
+		// Build child data for the select dropdown
+		$children_data = [];
+		foreach ($children_ids as $child_id) {
+			$child = wc_get_product($child_id);
+			if (!$child || !$child->is_purchasable() || !$child->is_in_stock()) {
+				continue;
+			}
+			$children_data[] = [
+				'id'    => $child->get_id(),
+				'name'  => $child->get_name(),
+				'price' => $child->get_price(),
+				'price_html' => $child->get_price_html(),
+			];
+		}
+
+		if (empty($children_data)) {
+			// Fallback if no purchasable children
+			echo '<div class="productbay-btn-cell">';
+			echo '<button class="productbay-button productbay-btn-outofstock" disabled>' . esc_html__('Out of Stock', 'productbay') . '</button>';
+			echo '</div>';
+			return;
+		}
+
+		$show_qty = !empty($this->cart_settings['showQuantity']);
+		$ajax_enabled = !empty($this->cart_settings['enable']);
+
+		if (!$ajax_enabled) {
+			echo '<form method="POST" action="" class="productbay-btn-cell productbay-grouped-inline-wrap" data-children="' . esc_attr((string) wp_json_encode($children_data)) . '">';
+			echo '<input type="hidden" name="add-to-cart" value="" class="productbay-grouped-hidden-id" />';
+		} else {
+			echo '<div class="productbay-btn-cell productbay-grouped-inline-wrap" data-children="' . esc_attr((string) wp_json_encode($children_data)) . '">';
+		}
+		?>
+			<select class="productbay-grouped-child-select">
+				<option value=""><?php esc_html_e('Select a product...', 'productbay'); ?></option>
+				<?php if (count($children_data) > 1): ?>
+					<option value="__all__"><?php esc_html_e('Select All', 'productbay'); ?></option>
+				<?php endif; ?>
+				<?php foreach ($children_data as $child): ?>
+					<option value="<?php echo esc_attr((string) $child['id']); ?>"
+							data-price="<?php echo esc_attr((string) $child['price']); ?>">
+						<?php echo esc_html($child['name']); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+			<span class="productbay-grouped-inline-price productbay-price"></span>
+			<?php if ($show_qty): ?>
+			<div class="productbay-qty-wrap">
+				<input type="number" class="<?php echo !$ajax_enabled ? 'qty' : 'productbay-qty'; ?>" name="quantity" value="1" min="1" step="1" disabled />
+				<div class="productbay-qty-btns">
+					<button type="button" class="productbay-qty-btn productbay-qty-plus" aria-label="<?php esc_attr_e('Increase', 'productbay'); ?>" disabled>▲</button>
+					<button type="button" class="productbay-qty-btn productbay-qty-minus" aria-label="<?php esc_attr_e('Decrease', 'productbay'); ?>" disabled>▼</button>
+				</div>
+			</div>
+			<?php endif; ?>
+			<?php 
+			$btn_type = $ajax_enabled ? 'button' : 'submit';
+			?>
+			<button type="<?php echo esc_attr($btn_type); ?>" class="productbay-button productbay-btn-addtocart productbay-grouped-add-btn"
+					data-product-id="" disabled>
+				<?php esc_html_e('Add to Cart', 'productbay'); ?>
+			</button>
+		<?php
 		if (!$ajax_enabled) {
 			echo '</form>';
 		} else {
