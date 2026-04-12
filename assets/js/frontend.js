@@ -1082,11 +1082,14 @@
             // Build items array
             const items = [];
             this.selectedProducts.forEach((item, id) => {
-                items.push({
-                    product_id: item.productId || id,
-                    quantity: item.quantity,
-                    variation_id: item.variationId || 0,
-                    attributes: item.attributes || {}
+                const ids = String(item.productId || id).split(',');
+                ids.forEach(pId => {
+                    items.push({
+                        product_id: parseInt(pId.trim(), 10),
+                        quantity: item.quantity,
+                        variation_id: item.variationId || 0,
+                        attributes: item.attributes || {}
+                    });
                 });
             });
 
