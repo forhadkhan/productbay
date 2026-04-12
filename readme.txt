@@ -282,8 +282,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.2.1 =
 
+* Feature: Added permalink feature for tables to provide direct, shareable URLs for every product table.
 * Feature: Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
-* Improvement: Enhanced performance and stability updates.
+* Improvement: Enhanced performance, UI and stability updates.
 
 = 1.2.0 =
 
@@ -316,7 +317,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 == Upgrade Notice ==
 
 = 1.2.1 =
-Adds a comprehensive Activity Log system for tracking plugin actions, along with performance and stability improvements.
+Adds permalink feature for tables and a comprehensive Activity Log system for tracking plugin actions, along with performance and stability improvements.
 
 = 1.2.0 =
 Security and feature update: Adds new column types (Stock, Date, Taxonomy, Rating) and implements secure Pro-exclusive feature blocking.
