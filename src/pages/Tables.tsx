@@ -989,16 +989,20 @@ const Tables = () => {
 														: __('Publish', 'productbay')}
 												</button>
 												<span className="text-gray-300">|</span>
-												<button
-													onClick={() => handleExport([table.id!])}
-													className={cn(
-														"bg-transparent cursor-pointer",
-														isPro ? "text-blue-600 hover:underline underline-offset-4" : "font-bold text-productbay-brand"
-													)}
-													disabled={isActing}
-												>
-													{__('Export', 'productbay')}
-												</button>
+												{table.permalink ? (
+													<a
+														href={table.permalink}
+														target="_blank"
+														rel="noreferrer"
+														className="text-blue-600 hover:underline underline-offset-4 bg-transparent cursor-pointer"
+													>
+														{__('Preview', 'productbay')}
+													</a>
+												) : (
+													<span className="text-gray-400 cursor-not-allowed">
+														{__('Preview', 'productbay')}
+													</span>
+												)}
 												<span className="text-gray-300">|</span>
 												<button
 													onClick={() =>
@@ -1025,33 +1029,36 @@ const Tables = () => {
 										</td>
 										{/* Shortcode */}
 										<td className="p-4">
-											<div className="bg-gray-100 inline-flex text-gray-600 px-3 py-1 rounded border border-gray-300 items-center gap-1">
-												<span className="select-all font-mono text-sm bg-transparent p-1 hover:bg-gray-200">
-													{table.shortcode || ''}
-												</span>
-												<Button
-													variant="outline"
-													size="xs"
-													onClick={() =>
-														copyShortcode(table.shortcode || '', table.id!)
-													}
-													title={
-														copiedTableId === table.id
-															? __('Copied!', 'productbay')
-															: __('Copy shortcode', 'productbay')
-													}
-													className={`cursor-pointer py-1 px-1.5 ml-2 transition-colors ${copiedTableId === table.id
-														? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
-														: 'bg-transparent hover:bg-white text-gray-600'
-														}`}
-													disabled={isActing}
-												>
-													{copiedTableId === table.id ? (
-														<CopyCheckIcon className="w-4 h-4" />
-													) : (
-														<CopyIcon className="w-4 h-4" />
-													)}
-												</Button>
+											<div className="flex flex-col items-start gap-2 max-w-[280px]">
+												<div className="bg-gray-100 inline-flex text-gray-600 px-3 py-1 rounded border border-gray-300 items-center gap-1">
+													<span className="select-all font-mono text-sm bg-transparent p-1 hover:bg-gray-200 truncate">
+														{table.shortcode || ''}
+													</span>
+													<Button
+														variant="outline"
+														size="xs"
+														onClick={() =>
+															copyShortcode(table.shortcode || '', table.id!)
+														}
+														title={
+															copiedTableId === table.id
+																? __('Copied!', 'productbay')
+																: __('Copy shortcode', 'productbay')
+														}
+														className={`cursor-pointer py-1 px-1.5 ml-1 transition-colors flex-shrink-0 ${copiedTableId === table.id
+															? 'bg-green-50 border-green-200 text-green-600 hover:bg-green-100 hover:text-green-700'
+															: 'bg-transparent hover:bg-white text-gray-600'
+															}`}
+														disabled={isActing}
+													>
+														{copiedTableId === table.id ? (
+															<CopyCheckIcon className="w-4 h-4" />
+														) : (
+															<CopyIcon className="w-4 h-4" />
+														)}
+													</Button>
+												</div>
+												{/* Permalink removed from here, now in hover actions */}
 											</div>
 										</td>
 										{/* Product Source & Count Badge */}
