@@ -850,7 +850,12 @@ class TableRenderer
 				$grouped_mode = ($legacy === 'inline') ? 'inline' : $legacy;
 			}
 
-			// Core now supports inline mode. Other advanced modes require Pro.
+			// If Pro is disabled, advanced modes aren't available, so force 'inline' natively
+			if (!defined('PRODUCTBAY_PRO_VERSION') && in_array($grouped_mode, ['popup', 'nested', 'separate'], true)) {
+				$grouped_mode = 'inline';
+			}
+
+			// Core now supports inline mode natively. Other advanced modes require Pro.
 			if ($grouped_mode === 'inline') {
 				$this->render_grouped_inline_select($product);
 				return;
