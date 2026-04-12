@@ -55,6 +55,50 @@ class Shortcode
 	{
 		add_shortcode('productbay', array($this, 'render_product_table'));
 		add_filter('woocommerce_add_to_cart_fragments', array($this, 'add_cart_fragments'));
+		add_filter('the_content', array($this, 'render_table_on_permalink'));
+	}
+
+	/**
+	 * Render the product table automatically on its permalink page.
+	 *
+	 * @param string $content Existing content.
+	 * @return string
+	 * @since 1.2.0
+	 */
+	public function render_table_on_permalink($content)
+	{
+		if (is_singular('productbay_table') && in_the_loop() && is_main_query()) {
+			$table_id = get_the_ID();
+			$table = $this->repository->get_table($table_id);
+			
+			if (!$table) {
+				return $content;
+			}
+			
+			if ('publish' !== $table['status'] && !current_user_can('manage_options')) {
+				return $content;
+			}
+			
+			$this->enqueue_assets();
+			
+			$renderer = new TableRenderer($this->repository);
+			$html = $renderer->render($table);
+			
+			if ('publish' !== $table['status']) {
+				$notice = '<p style="padding:12px 16px;background:#fef3cd;border:1px solid #e9b006ff;border-radius:4px;color:#664d03;font-size:14px;margin-bottom:20px;">'
+					. sprintf(
+						/* translators: %s: table title */
+						esc_html__('ProductBay: Previewing private table "%s". This URL is not accessible to public visitors.', 'productbay'),
+						esc_html($table['title'])
+					)
+					. '</p>';
+				$html = $notice . $html;
+			}
+			
+			return $html;
+		}
+		
+		return $content;
 	}
 
 	/**

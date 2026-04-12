@@ -61,6 +61,31 @@ class Plugin
 		$this->load_dependencies();
 		$this->init_components();
 		$this->init_logging();
+		
+		// Register Custom Post Type.
+		\add_action('init', array($this, 'register_post_type'));
+	}
+
+	/**
+	 * Register the Table Custom Post Type.
+	 *
+	 * @since 1.2.0
+	 */
+	public function register_post_type()
+	{
+		register_post_type('productbay_table', array(
+			'label'               => 'ProductBay Tables',
+			'public'              => true,
+			'publicly_queryable'  => true,
+			'show_ui'             => false,
+			'show_in_menu'        => false,
+			'query_var'           => true,
+			'rewrite'             => array('slug' => 'productbay/product-table', 'with_front' => false),
+			'capability_type'     => 'post',
+			'has_archive'         => false,
+			'hierarchical'        => false,
+			'supports'            => array('title'),
+		));
 	}
 
 	/**
