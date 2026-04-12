@@ -9,7 +9,7 @@ interface DropdownContextType {
 
 const DropdownContext = React.createContext<DropdownContextType | undefined>(undefined);
 
-const useDropdown = () => {
+export const useDropdown = () => {
 	const context = React.useContext(DropdownContext);
 	if (!context) {
 		throw new Error('Dropdown components must be used within a DropdownMenu');
