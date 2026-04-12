@@ -915,6 +915,10 @@
         // ── Single Add to Cart ──────────────────────────────────────────
 
         handleSingleAddToCart(e) {
+            if (this.features.cartEnabled === false) {
+                // If AJAX is disabled, let the form submit naturally
+                return;
+            }
             e.preventDefault();
             const $btn = $(e.currentTarget);
             if ($btn.is(':disabled')) return;
@@ -1098,6 +1102,9 @@
                     if (response.success) {
                         $btn.text('Added!');
                         $(document.body).trigger('wc_fragment_refresh');
+                        if (this.features.cartEnabled === false) {
+                            window.location.reload();
+                        }
 
                         // Show warnings if any
                         if (response.data.warnings && response.data.warnings.length > 0) {

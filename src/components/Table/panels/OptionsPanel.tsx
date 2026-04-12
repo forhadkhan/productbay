@@ -192,7 +192,7 @@ export const OptionsPanel = ({
 
 			{/* Cart Settings */}
 			<SettingsSection
-				title={__('Cart / Functionality', 'productbay')}
+				title={__('Cart Functionality', 'productbay')}
 				description={__('Configure Add to Cart behavior', 'productbay')}
 			>
 				<SettingsOption
@@ -221,15 +221,8 @@ export const OptionsPanel = ({
 					</SettingsOption>
 				)}
 
-				{/* Cart sub-options - Only relevant when AJAX Add to Cart is enabled */}
-				<div
-					className={cn(
-						'transition-all duration-300',
-						settings.cart.enable
-							? 'opacity-100'
-							: 'opacity-40 pointer-events-none grayscale'
-					)}
-				>
+				{/* Cart sub-options - Always relevant for Add to Cart functionality */}
+				<div className="transition-all duration-300">
 					<SettingsOption
 						title={__('Show Quantity Selector', 'productbay')}
 						description={__(

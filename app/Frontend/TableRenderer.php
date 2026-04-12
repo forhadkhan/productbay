@@ -178,6 +178,7 @@ class TableRenderer
 			array(
 				'variationBadges' => !empty($settings['features']['variationBadges']),
 				'clearAllButton' => isset($settings['features']['clearAllButton']) ? $settings['features']['clearAllButton'] : true,
+				'cartEnabled' => !empty($settings['cart']['enable']),
 			)
 		);
 
@@ -855,16 +856,7 @@ class TableRenderer
 			return;
 		}
 
-		// AJAX disabled: link to product page for simple & variable.
-		if (!$ajax_enabled) {
-			$text = $product->is_type('variable')
-				? __('Select Options', 'productbay')
-				: $product->add_to_cart_text();
-			echo '<div class="productbay-btn-cell">';
-			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-addtocart">' . esc_html($text) . '</a>';
-			echo '</div>';
-			return;
-		}
+
 
 		// Variable: render attribute dropdowns + quantity + add to cart.
 		if ($product->is_type('variable')) {
@@ -874,15 +866,30 @@ class TableRenderer
 
 		// Simple (or any other purchasable type): quantity + add to cart.
 		$is_purchasable = $product->is_purchasable();
-		echo '<div class="productbay-btn-cell">';
+
+		if (!$ajax_enabled) {
+			echo '<form method="POST" action="" class="productbay-btn-cell">';
+			echo '<input type="hidden" name="add-to-cart" value="' . esc_attr((string) $product->get_id()) . '" />';
+		} else {
+			echo '<div class="productbay-btn-cell">';
+		}
+
 		if ($is_purchasable && $show_quantity) {
 			$this->render_quantity_input($product);
 		}
+
 		$disabled_attr = $is_purchasable ? '' : ' disabled';
-		echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '"' . esc_attr($disabled_attr) . '>';
+		$btn_type = $ajax_enabled ? 'button' : 'submit';
+
+		echo '<button type="' . esc_attr($btn_type) . '" class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '"' . esc_attr($disabled_attr) . '>';
 		echo esc_html($product->add_to_cart_text());
 		echo '</button>';
-		echo '</div>';
+
+		if (!$ajax_enabled) {
+			echo '</form>';
+		} else {
+			echo '</div>';
+		}
 	}
 
 	/**
@@ -896,16 +903,23 @@ class TableRenderer
 	{
 		$attributes = $product->get_variation_attributes();
 		$available_variations = $product->get_available_variations('array');
+		$ajax_enabled = !empty($this->cart_settings['enable']);
 
-		echo '<div class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-product-variations="' . esc_attr((string) wp_json_encode($available_variations)) . '">';
+		if (!$ajax_enabled) {
+			echo '<form method="POST" action="" class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-product-variations="' . esc_attr((string) wp_json_encode($available_variations)) . '">';
+			echo '<input type="hidden" name="add-to-cart" value="' . esc_attr((string) $product->get_id()) . '" />';
+		} else {
+			echo '<div class="productbay-btn-cell productbay-variable-wrap" data-product-id="' . esc_attr((string) $product->get_id()) . '" data-product-variations="' . esc_attr((string) wp_json_encode($available_variations)) . '">';
+		}
 
 		// Attribute dropdowns.
 		echo '<div class="productbay-variation-selects">';
 		foreach ($attributes as $attribute_name => $options) {
 			$attr_label = wc_attribute_label($attribute_name, $product);
 			$sanitized_name = sanitize_title($attribute_name);
+			$field_name = 'attribute_' . $sanitized_name;
 
-			echo '<select class="productbay-variation-select" data-attribute-name="attribute_' . esc_attr($sanitized_name) . '">';
+			echo '<select name="' . esc_attr($field_name) . '" class="productbay-variation-select" data-attribute-name="' . esc_attr($field_name) . '">';
 			echo '<option value="">' . esc_html($attr_label) . '&hellip;</option>';
 
 			foreach ($options as $option) {
@@ -924,7 +938,7 @@ class TableRenderer
 		echo '</div>';
 
 		// Hidden variation ID input.
-		echo '<input type="hidden" class="productbay-variation-id" value="" />';
+		echo '<input type="hidden" name="variation_id" class="productbay-variation-id" value="" />';
 
 		// Variation price display.
 		echo '<span class="productbay-variation-price"></span>';
@@ -932,16 +946,22 @@ class TableRenderer
 		// Quantity + Add to Cart (disabled until variation selected).
 		$is_purchasable = $product->is_purchasable();
 		$show_quantity = !empty($this->cart_settings['showQuantity']);
+		$btn_type = $ajax_enabled ? 'button' : 'submit';
+
 		echo '<div class="productbay-btn-cell">';
 		if ($is_purchasable && $show_quantity) {
 			$this->render_quantity_input($product);
 		}
-		echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '" disabled>';
+		echo '<button type="' . esc_attr($btn_type) . '" class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '" disabled>';
 		echo esc_html__('Add to cart', 'productbay');
 		echo '</button>';
 		echo '</div>';
 
-		echo '</div>';
+		if (!$ajax_enabled) {
+			echo '</form>';
+		} else {
+			echo '</div>';
+		}
 	}
 
 	/**
@@ -963,7 +983,7 @@ class TableRenderer
 		}
 
 		echo '<div class="productbay-qty-wrap">';
-		echo '<input type="number" class="productbay-qty" value="1" min="' . esc_attr((string) $min) . '"';
+		echo '<input type="number" name="quantity" class="productbay-qty" value="1" min="' . esc_attr((string) $min) . '"';
 		if ($max !== '') {
 			echo ' max="' . esc_attr((string) $max) . '"';
 		}
