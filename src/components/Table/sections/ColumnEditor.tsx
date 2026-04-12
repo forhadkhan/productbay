@@ -40,6 +40,7 @@ import {
 	AlertTriangleIcon,
 	InfoIcon,
 	ChevronDownIcon,
+	ChevronUpIcon,
 	PackageIcon,
 	CalendarIcon,
 	TagIcon,
@@ -320,7 +321,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 
 				{/* Add Column Dropdown Menu */}
 				{showAddMenu && (
-					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-blue-600 rounded-lg shadow-lg z-[60000]">
+					<div className="absolute top-full left-0 right-0 mt-2 bg-white border border-blue-600 rounded-lg shadow-lg z-[60000]">
 						<div className="p-2 grid grid-cols-2 gap-1">
 							{COLUMN_TYPES.map(({ type, label, icon: Icon, isPro }) => {
 								const isSelected = selectedTypes.has(type);
@@ -382,7 +383,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 							className="w-full rounded-b-lg flex justify-center items-center p-1 text-gray-600 hover:text-gray-800 bg-transparent hover:bg-gray-200 cursor-pointer"
 							aria-label={__('Close', 'productbay')}
 						>
-							<ChevronDownIcon className="w-4 h-4 bg-gray-200" />
+							<ChevronUpIcon className="w-4 h-4 bg-gray-200" />
 						</button>
 					</div>
 				)}
