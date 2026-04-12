@@ -42,8 +42,9 @@ Unlike traditional table plugins, ProductBay is built on a **modern hybrid archi
 
 * **Admin Panel:** A fully responsive Single Page Application (SPA) built with React 18, TypeScript, and Tailwind CSS, so the table builder feels fast, fluid, and intuitive.
 * **Frontend Display:** A lightweight, SEO-friendly rendering engine optimized for Core Web Vitals, so your customers get speed without bloat.
-
-**No external CDN. No remote scripts. No data ever leaves your server.** All assets are bundled locally inside the plugin.
+* **Multiple Display Methods:** Add product tables in any page through shortcode or Gutenberg block which allows sigle table, multiple tables and tab options.
+* **Permalink:** View product tables in a dedicated page with unique URL.
+* **No External CDN:** No external CDN, no remote scripts, no data ever leaves your server. All assets are bundled locally inside the plugin.
 
 ---
 
@@ -91,13 +92,12 @@ Full control over what data appears in your table and how it's arranged:
 ProductBay is built for WooCommerce from the ground up:
 
 * **Simple Products**: Standard add-to-cart button
-* **Variable Products**: Inline attribute selectors (for each variable) right inside the table row. Visual indicators showing which variations were added, natively synced with the WooCommerce Cart
-* **Grouped Products**: Link to product page or display child items
+* **Variable Products**: Inline attribute selectors (for each variable) right inside the table row. 
+* **Grouped Products**: Inline individual and all product selectors for group items.
 * **External / Affiliate Products**: Displays the external buy button correctly
 * **AJAX Add-to-Cart**: Products are added without any page reload
-* **Bulk Add-to-Cart**: Customers can select multiple products and add them all at once with a single click
+* **Bulk Add-to-Cart**: Customers can select multiple products, including variable and grouped products and add them all to the cart at once with a single click
 * **Selected Items Panel**: A floating popup showing selected products with individual quantities, pricing, and remove controls
-* **Clear All Selections**: A global "Clear all" button to reset bulk selections instantly
 
 ---
 
@@ -138,7 +138,6 @@ A centralized admin dashboard to manage all your tables at a glance:
 * **Filter by Product Source**: Category, Sale, IDs, or All
 * **Bulk Status Update**: Update status of tables at once to private or published
 * **Bulk Delete**: Clean up multiple tables at once
-* **Shortcode Display**: Every table shows its shortcode instantly
 * **Date**: See created, modified and published date for each table
 
 ---
@@ -159,17 +158,19 @@ ProductBay exposes **30+ action hooks and filters** across all plugin layers, Co
 
 ---
 
-= Coming Soon: ProductBay Pro =
+= ProductBay Pro =
 
-We're actively building a Pro add-on that will extend ProductBay with advanced capabilities:
+Get the Pro add-on that will extend ProductBay with advanced capabilities:
 
-* **Variation Popup & Nested Rows**: Richer variable/grouped product interactions
-* **Pro Columns**: Ratings, reviews, dimensions, discount badges, B2B quantity column
+* **Advanced Variable Product Layouts**: Popup, Nested, Separate
+* **Richer Group Product Layouts**: Popup, Nested, Separate
+* **Pro Columns**: Ratings, Advanced Custom Fields, Combine Multiple Columns and more
 * **Lazy Loading**: Improved performance with lazy loading including infinite scroll or "Load More" button instead of pagination
+* **Import / Export**: Backup and share table configurations as JSON
+Coming Soon - 
 * **Quick View Modal**: AJAX-loaded product detail popup
 * **Custom CSS Editor**: Per-table scoped CSS editor in the admin
 * **Advanced Filters**: Sidebar/drawer/top menu layout, attribute filters, active filter chips
-* **Import / Export**: Backup and share table configurations as JSON
 * **Premium Templates**: One-click style presets
 * **Analytics**: Table impressions, click tracking, and a dashboard widget
 
@@ -282,6 +283,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.3.0 =
 
+* Feature: Added inline product selection ability for group products.
 * Feature: Decoupled cart functionality from AJAX to support native form submissions and improved compatibility.
 * Feature: Added permalink feature for tables to provide direct, shareable URLs for every product table.
 * Feature: Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
@@ -319,9 +321,6 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.3.0 =
 Major functional update: Decouples cart actions from AJAX and introduces a new reusable UI component library (Calendar, DatePicker) for enhanced interface consistency.
-
-= 1.2.1 =
-Adds permalink feature for tables and a comprehensive Activity Log system for tracking plugin actions, along with performance and stability improvements.
 
 = 1.2.0 =
 Security and feature update: Adds new column types (Stock, Date, Taxonomy, Rating) and implements secure Pro-exclusive feature blocking.
