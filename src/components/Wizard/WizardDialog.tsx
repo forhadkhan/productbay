@@ -143,7 +143,7 @@ const WizardDialog: React.FC<WizardDialogProps> = ({ isOpen, onClose }) => {
 
 	return createPortal(
 		<div
-			className="fixed inset-0 z-[60000] bg-black/65 flex items-center justify-center"
+			className="fixed inset-0 z-[50000] bg-black/65 flex items-center justify-center"
 			onClick={currentStep === 5 ? handleClose : undefined}
 		>
 			<div

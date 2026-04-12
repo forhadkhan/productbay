@@ -320,7 +320,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 
 				{/* Add Column Dropdown Menu */}
 				{showAddMenu && (
-					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-blue-600 rounded-lg shadow-lg z-50">
+					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-blue-600 rounded-lg shadow-lg z-[60000]">
 						<div className="p-2 grid grid-cols-2 gap-1">
 							{COLUMN_TYPES.map(({ type, label, icon: Icon, isPro }) => {
 								const isSelected = selectedTypes.has(type);
