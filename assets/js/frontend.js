@@ -627,7 +627,10 @@
             const $row = $checkbox.closest('tr');
             const rawId = $checkbox.val(); // Original input value
             let id = rawId; // Product ID (or variation ID if nested/popup)
-            const price = parseFloat($checkbox.data('price') || 0);
+            
+            // Read price directly from attribute to bypass jQuery's one-time data caching, 
+            // since inline dropdowns dynamically update the checkbox data-price attribute on change!
+            const price = parseFloat($checkbox.attr('data-price') || $checkbox.data('price') || 0);
 
             if ($checkbox.is(':checked')) {
                 // Read current quantity from the row
@@ -680,6 +683,13 @@
                 // Fallback for Pro Variation/Grouped Popup rows
                 if (!name) {
                     name = $row.find('.productbay-pro-popup-col-name').text().trim();
+                }
+
+                // If this is an inline Grouped dropdown, extract the actual child name instead of parent
+                const $groupedChildOption = $row.find(`.productbay-grouped-child-select option[value="${rawId}"]`);
+                if ($groupedChildOption.length && rawId.indexOf(',') === -1) {
+                    // It's a single child option
+                    name = $groupedChildOption.text().trim();
                 }
 
                 // Fallback for missing image (use parent image from main table)
@@ -924,7 +934,9 @@
             if ($btn.is(':disabled')) return;
 
             const $wrap = $btn.closest('.productbay-btn-cell');
-            const productId = $btn.data('product-id') || $btn.closest('.productbay-variable-wrap').data('product-id') || $btn.closest('tr').data('product-id');
+            const productIdStr = String($btn.data('product-id') || $btn.closest('.productbay-variable-wrap').data('product-id') || $btn.closest('tr').data('product-id'));
+            const productIds = productIdStr.split(',');
+
             const $qtyInput = $wrap.find('.productbay-qty');
             const quantity = $qtyInput.length ? parseInt($qtyInput.val(), 10) || 1 : 1;
 
@@ -950,45 +962,53 @@
             const originalLabel = $btn.data('original-text');
             $btn.text('Adding...').prop('disabled', true);
 
+            const itemsPayload = productIds.map(id => ({
+                product_id: parseInt(id.trim(), 10),
+                quantity: quantity,
+                variation_id: variationId,
+                attributes: attributes
+            }));
+
             $.ajax({
                 url: productbay_frontend.ajaxurl,
                 type: 'POST',
                 data: {
                     action: 'productbay_bulk_add_to_cart',
                     nonce: productbay_frontend.nonce,
-                    items: [{
-                        product_id: productId,
-                        quantity: quantity,
-                        variation_id: variationId,
-                        attributes: attributes
-                    }]
+                    items: itemsPayload
                 },
                 success: (response) => {
                     if (response.success) {
                         $(document.body).trigger('wc_fragment_refresh');
 
                         // Track accumulated cart quantity
-                        const cartKey = this.buildCartKey(productId, variationId, attributes);
-                        const prevEntry = this.cartQuantities.get(cartKey);
-                        const prevQty = prevEntry ? prevEntry.quantity : 0;
-                        const newQty = prevQty + quantity;
+                        itemsPayload.forEach(itemInfo => {
+                            const pId = itemInfo.product_id;
+                            const cartKey = this.buildCartKey(pId, itemInfo.variation_id, itemInfo.attributes);
+                            const prevEntry = this.cartQuantities.get(cartKey);
+                            const prevQty = prevEntry ? prevEntry.quantity : 0;
+                            const newQty = prevQty + quantity;
 
-                        // We store an object for all cart quantities to support variation badge generation easily
-                        this.cartQuantities.set(cartKey, {
-                            quantity: newQty,
-                            variationId: variationId,
-                            attributes: Object.assign({}, attributes),
-                            productId: productId
+                            // We store an object for all cart quantities to support variation badge generation easily
+                            this.cartQuantities.set(cartKey, {
+                                quantity: newQty,
+                                variationId: itemInfo.variation_id,
+                                attributes: Object.assign({}, itemInfo.attributes),
+                                productId: pId
+                            });
                         });
+                        
                         this.saveCartQuantitiesToStorage(); // <-- Persist
 
                         // Update button text with SVG checkmark and quantity
                         const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                        $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' ' + newQty + ')</span>');
+                        // For display on the button, we sum all quantities added
+                        const totalAddedThisTime = itemsPayload.length * quantity;
+                        $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' +' + totalAddedThisTime + ')</span>');
                         $btn.prop('disabled', false);
 
                         if (variationId && this.features.variationBadges !== false) {
-                            this.renderVariationBadges(productId);
+                            this.renderVariationBadges(productIds[0]); // fallback legacy call
                         }
 
                     } else {
