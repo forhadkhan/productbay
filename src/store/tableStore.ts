@@ -51,6 +51,7 @@ interface TableStore {
 	tableId: number | null;
 	tableTitle: string;
 	tableStatus: 'publish' | 'private';
+	permalink?: string;
 
 	/** Data source configuration (_pb_source) */
 	source: DataSource;
@@ -573,6 +574,7 @@ export const useTableStore = create<TableStore>((set, get) => ({
 			tableId: data.id || null,
 			tableTitle: data.title || '',
 			tableStatus: (data.status as 'publish' | 'private') || 'private',
+			permalink: data.permalink,
 			// Use default if source is empty array or invalid
 			source: isSourceValid(data.source) ? data.source : defaultSource(),
 			columns: data.columns && data.columns.length > 0 ? data.columns : defaultColumns(),
