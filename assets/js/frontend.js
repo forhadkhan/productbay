@@ -1145,7 +1145,11 @@
                             }
 
                             // Let's also refresh single add to cart buttons for items added in bulk
-                            const $btn = this.$tbody.find(`tr[data-product-id="${id}"] .productbay-btn-addtocart`);
+                            let $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+                            if (!$row.length) {
+                                $row = this.$tbody.find(`.productbay-select-product[value="${id}"]`).closest('tr');
+                            }
+                            const $btn = $row.find('.productbay-btn-addtocart');
                             if ($btn.length) {
                                 if (!$btn.data('original-text')) {
                                     $btn.data('original-text', $btn.text());
@@ -1253,7 +1257,11 @@
         handlePopupRemove(e) {
             e.preventDefault();
             const id = $(e.currentTarget).data('product-id');
-            const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+            let $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+            if (!$row.length) {
+                $row = this.$tbody.find(`.productbay-select-product[value="${id}"]`).closest('tr');
+            }
+
             if ($row.length) {
                 const $cb = $row.find('.productbay-select-product');
                 $cb.prop('checked', false).trigger('change');
