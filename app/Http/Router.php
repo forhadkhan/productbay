@@ -281,7 +281,7 @@ class Router
 	 */
 	public function permission_check()
 	{
-		return \current_user_can('manage_options');
+		return \current_user_can(\WpabProductBay\Core\Constants::get_capability());
 	}
 
 	/**
