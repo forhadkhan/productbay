@@ -50,16 +50,22 @@ import { cn } from '@/utils/cn';
  * @since 1.0.0
  * ============================================================================= */
 
-/** Define the available tab values as a union type for type safety */
+/**
+ * Define the available tab values as a union type for type safety.
+ * These correspond to the different configuration screens of a table.
+ */
 type TableTabValue = 'table' | 'display' | 'options';
 
 /**
  * Valid tab values for URL search param validation.
- * Used by useHashTab to validate the ?tab= parameter.
+ * Used by the useUrlTab hook to validate the ?tab= parameter in the URL.
  */
 const VALID_TABLE_TABS = ['table', 'display', 'options'] as const;
 
-/** Tab configuration with icons matching the design reference */
+/**
+ * Configuration for the table editor tabs.
+ * Each option includes a value, a localized label, and a Lucide icon.
+ */
 const TABLE_TABS: TabOption<TableTabValue>[] = [
 	{
 		value: 'table',
@@ -81,7 +87,13 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
 /**
  * Table Page Component
  *
- * Displays tabbed interface for configuring individual table with live preview.
+ * This is the primary editor interface for individual tables. It provides:
+ * - Tabbed navigation between different configuration sections.
+ * - Live preview of the table as it's being configured.
+ * - Controls for saving, deleting, and exporting table configurations.
+ * - Display of shortcode and permalink for easy sharing and integration.
+ *
+ * @returns {JSX.Element} The rendered Table editor page.
  */
 const Table = () => {
 	const { id } = useParams<{ id: string }>();
@@ -129,11 +141,20 @@ const Table = () => {
 
 	const shortcode = `[productbay id="${tableId}"]`;
 
-	// Handle Delete
+	/**
+	 * Opens the deletion confirmation modal.
+	 */
 	const handleDelete = () => {
 		setIsDeleteModalOpen(true);
 	};
 
+	/**
+	 * Performs the actual table deletion after user confirmation.
+	 * Sends a DELETE request to the API, shows a toast notification,
+	 * and redirects back to the table listing page.
+	 *
+	 * @async
+	 */
 	const confirmDelete = async () => {
 		setIsDeleteModalOpen(false);
 		try {
@@ -154,8 +175,14 @@ const Table = () => {
 		}
 	};
 
-	// Handle Save
 	const [isSaving, setIsSaving] = useState(false);
+
+	/**
+	 * Validates and saves the current table configuration.
+	 * If the table is new, it redirects to the edit URL after a successful save.
+	 *
+	 * @async
+	 */
 	const handleSave = async () => {
 		// Validation: Table Name is required
 		if (!tableTitle.trim()) {
@@ -196,7 +223,9 @@ const Table = () => {
 	};
 
 	/**
-	 * Handle table name change
+	 * Updates the table title in the store and clears any title validation errors.
+	 *
+	 * @param {string} newName The new name for the table.
 	 */
 	const handleNameChange = (newName: string) => {
 		setTitle(newName);
@@ -263,6 +292,7 @@ const Table = () => {
 
 	return (
 		<>
+			{/** Delete Table Confirmation Modal **/}
 			<Modal
 				isOpen={isDeleteModalOpen}
 				onClose={() => setIsDeleteModalOpen(false)}
@@ -286,7 +316,8 @@ const Table = () => {
 				</p>
 			</Modal>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+			{/** Table Header Section **/}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 md:pt-0">
 				{/* Conditional: Shortcode for already saved table */}
 				{tableId && (
 					<div className="bg-white border border-gray-200 rounded-lg p-4 flex flex-col gap-3 flex-1 transition-shadow">
@@ -386,8 +417,8 @@ const Table = () => {
 				)}
 			</div>
 
-			{/* Header: Table name on left, controls on right */}
-			<div className="sticky top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
+			{/* Table Actions Header */}
+			<div className="sticky top-0 md:top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
 				<div className="flex flex-col md:flex-row items-center justify-between gap-4">
 					{/* Table Name */}
 					<div className="order-2 md:order-1">
