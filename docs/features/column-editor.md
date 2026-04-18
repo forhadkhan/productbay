@@ -33,7 +33,15 @@ Shows the product's published date or last modified date, formatted according to
 Displays terms from any registered taxonomy, such as standard Categories and Tags, or any custom taxonomy you've registered.
 
 ### Rating <Badge type="tip" text="Since v1.2.0" />
-Renders the average customer review rating as a visual stars element.
+Renders the average customer review rating. Three display formats are available:
+
+| Format | Description |
+|--------|-------------|
+| **Stars (Custom)** | Visual star icons styled by ProductBay (default) |
+| **Text Based** | Numeric rating displayed as text (e.g., "4.5 / 5") |
+| **WooCommerce Default** | Uses WooCommerce's native rating template |
+
+To change the display format, expand the Rating column's settings panel and select a format from the **Display Format** dropdown.
 
 ### Custom Field <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 Display any product meta field, Advanced Custom Fields (ACF) data, or WooCommerce internal data. Includes intelligent auto-formatting for images, links, dates, and numbers. [Read the full Custom Field guide &rarr;](/features/custom-field-column)
@@ -52,21 +60,40 @@ Columns can be reordered by dragging them in the column list. The order in the e
 
 The live preview updates instantly as you rearrange columns.
 
-## Responsive Visibility
+## Column Settings
 
-For each column, you can configure visibility across three breakpoints:
+Each column card can be expanded to reveal advanced settings. Click the chevron expand button on the right side of any column card.
 
-| Device | Breakpoint | Description |
-|--------|-----------|-------------|
-| **Desktop** | ≥1024px | Large screens (laptops, desktops) |
-| **Tablet** | 768px–1023px | Medium screens (tablets, small laptops) |
-| **Mobile** | <768px | Small screens (phones) |
+### Column Heading
 
-### Use Cases
+Every column has an **inline editable heading** — click the text on the column card to rename it. Additionally, you can toggle the heading's visibility using the **eye icon**:
 
-- **Hide Image on mobile** to save horizontal space
-- **Hide SKU on mobile** if it's not useful for mobile shoppers
-- **Hide Summary on tablet** for a more compact layout
+- **Eye open** — Heading text is displayed in the table header row
+- **Eye closed** — The column header cell is empty (useful for icon-only columns like Image)
+
+### Column Width
+
+Control the width of each column with three options:
+
+| Mode | Description |
+|------|-------------|
+| **Auto** | The browser distributes width automatically based on content (default) |
+| **px** | Fixed width in pixels (e.g., 150px) |
+| **%** | Percentage of the total table width (e.g., 25%) |
+
+### Responsive Visibility
+
+For each column, you can configure when it appears using seven visibility modes:
+
+| Mode | Description |
+|------|-------------|
+| **All devices** | Visible on all screen sizes (default) |
+| **Desktop only** | Visible only on large screens (≥1024px) |
+| **Tablet only** | Visible only on medium screens (768px–1023px) |
+| **Mobile only** | Visible only on small screens (<768px) |
+| **Hide on mobile** | Visible on desktop and tablet, hidden on mobile |
+| **Hide on desktop** | Visible on tablet and mobile, hidden on desktop |
+| **Hidden** | Always hidden — useful for temporarily removing a column without deleting it |
 
 ::: tip
 Start with all columns visible on desktop, then progressively hide non-essential columns for smaller screens. The most critical columns (Name, Price, Add to Cart) should typically remain visible across all devices.
