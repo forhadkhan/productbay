@@ -104,19 +104,7 @@ function getSidebar(base = '', includePro = true) {
 	};
 }
 
-// v1.1.0 sidebar (no pro features)
-function getSidebarV1_1(base = '/v1.1.0') {
-	return getSidebar(base, false);
-}
 
-// Ensure the old v1.0.0 sidebar doesn't have the new v1.1.0 Gutenberg blocks link
-function getSidebarV1_0(base = '/v1.0.0') {
-	const sidebar: any = getSidebar(base, false);
-	sidebar[`${base}/features/`][0].items[2].items = sidebar[`${base}/features/`][0].items[2].items.filter(
-		(item: any) => item.text !== 'Gutenberg Blocks'
-	);
-	return sidebar;
-}
 
 export default defineConfig({
 	title: 'ProductBay Documentation',
@@ -166,30 +154,7 @@ export default defineConfig({
 		siteTitle: false,
 
 		nav: [
-			{
-				text: 'v1.2.1',
-				items: [
-					{
-						text: 'v1.2.1 (Latest)',
-						link: '/guide/introduction',
-						activeMatch: '^/(?!v\\d)',
-					},
-					{
-						text: 'v1.1.0',
-						link: '/v1.1.0/guide/introduction',
-						activeMatch: '^/v1\\.1\\.0/',
-					},
-					{
-						text: 'v1.0.0',
-						link: '/v1.0.0/guide/introduction',
-						activeMatch: '^/v1\\.0\\.0/',
-					},
-					{
-						text: 'Changelog',
-						link: '/changelog',
-					},
-				],
-			},
+			{ text: 'v1.3.0', link: '/changelog' },
 			{ text: 'Guide', link: '/guide/introduction' },
 			{ text: 'Features', link: '/features/table-dashboard' },
 			{ text: 'Developer', link: '/developer/architecture' },
@@ -207,8 +172,6 @@ export default defineConfig({
 
 		sidebar: {
 			...getSidebar(''),
-			...getSidebarV1_1('/v1.1.0'),
-			...getSidebarV1_0('/v1.0.0'),
 		},
 
 		socialLinks: [
