@@ -66,20 +66,34 @@ The **Display Tab** allows you to customize the visual aesthetics of your table 
 
 ### 3. Options Tab 
 
-The **Options Tab** provides advanced controls for table functionality and cart behavior.
+The **Options Tab** provides advanced controls for table functionality, filters, and cart behavior.
 
 ![Create New Table - Options Tab](/images/create-new-table--options-tab.png) 
 
-1. **Table Controls**: Configure how users interact with the table list.
- - **Enable Search Bar**: Allow users to filter products within the table via a search input.
- - **Enable Pagination**: Break long lists into multiple pages for better performance and UX.
- - **Products Per Page**: Define how many products are shown before pagination kicks in.
-2. **Cart / Functionality**: Enhance the shopping experience.
- - **AJAX Add to Cart**: Enable seamless adding to cart without refreshing the page.
- - **Show Quantity Selector**: Allow users to specify the number of items they want to add directly from the table.
+1. **Table Controls**: Configure how users interact with the table.
+   - **Enable Search Bar**: Allow users to filter products via a search input.
+   - **Enable Pagination**: Break long lists into multiple pages.
+   - **Enable Image Lightbox**: Open full-size product images in a popup on click.
+2. **Pagination Settings**: Fine-tune pagination behavior.
+   - **Products Per Page**: Define how many products show before pagination kicks in.
+   - **Pagination Style**: Choose Standard (numbers), Load More button <ProBadge />, or Infinite Scroll <ProBadge />.
+3. **Taxonomy & Type Filters**: Frontend filter dropdowns.
+   - **Enable Categories Filter**: Show a category dropdown filter above the table.
+   - **Enable Product Type Filter**: Show a product type dropdown (Simple, Variable, etc.).
+4. **Cart Functionality**: Enhance the shopping experience.
+   - **Enable Add to Cart**: Show add-to-cart buttons.
+   - **AJAX Add to Cart**: Add to cart without page reload.
+   - **Show Quantity Selector**: Allow quantity input per row.
+   - **Variation Badges**: Show badges for variations added to cart.
+   - **Show Clear All Button**: Display a bulk deselect button.
+   - **Selected Items View Panel**: Show a floating summary of selected items.
+5. **Variable & Grouped Products**: Configure display modes for complex product types.
+   - **Variable Product Mode**: Inline Dropdown (Free), Popup Modal <ProBadge />, Nested Rows <ProBadge />, Separate Rows <ProBadge />.
+   - **Grouped Product Mode**: Inline Dropdown (Free), Popup Modal <ProBadge />, Nested Rows <ProBadge />, Separate Rows <ProBadge />.
+   - **Show Options Count**: Display "X options available" subtitle.
+   - **Expand Nested Rows** <ProBadge />: Start nested rows expanded by default.
  
 
 ::: info
 The **Table Name**, **Live Preview**, **Status**, and **Save Table** controls are persistent and remain accessible regardless of which tab you are currently viewing. Once you are satisfied with your table configuration, click **Save Table** to create your table and add it to the [Table Dashboard](/features/table-dashboard).
 :::
-
