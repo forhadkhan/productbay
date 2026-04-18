@@ -27,6 +27,7 @@ Each table in the list displays:
 | **Checkbox** | Select tables for bulk actions |
 | **Title** | The name you gave your table |
 | **Shortcode** | The embed code (e.g., `[productbay id="1"]`) - click to copy |
+| **Permalink** | The shareable URL for the table's dedicated page - click to copy |
 | **Source** | Where products come from (All, Category, Sale, Specific) |
 | **Status** | Published or Private |
 | **Date** | When the table was created/published and modified |
@@ -74,13 +75,31 @@ Hover over any table row to reveal the following management options:
 Deleted tables cannot be recovered. Ensure you have backups or no longer need the data before confirming deletion.
 :::
 
+## Permalinks <Badge type="tip" text="Since v1.3.0" />
+
+Every saved product table automatically receives a **native WordPress permalink** — a clean, shareable URL that displays the table on a standalone page.
+
+### How It Works
+- Permalinks use the `productbay_table` Custom Post Type registered by the plugin.
+- The URL structure follows your WordPress permalink settings (e.g., `yoursite.com/productbay_table/my-table-slug/`).
+- The permalink is displayed in both the **table listing page** and the **table editor sidebar** for quick copying.
+
+### Use Cases
+- **Share direct links** to a specific product table via email, social media, or chat.
+- **Embed via URL** in platforms that support oEmbed or link previews.
+- **Dedicated landing pages** — each table has its own page without needing to manually create a page and paste a shortcode.
+
+::: tip
+If your permalinks aren't working after activating the plugin, go to **Settings → Permalinks** in WordPress and click **Save** to flush the rewrite rules.
+:::
+
 ## Table Statuses
 
 Maintenance of table visibility is controlled by two primary statuses:
 
 | Status | Visibility |
-|--------|-----------|
-| **Published** | Publicly visible on your site via shortcode. |
+|--------|-----------| 
+| **Published** | Publicly visible on your site via shortcode and permalink. |
 | **Private** | Invisible to visitors. Admins will see a placeholder notice where the table would normally appear. |
 
 ### How to Change Status
