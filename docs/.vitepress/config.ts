@@ -10,7 +10,6 @@ function getSidebar(base = '', includePro = true) {
 					{ text: 'Requirements', link: `${base}/guide/requirements` },
 					{ text: 'Installation', link: `${base}/guide/installation` },
 					{ text: 'Quick Start', link: `${base}/guide/getting-started` },
-					...(includePro ? [{ text: 'License Activation (Pro)', link: `${base}/guide/license-activation` }] : []),
 				],
 			},
 			{
@@ -86,6 +85,7 @@ function getSidebar(base = '', includePro = true) {
 				items: [
 					{ text: 'Default Configuration', link: `${base}/features/default-configuration` },
 					{ text: 'Plugin Settings', link: `${base}/features/plugin-settings` },
+					{ text: 'License', link: `${base}/features/license` },
 					{ text: 'Activity Log', link: `${base}/features/activity-log` },
 				],
 			},

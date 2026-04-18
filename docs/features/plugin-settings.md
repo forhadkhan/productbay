@@ -4,19 +4,7 @@ Plugin-wide configuration options that control administrative behavior, data per
 
 Access these settings from **ProductBay → Settings**.
 
-## License Activation <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
-The **License** tab is the control center for your ProductBay Pro subscription.
-- **Free Version:** Shows a promotion view highlighting Pro features.
-- **Pro Version:** Allows you to enter your key, view your license status, check expiry dates, and manage your site activation.
-
-[Read the full License Activation guide &rarr;](/guide/license-activation)
-
-## Import / Export <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
-
-The **Import / Export** tab allows you to migrate table configurations using JSON files.
-
-[Read the full Import / Export guide &rarr;](/features/import-export)
 
 ## Plugin Settings Tab
 

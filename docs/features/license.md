@@ -1,14 +1,36 @@
-# License Activation <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
+# License <Badge type="tip" text="Since v1.2.0" />
 
-Activating your ProductBay Pro license key unlocks access to premium features, fast support, and automatic updates directly from your WordPress dashboard.
+The **License** tab, found under **ProductBay → Settings**, is the control center for your ProductBay Pro subscription.
 
-## Finding Your License Key
+Depending on your active plugin, this tab displays different content:
+
+## Free Version
+
+If you are using the free version of ProductBay, this tab serves as an overview of what **ProductBay Pro** unlocks. It shows:
+- A promotional view highlighting premium features (like Custom Fields, Combined Columns, and Advanced Variable Modes).
+- A quick link to upgrade to the Pro version.
+
+## Pro Version 
+
+Once you install and activate the Pro version, this tab transforms into your license management center. It allows you to:
+- Enter and activate your license key to unlock the Pro features.
+- View your current license status (Active, Expired, Invalid).
+- Check your license expiration dates.
+- Manage site activations (useful if you are changing URLs or migrating from staging to live).
+
+---
+
+## Activating Your License
+
+To gain access to premium features, fast support, and automatic updates directly from your WordPress dashboard, you must activate your license key.
+
+### Finding Your License Key
 
 After [purchasing ProductBay Pro](https://wpanchorbay.com/plugins/productbay/), your license key will be available in two places:
 1. **Purchase Email:** The confirmation email sent to the address you provided during checkout.
 2. **Account Dashboard:** Log in to your account on [WPAnchorBay](https://wpanchorbay.com/my-account/) and navigate to the **Licenses** tab.
 
-## Activating Your License
+### Activation Steps
 
 To activate your license and enable Pro features:
 
