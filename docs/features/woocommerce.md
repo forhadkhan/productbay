@@ -8,7 +8,7 @@ ProductBay is built as a WooCommerce extension, providing deep integration with 
 |-------------|---------|-------|
 | **Simple** | Full | Standard add-to-cart with quantity |
 | **Variable** | Full | Inline attribute selectors (Free) or Popup/Nested/Separate rows (Pro) |
-| **Grouped** | Full | Links to single product page (Free) or Inline/Popup/Nested/Separate (Pro) |
+| **Grouped** | Full | Inline dropdown (Free) or Popup/Nested/Separate rows (Pro) |
 | **External / Affiliate** | Full | "Buy Now" button linking to external URL |
 
 ## Add to Cart
@@ -33,6 +33,21 @@ ProductBay supports adding multiple products at once:
 Bulk add-to-cart works with simple products. Variable products need their attributes selected individually before they can be added.
 :::
 
+### Variation Badges
+When enabled, small badges appear on each row indicating which specific variations have been added to the cart. This helps customers keep track of their selections without opening the cart.
+
+Toggle **Variation Badges** in the **Options** step under **Cart Functionality**.
+
+### Show Clear All Button
+When bulk selection is active, a **Clear All** button can be shown to instantly deselect all currently selected products. This saves customers from having to individually uncheck each product.
+
+Toggle **Show Clear All Button** in the **Options** step under **Cart Functionality**.
+
+### Selected Items View Panel
+A floating panel that displays all currently selected items with their individual quantities. This gives customers a running summary of what they're about to add to cart before clicking the bulk action button.
+
+Toggle **Selected Items View Panel** in the **Options** step under **Cart Functionality**.
+
 ## Variable Products
 
 By default, ProductBay displays variable products using inline attribute selectors:
@@ -54,18 +69,23 @@ ProductBay Pro unlocks **3 additional display modes** for variable products, all
 
 ## Grouped Products
 
-By default, grouped products display a simple button directing the user to the single product page.
+Grouped products are displayed using an **Inline Dropdown** by default. <Badge type="tip" text="Since v1.3.0" /> Customers can select a child product from the dropdown, set a quantity, and add to cart — all without leaving the table.
 
 ### Advanced Grouped Modes <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
-ProductBay Pro allows you to display grouped products directly within the table using 4 different modes:
+ProductBay Pro allows you to display grouped products directly within the table using 3 additional modes:
 
-1. **Inline Select:** A dropdown in the table row letting customers pick a child product, set quantity, and add to cart without leaving the page.
-2. **Popup Modal:** A full modal listing all child products for easy selection.
-3. **Nested Rows:** Expandable child rows containing grouped items underneath the parent limit.
-4. **Separate Rows:** Treats each child product as a separate standalone table row.
+1. **Popup Modal:** A full modal listing all child products for easy selection.
+2. **Nested Rows:** Expandable child rows containing grouped items underneath the parent.
+3. **Separate Rows:** Treats each child product as a separate standalone table row.
 
 [Read the Advanced Modes guide &rarr;](/features/variable-grouped-modes)
+
+## Show Options Count
+
+When enabled, a subtle **"X options available"** subtitle appears below the product name for Variable and Grouped products. This gives customers a quick indication of how many choices are available without expanding anything.
+
+Toggle **Show Options Count** in the **Options** step under **Variable & Grouped Products**.
 
 ## Price Display
 
