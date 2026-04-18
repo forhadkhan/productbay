@@ -18,7 +18,9 @@ When the customer clicks "Select Options", a sleek modal overlay appears:
 
 ### Nested Rows <ProBadge />
 A "toggle" button is added to the parent product row. When clicked, it expands via AJAX to reveal a nested sub-table showing all variations.
-- *Tip: You can optionally set nested tables to be "expanded by default".*
+
+#### Expand by Default
+By default, nested rows are collapsed and require the customer to click to expand. You can change this by enabling **Expand Nested Rows by Default** in the Options step. When enabled, all nested sub-tables are shown in their expanded state on initial page load.
 
 ### Separate Rows <ProBadge />
 Each variation is forcefully detached from the parent product and rendered as an entirely independent row in the main table. The parent product is hidden, and its children appear alongside simple products. This is excellent for hardware stores or catalogs where every SKU needs instant visibility.
@@ -29,20 +31,17 @@ Each variation is forcefully detached from the parent product and rendered as an
 
 Grouped products are collections of related simple products sold together (e.g., a "Complete Bed Set" that includes pillows, sheets, and a comforter).
 
-### Direct Link (Default / Free)
-The table simply renders a button linking the user to the single product page where they can configure and purchase the grouped collection.
-
-### Inline Select <ProBadge />
-A minimal dropdown selector is added to the table row:
-- The customer selects which child product they want.
-- The price updates instantly based on the selection.
-- If multiple children exist, a "Select All" option allows bulk addition.
+### Inline Dropdown (Default / Free) <Badge type="tip" text="Since v1.3.0" />
+A dropdown selector is added to the table row, allowing customers to select a child product, set a quantity, and add to cart — all without leaving the table.
 
 ### Popup Modal <ProBadge />
 Similar to the variable product modal, clicking the parent button opens an overlay listing all child products with their individual checkboxes, quantities, and direct add-to-cart buttons.
 
 ### Nested Rows <ProBadge />
 The grouped product acts as a collapsible container. Clicking it drops down a nested table showing all child items, keeping the main table view clean while providing instant drill-down access.
+
+#### Expand by Default
+Same as Variable nested rows — enable **Expand Nested Rows by Default** in Options to have grouped nested rows start expanded.
 
 ### Separate Rows <ProBadge />
 Breaks the group apart completely, rendering each child item as its own row in the main table.
