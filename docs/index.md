@@ -128,4 +128,15 @@ Ready to dive deeper? Choose a section below to find exactly what you're looking
 .features-grid ul {
   margin-top: 0.5rem;
 }
+
+/* Custom styling for the Get Pro button */
+.VPButton[href="https://wpanchorbay.com/plugins/productbay/"] {
+  background-color: #f05c2a !important;
+  color: white !important;
+  border-color: #f05c2a !important;
+}
+.VPButton[href="https://wpanchorbay.com/plugins/productbay/"]:hover {
+  background-color: #d94b1e !important;
+  border-color: #d94b1e !important;
+}
 </style>
