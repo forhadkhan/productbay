@@ -80,6 +80,10 @@ ProductBay is built with performance in mind:
 
 **No.** All JavaScript, CSS, and other assets are bundled locally within the plugin. No data is sent to, or loaded from, any external server.
 
+::: info Note for Pro Users
+ProductBay Pro contacts the WPAnchorBay license server solely for license activation and validation. No user data or product data is transmitted.
+:::
+
 ## Translation & Localization
 
 ### Is it translation ready?
