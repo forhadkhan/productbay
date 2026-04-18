@@ -42,7 +42,7 @@ By default, ProductBay displays variable products using inline attribute selecto
 - The **Add to Cart** button activates once all required attributes are selected
 - **Out of stock** variations are automatically disabled
 
-### Advanced Variable Modes <ProBadge />
+### Advanced Variable Modes <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 ProductBay Pro unlocks **3 additional display modes** for variable products, allowing for a vastly superior shopping experience:
 
@@ -56,7 +56,7 @@ ProductBay Pro unlocks **3 additional display modes** for variable products, all
 
 By default, grouped products display a simple button directing the user to the single product page.
 
-### Advanced Grouped Modes <ProBadge />
+### Advanced Grouped Modes <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 ProductBay Pro allows you to display grouped products directly within the table using 4 different modes:
 

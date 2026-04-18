@@ -56,7 +56,7 @@ When pagination is enabled:
 | **Products per page** | Any number (1–100+) | 10 |
 | **Position** | Bottom | Bottom |
 
-## Price Range Filter <ProBadge />
+## Price Range Filter <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 ProductBay Pro includes a powerful price filter that allows customers to refine products by an exact price range. It can display as a dual-handle slider, number inputs, or both. The filter auto-detects the minimum and maximum prices of the products in your table.
 

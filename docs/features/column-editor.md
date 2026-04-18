@@ -23,22 +23,22 @@ The Stock Keeping Unit of the product.
 ### Description
 The product's short description (summary).
 
-### Stock
+### Stock <Badge type="tip" text="Since v1.2.0" />
 Displays the product's stock status (In Stock, Out of Stock, On Backorder) and optionally the exact stock quantity.
 
-### Date
+### Date <Badge type="tip" text="Since v1.2.0" />
 Shows the product's published date or last modified date, formatted according to your WordPress date settings.
 
-### Taxonomy
+### Taxonomy <Badge type="tip" text="Since v1.2.0" />
 Displays terms from any registered taxonomy, such as standard Categories and Tags, or any custom taxonomy you've registered.
 
-### Rating
+### Rating <Badge type="tip" text="Since v1.2.0" />
 Renders the average customer review rating as a visual stars element.
 
-### Custom Field <ProBadge />
+### Custom Field <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 Display any product meta field, Advanced Custom Fields (ACF) data, or WooCommerce internal data. Includes intelligent auto-formatting for images, links, dates, and numbers. [Read the full Custom Field guide &rarr;](/features/custom-field-column)
 
-### Combined Column <ProBadge />
+### Combined Column <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 Merge multiple data points into a single column using a powerful template syntax. For example, combine a product's SKU and Stock status into one cell. [Read the full Combined Column guide &rarr;](/features/combined-column)
 
 ## Adding & Removing Columns

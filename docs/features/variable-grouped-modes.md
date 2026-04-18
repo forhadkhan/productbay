@@ -1,4 +1,4 @@
-# Variable & Grouped Product Modes <ProBadge />
+# Variable & Grouped Product Modes <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 ProductBay Pro transforms how your customers interact with complex products (Variable and Grouped). You can configure display modes per-table in the creation wizard under **Step 4: Options**.
 

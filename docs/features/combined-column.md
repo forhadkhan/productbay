@@ -1,4 +1,4 @@
-# Combined Column <ProBadge />
+# Combined Column <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 The Combined Column allows you to merge multiple disparate data points into a single, clean table cell. This is particularly useful when you want to display dense information without taking up horizontal screen space.
 

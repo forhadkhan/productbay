@@ -1,4 +1,4 @@
-# Price Range Filter <ProBadge />
+# Price Range Filter <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 The Price Range Filter allows your customers to zero in on products that fit their budget. Built to be lightning-fast, it uses AJAX to update the table instantly as the user drags the slider or types a price.
 

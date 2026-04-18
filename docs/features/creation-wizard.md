@@ -86,8 +86,13 @@ Configure how products are initially sorted:
 | **Name** | Product title (linked to product page) |
 | **Price** | Current price (including sale prices) |
 | **SKU** | Stock Keeping Unit identifier |
-| **Stock** | Stock status indicator |
 | **Summary** | Product short description |
+| **Stock** <Badge type="tip" text="v1.2.0+" /> | Stock status indicator |
+| **Date** <Badge type="tip" text="v1.2.0+" /> | Product published date |
+| **Taxonomy** <Badge type="tip" text="v1.2.0+" /> | Terms from any registered taxonomy |
+| **Rating** <Badge type="tip" text="v1.2.0+" /> | Average customer review rating |
+| **Custom Field** <ProBadge /> <Badge type="tip" text="v1.2.0+" /> | Any product meta field or ACF data |
+| **Combined** <ProBadge /> <Badge type="tip" text="v1.2.0+" /> | Merge multiple data points into one cell |
 
 ### Drag-and-Drop Reordering
 Drag columns to change their display order. The live preview updates instantly.

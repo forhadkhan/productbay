@@ -1,4 +1,4 @@
-# Import & Export <ProBadge />
+# Import & Export <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 ProductBay Pro includes a robust Import/Export utility that allows you to back up, migrate, and share your table configurations across different WordPress installations using simple JSON files.
 

@@ -19,14 +19,13 @@ Define which columns should be enabled by default for new tables. You can select
 - Name
 - Price
 - SKU
-- Stock Status
 - Summary
-- Stock
-- Date 
-- Taxonomy
-- Rating
-- Custom Field (Pro) 
-- Combined Column (Pro)
+- Stock <Badge type="tip" text="v1.2.0+" />
+- Date <Badge type="tip" text="v1.2.0+" />
+- Taxonomy <Badge type="tip" text="v1.2.0+" />
+- Rating <Badge type="tip" text="v1.2.0+" />
+- Custom Field (Pro) <Badge type="tip" text="v1.2.0+" />
+- Combined Column (Pro) <Badge type="tip" text="v1.2.0+" />
 
 ## Bulk Select
 

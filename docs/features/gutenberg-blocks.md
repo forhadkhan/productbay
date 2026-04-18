@@ -1,4 +1,4 @@
-# Gutenberg Blocks
+# Gutenberg Blocks <Badge type="tip" text="Since v1.1.0" />
 
 ProductBay 1.1.0 introduces **two native Gutenberg Blocks** to elevate the table building experience directly inside the WordPress Block Editor. Unlike shortcodes, blocks offer a live visual preview and a streamlined configuration interface seamlessly integrated into WordPress.
 

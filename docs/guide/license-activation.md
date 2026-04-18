@@ -1,4 +1,4 @@
-# License Activation <ProBadge />
+# License Activation <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 Activating your ProductBay Pro license key unlocks access to premium features, fast support, and automatic updates directly from your WordPress dashboard.
 

@@ -1,4 +1,4 @@
-# Custom Field Column <ProBadge />
+# Custom Field Column <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
 
 The Custom Field column is one of the most powerful features in ProductBay Pro. It allows you to expose virtually any piece of data associated with your products — including core WooCommerce meta, custom fields added by themes, or data from third-party plugins like Advanced Custom Fields (ACF).
 
