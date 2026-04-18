@@ -36,7 +36,7 @@ features:
     details: Lightweight frontend rendering optimized for Core Web Vitals. Smart 30-minute caching minimizes database load.
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>'
     title: Search, Sort & Filter
-    details: Built-in AJAX search, column sorting, category filters, and pagination — all without page reloads.
+    details: Built-in AJAX search, category filters, and pagination — all without page reloads.
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m2 12 5.1 2.8"/><path d="m22 12-5.1 2.8"/><path d="m8.6 4.4 2.8 5.1"/><path d="m15.4 19.6-2.8-5.1"/><path d="m19.6 8.6-5.1 2.8"/><path d="m4.4 15.4 5.1-2.8"/></svg>'
     title: Translation Ready
     details: 100% of user-facing strings are wrapped in localization functions. Ready for any language.
@@ -69,30 +69,6 @@ Most WooCommerce product table plugins are built using outdated frameworks like 
 - **No Coding Skills Required:** You don't need to know shortcode attributes or custom CSS. ProductBay offers the market's only fully visual, 5-step guided creation wizard with a real-time live preview. What you see in the admin is precisely what your customers see.
 
 </div>
-
-### Free vs Pro
-
-| Feature | Free | Pro |
-|---|:---:|:---:|
-| Table Creation Wizard | ✅ | ✅ |
-| Gutenberg Blocks | ✅ | ✅ |
-| AJAX Search & Pagination | ✅ | ✅ |
-| Category & Type Filters | ✅ | ✅ |
-| Bulk Add-to-Cart | ✅ | ✅ |
-| Image Lightbox | ✅ | ✅ |
-| Image, Name, Price, SKU, Description Columns | ✅ | ✅ |
-| Stock, Date, Taxonomy, Rating Columns | ✅ | ✅ |
-| Design Customization | ✅ | ✅ |
-| 30+ Developer Hooks | ✅ | ✅ |
-| Price Range Filter | — | ✅ |
-| Custom Field Column (ACF, WC Meta) | — | ✅ |
-| Combined Column | — | ✅ |
-| Variable Product Modes (Popup, Nested, Separate) | — | ✅ |
-| Grouped Product Modes (Inline, Popup, Nested, Separate) | — | ✅ |
-| Import / Export (JSON) | — | ✅ |
-| Priority Support | — | ✅ |
-
-<hr />
 
 ## ⚡ Quick Navigation
 

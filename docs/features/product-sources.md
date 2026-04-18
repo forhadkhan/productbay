@@ -70,5 +70,5 @@ Configure the default sorting for your table:
 | **Popularity** | Best Selling First |
 
 ::: tip
-This sets the **default** sort order. If [sorting is enabled](/features/search-and-filters) in table options, customers can re-sort by clicking column headers.
+This sets the **initial** sort order when the table first loads on the frontend.
 :::
