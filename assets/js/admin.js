@@ -34752,15 +34752,21 @@ __webpack_require__.r(__webpack_exports__);
  * @since 1.0.0
  * ============================================================================= */
 
-/** Define the available tab values as a union type for type safety */
+/**
+ * Define the available tab values as a union type for type safety.
+ * These correspond to the different configuration screens of a table.
+ */
 
 /**
  * Valid tab values for URL search param validation.
- * Used by useHashTab to validate the ?tab= parameter.
+ * Used by the useUrlTab hook to validate the ?tab= parameter in the URL.
  */
 const VALID_TABLE_TABS = ['table', 'display', 'options'];
 
-/** Tab configuration with icons matching the design reference */
+/**
+ * Configuration for the table editor tabs.
+ * Each option includes a value, a localized label, and a Lucide icon.
+ */
 const TABLE_TABS = [{
   value: 'table',
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_33__.__)('Table', 'productbay'),
@@ -34778,7 +34784,13 @@ const TABLE_TABS = [{
 /**
  * Table Page Component
  *
- * Displays tabbed interface for configuring individual table with live preview.
+ * This is the primary editor interface for individual tables. It provides:
+ * - Tabbed navigation between different configuration sections.
+ * - Live preview of the table as it's being configured.
+ * - Controls for saving, deleting, and exporting table configurations.
+ * - Display of shortcode and permalink for easy sharing and integration.
+ *
+ * @returns {JSX.Element} The rendered Table editor page.
  */
 const Table = () => {
   const {
@@ -34836,10 +34848,20 @@ const Table = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_31__.useState)(false);
   const shortcode = `[productbay id="${tableId}"]`;
 
-  // Handle Delete
+  /**
+   * Opens the deletion confirmation modal.
+   */
   const handleDelete = () => {
     setIsDeleteModalOpen(true);
   };
+
+  /**
+   * Performs the actual table deletion after user confirmation.
+   * Sends a DELETE request to the API, shows a toast notification,
+   * and redirects back to the table listing page.
+   *
+   * @async
+   */
   const confirmDelete = async () => {
     setIsDeleteModalOpen(false);
     try {
@@ -34861,9 +34883,14 @@ const Table = () => {
       });
     }
   };
-
-  // Handle Save
   const [isSaving, setIsSaving] = (0,react__WEBPACK_IMPORTED_MODULE_31__.useState)(false);
+
+  /**
+   * Validates and saves the current table configuration.
+   * If the table is new, it redirects to the edit URL after a successful save.
+   *
+   * @async
+   */
   const handleSave = async () => {
     // Validation: Table Name is required
     if (!tableTitle.trim()) {
@@ -34902,7 +34929,9 @@ const Table = () => {
   };
 
   /**
-   * Handle table name change
+   * Updates the table title in the store and clears any title validation errors.
+   *
+   * @param {string} newName The new name for the table.
    */
   const handleNameChange = newName => {
     setTitle(newName);
@@ -34982,7 +35011,7 @@ const Table = () => {
         children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_33__.__)('Are you sure you want to delete this table? This action cannot be undone.', 'productbay')
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsxs)("div", {
-      className: "grid grid-cols-1 md:grid-cols-2 gap-4 mb-4",
+      className: "grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 md:pt-0",
       children: [tableId && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsxs)("div", {
         className: "bg-white border border-gray-200 rounded-lg p-4 flex flex-col gap-3 flex-1 transition-shadow",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsxs)("div", {
@@ -35060,7 +35089,7 @@ const Table = () => {
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)("div", {
-      className: "sticky top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8",
+      className: "sticky top-0 md:top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsxs)("div", {
         className: "flex flex-col md:flex-row items-center justify-between gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)("div", {
