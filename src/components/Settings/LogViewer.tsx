@@ -5,7 +5,7 @@
  * Features: level filtering, search, date navigation, expandable details,
  * and clear-all functionality.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 import { useState, useEffect, useCallback, memo } from 'react';
 import {
