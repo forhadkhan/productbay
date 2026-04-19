@@ -6,7 +6,7 @@
  * human-readable change summaries for the activity log.
  *
  * @package ProductBay
- * @since 1.2.1
+ * @since 1.3.0
  */
 
 declare(strict_types=1);
@@ -59,9 +59,9 @@ class SettingsLogger
 
 		// 1. General Settings
 		$comparisons = array(
-			'add_to_cart_text'    => __('"Add to Cart" text', 'productbay'),
-			'products_per_page'   => __('Products per page', 'productbay'),
-			'show_admin_bar'      => __('Admin bar visibility', 'productbay'),
+			'add_to_cart_text' => __('"Add to Cart" text', 'productbay'),
+			'products_per_page' => __('Products per page', 'productbay'),
+			'show_admin_bar' => __('Admin bar visibility', 'productbay'),
 			'delete_on_uninstall' => __('Delete data on uninstall', 'productbay'),
 		);
 
@@ -69,7 +69,7 @@ class SettingsLogger
 			if (isset($new_settings[$key]) && isset($old[$key]) && $new_settings[$key] !== $old[$key]) {
 				$old_val = is_bool($old[$key]) ? ($old[$key] ? 'On' : 'Off') : $old[$key];
 				$new_val = is_bool($new_settings[$key]) ? ($new_settings[$key] ? 'On' : 'Off') : $new_settings[$key];
-				
+
 				$changes[] = sprintf(
 					/* translators: 1: Setting label, 2: Old value, 3: New value */
 					__('%1$s changed: %2$s → %3$s', 'productbay'),
@@ -98,6 +98,7 @@ class SettingsLogger
 			return null;
 		}
 
-		return implode("\n", array_map(function($c) { return '• ' . $c; }, $changes));
+		return implode("\n", array_map(function ($c) {
+			return '• ' . $c; }, $changes));
 	}
 }

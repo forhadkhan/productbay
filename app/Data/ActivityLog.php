@@ -143,31 +143,31 @@ class ActivityLog
 		}
 
 		// Ensure we don't fail if mbstring is missing.
-		$safe_title = function_exists('mb_substr') 
-			? mb_substr($title, 0, 255) 
+		$safe_title = function_exists('mb_substr')
+			? mb_substr($title, 0, 255)
 			: substr($title, 0, 255);
 
 		$entry = array(
-			'level'   => $level,
-			'title'   => $safe_title,
+			'level' => $level,
+			'title' => $safe_title,
 			'details' => $details,
-			'time'    => \current_time('c'), // ISO 8601 in site timezone.
-			'user'    => self::get_current_username(),
+			'time' => \current_time('c'), // ISO 8601 in site timezone.
+			'user' => self::get_current_username(),
 			'context' => array(
-				'ip'     => $_SERVER['REMOTE_ADDR'] ?? '',
-				'url'    => $_SERVER['REQUEST_URI'] ?? '',
-				'method' => $_SERVER['REQUEST_METHOD'] ?? '',
-				'ua'     => $_SERVER['HTTP_USER_AGENT'] ?? '',
+				'ip' => isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '',
+				'url' => isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '',
+				'method' => isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : '',
+				'ua' => isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '',
 			),
 		);
 
 		// For errors, capture stack trace and environment state.
 		if ($level === 'error') {
 			$entry['backtrace'] = self::get_backtrace();
-			$entry['env']       = array(
-				'php'           => PHP_VERSION,
-				'wp'            => $GLOBALS['wp_version'] ?? 'unknown',
-				'productbay'  => defined('PRODUCTBAY_VERSION') ? PRODUCTBAY_VERSION : 'unknown',
+			$entry['env'] = array(
+				'php' => PHP_VERSION,
+				'wp' => $GLOBALS['wp_version'] ?? 'unknown',
+				'productbay' => defined('PRODUCTBAY_VERSION') ? PRODUCTBAY_VERSION : 'unknown',
 			);
 		}
 
@@ -212,10 +212,10 @@ class ActivityLog
 	 */
 	public static function get_logs(array $args = array()): array
 	{
-		$date     = $args['date'] ?? \current_time('Y-m-d');
-		$level    = $args['level'] ?? '';
-		$search   = $args['search'] ?? '';
-		$page     = max(1, (int) ($args['page'] ?? 1));
+		$date = $args['date'] ?? \current_time('Y-m-d');
+		$level = $args['level'] ?? '';
+		$search = $args['search'] ?? '';
+		$page = max(1, (int) ($args['page'] ?? 1));
 		$per_page = max(1, min(200, (int) ($args['per_page'] ?? 50)));
 
 		$dir = self::get_log_dir();
@@ -226,10 +226,10 @@ class ActivityLog
 		$file = $dir . '/' . $date . '.log';
 		if (!$dir || !file_exists($file)) {
 			return array(
-				'entries'         => array(),
-				'total'           => 0,
-				'page'            => $page,
-				'per_page'        => $per_page,
+				'entries' => array(),
+				'total' => 0,
+				'page' => $page,
+				'per_page' => $per_page,
 				'available_dates' => $available_dates,
 			);
 		}
@@ -239,17 +239,17 @@ class ActivityLog
 		$raw = file_get_contents($file);
 		if (false === $raw || '' === $raw) {
 			return array(
-				'entries'         => array(),
-				'total'           => 0,
-				'page'            => $page,
-				'per_page'        => $per_page,
+				'entries' => array(),
+				'total' => 0,
+				'page' => $page,
+				'per_page' => $per_page,
 				'available_dates' => $available_dates,
 			);
 		}
 
-		$lines   = array_filter(explode("\n", trim($raw)));
+		$lines = array_filter(explode("\n", trim($raw)));
 		$entries = array();
-		$users   = array();
+		$users = array();
 
 		foreach ($lines as $line) {
 			$entry = json_decode($line, true);
@@ -287,21 +287,21 @@ class ActivityLog
 
 		// Reverse so newest entries appear first.
 		$entries = array_reverse($entries);
-		$total   = count($entries);
+		$total = count($entries);
 
 		sort($users);
 
 		// Paginate.
-		$offset  = ($page - 1) * $per_page;
+		$offset = ($page - 1) * $per_page;
 		$entries = array_slice($entries, $offset, $per_page);
 
 		return array(
-			'entries'         => $entries,
-			'total'           => $total,
-			'page'            => $page,
-			'per_page'        => $per_page,
+			'entries' => $entries,
+			'total' => $total,
+			'page' => $page,
+			'per_page' => $per_page,
 			'available_dates' => $available_dates,
-			'users'           => $users, // Metadata for UI filters.
+			'users' => $users, // Metadata for UI filters.
 		);
 	}
 
@@ -351,7 +351,7 @@ class ActivityLog
 			return 0;
 		}
 
-		$files   = glob($dir . '/*.log');
+		$files = glob($dir . '/*.log');
 		$deleted = 0;
 
 		if (!empty($files)) {
@@ -380,7 +380,7 @@ class ActivityLog
 	 */
 	public static function prune(): int
 	{
-		$settings       = get_option('productbay_settings', array());
+		$settings = get_option('productbay_settings', array());
 		$retention_days = (int) ($settings['log_retention'] ?? self::RETENTION_DAYS);
 		$retention_days = (int) \apply_filters('productbay_log_retention_days', $retention_days);
 
@@ -389,9 +389,9 @@ class ActivityLog
 			return 0;
 		}
 
-		$files   = glob($dir . '/*.log');
-		$pruned  = 0;
-		$cutoff  = strtotime("-{$retention_days} days");
+		$files = glob($dir . '/*.log');
+		$pruned = 0;
+		$cutoff = strtotime("-{$retention_days} days");
 
 		if (!empty($files)) {
 			foreach ($files as $file) {
@@ -543,7 +543,7 @@ class ActivityLog
 	 *
 	 * Returns YYYY-MM-DD.log, or YYYY-MM-DD.1.log if the first is full.
 	 *
-	 * @since 1.2.1
+	 * @since 1.3.0
 	 *
 	 * @param string $dir Log directory.
 	 * @return string Full path to log file.
@@ -551,8 +551,8 @@ class ActivityLog
 	private static function get_current_log_file(string $dir): string
 	{
 		$base_name = \current_time('Y-m-d');
-		$file      = $dir . '/' . $base_name . '.log';
-		$index     = 0;
+		$file = $dir . '/' . $base_name . '.log';
+		$index = 0;
 
 		while (file_exists($file) && filesize($file) >= self::MAX_FILE_SIZE) {
 			$index++;
@@ -565,14 +565,15 @@ class ActivityLog
 	/**
 	 * Capture a truncated, safe stack trace.
 	 *
-	 * @since 1.2.1
+	 * @since 1.3.0
 	 *
 	 * @return array Truncated backtrace frames.
 	 */
 	private static function get_backtrace(): array
 	{
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 		$frames = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 12);
-		$clean  = array();
+		$clean = array();
 
 		// Skip ActivityLog methods.
 		foreach ($frames as $frame) {

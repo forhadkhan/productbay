@@ -53,11 +53,11 @@ class LogController extends ApiController
 	public function index(\WP_REST_Request $request)
 	{
 		$args = array(
-			'date'     => $request->get_param('date') ?: \current_time('Y-m-d'),
-			'level'    => $request->get_param('level') ?: '',
-			'user'     => $request->get_param('user') ?: '',
-			'search'   => $request->get_param('search') ?: '',
-			'page'     => (int) ($request->get_param('page') ?: 1),
+			'date' => $request->get_param('date') ?: \current_time('Y-m-d'),
+			'level' => $request->get_param('level') ?: '',
+			'user' => $request->get_param('user') ?: '',
+			'search' => $request->get_param('search') ?: '',
+			'page' => (int) ($request->get_param('page') ?: 1),
 			'per_page' => (int) ($request->get_param('per_page') ?: 50),
 		);
 
@@ -67,19 +67,19 @@ class LogController extends ApiController
 	/**
 	 * Export logs for a specific day as a downloadable file.
 	 *
-	 * @since 1.2.1
+	 * @since 1.3.0
 	 *
 	 * @param \WP_REST_Request $request REST request object.
 	 * @return void
 	 */
 	public function export(\WP_REST_Request $request): void
 	{
-		$date  = $request->get_param('date') ?: \current_time('Y-m-d');
+		$date = $request->get_param('date') ?: \current_time('Y-m-d');
 		$range = $request->get_param('range') ?: 'day';
-		$dir   = ActivityLog::get_log_dir();
+		$dir = ActivityLog::get_log_dir();
 
 		if (!$dir) {
-			\wp_die(\__('Log directory not found.', 'productbay'), \__('Export Failed', 'productbay'), array('response' => 500));
+			\wp_die(\esc_html__('Log directory not found.', 'productbay'), \esc_html__('Export Failed', 'productbay'), array('response' => 500));
 		}
 
 		$files_to_stream = array();
@@ -90,15 +90,15 @@ class LogController extends ApiController
 		} else {
 			$days = ($range === 'week') ? 7 : 30;
 			$filename = 'productbay-log-' . $range . '-' . $date . '.txt';
-			
+
 			for ($i = 0; $i < $days; $i++) {
-				$target_date = date('Y-m-d', strtotime("-{$i} days", strtotime($date)));
+				$target_date = gmdate('Y-m-d', strtotime("-{$i} days", strtotime($date)));
 				$files_to_stream = array_merge($files_to_stream, $this->get_daily_files($dir, $target_date));
 			}
 		}
 
 		if (empty($files_to_stream)) {
-			\wp_die(\__('No logs found for the selected range.', 'productbay'), \__('Export Failed', 'productbay'), array('response' => 404));
+			\wp_die(\esc_html__('No logs found for the selected range.', 'productbay'), \esc_html__('Export Failed', 'productbay'), array('response' => 404));
 		}
 
 		// Security headers.
@@ -110,16 +110,24 @@ class LogController extends ApiController
 		header('Pragma: public');
 
 		// Stream files.
+		global $wp_filesystem;
+		if (empty($wp_filesystem)) {
+			require_once ABSPATH . '/wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
 		foreach ($files_to_stream as $file) {
 			if (file_exists($file)) {
-				echo "\n--- FILE: " . basename($file) . " ---\n";
-				readfile($file);
+				echo "\n--- FILE: " . \esc_html(basename($file)) . " ---\n";
+				echo $wp_filesystem->get_contents($file); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
-		$total_size = array_sum(array_map('filesize', $files));
+		$total_size = array_sum(array_map('filesize', $files_to_stream));
+		
 		ActivityLog::info(
 			__('Logs exported', 'productbay'),
-			sprintf(__('Log range "%s" exported (Size: %s).', 'productbay'), $range, size_format($total_size))
+			/* translators: 1: Log range (e.g. day or week), 2: Formatted file size */
+			sprintf(__('Log range "%1$s" exported (Size: %2$s).', 'productbay'), $range, size_format($total_size))
 		);
 
 		exit;
@@ -149,9 +157,10 @@ class LogController extends ApiController
 	public function clear()
 	{
 		$deleted = ActivityLog::clear_all();
-		
+
 		ActivityLog::info(
 			__('Logs cleared', 'productbay'),
+			/* translators: %d: Number of deleted log files */
 			sprintf(__('%d daily log file(s) were permanently deleted.', 'productbay'), $deleted)
 		);
 

@@ -6,7 +6,7 @@
  * change summaries for the activity log.
  *
  * @package ProductBay
- * @since 1.2.1
+ * @since 1.3.0
  */
 
 declare(strict_types=1);
@@ -90,7 +90,7 @@ class TableLogger
 		if ($old_source !== $new_source) {
 			$old_type = $old_source['type'] ?? 'all';
 			$new_type = $new_source['type'] ?? 'all';
-			
+
 			if ($old_type !== $new_type) {
 				$changes[] = sprintf(
 					/* translators: 1: Old source type, 2: New source type */
@@ -109,7 +109,7 @@ class TableLogger
 		if ($old_cols !== $new_cols) {
 			$old_count = count($old_cols);
 			$new_count = count($new_cols);
-			
+
 			if ($old_count !== $new_count) {
 				$changes[] = sprintf(
 					/* translators: 1: Old count, 2: New count */
@@ -139,6 +139,7 @@ class TableLogger
 			return __('No significant field changes detected (likely a metadata or timestamp update).', 'productbay');
 		}
 
-		return implode("\n", array_map(function($c) { return '• ' . $c; }, $changes));
+		return implode("\n", array_map(function ($c) {
+			return '• ' . $c; }, $changes));
 	}
 }
