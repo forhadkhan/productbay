@@ -19,7 +19,7 @@ export interface DatePickerProps extends CalendarProps {
  * A high-level component that combines a trigger button and a popover calendar.
  * Supports custom date/time formatting and standardizes the look across the app.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 export const DatePicker = ({
 	value,

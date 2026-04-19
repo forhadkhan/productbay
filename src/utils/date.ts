@@ -3,7 +3,7 @@
  *
  * Lightweight formatting and manipulation helpers.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 
 import { __ } from '@wordpress/i18n';

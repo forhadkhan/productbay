@@ -28,7 +28,7 @@ type ViewMode = 'days' | 'months' | 'years';
  * A versatile calendar UI with support for days, months, years, and time selection.
  * Designed to be reusable across the entire plugin.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 export const Calendar = ({
 	value,
