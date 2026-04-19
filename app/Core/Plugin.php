@@ -202,7 +202,8 @@ class Plugin
 			} else {
 				ActivityLog::success(
 					'Table updated',
-					sprintf(__('Table "%s" (ID: %d) modified.', 'productbay'), $title, $post_id),
+					/* translators: 1: Table title, 2: Table ID */
+					sprintf(__('Table "%1$s" (ID: %2$d) modified.', 'productbay'), $title, $post_id),
 					TableLogger::get_summary($data)
 				);
 			}

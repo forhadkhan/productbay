@@ -109,15 +109,21 @@ class SettingsController extends ApiController
 			$details = array();
 			foreach ($changed_keys as $key) {
 				if ($key === 'logging_enabled') {
+					/* translators: %s: Enabled or Disabled status */
 					$details[] = sprintf(__('Logging %s', 'productbay'), $settings[$key] ? 'Enabled' : 'Disabled');
 				} elseif ($key === 'log_retention') {
+					/* translators: %d: Number of days */
 					$details[] = sprintf(__('Retention set to %d days', 'productbay'), $settings[$key]);
 				}
 			}
 
-			$summary = !empty($details) 
-				? sprintf(__('Log settings updated: %s', 'productbay'), implode(', ', $details))
-				: sprintf(__('Global settings updated: %s', 'productbay'), implode(', ', $changed_keys));
+			if (!empty($details)) {
+				/* translators: %s: Comma-separated list of log settings changes */
+				$summary = sprintf(__('Log settings updated: %s', 'productbay'), implode(', ', $details));
+			} else {
+				/* translators: %s: Comma-separated list of changed global setting keys */
+				$summary = sprintf(__('Global settings updated: %s', 'productbay'), implode(', ', $changed_keys));
+			}
 
 			ActivityLog::success(__('Settings updated', 'productbay'), $summary);
 		}

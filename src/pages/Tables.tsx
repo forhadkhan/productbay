@@ -1145,15 +1145,17 @@ const Tables = () => {
 			{/* Pagination Menu */}
 			<div className="flex justify-between items-center">
 				{/* Pagination Info */}
-				<div className="text-sm text-gray-500 px-1">
-					{sprintf(
-						/* translators: %1$d: start index, %2$d: end index, %3$d: total entries */
-						__('Showing %1$d to %2$d of %3$d entries', 'productbay'),
-						(currentPage - 1) * itemsPerPage + 1,
-						Math.min(currentPage * itemsPerPage, filteredTables.length),
-						filteredTables.length
-					)}
-				</div>
+				{(filteredTables.length > 0) &&
+					<div className="text-sm text-gray-500 px-1">
+						{sprintf(
+							/* translators: %1$d: start index, %2$d: end index, %3$d: total entries */
+							__('Showing %1$d to %2$d of %3$d entries', 'productbay'),
+							(currentPage - 1) * itemsPerPage + 1,
+							Math.min(currentPage * itemsPerPage, filteredTables.length),
+							filteredTables.length
+						)}
+					</div>
+				}
 				{/* Pagination Controls */}
 				<div className="flex items-center gap-4 bg-white px-4 py-2 rounded-lg shadow-xs border border-gray-200">
 					{/* Rows Per Page */}

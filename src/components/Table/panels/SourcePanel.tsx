@@ -140,6 +140,7 @@ const SelectedProductsSummary = ({ sourceType }: { sourceType: SourceType }) => 
 						>
 							<Tooltip
 								content={sprintf(
+									/* translators: 1: Product name, 2: Product ID, 3: Product SKU */
 									__('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'),
 									product.name,
 									product.id.toString(),
@@ -153,7 +154,11 @@ const SelectedProductsSummary = ({ sourceType }: { sourceType: SourceType }) => 
 							</Tooltip>
 							<button
 								onClick={() => toggleProduct(product)}
-								title={sprintf(__('Remove "%s"', 'productbay'), product.name)}
+								title={sprintf(
+									/* translators: %s: Product name */
+									__('Remove "%s"', 'productbay'),
+									product.name
+								)}
 								className="text-blue-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center transition-colors"
 							>
 								<XIcon className="h-3.5 w-3.5 border-l border-blue-200 pl-1 ml-0.5" />
@@ -183,6 +188,7 @@ const SelectedProductsSummary = ({ sourceType }: { sourceType: SourceType }) => 
 					variant="ghost"
 					size="sm"
 					confirmMessage={sprintf(
+						/* translators: %d: Number of products */
 						_n('Remove %d product?', 'Remove %d products?', productIds.length, 'productbay'),
 						productIds.length
 					)}
