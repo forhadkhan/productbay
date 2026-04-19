@@ -422,7 +422,7 @@ export const createDefaultSettings = (): TableSettings => ({
 		},
 		variationsMode: 'inline',
 		variableProductMode: 'inline',
-		groupedProductMode: 'popup',
+		groupedProductMode: 'inline',
 		nestedDefaultExpanded: false,
 		showChildCount: true,
 	},

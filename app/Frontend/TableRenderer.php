@@ -842,7 +842,7 @@ class TableRenderer
 
 		// Grouped: conditionally render inline select or fallback to standard view options button
 		if ($product->is_type('grouped')) {
-			$grouped_mode = $this->table_config['settings']['features']['groupedProductMode'] ?? 'popup';
+			$grouped_mode = $this->table_config['settings']['features']['groupedProductMode'] ?? 'inline';
 			
 			// Legacy fallback for old table configurations
 			if (empty($this->table_config['settings']['features']['groupedProductMode']) && !empty($this->table_config['settings']['features']['variationsMode'])) {
