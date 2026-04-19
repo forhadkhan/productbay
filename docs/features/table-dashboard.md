@@ -1,6 +1,6 @@
 # Table Dashboard
 
-The Table Dashboard is your central hub for managing all product tables in ProductBay.
+The Table Dashboard is the homepage of the plugin and your central hub for managing all product tables in ProductBay.
 
 ## Overview
 
@@ -57,7 +57,7 @@ You can combine multiple filters and use the **Clear all filters** option to res
 To manage multiple tables at once:
 1. **Select** tables using the checkboxes on the left.
 2. Click the **Bulk Actions** dropdown menu.
-3. Choose an action: **Delete**, **Set Published**, or **Set Private**.
+3. Choose an action: **Delete**, **Set Published**, **Set Private** or **Export Selected (PRO)**.
 4. Click **Apply** to execute the changes.
 
 ### Individual Actions 
@@ -69,6 +69,7 @@ Hover over any table row to reveal the following management options:
 - **Edit**: Opens the table in the edit page for deep configuration.
 - **Duplicate**: Instantly creates a complete copy of the table and its settings.
 - **Set Private / Publish**: Quickly toggle the visibility status of the table.
+- **Preview**: View the table on the frontend using the [permalink](#permalinks).
 - **Delete**: Permanently removes the table (requires user confirmation).
 
 ::: warning
@@ -81,7 +82,7 @@ Every saved product table automatically receives a **native WordPress permalink*
 
 ### How It Works
 - Permalinks use the `productbay_table` Custom Post Type registered by the plugin.
-- The URL structure follows your WordPress permalink settings (e.g., `yoursite.com/productbay_table/my-table-slug/`).
+- The URL structure follows your WordPress permalink settings (e.g., `yoursite.com/productbay/product-table/my-table-slug/`).
 - The permalink is displayed in both the **table listing page** and the **table editor sidebar** for quick copying.
 
 ### Use Cases
@@ -99,7 +100,7 @@ Maintenance of table visibility is controlled by two primary statuses:
 
 | Status | Visibility |
 |--------|-----------| 
-| **Published** | Publicly visible on your site via shortcode and permalink. |
+| **Published** | Publicly visible on your site via Gutenberg block or shortcode and permalink. |
 | **Private** | Invisible to visitors. Admins will see a placeholder notice where the table would normally appear. |
 
 ### How to Change Status

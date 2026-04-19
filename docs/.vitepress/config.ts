@@ -48,8 +48,8 @@ function getSidebar(base = '', includePro = true) {
 				text: 'Table Configuration',
 				items: [
 					{ text: 'Product Sources', link: `${base}/features/product-sources` },
-					{ 
-						text: 'Column Editor', 
+					{
+						text: 'Column Editor',
 						link: `${base}/features/column-editor`,
 						items: includePro ? [
 							{ text: 'Custom Field Column (Pro)', link: `${base}/features/custom-field-column` },
@@ -63,15 +63,15 @@ function getSidebar(base = '', includePro = true) {
 			{
 				text: 'Frontend',
 				items: [
-					{ 
-						text: 'WooCommerce Integration', 
+					{
+						text: 'WooCommerce Integration',
 						link: `${base}/features/woocommerce`,
 						items: includePro ? [
 							{ text: 'Variable & Grouped Modes (Pro)', link: `${base}/features/variable-grouped-modes` },
 						] : undefined
 					},
-					{ 
-						text: 'Search & Filters', 
+					{
+						text: 'Search & Filters',
 						link: `${base}/features/search-and-filters`,
 						items: includePro ? [
 							{ text: 'Price Filter (Pro)', link: `${base}/features/price-filter` },
@@ -85,8 +85,8 @@ function getSidebar(base = '', includePro = true) {
 				items: [
 					{ text: 'Default Configuration', link: `${base}/features/default-configuration` },
 					{ text: 'Plugin Settings', link: `${base}/features/plugin-settings` },
+					{ text: 'Log', link: `${base}/features/activity-log` },
 					{ text: 'License', link: `${base}/features/license` },
-					{ text: 'Activity Log', link: `${base}/features/activity-log` },
 				],
 			},
 		],

@@ -1,4 +1,4 @@
-# Activity Log <Badge type="tip" text="Since v1.2.1" />
+# Activity Log <Badge type="tip" text="Since v1.3.0" />
 
 ProductBay includes a powerful, built-in recording system that tracks important actions like table creation, setting updates, and system events. This helps you monitor changes, audit user actions, and troubleshoot issues without checking server-level logs.
 

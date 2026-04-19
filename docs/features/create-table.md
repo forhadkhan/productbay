@@ -13,7 +13,7 @@ Perfect for first-time users or those who prefer a structured, step-by-step setu
 
 ### [Manual Methods](./create-page)
 For administrators who want to jump straight into the creation screen from any WordPress admin area.
-- Accessible via the **Plugin Navbar**, **WP Menu**, and **Topbar**.
+- Accessible via the **Plugin Navbar**, **WordPress Menu**, and **Topbar Menu**.
 - Click on **Create New Table** 
 
 
@@ -22,3 +22,7 @@ For administrators who want to jump straight into the creation screen from any W
 One of ProductBay's most powerful features is the **Real-Time Live Preview** available during the entire creation process.
 
 Regardless of which method you use to start, you will see exactly how your table looks as you built it. Every change to columns, product sources, colors, and layouts is reflected **instantly** in a side-by-side preview panel, no need to save or refresh the page.
+
+::: warning Note
+Actions such as search, pagination, and Add to Cart do not function in the Live Preview. Please save the table and view it on a live page to test these features.
+::: 

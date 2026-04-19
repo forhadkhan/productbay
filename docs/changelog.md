@@ -9,7 +9,7 @@ All notable changes to ProductBay are documented on this page.
 * **Improvement:** Permalink URL is shown in the table editor sidebar and the table listing page for quick copying.
 * **Dev:** Registered `productbay_table` CPT with `public` support for frontend permalink rendering.
 
-## 1.2.1
+## 1.3.0
 
 * **Feature:** Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
 * **Improvement:** General maintenance and stability updates.

@@ -18,7 +18,7 @@ Once you install and activate the Pro version, this tab transforms into your lic
 - Check your license expiration dates.
 - Manage site activations (useful if you are changing URLs or migrating from staging to live).
 
----
+![Activate your ProductBay license](/images/license-tab--inactive.png)
 
 ## Activating Your License
 
@@ -37,9 +37,19 @@ To activate your license and enable Pro features:
 1. In your WordPress admin, go to **ProductBay → Settings**.
 2. Click on the **License** tab.
 3. Paste your license key into the input field.
-4. Click the **Activate License** button.
+4. Click the **Activate** button.
 
 Once successfully activated, the status will change to "License Active" and display the expiration date.
+
+![ProductBay License Activated](/images/license-tab--activated.png)
+
+### Removing License
+If needed, you can remove your license by going to **Settings → License**, where you’ll find the **Remove License** button.
+
+Once removed, the license must be activated again to continue using Pro features. You can reactivate it using the same license key.
+
+Note: Removing a license from one site does not allow you to use it on a different site.
+
 
 ## License Status Indicators
 
@@ -49,14 +59,10 @@ Your license tab will display one of the following statuses:
 - **Expired:** Your subscription has ended. You'll lose access to automatic updates and premium support, but the plugin will continue to function.
 - **Invalid / Deactivated:** The key is incorrect or has been deactivated from this site.
 
-## Deactivating and Moving a License
+## Moving a License
 
-If you want to migrate your license to a new website (e.g., moving from a staging environment to production):
-1. Go to **ProductBay → Settings → License** on the old site.
-2. Click the **Deactivate License** button.
-3. You can now use that key to activate the plugin on your new site.
+When a license is activated for the first time, it becomes locked to that specific domain. To transfer the license to a different website, you will need to contact the support team for assistance.
 
-Alternatively, you can manage your site activations directly from your WPAnchorBay account dashboard.
 
 ## Automatic and Manual Updates
 
@@ -73,5 +79,4 @@ If you prefer not to use automatic updates or your license has expired:
 
 - **Firewall Blocking License Server:** Ensure your hosting environment doesn't block outgoing connections to the WPAnchorBay license server. This is required to validate the key.
 - **Domain Mismatch:** Once you activate your license, your domain is locked to that license. So you can't use the same license key on two different domains. If you change your domain name, you may need to contact us to reactivate the license key on new domain.
-- **Grace Period:** If our license server is temporarily unreachable, ProductBay Pro includes a 3-day offline grace period. Pro features will continue to work during this time while it retries the connection.
 - **"Requires ProductBay Free Version" Notice:** ProductBay Pro requires the free version of ProductBay (v1.2.0 or higher) to be active simultaneously. Please install and activate the free version of ProductBay to use ProductBay Pro.
