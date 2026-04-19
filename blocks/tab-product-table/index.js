@@ -23176,7 +23176,7 @@ __webpack_require__.r(__webpack_exports__);
  * Features: level filtering, search, date navigation, expandable details,
  * and clear-all functionality.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 
 
@@ -24131,9 +24131,6 @@ const UninstallOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "text-sm text-gray-600 mt-1 mb-2",
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable this to wipe all tables and settings when deleting the plugin.', 'productbay')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "text-xs text-red-600 bg-red-100/50 rounded p-2 inline-block font-medium border border-red-200",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Warning: Enabling this will permanently remove all created tables and their permalinks. Any shortcodes placed on your pages will stop working and appear as plain text once the plugin is deleted.', 'productbay')
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui_Toggle__WEBPACK_IMPORTED_MODULE_2__.Toggle, {
         checked: (_settings$delete_on_u = settings.delete_on_uninstall) !== null && _settings$delete_on_u !== void 0 ? _settings$delete_on_u : true,
@@ -24607,7 +24604,7 @@ const LivePreview = ({
       className: "w-4 h-4 shrink-0 mt-0.5 text-blue-600"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_17__.AlertDescription, {
       className: isFullscreen ? 'text-sm' : 'text-xs',
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.', 'productbay')
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_19__.__)('Actions such as search, pagination, and Add to Cart do not function in the Live Preview. Please save the table and view it on a live page to test these features.', 'productbay')
     })]
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
@@ -25959,7 +25956,8 @@ const SelectedProductsSummary = ({
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
           className: "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-sm border border-blue-200 group transition-all hover:border-blue-300",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_ui_Tooltip__WEBPACK_IMPORTED_MODULE_3__.Tooltip, {
-            content: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'), product.name, product.id.toString(), product.sku || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('N/A', 'productbay')),
+            content: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)(/* translators: 1: Product name, 2: Product ID, 3: Product SKU */
+            (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('%1$s (ID: %2$s, SKU: %3$s)', 'productbay'), product.name, product.id.toString(), product.sku || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('N/A', 'productbay')),
             className: "bg-blue-800",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
               className: "max-w-[180px] truncate block cursor-help font-medium",
@@ -25967,7 +25965,8 @@ const SelectedProductsSummary = ({
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
             onClick: () => toggleProduct(product),
-            title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove "%s"', 'productbay'), product.name),
+            title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)(/* translators: %s: Product name */
+            (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove "%s"', 'productbay'), product.name),
             className: "text-blue-400 hover:text-red-500 bg-transparent cursor-pointer p-0 m-0 flex items-center justify-center transition-colors",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
               className: "h-3.5 w-3.5 border-l border-blue-200 pl-1 ml-0.5"
@@ -25992,7 +25991,8 @@ const SelectedProductsSummary = ({
         onConfirm: confirmRemoveAll,
         variant: "ghost",
         size: "sm",
-        confirmMessage: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__._n)('Remove %d product?', 'Remove %d products?', productIds.length, 'productbay'), productIds.length),
+        confirmMessage: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)(/* translators: %d: Number of products */
+        (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__._n)('Remove %d product?', 'Remove %d products?', productIds.length, 'productbay'), productIds.length),
         className: "text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-1 flex items-center gap-1.5 font-medium transition-colors",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
           className: "h-4 w-4"
@@ -28396,7 +28396,7 @@ __webpack_require__.r(__webpack_exports__);
  * A versatile calendar UI with support for days, months, years, and time selection.
  * Designed to be reusable across the entire plugin.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 const Calendar = ({
   value,
@@ -30576,7 +30576,7 @@ __webpack_require__.r(__webpack_exports__);
  * A high-level component that combines a trigger button and a popover calendar.
  * Supports custom date/time formatting and standardizes the look across the app.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 const DatePicker = ({
   value,
@@ -34371,7 +34371,7 @@ const Tables = () => {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
       className: "flex justify-between items-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("div", {
+      children: [filteredTables.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("div", {
         className: "text-sm text-gray-500 px-1",
         children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.sprintf)(/* translators: %1$d: start index, %2$d: end index, %3$d: total entries */
         (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Showing %1$d to %2$d of %3$d entries', 'productbay'), (currentPage - 1) * itemsPerPage + 1, Math.min(currentPage * itemsPerPage, filteredTables.length), filteredTables.length)
@@ -35850,7 +35850,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Lightweight formatting and manipulation helpers.
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 
 
