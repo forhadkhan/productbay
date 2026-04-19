@@ -47,12 +47,6 @@ const UninstallOptions = memo(({ settings, setSettings, loading }: UninstallOpti
 							'productbay'
 						)}
 					</p>
-					<p className="text-xs text-red-600 bg-red-100/50 rounded p-2 inline-block font-medium border border-red-200">
-						{__(
-							'Warning: Enabling this will permanently remove all created tables and their permalinks. Any shortcodes placed on your pages will stop working and appear as plain text once the plugin is deleted.',
-							'productbay'
-						)}
-					</p>
 				</div>
 				<Toggle
 					checked={settings.delete_on_uninstall ?? true}

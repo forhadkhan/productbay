@@ -99,24 +99,12 @@ if ( $productbay_delete_on_uninstall ) {
 	// 5. Delete activity log files.
 	$productbay_log_dir = WP_CONTENT_DIR . '/productbay-logs';
 	if ( is_dir( $productbay_log_dir ) ) {
-		$productbay_log_files = glob( $productbay_log_dir . '/*' );
-		if ( ! empty( $productbay_log_files ) ) {
-			foreach ( $productbay_log_files as $productbay_log_file ) {
-				if ( is_file( $productbay_log_file ) ) {
-					unlink( $productbay_log_file );
-				}
-			}
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . '/wp-admin/includes/file.php';
+			WP_Filesystem();
 		}
-		// Also remove hidden files (.htaccess).
-		$productbay_hidden_files = glob( $productbay_log_dir . '/.*' );
-		if ( ! empty( $productbay_hidden_files ) ) {
-			foreach ( $productbay_hidden_files as $productbay_hidden_file ) {
-				if ( is_file( $productbay_hidden_file ) ) {
-					unlink( $productbay_hidden_file );
-				}
-			}
-		}
-		rmdir( $productbay_log_dir );
+		$wp_filesystem->delete( $productbay_log_dir, true );
 	}
 
 	// 6. Clear log pruning cron event.
