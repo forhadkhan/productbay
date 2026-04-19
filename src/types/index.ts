@@ -549,7 +549,7 @@ export const createDefaultColumns = (): Column[] => [
 	{
 		id: 'col_button_default',
 		type: 'button',
-		heading: 'Add to Cart',
+		heading: 'Buy',
 		advanced: {
 			showHeading: true,
 			width: { value: 0, unit: 'auto' },
