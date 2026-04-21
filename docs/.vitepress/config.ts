@@ -56,7 +56,8 @@ function getSidebar(base = '', includePro = true) {
 							{ text: 'Combined Column (Pro)', link: `${base}/features/combined-column` },
 						] : undefined
 					},
-					{ text: 'Design Customization', link: `${base}/features/design-customization` },
+					{ text: 'Display Customization', link: `${base}/features/display-customization` },
+					{ text: 'Available Options', link: `${base}/features/available-options` },
 					...(includePro ? [{ text: 'Import / Export (Pro)', link: `${base}/features/import-export` }] : []),
 				],
 			},
