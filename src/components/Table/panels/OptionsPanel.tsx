@@ -208,11 +208,61 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
+				<SettingsOption
+					title={__('Show Quantity Selector', 'productbay')}
+					description={__(
+						'Display quantity input next to add-to-cart button',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.cart.showQuantity}
+						onChange={(e) => setCart({ showQuantity: e.target.checked })}
+					/>
+				</SettingsOption>
+
+				<SettingsOption
+					title={__('Show Clear All Button', 'productbay')}
+					description={__(
+						'Display a button to instantly clear all selected products',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.features.clearAllButton}
+						onChange={(e) =>
+							setFeatures({
+								clearAllButton: e.target.checked,
+							})
+						}
+					/>
+				</SettingsOption>
+
+				<SettingsOption
+					title={__('Selected Items View Panel', 'productbay')}
+					description={__(
+						'Show a floating panel displaying all selected items with individual quantities',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.features.selectedItemsPanel?.enabled ?? true}
+						onChange={(e) =>
+							setFeatures({
+								selectedItemsPanel: {
+									...settings.features.selectedItemsPanel,
+									enabled: e.target.checked,
+								},
+							})
+						}
+					/>
+				</SettingsOption>
+
 				{/* Variable & Grouped Products - Display modes */}
 				{(() => {
 					const variableMode = settings.features.variableProductMode || settings.features.variationsMode || 'inline';
 					const groupedMode = settings.features.groupedProductMode || (settings.features.variationsMode !== 'inline' ? settings.features.variationsMode : 'popup') || 'popup';
-					
+
 					const variableModeOptions = [
 						{ label: __('Inline Dropdown', 'productbay'), value: 'inline' },
 						{ label: __('Popup Modal (PRO)', 'productbay'), value: 'popup', disabled: !isProActive },
@@ -235,14 +285,14 @@ export const OptionsPanel = ({
 							<div className="pt-4 border-t border-gray-100 mt-6">
 								<h4 className="text-sm font-medium text-gray-900 mb-1">{__('Variable & Grouped Products', 'productbay')}</h4>
 								<p className="text-xs text-gray-500 mb-4">{__('Configure how complex products are displayed. Advanced modes require PRO.', 'productbay')}</p>
-								
+
 								<SettingsOption
 									title={__('Grouped Products', 'productbay')}
 									description={__('Products containing multiple child simple products', 'productbay')}
 								>
 									<Select
 										value={groupedMode}
-										onChange={(value: string) => setFeatures({ groupedProductMode: value })}
+										onChange={(value: string) => setFeatures({ groupedProductMode: value as 'inline' | 'popup' | 'nested' | 'separate' })}
 										options={groupedModeOptions}
 										className="w-60"
 									/>
@@ -255,8 +305,8 @@ export const OptionsPanel = ({
 									<Select
 										value={variableMode}
 										onChange={(value: string) => setFeatures({
-											variableProductMode: value,
-											variationsMode: value, // Sync legacy
+											variableProductMode: value as 'inline' | 'popup' | 'nested' | 'separate',
+											variationsMode: value as 'inline' | 'popup' | 'nested' | 'separate', // Sync legacy
 										})}
 										options={variableModeOptions}
 										className="w-60"
@@ -289,74 +339,23 @@ export const OptionsPanel = ({
 					);
 				})()}
 
-				{/* Cart sub-options - Always relevant for Add to Cart functionality */}
-				<div className="transition-all duration-300">
-					<SettingsOption
-						title={__('Show Quantity Selector', 'productbay')}
-						description={__(
-							'Display quantity input next to add-to-cart button',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.cart.showQuantity}
-							onChange={(e) => setCart({ showQuantity: e.target.checked })}
-						/>
-					</SettingsOption>
+				<SettingsOption
+					title={__('Variation Badges', 'productbay')}
+					description={__(
+						'Show badges indicating which variations were added to cart',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.features.variationBadges}
+						onChange={(e) =>
+							setFeatures({
+								variationBadges: e.target.checked,
+							})
+						}
+					/>
+				</SettingsOption>
 
-					<SettingsOption
-						title={__('Variation Badges', 'productbay')}
-						description={__(
-							'Show badges indicating which variations were added to cart',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.features.variationBadges}
-							onChange={(e) =>
-								setFeatures({
-									variationBadges: e.target.checked,
-								})
-							}
-						/>
-					</SettingsOption>
-					<SettingsOption
-						title={__('Show Clear All Button', 'productbay')}
-						description={__(
-							'Display a button to instantly clear all selected products',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.features.clearAllButton}
-							onChange={(e) =>
-								setFeatures({
-									clearAllButton: e.target.checked,
-								})
-							}
-						/>
-					</SettingsOption>
-
-					<SettingsOption
-						title={__('Selected Items View Panel', 'productbay')}
-						description={__(
-							'Show a floating panel displaying all selected items with individual quantities',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.features.selectedItemsPanel?.enabled ?? true}
-							onChange={(e) =>
-								setFeatures({
-									selectedItemsPanel: {
-										...settings.features.selectedItemsPanel,
-										enabled: e.target.checked,
-									},
-								})
-							}
-						/>
-					</SettingsOption>
-				</div>
 			</SettingsSection>
 
 			{/* Pro features inject here */}
