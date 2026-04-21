@@ -73,14 +73,13 @@ The **Options Tab** provides advanced controls for table functionality, filters,
 1. **Table Controls**: Configure how users interact with the table.
    - **Enable Search Bar**: Allow users to filter products via a search input.
    - **Enable Pagination**: Break long lists into multiple pages.
-   - **Enable Image Lightbox**: Open full-size product images in a popup on click.
-2. **Pagination Settings**: Fine-tune pagination behavior.
    - **Products Per Page**: Define how many products show before pagination kicks in.
    - **Pagination Style**: Choose Standard (numbers), Load More button <ProBadge />, or Infinite Scroll <ProBadge />.
-3. **Taxonomy & Type Filters**: Frontend filter dropdowns.
+   - **Enable Image Lightbox**: Open full-size product images in a popup on click.
+2. **Taxonomy & Type Filters**: Frontend filter dropdowns.
    - **Enable Categories Filter**: Show a category dropdown filter above the table.
    - **Enable Product Type Filter**: Show a product type dropdown (Simple, Variable, etc.).
-4. **Cart Functionality**: Enhance the shopping experience.
+3. **Cart Functionality**: Enhance the shopping experience.
    - **Enable Add to Cart**: Show add-to-cart buttons.
    - **AJAX Add to Cart**: Add to cart without page reload.
    - **Show Quantity Selector**: Allow quantity input per row.

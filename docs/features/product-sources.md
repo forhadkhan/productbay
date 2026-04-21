@@ -4,20 +4,14 @@ Product sources determine **which products** appear in your table. ProductBay of
 
 ## Source Types
 
+![Product Sources](/images/product-sources.png)
+
 ### All Products
 
 Displays all published products from your WooCommerce store.
 
 - **Best for:** General product catalogs, store-wide listings
 - **Products included:** All products with "Published" status
-
-### By Category
-
-Select one or more WooCommerce product categories to populate your table.
-
-- **Best for:** Category-specific pages, seasonal collections
-- **Search:** Type to search and select categories from a dropdown
-- **Multiple categories:** You can select multiple categories — products from all selected categories will be included
 
 ### On Sale
 
@@ -29,6 +23,24 @@ Automatically includes only products currently on sale. This uses WooCommerce's 
 - **Best for:** Sale pages, promotional landing pages
 - **Dynamic:** Products automatically appear/disappear as sales start and end
 
+### By Category
+
+Select one or more WooCommerce product categories to populate your table.
+
+- **Best for:** Category-specific pages, seasonal collections
+- **Search:** Type to search and select categories from a dropdown
+- **Multiple categories:** You can select multiple categories — products from all selected categories will be included.
+
+![Product Sources - By Category](/images/product-sources-by-category.png)
+
+1. Select "By Category" as the product source.
+2. You will selected categories here and you can also remove any category by clicking on the cross icon.
+3. You can also search for categories by typing in the search bar. 
+4. You reload categories by clicking on the reload icon if needed.
+5. You can clear all categories by clicking on the clear icon if needed.
+
+Select one or more categories to include in the table and the table will display all the products from the selected categories.
+
 ### Specific Products
 
 Hand-pick individual products by searching for them.
@@ -39,36 +51,12 @@ Hand-pick individual products by searching for them.
 
 - **Best for:** Curated lists, featured products, comparison tables
 
-## Query Modifiers
+![Product Sources - Specific Products](/images/product-sources-specific-products.png)
 
-Regardless of source type, you can further refine which products appear:
+1. Select "Specific Products" as the product source.
+2. You will see a search bar to search for products, you can search for products by typing in the search bar. 
+3. You will see a dropdown of products that match your search query. You can select one or more products from the dropdown. By default, some products will be visible in the dropdown.
+4. You will see selected products here and be able to remove them by clicking on the cross icon. On hover of the product, you will see the product name, id and sku.
+5. You can clear all products by clicking on the clear icon if needed.
 
-### Exclude Product IDs
-Enter one or more product IDs to **exclude** from the table. Useful for hiding discontinued items or products you don't want in a particular table.
-
-### Stock Status Filter
-
-| Option | Description |
-|--------|-------------|
-| **Any** | Show products regardless of stock status |
-| **In Stock** | Only products that are in stock |
-| **Out of Stock** | Only products that are out of stock |
-| **On Backorder** | Only products accepting backorders |
-
-### Price Range
-Set minimum and/or maximum price bounds to limit displayed products. Leave a field empty for no limit.
-
-## Sort Order
-
-Configure the default sorting for your table:
-
-| Sort By | Options |
-|---------|---------|
-| **Name** | A → Z or Z → A |
-| **Price** | Low → High or High → Low |
-| **Date** | Newest First or Oldest First |
-| **Popularity** | Best Selling First |
-
-::: tip
-This sets the **initial** sort order when the table first loads on the frontend.
-:::
+Select one or more products to include in the table and the table will display all the products from the selected products.

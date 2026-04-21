@@ -2,7 +2,24 @@
 
 The Column Editor lets you choose which data columns appear in your product table, arrange their order, and control responsive visibility.
 
-![Column Editor](/images/columns.webp)
+![Column Editor](/images/column-editor.png)
+
+1. Clicking on **Manage Columns** button will open the column editor.
+2. Select or deselect columns to include in the table.
+3. Selected Columns will appear in the table in the order they are arranged.
+
+![Column Editor](/images/column-editor-2.png)
+
+1. Open column settings by clicking on the chevron expand button on the right side of any column card.
+2. You can edit a column name by clicking on the column name text field.
+3. You can open column editor by clicking on the **Manage Columns** button.
+4. You can reorder columns by dragging and dropping them in the column list on the left side of the column editor.
+5. Set the column width by clicking on the width dropdown on the right side of any column card.
+6. Set the column visibility by clicking on the visibility dropdown on the right side of any column card.
+7. You can also hide or show a column name on the table header by clicking on the eye icon on the right side of any column card.
+8. You can remove a column by clicking on the trash icon.
+
+
 
 ## Available Columns
 

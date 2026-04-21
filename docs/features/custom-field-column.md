@@ -2,12 +2,20 @@
 
 The Custom Field column is one of the most powerful features in ProductBay Pro. It allows you to expose virtually any piece of data associated with your products — including core WooCommerce meta, custom fields added by themes, or data from third-party plugins like Advanced Custom Fields (ACF).
 
+![Custom Field Column](/images/custom-field-column.png)
+
+1. Click on chevron icon to expand the custom field column settings.
+2. You can browse and search all available meta keys here.
+3. You can select any avaiable keys just by click on it.
+4. You can select the formatting mode.
+5. **Meta Key** (Manual Override), this is the actual field that fetchs data in the custome field. You put your meta key here.
+6. You can add **suffix** which will be added at the end of the content in each row for that custom field.
+7. You can add **prefix** which will be added at the beginning of the content in each row for that custom field.
+8. Like any other column, you can drag to change order, hide column name in the table header, or remove the custom field column.
+
 ## Adding the Column
 
-To add a Custom Field to your table:
-1. Navigate to Step 2 (**Columns**) in the creation wizard.
-2. Click **Add Column**.
-3. Select **Custom Field** from the list of available columns.
+While creating or editing a table, click on **Manage Columns** button and select **Custom Field** option.
 
 ## Meta-Key Discovery Panel
 
