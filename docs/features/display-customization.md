@@ -1,4 +1,4 @@
-# Design Customization
+# Display Customization
 
 ProductBay gives you granular control over the visual appearance of each table. Every table has its own scoped CSS, so styles never leak between tables.
 
