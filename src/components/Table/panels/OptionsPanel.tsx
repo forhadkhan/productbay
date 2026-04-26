@@ -290,27 +290,33 @@ export const OptionsPanel = ({
 									title={__('Grouped Products', 'productbay')}
 									description={__('Products containing multiple child simple products', 'productbay')}
 								>
-									<Select
-										value={groupedMode}
-										onChange={(value: string) => setFeatures({ groupedProductMode: value as 'inline' | 'popup' | 'nested' | 'separate' })}
-										options={groupedModeOptions}
-										className="w-60"
-									/>
+									<div className="flex items-center gap-2 ml-2">
+										<Select
+											value={groupedMode}
+											onChange={(value: string) => setFeatures({ groupedProductMode: value as 'inline' | 'popup' | 'nested' | 'separate' })}
+											options={groupedModeOptions}
+											className="w-60"
+										/>
+										{!isProActive && <ProBadge />}
+									</div>
 								</SettingsOption>
 
 								<SettingsOption
 									title={__('Variable Products', 'productbay')}
 									description={__('Products with attribute variations. Inline dropdown supported natively.', 'productbay')}
 								>
-									<Select
-										value={variableMode}
-										onChange={(value: string) => setFeatures({
-											variableProductMode: value as 'inline' | 'popup' | 'nested' | 'separate',
-											variationsMode: value as 'inline' | 'popup' | 'nested' | 'separate', // Sync legacy
-										})}
-										options={variableModeOptions}
-										className="w-60"
-									/>
+									<div className="flex items-center gap-2 ml-2">
+										<Select
+											value={variableMode}
+											onChange={(value: string) => setFeatures({
+												variableProductMode: value as 'inline' | 'popup' | 'nested' | 'separate',
+												variationsMode: value as 'inline' | 'popup' | 'nested' | 'separate', // Sync legacy
+											})}
+											options={variableModeOptions}
+											className="w-60"
+										/>
+										{!isProActive && <ProBadge />}
+									</div>
 								</SettingsOption>
 
 								{hasNestedMode && isProActive && (
