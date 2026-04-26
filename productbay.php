@@ -87,6 +87,11 @@ function productbay_activate()
 		\wp_schedule_event(time(), 'daily', Data\ActivityLog::CRON_HOOK);
 	}
 
+	// Register post type and flush rewrite rules to prevent 404s on fresh installs.
+	$plugin = new Core\Plugin();
+	$plugin->register_post_type();
+	\flush_rewrite_rules();
+
 	Data\ActivityLog::info('Plugin activated', 'ProductBay v' . PRODUCTBAY_VERSION . ' activated.');
 }
 \register_activation_hook(__FILE__, __NAMESPACE__ . '\\productbay_activate');
