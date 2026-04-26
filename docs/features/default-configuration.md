@@ -85,4 +85,4 @@ Configure which features are enabled by default:
 
 ## Reset to Defaults 
 
-After making any chnages, if you decide to reset back default settings, you can do so by clicking **Reset Defaults** button at the top.
+After making any changes, if you decide to reset back default settings, you can do so by clicking **Reset Defaults** button at the top.
