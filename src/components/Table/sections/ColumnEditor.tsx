@@ -229,6 +229,11 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 			const typeConfig = COLUMN_TYPES.find((t) => t.type === type);
 			if (!typeConfig) return;
 
+			// Prevent adding Pro columns if Pro is not active
+			if (typeConfig.isPro && !(window as any).productBaySettings?.proVersion) {
+				return;
+			}
+
 			const newColumn: Column = {
 				id: generateColumnId(),
 				type,
@@ -336,7 +341,6 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 										description={__('This column type is a Pro feature. Upgrade to create more advanced tables.', 'productbay')}
 									>
 										<button
-											onClick={() => handleToggleColumn(type)}
 											className={cn(
 												'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
 												'hover:bg-productbay-brand/20',

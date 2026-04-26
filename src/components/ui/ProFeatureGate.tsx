@@ -63,12 +63,11 @@ export const ProFeatureGate = ({
 			{/* Intercept click on the gated element if children provided */}
 			{children && (
 				<div
-					onClick={(e) => {
+					onClickCapture={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
 						if (externalIsOpen !== undefined && externalOnClose) {
-							externalOnClose(); // This might be wrong, but we usually want to toggle it or call a specific open function
-							// Actually, if we're wrapping, we just want to set showModal to true.
+							externalOnClose();
 						}
 						setInternalIsOpen(true);
 					}}
