@@ -2,18 +2,15 @@
 
 All notable changes to ProductBay are documented on this page.
 
-## 1.3.0
-
-* **Feature:** Introduced native **Permalink Pages** for product tables — every saved table now gets a clean, shareable URL via the `productbay_table` Custom Post Type.
-* **Feature:** Grouped products now default to **Inline Dropdown** mode, allowing customers to select child products, set quantity, and add to cart directly from the table row (previously linked to the single product page).
-* **Improvement:** Permalink URL is shown in the table editor sidebar and the table listing page for quick copying.
-* **Dev:** Registered `productbay_table` CPT with `public` support for frontend permalink rendering.
+Looking for Pro version changes? See the **[Pro Changelog](./pro-changelog.md)**.
 
 ## 1.3.0
 
-* **Feature:** Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
-* **Improvement:** General maintenance and stability updates.
-* **Dev:** Internal optimizations and code cleanup.
+* **Feature:** Introduced native **Permalink Pages** for product tables via `productbay_table` Custom Post Type.
+* **Feature:** Grouped products now default to **Inline Dropdown** mode for direct child product selection and add-to-cart.
+* **Feature:** Introduced a comprehensive, file-based **Activity Log** system to track table management and system events.
+* **Feature:** Decoupled cart functionality from AJAX to support native form submissions and improved compatibility.
+* **Dev:** Optimized internal code architecture and registered `productbay_table` CPT with frontend support.
 
 ## 1.2.0
 

@@ -283,11 +283,11 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.3.0 =
 
-* Feature: Added inline product selection ability for group products.
+* Feature: Introduced native **Permalink Pages** for product tables via `productbay_table` Custom Post Type.
+* Feature: Grouped products now default to **Inline Dropdown** mode for direct child product selection and add-to-cart.
+* Feature: Introduced a comprehensive, file-based **Activity Log** system to track table management and system events.
 * Feature: Decoupled cart functionality from AJAX to support native form submissions and improved compatibility.
-* Feature: Added permalink feature for tables to provide direct, shareable URLs for every product table.
-* Feature: Introduced a comprehensive, file-based Activity Log system to track table management, settings changes, and system events.
-* Improvement: Enhanced performance, UI and stability updates.
+* Dev: Optimized internal code architecture and registered `productbay_table` CPT with frontend support.
 
 = 1.2.0 =
 
@@ -320,7 +320,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 == Upgrade Notice ==
 
 = 1.3.0 =
-Major functional update: Decouples cart actions from AJAX and introduces a new reusable UI component library (Calendar, DatePicker) for enhanced interface consistency.
+Major functional update: Introduces native permalink pages for tables, decouples cart actions from AJAX, and adds an Activity Log system for better management.
 
 = 1.2.0 =
 Security and feature update: Adds new column types (Stock, Date, Taxonomy, Rating) and implements secure Pro-exclusive feature blocking.
