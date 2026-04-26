@@ -44,6 +44,7 @@ Unlike traditional table plugins, ProductBay is built on a **modern hybrid archi
 * **Frontend Display:** A lightweight, SEO-friendly rendering engine optimized for Core Web Vitals, so your customers get speed without bloat.
 * **Multiple Display Methods:** Add product tables in any page through shortcode or Gutenberg block which allows sigle table, multiple tables and tab options.
 * **Permalink:** View product tables in a dedicated page with unique URL.
+* **Activity Log:** Track system events and table management actions with a file-based logging system.
 * **No External CDN:** No external CDN, no remote scripts, no data ever leaves your server. All assets are bundled locally inside the plugin.
 
 ---
@@ -139,6 +140,7 @@ A centralized admin dashboard to manage all your tables at a glance:
 * **Bulk Status Update**: Update status of tables at once to private or published
 * **Bulk Delete**: Clean up multiple tables at once
 * **Date**: See created, modified and published date for each table
+* **Activity Log**: Monitor table changes and system events for better oversight and troubleshooting
 
 ---
 
@@ -162,17 +164,20 @@ ProductBay exposes **30+ action hooks and filters** across all plugin layers, Co
 
 Get the Pro add-on that will extend ProductBay with advanced capabilities:
 
-* **Advanced Variable Product Layouts**: Popup, Nested, Separate
-* **Richer Group Product Layouts**: Popup, Nested, Separate
-* **Pro Columns**: Ratings, Advanced Custom Fields, Combine Multiple Columns and more
-* **Lazy Loading**: Improved performance with lazy loading including infinite scroll or "Load More" button instead of pagination
-* **Import / Export**: Backup and share table configurations as JSON
+* **Advanced Variable Product Layouts**: Popup Modal, Nested Rows, or Separate Rows display modes.
+* **Advanced Group Product Layouts**: Enhanced display options for grouped item selection.
+* **Price Range Filter**: Interactive slider and input-based price filtering.
+* **Pro Columns**: Advanced Custom Fields (ACF) integration and Combined Columns using template tags.
+* **Lazy Loading**: Improved performance with **infinite scroll** or **Load More** button instead of pagination.
+* **Import / Export**: Backup, migrate, and share table configurations as JSON files.
+* **License Management**: Automated updates and professional support.
+
 Coming Soon - 
-* **Quick View Modal**: AJAX-loaded product detail popup
-* **Custom CSS Editor**: Per-table scoped CSS editor in the admin
-* **Advanced Filters**: Sidebar/drawer/top menu layout, attribute filters, active filter chips
-* **Premium Templates**: One-click style presets
-* **Analytics**: Table impressions, click tracking, and a dashboard widget
+* **Quick View Modal**: AJAX-loaded product detail popup.
+* **Custom CSS Editor**: Per-table scoped CSS editor in the admin.
+* **Advanced Filters**: Sidebar/drawer layouts, attribute filters, and active filter chips.
+* **Premium Templates**: One-click professional style presets.
+* **Analytics**: Table impressions, click tracking, and conversions dashboard.
 
 ---
 
@@ -255,7 +260,7 @@ Yes. ProductBay uses a standard WordPress shortcode (`[productbay id="X"]`), whi
 
 = Is there a Pro version available? =
 
-A Pro add-on is currently in development and will unlock advanced features including additional column types, lazy loading, quick view modals, advanced filters, and more. Visit [wpanchorbay.com](https://wpanchorbay.com/plugins/productbay) for updates.
+Yes! ProductBay Pro is now available. It extends the free version with advanced variable layouts, price range filters, custom field support, import/export, and more. You can purchase it at [wpanchorbay.com](https://wpanchorbay.com/plugins/productbay).
 
 = Is ProductBay translation ready? =
 
