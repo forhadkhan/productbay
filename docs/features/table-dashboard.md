@@ -84,14 +84,15 @@ Every saved product table automatically receives a **native WordPress permalink*
 - Permalinks use the `productbay_table` Custom Post Type registered by the plugin.
 - The URL structure follows your WordPress permalink settings (e.g., `yoursite.com/productbay/product-table/my-table-slug/`).
 - The permalink is displayed in both the **table listing page** and the **table editor sidebar** for quick copying.
+- **Automatic Setup**: ProductBay automatically flushes WordPress rewrite rules upon activation, ensuring permalinks work instantly after installation.
 
 ### Use Cases
 - **Share direct links** to a specific product table via email, social media, or chat.
 - **Embed via URL** in platforms that support oEmbed or link previews.
 - **Dedicated landing pages** — each table has its own page without needing to manually create a page and paste a shortcode.
 
-::: tip
-If your permalinks aren't working after activating the plugin, go to **Settings → Permalinks** in WordPress and click **Save** to flush the rewrite rules.
+::: tip Troubleshooting
+If your permalinks give a 404 error, you can manually force a refresh by going to **Settings → Permalinks** in WordPress and clicking **Save**.
 :::
 
 ## Table Statuses

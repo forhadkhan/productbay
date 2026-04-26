@@ -7,3 +7,6 @@ The modern and recommended approach. Use the native ProductBay blocks inside the
 
 ### [Shortcodes](./shortcodes)
 The classic approach. Perfect for embedding tables into older page builders, footer widgets, Classic Editor content, or custom PHP templates.
+
+### [Permalinks](./table-dashboard#permalinks) <Badge type="tip" text="Since v1.3.0" />
+The instant approach. Every table automatically receives a dedicated URL. Share the direct link without needing to create a separate WordPress page.
