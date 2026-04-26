@@ -232,3 +232,40 @@ POST /wp-json/productbay/v1/preview
 ```
 
 Renders a table preview from the provided configuration. Used by the Creation Wizard's live preview feature.
+
+---
+
+### Logs
+
+#### Get Activity Logs
+
+```http
+GET /wp-json/productbay/v1/logs
+```
+
+Returns paginated activity log entries.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `limit` | integer | Results per page (default: 50) |
+| `page` | integer | Page number (default: 1) |
+
+---
+
+#### Export Logs
+
+```http
+GET /wp-json/productbay/v1/logs/export
+```
+
+Downloads all activity logs as a CSV file.
+
+---
+
+#### Clear Logs
+
+```http
+POST /wp-json/productbay/v1/logs/clear
+```
+
+Permanently deletes all activity log entries. This action cannot be undone.
