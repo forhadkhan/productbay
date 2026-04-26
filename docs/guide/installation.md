@@ -41,7 +41,7 @@ If you've purchased ProductBay Pro, here is how to install and activate it:
 
 > **Note:** ProductBay Pro is an add-on. The free version of ProductBay (v1.2.0 or higher) must be installed and active for the Pro features to work.
 
-For detailed instructions on licensing and updates, see the [License Activation guide](/guide/license-activation).
+For detailed instructions on licensing and updates, see the [License Management docs](/features/license).
 
 ## Post-Installation
 

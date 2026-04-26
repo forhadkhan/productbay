@@ -22,15 +22,15 @@ Yes! **ProductBay Pro** is now available. It adds advanced features like a Price
 
 ### What does ProductBay Pro include?
 
-You can see a full feature comparison between the Free and Pro versions on our [homepage](/guide/introduction#free-vs-pro).
+You can see a full feature comparison between the Free and Pro versions on our [homepage](/productbay/).
 
-### Do I need the free plugin to use Pro?
+## License & Updates
 
-Yes. ProductBay Pro acts as an add-on alongside the core plugin. You must have **ProductBay Free v1.2.0 or higher** installed and active.
+### Do I need a license key to use ProductBay?
+No. The core version of ProductBay is 100% free forever. A license key is only needed if you purchase ProductBay Pro to access premium features.
 
-### How do I activate my Pro license?
-
-After purchasing, you can enter your license key in your WordPress admin under **ProductBay → Settings → License**. For detailed instructions, read our [License Activation guide](/guide/license-activation).
+### How do I activate my Pro license key?
+After purchasing, you can enter your license key under **ProductBay → Settings → License**. For step-by-step instructions, see our [License Activation](/features/license) guide.
 
 ### Can I use Pro on multiple sites?
 

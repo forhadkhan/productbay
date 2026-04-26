@@ -82,7 +82,7 @@ Ready to dive deeper? Choose a section below to find exactly what you're looking
 
 <div class="tip custom-block">
   <p class="custom-block-title">Getting Started</p>
-  <p><a href="/productbay/guide/installation">Installation</a> • <a href="/productbay/guide/getting-started">Quick Start Guide</a> • <a href="/productbay/guide/license-activation">License Activation <ProBadge /></a> • <a href="/productbay/faq">FAQ</a></p>
+  <p><a href="/productbay/guide/installation">Installation</a> • <a href="/productbay/guide/getting-started">Quick Start Guide</a> • <a href="/productbay/features/license">License Activation <ProBadge /></a> • <a href="/productbay/faq">FAQ</a></p>
 </div>
 
 <div class="info custom-block">
