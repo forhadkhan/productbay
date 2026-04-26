@@ -104,7 +104,7 @@ This lets you create streamlined mobile layouts by hiding less essential columns
 
 ## Step 3: Display
 
-The Display step gives you full control over the visual appearance of your table. See [Design Customization](/features/design-customization) for detailed documentation.
+The Display step gives you full control over the visual appearance of your table. See [Design Customization](/features/display-customization) for detailed documentation.
 
 Key areas:
 - Header styling (background, text color, font weight, text transform)
