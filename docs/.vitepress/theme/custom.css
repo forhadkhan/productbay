@@ -42,11 +42,50 @@
   height: 36px;
 }
 
-/* Hero icon border */
+/* Hero icon and floating animation */
 .VPHero .VPImage {
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
   width: 280px;
   height: 280px;
+}
+
+.VPHero .image-container {
+  animation: float-icon 4s ease-in-out infinite !important;
+}
+
+.VPHero .image-bg {
+  animation: float-shadow 4s ease-in-out infinite !important;
+}
+
+/* Ensure hero animations work even with prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .VPHero .image-container {
+    animation: float-icon 4s ease-in-out infinite !important;
+  }
+  .VPHero .image-bg {
+    animation: float-shadow 4s ease-in-out infinite !important;
+  }
+}
+
+@keyframes float-icon {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 8px 20px rgba(34, 113, 177, 0.25));
+  }
+  50% {
+    transform: translateY(-14px);
+    filter: drop-shadow(0 20px 30px rgba(34, 113, 177, 0.15));
+  }
+}
+
+@keyframes float-shadow {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 959px) {
@@ -68,15 +107,6 @@
   }
 }
 
-/* Last feature card (Live Preview) spans full width */
-.VPFeatures .items .item:last-child {
-  flex: 0 0 100%;
-  max-width: 100%;
-}
-
-.VPFeatures .items .item:last-child .VPFeature .box {
-  background: linear-gradient(135deg, var(--vp-c-brand-soft), transparent);
-}
 
 /* Footer WPAnchorBay link styling */
 .VPFooter a {
@@ -150,4 +180,46 @@
 
 .medium-zoom-image--opened {
   z-index: 201 !important;
+}
+
+/* Footer Layout Overrides */
+.VPFooter .container {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* The default VitePress theme has margins on the p elements we want to reset for flex layout */
+.VPFooter .message,
+.VPFooter .copyright {
+  margin: 0 !important;
+}
+
+/* Wrap the default text into a container implicitly */
+@media (min-width: 768px) {
+  .VPFooter .container {
+    display: grid !important;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+      "message toggle"
+      "copyright toggle";
+    align-items: center;
+    justify-items: start;
+    text-align: left !important;
+    gap: 4px 16px;
+  }
+  
+  .VPFooter .message {
+    grid-area: message;
+  }
+  
+  .VPFooter .copyright {
+    grid-area: copyright;
+  }
+  
+  .theme-toggle-footer-wrapper {
+    grid-area: toggle;
+    align-self: center;
+  }
 }

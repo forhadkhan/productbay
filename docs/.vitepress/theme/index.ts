@@ -4,6 +4,7 @@ import { h, onMounted, watch, nextTick } from 'vue';
 import { useRoute } from 'vitepress';
 import mediumZoom from 'medium-zoom';
 import ProBadge from './components/ProBadge.vue';
+import ThemeToggle from './components/ThemeToggle.vue';
 
 export default {
 	extends: DefaultTheme,
@@ -14,10 +15,12 @@ export default {
 					h('span', { class: 'product-bold' }, 'Product'),
 					'Bay',
 				]),
+			'layout-bottom': () => h(ThemeToggle),
 		});
 	},
 	enhanceApp({ app }) {
 		app.component('ProBadge', ProBadge);
+		app.component('ThemeToggle', ThemeToggle);
 	},
 	setup() {
 		const route = useRoute();
