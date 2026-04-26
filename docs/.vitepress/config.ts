@@ -20,6 +20,16 @@ function getSidebar(base = '', includePro = true) {
 					{ text: 'Uninstallation', link: `${base}/guide/uninstallation` },
 				],
 			},
+			{
+				text: 'More Resources',
+				items: [
+					{ text: 'Getting Started Guide', link: `${base}/guide/introduction` },
+					{ text: 'Features & Options', link: `${base}/features/table-dashboard` },
+					{ text: 'Developer Reference', link: `${base}/developer/architecture` },
+					{ text: 'FAQ', link: `${base}/faq` },
+					{ text: 'Changelog', link: `${base}/changelog` },
+				],
+			},
 		],
 		[`${base}/features/`]: [
 			{
@@ -90,6 +100,16 @@ function getSidebar(base = '', includePro = true) {
 					{ text: 'License', link: `${base}/features/license` },
 				],
 			},
+			{
+				text: 'More Resources',
+				items: [
+					{ text: 'Getting Started Guide', link: `${base}/guide/introduction` },
+					{ text: 'Features & Options', link: `${base}/features/table-dashboard` },
+					{ text: 'Developer Reference', link: `${base}/developer/architecture` },
+					{ text: 'FAQ', link: `${base}/faq` },
+					{ text: 'Changelog', link: `${base}/changelog` },
+				],
+			},
 		],
 		[`${base}/developer/`]: [
 			{
@@ -99,6 +119,16 @@ function getSidebar(base = '', includePro = true) {
 					{ text: 'REST API', link: `${base}/developer/rest-api` },
 					{ text: 'Hooks & Filters', link: `${base}/developer/hooks` },
 					{ text: 'Contributing', link: `${base}/developer/contributing` },
+				],
+			},
+			{
+				text: 'More Resources',
+				items: [
+					{ text: 'Getting Started Guide', link: `${base}/guide/introduction` },
+					{ text: 'Features & Options', link: `${base}/features/table-dashboard` },
+					{ text: 'Developer Reference', link: `${base}/developer/architecture` },
+					{ text: 'FAQ', link: `${base}/faq` },
+					{ text: 'Changelog', link: `${base}/changelog` },
 				],
 			},
 		],
@@ -113,11 +143,23 @@ export default defineConfig({
 		'Official documentation for ProductBay — the fast, high-converting WooCommerce product table plugin with Gutenberg blocks and shortcodes.',
 	lang: 'en-US',
 	base: '/productbay/',
+	appearance: true,
 	sitemap: {
 		hostname: 'https://docs.wpanchorbay.com/productbay/',
 	},
 
 	head: [
+		[
+			'script',
+			{ id: 'force-light-mode' },
+			`
+			  const theme = localStorage.getItem('vitepress-theme-appearance');
+			  if (!theme || theme === 'auto') {
+				localStorage.setItem('vitepress-theme-appearance', 'light');
+				document.documentElement.classList.remove('dark');
+			  }
+			`
+		],
 		[
 			'link',
 			{
@@ -178,13 +220,17 @@ export default defineConfig({
 		socialLinks: [
 			{
 				icon: 'github',
-				link: 'https://github.com/wpanchorbay/productbay',
+				link: 'https://github.com/wpanchorbay/productbay/',
+			},
+			{
+				icon: 'wordpress',
+				link: 'https://wordpress.org/plugins/productbay/',
 			},
 			{
 				icon: {
 					svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><image href="/productbay/wpanchorbay.png" width="24" height="24" /></svg>',
 				},
-				link: 'https://wpanchorbay.com/',
+				link: 'https://wpanchorbay.com/plugins/productbay/',
 				ariaLabel: 'WPAnchorBay',
 			},
 		],
