@@ -2,10 +2,6 @@
 
 This page provides a technical overview of ProductBay's internal architecture. It's intended for developers who want to understand how the plugin is built or contribute to it.
 
-::: info Internal API Notice
-The architecture described here represents internal implementation details. These APIs are subject to change in future versions. Public hooks and filters will be introduced in a future release.
-:::
-
 ## High-Level Architecture
 
 ProductBay follows a **Hybrid Architecture** pattern:
