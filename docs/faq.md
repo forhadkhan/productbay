@@ -22,7 +22,7 @@ Yes! **ProductBay Pro** is now available. It adds advanced features like a Price
 
 ### What does ProductBay Pro include?
 
-You can see a full feature comparison between the Free and Pro versions on our [homepage](/productbay/).
+You can see a full feature comparison between the Free and Pro versions on our [homepage](/).
 
 ## License & Updates
 
