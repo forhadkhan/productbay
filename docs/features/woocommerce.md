@@ -7,8 +7,8 @@ ProductBay is built as a WooCommerce extension, providing deep integration with 
 | Product Type | Support | Notes |
 |-------------|---------|-------|
 | **Simple** | Full | Standard add-to-cart with quantity |
-| **Variable** | Full | Inline attribute selectors within the table |
-| **Grouped** | Full | Links to the grouped product page |
+| **Variable** | Full | Inline attribute selectors (Free) or Popup/Nested/Separate rows (Pro) |
+| **Grouped** | Full | Inline dropdown (Free) or Popup/Nested/Separate rows (Pro) |
 | **External / Affiliate** | Full | "Buy Now" button linking to external URL |
 
 ## Add to Cart
@@ -33,16 +33,59 @@ ProductBay supports adding multiple products at once:
 Bulk add-to-cart works with simple products. Variable products need their attributes selected individually before they can be added.
 :::
 
+### Variation Badges
+When enabled, small badges appear on each row indicating which specific variations have been added to the cart. This helps customers keep track of their selections without opening the cart.
+
+Toggle **Variation Badges** in the **Options** step under **Cart Functionality**.
+
+### Show Clear All Button
+When bulk selection is active, a **Clear All** button can be shown to instantly deselect all currently selected products. This saves customers from having to individually uncheck each product.
+
+Toggle **Show Clear All Button** in the **Options** step under **Cart Functionality**.
+
+### Selected Items View Panel
+A floating panel that displays all currently selected items with their individual quantities. This gives customers a running summary of what they're about to add to cart before clicking the bulk action button.
+
+Toggle **Selected Items View Panel** in the **Options** step under **Cart Functionality**.
+
 ## Variable Products
 
-Variable products display inline attribute selectors directly in the table row:
+By default, ProductBay displays variable products using inline attribute selectors:
 
 - **Dropdowns** appear for each attribute (e.g., Size, Color)
 - Selecting attributes updates the **price** in real-time
 - The **Add to Cart** button activates once all required attributes are selected
 - **Out of stock** variations are automatically disabled
 
-This eliminates the need to visit individual product pages to choose variations.
+### Advanced Variable Modes <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
+
+ProductBay Pro unlocks **3 additional display modes** for variable products, allowing for a vastly superior shopping experience:
+
+1. **Popup Modal:** Opens a full-featured modal where customers can see all variations, select quantities, and add multiple variations at once using bulk selection.
+2. **Nested Rows:** Expandable child rows that display all variations directly below the parent row.
+3. **Separate Rows:** Each variation is split into its own independent row in the main table.
+
+[Read the Advanced Modes guide &rarr;](/features/variable-grouped-modes)
+
+## Grouped Products
+
+Grouped products are displayed using an **Inline Dropdown** by default. <Badge type="tip" text="Since v1.3.0" /> Customers can select a child product from the dropdown, set a quantity, and add to cart — all without leaving the table.
+
+### Advanced Grouped Modes <ProBadge /> <Badge type="tip" text="Since v1.2.0" />
+
+ProductBay Pro allows you to display grouped products directly within the table using 3 additional modes:
+
+1. **Popup Modal:** A full modal listing all child products for easy selection.
+2. **Nested Rows:** Expandable child rows containing grouped items underneath the parent.
+3. **Separate Rows:** Treats each child product as a separate standalone table row.
+
+[Read the Advanced Modes guide &rarr;](/features/variable-grouped-modes)
+
+## Show Options Count
+
+When enabled, a subtle **"X options available"** subtitle appears below the product name for Variable and Grouped products. This gives customers a quick indication of how many choices are available without expanding anything.
+
+Toggle **Show Options Count** in the **Options** step under **Variable & Grouped Products**.
 
 ## Price Display
 

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress';
 
-function getSidebar(base = '') {
+function getSidebar(base = '', includePro = true) {
 	return {
 		[`${base}/guide/`]: [
 			{
@@ -18,6 +18,16 @@ function getSidebar(base = '') {
 					{ text: 'Admin Bar', link: `${base}/guide/admin-bar` },
 					{ text: 'Clear All Data', link: `${base}/guide/clear-all-data` },
 					{ text: 'Uninstallation', link: `${base}/guide/uninstallation` },
+				],
+			},
+			{
+				text: 'More Resources',
+				items: [
+					{ text: 'Getting Started Guide', link: `${base}/guide/introduction` },
+					{ text: 'Features & Options', link: `${base}/features/table-dashboard` },
+					{ text: 'Developer Reference', link: `${base}/developer/architecture` },
+					{ text: 'FAQ', link: `${base}/faq` },
+					{ text: 'Changelog', link: `${base}/changelog` },
 				],
 			},
 		],
@@ -48,15 +58,36 @@ function getSidebar(base = '') {
 				text: 'Table Configuration',
 				items: [
 					{ text: 'Product Sources', link: `${base}/features/product-sources` },
-					{ text: 'Column Editor', link: `${base}/features/column-editor` },
-					{ text: 'Design Customization', link: `${base}/features/design-customization` },
+					{
+						text: 'Column Editor',
+						link: `${base}/features/column-editor`,
+						items: includePro ? [
+							{ text: 'Custom Field Column (Pro)', link: `${base}/features/custom-field-column` },
+							{ text: 'Combined Column (Pro)', link: `${base}/features/combined-column` },
+						] : undefined
+					},
+					{ text: 'Display Customization', link: `${base}/features/display-customization` },
+					{ text: 'Available Options', link: `${base}/features/available-options` },
+					...(includePro ? [{ text: 'Import / Export (Pro)', link: `${base}/features/import-export` }] : []),
 				],
 			},
 			{
 				text: 'Frontend',
 				items: [
-					{ text: 'WooCommerce Integration', link: `${base}/features/woocommerce` },
-					{ text: 'Search & Filters', link: `${base}/features/search-and-filters` },
+					{
+						text: 'WooCommerce Integration',
+						link: `${base}/features/woocommerce`,
+						items: includePro ? [
+							{ text: 'Variable & Grouped Modes (Pro)', link: `${base}/features/variable-grouped-modes` },
+						] : undefined
+					},
+					{
+						text: 'Search & Filters',
+						link: `${base}/features/search-and-filters`,
+						items: includePro ? [
+							{ text: 'Price Filter (Pro)', link: `${base}/features/price-filter` },
+						] : undefined
+					},
 				],
 			},
 			{
@@ -65,6 +96,18 @@ function getSidebar(base = '') {
 				items: [
 					{ text: 'Default Configuration', link: `${base}/features/default-configuration` },
 					{ text: 'Plugin Settings', link: `${base}/features/plugin-settings` },
+					{ text: 'Log', link: `${base}/features/activity-log` },
+					{ text: 'License', link: `${base}/features/license` },
+				],
+			},
+			{
+				text: 'More Resources',
+				items: [
+					{ text: 'Getting Started Guide', link: `${base}/guide/introduction` },
+					{ text: 'Features & Options', link: `${base}/features/table-dashboard` },
+					{ text: 'Developer Reference', link: `${base}/developer/architecture` },
+					{ text: 'FAQ', link: `${base}/faq` },
+					{ text: 'Changelog', link: `${base}/changelog` },
 				],
 			},
 		],
@@ -78,18 +121,21 @@ function getSidebar(base = '') {
 					{ text: 'Contributing', link: `${base}/developer/contributing` },
 				],
 			},
+			{
+				text: 'More Resources',
+				items: [
+					{ text: 'Getting Started Guide', link: `${base}/guide/introduction` },
+					{ text: 'Features & Options', link: `${base}/features/table-dashboard` },
+					{ text: 'Developer Reference', link: `${base}/developer/architecture` },
+					{ text: 'FAQ', link: `${base}/faq` },
+					{ text: 'Changelog', link: `${base}/changelog` },
+				],
+			},
 		],
 	};
 }
 
-// Ensure the old v1.0.0 sidebar doesn't have the new v1.1.0 Gutenberg blocks link
-function getSidebarV1_0(base = '/v1.0.0') {
-	const sidebar: any = getSidebar(base);
-	sidebar[`${base}/features/`][0].items[2].items = sidebar[`${base}/features/`][0].items[2].items.filter(
-		(item: any) => item.text !== 'Gutenberg Blocks'
-	);
-	return sidebar;
-}
+
 
 export default defineConfig({
 	title: 'ProductBay Documentation',
@@ -97,11 +143,23 @@ export default defineConfig({
 		'Official documentation for ProductBay — the fast, high-converting WooCommerce product table plugin with Gutenberg blocks and shortcodes.',
 	lang: 'en-US',
 	base: '/productbay/',
+	appearance: true,
 	sitemap: {
 		hostname: 'https://docs.wpanchorbay.com/productbay/',
 	},
 
 	head: [
+		[
+			'script',
+			{ id: 'force-light-mode' },
+			`
+			  const theme = localStorage.getItem('vitepress-theme-appearance');
+			  if (!theme || theme === 'auto') {
+				localStorage.setItem('vitepress-theme-appearance', 'light');
+				document.documentElement.classList.remove('dark');
+			  }
+			`
+		],
 		[
 			'link',
 			{
@@ -139,25 +197,7 @@ export default defineConfig({
 		siteTitle: false,
 
 		nav: [
-			{
-				text: 'v1.1.0',
-				items: [
-					{
-						text: 'v1.1.0 (Latest)',
-						link: '/guide/introduction',
-						activeMatch: '^/(?!v\\d)',
-					},
-					{
-						text: 'v1.0.0',
-						link: '/v1.0.0/guide/introduction',
-						activeMatch: '^/v1\\.0\\.0/',
-					},
-					{
-						text: 'Changelog',
-						link: '/changelog',
-					},
-				],
-			},
+			{ text: 'v1.3.0', link: '/changelog' },
 			{ text: 'Guide', link: '/guide/introduction' },
 			{ text: 'Features', link: '/features/table-dashboard' },
 			{ text: 'Developer', link: '/developer/architecture' },
@@ -166,6 +206,7 @@ export default defineConfig({
 				items: [
 					{ text: 'FAQ', link: '/faq' },
 					{ text: 'Changelog', link: '/changelog' },
+					{ text: 'Pro Changelog', link: '/pro-changelog' },
 					{ text: 'Known Issues', link: '/known-issues' },
 					{ text: 'Request a Feature', link: '/feature-request' },
 				],
@@ -174,19 +215,22 @@ export default defineConfig({
 
 		sidebar: {
 			...getSidebar(''),
-			...getSidebarV1_0('/v1.0.0'),
 		},
 
 		socialLinks: [
 			{
 				icon: 'github',
-				link: 'https://github.com/wpanchorbay/productbay',
+				link: 'https://github.com/wpanchorbay/productbay/',
+			},
+			{
+				icon: 'wordpress',
+				link: 'https://wordpress.org/plugins/productbay/',
 			},
 			{
 				icon: {
 					svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><image href="/productbay/wpanchorbay.png" width="24" height="24" /></svg>',
 				},
-				link: 'https://wpanchorbay.com/',
+				link: 'https://wpanchorbay.com/plugins/productbay/',
 				ariaLabel: 'WPAnchorBay',
 			},
 		],

@@ -2,9 +2,15 @@
 
 Plugin-wide configuration options that control administrative behavior, data persistence, and system-level maintenance.
 
-Access these settings from **ProductBay → Settings → Plugin Settings** tab.
+Access these settings from **ProductBay → Settings**.
 
-## Admin Bar Options
+
+
+## Plugin Settings Tab
+
+This tab contains plugin-wide configurations that control administrative behavior.
+
+### Admin Bar Options
 
 Control the visibility of the ProductBay quick-access link in the WordPress admin topbar. 
 

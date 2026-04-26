@@ -74,8 +74,8 @@ class Admin
 			\__('ProductBay', 'productbay'),
 			// $menu_title: The text shown in the admin sidebar menu.
 			\__('ProductBay', 'productbay'),
-				// $capability: The user capability required to access this menu (e.g., 'manage_options')
-			Constants::CAPABILITY,
+				// $capability: The user capability required to access this menu (filterable).
+			Constants::get_capability(),
 				// $menu_slug: Unique identifier for this menu, used in URLs (?page=productbay)
 			Constants::MENU_SLUG,
 			// $callback: Function to render the page content (outputs React app container)
@@ -95,8 +95,8 @@ class Admin
 			\__('All Tables', 'productbay'),
 			// $menu_title: Text displayed in the submenu list.
 			\__('All Tables', 'productbay'),
-				// $capability: User capability required.
-			Constants::CAPABILITY,
+				// $capability: User capability required (filterable).
+			Constants::get_capability(),
 				// $menu_slug: Same as parent to make it the default.
 			Constants::MENU_SLUG,
 			// $callback: Function to render page content.
@@ -108,7 +108,7 @@ class Admin
 			Constants::MENU_SLUG,
 			\__('Create New Table', 'productbay'),
 			\__('Create New Table', 'productbay'),
-			Constants::CAPABILITY,
+			Constants::get_capability(),
 			Constants::MENU_SLUG . '-new',
 			array($this, 'render_app')
 		);
@@ -118,7 +118,7 @@ class Admin
 			Constants::MENU_SLUG,
 			\__('Settings', 'productbay'),
 			\__('Settings', 'productbay'),
-			Constants::CAPABILITY,
+			Constants::get_capability(),
 			Constants::MENU_SLUG . '-settings',
 			array($this, 'render_app')
 		);
@@ -129,7 +129,7 @@ class Admin
 			'edit.php?post_type=product',
 			\__('Product Tables', 'productbay'),
 			\__('Product Tables', 'productbay'),
-			Constants::CAPABILITY,
+			Constants::get_capability(),
 			Constants::MENU_SLUG . '-woo-tables',
 			array($this, 'redirect_to_productbay')
 		);
@@ -194,7 +194,7 @@ class Admin
 	public function register_admin_bar(\WP_Admin_Bar $wp_admin_bar): void
 	{
 		// Only show for users with appropriate capabilities.
-		if (!\current_user_can(Constants::CAPABILITY)) {
+		if (!\current_user_can(Constants::get_capability())) {
 			return;
 		}
 
@@ -331,6 +331,7 @@ class Admin
 			'isFirstTime' => $is_first_time,
 			'version' => Constants::VERSION,
 			'proVersion' => \defined('PRODUCTBAY_PRO_VERSION') ? \PRODUCTBAY_PRO_VERSION : false,
+			'today' => \current_time('Y-m-d'),
 		);
 
 		/**

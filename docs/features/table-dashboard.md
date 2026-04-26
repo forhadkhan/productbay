@@ -1,6 +1,6 @@
 # Table Dashboard
 
-The Table Dashboard is your central hub for managing all product tables in ProductBay.
+The Table Dashboard is the homepage of the plugin and your central hub for managing all product tables in ProductBay.
 
 ## Overview
 
@@ -27,6 +27,7 @@ Each table in the list displays:
 | **Checkbox** | Select tables for bulk actions |
 | **Title** | The name you gave your table |
 | **Shortcode** | The embed code (e.g., `[productbay id="1"]`) - click to copy |
+| **Permalink** | The shareable URL for the table's dedicated page - click to copy |
 | **Source** | Where products come from (All, Category, Sale, Specific) |
 | **Status** | Published or Private |
 | **Date** | When the table was created/published and modified |
@@ -56,7 +57,7 @@ You can combine multiple filters and use the **Clear all filters** option to res
 To manage multiple tables at once:
 1. **Select** tables using the checkboxes on the left.
 2. Click the **Bulk Actions** dropdown menu.
-3. Choose an action: **Delete**, **Set Published**, or **Set Private**.
+3. Choose an action: **Delete**, **Set Published**, **Set Private** or **Export Selected (PRO)**.
 4. Click **Apply** to execute the changes.
 
 ### Individual Actions 
@@ -68,10 +69,30 @@ Hover over any table row to reveal the following management options:
 - **Edit**: Opens the table in the edit page for deep configuration.
 - **Duplicate**: Instantly creates a complete copy of the table and its settings.
 - **Set Private / Publish**: Quickly toggle the visibility status of the table.
+- **Preview**: View the table on the frontend using the [permalink](#permalinks).
 - **Delete**: Permanently removes the table (requires user confirmation).
 
 ::: warning
 Deleted tables cannot be recovered. Ensure you have backups or no longer need the data before confirming deletion.
+:::
+
+## Permalinks <Badge type="tip" text="Since v1.3.0" />
+
+Every saved product table automatically receives a **native WordPress permalink** — a clean, shareable URL that displays the table on a standalone page.
+
+### How It Works
+- Permalinks use the `productbay_table` Custom Post Type registered by the plugin.
+- The URL structure follows your WordPress permalink settings (e.g., `yoursite.com/productbay/product-table/my-table-slug/`).
+- The permalink is displayed in both the **table listing page** and the **table editor sidebar** for quick copying.
+- **Automatic Setup**: ProductBay automatically flushes WordPress rewrite rules upon activation, ensuring permalinks work instantly after installation.
+
+### Use Cases
+- **Share direct links** to a specific product table via email, social media, or chat.
+- **Embed via URL** in platforms that support oEmbed or link previews.
+- **Dedicated landing pages** — each table has its own page without needing to manually create a page and paste a shortcode.
+
+::: tip Troubleshooting
+If your permalinks give a 404 error, you can manually force a refresh by going to **Settings → Permalinks** in WordPress and clicking **Save**.
 :::
 
 ## Table Statuses
@@ -79,8 +100,8 @@ Deleted tables cannot be recovered. Ensure you have backups or no longer need th
 Maintenance of table visibility is controlled by two primary statuses:
 
 | Status | Visibility |
-|--------|-----------|
-| **Published** | Publicly visible on your site via shortcode. |
+|--------|-----------| 
+| **Published** | Publicly visible on your site via Gutenberg block or shortcode and permalink. |
 | **Private** | Invisible to visitors. Admins will see a placeholder notice where the table would normally appear. |
 
 ### How to Change Status

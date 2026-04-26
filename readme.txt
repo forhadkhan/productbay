@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,8 +42,10 @@ Unlike traditional table plugins, ProductBay is built on a **modern hybrid archi
 
 * **Admin Panel:** A fully responsive Single Page Application (SPA) built with React 18, TypeScript, and Tailwind CSS, so the table builder feels fast, fluid, and intuitive.
 * **Frontend Display:** A lightweight, SEO-friendly rendering engine optimized for Core Web Vitals, so your customers get speed without bloat.
-
-**No external CDN. No remote scripts. No data ever leaves your server.** All assets are bundled locally inside the plugin.
+* **Multiple Display Methods:** Add product tables in any page through shortcode or Gutenberg block which allows sigle table, multiple tables and tab options.
+* **Permalink:** View product tables in a dedicated page with unique URL.
+* **Activity Log:** Track system events and table management actions with a file-based logging system.
+* **No External CDN:** No external CDN, no remote scripts, no data ever leaves your server. All assets are bundled locally inside the plugin.
 
 ---
 
@@ -91,13 +93,12 @@ Full control over what data appears in your table and how it's arranged:
 ProductBay is built for WooCommerce from the ground up:
 
 * **Simple Products**: Standard add-to-cart button
-* **Variable Products**: Inline attribute selectors (for each variable) right inside the table row. Visual indicators showing which variations were added, natively synced with the WooCommerce Cart
-* **Grouped Products**: Link to product page or display child items
+* **Variable Products**: Inline attribute selectors (for each variable) right inside the table row. 
+* **Grouped Products**: Inline individual and all product selectors for group items.
 * **External / Affiliate Products**: Displays the external buy button correctly
 * **AJAX Add-to-Cart**: Products are added without any page reload
-* **Bulk Add-to-Cart**: Customers can select multiple products and add them all at once with a single click
+* **Bulk Add-to-Cart**: Customers can select multiple products, including variable and grouped products and add them all to the cart at once with a single click
 * **Selected Items Panel**: A floating popup showing selected products with individual quantities, pricing, and remove controls
-* **Clear All Selections**: A global "Clear all" button to reset bulk selections instantly
 
 ---
 
@@ -138,8 +139,8 @@ A centralized admin dashboard to manage all your tables at a glance:
 * **Filter by Product Source**: Category, Sale, IDs, or All
 * **Bulk Status Update**: Update status of tables at once to private or published
 * **Bulk Delete**: Clean up multiple tables at once
-* **Shortcode Display**: Every table shows its shortcode instantly
 * **Date**: See created, modified and published date for each table
+* **Activity Log**: Monitor table changes and system events for better oversight and troubleshooting
 
 ---
 
@@ -159,19 +160,24 @@ ProductBay exposes **30+ action hooks and filters** across all plugin layers, Co
 
 ---
 
-= Coming Soon: ProductBay Pro =
+= ProductBay Pro =
 
-We're actively building a Pro add-on that will extend ProductBay with advanced capabilities:
+Get the Pro add-on that will extend ProductBay with advanced capabilities:
 
-* **Variation Popup & Nested Rows**: Richer variable/grouped product interactions
-* **Pro Columns**: Ratings, reviews, dimensions, discount badges, B2B quantity column
-* **Lazy Loading**: Improved performance with lazy loading including infinite scroll or "Load More" button instead of pagination
-* **Quick View Modal**: AJAX-loaded product detail popup
-* **Custom CSS Editor**: Per-table scoped CSS editor in the admin
-* **Advanced Filters**: Sidebar/drawer/top menu layout, attribute filters, active filter chips
-* **Import / Export**: Backup and share table configurations as JSON
-* **Premium Templates**: One-click style presets
-* **Analytics**: Table impressions, click tracking, and a dashboard widget
+* **Advanced Variable Product Layouts**: Popup Modal, Nested Rows, or Separate Rows display modes.
+* **Advanced Group Product Layouts**: Enhanced display options for grouped item selection.
+* **Price Range Filter**: Interactive slider and input-based price filtering.
+* **Pro Columns**: Advanced Custom Fields (ACF) integration and Combined Columns using template tags.
+* **Lazy Loading**: Improved performance with **infinite scroll** or **Load More** button instead of pagination.
+* **Import / Export**: Backup, migrate, and share table configurations as JSON files.
+* **License Management**: Automated updates and professional support.
+
+Coming Soon - 
+* **Quick View Modal**: AJAX-loaded product detail popup.
+* **Custom CSS Editor**: Per-table scoped CSS editor in the admin.
+* **Advanced Filters**: Sidebar/drawer layouts, attribute filters, and active filter chips.
+* **Premium Templates**: One-click professional style presets.
+* **Analytics**: Table impressions, click tracking, and conversions dashboard.
 
 ---
 
@@ -254,7 +260,7 @@ Yes. ProductBay uses a standard WordPress shortcode (`[productbay id="X"]`), whi
 
 = Is there a Pro version available? =
 
-A Pro add-on is currently in development and will unlock advanced features including additional column types, lazy loading, quick view modals, advanced filters, and more. Visit [wpanchorbay.com](https://wpanchorbay.com/plugins/productbay) for updates.
+Yes! ProductBay Pro is now available. It extends the free version with advanced variable layouts, price range filters, custom field support, import/export, and more. You can purchase it at [wpanchorbay.com](https://wpanchorbay.com/plugins/productbay).
 
 = Is ProductBay translation ready? =
 
@@ -279,6 +285,14 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 
 == Changelog ==
+
+= 1.3.0 =
+
+* Feature: Introduced native **Permalink Pages** for product tables via `productbay_table` Custom Post Type.
+* Feature: Grouped products now default to **Inline Dropdown** mode for direct child product selection and add-to-cart.
+* Feature: Introduced a comprehensive, file-based **Activity Log** system to track table management and system events.
+* Feature: Decoupled cart functionality from AJAX to support native form submissions and improved compatibility.
+* Dev: Optimized internal code architecture and registered `productbay_table` CPT with frontend support.
 
 = 1.2.0 =
 
@@ -309,6 +323,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Major functional update: Introduces native permalink pages for tables, decouples cart actions from AJAX, and adds an Activity Log system for better management.
 
 = 1.2.0 =
 Security and feature update: Adds new column types (Stock, Date, Taxonomy, Rating) and implements secure Pro-exclusive feature blocking.

@@ -86,17 +86,19 @@ Configure how products are initially sorted:
 | **Name** | Product title (linked to product page) |
 | **Price** | Current price (including sale prices) |
 | **SKU** | Stock Keeping Unit identifier |
-| **Stock** | Stock status indicator |
 | **Summary** | Product short description |
+| **Stock** <Badge type="tip" text="v1.2.0+" /> | Stock status indicator |
+| **Date** <Badge type="tip" text="v1.2.0+" /> | Product published date |
+| **Taxonomy** <Badge type="tip" text="v1.2.0+" /> | Terms from any registered taxonomy |
+| **Rating** <Badge type="tip" text="v1.2.0+" /> | Average customer review rating |
+| **Custom Field** <ProBadge /> <Badge type="tip" text="v1.2.0+" /> | Any product meta field or ACF data |
+| **Combined** <ProBadge /> <Badge type="tip" text="v1.2.0+" /> | Merge multiple data points into one cell |
 
 ### Drag-and-Drop Reordering
 Drag columns to change their display order. The live preview updates instantly.
 
 ### Responsive Visibility
-For each column, you can configure visibility per device:
-- **Desktop** — Show or hide on large screens
-- **Tablet** — Show or hide on medium screens
-- **Mobile** — Show or hide on small screens
+For each column, you can configure visibility across seven modes — from "All devices" (default) to device-specific options like "Desktop only", "Hide on mobile", or "Hidden". See [Column Editor — Responsive Visibility](/features/column-editor#responsive-visibility) for the full list.
 
 This lets you create streamlined mobile layouts by hiding less essential columns.
 
@@ -105,30 +107,40 @@ This lets you create streamlined mobile layouts by hiding less essential columns
 The Display step gives you full control over the visual appearance of your table. See [Design Customization](/features/design-customization) for detailed documentation.
 
 Key areas:
-- Header styling (background, text color, font weight)
-- Body styling (background, text, alternating rows)
-- Button styling (colors, border radius, icon, hover effects)
-- Layout (border style, border radius, cell padding)
-- Hover effects (row hover highlight)
+- Header styling (background, text color, font weight, text transform)
+- Body styling (background, text, alternating rows toggle)
+- Button styling (colors, hover colors)
+- Layout (border style, border radius toggle, cell padding)
+- Hover effects (row hover toggle with custom colors)
 
 ## Step 4: Options
 
-### Features
-Toggle individual table features on or off:
+### Table Controls
 - **Search** — Enable the AJAX search bar
-- **Sorting** — Allow column-based sorting
 - **Pagination** — Enable paginated results
-- **Category Filters** — Show dropdown filters by taxonomy
+- **Image Lightbox** — Enable full-size image popup on click
 
-### Pagination
-- **Products per page** — Set how many products display per page
-- **Position** — Show pagination at the bottom of the table
+### Pagination Settings
+- **Products per page** — Set how many products display per page (default: 10)
+- **Pagination Style** — Choose between Standard (numbers), Load More button <ProBadge />, or Infinite Scroll <ProBadge />
 
-### Cart Options
+### Taxonomy & Type Filters
+- **Enable Categories Filter** — Show a category dropdown filter
+- **Enable Product Type Filter** — Show a product type dropdown (Simple, Variable, etc.)
+
+### Cart Functionality
 - **Enable Add to Cart** — Show add-to-cart buttons
-- **Method** — Button style
-- **Show Quantity** — Display quantity input fields
 - **AJAX Add to Cart** — Add to cart without page reload
+- **Show Quantity Selector** — Display quantity input fields
+- **Variation Badges** — Show badges indicating which variations were added
+- **Show Clear All Button** — Display a button to clear all selected products
+- **Selected Items View Panel** — Show a floating summary of selected items
+
+### Variable & Grouped Products
+- **Variable Product Mode** — Choose display mode: Inline Dropdown (Free), Popup Modal <ProBadge />, Nested Rows <ProBadge />, or Separate Rows <ProBadge />
+- **Grouped Product Mode** — Choose display mode: Inline Dropdown (Free), Popup Modal <ProBadge />, Nested Rows <ProBadge />, or Separate Rows <ProBadge />
+- **Show Options Count** — Display "X options available" subtitle on parent products
+- **Expand Nested Rows** <ProBadge /> — Start nested rows expanded by default (only when Nested mode is selected)
 
 ## Step 5: Finish
 

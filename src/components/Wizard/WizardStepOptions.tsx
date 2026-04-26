@@ -11,7 +11,7 @@ import LivePreview from '@/components/Table/LivePreview';
  * ============================================================================= */
 
 const WizardStepOptions: React.FC = () => {
-	const { settings, setFeatures, setPagination, setCart } = useTableStore();
+	const { settings, setFeatures, setPagination, setCart, setFilters } = useTableStore();
 
 	return (
 		<div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -22,6 +22,7 @@ const WizardStepOptions: React.FC = () => {
 					setFeatures={setFeatures}
 					setPagination={setPagination}
 					setCart={setCart}
+					setFilters={setFilters}
 				/>
 			</div>
 

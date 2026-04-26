@@ -50,16 +50,22 @@ import { cn } from '@/utils/cn';
  * @since 1.0.0
  * ============================================================================= */
 
-/** Define the available tab values as a union type for type safety */
+/**
+ * Define the available tab values as a union type for type safety.
+ * These correspond to the different configuration screens of a table.
+ */
 type TableTabValue = 'table' | 'display' | 'options';
 
 /**
  * Valid tab values for URL search param validation.
- * Used by useHashTab to validate the ?tab= parameter.
+ * Used by the useUrlTab hook to validate the ?tab= parameter in the URL.
  */
 const VALID_TABLE_TABS = ['table', 'display', 'options'] as const;
 
-/** Tab configuration with icons matching the design reference */
+/**
+ * Configuration for the table editor tabs.
+ * Each option includes a value, a localized label, and a Lucide icon.
+ */
 const TABLE_TABS: TabOption<TableTabValue>[] = [
 	{
 		value: 'table',
@@ -81,13 +87,20 @@ const TABLE_TABS: TabOption<TableTabValue>[] = [
 /**
  * Table Page Component
  *
- * Displays tabbed interface for configuring individual table with live preview.
+ * This is the primary editor interface for individual tables. It provides:
+ * - Tabbed navigation between different configuration sections.
+ * - Live preview of the table as it's being configured.
+ * - Controls for saving, deleting, and exporting table configurations.
+ * - Display of shortcode and permalink for easy sharing and integration.
+ *
+ * @returns {JSX.Element} The rendered Table editor page.
  */
 const Table = () => {
 	const { id } = useParams<{ id: string }>();
 	const isNewTable = !id || id === 'new';
 	const navigate = useNavigate();
 	const { isCopied, copy: copyToClipboard } = useCopyToClipboard();
+	const { isCopied: isPermalinkCopied, copy: copyPermalink } = useCopyToClipboard();
 
 	// Store access
 	const {
@@ -104,6 +117,7 @@ const Table = () => {
 		columns,
 		settings,
 		style,
+		permalink,
 	} = useTableStore();
 
 	const { openExportModal } = useImportExportStore();
@@ -127,11 +141,20 @@ const Table = () => {
 
 	const shortcode = `[productbay id="${tableId}"]`;
 
-	// Handle Delete
+	/**
+	 * Opens the deletion confirmation modal.
+	 */
 	const handleDelete = () => {
 		setIsDeleteModalOpen(true);
 	};
 
+	/**
+	 * Performs the actual table deletion after user confirmation.
+	 * Sends a DELETE request to the API, shows a toast notification,
+	 * and redirects back to the table listing page.
+	 *
+	 * @async
+	 */
 	const confirmDelete = async () => {
 		setIsDeleteModalOpen(false);
 		try {
@@ -152,8 +175,14 @@ const Table = () => {
 		}
 	};
 
-	// Handle Save
 	const [isSaving, setIsSaving] = useState(false);
+
+	/**
+	 * Validates and saves the current table configuration.
+	 * If the table is new, it redirects to the edit URL after a successful save.
+	 *
+	 * @async
+	 */
 	const handleSave = async () => {
 		// Validation: Table Name is required
 		if (!tableTitle.trim()) {
@@ -194,7 +223,9 @@ const Table = () => {
 	};
 
 	/**
-	 * Handle table name change
+	 * Updates the table title in the store and clears any title validation errors.
+	 *
+	 * @param {string} newName The new name for the table.
 	 */
 	const handleNameChange = (newName: string) => {
 		setTitle(newName);
@@ -222,7 +253,7 @@ const Table = () => {
 	// Error / Not Found State
 	if (error) {
 		return (
-			<div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 bg-white rounded-lg shadow-sm border border-gray-200">
+			<div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 bg-white rounded-lg border border-gray-200">
 				<div className="bg-red-50 p-4 rounded-full mb-4 flex items-center justify-center">
 					<AlertCircleIcon className="size-8 text-red-500" />
 				</div>
@@ -261,6 +292,7 @@ const Table = () => {
 
 	return (
 		<>
+			{/** Delete Table Confirmation Modal **/}
 			<Modal
 				isOpen={isDeleteModalOpen}
 				onClose={() => setIsDeleteModalOpen(false)}
@@ -283,53 +315,110 @@ const Table = () => {
 					)}
 				</p>
 			</Modal>
-			{/* Conditional: Shortcode for already saved table */}
-			{tableId && (
-				<div className="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
-					<span className="font-semibold text-lg text-blue-900">
-						{__('Shortcode:', 'productbay')}
-					</span>
-					<div className="flex items-center justify-between gap-2">
-						<code className="bg-gray-100 select-all text-lg px-2 py-1 h-10 rounded border border-gray-200 text-gray-800 font-mono">
-							{shortcode}
-						</code>
-						<Button
-							size="xs"
-							variant="outline"
-							onClick={() => {
-								copyToClipboard(shortcode);
-							}}
-							className={`cursor-pointer transition-colors w-20 h-10 ${isCopied
-								? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200'
-								: 'bg-white hover:bg-blue-100 text-blue-700 border-blue-200'
-								}`}
-						>
-							{isCopied ? (
-								<>
-									<CopyCheckIcon className="size-3 mr-1.5" />
-									{__('Copied!', 'productbay')}
-								</>
-							) : (
-								<>
-									<CopyIcon className="size-3 mr-1.5" />
-									{__('Copy', 'productbay')}
-								</>
-							)}
-						</Button>
-					</div>
-					<Tooltip
-						content={__(
-							'Copy this shortcode and paste it into any Page or Post to display this table. ',
-							'productbay'
-						)}
-					>
-						<InfoIcon className="size-6 text-gray-500 cursor-pointer" />
-					</Tooltip>
-				</div>
-			)}
 
-			{/* Header: Table name on left, controls on right */}
-			<div className="sticky top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
+			{/** Table Header Section **/}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 md:pt-0">
+				{/* Conditional: Shortcode for already saved table */}
+				{tableId && (
+					<div className="bg-white border border-gray-200 rounded-lg p-4 flex flex-col gap-3 flex-1 transition-shadow">
+						<div className="flex items-center justify-between gap-2">
+							<span className="font-semibold text-sm text-gray-700">
+								{__('Shortcode', 'productbay')}
+							</span>
+							<Tooltip
+								content={__(
+									'Copy this shortcode and paste it into any Page or Post to display this table.',
+									'productbay'
+								)}
+							>
+								<InfoIcon className="size-4 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" />
+							</Tooltip>
+						</div>
+						<div className="flex flex-row items-center gap-2 mt-auto">
+							<code className="flex-1 bg-gray-50 border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-800 font-mono select-all truncate flex items-center">
+								{shortcode}
+							</code>
+							<Button
+								size="sm"
+								variant="outline"
+								onClick={() => copyToClipboard(shortcode)}
+								className={`cursor-pointer transition-colors w-24 h-[38px] flex-shrink-0 ${isCopied
+									? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200 hover:border-green-300'
+									: 'bg-white hover:bg-gray-50 text-gray-700 border-gray-200'
+									}`}
+							>
+								{isCopied ? (
+									<>
+										<CopyCheckIcon className="size-3.5 mr-1.5 shrink-0" />
+										{__('Copied!', 'productbay')}
+									</>
+								) : (
+									<>
+										<CopyIcon className="size-3.5 mr-1.5 shrink-0" />
+										{__('Copy', 'productbay')}
+									</>
+								)}
+							</Button>
+						</div>
+					</div>
+				)}
+
+				{/* Conditional: Permalink for already saved table */}
+				{(tableId && permalink) && (
+					<div className="bg-white border border-gray-200 rounded-lg p-4 flex flex-col gap-3 flex-1 transition-shadow">
+						<div className="flex items-center justify-between gap-2">
+							<span className="font-semibold text-sm text-gray-700">
+								{__('Permalink', 'productbay')}
+							</span>
+							<Tooltip
+								content={__(
+									'This is the direct, full-page link for this table.',
+									'productbay'
+								)}
+							>
+								<InfoIcon className="size-4 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" />
+							</Tooltip>
+						</div>
+						<div className="flex flex-row items-center gap-2 mt-auto">
+							<div className="flex-1 bg-gray-50 border border-gray-200 rounded-md px-3 py-2 min-w-0 flex items-center">
+								<a
+									href={permalink}
+									target="_blank"
+									rel="noreferrer"
+									className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline truncate block w-full"
+									title={permalink}
+								>
+									{permalink}
+								</a>
+							</div>
+							<Button
+								size="sm"
+								variant="outline"
+								onClick={() => copyPermalink(permalink)}
+								className={`cursor-pointer transition-colors w-24 h-[38px] flex-shrink-0 ${isPermalinkCopied
+									? 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200 hover:border-green-300'
+									: 'bg-white hover:bg-gray-50 text-gray-700 border-gray-200'
+									}`}
+							>
+								{isPermalinkCopied ? (
+									<>
+										<CopyCheckIcon className="size-3.5 mr-1.5 shrink-0" />
+										{__('Copied!', 'productbay')}
+									</>
+								) : (
+									<>
+										<CopyIcon className="size-3.5 mr-1.5 shrink-0" />
+										{__('Copy', 'productbay')}
+									</>
+								)}
+							</Button>
+						</div>
+					</div>
+				)}
+			</div>
+
+			{/* Table Actions Header */}
+			<div className="sticky top-0 md:top-[32px] z-20 bg-wp-bg/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-4 border-b border-gray-200/50 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
 				<div className="flex flex-col md:flex-row items-center justify-between gap-4">
 					{/* Table Name */}
 					<div className="order-2 md:order-1">

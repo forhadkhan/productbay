@@ -731,6 +731,64 @@
     vertical-align: middle;
 }
 
+/* ========================================================================
+   GROUPED PRODUCT INLINE SELECT
+   ======================================================================== */
+
+.productbay-wrapper .productbay-grouped-inline-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.productbay-wrapper .productbay-grouped-child-select {
+    max-width: 180px;
+    min-width: 120px;
+    padding: 7px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #0f172a;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    font-family: inherit;
+    outline: none;
+}
+
+.productbay-wrapper .productbay-grouped-child-select:focus {
+    border-color: #434343;
+    box-shadow: 0 0 0 3px #e0f2fe;
+}
+
+.productbay-wrapper .productbay-grouped-inline-price {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Disabled state for grouped inline controls */
+.productbay-wrapper .productbay-grouped-inline-wrap .productbay-qty:disabled,
+.productbay-wrapper .productbay-grouped-inline-wrap .productbay-grouped-add-btn:disabled,
+.productbay-wrapper .productbay-grouped-inline-wrap .productbay-qty-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.productbay-wrapper .productbay-grouped-inline-wrap .productbay-select-product:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.productbay-wrapper .productbay-grouped-inline-wrap .productbay-select-product {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+    margin: 0;
+}
 
 /* ========================================================================
    16. VARIATION BADGES

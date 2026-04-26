@@ -190,6 +190,7 @@ class TableRepository
 			'date' => $post->post_date,
 			'modifiedDate' => $post->post_modified,
 			'shortcode' => '[productbay id="' . $post->ID . '"]',
+			'permalink' => get_permalink($post->ID),
 			'productCount' => $this->get_product_count($source),
 			'source' => $source,
 			'columns' => $columns,

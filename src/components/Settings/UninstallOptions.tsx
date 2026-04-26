@@ -38,10 +38,10 @@ const UninstallOptions = memo(({ settings, setSettings, loading }: UninstallOpti
 			</h3>
 			<div className="flex items-center justify-between p-4 border border-red-100 bg-red-50 rounded-lg">
 				<div>
-					<span className="font-medium text-gray-800">
+					<span className="text-sm font-bold text-gray-800">
 						{__('Delete Data on Uninstall', 'productbay')}
 					</span>
-					<p className="text-sm text-gray-600 mt-1">
+					<p className="text-sm text-gray-600 mt-1 mb-2">
 						{__(
 							'Enable this to wipe all tables and settings when deleting the plugin.',
 							'productbay'

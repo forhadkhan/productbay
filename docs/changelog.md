@@ -2,6 +2,22 @@
 
 All notable changes to ProductBay are documented on this page.
 
+Looking for Pro version changes? See the **[Pro Changelog](./pro-changelog.md)**.
+
+## 1.3.0
+
+* **Feature:** Introduced native **Permalink Pages** for product tables via `productbay_table` Custom Post Type.
+* **Feature:** Grouped products now default to **Inline Dropdown** mode for direct child product selection and add-to-cart.
+* **Feature:** Introduced a comprehensive, file-based **Activity Log** system to track table management and system events.
+* **Feature:** Decoupled cart functionality from AJAX to support native form submissions and improved compatibility.
+* **Dev:** Optimized internal code architecture and registered `productbay_table` CPT with frontend support.
+
+## 1.2.0
+
+* **Feature:** Added new column types: Stock, Date, Taxonomy, and Rating.
+* **Feature:** Introduced Pro integration for premium features: Custom Field, Combined, Price Range Filter, and Variable & Grouped Products.
+* **Dev:** Unified Pro activation detection across Free plugin layers.
+
 ## 1.1.1
 
 * **Improvement:** Block setup experience with "Create New Table" link in placeholders.

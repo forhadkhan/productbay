@@ -192,7 +192,7 @@ export const OptionsPanel = ({
 
 			{/* Cart Settings */}
 			<SettingsSection
-				title={__('Cart / Functionality', 'productbay')}
+				title={__('Cart Functionality', 'productbay')}
 				description={__('Configure Add to Cart behavior', 'productbay')}
 			>
 				<SettingsOption
@@ -208,94 +208,160 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
-				{/* Variable & Grouped Products (Pro Shell - shown only when Pro is not active) */}
-				{!isProActive && (
-					<SettingsOption
-						title={__('Variable & Grouped Products', 'productbay')}
-						description={__(
-							'Full support for variations and grouped product types',
-							'productbay'
-						)}
-					>
-						<ProBadge />
-					</SettingsOption>
-				)}
-
-				{/* Cart sub-options - Only relevant when AJAX Add to Cart is enabled */}
-				<div
-					className={cn(
-						'transition-all duration-300',
-						settings.cart.enable
-							? 'opacity-100'
-							: 'opacity-40 pointer-events-none grayscale'
+				<SettingsOption
+					title={__('Show Quantity Selector', 'productbay')}
+					description={__(
+						'Display quantity input next to add-to-cart button',
+						'productbay'
 					)}
 				>
-					<SettingsOption
-						title={__('Show Quantity Selector', 'productbay')}
-						description={__(
-							'Display quantity input next to add-to-cart button',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.cart.showQuantity}
-							onChange={(e) => setCart({ showQuantity: e.target.checked })}
-						/>
-					</SettingsOption>
+					<Toggle
+						checked={settings.cart.showQuantity}
+						onChange={(e) => setCart({ showQuantity: e.target.checked })}
+					/>
+				</SettingsOption>
 
-					<SettingsOption
-						title={__('Variation Badges', 'productbay')}
-						description={__(
-							'Show badges indicating which variations were added to cart',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.features.variationBadges}
-							onChange={(e) =>
-								setFeatures({
-									variationBadges: e.target.checked,
-								})
-							}
-						/>
-					</SettingsOption>
-					<SettingsOption
-						title={__('Show Clear All Button', 'productbay')}
-						description={__(
-							'Display a button to instantly clear all selected products',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.features.clearAllButton}
-							onChange={(e) =>
-								setFeatures({
-									clearAllButton: e.target.checked,
-								})
-							}
-						/>
-					</SettingsOption>
+				<SettingsOption
+					title={__('Show Clear All Button', 'productbay')}
+					description={__(
+						'Display a button to instantly clear all selected products',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.features.clearAllButton}
+						onChange={(e) =>
+							setFeatures({
+								clearAllButton: e.target.checked,
+							})
+						}
+					/>
+				</SettingsOption>
 
-					<SettingsOption
-						title={__('Selected Items View Panel', 'productbay')}
-						description={__(
-							'Show a floating panel displaying all selected items with individual quantities',
-							'productbay'
-						)}
-					>
-						<Toggle
-							checked={settings.features.selectedItemsPanel?.enabled ?? true}
-							onChange={(e) =>
-								setFeatures({
-									selectedItemsPanel: {
-										...settings.features.selectedItemsPanel,
-										enabled: e.target.checked,
-									},
-								})
-							}
-						/>
-					</SettingsOption>
-				</div>
+				<SettingsOption
+					title={__('Selected Items View Panel', 'productbay')}
+					description={__(
+						'Show a floating panel displaying all selected items with individual quantities',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.features.selectedItemsPanel?.enabled ?? true}
+						onChange={(e) =>
+							setFeatures({
+								selectedItemsPanel: {
+									...settings.features.selectedItemsPanel,
+									enabled: e.target.checked,
+								},
+							})
+						}
+					/>
+				</SettingsOption>
+
+				{/* Variable & Grouped Products - Display modes */}
+				{(() => {
+					const variableMode = settings.features.variableProductMode || settings.features.variationsMode || 'inline';
+					const groupedMode = settings.features.groupedProductMode || (settings.features.variationsMode !== 'inline' ? settings.features.variationsMode : 'popup') || 'popup';
+
+					const variableModeOptions = [
+						{ label: __('Inline Dropdown', 'productbay'), value: 'inline' },
+						{ label: __('Popup Modal (PRO)', 'productbay'), value: 'popup', disabled: !isProActive },
+						{ label: __('Nested Rows (PRO)', 'productbay'), value: 'nested', disabled: !isProActive },
+						{ label: __('Separate Rows (PRO)', 'productbay'), value: 'separate', disabled: !isProActive },
+					];
+
+					const groupedModeOptions = [
+						{ label: __('Inline Dropdown', 'productbay'), value: 'inline' },
+						{ label: __('Popup Modal (PRO)', 'productbay'), value: 'popup', disabled: !isProActive },
+						{ label: __('Nested Rows (PRO)', 'productbay'), value: 'nested', disabled: !isProActive },
+						{ label: __('Separate Rows (PRO)', 'productbay'), value: 'separate', disabled: !isProActive },
+					];
+
+					// Check if either uses nested
+					const hasNestedMode = variableMode === 'nested' || groupedMode === 'nested';
+
+					return (
+						<>
+							<div className="pt-4 border-t border-gray-100 mt-6">
+								<h4 className="text-sm font-medium text-gray-900 mb-1">{__('Variable & Grouped Products', 'productbay')}</h4>
+								<p className="text-xs text-gray-500 mb-4">{__('Configure how complex products are displayed. Advanced modes require PRO.', 'productbay')}</p>
+
+								<SettingsOption
+									title={__('Grouped Products', 'productbay')}
+									description={__('Products containing multiple child simple products', 'productbay')}
+								>
+									<div className="flex items-center gap-2 ml-2">
+										<Select
+											value={groupedMode}
+											onChange={(value: string) => setFeatures({ groupedProductMode: value as 'inline' | 'popup' | 'nested' | 'separate' })}
+											options={groupedModeOptions}
+											className="w-60"
+										/>
+										{!isProActive && <ProBadge />}
+									</div>
+								</SettingsOption>
+
+								<SettingsOption
+									title={__('Variable Products', 'productbay')}
+									description={__('Products with attribute variations. Inline dropdown supported natively.', 'productbay')}
+								>
+									<div className="flex items-center gap-2 ml-2">
+										<Select
+											value={variableMode}
+											onChange={(value: string) => setFeatures({
+												variableProductMode: value as 'inline' | 'popup' | 'nested' | 'separate',
+												variationsMode: value as 'inline' | 'popup' | 'nested' | 'separate', // Sync legacy
+											})}
+											options={variableModeOptions}
+											className="w-60"
+										/>
+										{!isProActive && <ProBadge />}
+									</div>
+								</SettingsOption>
+
+								{hasNestedMode && isProActive && (
+									<SettingsOption
+										title={__('Expand Nested Rows', 'productbay')}
+										description={__('Show nested rows expanded by default instead of collapsed', 'productbay')}
+									>
+										<Toggle
+											checked={settings.features.nestedDefaultExpanded ?? false}
+											onChange={(e) => setFeatures({ nestedDefaultExpanded: e.target.checked })}
+										/>
+									</SettingsOption>
+								)}
+
+								<SettingsOption
+									title={__('Show Options Count', 'productbay')}
+									description={__('Display "X options available" subtitle below product name', 'productbay')}
+								>
+									<Toggle
+										checked={settings.features.showChildCount ?? true}
+										onChange={(e) => setFeatures({ showChildCount: e.target.checked })}
+									/>
+								</SettingsOption>
+							</div>
+						</>
+					);
+				})()}
+
+				<SettingsOption
+					title={__('Variation Badges', 'productbay')}
+					description={__(
+						'Show badges indicating which variations were added to cart',
+						'productbay'
+					)}
+				>
+					<Toggle
+						checked={settings.features.variationBadges}
+						onChange={(e) =>
+							setFeatures({
+								variationBadges: e.target.checked,
+							})
+						}
+					/>
+				</SettingsOption>
+
 			</SettingsSection>
 
 			{/* Pro features inject here */}

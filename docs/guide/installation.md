@@ -29,6 +29,20 @@ You can download the plugin in two ways:
 2. Upload the `productbay` folder to `/wp-content/plugins/` on your server via FTP.
 3. In your WordPress admin, go to **Plugins** and activate **ProductBay**.
 
+## Installing ProductBay Pro <ProBadge />
+
+If you've purchased ProductBay Pro, here is how to install and activate it:
+
+1. **Purchase** — Buy a license from [wpanchorbay.com](https://wpanchorbay.com/plugins/productbay/).
+2. **Download** — Log in to your account and download the `productbay-pro.zip` file.
+3. **Upload** — In your WordPress admin, go to **Plugins → Add New → Upload Plugin**.
+4. **Install and Activate** — Choose the `.zip` file, install, and click **Activate**.
+5. **Activate License** — Navigate to **ProductBay → Settings → License** and enter your key.
+
+> **Note:** ProductBay Pro is an add-on. The free version of ProductBay (v1.2.0 or higher) must be installed and active for the Pro features to work.
+
+For detailed instructions on licensing and updates, see the [License Management docs](/features/license).
+
 ## Post-Installation
 
 After activation:

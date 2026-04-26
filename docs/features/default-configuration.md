@@ -19,8 +19,13 @@ Define which columns should be enabled by default for new tables. You can select
 - Name
 - Price
 - SKU
-- Stock Status
 - Summary
+- Stock <Badge type="tip" text="v1.2.0+" />
+- Date <Badge type="tip" text="v1.2.0+" />
+- Taxonomy <Badge type="tip" text="v1.2.0+" />
+- Rating <Badge type="tip" text="v1.2.0+" />
+- Custom Field (Pro) <Badge type="tip" text="v1.2.0+" />
+- Combined Column (Pro) <Badge type="tip" text="v1.2.0+" />
 
 ## Bulk Select
 
@@ -54,15 +59,30 @@ Fine-tune the text appearance for the header.
 Configure which features are enabled by default:
 
 #### **Table Controls**
- - **Enable Search Bar**: Allow users to filter products within the table via a search input.
- - **Enable Pagination**: Break long lists into multiple pages for better performance and UX.
+ - **Enable Search Bar**: Allow users to filter products via a search input.
+ - **Enable Pagination**: Break long lists into multiple pages.
+ - **Enable Image Lightbox**: Open full-size images in a popup on click.
+#### **Pagination Settings**
  - **Products Per Page**: Define how many products are shown before pagination kicks in.
-#### **Cart / Functionality**
- - **AJAX Add to Cart**: Enable seamless adding to cart without refreshing the page.
- - **Show Quantity Selector**: Allow users to specify the number of items they want to add directly from the table. 
+ - **Pagination Style**: Choose Standard (numbers), Load More <ProBadge />, or Infinite Scroll <ProBadge />.
+#### **Taxonomy & Type Filters**
+ - **Enable Categories Filter**: Show a category dropdown filter above the table.
+ - **Enable Product Type Filter**: Show a product type filter dropdown.
+#### **Cart Functionality**
+ - **Enable Add to Cart**: Show add-to-cart buttons.
+ - **AJAX Add to Cart**: Add to cart without page reload.
+ - **Show Quantity Selector**: Allow quantity input per row.
+ - **Variation Badges**: Show badges for variations added to cart.
+ - **Show Clear All Button**: Display a bulk deselect button.
+ - **Selected Items View Panel**: Show a floating summary of selected items.
+#### **Variable & Grouped Products**
+ - **Variable Product Mode**: Inline Dropdown (Free), Popup Modal <ProBadge />, Nested Rows <ProBadge />, Separate Rows <ProBadge />.
+ - **Grouped Product Mode**: Inline Dropdown (Free), Popup Modal <ProBadge />, Nested Rows <ProBadge />, Separate Rows <ProBadge />.
+ - **Show Options Count**: Display "X options available" subtitle.
+ - **Expand Nested Rows** <ProBadge />: Start nested rows expanded by default.
 
 ---
 
 ## Reset to Defaults 
 
-After making any chnages, if you decide to reset back default settings, you can do so by clicking **Reset Defaults** button at the top.
+After making any changes, if you decide to reset back default settings, you can do so by clicking **Reset Defaults** button at the top.

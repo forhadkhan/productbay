@@ -220,7 +220,7 @@ export interface TableSettings {
 		/** Enable native image lightbox */
 		lightbox: boolean;
 
-		/** Enable Support for Variable & Grouped Products (Pro) */
+		/** Enable Support for Variable & Grouped Products */
 		variableGrouped?: boolean;
 
 		/** Pro: Price filter configuration */
@@ -238,7 +238,7 @@ export interface TableSettings {
 		/** Pro: Display mode for variable products (products with attribute-based variations) */
 		variableProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
 
-		/** Pro: Display mode for grouped products (products containing child simple products) */
+		/** Display mode for grouped products (products containing child simple products). 'inline' is Free, others are Pro. */
 		groupedProductMode?: 'inline' | 'popup' | 'nested' | 'separate';
 
 		/** Pro: Whether nested rows should be expanded by default */
@@ -382,6 +382,7 @@ export interface ProductTable {
 	date?: string;
 	modifiedDate?: string;
 	productCount?: number;
+	permalink?: string;
 	source: DataSource;
 	columns: Column[];
 	settings: TableSettings;
@@ -421,7 +422,7 @@ export const createDefaultSettings = (): TableSettings => ({
 		},
 		variationsMode: 'inline',
 		variableProductMode: 'inline',
-		groupedProductMode: 'popup',
+		groupedProductMode: 'inline',
 		nestedDefaultExpanded: false,
 		showChildCount: true,
 	},
@@ -548,7 +549,7 @@ export const createDefaultColumns = (): Column[] => [
 	{
 		id: 'col_button_default',
 		type: 'button',
-		heading: 'Add to Cart',
+		heading: 'Buy',
 		advanced: {
 			showHeading: true,
 			width: { value: 0, unit: 'auto' },

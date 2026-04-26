@@ -30,5 +30,6 @@ Unlike traditional table plugins, ProductBay uses a modern hybrid approach:
 - Customize every visual detail — colors, fonts, borders, padding, hover effects
 - See **Live Preview** of table changes while building
 - Enable AJAX add-to-cart (single and bulk) without page reloads
-- Embed tables anywhere using simple **shortcodes**
+- Embed tables anywhere using simple **shortcodes** or **Gutenberg blocks**
+- View tables on dedicated pages instantly via **auto-generated Permalinks**
 - Support for **Simple**, **Variable**, **Grouped**, and **External/Affiliate** product types

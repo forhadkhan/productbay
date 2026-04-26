@@ -315,9 +315,8 @@ const LivePreview = ({ className }: LivePreviewProps) => {
 				const count = data.productIds.length;
 				toast({
 					title: __('Preview Only', 'productbay'),
-					description: `${count} product${
-						count > 1 ? 's' : ''
-					} would be added to cart. Save and use the shortcode to enable real Add to Cart.`,
+					description: `${count} product${count > 1 ? 's' : ''
+						} would be added to cart. Save and use the shortcode to enable real Add to Cart.`,
 					type: 'info',
 					duration: 4000,
 				});
@@ -391,9 +390,9 @@ const LivePreview = ({ className }: LivePreviewProps) => {
 					...(fullWidth
 						? {}
 						: {
-								transform: `scale(${scale})`,
-								transformOrigin: 'top left',
-						  }),
+							transform: `scale(${scale})`,
+							transformOrigin: 'top left',
+						}),
 				}}
 				sandbox="allow-scripts"
 			/>
@@ -467,7 +466,7 @@ const LivePreview = ({ className }: LivePreviewProps) => {
 			<InfoIcon className="w-4 h-4 shrink-0 mt-0.5 text-blue-600" />
 			<AlertDescription className={isFullscreen ? 'text-sm' : 'text-xs'}>
 				{__(
-					'Search, pagination, and Add to Cart actions will not work in the Live Preview. Please save the table and use the shortcode on a real page to test these features.',
+					'Actions such as search, pagination, and Add to Cart do not function in the Live Preview. Please save the table and view it on a live page to test these features.',
 					'productbay'
 				)}
 			</AlertDescription>

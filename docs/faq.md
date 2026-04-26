@@ -14,6 +14,32 @@ ProductBay requires **WordPress 6.0 or later**. We recommend always running the 
 
 ProductBay requires **PHP 7.4 or later**. We recommend **PHP 8.0+** for the best performance and compatibility.
 
+## ProductBay Pro <ProBadge />
+
+### Is there a Pro version?
+
+Yes! **ProductBay Pro** is now available. It adds advanced features like a Price Range Filter, advanced display modes for Variable and Grouped products (Popup Modals, Nested Rows), a powerful Custom Field column, and Import/Export capabilities.
+
+### What does ProductBay Pro include?
+
+You can see a full feature comparison between the Free and Pro versions on our [homepage](/productbay/).
+
+## License & Updates
+
+### Do I need a license key to use ProductBay?
+No. The core version of ProductBay is 100% free forever. A license key is only needed if you purchase ProductBay Pro to access premium features.
+
+### How do I activate my Pro license key?
+After purchasing, you can enter your license key under **ProductBay → Settings → License**. For step-by-step instructions, see our [License Activation](/features/license) guide.
+
+### Can I use Pro on multiple sites?
+
+This depends on the license plan you purchased. Single-site licenses allow activation on one production domain, while Plus and Agency licenses allow activation on multiple sites. Check your WPAnchorBay account for details.
+
+### How do I update ProductBay Pro?
+
+As long as your license is active, ProductBay Pro receives automatic updates directly through your WordPress Plugins dashboard, just like the free version.
+
 ## Product Tables
 
 ### How do I display a table on a page?
@@ -53,6 +79,10 @@ ProductBay is built with performance in mind:
 ### Does this plugin call any external services?
 
 **No.** All JavaScript, CSS, and other assets are bundled locally within the plugin. No data is sent to, or loaded from, any external server.
+
+::: info Note for Pro Users
+ProductBay Pro contacts the WPAnchorBay license server solely for license activation and validation. No user data or product data is transmitted.
+:::
 
 ## Translation & Localization
 

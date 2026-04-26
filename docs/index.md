@@ -15,7 +15,7 @@ hero:
       text: Get Started
       link: /guide/introduction
     - theme: alt
-      text: Pro Version
+      text: Get ProductBay Pro
       link: https://wpanchorbay.com/plugins/productbay/
     - theme: alt
       text: Free Download
@@ -36,20 +36,26 @@ features:
     details: Lightweight frontend rendering optimized for Core Web Vitals. Smart 30-minute caching minimizes database load.
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>'
     title: Search, Sort & Filter
-    details: Built-in AJAX search, column sorting, category filters, and pagination — all without page reloads.
+    details: Built-in AJAX search, category filters, and pagination — all without page reloads.
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m2 12 5.1 2.8"/><path d="m22 12-5.1 2.8"/><path d="m8.6 4.4 2.8 5.1"/><path d="m15.4 19.6-2.8-5.1"/><path d="m19.6 8.6-5.1 2.8"/><path d="m4.4 15.4 5.1-2.8"/></svg>'
     title: Translation Ready
     details: 100% of user-facing strings are wrapped in localization functions. Ready for any language.
+  - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>'
+    title: Activity Log & History
+    details: Track every table creation, edit, and configuration change with a built-in file-based logging system.
+  - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'
+    title: Native Permalink Pages
+    details: Every product table automatically gets a clean, shareable URL — perfect for social sharing and marketing.
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>'
     title: Real-Time Live Preview
-    details: See exactly how your table will look as you build it. Every change to columns, sources, and design is reflected instantly. <a href="/features/creation-wizard">Learn more about the wizard &rarr;</a>
+    details: See exactly how your table will look as you build it. Every change to columns, sources, and design is reflected instantly. <a href="/features/creation-wizard">Learn more &rarr;</a>
 ---
 
 <div class="features-grid">
 
 ### What is ProductBay?
 
-ProductBay is a modern, high-performance WordPress plugin that completely transforms how your WooCommerce products are displayed to your customers. Designed with both aesthetics and speed in mind, it replaces the standard grid view with an advanced, interactive spreadsheet-like table layout. Powered by a robust React-driven admin dashboard and a lightweight, extremely fast frontend rendering engine, ProductBay ensures your customers get a fluid, intuitive, and conversion-optimized browsing experience. You can display product lists using categories, specific product IDs, stock statuses, or a combination of smart filters to curate exactly what you want to sell.
+ProductBay is a modern, high-performance WordPress plugin that completely transforms how your WooCommerce products are displayed to your customers. Designed with both aesthetics and speed in mind, it replaces the standard grid view with an advanced, interactive spreadsheet-like table layout. It comes in two versions: a powerful free version available on WordPress.org, and **ProductBay Pro**, which unlocks advanced features like custom fields, price range filters, advanced variable product displays, and import/export capabilities.
 
 ### Who Should Use ProductBay?
 
@@ -70,26 +76,51 @@ Most WooCommerce product table plugins are built using outdated frameworks like 
 
 </div>
 
-<hr />
-
 ## ⚡ Quick Navigation
 
 Ready to dive deeper? Choose a section below to find exactly what you're looking for:
 
 <div class="tip custom-block">
   <p class="custom-block-title">Getting Started</p>
-  <p><a href="/productbay/guide/installation">Installation</a> • <a href="/productbay/guide/getting-started">Quick Start Guide</a> • <a href="/productbay/faq">FAQ</a></p>
+  <p><a href="/productbay/guide/installation">Installation</a> • <a href="/productbay/guide/getting-started">Quick Start Guide</a> • <a href="/productbay/features/license">License Activation <ProBadge /></a> • <a href="/productbay/faq">FAQ</a></p>
 </div>
 
 <div class="info custom-block">
-  <p class="custom-block-title">Core Features & Configuration</p>
-  <p><a href="/productbay/features/table-dashboard">The Dashboard</a> • <a href="/productbay/features/creation-wizard">Creation Wizard</a> • <a href="/productbay/features/column-editor">Column Editor</a> • <a href="/productbay/features/woocommerce">WooCommerce Integration</a></p>
+  <p class="custom-block-title">Free & Pro Features</p>
+  <p style="line-height: 2;">
+    <strong>Builder:</strong> <a href="/productbay/features/table-dashboard">The Dashboard</a> • <a href="/productbay/features/creation-wizard">Creation Wizard</a> • <a href="/productbay/features/column-editor">Column Editor</a> • <a href="/productbay/features/available-options">Available Options</a><br>
+    <strong>Storefront:</strong> <a href="/productbay/features/woocommerce">WooCommerce Integration</a> • <a href="/productbay/features/search-and-filters">Search & Filters</a> • <a href="/productbay/features/gutenberg-blocks">Gutenberg Blocks</a> • <a href="/productbay/features/activity-log">Activity Log</a><br>
+    <strong>Premium:</strong> <a href="/productbay/features/variable-grouped-modes">Advanced Products <ProBadge /></a> • <a href="/productbay/features/price-filter">Price Filter <ProBadge /></a> • <a href="/productbay/features/custom-field-column">Custom Fields <ProBadge /></a> • <a href="/productbay/features/import-export">Import / Export <ProBadge /></a>
+  </p>
 </div>
 
 <div class="warning custom-block">
   <p class="custom-block-title">For Developers</p>
   <p><a href="/productbay/developer/architecture">Architecture & Tech Stack</a> • <a href="/productbay/developer/hooks">Hooks & Filters</a> • <a href="/productbay/developer/rest-api">REST API Reference</a></p>
 </div>
+
+## 💎 Feature Comparison
+
+Choose the version that best fits your business needs.
+
+| Feature                      | Free Version         | Pro Version           |
+| :--------------------------- | :------------------: | :-------------------: |
+| **Unlimited Product Tables**<br><sub>Gutenberg Blocks, Shortcodes & Native Permalinks</sub> | ✅ | ✅ |
+| **Creation Wizard & Live Preview**<br><sub>Real-time editor with built-in Activity Log</sub> | ✅ | ✅ |
+| **AJAX Add-to-Cart & Bulk Purchasing**<br><sub>Instant cart additions without page refresh</sub> | ✅ | ✅ |
+| **AJAX Search & Basic Filters**<br><sub>Instant text search and taxonomy dropdowns</sub> | ✅ | ✅ |
+| **Standard Column Types**<br><sub>Image, Name, Price, SKU, Stock, Description</sub> | ✅ | ✅ |
+| **Advanced Price Filtering**<br><sub>Dual-handle slider, numeric inputs, custom limits</sub> | ❌ | ✅ |
+| **Variable & Grouped Product Interface**<br><sub>Standard vs Popup Modal / Nested Rows / Separate Rows</sub> | Standard | **Advanced** |
+| **Custom Field Columns (ACF & Meta Box)**<br><sub>Display and format custom meta fields</sub> | ❌ | ✅ |
+| **Combined Column Builder**<br><sub>Merge multiple data points into a single cell using template tags</sub> | ❌ | ✅ |
+| **Lazy Loading (Infinite Scroll)**<br><sub>Replace pagination with 'Load More' or on-scroll batch loading</sub> | ❌ | ✅ |
+| **Import & Export Configurations**<br><sub>Export/import tables via JSON, bulk cloning</sub> | ❌ | ✅ |
+| **Priority Support**<br><sub>Faster response times and dedicated assistance</sub> | ❌ | ✅ |
+
+::: tip Want to learn more about the Pro version?
+Check out the [Pro Page](https://wpanchorbay.com/plugins/productbay/) to see all premium features including live demos. 
+:::
 
 <style>
 .features-grid {
@@ -105,5 +136,25 @@ Ready to dive deeper? Choose a section below to find exactly what you're looking
 }
 .features-grid ul {
   margin-top: 0.5rem;
+}
+
+/* Custom styling for the Get Pro button */
+.VPButton[href="https://wpanchorbay.com/plugins/productbay/"] {
+  background-color: #f05c2a !important;
+  color: white !important;
+  border-color: #f05c2a !important;
+}
+.VPButton[href="https://wpanchorbay.com/plugins/productbay/"]:hover {
+  background-color: #d94b1e !important;
+  border-color: #d94b1e !important;
+}
+/* Custom styling for the Free Download button */
+.VPButton[href="https://wordpress.org/plugins/productbay/"] {
+  border: 1px solid var(--vp-c-brand-1) !important;
+  color: var(--vp-c-brand-1) !important;
+  background-color: transparent !important;
+}
+.VPButton[href="https://wordpress.org/plugins/productbay/"]:hover {
+  background-color: var(--vp-c-brand-soft) !important;
 }
 </style>

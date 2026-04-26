@@ -627,7 +627,10 @@
             const $row = $checkbox.closest('tr');
             const rawId = $checkbox.val(); // Original input value
             let id = rawId; // Product ID (or variation ID if nested/popup)
-            const price = parseFloat($checkbox.data('price') || 0);
+            
+            // Read price directly from attribute to bypass jQuery's one-time data caching, 
+            // since inline dropdowns dynamically update the checkbox data-price attribute on change!
+            const price = parseFloat($checkbox.attr('data-price') || $checkbox.data('price') || 0);
 
             if ($checkbox.is(':checked')) {
                 // Read current quantity from the row
@@ -680,6 +683,13 @@
                 // Fallback for Pro Variation/Grouped Popup rows
                 if (!name) {
                     name = $row.find('.productbay-pro-popup-col-name').text().trim();
+                }
+
+                // If this is an inline Grouped dropdown, extract the actual child name instead of parent
+                const $groupedChildOption = $row.find(`.productbay-grouped-child-select option[value="${rawId}"]`);
+                if ($groupedChildOption.length && rawId.indexOf(',') === -1) {
+                    // It's a single child option
+                    name = $groupedChildOption.text().trim();
                 }
 
                 // Fallback for missing image (use parent image from main table)
@@ -915,12 +925,18 @@
         // ── Single Add to Cart ──────────────────────────────────────────
 
         handleSingleAddToCart(e) {
+            if (this.features.cartEnabled === false) {
+                // If AJAX is disabled, let the form submit naturally
+                return;
+            }
             e.preventDefault();
             const $btn = $(e.currentTarget);
             if ($btn.is(':disabled')) return;
 
             const $wrap = $btn.closest('.productbay-btn-cell');
-            const productId = $btn.data('product-id') || $btn.closest('.productbay-variable-wrap').data('product-id') || $btn.closest('tr').data('product-id');
+            const productIdStr = String($btn.data('product-id') || $btn.closest('.productbay-variable-wrap').data('product-id') || $btn.closest('tr').data('product-id'));
+            const productIds = productIdStr.split(',');
+
             const $qtyInput = $wrap.find('.productbay-qty');
             const quantity = $qtyInput.length ? parseInt($qtyInput.val(), 10) || 1 : 1;
 
@@ -946,45 +962,53 @@
             const originalLabel = $btn.data('original-text');
             $btn.text('Adding...').prop('disabled', true);
 
+            const itemsPayload = productIds.map(id => ({
+                product_id: parseInt(id.trim(), 10),
+                quantity: quantity,
+                variation_id: variationId,
+                attributes: attributes
+            }));
+
             $.ajax({
                 url: productbay_frontend.ajaxurl,
                 type: 'POST',
                 data: {
                     action: 'productbay_bulk_add_to_cart',
                     nonce: productbay_frontend.nonce,
-                    items: [{
-                        product_id: productId,
-                        quantity: quantity,
-                        variation_id: variationId,
-                        attributes: attributes
-                    }]
+                    items: itemsPayload
                 },
                 success: (response) => {
                     if (response.success) {
                         $(document.body).trigger('wc_fragment_refresh');
 
                         // Track accumulated cart quantity
-                        const cartKey = this.buildCartKey(productId, variationId, attributes);
-                        const prevEntry = this.cartQuantities.get(cartKey);
-                        const prevQty = prevEntry ? prevEntry.quantity : 0;
-                        const newQty = prevQty + quantity;
+                        itemsPayload.forEach(itemInfo => {
+                            const pId = itemInfo.product_id;
+                            const cartKey = this.buildCartKey(pId, itemInfo.variation_id, itemInfo.attributes);
+                            const prevEntry = this.cartQuantities.get(cartKey);
+                            const prevQty = prevEntry ? prevEntry.quantity : 0;
+                            const newQty = prevQty + quantity;
 
-                        // We store an object for all cart quantities to support variation badge generation easily
-                        this.cartQuantities.set(cartKey, {
-                            quantity: newQty,
-                            variationId: variationId,
-                            attributes: Object.assign({}, attributes),
-                            productId: productId
+                            // We store an object for all cart quantities to support variation badge generation easily
+                            this.cartQuantities.set(cartKey, {
+                                quantity: newQty,
+                                variationId: itemInfo.variation_id,
+                                attributes: Object.assign({}, itemInfo.attributes),
+                                productId: pId
+                            });
                         });
+                        
                         this.saveCartQuantitiesToStorage(); // <-- Persist
 
                         // Update button text with SVG checkmark and quantity
                         const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                        $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' ' + newQty + ')</span>');
+                        // For display on the button, we sum all quantities added
+                        const totalAddedThisTime = itemsPayload.length * quantity;
+                        $btn.html(originalLabel + ' <span class="productbay-added-badge">(' + checkSvg + ' +' + totalAddedThisTime + ')</span>');
                         $btn.prop('disabled', false);
 
                         if (variationId && this.features.variationBadges !== false) {
-                            this.renderVariationBadges(productId);
+                            this.renderVariationBadges(productIds[0]); // fallback legacy call
                         }
 
                     } else {
@@ -1078,11 +1102,14 @@
             // Build items array
             const items = [];
             this.selectedProducts.forEach((item, id) => {
-                items.push({
-                    product_id: item.productId || id,
-                    quantity: item.quantity,
-                    variation_id: item.variationId || 0,
-                    attributes: item.attributes || {}
+                const ids = String(item.productId || id).split(',');
+                ids.forEach(pId => {
+                    items.push({
+                        product_id: parseInt(pId.trim(), 10),
+                        quantity: item.quantity,
+                        variation_id: item.variationId || 0,
+                        attributes: item.attributes || {}
+                    });
                 });
             });
 
@@ -1098,6 +1125,9 @@
                     if (response.success) {
                         $btn.text('Added!');
                         $(document.body).trigger('wc_fragment_refresh');
+                        if (this.features.cartEnabled === false) {
+                            window.location.reload();
+                        }
 
                         // Show warnings if any
                         if (response.data.warnings && response.data.warnings.length > 0) {
@@ -1135,7 +1165,11 @@
                             }
 
                             // Let's also refresh single add to cart buttons for items added in bulk
-                            const $btn = this.$tbody.find(`tr[data-product-id="${id}"] .productbay-btn-addtocart`);
+                            let $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+                            if (!$row.length) {
+                                $row = this.$tbody.find(`.productbay-select-product[value="${id}"]`).closest('tr');
+                            }
+                            const $btn = $row.find('.productbay-btn-addtocart');
                             if ($btn.length) {
                                 if (!$btn.data('original-text')) {
                                     $btn.data('original-text', $btn.text());
@@ -1243,7 +1277,11 @@
         handlePopupRemove(e) {
             e.preventDefault();
             const id = $(e.currentTarget).data('product-id');
-            const $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+            let $row = this.$tbody.find(`tr[data-product-id="${id}"]`);
+            if (!$row.length) {
+                $row = this.$tbody.find(`.productbay-select-product[value="${id}"]`).closest('tr');
+            }
+
             if ($row.length) {
                 const $cb = $row.find('.productbay-select-product');
                 $cb.prop('checked', false).trigger('change');
@@ -1320,6 +1358,183 @@
             if (isOpen) $popup.addClass('is-open');
         }
     }
+	// ─── Grouped Product Inline Select Handlers ─────────────────────────────────────
+	// When a child product is selected: enable qty/cart/checkbox.
+	// 'Select All' option => enable checkbox with all child IDs.
+	document.body.addEventListener('change', (e) => {
+		if (!e.target.classList.contains('productbay-grouped-child-select')) return;
+
+		const select = e.target;
+		const wrap = select.closest('.productbay-grouped-inline-wrap');
+		if (!wrap) return;
+
+		const qtyInput = wrap.querySelector('.productbay-qty') || wrap.querySelector('input[name="quantity"]');
+		const addBtn = wrap.querySelector('.productbay-grouped-add-btn');
+		const priceSpan = wrap.querySelector('.productbay-grouped-inline-price');
+		const hiddenInput = wrap.querySelector('.productbay-grouped-hidden-id');
+		const row = select.closest('tr');
+		const rowCheckbox = row ? row.querySelector('.productbay-col-select .productbay-select-product') : null;
+
+		const selectedId = select.value;
+		const childrenData = JSON.parse(wrap.getAttribute('data-children') || '[]');
+
+		if (!selectedId) {
+			// No selection — disable controls
+			if (qtyInput) qtyInput.disabled = true;
+			if (addBtn) { addBtn.disabled = true; addBtn.setAttribute('data-product-id', ''); }
+			if (hiddenInput) hiddenInput.value = '';
+			if (priceSpan) priceSpan.innerHTML = '';
+			if (rowCheckbox) { rowCheckbox.disabled = true; rowCheckbox.checked = false; rowCheckbox.dispatchEvent(new Event('change', { bubbles: true })); }
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = true);
+			return;
+		}
+
+		if (selectedId === '__all__') {
+			// Select All — enable qty/cart with all child IDs
+			const allIds = childrenData.map(c => String(c.id));
+			if (addBtn) { addBtn.disabled = false; addBtn.setAttribute('data-product-id', allIds.join(',')); }
+			if (hiddenInput) hiddenInput.value = allIds.join(',');
+			if (qtyInput) qtyInput.disabled = false;
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = false);
+			if (priceSpan) priceSpan.innerHTML = '';
+			if (rowCheckbox) {
+				rowCheckbox.disabled = false;
+				rowCheckbox.value = allIds.join(',');
+				const totalPrice = childrenData.reduce((sum, c) => sum + parseFloat(c.price || 0), 0);
+				rowCheckbox.setAttribute('data-price', totalPrice);
+				rowCheckbox.setAttribute('data-multi', '1');
+				rowCheckbox.checked = true;
+				// Trigger change to update bulk selection
+				rowCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+			return;
+		}
+
+		// Single child selected — enable all controls
+		const child = childrenData.find(c => String(c.id) === selectedId);
+		if (child) {
+			if (priceSpan) priceSpan.innerHTML = child.price_html;
+			if (addBtn) { addBtn.disabled = false; addBtn.setAttribute('data-product-id', String(child.id)); }
+			if (hiddenInput) hiddenInput.value = String(child.id);
+			if (qtyInput) qtyInput.disabled = false;
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = false);
+			if (rowCheckbox) {
+				rowCheckbox.disabled = false;
+				rowCheckbox.value = String(child.id);
+				rowCheckbox.setAttribute('data-price', String(child.price));
+				rowCheckbox.removeAttribute('data-multi');
+				rowCheckbox.checked = true;
+				rowCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+		}
+	});
+
+	// Grouped Product Add To Cart (Native integration without reloading if possible, but fallback to bulk add)
+	document.body.addEventListener('click', (e) => {
+		const btn = e.target.closest('.productbay-grouped-add-btn');
+		if (!btn || btn.disabled) return;
+
+		const idsStr = btn.getAttribute('data-product-id');
+		if (!idsStr) return;
+		const ids = idsStr.split(',');
+
+		// If AJAX is disabled the button type is submit.
+		if (btn.getAttribute('type') === 'submit') {
+			if (ids.length > 1) {
+				// We can't handle multiple native WP add_to_cart params cleanly inside generic POST.
+				// We'll intercept and force the Bulk add-to-cart handler via AJAX, then redirect.
+				e.preventDefault();
+				const wrap = btn.closest('.productbay-grouped-inline-wrap');
+				const qtyInput = wrap.querySelector('input[name="quantity"]');
+				const quantity = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+				
+				const items = ids.map(id => ({
+					product_id: parseInt(id, 10),
+					quantity: quantity,
+					variation_id: 0,
+					attributes: {}
+				}));
+
+				btn.innerHTML = 'Adding...';
+				btn.disabled = true;
+
+				window.jQuery.ajax({
+					url: window.productbay_frontend.ajaxurl,
+					type: 'POST',
+					data: {
+						action: 'productbay_bulk_add_to_cart',
+						nonce: window.productbay_frontend.nonce,
+						items: items
+					},
+					success: (response) => {
+						if (response.success) {
+							window.location.reload(); // Reload since ajax is visually disabled
+						} else {
+							alert(response.data?.errors?.join('\n') || 'Error');
+							btn.disabled = false;
+						}
+					}
+				});
+			} else {
+				// Single product, native submit is fine. Do nothing with e.preventDefault()
+			}
+			return;
+		}
+
+		e.preventDefault(); // It's an ajax button
+
+		const wrap = btn.closest('.productbay-grouped-inline-wrap');
+		const qtyInput = wrap.querySelector('.productbay-qty');
+		const quantity = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+
+		const items = ids.map(id => ({
+			product_id: parseInt(id, 10),
+			quantity: quantity,
+			variation_id: 0,
+			attributes: {}
+		}));
+
+		if (!btn.hasAttribute('data-original-text')) {
+			btn.setAttribute('data-original-text', btn.innerHTML);
+		}
+		const originalText = btn.getAttribute('data-original-text');
+
+		btn.innerHTML = 'Adding...';
+		btn.disabled = true;
+
+		const $ = window.jQuery;
+		if (!$) return;
+
+		$.ajax({
+			url: window.productbay_frontend.ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'productbay_bulk_add_to_cart',
+				nonce: window.productbay_frontend.nonce,
+				items: items
+			},
+			success: (response) => {
+				if (response.success) {
+					btn.innerHTML = 'Added ✓';
+					$(document.body).trigger('wc_fragment_refresh');
+				} else {
+					btn.innerHTML = 'Error';
+					alert(response.data?.errors?.join('\n') || 'Error adding to cart');
+				}
+			},
+			error: () => {
+				btn.innerHTML = 'Error';
+			},
+			complete: () => {
+				setTimeout(() => {
+					if (btn.innerHTML === 'Added ✓' || btn.innerHTML === 'Error') {
+						btn.innerHTML = originalText;
+						btn.disabled = false;
+					}
+				}, 2000);
+			}
+		});
+	});
 
     // Initialize on document ready
     $(document).ready(function () {

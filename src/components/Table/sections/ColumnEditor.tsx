@@ -40,6 +40,7 @@ import {
 	AlertTriangleIcon,
 	InfoIcon,
 	ChevronDownIcon,
+	ChevronUpIcon,
 	PackageIcon,
 	CalendarIcon,
 	TagIcon,
@@ -78,16 +79,6 @@ const COLUMN_TYPES: {
 			label: __('Add to Cart', 'productbay'),
 			icon: ShoppingCartIcon,
 		},
-		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
-		{
-			type: 'summary',
-			label: __('Description', 'productbay'),
-			icon: FileTextIcon,
-		},
-		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
-		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
-		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
-		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
 		{
 			type: 'cf',
 			label: __('Custom Field', 'productbay'),
@@ -100,6 +91,16 @@ const COLUMN_TYPES: {
 			icon: LayoutGridIcon,
 			isPro: true,
 		},
+		{ type: 'sku', label: __('SKU', 'productbay'), icon: HashIcon },
+		{
+			type: 'summary',
+			label: __('Description', 'productbay'),
+			icon: FileTextIcon,
+		},
+		{ type: 'stock', label: __('Stock', 'productbay'), icon: PackageIcon },
+		{ type: 'date', label: __('Date', 'productbay'), icon: CalendarIcon },
+		{ type: 'tax', label: __('Taxonomy', 'productbay'), icon: TagIcon },
+		{ type: 'rating', label: __('Rating', 'productbay'), icon: StarIcon },
 	];
 
 export interface ColumnEditorProps {
@@ -228,6 +229,11 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 			const typeConfig = COLUMN_TYPES.find((t) => t.type === type);
 			if (!typeConfig) return;
 
+			// Prevent adding Pro columns if Pro is not active
+			if (typeConfig.isPro && !(window as any).productBaySettings?.proVersion) {
+				return;
+			}
+
 			const newColumn: Column = {
 				id: generateColumnId(),
 				type,
@@ -320,7 +326,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 
 				{/* Add Column Dropdown Menu */}
 				{showAddMenu && (
-					<div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-blue-600 rounded-lg shadow-lg z-50">
+					<div className="absolute top-full left-0 right-0 mt-2 bg-white border border-blue-600 rounded-lg shadow-lg z-[60000]">
 						<div className="p-2 grid grid-cols-2 gap-1">
 							{COLUMN_TYPES.map(({ type, label, icon: Icon, isPro }) => {
 								const isSelected = selectedTypes.has(type);
@@ -335,7 +341,6 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 										description={__('This column type is a Pro feature. Upgrade to create more advanced tables.', 'productbay')}
 									>
 										<button
-											onClick={() => handleToggleColumn(type)}
 											className={cn(
 												'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors text-left border border-transparent w-full',
 												'hover:bg-productbay-brand/20',
@@ -382,7 +387,7 @@ const ColumnEditor: React.FC<ColumnEditorProps> = ({
 							className="w-full rounded-b-lg flex justify-center items-center p-1 text-gray-600 hover:text-gray-800 bg-transparent hover:bg-gray-200 cursor-pointer"
 							aria-label={__('Close', 'productbay')}
 						>
-							<ChevronDownIcon className="w-4 h-4 bg-gray-200" />
+							<ChevronUpIcon className="w-4 h-4 bg-gray-200" />
 						</button>
 					</div>
 				)}

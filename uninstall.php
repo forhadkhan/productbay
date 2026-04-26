@@ -95,4 +95,21 @@ if ( $productbay_delete_on_uninstall ) {
 			)
 		);
 	}
+
+	// 5. Delete activity log files.
+	$productbay_log_dir = WP_CONTENT_DIR . '/productbay-logs';
+	if ( is_dir( $productbay_log_dir ) ) {
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . '/wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+		$wp_filesystem->delete( $productbay_log_dir, true );
+	}
+
+	// 6. Clear log pruning cron event.
+	$productbay_cron_timestamp = wp_next_scheduled( 'productbay_prune_logs' );
+	if ( $productbay_cron_timestamp ) {
+		wp_unschedule_event( $productbay_cron_timestamp, 'productbay_prune_logs' );
+	}
 }

@@ -12,8 +12,8 @@
  * Plugin URI:        https://wpanchorbay.com/products/productbay
  * Source URI:        https://github.com/wpanchorbay/productbay
  * Description:       WooCommerce product tables with search, filters, and pagination for high-converting, responsive product listings and easy browsing.
- * Version:           1.2.0
- * Stable tag:        1.2.0
+ * Version:           1.3.0
+ * Stable tag:        1.3.0
  * Requires at least: 6.8
  * Tested up to:      6.9
  * Requires PHP:      7.4
@@ -42,7 +42,7 @@ if (!defined('ABSPATH')) {
  * Global Constants
  * Prefixed with PRODUCTBAY_
  */
-define('PRODUCTBAY_VERSION', '1.2.0');
+define('PRODUCTBAY_VERSION', '1.3.0');
 define('PRODUCTBAY_PLUGIN_NAME', 'productbay');
 define('PRODUCTBAY_TEXT_DOMAIN', 'productbay');
 define('PRODUCTBAY_OPTION_NAME', 'productbay');
@@ -73,6 +73,46 @@ if (\file_exists($productbay_dotenv_path) && \class_exists('Dotenv\\Dotenv')) {
  * When false: uses production-optimized settings.
  */
 define('PRODUCTBAY_DEV_MODE', \filter_var(getenv('PRODUCTBAY_DEV_MODE') ? getenv('PRODUCTBAY_DEV_MODE') : false, FILTER_VALIDATE_BOOLEAN));
+
+/**
+ * Plugin activation hook.
+ *
+ * Schedules the daily log pruning cron event.
+ *
+ * @since 1.2.0
+ */
+function productbay_activate()
+{
+	if (!\wp_next_scheduled(Data\ActivityLog::CRON_HOOK)) {
+		\wp_schedule_event(time(), 'daily', Data\ActivityLog::CRON_HOOK);
+	}
+
+	// Register post type and flush rewrite rules to prevent 404s on fresh installs.
+	$plugin = new Core\Plugin();
+	$plugin->register_post_type();
+	\flush_rewrite_rules();
+
+	Data\ActivityLog::info('Plugin activated', 'ProductBay v' . PRODUCTBAY_VERSION . ' activated.');
+}
+\register_activation_hook(__FILE__, __NAMESPACE__ . '\\productbay_activate');
+
+/**
+ * Plugin deactivation hook.
+ *
+ * Clears the log pruning cron event.
+ *
+ * @since 1.2.0
+ */
+function productbay_deactivate()
+{
+	$timestamp = \wp_next_scheduled(Data\ActivityLog::CRON_HOOK);
+	if ($timestamp) {
+		\wp_unschedule_event($timestamp, Data\ActivityLog::CRON_HOOK);
+	}
+
+	Data\ActivityLog::info('Plugin deactivated', 'ProductBay v' . PRODUCTBAY_VERSION . ' deactivated.');
+}
+\register_deactivation_hook(__FILE__, __NAMESPACE__ . '\\productbay_deactivate');
 
 /**
  * Initialization

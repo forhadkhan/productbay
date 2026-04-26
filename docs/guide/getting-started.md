@@ -61,10 +61,11 @@ Click **Next** to proceed.
 ## Step 2.4: Options
 
 Configure table behavior:
-- Enable/disable **search**, **sorting**, **pagination**
-- Set **products per page**
+- Enable/disable **search**, **pagination**, **image lightbox**
+- Set **products per page** and **pagination style**
 - Configure **add-to-cart** options (AJAX, quantity selectors)
-- Enable **category filters**
+- Enable **category filters** and **product type filters**
+- Choose **variable/grouped product display modes**
 
 ![ProductBay Wizard Step 5](/images/wizard-step-4-basic-fill-guide.png)
 
