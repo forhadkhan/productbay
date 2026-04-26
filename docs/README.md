@@ -52,10 +52,11 @@ docs/
 ├── public/             # Static assets (logo, icon, screenshots)
 ├── guide/              # Getting started guides
 ├── features/           # Feature documentation
-├── settings/           # Plugin settings reference
 ├── developer/          # Developer reference (architecture, REST API)
 ├── index.md            # Home / landing page
-├── faq.md
-├── changelog.md
-└── feature-request.md
+├── faq.md              # Frequently Asked Questions
+├── changelog.md        # Free version changelog
+├── pro-changelog.md    # Pro version changelog
+├── known-issues.md     # Active limitations and known bugs
+└── feature-request.md  # Template for requesting features
 ```
