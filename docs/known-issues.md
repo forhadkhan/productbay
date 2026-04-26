@@ -2,11 +2,7 @@
 
 This page tracks confirmed bugs, limitations, or quirks currently present in the ProductBay **v1.2.x** release, along with available workarounds and expected resolution plans.
 
-## Gutenberg Editor Interaction
-
-- **Issue**: Bulk selection in the frontend is not working in `v1.1.0` as expected for product tables under gutenberg tab block.
-- **Status**: Fixed in `v1.1.1`.
-
+**Any known issues will be listed here**
 ---
 
 ## Report a New Issue
