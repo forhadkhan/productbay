@@ -18,7 +18,7 @@ A modern, blazing-fast WooCommerce product table plugin built for scalability an
 <!-- BADGES -->
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
 
-<a href="https://forhadkhan.github.io/productbay/" style="text-decoration:none;">
+<a href="https://docs.wpanchorbay.com/productbay/" style="text-decoration:none;">
   <img src="https://img.shields.io/badge/Docs-Live-2ea44f?style=for-the-badge&logo=readthedocs&logoColor=white" />
 </a>
 
