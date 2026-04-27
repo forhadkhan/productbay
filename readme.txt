@@ -268,7 +268,7 @@ Yes. All user-facing strings use WordPress localization functions and the plugin
 
 = Where can I get support? =
 
-Use the support forum on this plugin's WordPress.org page. We aim to respond within 2 business days. You can also reach us directly at [contact@wpanchorbay.com](mailto:contact@wpanchorbay.com).
+Use the support forum on this plugin's WordPress.org page. We aim to respond within 2 business days. You can also reach us directly at [support@wpanchorbay.com](mailto:support@wpanchorbay.com).
 
 == Screenshots ==
 
