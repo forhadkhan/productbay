@@ -195,6 +195,11 @@ export default defineConfig({
 	themeConfig: {
 		logo: '/icon.svg',
 		siteTitle: false,
+		notFound: {
+			title: 'Page Not Found',
+			quote: 'The documentation page you are looking for does not exist or has been moved.',
+			linkText: 'Take me home',
+		},
 
 		nav: [
 			{ text: 'v1.3.0', link: '/changelog' },
@@ -209,6 +214,7 @@ export default defineConfig({
 					{ text: 'Pro Changelog', link: '/pro-changelog' },
 					{ text: 'Known Issues', link: '/known-issues' },
 					{ text: 'Request a Feature', link: '/feature-request' },
+					{ text: 'Meta', link: '/meta' },
 				],
 			},
 		],
