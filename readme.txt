@@ -2,7 +2,7 @@
 Contributors: wpanchorbay, forhadkhan, sankarsan, arifac
 Tags: product table for woocommerce, woocommerce product table, woocommerce product list, product table, product list
 Requires at least: 6.8
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.3.1
 License: GPLv2 or later
@@ -72,8 +72,6 @@ Control exactly which products appear in each table:
 * **By Sale Status** : Display currently on-sale products
 * **By Specific IDs**: Handpick individual products
 * **All Products**: Pull your entire catalog into the table
-
-**Query Modifiers:** Exclude product IDs, filter by stock status, set a minimum/maximum price range, and choose a default sort order (name, price, date, or popularity).
 
 ---
 
@@ -288,7 +286,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.3.1 =
 
-* Dev: Bumped version to 1.3.1.
+* Compatibility: Verified and tested with WordPress 7.0.
 
 = 1.3.0 =
 
