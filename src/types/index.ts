@@ -273,6 +273,9 @@ export interface TableSettings {
 
 		/** Use AJAX for add to cart */
 		ajaxAdd: boolean;
+
+		/** Custom Add to Cart text for this table. If empty, falls back to global setting. */
+		addToCartText?: string;
 	};
 
 	/** Filter configuration */

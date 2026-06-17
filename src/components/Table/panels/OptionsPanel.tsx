@@ -258,6 +258,17 @@ export const OptionsPanel = ({
 					/>
 				</SettingsOption>
 
+				{!isProActive ? (
+					<SettingsOption
+						title={__('Custom \"Add to Cart\" Button Text', 'productbay')}
+						description={__('Override the global text for this specific table', 'productbay')}
+					>
+						<ProBadge />
+					</SettingsOption>
+				) : (
+					<Slot name="productbay-pro-custom-add-to-cart-text-option" />
+				)}
+
 				{/* Variable & Grouped Products - Display modes */}
 				{(() => {
 					const variableMode = settings.features.variableProductMode || settings.features.variationsMode || 'inline';

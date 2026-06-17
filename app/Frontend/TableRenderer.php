@@ -57,6 +57,14 @@ class TableRenderer
 	protected $lightbox_enabled = true;
 
 	/**
+	 * Custom Add to Cart text.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+	protected $add_to_cart_text = '';
+
+	/**
 	 * Initialize the renderer.
 	 *
 	 * @param TableRepository $repository Table repository instance.
@@ -125,6 +133,16 @@ class TableRenderer
 
 		// Pass the showChildCount feature flag into cart_settings so render_cell can access it.
 		$this->cart_settings['_show_child_count'] = $settings['features']['showChildCount'] ?? true;
+
+		/**
+		 * Filter the Add to Cart text.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $text          The custom text.
+		 * @param array  $cart_settings The cart settings for the table.
+		 */
+		$this->add_to_cart_text = \apply_filters('productbay_add_to_cart_text', '', $this->cart_settings);
 
 		// 1. Prepare Query Arguments.
 		$args = $this->build_query_args($source, $settings, $runtime_args);
@@ -250,7 +268,7 @@ class TableRenderer
 			echo '<div class="productbay-btn-group">';
 			echo '<button class="productbay-button productbay-btn-bulk" disabled>';
 			echo '<svg class="productbay-icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> ';
-			echo esc_html__('Add to Cart', 'productbay');
+			echo esc_html( !empty($this->add_to_cart_text) ? $this->add_to_cart_text : __('Add to Cart', 'productbay') );
 			echo '</button>';
 
 			// Selected Items Panel Trigger
@@ -901,7 +919,7 @@ class TableRenderer
 		$btn_type = $ajax_enabled ? 'button' : 'submit';
 
 		echo '<button type="' . esc_attr($btn_type) . '" class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '"' . esc_attr($disabled_attr) . '>';
-		echo esc_html($product->add_to_cart_text());
+		echo esc_html( !empty($this->add_to_cart_text) ? $this->add_to_cart_text : $product->add_to_cart_text() );
 		echo '</button>';
 
 		if (!$ajax_enabled) {
@@ -991,7 +1009,7 @@ class TableRenderer
 			?>
 			<button type="<?php echo esc_attr($btn_type); ?>" class="productbay-button productbay-btn-addtocart productbay-grouped-add-btn"
 					data-product-id="" disabled>
-				<?php esc_html_e('Add to Cart', 'productbay'); ?>
+				<?php echo esc_html( !empty($this->add_to_cart_text) ? $this->add_to_cart_text : __('Add to Cart', 'productbay') ); ?>
 			</button>
 		<?php
 		if (!$ajax_enabled) {
@@ -1062,7 +1080,7 @@ class TableRenderer
 			$this->render_quantity_input($product);
 		}
 		echo '<button type="' . esc_attr($btn_type) . '" class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '" disabled>';
-		echo esc_html__('Add to cart', 'productbay');
+		echo esc_html( !empty($this->add_to_cart_text) ? $this->add_to_cart_text : __('Add to cart', 'productbay') );
 		echo '</button>';
 		echo '</div>';
 
