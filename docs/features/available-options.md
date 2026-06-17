@@ -91,6 +91,11 @@ Configure Add to Cart behavior and selection tracking.
   * **Option Type**: Text Input
   * **Description**: Allows you to set a custom call-to-action (e.g., "Buy Now", "Select Options") specifically for the current table, overriding the global setting.
 
+* **Custom Opener Button Text** <ProBadge />
+  * **Functionality**: Overrides the default text for "Select Options" / "View Products" buttons.
+  * **Option Type**: Text Input
+  * **Description**: Allows you to set a custom text for buttons that open popups or nested rows, separating navigation action from actual purchase buttons.
+
 ---
 
 ## Variable & Grouped Products
