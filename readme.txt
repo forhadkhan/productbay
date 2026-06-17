@@ -166,7 +166,7 @@ Get the Pro add-on that will extend ProductBay with advanced capabilities:
 * **Advanced Group Product Layouts**: Enhanced display options for grouped item selection.
 * **Price Range Filter**: Interactive slider and input-based price filtering.
 * **Pro Columns**: Advanced Custom Fields (ACF) integration and Combined Columns using template tags.
-* **Custom "Add to Cart" Button Text**: Override the default button text globally or per-table.
+* **Custom "Add to Cart" and Opener/Expander Button Text**: Override the default button text globally or per-table.
 * **Lazy Loading**: Improved performance with **infinite scroll** or **Load More** button instead of pagination.
 * **Import / Export**: Backup, migrate, and share table configurations as JSON files.
 * **License Management**: Automated updates and professional support.
@@ -287,7 +287,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 = 1.3.2 =
 
-* Feature: Added core support and hooks for customizable Add to Cart button text (available in Pro).
+* Feature: Added core support and hooks for customizable Add to Cart button text and Opener button text (available in Pro).
 
 = 1.3.1 =
 
