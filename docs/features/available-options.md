@@ -86,6 +86,11 @@ Configure Add to Cart behavior and selection tracking.
   * **Option Type**: Toggle
   * **Description**: Shows a floating, collapsible panel that displays all the items a user has selected or added to cart, along with their individual quantities.
 
+* **Custom Add to Cart Text** <ProBadge />
+  * **Functionality**: Overrides the default "Add to Cart" button text for the specific table.
+  * **Option Type**: Text Input
+  * **Description**: Allows you to set a custom call-to-action (e.g., "Buy Now", "Select Options") specifically for the current table, overriding the global setting.
+
 ---
 
 ## Variable & Grouped Products
