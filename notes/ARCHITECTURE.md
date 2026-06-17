@@ -83,6 +83,13 @@ ProductBay implements a multi-layer caching system for optimal performance:
 2. **Zustand Store Cache** (Session-based) - In-memory instant access
 3. **Background Refresh** (5-minute staleness threshold) - Non-blocking updates
 
+### Global UI Component Sharing (for Pro)
+
+To maintain design consistency and reduce bundle size, the free plugin exports its reusable UI components (e.g. `Button`, `Toggle`, `Select`, etc.) to the global scope:
+- **Exposure (Free)**: Exposed via `window.productbay.ui = { Button, Toggle, Select, ... }` during initialization in the main entry point `src/index.tsx`.
+- **Proxy Imports (Pro)**: The Pro plugin imports from this global object via proxy modules (e.g., `src/components/ui/index.ts` in the Pro plugin repo) to preserve clean React/TypeScript imports.
+- **Badge Guarding**: The table builder uses `<Slot>` components (e.g., `productbay-pro-options`) to let Pro inject controls dynamically. If Pro is active (`window.productbay.proActive`), UI elements are displayed natively; otherwise, disabled placeholders or `<ProBadge />` notices are rendered.
+
 ---
 
 ## Backend Architecture
@@ -93,6 +100,7 @@ ProductBay implements a multi-layer caching system for optimal performance:
 ProductBay\
 ├── Admin\          # Admin interface registration and asset enqueuing
 ├── Api\            # REST API endpoints for React frontend
+├── Blocks\         # Gutenberg block assets & server-side render registration
 ├── Core\           # Plugin initialization and DI container
 ├── Data\           # Repositories and data access layer
 ├── Frontend\       # Public-facing shortcodes and handlers
@@ -156,6 +164,8 @@ Detailed documentation for specific components and features:
 - **tableStore** (`src/store/tableStore.ts`) - Central engine managing the 4-key table configuration
 - **settingsStore** (`src/store/settingsStore.ts`) - Manages global plugin settings
 - **systemStore** (`src/store/systemStore.ts`) - Manages system information and stats
+- **importExportStore** (`src/store/importExportStore.ts`) - Manages the state of the Import/Export UI
+- **extensionStore** (`src/store/extensionStore.ts`) - Manages React component extension fills
 
 ---
 
@@ -316,12 +326,41 @@ ProductBay follows WordPress best practices for data management during the plugi
 
 ---
 
+## Demo Environment
+
+ProductBay features a domain-locked demo staging environment to allow public evaluation without exposing admin control.
+
+### Demo Hardening & Security
+The demo behavior is managed by a specialized WordPress Must-Use (MU) plugin located at [productbay-demo.php](../../scripts/demo/productbay-demo.php):
+1. **Domain Locking**: The demo logic is domain-locked to `productbay.wpanchorbay.com`. It will silently deactivate on any other domain.
+2. **Auto-Login Hook**: Visitors are automatically logged in as a scoped `demo_user` when accessing the WordPress admin with the `?auto-login=true` query parameter.
+3. **Role Limitation**: The `demo_user` role permits managing ProductBay tables and WooCommerce products, but explicitly denies user management, plugin/theme modifications, and general WordPress options.
+4. **Hardened Page Restrictions**: Redirects demo users away from core WordPress settings (`options-general.php`), plugins, themes, updates, export/import, and user profiles.
+5. **License Protection**: Read/Write operations on the Pro license key via the REST API are restricted at the dispatch level (`rest_pre_dispatch` filter) to genuine administrators (`manage_options`).
+6. **Hardened Logout**: Prevents the demo user from logging out to avoid redirect loops, routing them back to the ProductBay dashboard instead.
+
+### Automated State Restoration
+To clean up modifications from public visitors, an automated reset script ([productbay-demo-reset.sh](../../scripts/demo/productbay-demo-reset.sh)) is run via system cron every 4 hours:
+1. **Database Import**: Overwrites all database tables with a pre-configured base state SQL file (`productbay-demo-base.sql`).
+2. **Uploads Restore**: Overwrites the `wp-content/uploads/` directory from a clean snapshot archive (`productbay-uploads-base.tar.gz`).
+3. **Object Cache & Transients**: Flushes the WordPress object cache and purges all transients (forces fresh license checks).
+4. **Rewrite Rules**: Re-flushes URL rewrite rules to ensure custom post types and REST endpoints continue to resolve correctly.
+
+---
+
 ## Build Process & Release
 We cannot use this development project directly in production. To get a distribution-ready zip file of the plugin we can run `bun run release`, which will give us an installable zip for our plugin with the latest changes.
 
 Learn more - **[Release Process & Build Architecture](./RELEASE.md)**.
 
+### LLMS Documentation Generator
+
+For AI assistants and LLMs integration, ProductBay provides a specialized documentation aggregator located at [generate-llms.js](../../docs/generate-llms.js).
+- **Purpose**: Cleans VitePress-specific markdown tags (such as containers, `<ProBadge />`, and image embeds) and compiles all documentation pages into a single text format.
+- **Output**: Generates `docs/public/llms.txt` (a summary of page links) and `docs/public/llms-full.txt` (the complete aggregated documentation text).
+- **Execution**: Can be run locally or integrated into automated documentation deployment pipelines.
+
 ---
 
-**Last Updated**: 2026-03-02  
+**Last Updated**: 2026-06-17  
 **Maintainer**: ProductBay Development Team
