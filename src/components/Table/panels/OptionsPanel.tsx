@@ -259,12 +259,20 @@ export const OptionsPanel = ({
 				</SettingsOption>
 
 				{!isProActive ? (
-					<SettingsOption
-						title={__('Custom \"Add to Cart\" Button Text', 'productbay')}
-						description={__('Override the global text for this specific table', 'productbay')}
-					>
-						<ProBadge />
-					</SettingsOption>
+					<>
+						<SettingsOption
+							title={__('Custom \"Add to Cart\" Button Text', 'productbay')}
+							description={__('Override the global text for this specific table', 'productbay')}
+						>
+							<ProBadge />
+						</SettingsOption>
+						<SettingsOption
+							title={__('Custom \"Select Options\" Button Text', 'productbay')}
+							description={__('Text for \"Select Options\" / \"View Products\" buttons that open popups or nested rows', 'productbay')}
+						>
+							<ProBadge />
+						</SettingsOption>
+					</>
 				) : (
 					<Slot name="productbay-pro-custom-add-to-cart-text-option" />
 				)}
