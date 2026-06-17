@@ -288,6 +288,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 = 1.3.2 =
 
 * Feature: Added core support and hooks for customizable Add to Cart button text and "Select Options" button text (available in Pro).
+* Fix: Resolved added-to-cart checkmarks and quantities persistence issues in bulk-add scenarios by syncing with live WooCommerce cart fragments.
 
 = 1.3.1 =
 

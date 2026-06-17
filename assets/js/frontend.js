@@ -56,7 +56,7 @@
             // Map: cartKey → { quantity, variationId, attributes, productId }
             this.cartQuantities = new Map();
             this.loadSelectionsFromStorage();
-            this.loadCartQuantitiesFromStorage(); // New: load previous add-to-cart actions
+            this.syncWithWCCart(); // Sync initial cart state
 
             this.init();
         }
@@ -158,6 +158,8 @@
                     const data = $cartData.data('cart');
                     if (Array.isArray(data)) {
                         this.cartQuantities.clear();
+                        data.forEach(([k, v]) => this.cartQuantities.set(k, v));
+                        this.restoreCartBadges();
                     }
                 } catch (e) {
                     console.error('ProductBay: Failed to sync with WooCommerce cart fragments.', e);
@@ -511,24 +513,7 @@
             } catch (e) { /* silent */ }
         }
 
-        loadCartQuantitiesFromStorage() {
-            try {
-                const key = 'productbay_cart_' + this.$wrapper.data('table-id');
-                const stored = sessionStorage.getItem(key);
-                if (stored) {
-                    const entries = JSON.parse(stored);
-                    entries.forEach(([k, v]) => this.cartQuantities.set(k, v));
-                }
-            } catch (e) { /* silent */ }
-        }
 
-        saveCartQuantitiesToStorage() {
-            try {
-                const key = 'productbay_cart_' + this.$wrapper.data('table-id');
-                const entries = Array.from(this.cartQuantities.entries());
-                sessionStorage.setItem(key, JSON.stringify(entries));
-            } catch (e) { /* silent */ }
-        }
 
         restoreSelections() {
             this.$tbody.find('.productbay-select-product').each((_, el) => {
@@ -573,15 +558,18 @@
                     // Simple product - restore checkmark on button
                     const cartKey = String(productId);
                     const existing = this.cartQuantities.get(cartKey);
-                    if (existing) {
-                        const $btn = $row.find('.productbay-btn-addtocart');
-                        if ($btn.length) {
-                            if (!$btn.data('original-text')) {
-                                $btn.data('original-text', $btn.text());
-                            }
-                            const originalLabel = $btn.data('original-text');
+                    const $btn = $row.find('.productbay-btn-addtocart');
+                    if ($btn.length) {
+                        if (!$btn.data('original-text')) {
+                            $btn.data('original-text', $btn.text());
+                        }
+                        const originalLabel = $btn.data('original-text');
+                        
+                        if (existing) {
                             const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                             $btn.html((originalLabel || $btn.text()) + ` <span class="productbay-added-badge">(${checkSvg} ${existing.quantity})</span>`);
+                        } else {
+                            $btn.html(originalLabel);
                         }
                     }
                 }
@@ -1005,8 +993,7 @@
                                 productId: pId
                             });
                         });
-                        
-                        this.saveCartQuantitiesToStorage(); // <-- Persist
+
 
                         // Update button text with SVG checkmark and quantity
                         const checkSvg = '<svg class="productbay-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -1192,7 +1179,7 @@
                                 }
                             }
                         });
-                        this.saveCartQuantitiesToStorage(); // <-- Persist after bulk add
+
 
                         setTimeout(() => {
                             this.selectedProducts.clear();
