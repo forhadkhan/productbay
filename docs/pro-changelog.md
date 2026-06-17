@@ -6,7 +6,7 @@ Looking for core changes? See the [Core Changelog](./changelog.md).
 
 ## 1.0.1
 
-* **Feature:** Added custom Add to Cart button text and Opener button text customization per-table and globally.
+* **Feature:** Added custom Add to Cart button text and "Select Options" button text customization per-table and globally.
 
 ## 1.0.0
 

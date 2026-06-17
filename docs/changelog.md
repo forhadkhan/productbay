@@ -6,7 +6,7 @@ Looking for Pro version changes? See the **[Pro Changelog](./pro-changelog.md)**
 
 ## 1.3.2
 
-* **Feature:** Added core support and hooks for customizable Add to Cart button text and Opener button text (available in Pro).
+* **Feature:** Added core support and hooks for customizable Add to Cart button text and "Select Options" button text (available in Pro).
 
 ## 1.3.1
 
