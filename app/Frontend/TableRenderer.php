@@ -65,6 +65,16 @@ class TableRenderer
 	protected $add_to_cart_text = '';
 
 	/**
+	 * Custom "Select Options" / opener button text for variable/grouped products.
+	 * This is separate from add_to_cart_text — it controls the popup/nested trigger
+	 * buttons (e.g., "Select Options", "View Products"), NOT the final purchase buttons.
+	 *
+	 * @var string
+	 * @since 1.0.4
+	 */
+	protected $select_options_text = '';
+
+	/**
 	 * Initialize the renderer.
 	 *
 	 * @param TableRepository $repository Table repository instance.
@@ -142,7 +152,32 @@ class TableRenderer
 		 * @param string $text          The custom text.
 		 * @param array  $cart_settings The cart settings for the table.
 		 */
-		$this->add_to_cart_text = \apply_filters('productbay_add_to_cart_text', '', $this->cart_settings);
+		$add_to_cart_text = \apply_filters('productbay_add_to_cart_text', '', $this->cart_settings);
+		if (empty($add_to_cart_text)) {
+			$global_settings = \get_option('productbay_settings', array());
+			if (!empty($global_settings['add_to_cart_text'])) {
+				$add_to_cart_text = $global_settings['add_to_cart_text'];
+			}
+		}
+		$this->add_to_cart_text = $add_to_cart_text;
+
+		/**
+		 * Resolve the opener button text ("Select Options" / "View Products").
+		 * Uses a dedicated filter separate from the add-to-cart text.
+		 *
+		 * @since 1.0.4
+		 *
+		 * @param string $text          The custom opener text.
+		 * @param array  $cart_settings The cart settings for the table.
+		 */
+		$select_options_text = \apply_filters('productbay_select_options_text', '', $this->cart_settings);
+		if (empty($select_options_text)) {
+			$global_settings_for_opener = \get_option('productbay_settings', array());
+			if (!empty($global_settings_for_opener['select_options_text'])) {
+				$select_options_text = $global_settings_for_opener['select_options_text'];
+			}
+		}
+		$this->select_options_text = $select_options_text;
 
 		// 1. Prepare Query Arguments.
 		$args = $this->build_query_args($source, $settings, $runtime_args);
@@ -879,8 +914,9 @@ class TableRenderer
 				return;
 			}
 
+			$grouped_btn_text = !empty($this->select_options_text) ? $this->select_options_text : __('View Options', 'productbay');
 			echo '<div class="productbay-btn-cell">';
-			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
+			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html($grouped_btn_text) . '</a>';
 			echo '</div>';
 			return;
 		}
@@ -943,8 +979,9 @@ class TableRenderer
 		$children_ids = $product->get_children();
 		if (empty($children_ids)) {
 			// Fallback if no children
+			$fallback_text = !empty($this->select_options_text) ? $this->select_options_text : __('View Options', 'productbay');
 			echo '<div class="productbay-btn-cell">';
-			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html__('View Options', 'productbay') . '</a>';
+			echo '<a href="' . esc_url($product->get_permalink()) . '" class="productbay-button productbay-btn-grouped">' . esc_html($fallback_text) . '</a>';
 			echo '</div>';
 			return;
 		}
@@ -1799,6 +1836,35 @@ class TableRenderer
 
 		// Pass the showChildCount feature flag into cart_settings so render_cell can access it.
 		$this->cart_settings['_show_child_count'] = $settings['features']['showChildCount'] ?? true;
+
+		/**
+		 * Set the Add to Cart text for AJAX renders.
+		 * Mirrors the logic in render() — filter first, then global option fallback.
+		 *
+		 * @since 1.0.4
+		 */
+		$add_to_cart_text = \apply_filters('productbay_add_to_cart_text', '', $this->cart_settings);
+		if (empty($add_to_cart_text)) {
+			$global_settings = \get_option('productbay_settings', array());
+			if (!empty($global_settings['add_to_cart_text'])) {
+				$add_to_cart_text = $global_settings['add_to_cart_text'];
+			}
+		}
+		$this->add_to_cart_text = $add_to_cart_text;
+
+		/**
+		 * Set the opener button text for AJAX renders.
+		 *
+		 * @since 1.0.4
+		 */
+		$select_options_text = \apply_filters('productbay_select_options_text', '', $this->cart_settings);
+		if (empty($select_options_text)) {
+			$global_settings_for_opener = \get_option('productbay_settings', array());
+			if (!empty($global_settings_for_opener['select_options_text'])) {
+				$select_options_text = $global_settings_for_opener['select_options_text'];
+			}
+		}
+		$this->select_options_text = $select_options_text;
 
 		/**
 		 * Fires before the AJAX table render, allowing Pro modules to capture table config.

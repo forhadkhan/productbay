@@ -45,6 +45,9 @@
             this.$searchClear = this.$wrapper.find('.productbay-search-clear');
             this.$selectAll = this.$wrapper.find('.productbay-select-all');
             this.$bulkBtn = this.$wrapper.find('.productbay-btn-bulk');
+            if (this.$bulkBtn.length) {
+                this.originalBulkBtnHtml = this.$bulkBtn.html();
+            }
 
             // State
             this.searchTimeout = null;
@@ -897,6 +900,11 @@
                 }
 
                 // Update button for the new variation — check if THIS variation was already added
+                if (!$btn.data('original-text')) {
+                    $btn.data('original-text', $btn.text());
+                }
+                const originalLabel = $btn.data('original-text');
+
                 const cartKey = this.buildCartKey($wrap.data('product-id'), match.variation_id, selected);
                 const existing = this.cartQuantities.get(cartKey);
                 if (existing) {
@@ -1054,7 +1062,7 @@
                     this.$wrapper.find('.productbay-btn-panel').prop('disabled', false).find('.productbay-panel-count').text(count);
                 }
             } else {
-                this.$bulkBtn.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart').prop('disabled', true);
+                this.$bulkBtn.html(this.originalBulkBtnHtml || '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline-block;vertical-align:middle"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart').prop('disabled', true);
                 this.$wrapper.find('.productbay-btn-clear-all').remove();
                 this.$wrapper.find('.productbay-btn-panel').prop('disabled', true).find('.productbay-panel-count').text(0);
             }
