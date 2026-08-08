@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProductBay — Master Feature Catalog &amp; Roadmap</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2430; --muted:#5b6472; --line:#e6e9ef; --line2:#f0f2f6;
+    --accent:#2271b1; --accent-soft:#eaf2fb;
+    --free:#0a7d4d; --free-soft:#e6f5ee;
+    --pro:#8a5a00; --pro-soft:#fbf1dd;
+    --shipped:#2f8f57; --shipped-soft:#e7f4ec;
+    --planned:#3a6ea5; --planned-soft:#e8f0f8;
+    --cand:#7a58d6; --cand-soft:#f0ebfb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:38px 24px 90px}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.3px}
+  .sub{color:var(--muted);font-size:15px;margin:0;max-width:820px}
+  .meta{color:var(--muted);font-size:12.5px;margin-top:10px}
+  h2{font-size:19px;margin:40px 0 4px;letter-spacing:-.2px;display:flex;align-items:baseline;gap:10px}
+  h2 .n{color:var(--accent);font-weight:700;font-size:15px}
+  .lead{color:var(--muted);margin:2px 0 14px;max-width:820px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;padding:13px 18px;margin:20px 0 6px}
+  .legend .li{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}
+
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+    padding:2px 7px;border-radius:20px;white-space:nowrap;line-height:1.4}
+  .b-free{color:var(--free);background:var(--free-soft)}
+  .b-pro{color:var(--pro);background:var(--pro-soft)}
+  .b-shipped{color:var(--shipped);background:var(--shipped-soft)}
+  .b-planned{color:var(--planned);background:var(--planned-soft)}
+  .b-cand{color:var(--cand);background:var(--cand-soft)}
+
+  .cat{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:14px 0;
+    overflow:hidden}
+  .cat > .h{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:13px 18px;border-bottom:1px solid var(--line);background:#fbfcfe}
+  .cat > .h .t{font-weight:700;font-size:15px}
+  .cat > .h .c{color:var(--muted);font-size:12px}
+  table{width:100%;border-collapse:collapse}
+  td{padding:9px 18px;border-bottom:1px solid var(--line2);vertical-align:top;font-size:13.5px}
+  tr:last-child td{border-bottom:none}
+  td.f{width:31%;font-weight:600}
+  td.s{width:150px;white-space:nowrap}
+  td.n{color:var(--muted);font-size:12.5px}
+  .tags{display:flex;gap:5px;flex-wrap:wrap}
+  code{background:#eef1f5;padding:1px 5px;border-radius:5px;font-size:12px}
+
+  .kpi{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 4px}
+  .kpi .box{flex:1;min-width:140px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:13px 15px}
+  .kpi .num{font-size:21px;font-weight:700;letter-spacing:-.5px}
+  .kpi .lbl{color:var(--muted);font-size:12px;margin-top:2px}
+
+  .phasegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0}
+  .pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .pc h4{margin:0 0 3px;font-size:14px}
+  .pc .when{color:var(--accent);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .pc ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:12.5px}
+  .pc li{margin:3px 0}
+
+  .note{background:#fbfcfe;border:1px dashed var(--line);border-radius:10px;
+    padding:12px 16px;color:var(--muted);font-size:13px;margin:16px 0}
+  footer{margin-top:46px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12.5px}
+  @media(max-width:680px){td.f{width:auto;display:block}td.s{width:auto;display:block}
+    table,tbody,tr,td{display:block}td{border:none;padding:4px 16px}
+    tr{border-bottom:1px solid var(--line2);padding:8px 0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>ProductBay — Master Feature Catalog &amp; Roadmap</h1>
+    <p class="sub">The full ambition: every feature worth building to make ProductBay the clear choice for WooCommerce shop owners — across 21 categories, free &amp; pro. Built from a code-level audit and a 20+ plugin competitor study.</p>
+    <p class="meta">Baseline: Free v1.3.4 · Pro v1.0.1 &nbsp;·&nbsp; Aug 2026 &nbsp;·&nbsp; Internal planning · not for public distribution</p>
+  </header>
+
+  <div class="kpi">
+    <div class="box"><div class="num">210+</div><div class="lbl">Catalogued features</div></div>
+    <div class="box"><div class="num">~55</div><div class="lbl">Already shipped</div></div>
+    <div class="box"><div class="num">21</div><div class="lbl">Categories</div></div>
+    <div class="box"><div class="num">6</div><div class="lbl">Delivery phases</div></div>
+  </div>
+
+  <div class="legend">
+    <span class="li"><span class="badge b-shipped">SHIPPED</span> in the product today</span>
+    <span class="li"><span class="badge b-planned">PLANNED</span> committed on the roadmap</span>
+    <span class="li"><span class="badge b-cand">CANDIDATE</span> catalogued, not yet scheduled</span>
+    <span class="li"><span class="badge b-free">FREE</span></span>
+    <span class="li"><span class="badge b-pro">PRO</span></span>
+  </div>
+  <div class="note">Every non-shipped row lists a <b>source</b> — either the competitor(s) that have it, or "extension" where it's a logical build-out of something we already do. <b>Candidate</b> ≠ committed; it's the backlog we draw phases from. Tier (free/pro) on candidates is proposed, not final.</div>
+
+  <!-- 1 SOURCES -->
+  <div class="cat">
+    <div class="h"><span class="t">01 · Product Sources</span><span class="c">how a table decides which products to show</span></div>
+    <table>
+      <tr><td class="f">All products</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">All published products.</td></tr>
+      <tr><td class="f">On Sale</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Native WC sale detection incl. scheduled/variable sales.</td></tr>
+      <tr><td class="f">By Category</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Multi-select.</td></tr>
+      <tr><td class="f">Specific products</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Search by name / <code>id:</code> / <code>sku:</code>.</td></tr>
+      <tr><td class="f">Exclude products / categories</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"><code>post__not_in</code> support.</td></tr>
+      <tr><td class="f">By Tag</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Already modeled in <code>queryArgs.tagIds</code>, needs UI. (extension)</td></tr>
+      <tr><td class="f">By Attribute (e.g. all "Red")</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2, CodeAstrology.</td></tr>
+      <tr><td class="f">By custom taxonomy</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2.</td></tr>
+      <tr><td class="f">Featured products</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">WooTabbed, WP Titan.</td></tr>
+      <tr><td class="f">Best sellers / Top rated / New arrivals</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">popularity/rating/date presets. (extension)</td></tr>
+      <tr><td class="f">Products previously ordered by user</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">Barn2 — great for reorder/B2B.</td></tr>
+      <tr><td class="f">By vendor / author (multi-vendor)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">JustTables; Dokan/WCFM stores.</td></tr>
+      <tr><td class="f">Related / upsell / cross-sell of a product</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">for product-page tables. (extension)</td></tr>
+      <tr><td class="f">Custom meta / price-range source</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">Acowebs advanced. (extension)</td></tr>
+      <tr><td class="f">Mixed / manual multi-source</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">combine categories + hand-picked. (extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 2 COLUMNS -->
+  <div class="cat">
+    <div class="h"><span class="t">02 · Columns &amp; Data Types</span><span class="c">what each row can show</span></div>
+    <table>
+      <tr><td class="f">Image (+ lightbox), Name, Price, SKU</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Price shows sale strike-through + variable ranges.</td></tr>
+      <tr><td class="f">Stock, Date, Taxonomy, Rating (3 formats), Summary</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Stock = 3 colour states; taxonomy = any registered.</td></tr>
+      <tr><td class="f">Add-to-Cart / button column</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Auto-appended; type-aware.</td></tr>
+      <tr><td class="f">Custom Field column</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n">Any meta/ACF/Pods/Meta Box/JetEngine; 7 formats.</td></tr>
+      <tr><td class="f">Combined column</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n">Merge sub-elements, inline/stacked.</td></tr>
+      <tr><td class="f">Total-cost column (qty × price)</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs, TABLEiT.</td></tr>
+      <tr><td class="f">Full description / excerpt column</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">WP Titan (full content).</td></tr>
+      <tr><td class="f">Categories / Tags (dedicated, linked)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2. (taxonomy col exists; dedicated shortcuts)</td></tr>
+      <tr><td class="f">Weight / Dimensions columns</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2, Acowebs.</td></tr>
+      <tr><td class="f">Product ID / Modified-date / Product-type</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2. (extension)</td></tr>
+      <tr><td class="f">Sale-badge / discount-% / "New" / Featured badge</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">merchandising badges. (extension)</td></tr>
+      <tr><td class="f">Total sales / popularity column</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2. (extension)</td></tr>
+      <tr><td class="f">Custom HTML / shortcode column</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs, CodeAstrology.</td></tr>
+      <tr><td class="f">Icon / separator / spacer elements</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">WP Titan.</td></tr>
+      <tr><td class="f">Gallery column</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">WebFix, Acowebs.</td></tr>
+      <tr><td class="f">Wishlist / Compare / Quick-View columns</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">WPC, CodeAstrology.</td></tr>
+      <tr><td class="f">Brand column (WC Brands)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">WC 9+ native brands. (extension)</td></tr>
+      <tr><td class="f">Dedicated variation / attribute-value column</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">CodeAstrology, Ninja.</td></tr>
+    </table>
+  </div>
+
+  <!-- 3 SEARCH -->
+  <div class="cat">
+    <div class="h"><span class="t">03 · Search</span><span class="c">finding products within a table</span></div>
+    <table>
+      <tr><td class="f">AJAX search (name, debounced, guest-capable)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Scoped to the table's source.</td></tr>
+      <tr><td class="f">Search by SKU</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">WP Titan, WebFix. (extension of search)</td></tr>
+      <tr><td class="f">Configurable search scope (name/SKU/desc)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs, Barn2.</td></tr>
+      <tr><td class="f">Autocomplete / suggestions dropdown</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Global search across all tables (admin)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">admin UX. (extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 4 FILTER -->
+  <div class="cat">
+    <div class="h"><span class="t">04 · Filtering</span><span class="c">narrowing the result set</span></div>
+    <table>
+      <tr><td class="f">Category filter · Product-type filter</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Toggleable, combinable with search.</td></tr>
+      <tr><td class="f">"Clear all filters"</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Price-range filter (advanced: slider/input/both)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n">custom bounds/step.</td></tr>
+      <tr><td class="f">Basic price-range slider → moved to Free</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs, WP Titan, JustTables have it free.</td></tr>
+      <tr><td class="f">Attribute filters (<code>pa_color</code> …)</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2, CodeAstrology, Acowebs. Modeled in <code>activeTaxonomies</code>.</td></tr>
+      <tr><td class="f">Tag / brand / stock-status / rating / on-sale filters</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">JustTables, Barn2. (extension)</td></tr>
+      <tr><td class="f">Custom taxonomy / custom-field filters</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">CodeAstrology, Acowebs.</td></tr>
+      <tr><td class="f">Filter UI styles: dropdown / checkbox / buttons / swatches</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">colour/image swatches. (extension)</td></tr>
+      <tr><td class="f">Sidebar filter layout (vs top bar)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs.</td></tr>
+      <tr><td class="f">Shareable filtered URLs (state in URL)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">SEO + UX differentiator. (extension)</td></tr>
+      <tr><td class="f">Filter result count · sticky filter bar</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs. (extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 5 SORT -->
+  <div class="cat">
+    <div class="h"><span class="t">05 · Sorting</span><span class="c">ordering the rows</span></div>
+    <table>
+      <tr><td class="f">Default sort (name/price/date/popularity)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Set at build time.</td></tr>
+      <tr><td class="f">Click-to-sort column headers</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2, TableKit, JustTables, Ninja, Jet. Baseline gap.</td></tr>
+      <tr><td class="f">User-facing sort dropdown (front-end)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">shopper re-sorts live. (extension)</td></tr>
+      <tr><td class="f">Manual drag sort order</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">WebFix, WPC custom order.</td></tr>
+      <tr><td class="f">Multi-column sort</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">JustTables. (extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 6 PAGINATION -->
+  <div class="cat">
+    <div class="h"><span class="t">06 · Pagination &amp; Loading</span><span class="c">handling volume</span></div>
+    <table>
+      <tr><td class="f">Standard numbered pagination</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">1–500 per page.</td></tr>
+      <tr><td class="f">Load-more · Infinite scroll</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n"></td></tr>
+      <tr><td class="f">User "per-page" selector · "show all"</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Server-side pagination for huge catalogs</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Ninja does this; ties to Phase-2 indexing.</td></tr>
+      <tr><td class="f">Lazy-load images / rows</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2, WP Titan. Perf.</td></tr>
+    </table>
+  </div>
+
+  <!-- 7 CART -->
+  <div class="cat">
+    <div class="h"><span class="t">07 · Cart &amp; Ordering</span><span class="c">the conversion surface</span></div>
+    <table>
+      <tr><td class="f">AJAX add-to-cart + live cart sync</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Syncs mini-cart / Cart block / classic widget.</td></tr>
+      <tr><td class="f">Bulk add-to-cart (checkbox + "add selected")</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Single batched request.</td></tr>
+      <tr><td class="f">Quantity selector · variation badges · selected-items panel</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Respects WC min/max/step.</td></tr>
+      <tr><td class="f">Custom cart / button text (global + per-table)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n"></td></tr>
+      <tr><td class="f">"Buy Now" (skip cart → checkout)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">CodeAstrology quick-buy. (extension)</td></tr>
+      <tr><td class="f">Running order total / floating cart bar</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">WebFix total price; WooTabbed floating cart.</td></tr>
+      <tr><td class="f">Mini-cart in table · remove-from-cart inline</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">TABLEiT, CodeAstrology, "Product Table For Woo".</td></tr>
+      <tr><td class="f">Per-row bulk quantity entry (order-form grid)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">WP Overnight, Jet Quick Order.</td></tr>
+      <tr><td class="f">CSV bulk quick-order upload (SKU+qty → cart)</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">Webkul, Jet. Flagship B2B.</td></tr>
+      <tr><td class="f">Save cart / reorder from history</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">B2B repeat orders. (extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 8 B2B -->
+  <div class="cat">
+    <div class="h"><span class="t">08 · B2B / Wholesale <span class="badge b-pro">PRO</span></span><span class="c">the primary growth bet — Phase 3</span></div>
+    <table>
+      <tr><td class="f">Role / customer-group pricing in columns</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">AovUp, WPExperts, Barn2+Wholesale.</td></tr>
+      <tr><td class="f">Native tiered quantity discounts</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">no separate dynamic-pricing plugin.</td></tr>
+      <tr><td class="f">Request-a-Quote mode + quote list</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">CodeAstrology, AovUp.</td></tr>
+      <tr><td class="f">Hide price / login-to-see-price</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">AovUp, wholesale suites.</td></tr>
+      <tr><td class="f">Min order qty / order increments</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">AovUp, Barn2.</td></tr>
+      <tr><td class="f">Conditional display by user role</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">CodeAstrology, TABLEiT.</td></tr>
+      <tr><td class="f">PO-number / order-note field at checkout</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">B2B checkout. (extension)</td></tr>
+      <tr><td class="f">Tax display toggle (incl/excl)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">wholesale expectation. (extension)</td></tr>
+      <tr><td class="f">Registration-gated / wholesale-only catalogs</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">B2BKing-style. (extension)</td></tr>
+      <tr><td class="f">Price-break tooltip / discount table display</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 9 PRODUCT TYPES -->
+  <div class="cat">
+    <div class="h"><span class="t">09 · Product-Type Support</span><span class="c">WooCommerce breadth</span></div>
+    <table>
+      <tr><td class="f">Simple / Variable / Grouped / External</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">All 4 core types; inline dropdowns free.</td></tr>
+      <tr><td class="f">Advanced variable/grouped modes (popup/nested/separate)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n"></td></tr>
+      <tr><td class="f">Subscription products</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">WebFix. WC Subscriptions.</td></tr>
+      <tr><td class="f">Bundles / Composite products</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Bookings / deposits / pre-orders</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Product Add-ons / NYP display</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">Barn2 integrates these.</td></tr>
+    </table>
+  </div>
+
+  <!-- 10 LAYOUT -->
+  <div class="cat">
+    <div class="h"><span class="t">10 · Layout &amp; Display Modes</span><span class="c">how the table is presented</span></div>
+    <table>
+      <tr><td class="f">Table layout (default)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Tabbed multi-table</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Tabbed block.</td></tr>
+      <tr><td class="f">List layout · grid/card layout</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">WP Titan list mode; grid = differentiator. (extension)</td></tr>
+      <tr><td class="f">Grid/list/table view switcher (shopper-facing)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">WP Titan Pro.</td></tr>
+      <tr><td class="f">Accordion / collapsible category sections</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">WooTabbed, WebFix category sections.</td></tr>
+    </table>
+  </div>
+
+  <!-- 11 STYLING -->
+  <div class="cat">
+    <div class="h"><span class="t">11 · Styling &amp; Theming</span><span class="c">visual control</span></div>
+    <table>
+      <tr><td class="f">Full scoped styling system</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Header/body/button/border/hover, zebra, per-instance CSS.</td></tr>
+      <tr><td class="f">Cell padding / density · border controls</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Sticky header + sticky first column</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2, WP Titan, TABLEiT.</td></tr>
+      <tr><td class="f">Starter template library (free) + extended (pro)</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span>/<span class="badge b-pro">PRO</span></td><td class="n">Everyone has presets; we have none.</td></tr>
+      <tr><td class="f">Conditional row/cell styling (low-stock, sale…)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">TableKit, Ninja conditional formatting.</td></tr>
+      <tr><td class="f">Freeze / wrap / truncate columns</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">Barn2, TableKit.</td></tr>
+      <tr><td class="f">Per-table custom CSS field</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Acowebs, WooTabbed.</td></tr>
+      <tr><td class="f">Image size/shape/zoom · column alignment</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">JustTables thumbnail sizing. (extension)</td></tr>
+      <tr><td class="f">Merchandising badge styling (sale/new/featured)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 12 RESPONSIVE -->
+  <div class="cat">
+    <div class="h"><span class="t">12 · Responsive &amp; Mobile</span><span class="c">phone/tablet behaviour</span></div>
+    <table>
+      <tr><td class="f">3 mobile modes: stack / accordion / scroll</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Stacked cards default.</td></tr>
+      <tr><td class="f">7-mode per-column responsive visibility</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Per device.</td></tr>
+      <tr><td class="f">Mobile card header (name + select)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">v1.3.4.</td></tr>
+      <tr><td class="f">Per-device column order / distinct mobile column set</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Priority-column responsive collapse</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">Barn2 column-priority.</td></tr>
+    </table>
+  </div>
+
+  <!-- 13 PERF -->
+  <div class="cat">
+    <div class="h"><span class="t">13 · Performance &amp; Scale</span><span class="c">deliver on the name</span></div>
+    <table>
+      <tr><td class="f">Server-rendered SEO-friendly output</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">PHP render + progressive JS.</td></tr>
+      <tr><td class="f">Query / response caching</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Phase 0. Only Barn2 (paid) has it — free wedge.</td></tr>
+      <tr><td class="f">Background indexing for very large catalogs</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Phase 2, Action Scheduler. Substantiates "handles 50k+".</td></tr>
+      <tr><td class="f">Interactivity API modern front-end</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Phase 2. No rival is on it. (MOAT)</td></tr>
+      <tr><td class="f">Cart &amp; Checkout Blocks / Store API native</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Phase 2. (MOAT)</td></tr>
+      <tr><td class="f">Full HPOS audit + declaration</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Phase 2.</td></tr>
+      <tr><td class="f">Object-cache support · query optimisation</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">extends caching work.</td></tr>
+    </table>
+  </div>
+
+  <!-- 14 SEO -->
+  <div class="cat">
+    <div class="h"><span class="t">14 · SEO &amp; Marketing</span><span class="c">largely unclaimed by rivals</span></div>
+    <table>
+      <tr><td class="f">Product structured data (JSON-LD) in tables</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">No competitor advertises this — real edge. (MOAT)</td></tr>
+      <tr><td class="f">Shareable filtered/permalinked table URLs</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">builds on permalink + URL filters. (extension)</td></tr>
+      <tr><td class="f">Open Graph / social preview for table permalinks</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Sitewide "shop as table" archive override</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">Phase 4. Barn2's headline feature.</td></tr>
+    </table>
+  </div>
+
+  <!-- 15 DISPLAY METHODS -->
+  <div class="cat">
+    <div class="h"><span class="t">15 · Display Methods &amp; Builders</span><span class="c">where tables can go</span></div>
+    <table>
+      <tr><td class="f">Gutenberg block (single) · Tabbed block · Shortcode · Permalink</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">The triple + auto-permalink — no rival has all. (MOAT)</td></tr>
+      <tr><td class="f">Elementor widget</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">shortcode works; native widget nicer. (extension)</td></tr>
+      <tr><td class="f">Divi / Bricks / Beaver Builder modules</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Sidebar widget · popup/modal table</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Auto-insert on category / product pages</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">merchandising placement. (extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 16 INTEGRATIONS -->
+  <div class="cat">
+    <div class="h"><span class="t">16 · Integrations (native, curated)</span><span class="c">not Barn2's 50+ — the ones that matter</span></div>
+    <table>
+      <tr><td class="f">ACF / Meta Box / Pods / JetEngine (custom fields)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n">via Custom Field column.</td></tr>
+      <tr><td class="f">WPML / Polylang / TranslatePress</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">everyone supports; verify + declare.</td></tr>
+      <tr><td class="f">Multi-vendor (Dokan / WCFM / WC Vendors)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">CodeAstrology (Dokan). vendor column + source.</td></tr>
+      <tr><td class="f">Currency switchers · Points &amp; Rewards</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Wishlist / Compare plugin interop (YITH/TI)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">plus our own native columns.</td></tr>
+    </table>
+  </div>
+
+  <!-- 17 ANALYTICS -->
+  <div class="cat">
+    <div class="h"><span class="t">17 · Analytics &amp; Insights <span class="badge b-pro">PRO</span></span><span class="c">near-unique for a table plugin</span></div>
+    <table>
+      <tr><td class="f">Per-table conversion analytics (view→cart→purchase)</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">Phase 4, on Activity Log infra. Only WooTabbed pro is close.</td></tr>
+      <tr><td class="f">Add-to-cart / product-view tracking</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Search-term &amp; filter-usage analytics</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">merchandising insight. (extension)</td></tr>
+      <tr><td class="f">GA4 / Pixel event emission</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+    </table>
+  </div>
+
+  <!-- 18 ADMIN -->
+  <div class="cat">
+    <div class="h"><span class="t">18 · Admin &amp; Workflow</span><span class="c">the builder experience</span></div>
+    <table>
+      <tr><td class="f">5-step wizard · live preview · dashboard · duplicate</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Activity log · global defaults · filterable capability</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Import / export (config + settings, JSON)</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-pro">PRO</span></td><td class="n">Cross-site SKU→Title matching.</td></tr>
+      <tr><td class="f">Table folders / categories / tags</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">organise many tables. (extension)</td></tr>
+      <tr><td class="f">"Where used" usage map per table</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Copy config between tables · bulk column ops</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">Revision history / undo · preview-as-role</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">AI-assisted "describe your table" setup</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span>/<span class="badge b-pro">PRO</span></td><td class="n">Phase 4. Woo-data-aware vs Tableberg's generic AI.</td></tr>
+    </table>
+  </div>
+
+  <!-- 19 A11Y -->
+  <div class="cat">
+    <div class="h"><span class="t">19 · Accessibility</span><span class="c">zero competitors advertise this <span class="badge b-cand">MOAT</span></span></div>
+    <table>
+      <tr><td class="f">WCAG 2.1 AA table semantics</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">proper <code>scope</code>, captions, roles.</td></tr>
+      <tr><td class="f">Full keyboard nav (sort/filter/add-to-cart)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Screen-reader labels + ARIA live regions</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">announce AJAX updates.</td></tr>
+      <tr><td class="f">Reduced-motion &amp; focus-management support</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+    </table>
+  </div>
+
+  <!-- 20 DEV -->
+  <div class="cat">
+    <div class="h"><span class="t">20 · Developer &amp; Extensibility</span><span class="c">a real "developer-friendly" claim</span></div>
+    <table>
+      <tr><td class="f">~37 hooks/filters · 15 REST routes · React SlotFills</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n">Server-side Pro enforcement.</td></tr>
+      <tr><td class="f">Custom column-type &amp; source-type registration API</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">3rd-party extensibility. (extension)</td></tr>
+      <tr><td class="f">Template overrides (theme-overridable render)</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Woo-style template layer. (extension)</td></tr>
+      <tr><td class="f">WP-CLI commands</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">create/export/rebuild-index. (extension)</td></tr>
+      <tr><td class="f">Headless public read-only REST</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">Phase 5. Nobody offers this. (MOAT)</td></tr>
+      <tr><td class="f">Webhook / automation triggers on table events</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-pro">PRO</span></td><td class="n">Phase 5.</td></tr>
+    </table>
+  </div>
+
+  <!-- 21 I18N -->
+  <div class="cat">
+    <div class="h"><span class="t">21 · Internationalization &amp; Ops</span><span class="c">reach + trust</span></div>
+    <table>
+      <tr><td class="f">Full i18n (POT), RTL support</td><td class="s"><span class="badge b-shipped">SHIPPED</span> <span class="badge b-free">FREE</span></td><td class="n"></td></tr>
+      <tr><td class="f">Bundled translated language packs</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-free">FREE</span></td><td class="n">Barn2 ships 13; chip away over time.</td></tr>
+      <tr><td class="f">Multi-currency-aware price rendering</td><td class="s"><span class="badge b-cand">CAND</span> <span class="badge b-pro">PRO</span></td><td class="n">(extension)</td></tr>
+      <tr><td class="f">WordPress.org health: monthly ship, 48h support, green Plugin Check/QIT</td><td class="s"><span class="badge b-planned">PLANNED</span> <span class="badge b-free">FREE</span></td><td class="n">Continuous. Trust for a low-install plugin.</td></tr>
+    </table>
+  </div>
+
+  <!-- PHASES -->
+  <h2><span class="n">Phasing</span> How the backlog turns into releases</h2>
+  <p class="lead">Candidates are the bank; each phase pulls from it. Phases 0–2 fix credibility &amp; build the moat; 3 wins B2B; 4 owns merchandising; 5 scales.</p>
+  <div class="phasegrid">
+    <div class="pc"><div class="when">Phase 0 · 2–4 wks</div><h4>Prove the promise</h4><ul><li>Caching (free)</li><li>Fix price-filter wiring</li><li>Cache-bust + PHPUnit/CI</li><li>Pro 1.0.2 responsive fix</li></ul></div>
+    <div class="pc"><div class="when">Phase 1 · Q1</div><h4>Table stakes</h4><ul><li>Sort headers, sticky header/col</li><li>Attribute filters, basic price filter → free</li><li>Data CSV export, total-cost column</li><li>Quick View + gallery (pro)</li></ul></div>
+    <div class="pc"><div class="when">Phase 2 · Q2</div><h4>Modern &amp; fast (moat)</h4><ul><li>Interactivity API</li><li>Cart/Checkout Blocks + Store API</li><li>Large-catalog indexing</li><li>HPOS audit</li></ul></div>
+    <div class="pc"><div class="when">Phase 3 · Q3</div><h4>Win B2B / wholesale</h4><ul><li>Role pricing, tiered discounts</li><li>Quote mode, hide-price, MOQ</li><li>CSV bulk quick-order upload</li><li>Role-conditional display, PO field</li></ul></div>
+    <div class="pc"><div class="when">Phase 4 · Q4</div><h4>Own merchandising</h4><ul><li>Archive override</li><li>Wishlist/Compare/order-history columns</li><li>Conversion analytics</li><li>AI setup, template library</li></ul></div>
+    <div class="pc"><div class="when">Phase 5 · Yr 2+</div><h4>Agency &amp; scale</h4><ul><li>Multisite/white-label licensing</li><li>Headless REST</li><li>Webhooks/automation</li><li>Enterprise SLA</li></ul></div>
+  </div>
+
+  <div class="note"><b>Deliberately excluded</b> (rejected from the competitor set): external/non-Woo data sources (Google Sheets, CSV/JSON/REST — Ninja, TableKit), general-purpose table building, niche columns (audio, charts, Amazon-affiliate tables), and a sprawling 50+ third-party integration surface. Staying WooCommerce-focused is the strategy, not a limitation.</div>
+
+  <footer>
+    ProductBay internal master feature catalog &amp; roadmap · derived from a code-level audit (Free v1.3.4 / Pro v1.0.1) and an Aug 2026 study of 20+ competing plugins.
+    Statuses, tiers and phases are planning intent, subject to change. <b>MOAT</b> = differentiator rivals can't quickly copy. Not for public distribution.
+  </footer>
+
+</div>
+</body>
+</html>
