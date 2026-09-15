@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use WpabProductBay\Data\TableRepository;
 use WpabProductBay\Frontend\TableRenderer;
+use WpabProductBay\Utils\Assets;
 
 /**
  * Class TabProductTableBlock
@@ -249,14 +250,14 @@ class TabProductTableBlock {
 			'productbay-frontend',
 			PRODUCTBAY_URL . 'assets/css/frontend.css',
 			array(),
-			(string) filemtime( PRODUCTBAY_PATH . 'assets/css/frontend.css' )
+			Assets::version( PRODUCTBAY_PATH . 'assets/css/frontend.css' )
 		);
 
 		\wp_enqueue_style(
 			'productbay-tabs',
 			PRODUCTBAY_URL . 'assets/css/block-tabs.css',
 			array(),
-			(string) filemtime( PRODUCTBAY_PATH . 'assets/css/block-tabs.css' )
+			Assets::version( PRODUCTBAY_PATH . 'assets/css/block-tabs.css' )
 		);
 
 		\wp_enqueue_script(
@@ -267,7 +268,7 @@ class TabProductTableBlock {
 			// registers it but only enqueues it via the Cart widget, so depend on it
 			// here to guarantee it loads on any theme.
 			array( 'jquery', 'wc-cart-fragments' ),
-			(string) filemtime( PRODUCTBAY_PATH . 'assets/js/frontend.js' ),
+			Assets::version( PRODUCTBAY_PATH . 'assets/js/frontend.js' ),
 			true
 		);
 
@@ -295,7 +296,7 @@ class TabProductTableBlock {
 				'productbay-tabs',
 				PRODUCTBAY_URL . 'assets/js/block-tabs.js',
 				array(), // No deps — pure vanilla JS.
-				(string) filemtime( $tabs_js ),
+				Assets::version( $tabs_js ),
 				true
 			);
 		}

@@ -69,8 +69,10 @@ if ( \file_exists( $productbay_dotenv_path ) && \class_exists( 'Dotenv\\Dotenv' 
 /**
  * Development Mode Constant
  * Loaded from .env file if available, defaults to false for production.
- * When true: enables file-based cache busting, debug features, etc.
- * When false: uses production-optimized settings.
+ * When true: enqueued assets are versioned with the current time, so an
+ * edited file is never served stale from the browser cache.
+ * When false: assets are versioned with their file modification time
+ * (see WpabProductBay\Utils\Assets), which is stable and browser-cacheable.
  */
 define( 'PRODUCTBAY_DEV_MODE', \filter_var( getenv( 'PRODUCTBAY_DEV_MODE' ) ? getenv( 'PRODUCTBAY_DEV_MODE' ) : false, FILTER_VALIDATE_BOOLEAN ) );
 

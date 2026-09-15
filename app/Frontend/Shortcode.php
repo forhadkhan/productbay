@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use WpabProductBay\Data\TableRepository;
+use WpabProductBay\Utils\Assets;
 
 /**
  * Class Shortcode
@@ -179,13 +180,13 @@ class Shortcode {
 	 */
 	private function enqueue_assets() {
 		$css_file = PRODUCTBAY_PATH . 'assets/css/frontend.css';
-		$css_ver  = (string) time();
+		$js_file  = PRODUCTBAY_PATH . 'assets/js/frontend.js';
 
 		\wp_enqueue_style(
 			'productbay-frontend',
 			PRODUCTBAY_URL . 'assets/css/frontend.css',
 			array(),
-			$css_ver
+			Assets::version( $css_file )
 		);
 
 		\wp_enqueue_script(
@@ -196,7 +197,7 @@ class Shortcode {
 			// registers it but only enqueues it via the Cart widget, so depend on it
 			// here to guarantee it loads on any theme.
 			array( 'jquery', 'wc-cart-fragments' ),
-			(string) time(),
+			Assets::version( $js_file ),
 			true
 		);
 

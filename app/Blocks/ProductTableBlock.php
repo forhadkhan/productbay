@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use WpabProductBay\Data\TableRepository;
 use WpabProductBay\Frontend\TableRenderer;
+use WpabProductBay\Utils\Assets;
 
 /**
  * Class ProductTableBlock
@@ -148,7 +149,9 @@ class ProductTableBlock {
 	 * Enqueue frontend CSS and JS required by the table.
 	 *
 	 * Mirrors the logic in Shortcode::enqueue_assets() so users get identical
-	 * asset loading whether the table is embedded via shortcode or block.
+	 * asset loading whether the table is embedded via shortcode or block —
+	 * both paths resolve the same 'productbay-frontend' handle's version
+	 * through Assets::version(), so they can never disagree.
 	 *
 	 * @since 1.1.0
 	 *
@@ -159,7 +162,7 @@ class ProductTableBlock {
 			'productbay-frontend',
 			PRODUCTBAY_URL . 'assets/css/frontend.css',
 			array(),
-			(string) filemtime( PRODUCTBAY_PATH . 'assets/css/frontend.css' )
+			Assets::version( PRODUCTBAY_PATH . 'assets/css/frontend.css' )
 		);
 
 		\wp_enqueue_script(
@@ -170,7 +173,7 @@ class ProductTableBlock {
 			// registers it but only enqueues it via the Cart widget, so depend on it
 			// here to guarantee it loads on any theme.
 			array( 'jquery', 'wc-cart-fragments' ),
-			(string) filemtime( PRODUCTBAY_PATH . 'assets/js/frontend.js' ),
+			Assets::version( PRODUCTBAY_PATH . 'assets/js/frontend.js' ),
 			true
 		);
 
