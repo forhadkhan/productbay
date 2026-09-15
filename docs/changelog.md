@@ -4,6 +4,14 @@ All notable changes to ProductBay are documented on this page.
 
 Looking for Pro version changes? See the **[Pro Changelog](./pro-changelog.md)**.
 
+## 1.3.5
+
+* **Fix:** ProductBay's stylesheet and script are now cacheable by the browser. Four enqueue paths used the current timestamp as the asset version, so every visitor re-downloaded the storefront CSS and JS on every page view, and every admin screen re-downloaded the admin bundle. Assets are now versioned by file modification time — which the Gutenberg block render paths were already doing correctly.
+* **Fix:** The **category** and **product type** dropdowns above a table no longer keep offering a choice after the products behind it have moved. 1.3.4 cached the resolved list for 12 hours and expired it on time alone, so a category could linger in the dropdown for up to half a day after the last product left it. The list is now rebuilt whenever a product, a product's categories, or a table is edited.
+* **Feature:** A **Clear cache** button under **Settings → Plugin Settings** rebuilds those filter choices immediately.
+* **Dev:** `PRODUCTBAY_DEV_MODE` now does what `.env.example` always described. It was defined in the main plugin file and read nowhere; it now selects the asset-version strategy — file modification time in development, and the same in production with the plugin version as a fallback.
+* **Dev:** Added a PHPUnit test suite and a GitHub Actions workflow running PHPCS and PHPUnit on PHP 7.4 and 8.3. The project previously had no automated tests of any kind.
+
 ## 1.3.4
 
 * **Feature:** Product tables are now mobile-responsive. On phones each row reflows into a labeled **stacked card** (default), or you can keep the classic **horizontal-scroll** table — selectable per table under **Display → Layout on phones**.

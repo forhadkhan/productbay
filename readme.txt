@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -285,6 +285,14 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 == Changelog ==
 
+= 1.3.5 =
+
+* Fix: ProductBay's stylesheet and script can now be cached by your visitors' browsers. They were being given a new version number on every single page load, so every visitor re-downloaded them on every page — and so did you, on every admin screen.
+* Fix: The category and product type filters above a table no longer keep offering a choice after the products behind it have moved. That list was cached for 12 hours and expired on time alone, so a category could linger in the dropdown for up to half a day after the last product left it. It is now rebuilt whenever a product, a product's categories, or a table is edited.
+* Feature: A "Clear cache" button under Settings > Plugin Settings rebuilds those filter choices immediately, for the cases automatic rebuilding cannot see — products edited directly in the database, an import that bypasses WooCommerce's usual hooks, or a staging-to-live database copy.
+* Dev: PRODUCTBAY_DEV_MODE now does what .env.example always described. It was defined but read nowhere; it now selects the asset version strategy.
+* Dev: Added a PHPUnit test suite and a GitHub Actions workflow running PHPCS and PHPUnit on PHP 7.4 and 8.3. The plugin previously had no automated tests.
+
 = 1.3.4 =
 
 * Feature: Product tables are now mobile-responsive. On phones each row reflows into a labeled card (default), or you can keep the classic horizontal-scroll table — chosen per table under Display → Layout on phones.
@@ -353,6 +361,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.3.5 =
+Maintenance update. Stylesheets and scripts are now cached by your visitors' browsers instead of being re-downloaded on every page load, and table filter dropdowns no longer offer categories whose products have already moved.
 
 = 1.3.4 =
 Mobile update: product tables now reflow into stacked cards on phones, with full-size tap targets and a floating bulk list bar. Also fixes table filters offering categories the table cannot show, and draft tables labelled "Private".
