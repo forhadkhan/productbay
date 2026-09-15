@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use WpabProductBay\Admin\Admin;
 use WpabProductBay\Blocks\BlockManager;
 use WpabProductBay\Data\ActivityLog;
+use WpabProductBay\Data\CacheInvalidator;
 use WpabProductBay\Data\TableLogger;
 use WpabProductBay\Data\SettingsLogger;
 
@@ -60,6 +61,7 @@ class Plugin {
 		$this->load_dependencies();
 		$this->init_components();
 		$this->init_logging();
+		$this->init_cache_invalidation();
 
 		// Register Custom Post Type.
 		\add_action( 'init', array( $this, 'register_post_type' ) );
@@ -250,5 +252,19 @@ class Plugin {
 				);
 			}
 		);
+	}
+
+	/**
+	 * Initialize the cache-invalidation hooks.
+	 *
+	 * Wires CacheInvalidator to product, stock, taxonomy, and table-save
+	 * events so the global cache generation counter bumps whenever
+	 * anything the plugin caches could go stale.
+	 *
+	 * @return void
+	 * @since 1.3.5
+	 */
+	private function init_cache_invalidation() {
+		CacheInvalidator::init();
 	}
 }

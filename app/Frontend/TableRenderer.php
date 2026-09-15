@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use WpabProductBay\Data\CacheInvalidator;
 use WpabProductBay\Data\TableRepository;
 
 /**
@@ -1709,8 +1710,11 @@ class TableRenderer {
 	 *
 	 * This costs one ID-only query plus two term queries, so the result is
 	 * cached per table. The key carries a hash of the resolved query args, so
-	 * editing a table's source invalidates it immediately; catalogue changes (a
-	 * product gaining a category) are picked up when the transient expires.
+	 * editing a table's source invalidates it immediately; the key also carries
+	 * the global `productbay_cache_gen` counter, so a product or
+	 * term change invalidates it right away too — otherwise, a catalogue
+	 * change (a product gaining a category) is picked up when the transient
+	 * expires on its own TTL.
 	 *
 	 * @param array $source   The table's source configuration.
 	 * @param array $settings The table settings.
@@ -1733,7 +1737,10 @@ class TableRenderer {
 		$args['ignore_sticky_posts'] = true;
 		unset( $args['s'] );
 
-		$cache_key = 'productbay_filter_opts_' . md5( (string) wp_json_encode( array( $table_id, $args ) ) );
+		// The generation counter is included so this transient is flushed by
+		// the same product/table changes that invalidate the query cache,
+		// instead of only ever expiring on its own 12h TTL. See CacheInvalidator.
+		$cache_key = 'productbay_filter_opts_' . md5( (string) wp_json_encode( array( CacheInvalidator::get_generation(), $table_id, $args ) ) );
 		$cached    = \get_transient( $cache_key );
 		if ( is_array( $cached ) ) {
 			return $cached;
@@ -2050,6 +2057,7 @@ class TableRenderer {
 	 * @since 1.0.0
 	 */
 	public function render_ajax_response( $table, $runtime_args ) {
+		$table_id = $table['id'] ?? 0;
 		$source   = $table['source'] ?? array();
 		$columns  = $table['columns'] ?? array();
 		$settings = $table['settings'] ?? array();
