@@ -177,7 +177,7 @@ class Router {
 			)
 		);
 
-		// Clear the product-query result cache.
+		// Clear cached filter options.
 		\register_rest_route(
 			'productbay/v1',
 			'/system/clear-cache',

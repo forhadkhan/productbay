@@ -116,10 +116,10 @@ class SystemController extends ApiController {
 	}
 
 	/**
-	 * Clear the product-query result cache.
+	 * Clear ProductBay's cached filter-dropdown choices.
 	 *
 	 * Bumps the global cache generation counter (CacheInvalidator::bump()),
-	 * which is what actually guarantees every table's cached query becomes
+	 * which is what actually guarantees every cached entry becomes
 	 * unreachable, regardless of where transients are stored. The direct
 	 * row deletion below is best-effort cleanup only, not the mechanism
 	 * that makes this safe — on a site running an external persistent

@@ -14,9 +14,9 @@ interface ClearCacheOptionsProps {
 /**
  * ClearCacheOptions Component
  *
- * Settings section for clearing the product-query result cache, so every
- * table re-queries WooCommerce for its current products instead of serving
- * a cached ID list until the cache's own TTL expires.
+ * Settings section for clearing ProductBay's cached filter-dropdown choices,
+ * so every table rebuilds the category and product-type options it offers on
+ * its next view instead of waiting for the cache to expire on its own.
  *
  * @since 1.3.5
  */
