@@ -561,11 +561,23 @@
                             this.$tbody.html(response.data.html);
                         }
 
+                        // The server renders no pagination at all when the result fits on
+                        // one page, so an empty string is a meaningful answer ("this needs
+                        // no pager"), not a no-op. Leaving the previous bar in place made a
+                        // narrowed search or filter keep offering the unfiltered page count,
+                        // and clicking one of those pages returned "No products found".
+                        // Because the bar is removed rather than emptied, it also has to be
+                        // re-inserted when a later filter does need one.
+                        const $pagination = this.$wrapper.find('.productbay-pagination');
+
                         if (response.data.pagination) {
-                            this.$wrapper.find('.productbay-pagination').replaceWith(response.data.pagination);
-                        } else if (isAppend) {
-                            // If appending and no new pagination, it means we reached the end
-                            this.$wrapper.find('.productbay-pagination').remove();
+                            if ($pagination.length) {
+                                $pagination.replaceWith(response.data.pagination);
+                            } else {
+                                this.$wrapper.find('.productbay-table-container').after(response.data.pagination);
+                            }
+                        } else {
+                            $pagination.remove();
                         }
 
                         // Restore selections for products visible on the new page
@@ -1074,6 +1086,15 @@
                         // reflects what is actually in the cart (and is not wiped by a
                         // later async fragment refresh).
                         this.syncCartQuantities(data.cart_data);
+
+                        // Put the button's own label back before re-rendering badges.
+                        // For a simple product restoreCartBadges() rewrites this button
+                        // anyway, but for a variable one it only re-renders the variation
+                        // badges and never touches the button — so without this the button
+                        // sat reading "Adding..." forever after a *successful* add, with no
+                        // error and a cart that had in fact been updated.
+                        $btn.text(originalLabel);
+
                         this.restoreCartBadges();
 
                         $btn.prop('disabled', false);

@@ -289,6 +289,8 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 * Fix: ProductBay's stylesheet and script can now be cached by your visitors' browsers. They were being given a new version number on every single page load, so every visitor re-downloaded them on every page — and so did you, on every admin screen.
 * Fix: The category and product type filters above a table no longer keep offering a choice after the products behind it have moved. That list was cached for 12 hours and expired on time alone, so a category could linger in the dropdown for up to half a day after the last product left it. It is now rebuilt whenever a product, a product's categories, or a table is edited.
+* Fix: Searching or filtering a table down to a single page no longer leaves the old page links behind. The pager kept offering the unfiltered page count, and clicking one of those pages showed "No products found" even though the search had matched products.
+* Fix: The Add to Cart button on a variable product no longer stays stuck reading "Adding..." after a successful add. The product really was added to the cart, but the button never returned to its normal state, so the add looked like it had failed.
 * Feature: A "Clear cache" button under Settings > Plugin Settings rebuilds those filter choices immediately, for the cases automatic rebuilding cannot see — products edited directly in the database, an import that bypasses WooCommerce's usual hooks, or a staging-to-live database copy.
 * Dev: PRODUCTBAY_DEV_MODE now does what .env.example always described. It was defined but read nowhere; it now selects the asset version strategy.
 * Dev: Added a PHPUnit test suite and a GitHub Actions workflow running PHPCS and PHPUnit on PHP 7.4 and 8.3. The plugin previously had no automated tests.
@@ -363,7 +365,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 == Upgrade Notice ==
 
 = 1.3.5 =
-Maintenance update. Stylesheets and scripts are now cached by your visitors' browsers instead of being re-downloaded on every page load, and table filter dropdowns no longer offer categories whose products have already moved.
+Maintenance update. Fixes a variable-product Add to Cart button that stayed stuck on "Adding...", and stale page links left behind after a search. Stylesheets and scripts are now cached by your visitors' browsers instead of being re-downloaded on every page load.
 
 = 1.3.4 =
 Mobile update: product tables now reflow into stacked cards on phones, with full-size tap targets and a floating bulk list bar. Also fixes table filters offering categories the table cannot show, and draft tables labelled "Private".
