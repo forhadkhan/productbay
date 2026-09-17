@@ -69,10 +69,12 @@ if ( \file_exists( $productbay_dotenv_path ) && \class_exists( 'Dotenv\\Dotenv' 
 /**
  * Development Mode Constant
  * Loaded from .env file if available, defaults to false for production.
- * When true: enqueued assets are versioned with the current time, so an
- * edited file is never served stale from the browser cache.
- * When false: assets are versioned with their file modification time
- * (see WpabProductBay\Utils\Assets), which is stable and browser-cacheable.
+ * When true: enqueued assets are versioned with their file modification
+ * time, so a file you just edited is never served stale — while files you
+ * did not touch stay cached.
+ * When false: assets are versioned with the plugin version, or the build's
+ * own content hash where there is one (see WpabProductBay\Utils\Assets).
+ * That is identical on every server and changes only when the bytes do.
  */
 define( 'PRODUCTBAY_DEV_MODE', \filter_var( getenv( 'PRODUCTBAY_DEV_MODE' ) ? getenv( 'PRODUCTBAY_DEV_MODE' ) : false, FILTER_VALIDATE_BOOLEAN ) );
 
