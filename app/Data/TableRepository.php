@@ -145,6 +145,15 @@ class TableRepository {
 	 * @since 1.0.0
 	 */
 	public function delete_table( $id ) {
+		// Never delete anything that is not one of our tables. get_table()
+		// has always checked the post type; this did not, so a request to
+		// DELETE /productbay/v1/tables/<id> would force-delete whatever post
+		// carried that ID — a page, a product, an order — permanently, with
+		// no trash step.
+		if ( self::POST_TYPE !== get_post_type( $id ) ) {
+			return false;
+		}
+
 		$result = wp_delete_post( $id, true );
 
 		/**
