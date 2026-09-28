@@ -168,14 +168,37 @@ class ProductTableBlock {
 		\wp_enqueue_script(
 			'productbay-frontend',
 			PRODUCTBAY_URL . 'assets/js/frontend.js',
-			// 'wc-cart-fragments' powers the live cart refresh (header/mini-cart) when
-			// we trigger 'wc_fragment_refresh' after an AJAX add-to-cart. WooCommerce
-			// registers it but only enqueues it via the Cart widget, so depend on it
-			// here to guarantee it loads on any theme.
-			array( 'jquery', 'wc-cart-fragments' ),
+			array( 'jquery' ),
 			Assets::version( PRODUCTBAY_PATH . 'assets/js/frontend.js' ),
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
+
+		/*
+		 * 'wc-cart-fragments' powers the live header/mini-cart refresh. It is
+		 * enqueued here rather than declared as a dependency of
+		 * productbay-frontend, for two reasons found while auditing:
+		 *
+		 * 1. As a dependency, a performance plugin that deregisters it took
+		 *    productbay-frontend down with it (WP_Dependencies drops a handle
+		 *    whose dependency is missing), leaving the table inert.
+		 * 2. WooCommerce registers it with 'defer', but WP resolves a script's
+		 *    eligible strategy by recursing into its dependents, so our
+		 *    un-deferred handle silently stripped that defer on every page a
+		 *    table appeared on.
+		 *
+		 * Nothing here needs it to load first: updateThemeCart() applies the
+		 * fragments returned by our own AJAX response and fires 'added_to_cart'
+		 * itself.
+		 *
+		 * Enqueued unconditionally and without a wp_script_is() 'registered'
+		 * guard: WooCommerce has not registered the handle yet at shortcode
+		 * render time (verified — the guard suppressed it entirely), but it does
+		 * before footer scripts print, so WordPress resolves it there.
+		 */
+		\wp_enqueue_script( 'wc-cart-fragments' );
 
 		if ( ! \wp_script_is( 'productbay-frontend', 'localized' ) ) {
 			\wp_localize_script(

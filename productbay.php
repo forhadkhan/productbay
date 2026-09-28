@@ -25,6 +25,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Requires Plugins:  woocommerce
  * WC requires at least: 6.1
+ * WC tested up to:   11.1
  */
 
 // Namespace - ProductBay.
@@ -126,3 +127,32 @@ function productbay_init() {
 	$plugin->run();
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\productbay_init' );
+
+/**
+ * Declare WooCommerce feature compatibility.
+ *
+ * Must run inside before_woocommerce_init — FeaturesUtil::declare_compatibility()
+ * calls wc_doing_it_wrong() and returns false anywhere else.
+ *
+ * custom_order_tables (HPOS) defaults to INCOMPATIBLE for any plugin
+ * WooCommerce considers WooCommerce-aware, and awareness is decided by the
+ * presence of the "WC tested up to" header. Staying silent while carrying that
+ * header would leave ProductBay counted as HPOS-incompatible, which disables the
+ * HPOS toggle for stores not yet migrated and raises a notice on those that are.
+ * The declaration is also simply true: this plugin reads and writes products and
+ * the cart, and never touches orders.
+ *
+ * cart_checkout_blocks already defaults to compatible, so declaring it changes
+ * nothing today; it is here so the position is explicit rather than assumed.
+ *
+ * @since 1.3.5
+ */
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
+		}
+	}
+);
