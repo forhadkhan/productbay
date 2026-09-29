@@ -376,7 +376,7 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 == Upgrade Notice ==
 
 = 1.3.5 =
-Recommended update. Includes security fixes, and fixes tables showing products your shop hides (catalog-hidden and, where enabled, out-of-stock products). Also fixes a variable-product Add to Cart button stuck on "Adding...", stale page links after a search, and makes tables lighter to render.
+Recommended update. Security fixes, plus a fix for tables showing products your shop hides. Also fixes an Add to Cart button stuck on "Adding..." and stale page links after a search, and makes tables lighter to render.
 
 = 1.3.4 =
 Mobile update: product tables now reflow into stacked cards on phones, with full-size tap targets and a floating bulk list bar. Also fixes table filters offering categories the table cannot show, and draft tables labelled "Private".

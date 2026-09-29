@@ -653,6 +653,7 @@ class TableRenderer {
 			);
 		}
 
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Required to exclude catalog-hidden products, matching WC_Query.
 		$args['tax_query'] = array_merge( $args['tax_query'], $this->get_visibility_tax_query( $stock_status ) );
 
 		return $args;
