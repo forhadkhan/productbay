@@ -139,7 +139,7 @@ class AjaxRenderer {
 			\wp_send_json_error( array( 'message' => 'Invalid table ID' ) );
 		}
 
-		$table = $this->repository->get_table( $table_id );
+		$table = $this->repository->get_table( $table_id, false );
 		if ( ! $table ) {
 			\wp_send_json_error( array( 'message' => 'Table not found' ) );
 		}

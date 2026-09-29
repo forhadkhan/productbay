@@ -67,7 +67,7 @@ class Shortcode {
 	public function render_table_on_permalink( $content ) {
 		if ( is_singular( 'productbay_table' ) && in_the_loop() && is_main_query() ) {
 			$table_id = get_the_ID();
-			$table    = $this->repository->get_table( $table_id );
+			$table    = $this->repository->get_table( $table_id, false );
 
 			if ( ! $table ) {
 				return $content;
@@ -146,7 +146,7 @@ class Shortcode {
 			return '';
 		}
 
-		$table = $this->repository->get_table( $table_id );
+		$table = $this->repository->get_table( $table_id, false );
 
 		if ( ! $table ) {
 			return '';

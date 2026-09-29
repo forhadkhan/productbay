@@ -66,7 +66,7 @@ class ProductTableBlock {
 			return $this->get_mockup();
 		}
 
-		$table = $this->repository->get_table( $table_id );
+		$table = $this->repository->get_table( $table_id, false );
 
 		if ( ! $table ) {
 			if ( $is_editor || is_admin() || is_preview() ) {

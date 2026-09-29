@@ -124,7 +124,7 @@ class TabProductTableBlock {
 
 		// Tab Panels — one per table.
 		foreach ( $table_ids as $index => $table_id ) {
-			$table     = $this->repository->get_table( $table_id );
+			$table     = $this->repository->get_table( $table_id, false );
 			$tab_id    = esc_attr( $block_id . '-tab-' . $index );
 			$panel_id  = esc_attr( $block_id . '-panel-' . $index );
 			$is_active = $index === $active_tab;

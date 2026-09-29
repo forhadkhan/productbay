@@ -76,20 +76,26 @@ class Plugin {
 		register_post_type(
 			'productbay_table',
 			array(
-				'label'              => 'ProductBay Tables',
-				'public'             => true,
-				'publicly_queryable' => true,
-				'show_ui'            => false,
-				'show_in_menu'       => false,
-				'query_var'          => true,
-				'rewrite'            => array(
+				'label'               => __( 'ProductBay Tables', 'productbay' ),
+				'public'              => true,
+				'publicly_queryable'  => true,
+				// public => true would otherwise default exclude_from_search to
+				// false and show_in_nav_menus to true, so table permalinks turned
+				// up in site search results and in the nav-menu picker. They are
+				// meant to be reachable by URL, not browsable.
+				'exclude_from_search' => true,
+				'show_in_nav_menus'   => false,
+				'show_ui'             => false,
+				'show_in_menu'        => false,
+				'query_var'           => true,
+				'rewrite'             => array(
 					'slug'       => 'productbay/product-table',
 					'with_front' => false,
 				),
-				'capability_type'    => 'post',
-				'has_archive'        => false,
-				'hierarchical'       => false,
-				'supports'           => array( 'title' ),
+				'capability_type'     => 'post',
+				'has_archive'         => false,
+				'hierarchical'        => false,
+				'supports'            => array( 'title' ),
 			)
 		);
 	}
