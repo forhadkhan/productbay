@@ -79,7 +79,7 @@ class LogController extends ApiController {
 		if ( ! in_array( $range, array( 'day', 'week', 'month' ), true ) ) {
 			$range = 'day';
 		}
-		$dir   = ActivityLog::get_log_dir();
+		$dir = ActivityLog::get_log_dir();
 
 		if ( ! $dir ) {
 			\wp_die( \esc_html__( 'Log directory not found.', 'productbay' ), \esc_html__( 'Export Failed', 'productbay' ), array( 'response' => 500 ) );

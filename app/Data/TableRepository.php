@@ -173,7 +173,8 @@ class TableRepository {
 	/**
 	 * Format a post into a table data array.
 	 *
-	 * @param \WP_Post $post WordPress post object.
+	 * @param \WP_Post $post       WordPress post object.
+	 * @param bool     $with_count Whether to run the product count query. Only the admin list needs it.
 	 * @return array Formatted table data.
 	 * @since 1.0.0
 	 */
