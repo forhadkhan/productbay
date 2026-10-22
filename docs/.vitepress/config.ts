@@ -1,3 +1,5 @@
+import { copyFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { defineConfig } from 'vitepress';
 
 /**
@@ -241,4 +243,38 @@ export default defineConfig({
 	},
 
 	lastUpdated: true,
+
+	// Publish each page's Markdown source next to its HTML so the "Copy as Markdown"
+	// button can fetch it.
+	buildEnd(siteConfig) {
+		for (const page of siteConfig.pages) {
+			const target = join(siteConfig.outDir, page);
+			mkdirSync(dirname(target), { recursive: true });
+			copyFileSync(join(siteConfig.srcDir, page), target);
+		}
+	},
+
+	// The dev server turns .md requests into JS modules; hand the button the raw file instead.
+	vite: {
+		plugins: [
+			{
+				name: 'productbay-raw-markdown',
+				configureServer(server) {
+					server.middlewares.use((req, res, next) => {
+						const url = (req.url ?? '').split('?')[0];
+						const prefix = '/productbay/';
+						if (req.headers['sec-fetch-dest'] !== 'empty' || !url.startsWith(prefix) || !url.endsWith('.md')) {
+							return next();
+						}
+						const file = join(server.config.root, decodeURIComponent(url.slice(prefix.length)));
+						if (!file.startsWith(server.config.root) || !existsSync(file)) {
+							return next();
+						}
+						res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+						res.end(readFileSync(file));
+					});
+				},
+			},
+		],
+	},
 });
