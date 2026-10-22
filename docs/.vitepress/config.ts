@@ -197,24 +197,6 @@ export default defineConfig({
 			linkText: 'Take me home',
 		},
 
-		nav: [
-			{ text: 'v1.3.4', link: '/changelog' },
-			{ text: 'Guide', link: '/guide/introduction' },
-			{ text: 'Features', link: '/features/table-dashboard' },
-			{ text: 'Developer', link: '/developer/architecture' },
-			{
-				text: 'More',
-				items: [
-					{ text: 'FAQ', link: '/faq' },
-					{ text: 'Changelog', link: '/changelog' },
-					{ text: 'Pro Changelog', link: '/pro-changelog' },
-					{ text: 'Known Issues', link: '/known-issues' },
-					{ text: 'Request a Feature', link: '/feature-request' },
-					{ text: 'Meta', link: '/meta' },
-				],
-			},
-		],
-
 		sidebar: getSidebar(''),
 
 		socialLinks: [
