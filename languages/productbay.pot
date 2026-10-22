@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T05:47:32+00:00\n"
+"POT-Creation-Date: 2026-10-22T13:45:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: productbay\n"
@@ -152,6 +152,7 @@ msgid "Settings updated"
 msgstr ""
 
 #: app/Api/TablesController.php:80
+#: app/Api/TablesController.php:113
 #: app/Blocks/TabProductTableBlock.php:151
 msgid "Table not found."
 msgstr ""
@@ -160,11 +161,11 @@ msgstr ""
 msgid "No table data provided."
 msgstr ""
 
-#: app/Api/TablesController.php:113
+#: app/Api/TablesController.php:121
 msgid "The table could not be saved."
 msgstr ""
 
-#: app/Api/TablesController.php:138
+#: app/Api/TablesController.php:146
 msgid "Table not found, or it could not be deleted."
 msgstr ""
 
@@ -287,22 +288,22 @@ msgstr ""
 msgid "No significant field changes detected (likely a metadata or timestamp update)."
 msgstr ""
 
-#: app/Data/TableRepository.php:333
+#: app/Data/TableRepository.php:342
 msgctxt "table status"
 msgid "published"
 msgstr ""
 
-#: app/Data/TableRepository.php:335
+#: app/Data/TableRepository.php:344
 msgctxt "table status"
 msgid "private"
 msgstr ""
 
-#: app/Data/TableRepository.php:337
+#: app/Data/TableRepository.php:346
 msgctxt "table status"
 msgid "draft"
 msgstr ""
 
-#: app/Data/TableRepository.php:339
+#: app/Data/TableRepository.php:348
 msgctxt "table status"
 msgid "pending review"
 msgstr ""
@@ -373,7 +374,7 @@ msgid "Reset all filters to default"
 msgstr ""
 
 #: app/Frontend/TableRenderer.php:318
-#: app/Frontend/TableRenderer.php:2016
+#: app/Frontend/TableRenderer.php:2017
 #: assets/js/admin.js:20
 #: blocks/product-table/index.js:20
 #: blocks/tab-product-table/index.js:20
@@ -381,7 +382,7 @@ msgid "Clear"
 msgstr ""
 
 #: app/Frontend/TableRenderer.php:348
-#: app/Frontend/TableRenderer.php:1147
+#: app/Frontend/TableRenderer.php:1148
 #: assets/js/admin.js:16
 #: assets/js/admin.js:19
 #: blocks/product-table/index.js:16
@@ -400,7 +401,7 @@ msgid "View"
 msgstr ""
 
 #: app/Frontend/TableRenderer.php:489
-#: app/Frontend/TableRenderer.php:2299
+#: app/Frontend/TableRenderer.php:2300
 msgid "No products found."
 msgstr ""
 
@@ -423,111 +424,111 @@ msgid "Close"
 msgstr ""
 
 #. translators: %d: number of available product options/variations
-#: app/Frontend/TableRenderer.php:777
+#: app/Frontend/TableRenderer.php:778
 #, php-format
 msgid "%d option available"
 msgid_plural "%d options available"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/Frontend/TableRenderer.php:797
+#: app/Frontend/TableRenderer.php:798
 msgid "Out of stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:799
+#: app/Frontend/TableRenderer.php:800
 msgid "On backorder"
 msgstr ""
 
 #. translators: %d: stock quantity
-#: app/Frontend/TableRenderer.php:802
+#: app/Frontend/TableRenderer.php:803
 #, php-format
 msgid "%d in stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:804
+#: app/Frontend/TableRenderer.php:805
 msgid "In stock"
 msgstr ""
 
 #. translators: %s: average star rating, e.g. "4.5"
-#: app/Frontend/TableRenderer.php:857
-#: app/Frontend/TableRenderer.php:877
+#: app/Frontend/TableRenderer.php:858
+#: app/Frontend/TableRenderer.php:878
 #, php-format
 msgid "Rated %s out of 5"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:883
+#: app/Frontend/TableRenderer.php:884
 msgid "No ratings"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:990
+#: app/Frontend/TableRenderer.php:991
 msgid "Buy product"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1018
-#: app/Frontend/TableRenderer.php:1080
+#: app/Frontend/TableRenderer.php:1019
+#: app/Frontend/TableRenderer.php:1081
 msgid "View Options"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1028
-#: app/Frontend/TableRenderer.php:1105
+#: app/Frontend/TableRenderer.php:1029
+#: app/Frontend/TableRenderer.php:1106
 msgid "Out of Stock"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1121
+#: app/Frontend/TableRenderer.php:1122
 msgid "Select a product..."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1123
+#: app/Frontend/TableRenderer.php:1124
 msgid "Select All"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1137
+#: app/Frontend/TableRenderer.php:1138
 msgid "Increase"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1138
+#: app/Frontend/TableRenderer.php:1139
 msgid "Decrease"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1217
+#: app/Frontend/TableRenderer.php:1218
 msgid "Add to cart"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1252
+#: app/Frontend/TableRenderer.php:1253
 msgid "Increase quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1253
+#: app/Frontend/TableRenderer.php:1254
 msgid "Decrease quantity"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1739
+#: app/Frontend/TableRenderer.php:1740
 msgid "Add to bulk list"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1740
+#: app/Frontend/TableRenderer.php:1741
 msgid "Added"
 msgstr ""
 
 #. translators: %d: number of selected categories
-#: app/Frontend/TableRenderer.php:1961
+#: app/Frontend/TableRenderer.php:1962
 #, php-format
 msgid "%s selected"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1962
+#: app/Frontend/TableRenderer.php:1963
 msgid "All Categories"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:1990
+#: app/Frontend/TableRenderer.php:1991
 msgid "All Types"
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:2015
+#: app/Frontend/TableRenderer.php:2016
 msgid "Search products..."
 msgstr ""
 
-#: app/Frontend/TableRenderer.php:2064
+#: app/Frontend/TableRenderer.php:2065
 msgid "Load More"
 msgstr ""
 
