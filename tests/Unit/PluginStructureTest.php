@@ -156,6 +156,24 @@ class PluginStructureTest extends TestCase {
 	}
 
 	/**
+	 * save_table() must refuse an ID that is not one of our tables, the same
+	 * way delete_table() does. Without the check, POSTing a page or product
+	 * ID retypes that post into a table, which delete_table() then accepts.
+	 */
+	public function test_save_table_refuses_ids_that_are_not_tables() {
+		$contents = \file_get_contents( self::$root . '/app/Data/TableRepository.php' );
+
+		$this->assertSame(
+			1,
+			\preg_match(
+				'/function save_table\(.*?\$id > 0 && self::POST_TYPE !== get_post_type\( \$id \).*?wp_update_post/s',
+				$contents
+			),
+			'save_table() must check get_post_type() before wp_update_post().'
+		);
+	}
+
+	/**
 	 * uninstall.php is what WordPress runs when a user deletes the plugin
 	 * from wp-admin. It must exist, and — per the WordPress requirement —
 	 * must refuse to run unless invoked by WordPress core itself, or any

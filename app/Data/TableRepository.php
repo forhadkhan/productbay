@@ -79,6 +79,14 @@ class TableRepository {
 	public function save_table( $data ) {
 		$id = isset( $data['id'] ) ? intval( $data['id'] ) : 0;
 
+		// Like delete_table(): never touch a post that is not one of our
+		// tables. wp_update_post() would otherwise retype whatever post
+		// carried this ID (a page, a product) into a table, overwrite its
+		// title and status, and put it within reach of delete_table().
+		if ( $id > 0 && self::POST_TYPE !== get_post_type( $id ) ) {
+			return false;
+		}
+
 		/**
 		 * Filters table data before it is persisted.
 		 *

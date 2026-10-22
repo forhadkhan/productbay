@@ -108,6 +108,14 @@ class TablesController extends ApiController {
 
 		$saved = $this->repository->save_table( $data );
 
+		if ( ! $saved && ! empty( $data['id'] ) ) {
+			return $this->error(
+				__( 'Table not found.', 'productbay' ),
+				'productbay_table_not_found',
+				404
+			);
+		}
+
 		if ( ! $saved ) {
 			return $this->error(
 				__( 'The table could not be saved.', 'productbay' ),
