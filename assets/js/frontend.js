@@ -51,6 +51,8 @@
 
             // State
             this.searchTimeout = null;
+            this._fetchSeq = 0;
+            this._fetchXhr = null;
             // Map: productId → { quantity, price, variationId, attributes }
             this.selectedProducts = new Map();
             // Map: cartKey → { quantity, variationId, attributes, productId }
@@ -549,11 +551,25 @@
                 ...args
             };
 
-            $.ajax({
+            // Search, filter and page requests replace the whole table, so only
+            // the newest of them may touch it. Without this a slow response for
+            // an older term landed after the newer one and overwrote it, leaving
+            // the table showing results for text that was no longer in the box.
+            // "Load more" appends instead of replacing, so it is left out.
+            const seq = isAppend ? null : ++this._fetchSeq;
+            const isStale = () => seq !== null && seq !== this._fetchSeq;
+
+            if (!isAppend && this._fetchXhr) {
+                this._fetchXhr.abort();
+            }
+
+            const xhr = $.ajax({
                 url: productbay_frontend.ajaxurl,
                 type: 'POST',
                 data: data,
                 success: (response) => {
+                    if (isStale()) return;
+
                     if (response.success) {
                         if (isAppend) {
                             this.$tbody.append(response.data.html);
@@ -588,11 +604,19 @@
                     }
                 },
                 complete: () => {
+                    // A superseded request must not clear the spinner of the one
+                    // that replaced it.
+                    if (isStale()) return;
+
                     this.$wrapper.removeClass('productbay-loading');
                     this.$wrapper.find('.productbay-search').removeClass('loading');
                     this.$wrapper.find('.productbay-load-more-btn').removeClass('loading').prop('disabled', false);
                 }
             });
+
+            if (!isAppend) {
+                this._fetchXhr = xhr;
+            }
         }
 
         loadSelectionsFromStorage() {
