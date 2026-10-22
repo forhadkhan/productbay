@@ -101,8 +101,8 @@ Two things worth knowing before you add to it:
   five values drift apart at release time. Read values out of the files at runtime; never re-type
   a literal the test is meant to be guarding, or it will pass forever.
 
-GitHub Actions runs PHPCS and PHPUnit on PHP 7.4 and 8.3 for every push and pull request to
-`main` (`.github/workflows/ci.yml`).
+Run both locally before you open a pull request. The repository has no CI workflow for them, so
+nothing else checks a change before it is reviewed.
 
 ## Coding Standards
 
