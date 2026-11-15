@@ -8,6 +8,7 @@ import {
 import { LifeBuoyIcon, PlayCircleIcon } from 'lucide-react';
 import ProductBayIcon from '@/components/ui/ProductBayIcon';
 import { __ } from '@wordpress/i18n';
+import { FooterPromo } from '@/components/Layout/FooterPromo';
 
 export const MinimalFooter = () => {
 	return (
@@ -152,6 +153,9 @@ export const Footer = () => {
 					</div>
 				</section>
 			</div>
+
+			{/* Black Friday sale line, for sites without Pro (renders nothing otherwise) */}
+			<FooterPromo />
 
 			{/* Version Info */}
 			<div className="text-center text-xs text-gray-400 mt-4 pb-6">

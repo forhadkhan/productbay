@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use WpabProductBay\Admin\Admin;
+use WpabProductBay\Admin\Promo;
 use WpabProductBay\Blocks\BlockManager;
 use WpabProductBay\Data\ActivityLog;
 use WpabProductBay\Data\CacheInvalidator;
@@ -129,6 +130,10 @@ class Plugin {
 		// Admin Area.
 		if ( is_admin() ) {
 			$admin = new Admin( $this->table_repository, $this->request );
+
+			// ProductBay's rules for the shared WPAnchorBay deal banner (hidden on Pro sites).
+			Promo::register();
+
 			\add_action( 'admin_menu', array( $admin, 'register_menu' ) );
 			\add_action( 'admin_enqueue_scripts', array( $admin, 'enqueue_scripts' ) );
 

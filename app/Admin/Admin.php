@@ -329,6 +329,7 @@ class Admin {
 			'version'     => Constants::VERSION,
 			'proVersion'  => \defined( 'PRODUCTBAY_PRO_VERSION' ) ? \PRODUCTBAY_PRO_VERSION : false,
 			'today'       => \current_time( 'Y-m-d' ),
+			'promo'       => Promo::footer_data(),
 		);
 
 		/**
