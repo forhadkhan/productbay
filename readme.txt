@@ -4,7 +4,7 @@ Tags: product table for woocommerce, woocommerce product table, woocommerce prod
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -285,6 +285,10 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 
 == Changelog ==
 
+= 1.3.6 =
+
+* Improvement: Tested with WooCommerce 11.3 and WordPress 7.1.
+
 = 1.3.5 =
 
 * Security: Fixed an issue where the table delete endpoint did not check that the ID it was given actually belonged to a ProductBay table, so a crafted request from a logged-in administrator-level account could permanently delete another post — a page, a product, an order — without it going to the trash.
@@ -377,6 +381,9 @@ Use the support forum on this plugin's WordPress.org page. We aim to respond wit
 * Initial release of ProductBay.
 
 == Upgrade Notice ==
+
+= 1.3.6 =
+Compatibility update for WooCommerce 11.3.
 
 = 1.3.5 =
 Recommended update. Security fixes, plus a fix for tables showing products your shop hides. Also fixes an Add to Cart button stuck on "Adding..." and stale page links after a search, and makes tables lighter to render.
