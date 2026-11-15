@@ -19,7 +19,7 @@ ProductBay is a high-performance WooCommerce product table plugin. It is built a
 ```
 productbay/
 ├── app/                  # PHP Backend Source Code
-│   ├── Admin/            # WP menu registration, asset enqueuing
+│   ├── Admin/            # WP menu registration, asset enqueuing, Promo (deal banner rules)
 │   ├── Api/              # REST API controllers (CRUD, products, status, settings)
 │   ├── Blocks/           # Gutenberg block assets & server-side render registration
 │   ├── Core/             # Plugin bootstrapper & lifecycle hooks
@@ -27,6 +27,7 @@ productbay/
 │   ├── Frontend/         # [productbay] Shortcode, TableRenderer, AjaxRenderer
 │   ├── Http/             # REST routing & Request wrappers
 │   └── Utils/            # Helper & formatting utilities
+├── includes/wpab-banner/ # Shared WPAnchorBay deal banner (vendored, never edit here)
 ├── src/                  # React / TypeScript Frontend Source Code
 │   ├── blocks/           # Gutenberg block source code
 │   ├── components/       # Reusable React components (Table, Settings, UI)
@@ -111,6 +112,13 @@ To keep the bundle sizes small, the free plugin shares its React component libra
 - Free exports components to `window.productbay.ui` in [src/index.tsx](file:///var/www/html/wp-content/plugins/productbay/src/index.tsx).
 - Pro imports these components using proxy modules (e.g., `import { Button } from '@/components/ui'`).
 - **Badge Guarding**: The table builder uses `<Slot>` components (e.g., `productbay-pro-options`) to let Pro inject controls dynamically. If Pro is active (`window.productbay.proActive`), UI elements are displayed natively; otherwise, disabled placeholders or `<ProBadge />` notices are rendered.
+
+### 4. Shared Deal Banner (`includes/wpab-banner/`)
+A wp-admin deal banner shared by all WPAnchorBay plugins. The canonical copy is the `wpab-banner` repo (see its `README.md`).
+- **Never edit these files here.** Keep them byte-identical to the canonical copy (compare `sha256sum`); update by copying all of them. The folder is excluded from PHPCS in `phpcs.xml.dist`.
+- It loads from `productbay.php` behind `is_admin()`, and `uninstall.php` calls `wpab_banner_uninstall()` last.
+- ProductBay's own rules live in [app/Admin/Promo.php](file:///var/www/html/wp-content/plugins/productbay/app/Admin/Promo.php): the `wpab_banner_show` filter hides the banner when Pro is active (`PRODUCTBAY_PRO_VERSION`), and `Promo::footer_data()` sends the footer sale line's phase, URL and seconds left to React as `productBaySettings.promo` (drawn by `src/components/Layout/FooterPromo.tsx`). Campaign dates live only in the banner loader.
+- The admin sets `#wpcontent` padding to 0, so `src/styles/main.css` gives `#wpab-banner-host` its left margin.
 
 ---
 
