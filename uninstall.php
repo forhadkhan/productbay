@@ -23,6 +23,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/includes/wpab-banner/wpab-banner-uninstall.php';
+
 /**
  * Cleanup Logic:
  *
@@ -122,3 +124,7 @@ if ( $productbay_delete_on_uninstall ) {
 		wp_unschedule_event( $productbay_cron_timestamp, 'productbay_prune_logs' );
 	}
 }
+
+// Last: the shared WPAnchorBay banner removes its "closed" flag only when the last WPAnchorBay plugin goes.
+// The delete choice was read above, before the cleanup removed productbay_settings.
+wpab_banner_uninstall( WP_UNINSTALL_PLUGIN, $productbay_delete_on_uninstall );

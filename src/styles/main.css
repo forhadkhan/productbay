@@ -49,6 +49,13 @@
     padding: 0 !important;
 }
 
+/* The shared WPAnchorBay banner keeps a 20px gap on every side; WordPress gives the left one through the
+   #wpcontent padding removed above, so put it back for the banner alone. The extra #wpbody-content beats the
+   banner's own inline rule, which comes later in the page. */
+#wpbody-content #wpab-banner-host {
+    margin-left: 20px;
+}
+
 /* Remove wordepress default admin footer */
 #wpfooter {
     display: none !important;

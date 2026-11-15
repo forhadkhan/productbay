@@ -21,6 +21,8 @@
 	<exclude-pattern>*/index.asset.php</exclude-pattern>
 	<!-- Runtime log directory, not source. -->
 	<exclude-pattern>*/temp_logs/*</exclude-pattern>
+	<!-- Shared WPAnchorBay banner: kept byte-identical across plugins, never reformatted. -->
+	<exclude-pattern>*/includes/wpab-banner/*</exclude-pattern>
 
 	<!-- How to scan -->
 	<arg value="sp"/> <!-- Show progress and sniff names -->

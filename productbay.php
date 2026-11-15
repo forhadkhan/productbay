@@ -54,6 +54,12 @@ define( 'PRODUCTBAY_PLUGIN_BASENAME', \plugin_basename( __FILE__ ) );
 // Autoloader (must be loaded before using any composer packages).
 require_once __DIR__ . '/vendor/autoload.php';
 
+// Shared WPAnchorBay deal banner: administrators only, closable, no external requests.
+// Loaded at file scope so its dismiss handler registers on admin-ajax requests too.
+if ( \is_admin() ) {
+	require_once __DIR__ . '/includes/wpab-banner/wpab-banner-loader.php';
+}
+
 /**
  * Load Environment Variables from .env file (development only)
  * The .env file should NOT be included in production releases.
