@@ -4,6 +4,10 @@ All notable changes to ProductBay are documented on this page.
 
 Looking for Pro version changes? See the **[Pro Changelog](./pro-changelog.md)**.
 
+## 1.3.6
+
+* **Improvement:** Tested with WooCommerce 11.3 and WordPress 7.1; `WC tested up to` is now `11.3`.
+
 ## 1.3.5
 
 * **Security:** `TableRepository::delete_table()` did not verify that the given ID belonged to a `productbay_table`, while `get_table()` always had. A `DELETE` to `productbay/v1/tables/{id}` therefore force-deleted whatever post carried that ID — a page, a product, an order — with no trash step.
